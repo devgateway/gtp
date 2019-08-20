@@ -262,6 +262,9 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
+                            <processors>
+                                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                            </processors>
                             <outputDirectory>target/metamodel</outputDirectory>
                         </configuration>
                     </execution>
