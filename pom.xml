@@ -12,22 +12,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.devgateway.toolkit</groupId>
-    <artifactId>toolkit</artifactId>
+    <groupId>org.devgateway.ad3</groupId>
+    <artifactId>ad3</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>DGToolkit</name>
-    <description>DG Toolkit archetype - quick and easy way to start new projects through a working template
-    </description>
+    <name>Administrative Data Driven Decisions</name>
+    <description>Administrative Data Driven Decisions</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <liquibase.version>3.6.3</liquibase.version>
         <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
+        <pgsql.version>42.2.5</pgsql.version>
         <derby.version>10.14.2.0</derby.version>
         <poi.version>4.0.1</poi.version>
-        <docker.image.prefix>devgateway/toolkit</docker.image.prefix>
+        <docker.image.prefix>devgateway/ad3</docker.image.prefix>
         <docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
@@ -46,32 +46,32 @@
     <inceptionYear>2015</inceptionYear>
     <organization>
         <name>Development Gateway</name>
-        <url>http://developmentgateway.org</url>
+        <url>https://developmentgateway.org</url>
     </organization>
     <issueManagement>
         <system>JIRA</system>
-        <url>https://jira.dgfoundation.org/browse/DGTKIT/</url>
+        <url>https://jira.developmentgateway.org/projects/AD3/</url>
     </issueManagement>
     <ciManagement>
         <system>Jenkins</system>
-        <url>http://toolkit.dgstg.org/ci/</url>
+        <url>https://ad3.dgstg.org/ci/</url>
     </ciManagement>
 
     <scm>
-        <url>git@github.com:devgateway/dg-toolkit.git</url>
+        <url>git@github.com:devgateway/ad3-ipar.git</url>
         <developerConnection>
-            scm:git:git@github.com:devgateway/dg-toolkit.git
+            scm:git:git@github.com:devgateway/ad3-ipar.git
         </developerConnection>
-        <connection>git@github.com:devgateway/dg-toolkit.git
+        <connection>git@github.com:devgateway/ad3-ipar.git
         </connection>
         <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
         <repository>
-            <id>dgtoolkit-releases</id>
-            <name>dgtoolkit-releases</name>
-            <url>http://artifactory.ampdev.net/artifactory/dg-toolkit-releases</url>
+            <id>ad3-releases</id>
+            <name>ad3-releases</name>
+            <url>http://artifactory.ampdev.net/artifactory/ad3-releases</url>
         </repository>
     </distributionManagement>
 
@@ -113,14 +113,6 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>${derby.version}</version>
-        </dependency>
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>

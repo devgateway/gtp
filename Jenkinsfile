@@ -3,6 +3,9 @@ pipeline {
     tools {
         maven 'maven-3.6.1'
     }
+    options {
+        skipStagesAfterUnstable()
+    }
     stages {
         stage('Build') {
             steps {
@@ -17,6 +20,14 @@ pipeline {
                 always {
                     junit '**/target/surefire-reports/*.xml'
                 }
+            }
+        }
+        stage('Deploy') {
+            input {
+                message "Continue?"
+            }
+            steps {
+                sh './jenkins/deploy.sh'
             }
         }
     }
