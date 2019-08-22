@@ -13,7 +13,7 @@
     <packaging>jar</packaging>
 
     <name>JPA Persistence</name>
-    <description>DGToolkit Persistence</description>
+    <description>AD3 Persistence</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,8 +28,8 @@
     </properties>
 
     <parent>
-        <groupId>org.devgateway.toolkit</groupId>
-        <artifactId>toolkit</artifactId>
+        <groupId>org.devgateway.ad3</groupId>
+        <artifactId>ad3</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -144,14 +144,15 @@
 
         <dependency>
             <groupId>org.apache.derby</groupId>
-            <artifactId>derbyclient</artifactId>
+            <artifactId>derby</artifactId>
             <version>${derby.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbynet</artifactId>
-            <version>${derby.version}</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${pgsql.version}</version>
         </dependency>
 
         <!-- This is used just in case we need bean validation -->
@@ -262,6 +263,9 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
+                            <processors>
+                                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                            </processors>
                             <outputDirectory>target/metamodel</outputDirectory>
                         </configuration>
                     </execution>
