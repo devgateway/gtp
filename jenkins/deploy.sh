@@ -5,7 +5,7 @@ TARGET="/opt/ad3/ad3.jar"
 
 if [ -f $SRC ]; then
   cp $SRC $TARGET
-  systemctl restart ad3
+  sudo systemctl restart ad3
 else
   echo "File not found: $SRC"
   exit 1
