@@ -218,7 +218,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
         final NavbarButton<LogoutPage> logoutMenu =
                 new NavbarButton<LogoutPage>(LogoutPage.class, new StringResourceModel("navbar.logout", this, null));
         logoutMenu.setIconType(FontAwesomeIconType.sign_out);
-        MetaDataRoleAuthorizationStrategy.authorize(logoutMenu, Component.RENDER, SecurityConstants.Roles.ROLE_FOCAL_POINT);
+        MetaDataRoleAuthorizationStrategy.authorize(logoutMenu, Component.RENDER,
+                SecurityConstants.Roles.ROLE_FOCAL_POINT);
 
         return logoutMenu;
     }
@@ -236,7 +237,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
         final NavbarButton<EditUserPage> accountMenu =
                 new NavbarButton<>(EditUserPage.class, pageParametersForAccountPage, account);
         accountMenu.setIconType(FontAwesomeIconType.user);
-        MetaDataRoleAuthorizationStrategy.authorize(accountMenu, Component.RENDER, SecurityConstants.Roles.ROLE_FOCAL_POINT);
+        MetaDataRoleAuthorizationStrategy.authorize(accountMenu, Component.RENDER,
+                SecurityConstants.Roles.ROLE_FOCAL_POINT);
         return accountMenu;
     }
 
@@ -244,7 +246,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
         // home
         NavbarButton<Homepage> homeMenu = new NavbarButton<>(Homepage.class, Model.of("Home"));
         homeMenu.setIconType(FontAwesomeIconType.home);
-        MetaDataRoleAuthorizationStrategy.authorize(homeMenu, Component.RENDER, SecurityConstants.Roles.ROLE_FOCAL_POINT);
+        MetaDataRoleAuthorizationStrategy.authorize(homeMenu, Component.RENDER,
+                SecurityConstants.Roles.ROLE_FOCAL_POINT);
         return homeMenu;
     }
 

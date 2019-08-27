@@ -90,7 +90,7 @@ public class EditTestFormPage extends AbstractEditPage<TestForm> {
 
         editForm.add(new TestFormChildPanel("testFormChildren"));
 
-        Select2ChoiceBootstrapFormComponent<Organization> entitySelect = new Select2ChoiceBootstrapFormComponent<Organization>(
+        Select2ChoiceBootstrapFormComponent<Organization> entitySelect = new Select2ChoiceBootstrapFormComponent<>(
                 "entitySelect", new GenericPersistableJpaTextChoiceProvider<>(organizationService));
         entitySelect.required();
         editForm.add(entitySelect);
