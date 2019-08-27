@@ -58,8 +58,10 @@ import java.util.List;
 public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComponent<TYPE>> extends FieldPanel<TYPE> {
     private static final long serialVersionUID = -7051128382707812456L;
 
-    // prevents repainting of select boxes and other problems with triggering the update
-    // even while the component js is not done updating.
+    /**
+     * prevents repainting of select boxes and other problems with triggering the update
+     * even while the component js is not done updating.
+     */
     private static final int THROTTLE_UPDATE_DELAY_MS = 200;
 
     protected FormGroup border;

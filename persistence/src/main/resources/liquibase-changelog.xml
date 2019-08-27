@@ -12,5 +12,65 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    
+    <changeSet id="AD3-26" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="person" />
+            <tableExists tableName="role" />
+            <tableExists tableName="person_roles" />
+            <tableExists tableName="category" />
+        </preConditions>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="Organization" />
+            <column name="label" value="FAO" />
+        </insert>
+        <insert tableName="person">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="username" value="admin" />
+            <column name="email" value="admin@developmentgateway.org" />
+            <column name="enabled" value="true" />
+            <column name="password" value="$2a$10$BTYSCSAFdv8K31CsY8RnN.FsJHp8xcUcMxWvf2L7QR3.C2hP02cQe" />
+        </insert>
+        <insert tableName="person">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="username" value="fao" />
+            <column name="email" value="fao@developmentgateway.org" />
+            <column name="enabled" value="true" />
+            <column name="password" value="$2a$10$BTYSCSAFdv8K31CsY8RnN.FsJHp8xcUcMxWvf2L7QR3.C2hP02cQe" />
+        </insert>
+        <insert tableName="role">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="authority" value="ROLE_ADMIN" />
+        </insert>
+        <insert tableName="role">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="authority" value="ROLE_FOCAL_POINT" />
+        </insert>
+        <sql><![CDATA[
+            INSERT INTO person_roles(person_id, roles_id)
+            SELECT p.id, r.id
+            FROM person p,
+                 role r
+            WHERE p.username = 'admin'
+              AND r.authority = 'ROLE_ADMIN';
+        ]]></sql>
+        <sql><![CDATA[
+            INSERT INTO person_roles(person_id, roles_id)
+            SELECT p.id, r.id
+            FROM person p,
+                 role r
+            WHERE p.username = 'fao'
+              AND r.authority = 'ROLE_FOCAL_POINT';
+        ]]></sql>
+        <sql><![CDATA[
+            UPDATE person
+            SET organization_id=org.id
+            FROM category org
+            WHERE person.username = 'fao'
+              AND org.dtype = 'Organization'
+              AND org.label = 'FAO';
+        ]]></sql>
+    </changeSet>
 
 </databaseChangeLog>

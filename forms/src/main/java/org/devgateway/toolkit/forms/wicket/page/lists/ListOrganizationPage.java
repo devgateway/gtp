@@ -18,25 +18,25 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
-import org.devgateway.toolkit.forms.wicket.page.EditGroupPage;
-import org.devgateway.toolkit.persistence.dao.categories.Group;
-import org.devgateway.toolkit.persistence.service.category.GroupService;
+import org.devgateway.toolkit.forms.wicket.page.EditOrganizationPage;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
+import org.devgateway.toolkit.persistence.service.category.OrganizationService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
-@MountPath(value = "/listgroups")
-public class ListGroupPage extends AbstractListPage<Group> {
+@MountPath(value = "/listorgs")
+public class ListOrganizationPage extends AbstractListPage<Organization> {
     private static final long serialVersionUID = -324298525712620234L;
 
     @SpringBean
-    protected GroupService groupService;
+    protected OrganizationService organizationService;
 
-    public ListGroupPage(final PageParameters pageParameters) {
+    public ListOrganizationPage(final PageParameters pageParameters) {
         super(pageParameters);
-        this.jpaService = groupService;
-        this.editPageClass = EditGroupPage.class;
+        this.jpaService = organizationService;
+        this.editPageClass = EditOrganizationPage.class;
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("name", ListGroupPage.this, null)).getString()), "label",
+                new Model<>((new StringResourceModel("name", ListOrganizationPage.this, null)).getString()), "label",
                 "label"));
     }
 }

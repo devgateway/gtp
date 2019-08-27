@@ -17,25 +17,24 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
-import org.devgateway.toolkit.forms.wicket.page.lists.ListGroupPage;
-import org.devgateway.toolkit.persistence.dao.categories.Group;
-import org.devgateway.toolkit.persistence.service.category.GroupService;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
+import org.devgateway.toolkit.persistence.service.category.OrganizationService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
-@MountPath("/editgroup")
-public class EditGroupPage extends AbstractEditPage<Group> {
+@MountPath("/editorg")
+public class EditOrganizationPage extends AbstractEditPage<Organization> {
 
     private static final long serialVersionUID = -6069250112046118104L;
 
     @SpringBean
-    protected GroupService groupService;
+    protected OrganizationService organizationService;
 
-    public EditGroupPage(final PageParameters parameters) {
+    public EditOrganizationPage(final PageParameters parameters) {
         super(parameters);
-        this.jpaService = groupService;
-        this.listPageClass = ListGroupPage.class;
-
+        this.jpaService = organizationService;
+        this.listPageClass = ListOrganizationPage.class;
     }
 
     @Override

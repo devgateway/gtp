@@ -51,7 +51,7 @@ import org.apache.wicket.util.string.StringValue;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
-import org.devgateway.toolkit.forms.wicket.page.lists.ListGroupPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListTestFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
 import org.devgateway.toolkit.forms.wicket.page.user.EditUserPage;
@@ -261,8 +261,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         new StringResourceModel("navbar.users", this, null))
                         .setIconType(FontAwesomeIconType.users));
 
-                list.add(new MenuBookmarkablePageLink<ListGroupPage>(ListGroupPage.class, null,
-                        new StringResourceModel("navbar.groups", this, null)).setIconType(FontAwesomeIconType.tags));
+                list.add(new MenuBookmarkablePageLink<ListOrganizationPage>(ListOrganizationPage.class, null,
+                        new StringResourceModel("navbar.orgs", this, null)).setIconType(FontAwesomeIconType.tags));
 
                 list.add(new MenuBookmarkablePageLink<ListTestFormPage>(ListTestFormPage.class, null,
                         new StringResourceModel("navbar.testcomponents", this, null))

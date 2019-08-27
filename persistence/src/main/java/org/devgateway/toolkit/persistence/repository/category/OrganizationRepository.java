@@ -11,14 +11,13 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.repository.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.Group;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author mpostelnicu
  */
 @Transactional
-//@RepositoryRestResource // uncomment this to enable rest api access over group entities
-public interface GroupRepository extends CategoryRepository<Group> {
+public interface OrganizationRepository extends CategoryRepository<Organization> {
 
 }

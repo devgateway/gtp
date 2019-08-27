@@ -14,9 +14,12 @@ package org.devgateway.toolkit.forms.wicket.page.user;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.extensions.validation.validator.RfcCompliantEmailAddressValidator;
+import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -41,10 +44,10 @@ import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.dao.Role;
-import org.devgateway.toolkit.persistence.dao.categories.Group;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.service.PersonService;
 import org.devgateway.toolkit.persistence.service.RoleService;
-import org.devgateway.toolkit.persistence.service.category.GroupService;
+import org.devgateway.toolkit.persistence.service.category.OrganizationService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -57,7 +60,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
     private PersonService personService;
 
     @SpringBean
-    private GroupService groupService;
+    private OrganizationService organizationService;
 
     @SpringBean
     private RoleService roleService;
@@ -78,7 +81,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
 
     protected TextFieldBootstrapFormComponent<String> title;
 
-    protected Select2ChoiceBootstrapFormComponent<Group> group;
+    protected Select2ChoiceBootstrapFormComponent<Organization> organization;
 
     protected Select2MultiChoiceBootstrapFormComponent<Role> roles;
 
@@ -140,12 +143,21 @@ public class EditUserPage extends AbstractEditPage<Person> {
         }
 
         title = ComponentUtil.addTextField(editForm, "title");
+        title.getField().add(getRequiredForFocalPointBehavior());
 
-        group = ComponentUtil.addSelect2ChoiceField(editForm, "group", groupService);
-        group.required();
-        MetaDataRoleAuthorizationStrategy.authorize(group, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
+        organization = ComponentUtil.addSelect2ChoiceField(editForm, "organization", organizationService);
+        organization.getField().add(getRequiredForFocalPointBehavior());
+        MetaDataRoleAuthorizationStrategy.authorize(organization, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
+
+        ComponentUtil.addTextField(editForm, "phone");
 
         roles = ComponentUtil.addSelect2MultiChoiceField(editForm, "roles", roleService);
+        roles.getField().add(new AjaxFormComponentUpdatingBehavior(roles.getUpdateEvent()) {
+            @Override
+            protected void onUpdate(AjaxRequestTarget target) {
+                target.add(organization, title);
+            }
+        });
         roles.required();
         MetaDataRoleAuthorizationStrategy.authorize(roles, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
 
@@ -194,6 +206,24 @@ public class EditUserPage extends AbstractEditPage<Person> {
         editForm.add(new EqualPasswordInputValidator(plainPassword.getField(), plainPasswordCheck.getField()));
 
         MetaDataRoleAuthorizationStrategy.authorize(deleteButton, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
+    }
+
+    /**
+     * Create a behavior that marks a FormComponent it is attached to as required when current user is a focal point.
+     */
+    private Behavior getRequiredForFocalPointBehavior() {
+        return new Behavior() {
+            @Override
+            public void onConfigure(Component component) {
+                boolean required = editForm.getModelObject().getRoles().stream()
+                        .anyMatch(EditUserPage.this::focalPointRole);
+                ((FormComponent) component).setRequired(required);
+            }
+        };
+    }
+
+    private boolean focalPointRole(Role role) {
+        return role.getLabel().equals(SecurityConstants.Roles.ROLE_FOCAL_POINT);
     }
 
     @Override

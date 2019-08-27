@@ -12,7 +12,7 @@
 package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.devgateway.toolkit.persistence.dao.categories.Group;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -28,6 +28,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,10 +37,9 @@ import java.util.List;
 @Audited
 @Table(indexes = {@Index(columnList = "username")})
 public class Person extends AbstractAuditableEntity implements Serializable, UserDetails {
-    private static final long serialVersionUID = 109780377848343674L;
 
     @ExcelExport
-    private String username;
+    private String username; // TODO remove username
 
     @ExcelExport
     private String firstName;
@@ -67,11 +67,11 @@ public class Person extends AbstractAuditableEntity implements Serializable, Use
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToOne(fetch = FetchType.EAGER)
-    private Group group;
+    private Organization organization;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
@@ -82,6 +82,8 @@ public class Person extends AbstractAuditableEntity implements Serializable, Use
     private boolean changeProfilePassword;
 
     private Boolean enabled = true;
+
+    private String phone;
 
     @Override
     public String getUsername() {
@@ -183,12 +185,12 @@ public class Person extends AbstractAuditableEntity implements Serializable, Use
         this.changePasswordNextSignIn = changePasswordNextSignIn;
     }
 
-    public Group getGroup() {
-        return group;
+    public Organization getOrganization() {
+        return organization;
     }
 
-    public void setGroup(final Group group) {
-        this.group = group;
+    public void setOrganization(final Organization organization) {
+        this.organization = organization;
     }
 
     public List<Role> getRoles() {
@@ -217,6 +219,14 @@ public class Person extends AbstractAuditableEntity implements Serializable, Use
 
     public void setEnabled(final Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override

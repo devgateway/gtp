@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.Group;
-import org.devgateway.toolkit.persistence.repository.category.GroupRepository;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
+import org.devgateway.toolkit.persistence.repository.category.OrganizationRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.TextSearchableRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
@@ -17,22 +17,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
-public class GroupServiceImpl extends BaseJpaServiceImpl<Group> implements GroupService {
+public class OrganizationServiceImpl extends BaseJpaServiceImpl<Organization> implements OrganizationService {
     @Autowired
-    private GroupRepository groupRepository;
+    private OrganizationRepository organizationRepository;
 
     @Override
-    protected BaseJpaRepository<Group, Long> repository() {
-        return groupRepository;
+    protected BaseJpaRepository<Organization, Long> repository() {
+        return organizationRepository;
     }
 
     @Override
-    public TextSearchableRepository<Group, Long> textRepository() {
-        return groupRepository;
+    public TextSearchableRepository<Organization, Long> textRepository() {
+        return organizationRepository;
     }
 
     @Override
-    public Group newInstance() {
-        return new Group();
+    public Organization newInstance() {
+        return new Organization();
     }
 }

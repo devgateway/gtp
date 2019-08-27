@@ -35,10 +35,10 @@ import org.devgateway.toolkit.forms.wicket.page.lists.ListTestFormPage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.Role;
 import org.devgateway.toolkit.persistence.dao.TestForm;
-import org.devgateway.toolkit.persistence.dao.categories.Group;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.service.RoleService;
 import org.devgateway.toolkit.persistence.service.TestFormService;
-import org.devgateway.toolkit.persistence.service.category.GroupService;
+import org.devgateway.toolkit.persistence.service.category.OrganizationService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
@@ -58,7 +58,7 @@ public class EditTestFormPage extends AbstractEditPage<TestForm> {
     private RoleService roleService;
 
     @SpringBean
-    private GroupService groupService;
+    private OrganizationService organizationService;
 
     /**
      * @param parameters
@@ -90,8 +90,8 @@ public class EditTestFormPage extends AbstractEditPage<TestForm> {
 
         editForm.add(new TestFormChildPanel("testFormChildren"));
 
-        Select2ChoiceBootstrapFormComponent<Group> entitySelect = new Select2ChoiceBootstrapFormComponent<Group>(
-                "entitySelect", new GenericPersistableJpaTextChoiceProvider<>(groupService));
+        Select2ChoiceBootstrapFormComponent<Organization> entitySelect = new Select2ChoiceBootstrapFormComponent<Organization>(
+                "entitySelect", new GenericPersistableJpaTextChoiceProvider<>(organizationService));
         entitySelect.required();
         editForm.add(entitySelect);
 

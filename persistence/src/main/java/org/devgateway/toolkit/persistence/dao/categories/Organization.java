@@ -11,16 +11,9 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao.categories;
 
-import org.devgateway.toolkit.persistence.dao.Person;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.envers.Audited;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import java.util.HashSet;
-import java.util.Set;
+
+import org.hibernate.envers.Audited;
 
 /**
  * 
@@ -29,18 +22,13 @@ import java.util.Set;
  */
 @Entity
 @Audited
-public class Group extends Category {
-    private static final long serialVersionUID = 8451785172092014455L;
+public class Organization extends Category {
 
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
-    private Set<Person> persons = new HashSet<>();
-
-    public Group() {
+    public Organization() {
         super();
     }
 
-    public Group(final String label) {
+    public Organization(final String label) {
         super();
         this.label = label;
     }
@@ -58,13 +46,5 @@ public class Group extends Category {
     @Override
     public void setLabel(final String label) {
         this.label = label;
-    }
-
-    public Set<Person> getPersons() {
-        return persons;
-    }
-
-    public void setPersons(final Set<Person> persons) {
-        this.persons = persons;
     }
 }
