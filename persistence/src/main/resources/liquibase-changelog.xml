@@ -16,6 +16,7 @@
     <changeSet id="AD3-26" author="Octavian Ciubotaru">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="person" />
+            <columnExists tableName="person" columnName="organization_id" />
             <tableExists tableName="role" />
             <tableExists tableName="person_roles" />
             <tableExists tableName="category" />
