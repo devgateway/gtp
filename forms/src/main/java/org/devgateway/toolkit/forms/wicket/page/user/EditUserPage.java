@@ -48,7 +48,7 @@ import org.devgateway.toolkit.persistence.service.category.GroupService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.wicketstuff.annotation.mount.MountPath;
 
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_USER)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_FOCAL_POINT)
 @MountPath(value = "/account")
 public class EditUserPage extends AbstractEditPage<Person> {
     private static final long serialVersionUID = 5208480049061989277L;
