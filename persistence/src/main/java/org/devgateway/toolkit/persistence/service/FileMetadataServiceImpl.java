@@ -25,6 +25,11 @@ public class FileMetadataServiceImpl extends BaseJpaServiceImpl<FileMetadata> im
     }
 
     @Override
+    public FileMetadata findById(final long id) {
+        return fileMetadataRepository.getOne(id);
+    }
+
+    @Override
     protected BaseJpaRepository<FileMetadata, Long> repository() {
         return fileMetadataRepository;
     }
