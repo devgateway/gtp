@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.web.generators;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.devgateway.toolkit.persistence.dao.GenericPersistable;
@@ -52,6 +53,7 @@ public class GenericKeyGenerator implements KeyGenerator {
             }
         } else {
             try {
+                objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
                 return objectMapper.writeValueAsString(param);
             } catch (JsonProcessingException e) {
                 logger.error(e.getMessage());
