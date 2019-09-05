@@ -23,4 +23,6 @@ public interface PersonRepository extends BaseJpaRepository<Person, Long> {
     Person findByUsername(String username);
 
     Person findByEmail(String email);
+
+    Person findByRecoveryToken(String recoveryToken);
 }

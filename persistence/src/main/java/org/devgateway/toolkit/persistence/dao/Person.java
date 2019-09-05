@@ -28,6 +28,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -84,6 +85,10 @@ public class Person extends AbstractAuditableEntity implements Serializable, Use
     private Boolean enabled = true;
 
     private String phone;
+
+    private String recoveryToken;
+
+    private ZonedDateTime recoveryTokenValidUntil;
 
     @Override
     public String getUsername() {
@@ -237,5 +242,21 @@ public class Person extends AbstractAuditableEntity implements Serializable, Use
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    public String getRecoveryToken() {
+        return recoveryToken;
+    }
+
+    public void setRecoveryToken(String recoveryToken) {
+        this.recoveryToken = recoveryToken;
+    }
+
+    public ZonedDateTime getRecoveryTokenValidUntil() {
+        return recoveryTokenValidUntil;
+    }
+
+    public void setRecoveryTokenValidUntil(ZonedDateTime recoveryTokenValidUntil) {
+        this.recoveryTokenValidUntil = recoveryTokenValidUntil;
     }
 }

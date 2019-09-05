@@ -8,7 +8,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_FOCAL_POINT)
 @MountPath(value = "/changePassword")
 public class ChangePasswordPage extends EditUserPage {
-    private static final long serialVersionUID = 7378006795457575557L;
 
     public ChangePasswordPage(final PageParameters parameters) {
         super(parameters);
@@ -24,6 +23,7 @@ public class ChangePasswordPage extends EditUserPage {
         firstName.setVisibilityAllowed(false);
         lastName.setVisibilityAllowed(false);
         email.setVisibilityAllowed(false);
+        phone.setVisibilityAllowed(false);
         title.setVisibilityAllowed(false);
         organization.setVisibilityAllowed(false);
         roles.setVisibilityAllowed(false);

@@ -95,6 +95,8 @@ public class EditUserPage extends AbstractEditPage<Person> {
 
     protected PasswordFieldBootstrapFormComponent plainPasswordCheck;
 
+    protected TextFieldBootstrapFormComponent<String> phone;
+
 
     public EditUserPage(final PageParameters parameters) {
         super(parameters);
@@ -149,7 +151,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
         organization.getField().add(getRequiredForFocalPointBehavior());
         MetaDataRoleAuthorizationStrategy.authorize(organization, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
 
-        ComponentUtil.addTextField(editForm, "phone");
+        phone = ComponentUtil.addTextField(editForm, "phone");
 
         roles = ComponentUtil.addSelect2MultiChoiceField(editForm, "roles", roleService);
         roles.getField().add(new AjaxFormComponentUpdatingBehavior(roles.getUpdateEvent()) {
@@ -254,21 +256,6 @@ public class EditUserPage extends AbstractEditPage<Person> {
                 }
             }
         };
-    }
-
-    public static class PasswordPatternValidator extends PatternValidator {
-        private static final long serialVersionUID = 7886016396095273777L;
-
-        // 1 digit, 1 lower, 1 upper, 1 symbol "@#$%", from 6 to 20
-        // private static final String PASSWORD_PATTERN =
-        // "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
-        // 1 digit, 1 caps letter, from 10 to 20
-        private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z]).{10,20})";
-
-        public PasswordPatternValidator() {
-            super(PASSWORD_PATTERN);
-        }
-
     }
 
     public static class UsernamePatternValidator extends PatternValidator {

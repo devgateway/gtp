@@ -11,6 +11,10 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import org.devgateway.toolkit.forms.security.PasswordRecoveryProperties;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -31,31 +35,38 @@ public class SendEmailService {
     @Autowired
     private JavaMailSenderImpl javaMailSenderImpl;
 
-    private SimpleMailMessage templateMessage;
+    @Autowired
+    private PasswordRecoveryProperties recoveryProperties;
 
     /**
-     * Send a reset password email. This is UNSAFE because passwords are sent in
-     * clear text. Nevertheless some customers will ask for these emails to be
-     * sent, so ...
+     * Send an email with a link that allows user to change the password.
      * 
-     * @param person
-     * @param newPassword
+     * @param person for whom we're resetting the pwd
      */
-    public void sendEmailResetPassword(final Person person, final String newPassword) {
+    public void sendEmailRecoveryEmail(final Person person) {
+        String url;
+        try {
+            String token = person.getRecoveryToken();
+            url = recoveryProperties.getBaseUrl() + "changeForgottenPassword/" + URLEncoder.encode(token, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Failed to encode recovery token.", e);
+        }
+
         final SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(person.getEmail());
-        msg.setFrom("support@developmentgateway.org");
+        msg.setFrom(recoveryProperties.getFrom());
         msg.setSubject("Recover your password");
         msg.setText("Dear " + person.getFirstName() + " " + person.getLastName() + ",\n\n"
-                + "These are your new login credentials for DGToolkit.\n\n" + "Username: " + person.getUsername() + "\n"
-                + "Password: " + newPassword + "\n\n"
-                + "At login, you will be prompted to change your password to one of your choice.\n\n" + "Thank you,\n"
-                + "DG Team");
+                + "Please use this link to change your password for AD3 IPAR: " + url + "\n"
+                + "This link will expire in an hour.\n"
+                + "Your username is: " + person.getUsername() + ".\n\n"
+                + "Thank you,\n"
+                + "AD3 IPAR Team");
+
         try {
             javaMailSenderImpl.send(msg);
         } catch (MailException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to send password recovery email.", e);
         }
-
     }
 }
