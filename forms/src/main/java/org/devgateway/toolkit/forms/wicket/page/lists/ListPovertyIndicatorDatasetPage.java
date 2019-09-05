@@ -22,38 +22,38 @@ import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.components.table.LinkBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DatasetFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
-import org.devgateway.toolkit.forms.wicket.page.edit.EditProductionDatasetPage;
-import org.devgateway.toolkit.persistence.dao.ProductionDataset;
-import org.devgateway.toolkit.persistence.service.ProductionDatasetService;
+import org.devgateway.toolkit.forms.wicket.page.edit.EditPovertyIndicatorDatasetPage;
+import org.devgateway.toolkit.persistence.dao.PovertyIndicatorDataset;
+import org.devgateway.toolkit.persistence.service.PovertyIndicatorDatasetService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
  * Created by Daniel Oliva
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
-@MountPath(value = "/listProduction")
-public class ListProductionDatasetPage extends AbstractListPage<ProductionDataset> {
+@MountPath(value = "/listPoverty")
+public class ListPovertyIndicatorDatasetPage extends AbstractListPage<PovertyIndicatorDataset> {
     private static final long serialVersionUID = -378945525712620234L;
 
     @SpringBean
-    protected ProductionDatasetService service;
+    protected PovertyIndicatorDatasetService service;
 
-    public ListProductionDatasetPage(final PageParameters pageParameters) {
+    public ListPovertyIndicatorDatasetPage(final PageParameters pageParameters) {
         super(pageParameters);
         this.jpaService = service;
-        this.editPageClass = EditProductionDatasetPage.class;
+        this.editPageClass = EditPovertyIndicatorDatasetPage.class;
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("name", ListProductionDatasetPage.this)).getString()), "label",
+                new Model<>((new StringResourceModel("name", ListPovertyIndicatorDatasetPage.this)).getString()), "label",
                 "label"));
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("organization", ListProductionDatasetPage.this)).getString()),
+                new Model<>((new StringResourceModel("organization", ListPovertyIndicatorDatasetPage.this)).getString()),
                 "organization", "organization"));
         columns.add(new LinkBootstrapPropertyColumn(new Model<>((new StringResourceModel("fileMetadata",
-                ListProductionDatasetPage.this)).getString()), "fileMetadata"));
+                ListPovertyIndicatorDatasetPage.this)).getString()), "fileMetadata"));
     }
 
     @Override
-    public JpaFilterState<ProductionDataset> newFilterState() {
+    public JpaFilterState<PovertyIndicatorDataset> newFilterState() {
         return (JpaFilterState) new DatasetFilterState(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
     }
 }

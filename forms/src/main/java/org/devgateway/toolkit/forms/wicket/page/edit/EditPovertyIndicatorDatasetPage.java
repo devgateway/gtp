@@ -22,39 +22,38 @@ import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.page.lists.ListProductionDatasetPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListPovertyIndicatorDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
-import org.devgateway.toolkit.persistence.dao.ProductionDataset;
-import org.devgateway.toolkit.persistence.dao.ProductionEvent;
+import org.devgateway.toolkit.persistence.dao.PovertyIndicatorDataset;
+import org.devgateway.toolkit.persistence.dao.PovertyIndicatorEvent;
 import org.devgateway.toolkit.persistence.service.ImportService;
-import org.devgateway.toolkit.persistence.service.ProductionDatasetService;
+import org.devgateway.toolkit.persistence.service.PovertyIndicatorDatasetService;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
 
-
 /**
  * Created by Daniel Oliva
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
-@MountPath("/editProduction")
-public class EditProductionDatasetPage extends AbstractEditPage<ProductionDataset> {
+@MountPath("/editPoverty")
+public class EditPovertyIndicatorDatasetPage extends AbstractEditPage<PovertyIndicatorDataset> {
 
     private static final long serialVersionUID = -6069250112046118104L;
-    private static final Logger logger = LoggerFactory.getLogger(EditProductionDatasetPage.class);
+    private static final Logger logger = LoggerFactory.getLogger(EditPovertyIndicatorDatasetPage.class);
 
-    @SpringBean(name = "productionImporter")
+    @SpringBean(name = "povertyIndicatorImporter")
     private transient ImportService importer;
 
     @SpringBean
-    protected ProductionDatasetService service;
+    protected PovertyIndicatorDatasetService service;
 
-    public EditProductionDatasetPage(final PageParameters parameters) {
+    public EditPovertyIndicatorDatasetPage(final PageParameters parameters) {
         super(parameters);
         this.jpaService = service;
-        this.listPageClass = ListProductionDatasetPage.class;
+        this.listPageClass = ListPovertyIndicatorDatasetPage.class;
     }
 
     @Override
@@ -85,13 +84,13 @@ public class EditProductionDatasetPage extends AbstractEditPage<ProductionDatase
 
     @Override
     public SaveEditPageButton getSaveEditPageButton() {
-        return new SaveEditPageButton("save", new StringResourceModel("save", EditProductionDatasetPage.this, null)) {
+        return new SaveEditPageButton("save", new StringResourceModel("save", EditPovertyIndicatorDatasetPage.this, null)) {
             private static final long serialVersionUID = 5214537995514151323L;
 
             @Override
             protected void onSubmit(final AjaxRequestTarget target) {
                 logger.info("Check the file and process it");
-                ProductionDataset model = editForm.getModelObject();
+                PovertyIndicatorDataset model = editForm.getModelObject();
                 if (model.getId() != null) {
                     SecurityUtil.getCurrentAuthenticatedPerson();
                 } else {
@@ -99,7 +98,7 @@ public class EditProductionDatasetPage extends AbstractEditPage<ProductionDatase
                 }
                 jpaService.saveAndFlush(model);
                 redirectToSelf = false;
-                ImportResults<ProductionEvent> results = importer.processFile(model);
+                ImportResults<PovertyIndicatorEvent> results = importer.processFile(model);
 
                 //process results
                 if (! results.isImportOkFlag()) {
