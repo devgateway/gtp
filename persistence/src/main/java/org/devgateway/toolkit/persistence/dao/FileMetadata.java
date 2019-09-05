@@ -33,7 +33,8 @@ import java.io.Serializable;
 @Audited
 @Table(indexes = {@Index(columnList = "name")})
 public class FileMetadata extends AbstractAuditableEntity implements Serializable {
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     private FileContent content;
 
