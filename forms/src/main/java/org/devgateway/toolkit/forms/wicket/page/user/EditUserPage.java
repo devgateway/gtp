@@ -207,7 +207,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
 
         editForm.add(new EqualPasswordInputValidator(plainPassword.getField(), plainPasswordCheck.getField()));
 
-        MetaDataRoleAuthorizationStrategy.authorize(deleteButton, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
+        deleteButton.setVisibilityAllowed(false);
     }
 
     /**
