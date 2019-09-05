@@ -74,7 +74,9 @@ public class ChangeForgottenPasswordPage extends BasePage {
             confirmNewPasswordField.setOutputMarkupId(true);
             add(confirmNewPasswordField);
 
-            EqualPasswordInputValidator validator = new EqualPasswordInputValidator(newPasswordField.getField(), confirmNewPasswordField.getField());
+            EqualPasswordInputValidator validator = new EqualPasswordInputValidator(
+                    newPasswordField.getField(),
+                    confirmNewPasswordField.getField());
             add(validator);
 
             final Label passwordChangedMessage =  new Label("passwordChanged", new ResourceModel("passwordChanged"));
