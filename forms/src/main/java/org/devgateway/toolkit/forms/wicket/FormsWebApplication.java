@@ -32,6 +32,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxNewWindowNotifyingBehavior;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.bean.validation.BeanValidationConfiguration;
 import org.apache.wicket.devutils.diskstore.DebugDiskDataStore;
 import org.apache.wicket.markup.html.IPackageResourceGuard;
 import org.apache.wicket.markup.html.SecurePackageResourceGuard;
@@ -245,6 +246,8 @@ public class FormsWebApplication extends AuthenticatedWebApplication {
         SessionFinderHolder.setSessionFinder(sessionFinderService);
 
         useCustomizedSelect2Version();
+
+        new BeanValidationConfiguration().configure(this);
     }
 
     /**

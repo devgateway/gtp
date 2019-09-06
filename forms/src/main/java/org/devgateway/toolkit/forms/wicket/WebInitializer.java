@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket;
 
+import java.util.EnumSet;
+
 import org.apache.wicket.protocol.http.WicketFilter;
 import org.apache.wicket.spring.SpringWebApplicationFactory;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -20,6 +22,7 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.SessionTrackingMode;
 
 /**
  * This class is the replacement of the web.xml. It registers the wicket filter
@@ -60,6 +63,7 @@ public class WebInitializer implements ServletContextInitializer {
         //
         sc.addListener(new HttpSessionEventPublisher());
 
+        sc.setSessionTrackingModes(EnumSet.of(SessionTrackingMode.COOKIE));
     }
 
     // @Bean

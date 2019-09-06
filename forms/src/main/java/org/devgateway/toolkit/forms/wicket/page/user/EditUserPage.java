@@ -45,9 +45,10 @@ import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.dao.Role;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
+import org.devgateway.toolkit.persistence.repository.RoleRepository;
+import org.devgateway.toolkit.persistence.repository.category.OrganizationRepository;
 import org.devgateway.toolkit.persistence.service.PersonService;
-import org.devgateway.toolkit.persistence.service.RoleService;
-import org.devgateway.toolkit.persistence.service.category.OrganizationService;
+import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -60,10 +61,10 @@ public class EditUserPage extends AbstractEditPage<Person> {
     private PersonService personService;
 
     @SpringBean
-    private OrganizationService organizationService;
+    private OrganizationRepository organizationRepository;
 
     @SpringBean
-    private RoleService roleService;
+    private RoleRepository roleRepository;
 
     @SpringBean
     private SendEmailService sendEmailService;
@@ -147,13 +148,15 @@ public class EditUserPage extends AbstractEditPage<Person> {
         title = ComponentUtil.addTextField(editForm, "title");
         title.getField().add(getRequiredForFocalPointBehavior());
 
-        organization = ComponentUtil.addSelect2ChoiceField(editForm, "organization", organizationService);
+        organization = ComponentUtil.addSelect2ChoiceField(editForm, "organization",
+                new TextSearchableAdapter<>(organizationRepository));
         organization.getField().add(getRequiredForFocalPointBehavior());
         MetaDataRoleAuthorizationStrategy.authorize(organization, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
 
         phone = ComponentUtil.addTextField(editForm, "phone");
 
-        roles = ComponentUtil.addSelect2MultiChoiceField(editForm, "roles", roleService);
+        roles = ComponentUtil.addSelect2MultiChoiceField(editForm, "roles",
+                new TextSearchableAdapter<>(roleRepository));
         roles.getField().add(new AjaxFormComponentUpdatingBehavior(roles.getUpdateEvent()) {
             @Override
             protected void onUpdate(AjaxRequestTarget target) {
@@ -225,7 +228,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
     }
 
     private boolean focalPointRole(Role role) {
-        return role.getLabel().equals(SecurityConstants.Roles.ROLE_FOCAL_POINT);
+        return role.getAuthority().equals(SecurityConstants.Roles.ROLE_FOCAL_POINT);
     }
 
     @Override

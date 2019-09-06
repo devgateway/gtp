@@ -3,7 +3,6 @@ package org.devgateway.toolkit.persistence.service.category;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.repository.category.OrganizationRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
-import org.devgateway.toolkit.persistence.repository.norepository.TextSearchableRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -23,11 +22,6 @@ public class OrganizationServiceImpl extends BaseJpaServiceImpl<Organization> im
 
     @Override
     protected BaseJpaRepository<Organization, Long> repository() {
-        return organizationRepository;
-    }
-
-    @Override
-    public TextSearchableRepository<Organization, Long> textRepository() {
         return organizationRepository;
     }
 

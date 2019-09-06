@@ -128,7 +128,7 @@ public class GenericPersistableJpaTextChoiceProvider<T extends GenericPersistabl
         final PageRequest pageRequest = sort == null
                 ? PageRequest.of(page, WebConstants.SELECT_PAGE_SIZE)
                 : PageRequest.of(page, WebConstants.SELECT_PAGE_SIZE, sort);
-        return textSearchableService.findAll(pageRequest);
+        return textSearchableService.searchText(null, pageRequest);
     }
 
     @Override
@@ -139,7 +139,7 @@ public class GenericPersistableJpaTextChoiceProvider<T extends GenericPersistabl
             // create new element
             if (Long.parseLong(id) == 0 && addNewElements) {
                 if (newObject != null && newObject.getId() == null) {
-                    textSearchableService.save(newObject);
+                    textSearchableService.getRepository().save(newObject);
                 }
 
                 id = newObject.getId().toString();
@@ -151,7 +151,7 @@ public class GenericPersistableJpaTextChoiceProvider<T extends GenericPersistabl
         ArrayList<T> response = new ArrayList<>();
         for (String s : idsList) {
             Long id = Long.parseLong(s);
-            Optional<T> findOne = textSearchableService.findById(id);
+            Optional<T> findOne = textSearchableService.getRepository().findById(id);
             if (!findOne.isPresent()) {
                 logger.error("Cannot find entity with id=" + id + " in service "
                         + textSearchableService.getClass());
