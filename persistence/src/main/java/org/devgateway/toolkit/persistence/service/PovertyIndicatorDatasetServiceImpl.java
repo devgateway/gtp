@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Daniel Oliva
  */
-@Service
+@Service("povertyIndicatorDatasetService")
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class PovertyIndicatorDatasetServiceImpl extends BaseJpaServiceImpl<PovertyIndicatorDataset>
-        implements PovertyIndicatorDatasetService  {
+        implements DatasetService<PovertyIndicatorDataset>  {
 
     @Autowired
     private PovertyIndicatorDatasetRepository repository;

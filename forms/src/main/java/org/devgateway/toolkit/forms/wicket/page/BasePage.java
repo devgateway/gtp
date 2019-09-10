@@ -51,6 +51,7 @@ import org.apache.wicket.util.string.StringValue;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListMarketDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPovertyIndicatorDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListProductionDatasetPage;
@@ -337,7 +338,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
     protected NavbarDropDownButton newUploadMenu() {
 
         // upload menu
-        NavbarDropDownButton uploadMenu = new NavbarDropDownButton(new StringResourceModel("navbar.upload", this, null)) {
+        NavbarDropDownButton uploadMenu = new NavbarDropDownButton(
+                new StringResourceModel("navbar.upload", this, null)) {
             private static final long serialVersionUID = 2L;
 
             @Override
@@ -347,7 +349,12 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         new StringResourceModel("navbar.production", this, null))
                         .setIconType(FontAwesomeIconType.th_list));
 
-                list.add(new MenuBookmarkablePageLink<ListPovertyIndicatorDatasetPage>(ListPovertyIndicatorDatasetPage.class, null,
+                list.add(new MenuBookmarkablePageLink<ListMarketDatasetPage>(ListMarketDatasetPage.class, null,
+                        new StringResourceModel("navbar.market", this, null))
+                        .setIconType(FontAwesomeIconType.diamond));
+
+                list.add(new MenuBookmarkablePageLink<ListPovertyIndicatorDatasetPage>(
+                        ListPovertyIndicatorDatasetPage.class, null,
                         new StringResourceModel("navbar.poverty", this, null))
                         .setIconType(FontAwesomeIconType.money));
 
@@ -358,6 +365,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
 
         uploadMenu.setIconType(FontAwesomeIconType.upload);
         MetaDataRoleAuthorizationStrategy.authorize(uploadMenu, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
+        MetaDataRoleAuthorizationStrategy.authorize(uploadMenu, Component.RENDER,
+                SecurityConstants.Roles.ROLE_FOCAL_POINT);
 
         return uploadMenu;
     }
@@ -380,8 +389,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
         navbar.setPosition(Navbar.Position.TOP);
         navbar.setInverted(true);
 
-        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(), newUploadMenu(), newAdminMenu(),
-                newAccountMenu(), newLogoutMenu()));
+        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
+                newUploadMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
 

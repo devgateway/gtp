@@ -4,8 +4,8 @@ import org.apache.poi.openxml4j.util.ZipSecureFile;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.devgateway.toolkit.persistence.dao.Data;
 import org.devgateway.toolkit.persistence.dao.Dataset;
-import org.devgateway.toolkit.persistence.dao.Event;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public abstract class AbstractImportService implements ImportService {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractImportService.class);
 
-    protected ImportResults<Event> importResults;
+    protected ImportResults<Data> importResults;
 
     @Override
     public ImportResults processFile(final Dataset dataset) {

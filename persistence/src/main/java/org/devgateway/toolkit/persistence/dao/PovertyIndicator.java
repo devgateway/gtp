@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-public class PovertyIndicatorEvent extends Event implements Serializable {
+public class PovertyIndicator extends Data implements Serializable {
     private static final long serialVersionUID = -3339250112046118104L;
 
     private String region;

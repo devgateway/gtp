@@ -58,12 +58,12 @@ public class FileMetadataController {
             FileMetadata fileMetadata = fileMetadataService.findById(id);
 
             response.setContentType("application/octet-stream");
-        /* "Content-Disposition : inline" will show viewable types [like images/text/pdf/anything viewable by browser]
-            right on browser while others(zip e.g) will be directly downloaded [may provide save as popup, based on
-            your browser setting.]*/
+            /* "Content-Disposition : inline" will show viewable types [like images/text/pdf/anything viewable
+            by browser] right on browser while others(zip e.g) will be directly downloaded [may provide save as popup,
+            based on your browser setting.]*/
             response.setHeader("Content-Disposition", String.format("inline; filename=\"%s\"", fileMetadata.getName()));
 
-        /* "Content-Disposition : attachment" will be directly download, may provide save as popup,
+            /* "Content-Disposition : attachment" will be directly download, may provide save as popup,
             based on your browser setting*/
             response.setContentLength(fileMetadata.getContent().getBytes().length);
 

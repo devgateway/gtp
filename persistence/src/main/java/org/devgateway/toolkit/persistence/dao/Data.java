@@ -1,13 +1,18 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 /**
  * Created by Daniel Oliva
  */
-public class Event extends AbstractAuditableEntity {
+@MappedSuperclass
+public abstract class Data extends AbstractAuditableEntity {
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Dataset dataset;
 

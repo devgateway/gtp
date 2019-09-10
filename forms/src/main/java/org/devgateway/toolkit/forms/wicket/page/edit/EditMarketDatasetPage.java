@@ -23,10 +23,10 @@ import org.devgateway.toolkit.forms.util.MarkupCacheService;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.page.lists.ListPovertyIndicatorDatasetPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListMarketDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicatorDataset;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
+import org.devgateway.toolkit.persistence.dao.Market;
+import org.devgateway.toolkit.persistence.dao.MarketDataset;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.devgateway.toolkit.persistence.service.ImportService;
 import org.devgateway.toolkit.persistence.util.ImportResults;
@@ -39,25 +39,25 @@ import org.wicketstuff.annotation.mount.MountPath;
  * Created by Daniel Oliva
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
-@MountPath("/editPoverty")
-public class EditPovertyIndicatorDatasetPage extends AbstractEditPage<PovertyIndicatorDataset> {
+@MountPath("/editMarket")
+public class EditMarketDatasetPage extends AbstractEditPage<MarketDataset> {
 
     private static final long serialVersionUID = -6069250112046118104L;
-    private static final Logger logger = LoggerFactory.getLogger(EditPovertyIndicatorDatasetPage.class);
+    private static final Logger logger = LoggerFactory.getLogger(EditMarketDatasetPage.class);
 
-    @SpringBean(name = "povertyIndicatorImporter")
+    @SpringBean(name = "marketImporter")
     private transient ImportService importer;
 
-    @SpringBean(name = "povertyIndicatorDatasetService")
+    @SpringBean(name = "marketDatasetService")
     protected DatasetService service;
 
     @SpringBean
     protected MarkupCacheService markupCacheService;
 
-    public EditPovertyIndicatorDatasetPage(final PageParameters parameters) {
+    public EditMarketDatasetPage(final PageParameters parameters) {
         super(parameters);
         this.jpaService = service;
-        this.listPageClass = ListPovertyIndicatorDatasetPage.class;
+        this.listPageClass = ListMarketDatasetPage.class;
     }
 
     @Override
@@ -89,13 +89,13 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditPage<PovertyInd
 
     @Override
     public SaveEditPageButton getSaveEditPageButton() {
-        return new SaveEditPageButton("save", new StringResourceModel("save", EditPovertyIndicatorDatasetPage.this, null)) {
+        return new SaveEditPageButton("save", new StringResourceModel("save", EditMarketDatasetPage.this, null)) {
             private static final long serialVersionUID = 5214537995514151323L;
 
             @Override
             protected void onSubmit(final AjaxRequestTarget target) {
                 logger.info("Check the file and process it");
-                PovertyIndicatorDataset model = editForm.getModelObject();
+                MarketDataset model = editForm.getModelObject();
                 if (model.getId() != null) {
                     SecurityUtil.getCurrentAuthenticatedPerson();
                 } else {
@@ -103,7 +103,7 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditPage<PovertyInd
                 }
                 jpaService.saveAndFlush(model);
                 redirectToSelf = false;
-                ImportResults<PovertyIndicator> results = importer.processFile(model);
+                ImportResults<Market> results = importer.processFile(model);
 
                 //process results
                 if (! results.isImportOkFlag()) {

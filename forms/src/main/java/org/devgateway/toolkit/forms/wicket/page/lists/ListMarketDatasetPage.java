@@ -22,8 +22,8 @@ import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.components.table.LinkBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DatasetFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
-import org.devgateway.toolkit.forms.wicket.page.edit.EditPovertyIndicatorDatasetPage;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicatorDataset;
+import org.devgateway.toolkit.forms.wicket.page.edit.EditMarketDatasetPage;
+import org.devgateway.toolkit.persistence.dao.MarketDataset;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -31,32 +31,32 @@ import org.wicketstuff.annotation.mount.MountPath;
  * Created by Daniel Oliva
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
-@MountPath(value = "/listPoverty")
-public class ListPovertyIndicatorDatasetPage extends AbstractListPage<PovertyIndicatorDataset> {
+@MountPath(value = "/listMarket")
+public class ListMarketDatasetPage extends AbstractListPage<MarketDataset> {
     private static final long serialVersionUID = -378945525712620234L;
 
-    @SpringBean(name = "povertyIndicatorDatasetService")
+    @SpringBean(name = "marketDatasetService")
     protected DatasetService service;
 
-    public ListPovertyIndicatorDatasetPage(final PageParameters pageParameters) {
+    public ListMarketDatasetPage(final PageParameters pageParameters) {
         super(pageParameters);
         this.jpaService = service;
-        this.editPageClass = EditPovertyIndicatorDatasetPage.class;
+        this.editPageClass = EditMarketDatasetPage.class;
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("name", ListPovertyIndicatorDatasetPage.this)).getString()), "label",
+                new Model<>((new StringResourceModel("name", ListMarketDatasetPage.this)).getString()), "label",
                 "label"));
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("organization", ListPovertyIndicatorDatasetPage.this)).getString()),
+                new Model<>((new StringResourceModel("organization", ListMarketDatasetPage.this)).getString()),
                 "organization", "organization"));
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("approved", ListPovertyIndicatorDatasetPage.this)).getString()),
+                new Model<>((new StringResourceModel("approved", ListMarketDatasetPage.this)).getString()),
                 "approved", "approved"));
         columns.add(new LinkBootstrapPropertyColumn(new Model<>((new StringResourceModel("fileMetadata",
-                ListPovertyIndicatorDatasetPage.this)).getString()), "fileMetadata"));
+                ListMarketDatasetPage.this)).getString()), "fileMetadata"));
     }
 
     @Override
-    public JpaFilterState<PovertyIndicatorDataset> newFilterState() {
+    public JpaFilterState<MarketDataset> newFilterState() {
         return (JpaFilterState) new DatasetFilterState(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
     }
 }

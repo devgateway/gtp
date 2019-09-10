@@ -24,7 +24,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.DatasetFilter
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditProductionDatasetPage;
 import org.devgateway.toolkit.persistence.dao.ProductionDataset;
-import org.devgateway.toolkit.persistence.service.ProductionDatasetService;
+import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
@@ -35,8 +35,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class ListProductionDatasetPage extends AbstractListPage<ProductionDataset> {
     private static final long serialVersionUID = -378945525712620234L;
 
-    @SpringBean
-    protected ProductionDatasetService service;
+    @SpringBean(name = "productionDatasetService")
+    protected DatasetService service;
 
     public ListProductionDatasetPage(final PageParameters pageParameters) {
         super(pageParameters);
@@ -48,6 +48,9 @@ public class ListProductionDatasetPage extends AbstractListPage<ProductionDatase
         columns.add(new PropertyColumn<>(
                 new Model<>((new StringResourceModel("organization", ListProductionDatasetPage.this)).getString()),
                 "organization", "organization"));
+        columns.add(new PropertyColumn<>(
+                new Model<>((new StringResourceModel("approved", ListProductionDatasetPage.this)).getString()),
+                "approved", "approved"));
         columns.add(new LinkBootstrapPropertyColumn(new Model<>((new StringResourceModel("fileMetadata",
                 ListProductionDatasetPage.this)).getString()), "fileMetadata"));
     }

@@ -21,6 +21,8 @@ public class Dataset extends AbstractAuditableEntity implements Serializable, La
 
     private String label;
 
+    private String source;
+
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<FileMetadata> fileMetadata;
@@ -44,6 +46,14 @@ public class Dataset extends AbstractAuditableEntity implements Serializable, La
     @Override
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public Set<FileMetadata> getFileMetadata() {

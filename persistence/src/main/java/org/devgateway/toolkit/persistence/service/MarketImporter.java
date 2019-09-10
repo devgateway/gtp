@@ -3,8 +3,8 @@ package org.devgateway.toolkit.persistence.service;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
-import org.devgateway.toolkit.persistence.dao.Production;
-import org.devgateway.toolkit.persistence.repository.ProductionRepository;
+import org.devgateway.toolkit.persistence.dao.Market;
+import org.devgateway.toolkit.persistence.repository.MarketRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +17,13 @@ import java.util.List;
 /**
  * Created by Daniel Oliva
  */
-@Service("productionImporter")
-public class ProductionImporter extends AbstractImportService {
+@Service("marketImporter")
+public class MarketImporter extends AbstractImportService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductionImporter.class);
+    private static final Logger logger = LoggerFactory.getLogger(MarketImporter.class);
 
     @Autowired
-    private ProductionRepository repository;
+    private MarketRepository repository;
 
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
@@ -38,20 +38,19 @@ public class ProductionImporter extends AbstractImportService {
                 rowNumber++;
                 Row row = rowIterator.next();
                 //Extract data
-                Production event = new Production();
+                Market event = new Market();
                 event.setRegion(ImportUtils.getStringFromCell(row.getCell(0)));
-
-                event.setCrop1Surface(ImportUtils.getDoubleFromCell(row.getCell(1)));
-                event.setCrop1Production(ImportUtils.getDoubleFromCell(row.getCell(2)));
-                event.setCrop1Yield(ImportUtils.getDoubleFromCell(row.getCell(3)));
-
-                event.setCrop2Surface(ImportUtils.getDoubleFromCell(row.getCell(4)));
-                event.setCrop2Production(ImportUtils.getDoubleFromCell(row.getCell(5)));
-                event.setCrop2Yield(ImportUtils.getDoubleFromCell(row.getCell(6)));
-
-                event.setCrop3Surface(ImportUtils.getDoubleFromCell(row.getCell(7)));
-                event.setCrop3Production(ImportUtils.getDoubleFromCell(row.getCell(8)));
-                event.setCrop3Yield(ImportUtils.getDoubleFromCell(row.getCell(9)));
+                event.setDepartment(ImportUtils.getStringFromCell(row.getCell(1)));
+                event.setMarket(ImportUtils.getStringFromCell(row.getCell(2)));
+                event.setDate(ImportUtils.getDateFromCell(row.getCell(3)));
+                event.setMilletQuantity(ImportUtils.getDoubleFromCell(row.getCell(4)));
+                event.setMilletSellPrice(ImportUtils.getDoubleFromCell(row.getCell(5)));
+                event.setMilletDetailBuyPrice(ImportUtils.getDoubleFromCell(row.getCell(6)));
+                event.setMilletWholesaleBuyPrice(ImportUtils.getDoubleFromCell(row.getCell(7)));
+                event.setCornQuantity(ImportUtils.getDoubleFromCell(row.getCell(8)));
+                event.setCornSellPrice(ImportUtils.getDoubleFromCell(row.getCell(9)));
+                event.setCornDetailBuyPrice(ImportUtils.getDoubleFromCell(row.getCell(10)));
+                event.setCornWholesaleBuyPrice(ImportUtils.getDoubleFromCell(row.getCell(11)));
 
                 importResults.addDataInstance(event);
             } catch (Exception e) { //Improve exception handling
@@ -68,7 +67,7 @@ public class ProductionImporter extends AbstractImportService {
             importResults.getDataInstances().forEach(data -> {
                 data.setDataset(dataset);
             });
-            repository.saveAll((List<Production>)(List<?>) importResults.getDataInstances());
+            repository.saveAll((List<Market>)(List<?>) importResults.getDataInstances());
             repository.flush();
         }
     }

@@ -3,8 +3,8 @@ package org.devgateway.toolkit.persistence.service;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicatorEvent;
-import org.devgateway.toolkit.persistence.repository.PovertyIndicatorEventRepository;
+import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
+import org.devgateway.toolkit.persistence.repository.PovertyIndicatorRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class PovertyIndicatorImporter extends AbstractImportService {
     private static final Logger logger = LoggerFactory.getLogger(PovertyIndicatorImporter.class);
 
     @Autowired
-    private PovertyIndicatorEventRepository repository;
+    private PovertyIndicatorRepository repository;
 
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
@@ -37,8 +37,8 @@ public class PovertyIndicatorImporter extends AbstractImportService {
             try {
                 rowNumber++;
                 Row row = rowIterator.next();
-                //Extract event data
-                PovertyIndicatorEvent event = new PovertyIndicatorEvent();
+                //Extract data
+                PovertyIndicator event = new PovertyIndicator();
                 event.setRegion(ImportUtils.getStringFromCell(row.getCell(0)));
                 event.setLocationType(ImportUtils.getStringFromCell(row.getCell(1)));
                 event.setGender(ImportUtils.getStringFromCell(row.getCell(2)));
@@ -59,10 +59,10 @@ public class PovertyIndicatorImporter extends AbstractImportService {
     @Override
     protected void processResults(final Dataset dataset) {
         if (importResults.isImportOkFlag()) {
-            importResults.getDataInstances().forEach(event -> {
-                event.setDataset(dataset);
+            importResults.getDataInstances().forEach(data -> {
+                data.setDataset(dataset);
             });
-            repository.saveAll((List<PovertyIndicatorEvent>)(List<?>) importResults.getDataInstances());
+            repository.saveAll((List<PovertyIndicator>)(List<?>) importResults.getDataInstances());
             repository.flush();
         }
     }

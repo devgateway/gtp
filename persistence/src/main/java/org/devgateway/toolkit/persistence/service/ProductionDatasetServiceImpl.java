@@ -11,10 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Daniel Oliva
  */
-@Service
+@Service("productionDatasetService")
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
-public class ProductionDatasetServiceImpl extends BaseJpaServiceImpl<ProductionDataset> implements ProductionDatasetService  {
+public class ProductionDatasetServiceImpl extends BaseJpaServiceImpl<ProductionDataset>
+        implements DatasetService<ProductionDataset>  {
 
     @Autowired
     private ProductionDatasetRepository productionDatasetRepository;

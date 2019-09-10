@@ -19,15 +19,16 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
+import org.devgateway.toolkit.forms.util.MarkupCacheService;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListProductionDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.persistence.dao.ProductionDataset;
-import org.devgateway.toolkit.persistence.dao.ProductionEvent;
+import org.devgateway.toolkit.persistence.dao.Production;
+import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.devgateway.toolkit.persistence.service.ImportService;
-import org.devgateway.toolkit.persistence.service.ProductionDatasetService;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * Created by Daniel Oliva
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
 @MountPath("/editProduction")
 public class EditProductionDatasetPage extends AbstractEditPage<ProductionDataset> {
 
@@ -48,8 +49,11 @@ public class EditProductionDatasetPage extends AbstractEditPage<ProductionDatase
     @SpringBean(name = "productionImporter")
     private transient ImportService importer;
 
+    @SpringBean(name = "productionDatasetService")
+    protected DatasetService service;
+
     @SpringBean
-    protected ProductionDatasetService service;
+    protected MarkupCacheService markupCacheService;
 
     public EditProductionDatasetPage(final PageParameters parameters) {
         super(parameters);
@@ -66,11 +70,16 @@ public class EditProductionDatasetPage extends AbstractEditPage<ProductionDatase
         editForm.add(name);
 
         final CheckBoxPickerBootstrapFormComponent approved = new CheckBoxPickerBootstrapFormComponent("approved");
-        if (!SecurityUtil.getCurrentAuthenticatedPerson().getRoles().contains(SecurityConstants.Roles.ROLE_ADMIN)) {
+        if (!SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
+                .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {
             approved.setOutputMarkupPlaceholderTag(true);
             approved.setVisible(false);
         }
         editForm.add(approved);
+
+        final TextFieldBootstrapFormComponent<String> source = new TextFieldBootstrapFormComponent<>("source");
+        source.required();
+        editForm.add(source);
 
         FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata").maxFiles(1);
         fileInput.required();
@@ -99,7 +108,7 @@ public class EditProductionDatasetPage extends AbstractEditPage<ProductionDatase
                 }
                 jpaService.saveAndFlush(model);
                 redirectToSelf = false;
-                ImportResults<ProductionEvent> results = importer.processFile(model);
+                ImportResults<Production> results = importer.processFile(model);
 
                 //process results
                 if (! results.isImportOkFlag()) {
@@ -107,6 +116,8 @@ public class EditProductionDatasetPage extends AbstractEditPage<ProductionDatase
                     results.getErrorList().forEach(error -> feedbackPanel.error(error));
                     target.add(feedbackPanel);
                     redirectToSelf = true;
+                } else {
+                    markupCacheService.clearAllCaches();
                 }
 
                 redirect(target);

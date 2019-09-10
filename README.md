@@ -80,7 +80,7 @@ EnvironmentFile=/etc/default/ad3
 WantedBy=multi-user.target
 ```
 
-Create environment variables file for AD3 at `/etc/default/ad3` and enable production mode for Apache Wicket:
+Create environment variables file for AD3 at `/etc/default/ad3` and enable productionTons mode for Apache Wicket:
 ```
 JAVA_OPTS="-Dwicket.configuration=deployment"
 ```
