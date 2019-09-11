@@ -22,10 +22,6 @@ import java.util.List;
 public class MarketImporter extends AbstractImportService {
 
     private static final Logger logger = LoggerFactory.getLogger(MarketImporter.class);
-    public static final int[] MILLET_IDXS = {4, 5, 6, 7};
-    public static final String MILLET_LABEL = "millet";
-    public static final int[] CORN_IDXS = {8, 9, 10, 11};
-    public static final String CORN_LABEL = "corn";
 
     @Autowired
     private MarketRepository repository;
@@ -43,21 +39,17 @@ public class MarketImporter extends AbstractImportService {
                 rowNumber++;
                 Row row = rowIterator.next();
                 //Extract data
-                String region = ImportUtils.getStringFromCell(row.getCell(0));
-                String department = ImportUtils.getStringFromCell(row.getCell(1));
-                String market = ImportUtils.getStringFromCell(row.getCell(2));
-                Date date = ImportUtils.getDateFromCell(row.getCell(3));
-
-                //Millet
-                Market milletData = getMarketData(region, department, market, date, MILLET_LABEL, row, MILLET_IDXS);
-                if (milletData.isValid()) {
-                    importResults.addDataInstance(milletData);
-                }
-
-                //Corn
-                Market cornData = getMarketData(region, department, market, date, CORN_LABEL, row, CORN_IDXS);
-                if (cornData.isValid()) {
-                    importResults.addDataInstance(cornData);
+                if (! ImportUtils.getBooleanFromCell(row.getCell(9))) {
+                    Market data = new Market();
+                    data.setRegion(ImportUtils.getStringFromCell(row.getCell(0)));
+                    data.setDepartment(ImportUtils.getStringFromCell(row.getCell(1)));
+                    data.setMarket(ImportUtils.getStringFromCell(row.getCell(2)));
+                    data.setDate(ImportUtils.getDateFromCell(row.getCell(3)));
+                    data.setCrop(ImportUtils.getStringFromCell(row.getCell(4)));
+                    data.setQuantity(ImportUtils.getDoubleFromCell(row.getCell(5)));
+                    data.setSellPrice(ImportUtils.getDoubleFromCell(row.getCell(6)));
+                    data.setDetailBuyPrice(ImportUtils.getDoubleFromCell(row.getCell(7)));
+                    data.setWholesaleBuyPrice(ImportUtils.getDoubleFromCell(row.getCell(8)));
                 }
 
             } catch (Exception e) { //Improve exception handling
@@ -77,15 +69,5 @@ public class MarketImporter extends AbstractImportService {
             repository.saveAll((List<Market>) (List<?>) importResults.getDataInstances());
             repository.flush();
         }
-    }
-
-    private Market getMarketData(String region, String department, String market, Date date, String crop, Row row,
-                                 int[] cropIdxs) {
-        Market data = new Market(region, department, market, date, crop);
-        data.setQuantity(ImportUtils.getDoubleFromCell(row.getCell(cropIdxs[0])));
-        data.setSellPrice(ImportUtils.getDoubleFromCell(row.getCell(cropIdxs[1])));
-        data.setDetailBuyPrice(ImportUtils.getDoubleFromCell(row.getCell(cropIdxs[2])));
-        data.setWholesaleBuyPrice(ImportUtils.getDoubleFromCell(row.getCell(cropIdxs[3])));
-        return data;
     }
 }

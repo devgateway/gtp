@@ -71,6 +71,16 @@ public final class ImportUtils {
         return ret;
     }
 
+    public static boolean getBooleanFromCell(final Cell cell) {
+        boolean ret = false;
+        if (cell != null && cell.getCellType() == CellType.BOOLEAN) {
+            ret = cell.getBooleanCellValue();
+        } else if (cell != null && cell.getCellType() == CellType.STRING) {
+            ret = Boolean.valueOf(cell.getStringCellValue());
+        }
+        return ret;
+    }
+
     public static String getStringFromCell(final Cell cell, final String defaultValue) {
         String ret = getStringFromCell(cell);
         return ret != null ? ret : defaultValue;
