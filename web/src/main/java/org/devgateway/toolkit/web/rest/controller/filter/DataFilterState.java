@@ -11,6 +11,7 @@ import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Created by Daniel Oliva
@@ -31,15 +32,23 @@ public class DataFilterState<T extends Data> implements Serializable {
         return (root, query, cb) -> cb.and();
     }
 
-
-    protected void addRegionPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        if (filter.getRegion() != null) {
-            CriteriaBuilder.In<String> inClause = cb.in(root.get(Data_.REGION));
-            for (String region:filter.getRegion()) {
+    protected void addStringPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
+                                       TreeSet<String> values, String columnName) {
+        if (values != null) {
+            CriteriaBuilder.In<String> inClause = cb.in(root.get(columnName));
+            for (String region:values) {
                 inClause.value(region);
             }
             predicates.add(inClause);
         }
+    }
+
+    protected void addCropPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        addStringPredicates(root, cb, predicates, filter.getCrop(), Data_.CROP);
+    }
+
+    protected void addRegionPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        addStringPredicates(root, cb, predicates, filter.getRegion(), Data_.REGION);
     }
 
     protected void addYearPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {

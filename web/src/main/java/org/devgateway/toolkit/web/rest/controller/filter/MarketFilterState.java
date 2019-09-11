@@ -30,6 +30,7 @@ public class MarketFilterState extends DataFilterState<Market> {
             List<Predicate> predicates = new ArrayList<>();
             if (filter != null) {
                 addRegionPredicates(root, cb, predicates);
+                addCropPredicates(root, cb, predicates);
                 addYearPredicates(root, cb, predicates);
                 addMarketPredicates(root, cb, predicates);
             }
@@ -38,13 +39,7 @@ public class MarketFilterState extends DataFilterState<Market> {
     }
 
     protected void addMarketPredicates(Root<Market> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        if (filter.getMarket() != null) {
-            CriteriaBuilder.In<String> inClause = cb.in(root.get(Market_.MARKET));
-            for (String market:filter.getMarket()) {
-                inClause.value(market);
-            }
-            predicates.add(inClause);
-        }
+        addStringPredicates(root, cb, predicates, filter.getMarket(), Market_.MARKET);
     }
 
 
