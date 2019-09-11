@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -18,15 +19,23 @@ public class Market extends Data implements Serializable {
     private String region;
     private String department;
     private String market;
+    private String crop;
     private Date date;
-    private Double milletQuantity;
-    private Double milletSellPrice;
-    private Double milletDetailBuyPrice;
-    private Double milletWholesaleBuyPrice;
-    private Double cornQuantity;
-    private Double cornSellPrice;
-    private Double cornDetailBuyPrice;
-    private Double cornWholesaleBuyPrice;
+    private Double quantity;
+    private Double sellPrice;
+    private Double detailBuyPrice;
+    private Double wholesaleBuyPrice;
+
+    public Market() {
+    }
+
+    public Market(String region, String department, String market, Date date, String crop) {
+        this.region = region;
+        this.department = department;
+        this.market = market;
+        this.crop = crop;
+        this.date = date;
+    }
 
     public String getRegion() {
         return region;
@@ -52,6 +61,14 @@ public class Market extends Data implements Serializable {
         this.market = market;
     }
 
+    public String getCrop() {
+        return crop;
+    }
+
+    public void setCrop(String crop) {
+        this.crop = crop;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -60,67 +77,44 @@ public class Market extends Data implements Serializable {
         this.date = date;
     }
 
-    public Double getMilletQuantity() {
-        return milletQuantity;
+    public Double getQuantity() {
+        return quantity;
     }
 
-    public void setMilletQuantity(Double milletQuantity) {
-        this.milletQuantity = milletQuantity;
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
     }
 
-    public Double getMilletSellPrice() {
-        return milletSellPrice;
+    public Double getSellPrice() {
+        return sellPrice;
     }
 
-    public void setMilletSellPrice(Double milletSellPrice) {
-        this.milletSellPrice = milletSellPrice;
+    public void setSellPrice(Double sellPrice) {
+        this.sellPrice = sellPrice;
     }
 
-    public Double getMilletDetailBuyPrice() {
-        return milletDetailBuyPrice;
+    public Double getDetailBuyPrice() {
+        return detailBuyPrice;
     }
 
-    public void setMilletDetailBuyPrice(Double milletDetailBuyPrice) {
-        this.milletDetailBuyPrice = milletDetailBuyPrice;
+    public void setDetailBuyPrice(Double detailBuyPrice) {
+        this.detailBuyPrice = detailBuyPrice;
     }
 
-    public Double getMilletWholesaleBuyPrice() {
-        return milletWholesaleBuyPrice;
+    public Double getWholesaleBuyPrice() {
+        return wholesaleBuyPrice;
     }
 
-    public void setMilletWholesaleBuyPrice(Double milletWholesaleBuyPrice) {
-        this.milletWholesaleBuyPrice = milletWholesaleBuyPrice;
+    public void setWholesaleBuyPrice(Double wholesaleBuyPrice) {
+        this.wholesaleBuyPrice = wholesaleBuyPrice;
     }
 
-    public Double getCornQuantity() {
-        return cornQuantity;
-    }
-
-    public void setCornQuantity(Double cornQuantity) {
-        this.cornQuantity = cornQuantity;
-    }
-
-    public Double getCornSellPrice() {
-        return cornSellPrice;
-    }
-
-    public void setCornSellPrice(Double cornSellPrice) {
-        this.cornSellPrice = cornSellPrice;
-    }
-
-    public Double getCornDetailBuyPrice() {
-        return cornDetailBuyPrice;
-    }
-
-    public void setCornDetailBuyPrice(Double cornDetailBuyPrice) {
-        this.cornDetailBuyPrice = cornDetailBuyPrice;
-    }
-
-    public Double getCornWholesaleBuyPrice() {
-        return cornWholesaleBuyPrice;
-    }
-
-    public void setCornWholesaleBuyPrice(Double cornWholesaleBuyPrice) {
-        this.cornWholesaleBuyPrice = cornWholesaleBuyPrice;
+    @JsonIgnore
+    public boolean isValid() {
+        boolean ret = true;
+        if (quantity == null && sellPrice == null && detailBuyPrice == null && wholesaleBuyPrice == null) {
+            ret = false;
+        }
+        return ret;
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MarketServiceImpl extends BaseJpaServiceImpl<Market> implements MarketService  {
 
     @Autowired
-    MarketRepository repository;
+    private MarketRepository repository;
 
     @Override
     protected BaseJpaRepository<Market, Long> repository() {

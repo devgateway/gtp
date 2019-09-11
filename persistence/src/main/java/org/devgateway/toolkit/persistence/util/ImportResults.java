@@ -21,8 +21,6 @@ public class ImportResults<T> {
 
     private List<T> dataInstances = new ArrayList<>();
 
-
-
     public boolean isImportOkFlag() {
         return importOkFlag;
     }
@@ -76,6 +74,8 @@ public class ImportResults<T> {
     }
 
     public void addDataInstance(final T dataInstance) {
-        dataInstances.add(dataInstance);
+        if (dataInstance != null)  {
+            dataInstances.add(dataInstance);
+        }
     }
 }

@@ -57,7 +57,7 @@ public class ProductionImporter extends AbstractImportService {
             } catch (Exception e) { //Improve exception handling
                 logger.error("Error: " + e);
                 importResults.setImportOkFlag(false);
-                importResults.addError("At row "+ rowNumber + " there were an error: " + e.getMessage());
+                importResults.addError("At row " + rowNumber + " there were an error: " + e.getMessage());
             }
         }
     }
@@ -68,7 +68,7 @@ public class ProductionImporter extends AbstractImportService {
             importResults.getDataInstances().forEach(data -> {
                 data.setDataset(dataset);
             });
-            repository.saveAll((List<Production>)(List<?>) importResults.getDataInstances());
+            repository.saveAll((List<Production>) (List<?>) importResults.getDataInstances());
             repository.flush();
         }
     }
