@@ -16,11 +16,8 @@ import java.util.Date;
 public class Market extends Data implements Serializable {
     private static final long serialVersionUID = -3339250112046118104L;
 
-    private String region;
     private String department;
     private String market;
-    private String crop;
-    private Date date;
     private Double quantity;
     private Double sellPrice;
     private Double detailBuyPrice;
@@ -37,14 +34,6 @@ public class Market extends Data implements Serializable {
         this.date = date;
     }
 
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
     public String getDepartment() {
         return department;
     }
@@ -59,22 +48,6 @@ public class Market extends Data implements Serializable {
 
     public void setMarket(String market) {
         this.market = market;
-    }
-
-    public String getCrop() {
-        return crop;
-    }
-
-    public void setCrop(String crop) {
-        this.crop = crop;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public Double getQuantity() {
