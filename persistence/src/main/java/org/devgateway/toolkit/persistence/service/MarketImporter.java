@@ -50,6 +50,7 @@ public class MarketImporter extends AbstractImportService {
                     data.setSellPrice(ImportUtils.getDoubleFromCell(row.getCell(6)));
                     data.setDetailBuyPrice(ImportUtils.getDoubleFromCell(row.getCell(7)));
                     data.setWholesaleBuyPrice(ImportUtils.getDoubleFromCell(row.getCell(8)));
+                    importResults.addDataInstance(data);
                 }
 
             } catch (Exception e) { //Improve exception handling
