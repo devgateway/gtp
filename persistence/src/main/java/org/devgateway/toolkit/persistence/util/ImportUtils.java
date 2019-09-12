@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -84,6 +86,22 @@ public final class ImportUtils {
     public static String getStringFromCell(final Cell cell, final String defaultValue) {
         String ret = getStringFromCell(cell);
         return ret != null ? ret : defaultValue;
+    }
+
+    public static LocalDate getLocalDateFromCell(final Cell cell) {
+        if (cell == null) {
+            return null;
+        }
+        if (cell.getCellType() == CellType.STRING) {
+            return LocalDate.parse(cell.toString()); // TODO decide on format
+        } else {
+            // Apache POI, by default is creating java.util.Date using the default time zone
+            // so we're converting here back to a java.time.LocalDate using the default time zone
+            // see org.apache.poi.ss.usermodel.DateUtil.getJavaDate(double, boolean)
+            return cell.getDateCellValue().toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+        }
     }
 
     public static Date getDateFromCell(final Cell cell) {

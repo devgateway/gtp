@@ -6,7 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by Daniel Oliva
@@ -20,7 +20,7 @@ public class Market extends Data implements Serializable {
     private String department;
     private String market;
     private String crop;
-    private Date date;
+    private LocalDate date;
     private Double quantity;
     private Double sellPrice;
     private Double detailBuyPrice;
@@ -29,7 +29,12 @@ public class Market extends Data implements Serializable {
     public Market() {
     }
 
-    public Market(String region, String department, String market, Date date, String crop) {
+    public Market(String region, String department, String market, LocalDate date, String crop) {
+        this(null, region, department, market, date, crop);
+    }
+
+    public Market(Long id, String region, String department, String market, LocalDate date, String crop) {
+        setId(id);
         this.region = region;
         this.department = department;
         this.market = market;
@@ -69,11 +74,11 @@ public class Market extends Data implements Serializable {
         this.crop = crop;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

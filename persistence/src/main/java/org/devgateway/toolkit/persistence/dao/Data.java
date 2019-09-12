@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -10,6 +11,7 @@ import javax.persistence.MappedSuperclass;
  * Created by Daniel Oliva
  */
 @MappedSuperclass
+@JsonIgnoreProperties({"id", "new"})
 public abstract class Data extends AbstractAuditableEntity {
 
     @JsonIgnore

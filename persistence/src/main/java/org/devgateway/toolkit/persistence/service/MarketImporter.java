@@ -1,5 +1,8 @@
 package org.devgateway.toolkit.persistence.service;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
@@ -10,10 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by Daniel Oliva
@@ -44,7 +43,7 @@ public class MarketImporter extends AbstractImportService {
                     data.setRegion(ImportUtils.getStringFromCell(row.getCell(0)));
                     data.setDepartment(ImportUtils.getStringFromCell(row.getCell(1)));
                     data.setMarket(ImportUtils.getStringFromCell(row.getCell(2)));
-                    data.setDate(ImportUtils.getDateFromCell(row.getCell(3)));
+                    data.setDate(ImportUtils.getLocalDateFromCell(row.getCell(3)));
                     data.setCrop(ImportUtils.getStringFromCell(row.getCell(4)));
                     data.setQuantity(ImportUtils.getDoubleFromCell(row.getCell(5)));
                     data.setSellPrice(ImportUtils.getDoubleFromCell(row.getCell(6)));
