@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -13,14 +14,13 @@ import java.time.LocalDate;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
+@JsonPropertyOrder({"region", "department", "market", "crop", "date", "quantity", "sellPrice", "detailBuyPrice",
+        "wholesaleBuyPrice"})
 public class Market extends Data implements Serializable {
     private static final long serialVersionUID = -3339250112046118104L;
 
-    private String region;
     private String department;
     private String market;
-    private String crop;
-    private LocalDate date;
     private Double quantity;
     private Double sellPrice;
     private Double detailBuyPrice;
@@ -42,14 +42,6 @@ public class Market extends Data implements Serializable {
         this.date = date;
     }
 
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
     public String getDepartment() {
         return department;
     }
@@ -64,22 +56,6 @@ public class Market extends Data implements Serializable {
 
     public void setMarket(String market) {
         this.market = market;
-    }
-
-    public String getCrop() {
-        return crop;
-    }
-
-    public void setCrop(String crop) {
-        this.crop = crop;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     public Double getQuantity() {
