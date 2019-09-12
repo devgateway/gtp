@@ -1,0 +1,32 @@
+package org.devgateway.toolkit.persistence.service;
+
+import org.devgateway.toolkit.persistence.dao.ProductionDataset;
+import org.devgateway.toolkit.persistence.repository.ProductionDatasetRepository;
+import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * @author Daniel Oliva
+ */
+@Service("productionDatasetService")
+@CacheConfig(cacheNames = "servicesCache")
+@Transactional(readOnly = true)
+public class ProductionDatasetServiceImpl extends BaseJpaServiceImpl<ProductionDataset>
+        implements DatasetService<ProductionDataset>  {
+
+    @Autowired
+    private ProductionDatasetRepository productionDatasetRepository;
+
+    @Override
+    protected BaseJpaRepository<ProductionDataset, Long> repository() {
+        return productionDatasetRepository;
+    }
+
+    @Override
+    public ProductionDataset newInstance() {
+        return new ProductionDataset();
+    }
+}

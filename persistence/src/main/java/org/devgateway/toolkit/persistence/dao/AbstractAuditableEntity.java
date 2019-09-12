@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.envers.Audited;
 import org.springframework.data.domain.Auditable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -85,6 +86,7 @@ public abstract class AbstractAuditableEntity extends GenericPersistable
      * Gets created by audit user.
      */
     @Override
+    @JsonIgnore
     public Optional<String> getCreatedBy() {
         return Optional.of(createdBy);
     }
@@ -101,6 +103,7 @@ public abstract class AbstractAuditableEntity extends GenericPersistable
      * Gets create audit date.
      */
     @Override
+    @JsonIgnore
     public Optional<ZonedDateTime> getCreatedDate() {
         return Optional.of(createdDate);
     }
@@ -117,6 +120,7 @@ public abstract class AbstractAuditableEntity extends GenericPersistable
      * Gets last modified by audit user.
      */
     @Override
+    @JsonIgnore
     public Optional<String> getLastModifiedBy() {
         return Optional.of(lastModifiedBy);
     }
@@ -133,6 +137,7 @@ public abstract class AbstractAuditableEntity extends GenericPersistable
      * Gets last modified audit date.
      */
     @Override
+    @JsonIgnore
     public Optional<ZonedDateTime> getLastModifiedDate() {
         return Optional.of(lastModifiedDate);
     }

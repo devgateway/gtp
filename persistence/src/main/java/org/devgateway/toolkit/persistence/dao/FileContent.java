@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -25,10 +27,9 @@ import java.io.Serializable;
 
 @Entity
 public class FileContent extends AbstractAuditableEntity implements Serializable {
-    private static final int LOB_LENGTH = 10000000;
 
     @Lob
-    @Column(length = LOB_LENGTH)
+    @Type(type = "org.hibernate.type.BinaryType")
     private byte[] bytes;
 
     public byte[] getBytes() {
