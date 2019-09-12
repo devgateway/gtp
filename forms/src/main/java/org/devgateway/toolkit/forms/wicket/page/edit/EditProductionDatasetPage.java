@@ -111,7 +111,7 @@ public class EditProductionDatasetPage extends AbstractEditPage<ProductionDatase
                 ImportResults<Production> results = importer.processFile(model);
 
                 //process results
-                if (! results.isImportOkFlag()) {
+                if (!results.isImportOkFlag()) {
                     feedbackPanel.error(new StringResourceModel("uploadError", this, null).getString());
                     results.getErrorList().forEach(error -> feedbackPanel.error(error));
                     target.add(feedbackPanel);

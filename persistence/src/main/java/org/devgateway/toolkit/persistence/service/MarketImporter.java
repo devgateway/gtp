@@ -38,7 +38,7 @@ public class MarketImporter extends AbstractImportService {
                 rowNumber++;
                 Row row = rowIterator.next();
                 //Extract data
-                if (! ImportUtils.getBooleanFromCell(row.getCell(9))) {
+                if (!ImportUtils.getBooleanFromCell(row.getCell(9))) {
                     Market data = new Market();
                     data.setRegion(ImportUtils.getStringFromCell(row.getCell(0)));
                     data.setDepartment(ImportUtils.getStringFromCell(row.getCell(1)));

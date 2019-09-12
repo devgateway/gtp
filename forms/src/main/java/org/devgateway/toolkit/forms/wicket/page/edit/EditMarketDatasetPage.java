@@ -106,7 +106,7 @@ public class EditMarketDatasetPage extends AbstractEditPage<MarketDataset> {
                 ImportResults<Market> results = importer.processFile(model);
 
                 //process results
-                if (! results.isImportOkFlag()) {
+                if (!results.isImportOkFlag()) {
                     feedbackPanel.error(new StringResourceModel("uploadError", this, null).getString());
                     results.getErrorList().forEach(error -> feedbackPanel.error(error));
                     target.add(feedbackPanel);

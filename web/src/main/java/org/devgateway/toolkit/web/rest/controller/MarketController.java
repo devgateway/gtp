@@ -31,7 +31,7 @@ public class MarketController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileMetadataController.class);
 
     @Autowired
-    MarketService marketService;
+    private MarketService marketService;
 
     @CrossOrigin
     @ApiOperation(value = "Get all market data")

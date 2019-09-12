@@ -89,7 +89,8 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditPage<PovertyInd
 
     @Override
     public SaveEditPageButton getSaveEditPageButton() {
-        return new SaveEditPageButton("save", new StringResourceModel("save", EditPovertyIndicatorDatasetPage.this, null)) {
+        return new SaveEditPageButton("save", new StringResourceModel("save",
+                EditPovertyIndicatorDatasetPage.this, null)) {
             private static final long serialVersionUID = 5214537995514151323L;
 
             @Override
@@ -106,7 +107,7 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditPage<PovertyInd
                 ImportResults<PovertyIndicator> results = importer.processFile(model);
 
                 //process results
-                if (! results.isImportOkFlag()) {
+                if (!results.isImportOkFlag()) {
                     feedbackPanel.error(new StringResourceModel("uploadError", this, null).getString());
                     results.getErrorList().forEach(error -> feedbackPanel.error(error));
                     target.add(feedbackPanel);

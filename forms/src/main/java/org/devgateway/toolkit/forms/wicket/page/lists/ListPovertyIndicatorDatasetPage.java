@@ -43,10 +43,12 @@ public class ListPovertyIndicatorDatasetPage extends AbstractListPage<PovertyInd
         this.jpaService = service;
         this.editPageClass = EditPovertyIndicatorDatasetPage.class;
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("name", ListPovertyIndicatorDatasetPage.this)).getString()), "label",
+                new Model<>((new StringResourceModel("name",
+                        ListPovertyIndicatorDatasetPage.this)).getString()), "label",
                 "label"));
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("organization", ListPovertyIndicatorDatasetPage.this)).getString()),
+                new Model<>((new StringResourceModel("organization",
+                        ListPovertyIndicatorDatasetPage.this)).getString()),
                 "organization", "organization"));
         columns.add(new PropertyColumn<>(
                 new Model<>((new StringResourceModel("approved", ListPovertyIndicatorDatasetPage.this)).getString()),
