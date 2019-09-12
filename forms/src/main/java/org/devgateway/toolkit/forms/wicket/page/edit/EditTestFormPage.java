@@ -36,9 +36,10 @@ import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextCh
 import org.devgateway.toolkit.persistence.dao.Role;
 import org.devgateway.toolkit.persistence.dao.TestForm;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.service.RoleService;
+import org.devgateway.toolkit.persistence.repository.RoleRepository;
+import org.devgateway.toolkit.persistence.repository.category.OrganizationRepository;
 import org.devgateway.toolkit.persistence.service.TestFormService;
-import org.devgateway.toolkit.persistence.service.category.OrganizationService;
+import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
@@ -55,10 +56,10 @@ public class EditTestFormPage extends AbstractEditPage<TestForm> {
     private TestFormService testFormService;
 
     @SpringBean
-    private RoleService roleService;
+    private RoleRepository roleRepository;
 
     @SpringBean
-    private OrganizationService organizationService;
+    private OrganizationRepository organizationRepository;
 
     /**
      * @param parameters
@@ -91,14 +92,16 @@ public class EditTestFormPage extends AbstractEditPage<TestForm> {
         editForm.add(new TestFormChildPanel("testFormChildren"));
 
         Select2ChoiceBootstrapFormComponent<Organization> entitySelect = new Select2ChoiceBootstrapFormComponent<>(
-                "entitySelect", new GenericPersistableJpaTextChoiceProvider<>(organizationService));
+                "entitySelect", new GenericPersistableJpaTextChoiceProvider<>(
+                        new TextSearchableAdapter<>(organizationRepository)));
         entitySelect.required();
         editForm.add(entitySelect);
 
         Select2MultiChoiceBootstrapFormComponent<Role> entityMultiSelect =
                 new Select2MultiChoiceBootstrapFormComponent<Role>(
                         "entityMultiSelect",
-                        new GenericPersistableJpaTextChoiceProvider<Role>(roleService)
+                        new GenericPersistableJpaTextChoiceProvider<>(
+                                new TextSearchableAdapter<>(roleRepository))
                 );
         editForm.add(entityMultiSelect);
 

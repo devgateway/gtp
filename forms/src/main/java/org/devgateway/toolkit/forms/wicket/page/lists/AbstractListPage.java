@@ -11,6 +11,17 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.page.lists;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.Deflater;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import javax.servlet.http.HttpServletResponse;
+
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons.Size;
@@ -44,7 +55,6 @@ import org.devgateway.toolkit.forms.wicket.components.table.AjaxFallbackBootstra
 import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
-import org.devgateway.toolkit.forms.wicket.page.RevisionsPage;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.providers.SortableJpaServiceDataProvider;
 import org.devgateway.toolkit.persistence.dao.GenericPersistable;
@@ -52,16 +62,6 @@ import org.devgateway.toolkit.persistence.excel.service.ExcelGeneratorService;
 import org.devgateway.toolkit.persistence.service.BaseJpaService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Deflater;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 /**
  * @author mpostelnicu This class can be use to display a list of Categories
@@ -175,16 +175,6 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
             add(editPageLink);
 
             add(getPrintButton(pageParameters));
-
-            PageParameters revisionsPageParameters = new PageParameters();
-            revisionsPageParameters.set(WebConstants.PARAM_ID, entity.getId());
-            revisionsPageParameters.set(WebConstants.PARAM_ENTITY_CLASS, entity.getClass().getName());
-
-            BootstrapBookmarkablePageLink<Void> revisionsPageLink = new BootstrapBookmarkablePageLink<>("revisions",
-                    RevisionsPage.class, revisionsPageParameters, Buttons.Type.Info);
-            revisionsPageLink.setIconType(FontAwesomeIconType.clock_o).setSize(Size.Small)
-                    .setLabel(new StringResourceModel("revisions", AbstractListPage.this, null));
-            add(revisionsPageLink);
 
         }
     }

@@ -13,8 +13,10 @@ package org.devgateway.toolkit.forms.security;
 
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.dao.Role;
+import org.devgateway.toolkit.persistence.spring.CustomJPAUserDetailsService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
 import java.security.Principal;
 
@@ -69,4 +71,18 @@ public final class SecurityUtil {
         return isUserAdmin(p);
     }
 
+    /**
+     * If changed user is the currently authenticated user, then update the Authentication with the latest
+     * Person object.
+     *
+     * @param person person that changed
+     */
+    public static void onPersonChanged(Person person) {
+        if (person.equals(getCurrentAuthenticatedPerson())) {
+            person.setAuthorities(CustomJPAUserDetailsService.getGrantedAuthorities(person));
+
+            SecurityContextHolder.getContext().setAuthentication(
+                    new PreAuthenticatedAuthenticationToken(person, null, person.getAuthorities()));
+        }
+    }
 }

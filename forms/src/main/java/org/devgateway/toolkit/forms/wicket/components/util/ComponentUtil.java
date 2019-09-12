@@ -5,6 +5,7 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
@@ -103,7 +104,14 @@ public final class ComponentUtil {
     public static TextFieldBootstrapFormComponent<String> addTextField(
             final WebMarkupContainer parent,
             final String id) {
-        final TextFieldBootstrapFormComponent<String> textField = new TextFieldBootstrapFormComponent<>(id);
+        return addTextField(parent, id, null);
+    }
+
+    public static TextFieldBootstrapFormComponent<String> addTextField(
+            final WebMarkupContainer parent,
+            final String id,
+            Model<String> model) {
+        final TextFieldBootstrapFormComponent<String> textField = new TextFieldBootstrapFormComponent<>(id, model);
         parent.add(textField);
 
         return textField;

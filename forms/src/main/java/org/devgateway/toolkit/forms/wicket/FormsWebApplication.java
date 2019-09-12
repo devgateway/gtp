@@ -32,6 +32,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxNewWindowNotifyingBehavior;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.bean.validation.BeanValidationConfiguration;
 import org.apache.wicket.devutils.diskstore.DebugDiskDataStore;
 import org.apache.wicket.markup.html.IPackageResourceGuard;
 import org.apache.wicket.markup.html.SecurePackageResourceGuard;
@@ -44,6 +45,7 @@ import org.apache.wicket.request.resource.caching.version.CachingResourceVersion
 import org.apache.wicket.settings.RequestCycleSettings.RenderStrategy;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.apache.wicket.util.file.Folder;
+import org.devgateway.toolkit.forms.security.PasswordRecoveryProperties;
 import org.devgateway.toolkit.forms.service.SessionFinderService;
 import org.devgateway.toolkit.forms.wicket.components.form.SummernoteJpaStorageService;
 import org.devgateway.toolkit.forms.wicket.converters.NonNumericFilteredBigDecimalConverter;
@@ -55,6 +57,7 @@ import org.nustaq.serialization.FSTConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
@@ -76,6 +79,7 @@ import java.math.BigDecimal;
 @SpringBootApplication(exclude = {org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration.class})
 @ComponentScan("org.devgateway.toolkit")
 @PropertySource("classpath:/org/devgateway/toolkit/forms/application.properties")
+@EnableConfigurationProperties(PasswordRecoveryProperties.class)
 public class FormsWebApplication extends AuthenticatedWebApplication {
 
     private static final String BASE_PACKAGE_FOR_PAGES = BasePage.class.getPackage().getName();
@@ -242,6 +246,8 @@ public class FormsWebApplication extends AuthenticatedWebApplication {
         SessionFinderHolder.setSessionFinder(sessionFinderService);
 
         useCustomizedSelect2Version();
+
+        new BeanValidationConfiguration().configure(this);
     }
 
     /**

@@ -26,11 +26,6 @@ public class RoleServiceImpl extends BaseJpaServiceImpl<Role> implements RoleSer
     }
 
     @Override
-    public TextSearchableRepository<Role, Long> textRepository() {
-        return roleRepository;
-    }
-
-    @Override
     public Role newInstance() {
         return new Role();
     }

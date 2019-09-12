@@ -17,29 +17,28 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
-import org.devgateway.toolkit.forms.wicket.page.user.EditUserPageElevated;
-import org.devgateway.toolkit.persistence.dao.Person;
-import org.devgateway.toolkit.persistence.service.PersonService;
+import org.devgateway.toolkit.forms.wicket.page.edit.EditPartnerPage;
+import org.devgateway.toolkit.persistence.dao.Partner;
+import org.devgateway.toolkit.persistence.service.PartnerService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
-@MountPath(value = "/listUsers")
-public class ListUserPage extends AbstractListPage<Person> {
+@MountPath(value = "/listPartners")
+public class ListPartnerPage extends AbstractListPage<Partner> {
 
     @SpringBean
-    private PersonService personService;
+    private PartnerService personService;
 
-    public ListUserPage(final PageParameters pageParameters) {
+    public ListPartnerPage(final PageParameters pageParameters) {
         super(pageParameters);
 
         this.jpaService = personService;
 
-        this.editPageClass = EditUserPageElevated.class;
-        columns.add(new LambdaColumn<>(new Model<>("Username"), "username", Person::getUsername));
-        columns.add(new LambdaColumn<>(new Model<>("First Name"), "firstName", Person::getFirstName));
-        columns.add(new LambdaColumn<>(new Model<>("Last Name"), "lastName", Person::getLastName));
-        columns.add(new LambdaColumn<>(new Model<>("Organization"), "organization", Person::getOrganization));
-        columns.add(new LambdaColumn<>(new Model<>("Roles"), Person::getRoles));
+        this.editPageClass = EditPartnerPage.class;
+        columns.add(new LambdaColumn<>(new Model<>("Name"), "name", Partner::getName));
+        columns.add(new LambdaColumn<>(new Model<>("Sector"), "sector", Partner::getSector));
+        columns.add(new LambdaColumn<>(new Model<>("Focal Point"),
+                "focalPoint.firstName;focalPoint.lastName", Partner::getFocalPoint));
     }
 
     @Override

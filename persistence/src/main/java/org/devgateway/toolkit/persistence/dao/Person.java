@@ -11,14 +11,11 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.envers.Audited;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import java.io.Serializable;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,16 +24,22 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.envers.Audited;
+import org.springframework.lang.NonNull;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Audited
 @Table(indexes = {@Index(columnList = "username")})
-public class Person extends AbstractAuditableEntity implements Serializable, UserDetails {
+public class Person extends AbstractAuditableEntity implements Serializable, UserDetails, Labelable {
 
     @ExcelExport
     private String username; // TODO remove username
@@ -84,6 +87,10 @@ public class Person extends AbstractAuditableEntity implements Serializable, Use
     private Boolean enabled = true;
 
     private String phone;
+
+    private String recoveryToken;
+
+    private ZonedDateTime recoveryTokenValidUntil;
 
     @Override
     public String getUsername() {
@@ -230,12 +237,39 @@ public class Person extends AbstractAuditableEntity implements Serializable, Use
     }
 
     @Override
+    @NonNull
     public String toString() {
-        return "[" + username + "," + firstName + "," + lastName + "," + email + "]";
+        return String.format("%s %s", firstName, lastName);
     }
 
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    public String getRecoveryToken() {
+        return recoveryToken;
+    }
+
+    public void setRecoveryToken(String recoveryToken) {
+        this.recoveryToken = recoveryToken;
+    }
+
+    public ZonedDateTime getRecoveryTokenValidUntil() {
+        return recoveryTokenValidUntil;
+    }
+
+    public void setRecoveryTokenValidUntil(ZonedDateTime recoveryTokenValidUntil) {
+        this.recoveryTokenValidUntil = recoveryTokenValidUntil;
+    }
+
+    @Override
+    public void setLabel(String label) {
+        firstName = label;
+    }
+
+    @Override
+    public String getLabel() {
+        return firstName;
     }
 }

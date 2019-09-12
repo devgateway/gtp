@@ -167,6 +167,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-bean-validation</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.zeroturnaround</groupId>
             <artifactId>zt-zip</artifactId>
             <version>${zt.zip.version}</version>
@@ -243,6 +249,8 @@
             <artifactId>wicketstuff-serializer-fast2</artifactId>
             <version>${wicket.version}</version>
         </dependency>
+
+
     </dependencies>
 
     <build>

@@ -7,6 +7,7 @@ import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -15,17 +16,14 @@ import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFor
 import org.devgateway.toolkit.forms.wicket.components.util.ComponentUtil;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
 import org.devgateway.toolkit.persistence.dao.Person;
+import org.devgateway.toolkit.persistence.repository.PersonRepository;
 import org.devgateway.toolkit.persistence.service.PersonService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.io.Serializable;
+import java.time.ZonedDateTime;
 
 @MountPath(value = "/forgotPassword")
 public class ForgotYourPasswordPage extends BasePage {
-    private static final long serialVersionUID = -6767090562116351915L;
-
-    public static final int RANDOM_PASSWORD_LENGTH = 16;
 
     @SpringBean
     private PersonService personService;
@@ -34,52 +32,35 @@ public class ForgotYourPasswordPage extends BasePage {
     private SendEmailService sendEmailService;
 
     @SpringBean
-    private PasswordEncoder passwordEncoder;
-
-    private final ForgotPasswordBean forgotPasswordBean;
+    private PersonRepository personRepository;
 
     public ForgotYourPasswordPage(final PageParameters parameters) {
         super(parameters);
-
-        forgotPasswordBean = new ForgotPasswordBean();
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
 
-        final ForgotPasswordForm form = new ForgotPasswordForm("form", new CompoundPropertyModel<>(forgotPasswordBean));
+        final ForgotPasswordForm form = new ForgotPasswordForm("form");
         add(form);
     }
 
-    class ForgotPasswordBean implements Serializable {
-        private String emailAddress;
-
-        public String getEmailAddress() {
-            return emailAddress;
-        }
-
-        public void setEmailAddress(final String emailAddress) {
-            this.emailAddress = emailAddress;
-        }
-    }
-
-    class ForgotPasswordForm extends BootstrapForm<ForgotPasswordBean> {
-        private static final long serialVersionUID = 7708855731894924277L;
+    class ForgotPasswordForm extends BootstrapForm<Void> {
 
         private TextFieldBootstrapFormComponent<String> emailAddress;
 
         private IndicatingAjaxButton goBack;
 
-        ForgotPasswordForm(final String componentId, final IModel<ForgotPasswordBean> model) {
-            super(componentId, model);
+        ForgotPasswordForm(final String componentId) {
+            super(componentId);
         }
 
         @Override
         protected void onInitialize() {
             super.onInitialize();
 
-            emailAddress = ComponentUtil.addTextField(this, "emailAddress");
+            emailAddress = ComponentUtil.addTextField(this, "emailAddress", new Model<>());
             emailAddress.getField().add(ComponentUtil.isEmail());
             emailAddress.required();
 
@@ -97,18 +78,18 @@ public class ForgotYourPasswordPage extends BasePage {
                 protected void onSubmit(final AjaxRequestTarget target) {
                     super.onSubmit(target);
 
-                    final String email = ForgotPasswordForm.this.getModelObject().getEmailAddress();
+                    final String email = emailAddress.getField().getModelObject();
                     final Person person = personService.findByEmail(email);
 
                     if (person == null) {
                         feedbackPanel.error("Email address not found");
                     } else {
-                        final String newPassword = RandomStringUtils.random(RANDOM_PASSWORD_LENGTH, true, true);
-                        person.setPassword(passwordEncoder.encode(newPassword));
-                        person.setChangePasswordNextSignIn(true);
+                        String recoveryToken = RandomStringUtils.random(16, true, true);
+                        person.setRecoveryToken(recoveryToken);
+                        person.setRecoveryTokenValidUntil(ZonedDateTime.now().plusHours(1));
+                        personRepository.saveAndFlush(person);
 
-                        personService.saveAndFlush(person);
-                        sendEmailService.sendEmailResetPassword(person, newPassword);
+                        sendEmailService.sendEmailRecoveryEmail(person);
 
                         emailAddress.setVisibilityAllowed(false);
                         this.setVisibilityAllowed(false);
@@ -133,7 +114,6 @@ public class ForgotYourPasswordPage extends BasePage {
 
             goBack = new IndicatingAjaxButton("goBack",
                     new StringResourceModel("back", ForgotYourPasswordPage.this, null)) {
-                private static final long serialVersionUID = 1L;
 
                 @Override
                 protected void onSubmit(final AjaxRequestTarget target) {

@@ -45,9 +45,10 @@ import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.dao.Role;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
+import org.devgateway.toolkit.persistence.repository.RoleRepository;
+import org.devgateway.toolkit.persistence.repository.category.OrganizationRepository;
 import org.devgateway.toolkit.persistence.service.PersonService;
-import org.devgateway.toolkit.persistence.service.RoleService;
-import org.devgateway.toolkit.persistence.service.category.OrganizationService;
+import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -60,10 +61,10 @@ public class EditUserPage extends AbstractEditPage<Person> {
     private PersonService personService;
 
     @SpringBean
-    private OrganizationService organizationService;
+    private OrganizationRepository organizationRepository;
 
     @SpringBean
-    private RoleService roleService;
+    private RoleRepository roleRepository;
 
     @SpringBean
     private SendEmailService sendEmailService;
@@ -94,6 +95,8 @@ public class EditUserPage extends AbstractEditPage<Person> {
     protected PasswordFieldBootstrapFormComponent plainPassword;
 
     protected PasswordFieldBootstrapFormComponent plainPasswordCheck;
+
+    protected TextFieldBootstrapFormComponent<String> phone;
 
 
     public EditUserPage(final PageParameters parameters) {
@@ -145,13 +148,15 @@ public class EditUserPage extends AbstractEditPage<Person> {
         title = ComponentUtil.addTextField(editForm, "title");
         title.getField().add(getRequiredForFocalPointBehavior());
 
-        organization = ComponentUtil.addSelect2ChoiceField(editForm, "organization", organizationService);
+        organization = ComponentUtil.addSelect2ChoiceField(editForm, "organization",
+                new TextSearchableAdapter<>(organizationRepository));
         organization.getField().add(getRequiredForFocalPointBehavior());
         MetaDataRoleAuthorizationStrategy.authorize(organization, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
 
-        ComponentUtil.addTextField(editForm, "phone");
+        phone = ComponentUtil.addTextField(editForm, "phone");
 
-        roles = ComponentUtil.addSelect2MultiChoiceField(editForm, "roles", roleService);
+        roles = ComponentUtil.addSelect2MultiChoiceField(editForm, "roles",
+                new TextSearchableAdapter<>(roleRepository));
         roles.getField().add(new AjaxFormComponentUpdatingBehavior(roles.getUpdateEvent()) {
             @Override
             protected void onUpdate(AjaxRequestTarget target) {
@@ -205,7 +210,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
 
         editForm.add(new EqualPasswordInputValidator(plainPassword.getField(), plainPasswordCheck.getField()));
 
-        MetaDataRoleAuthorizationStrategy.authorize(deleteButton, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
+        deleteButton.setVisibilityAllowed(false);
     }
 
     /**
@@ -223,7 +228,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
     }
 
     private boolean focalPointRole(Role role) {
-        return role.getLabel().equals(SecurityConstants.Roles.ROLE_FOCAL_POINT);
+        return role.getAuthority().equals(SecurityConstants.Roles.ROLE_FOCAL_POINT);
     }
 
     @Override
@@ -254,21 +259,6 @@ public class EditUserPage extends AbstractEditPage<Person> {
                 }
             }
         };
-    }
-
-    public static class PasswordPatternValidator extends PatternValidator {
-        private static final long serialVersionUID = 7886016396095273777L;
-
-        // 1 digit, 1 lower, 1 upper, 1 symbol "@#$%", from 6 to 20
-        // private static final String PASSWORD_PATTERN =
-        // "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
-        // 1 digit, 1 caps letter, from 10 to 20
-        private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z]).{10,20})";
-
-        public PasswordPatternValidator() {
-            super(PASSWORD_PATTERN);
-        }
-
     }
 
     public static class UsernamePatternValidator extends PatternValidator {
