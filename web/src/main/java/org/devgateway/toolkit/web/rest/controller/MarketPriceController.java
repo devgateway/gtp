@@ -7,10 +7,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import io.swagger.annotations.ApiOperation;
-import org.devgateway.toolkit.persistence.dao.Market;
-import org.devgateway.toolkit.persistence.service.MarketService;
+import org.devgateway.toolkit.persistence.dao.MarketPrice;
+import org.devgateway.toolkit.persistence.service.MarketPriceService;
 import org.devgateway.toolkit.web.rest.controller.filter.MarketFilterPagingRequest;
-import org.devgateway.toolkit.web.rest.controller.filter.MarketFilterState;
+import org.devgateway.toolkit.web.rest.controller.filter.MarketPriceFilterState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,28 +26,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/market")
 @CrossOrigin
-public class MarketController {
+public class MarketPriceController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileMetadataController.class);
 
     @Autowired
-    private MarketService marketService;
+    private MarketPriceService marketPriceService;
 
     @CrossOrigin
-    @ApiOperation(value = "Get all market data")
+    @ApiOperation(value = "Get paginated market price data")
     @RequestMapping(value = "/all", method = GET)
-    public Page<Market> getAll(@ModelAttribute @Valid final MarketFilterPagingRequest pageRequest) {
+    public Page<MarketPrice> getAll(@ModelAttribute @Valid final MarketFilterPagingRequest pageRequest) {
         LOGGER.debug("get market data");
         Pageable pageable = PageRequest.of(pageRequest.getPageNumber(), pageRequest.getPageSize(),
                 Sort.Direction.ASC, "id");
-        MarketFilterState filter = new MarketFilterState(pageRequest);
-        return marketService.findAll(filter.getSpecification(), pageable);
+        MarketPriceFilterState filter = new MarketPriceFilterState(pageRequest);
+        return marketPriceService.findAll(filter.getSpecification(), pageable);
     }
 
     @CrossOrigin
-    @ApiOperation(value = "Dump market dataset")
+    @ApiOperation(value = "Dump market price dataset")
     @RequestMapping(value = "/dump", method = GET)
-    public List<Market> getAll() {
-        return marketService.findAll();
+    public List<MarketPrice> getAll() {
+        return marketPriceService.findAll();
     }
 }

@@ -51,7 +51,7 @@ import org.apache.wicket.util.string.StringValue;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
-import org.devgateway.toolkit.forms.wicket.page.lists.ListMarketDatasetPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListMarketPriceDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPartnerPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPovertyIndicatorDatasetPage;
@@ -354,8 +354,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         new StringResourceModel("navbar.production", this, null))
                         .setIconType(FontAwesomeIconType.th_list));
 
-                list.add(new MenuBookmarkablePageLink<ListMarketDatasetPage>(ListMarketDatasetPage.class, null,
-                        new StringResourceModel("navbar.market", this, null))
+                list.add(new MenuBookmarkablePageLink<ListMarketPriceDatasetPage>(ListMarketPriceDatasetPage.class, null,
+                        new StringResourceModel("navbar.marketPrice", this, null))
                         .setIconType(FontAwesomeIconType.diamond));
 
                 list.add(new MenuBookmarkablePageLink<ListPovertyIndicatorDatasetPage>(

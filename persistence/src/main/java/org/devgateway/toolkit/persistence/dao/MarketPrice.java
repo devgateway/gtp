@@ -1,11 +1,14 @@
 package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -14,31 +17,52 @@ import java.time.LocalDate;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@JsonPropertyOrder({"region", "department", "market", "crop", "date", "quantity", "sellPrice", "detailBuyPrice",
+@JsonPropertyOrder({"region_id", "department", "market", "crop", "date", "quantity", "sellPrice", "detailBuyPrice",
         "wholesaleBuyPrice"})
-public class Market extends Data implements Serializable {
+public class MarketPrice extends Data implements Serializable {
     private static final long serialVersionUID = -3339250112046118104L;
 
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Region region;
     private String department;
     private String market;
+    private String crop;
+    private LocalDate date;
     private Double quantity;
     private Double sellPrice;
     private Double detailBuyPrice;
     private Double wholesaleBuyPrice;
 
-    public Market() {
+    public MarketPrice() {
     }
 
-    public Market(String region, String department, String market, LocalDate date, String crop) {
-        this(null, region, department, market, date, crop);
+    public Region getRegion() {
+        return region;
     }
 
-    public Market(Long id, String region, String department, String market, LocalDate date, String crop) {
-        setId(id);
+    @JsonProperty("region_id")
+    public Long getRegionId() {
+        return region.getId();
+    }
+
+    public void setRegion(Region region) {
         this.region = region;
-        this.department = department;
-        this.market = market;
+    }
+
+    public String getCrop() {
+        return crop;
+    }
+
+    public void setCrop(String crop) {
         this.crop = crop;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

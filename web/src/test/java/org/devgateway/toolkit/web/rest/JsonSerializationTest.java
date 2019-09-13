@@ -5,7 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import org.devgateway.toolkit.persistence.dao.Market;
+import org.devgateway.toolkit.persistence.dao.MarketPrice;
+import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.web.spring.WebApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,22 +26,28 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class JsonSerializationTest {
 
     @Autowired
-    private JacksonTester<Market> marketJacksonTester;
+    private JacksonTester<MarketPrice> marketJacksonTester;
 
     /**
      * Ensure that only necessary fields are included in output. We want to keep output as compact as possible.
      */
     @Test
     public void testMarketWithAllValuesSpecified() throws IOException {
-        Market market = new Market(1L, "TH", "THIES", "TOUBA TOUL", LocalDate.parse("2018-11-01"), "MILLET");
-        market.setQuantity(3d);
-        market.setSellPrice(225d);
-        market.setDetailBuyPrice(250d);
-        market.setWholesaleBuyPrice(240d);
+        Region region = new Region(1L, "Thies", "TH");
+        MarketPrice marketPrice = new MarketPrice();
+        marketPrice.setRegion(region);
+        marketPrice.setDepartment("THIES");
+        marketPrice.setMarket("TOUBA TOUL");
+        marketPrice.setDate(LocalDate.parse("2018-11-01"));
+        marketPrice.setCrop("MILLET");
+        marketPrice.setQuantity(3d);
+        marketPrice.setSellPrice(225d);
+        marketPrice.setDetailBuyPrice(250d);
+        marketPrice.setWholesaleBuyPrice(240d);
 
-        JsonContent<Market> content = marketJacksonTester.write(market);
+        JsonContent<MarketPrice> content = marketJacksonTester.write(marketPrice);
 
-        assertEquals("{\"region\":\"TH\","
+        assertEquals("{\"region\":{\"id\":1,\"name\":\"Thies\",\"code\":\"TH\",\"new\":false},"
                 + "\"department\":\"THIES\","
                 + "\"market\":\"TOUBA TOUL\","
                 + "\"crop\":\"MILLET\","
@@ -57,8 +64,8 @@ public class JsonSerializationTest {
      */
     @Test
     public void testMarketWithNullValues() throws IOException {
-        Market market = new Market();
+        MarketPrice marketPrice = new MarketPrice();
 
-        assertEquals("{}", marketJacksonTester.write(market).getJson());
+        assertEquals("{}", marketJacksonTester.write(marketPrice).getJson());
     }
 }
