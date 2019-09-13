@@ -42,22 +42,4 @@ public class DataFilterState<T extends Data> implements Serializable {
             predicates.add(inClause);
         }
     }
-
-    protected void addCropPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addStringPredicates(root, cb, predicates, filter.getCrop(), Data_.CROP);
-    }
-
-    protected void addRegionPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addStringPredicates(root, cb, predicates, filter.getRegion(), Data_.REGION);
-    }
-
-    protected void addYearPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        if (filter.getYear() != null) {
-            List<Predicate> yearPred = new ArrayList<>();
-            for (Integer year:filter.getYear()) {
-                yearPred.add(cb.equal(cb.function(YEAR, Integer.class, root.get(Data_.DATE)), year));
-            }
-            predicates.add(cb.or(yearPred.toArray(new Predicate[predicates.size()])));
-        }
-    }
 }

@@ -22,7 +22,7 @@ import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.components.table.LinkBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DatasetFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
-import org.devgateway.toolkit.forms.wicket.page.edit.EditMarketDatasetPage;
+import org.devgateway.toolkit.forms.wicket.page.edit.EditMarketPriceDatasetPage;
 import org.devgateway.toolkit.persistence.dao.MarketDataset;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -31,28 +31,28 @@ import org.wicketstuff.annotation.mount.MountPath;
  * Created by Daniel Oliva
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
-@MountPath(value = "/listMarket")
-public class ListMarketDatasetPage extends AbstractListPage<MarketDataset> {
+@MountPath(value = "/listMarketPrice")
+public class ListMarketPriceDatasetPage extends AbstractListPage<MarketDataset> {
     private static final long serialVersionUID = -378945525712620234L;
 
-    @SpringBean(name = "marketDatasetService")
+    @SpringBean(name = "marketPriceDatasetService")
     protected DatasetService service;
 
-    public ListMarketDatasetPage(final PageParameters pageParameters) {
+    public ListMarketPriceDatasetPage(final PageParameters pageParameters) {
         super(pageParameters);
         this.jpaService = service;
-        this.editPageClass = EditMarketDatasetPage.class;
+        this.editPageClass = EditMarketPriceDatasetPage.class;
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("name", ListMarketDatasetPage.this)).getString()), "label",
+                new Model<>((new StringResourceModel("name", ListMarketPriceDatasetPage.this)).getString()), "label",
                 "label"));
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("organization", ListMarketDatasetPage.this)).getString()),
+                new Model<>((new StringResourceModel("organization", ListMarketPriceDatasetPage.this)).getString()),
                 "organization", "organization"));
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("approved", ListMarketDatasetPage.this)).getString()),
+                new Model<>((new StringResourceModel("approved", ListMarketPriceDatasetPage.this)).getString()),
                 "approved", "approved"));
         columns.add(new LinkBootstrapPropertyColumn(new Model<>((new StringResourceModel("fileMetadata",
-                ListMarketDatasetPage.this)).getString()), "fileMetadata"));
+                ListMarketPriceDatasetPage.this)).getString()), "fileMetadata"));
     }
 
     @Override

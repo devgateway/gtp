@@ -74,4 +74,26 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="regionInsert" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="region" />
+        </preConditions>
+        <sql>
+            insert into region(id, name, code) values (1, 'Dakar', 'DK');
+            insert into region(id, name, code) values (2, 'Diourbel', 'DL');
+            insert into region(id, name, code) values (3, 'Fatick', 'FK');
+            insert into region(id, name, code) values (4, 'Kaolack', 'KL');
+            insert into region(id, name, code) values (5, 'Kolda', 'KD');
+            insert into region(id, name, code) values (6, 'Louga', 'LG');
+            insert into region(id, name, code) values (7, 'Matam', 'MT');
+            insert into region(id, name, code) values (8, 'Saint-Louis', 'SL');
+            insert into region(id, name, code) values (9, 'Tambacounda', 'TC');
+            insert into region(id, name, code) values (10, 'Thiès', 'TH');
+            insert into region(id, name, code) values (11, 'Ziguinchor', 'ZG');
+            insert into region(id, name, code) values (12, 'Kaffrine', 'KF');
+            insert into region(id, name, code) values (13, 'Kédougou', 'KG');
+            insert into region(id, name, code) values (14, 'Sédhiou', 'SD');
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

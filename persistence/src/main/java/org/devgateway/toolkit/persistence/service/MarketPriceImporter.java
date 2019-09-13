@@ -6,8 +6,10 @@ import java.util.List;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
-import org.devgateway.toolkit.persistence.dao.Market;
-import org.devgateway.toolkit.persistence.repository.MarketRepository;
+import org.devgateway.toolkit.persistence.dao.MarketPrice;
+import org.devgateway.toolkit.persistence.dao.Region;
+import org.devgateway.toolkit.persistence.repository.MarketPriceRepository;
+import org.devgateway.toolkit.persistence.repository.RegionRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +19,16 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Daniel Oliva
  */
-@Service("marketImporter")
-public class MarketImporter extends AbstractImportService {
+@Service("marketPriceImporter")
+public class MarketPriceImporter extends AbstractImportService {
 
-    private static final Logger logger = LoggerFactory.getLogger(MarketImporter.class);
+    private static final Logger logger = LoggerFactory.getLogger(MarketPriceImporter.class);
 
     @Autowired
-    private MarketRepository repository;
+    private MarketPriceRepository repository;
+
+    @Autowired
+    private RegionRepository regionRepository;
 
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
@@ -39,8 +44,9 @@ public class MarketImporter extends AbstractImportService {
                 Row row = rowIterator.next();
                 //Extract data
                 if (!ImportUtils.getBooleanFromCell(row.getCell(9))) {
-                    Market data = new Market();
-                    data.setRegion(ImportUtils.getStringFromCell(row.getCell(0)));
+                    MarketPrice data = new MarketPrice();
+                    String regionCode = ImportUtils.getStringFromCell(row.getCell(0));
+                    data.setRegion(regionRepository.searchByCode(regionCode.toLowerCase()));
                     data.setDepartment(ImportUtils.getStringFromCell(row.getCell(1)));
                     data.setMarket(ImportUtils.getStringFromCell(row.getCell(2)));
                     data.setDate(ImportUtils.getLocalDateFromCell(row.getCell(3)));
@@ -66,7 +72,7 @@ public class MarketImporter extends AbstractImportService {
             importResults.getDataInstances().forEach(data -> {
                 data.setDataset(dataset);
             });
-            repository.saveAll((List<Market>) (List<?>) importResults.getDataInstances());
+            repository.saveAll((List<MarketPrice>) (List<?>) importResults.getDataInstances());
             repository.flush();
         }
     }

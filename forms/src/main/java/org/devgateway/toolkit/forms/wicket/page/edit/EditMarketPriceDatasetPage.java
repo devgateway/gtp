@@ -23,9 +23,9 @@ import org.devgateway.toolkit.forms.util.MarkupCacheService;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.page.lists.ListMarketDatasetPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListMarketPriceDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
-import org.devgateway.toolkit.persistence.dao.Market;
+import org.devgateway.toolkit.persistence.dao.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.MarketDataset;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.devgateway.toolkit.persistence.service.ImportService;
@@ -39,25 +39,25 @@ import org.wicketstuff.annotation.mount.MountPath;
  * Created by Daniel Oliva
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
-@MountPath("/editMarket")
-public class EditMarketDatasetPage extends AbstractEditPage<MarketDataset> {
+@MountPath("/editMarketPrice")
+public class EditMarketPriceDatasetPage extends AbstractEditPage<MarketDataset> {
 
     private static final long serialVersionUID = -6069250112046118104L;
-    private static final Logger logger = LoggerFactory.getLogger(EditMarketDatasetPage.class);
+    private static final Logger logger = LoggerFactory.getLogger(EditMarketPriceDatasetPage.class);
 
-    @SpringBean(name = "marketImporter")
+    @SpringBean(name = "marketPriceImporter")
     private transient ImportService importer;
 
-    @SpringBean(name = "marketDatasetService")
+    @SpringBean(name = "marketPriceDatasetService")
     protected DatasetService service;
 
     @SpringBean
     protected MarkupCacheService markupCacheService;
 
-    public EditMarketDatasetPage(final PageParameters parameters) {
+    public EditMarketPriceDatasetPage(final PageParameters parameters) {
         super(parameters);
         this.jpaService = service;
-        this.listPageClass = ListMarketDatasetPage.class;
+        this.listPageClass = ListMarketPriceDatasetPage.class;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class EditMarketDatasetPage extends AbstractEditPage<MarketDataset> {
 
     @Override
     public SaveEditPageButton getSaveEditPageButton() {
-        return new SaveEditPageButton("save", new StringResourceModel("save", EditMarketDatasetPage.this, null)) {
+        return new SaveEditPageButton("save", new StringResourceModel("save", EditMarketPriceDatasetPage.this, null)) {
             private static final long serialVersionUID = 5214537995514151323L;
 
             @Override
@@ -103,7 +103,7 @@ public class EditMarketDatasetPage extends AbstractEditPage<MarketDataset> {
                 }
                 jpaService.saveAndFlush(model);
                 redirectToSelf = false;
-                ImportResults<Market> results = importer.processFile(model);
+                ImportResults<MarketPrice> results = importer.processFile(model);
 
                 //process results
                 if (!results.isImportOkFlag()) {
