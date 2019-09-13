@@ -36,10 +36,21 @@ public class DataFilterState<T extends Data> implements Serializable {
                                        TreeSet<String> values, String columnName) {
         if (values != null) {
             CriteriaBuilder.In<String> inClause = cb.in(root.get(columnName));
-            for (String region:values) {
-                inClause.value(region);
+            for (String str:values) {
+                inClause.value(str);
             }
             predicates.add(inClause);
+        }
+    }
+
+    protected void addIntPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
+                                    TreeSet<Integer> values, String columnName) {
+        if (values != null) {
+            List<Predicate> yearPred = new ArrayList<>();
+            for (Integer value:values) {
+                yearPred.add(cb.equal(cb.function(YEAR, Integer.class, root.get(columnName)), value));
+            }
+            predicates.add(cb.or(yearPred.toArray(new Predicate[predicates.size()])));
         }
     }
 }

@@ -47,7 +47,7 @@ public class JsonSerializationTest {
 
         JsonContent<MarketPrice> content = marketJacksonTester.write(marketPrice);
 
-        assertEquals("{\"region\":{\"id\":1,\"name\":\"Thies\",\"code\":\"TH\",\"new\":false},"
+        assertEquals("{\"region_id\":1,"
                 + "\"department\":\"THIES\","
                 + "\"market\":\"TOUBA TOUL\","
                 + "\"crop\":\"MILLET\","

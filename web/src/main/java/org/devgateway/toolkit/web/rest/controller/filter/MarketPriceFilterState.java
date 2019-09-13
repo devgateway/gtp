@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller.filter;
 
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
+import org.devgateway.toolkit.persistence.dao.MarketPrice_;
 import org.devgateway.toolkit.persistence.dao.Market_;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -38,26 +39,20 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
     }
 
     protected void addCropPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addStringPredicates(root, cb, predicates, filter.getCrop(), Market_.CROP);
+        addStringPredicates(root, cb, predicates, filter.getCrop(), MarketPrice_.CROP);
     }
 
     protected void addRegionPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addStringPredicates(root, cb, predicates, filter.getRegion(), Market_.REGION);
+        addIntPredicates(root, cb, predicates, filter.getRegion(), MarketPrice_.REGION);
     }
 
     protected void addMarketPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addStringPredicates(root, cb, predicates, filter.getMarket(), Market_.MARKET);
+        addStringPredicates(root, cb, predicates, filter.getMarket(), MarketPrice_.MARKET);
     }
 
 
     protected void addYearPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        if (filter.getYear() != null) {
-            List<Predicate> yearPred = new ArrayList<>();
-            for (Integer year:filter.getYear()) {
-                yearPred.add(cb.equal(cb.function(YEAR, Integer.class, root.get(Market_.DATE)), year));
-            }
-            predicates.add(cb.or(yearPred.toArray(new Predicate[predicates.size()])));
-        }
+        addIntPredicates(root, cb, predicates, filter.getYear(), MarketPrice_.DATE);
     }
 
 }

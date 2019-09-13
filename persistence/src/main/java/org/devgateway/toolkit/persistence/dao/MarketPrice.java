@@ -43,7 +43,10 @@ public class MarketPrice extends Data implements Serializable {
 
     @JsonProperty("region_id")
     public Long getRegionId() {
-        return region.getId();
+        if (region != null) {
+            return region.getId();
+        }
+        return null;
     }
 
     public void setRegion(Region region) {

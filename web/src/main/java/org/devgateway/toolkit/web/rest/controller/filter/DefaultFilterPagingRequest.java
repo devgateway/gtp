@@ -10,7 +10,7 @@ import java.util.TreeSet;
 public class DefaultFilterPagingRequest extends GenericPagingRequest {
 
     @ApiModelProperty(value = "Filter by region name")
-    private TreeSet<String> region;
+    private TreeSet<Integer> region;
 
     @ApiModelProperty(value = "Filter by crop name")
     private TreeSet<String> crop;
@@ -18,11 +18,11 @@ public class DefaultFilterPagingRequest extends GenericPagingRequest {
     @ApiModelProperty(value = "Filter by year")
     private TreeSet<Integer> year;
 
-    public TreeSet<String> getRegion() {
+    public TreeSet<Integer> getRegion() {
         return region;
     }
 
-    public void setRegion(TreeSet<String> region) {
+    public void setRegion(TreeSet<Integer> region) {
         this.region = region;
     }
 
