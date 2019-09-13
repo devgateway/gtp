@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller.filter;
 
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
-import org.devgateway.toolkit.persistence.dao.Market_;
+import org.devgateway.toolkit.persistence.dao.MarketPrice_;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -28,7 +28,7 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (filter != null) {
-                addRegionPredicates(root, cb, predicates);
+//                addRegionPredicates(root, cb, predicates);
                 addCropPredicates(root, cb, predicates);
                 addYearPredicates(root, cb, predicates);
                 addMarketPredicates(root, cb, predicates);
@@ -38,15 +38,15 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
     }
 
     protected void addCropPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addStringPredicates(root, cb, predicates, filter.getCrop(), Market_.CROP);
+        addStringPredicates(root, cb, predicates, filter.getCrop(), MarketPrice_.CROP);
     }
 
-    protected void addRegionPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addStringPredicates(root, cb, predicates, filter.getRegion(), Market_.REGION);
-    }
+//    protected void addRegionPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
+//        addStringPredicates(root, cb, predicates, filter.getRegion(), MarketPrice_.MARKET);
+//    }
 
     protected void addMarketPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addStringPredicates(root, cb, predicates, filter.getMarket(), Market_.MARKET);
+        addStringPredicates(root, cb, predicates, filter.getMarket(), MarketPrice_.MARKET);
     }
 
 
@@ -54,7 +54,7 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
         if (filter.getYear() != null) {
             List<Predicate> yearPred = new ArrayList<>();
             for (Integer year:filter.getYear()) {
-                yearPred.add(cb.equal(cb.function(YEAR, Integer.class, root.get(Market_.DATE)), year));
+                yearPred.add(cb.equal(cb.function(YEAR, Integer.class, root.get(MarketPrice_.DATE)), year));
             }
             predicates.add(cb.or(yearPred.toArray(new Predicate[predicates.size()])));
         }

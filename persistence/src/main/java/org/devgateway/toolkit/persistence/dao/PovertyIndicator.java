@@ -4,14 +4,13 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Entity;
-import java.io.Serializable;
 
 /**
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-public class PovertyIndicator extends Data implements Serializable {
+public class PovertyIndicator extends Data {
     private static final long serialVersionUID = -3339250112046118104L;
 
     private String region;

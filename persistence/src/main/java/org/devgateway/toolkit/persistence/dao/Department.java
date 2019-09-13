@@ -1,0 +1,43 @@
+package org.devgateway.toolkit.persistence.dao;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+/**
+ * @author Octavian Ciubotaru
+ */
+@Entity
+public class Department extends GenericPersistable implements Serializable {
+
+    @NotNull
+    @ManyToOne(optional = false)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Region region;
+
+    @NotNull
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}

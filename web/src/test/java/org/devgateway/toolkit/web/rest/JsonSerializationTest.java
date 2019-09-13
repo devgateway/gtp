@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import org.devgateway.toolkit.persistence.dao.Market;
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
-import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.web.spring.WebApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,11 +33,8 @@ public class JsonSerializationTest {
      */
     @Test
     public void testMarketWithAllValuesSpecified() throws IOException {
-        Region region = new Region(1L, "Thies", "TH");
         MarketPrice marketPrice = new MarketPrice();
-        marketPrice.setRegion(region);
-        marketPrice.setDepartment("THIES");
-        marketPrice.setMarket("TOUBA TOUL");
+        marketPrice.setMarket(new Market(1L));
         marketPrice.setDate(LocalDate.parse("2018-11-01"));
         marketPrice.setCrop("MILLET");
         marketPrice.setQuantity(3d);
@@ -47,9 +44,7 @@ public class JsonSerializationTest {
 
         JsonContent<MarketPrice> content = marketJacksonTester.write(marketPrice);
 
-        assertEquals("{\"region\":{\"id\":1,\"name\":\"Thies\",\"code\":\"TH\",\"new\":false},"
-                + "\"department\":\"THIES\","
-                + "\"market\":\"TOUBA TOUL\","
+        assertEquals("{\"market\":1,"
                 + "\"crop\":\"MILLET\","
                 + "\"date\":\"2018-11-01\","
                 + "\"quantity\":3.0,"

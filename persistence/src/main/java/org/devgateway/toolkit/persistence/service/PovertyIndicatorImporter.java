@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
+import java.util.Iterator;
+
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
@@ -11,14 +13,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
-import java.util.List;
-
 /**
  * Created by Daniel Oliva
  */
 @Service("povertyIndicatorImporter")
-public class PovertyIndicatorImporter extends AbstractImportService {
+public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndicator> {
 
     private static final Logger logger = LoggerFactory.getLogger(PovertyIndicatorImporter.class);
 
@@ -62,7 +61,7 @@ public class PovertyIndicatorImporter extends AbstractImportService {
             importResults.getDataInstances().forEach(data -> {
                 data.setDataset(dataset);
             });
-            repository.saveAll((List<PovertyIndicator>) (List<?>) importResults.getDataInstances());
+            repository.saveAll(importResults.getDataInstances());
             repository.flush();
         }
     }

@@ -16,16 +16,16 @@ import java.io.ByteArrayInputStream;
 /**
  * Created by Daniel Oliva
  */
-public abstract class AbstractImportService implements ImportService {
+public abstract class AbstractImportService<T extends Data> implements ImportService {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractImportService.class);
 
-    protected ImportResults<Data> importResults;
+    protected ImportResults<T> importResults;
 
     @Override
     public ImportResults processFile(final Dataset dataset) {
         logger.debug("processing imported file");
-        importResults = new ImportResults();
+        importResults = new ImportResults<>();
         ZipSecureFile.setMinInflateRatio(0.009);
         try {
             FileMetadata file = dataset.getFileMetadata().iterator().next();
