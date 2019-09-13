@@ -354,8 +354,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         new StringResourceModel("navbar.production", this, null))
                         .setIconType(FontAwesomeIconType.th_list));
 
-                list.add(new MenuBookmarkablePageLink<ListMarketPriceDatasetPage>(ListMarketPriceDatasetPage.class, null,
-                        new StringResourceModel("navbar.marketPrice", this, null))
+                list.add(new MenuBookmarkablePageLink<ListMarketPriceDatasetPage>(ListMarketPriceDatasetPage.class,
+                        null, new StringResourceModel("navbar.marketPrice", this, null))
                         .setIconType(FontAwesomeIconType.diamond));
 
                 list.add(new MenuBookmarkablePageLink<ListPovertyIndicatorDatasetPage>(

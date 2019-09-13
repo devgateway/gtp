@@ -3,15 +3,22 @@ package org.devgateway.toolkit.persistence.dao;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+
 import java.io.Serializable;
 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 public class Region extends GenericPersistable implements Serializable {
-    private static final long serialVersionUID = -3344925112046118104L;
 
+    @NotNull
+    @Column(nullable = false, unique = true)
     private String name;
+
+    @NotNull
+    @Column(nullable = false, unique = true)
     private String code;
 
     public Region() {

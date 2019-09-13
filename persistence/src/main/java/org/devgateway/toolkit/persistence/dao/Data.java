@@ -7,14 +7,14 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 
 /**
  * Created by Daniel Oliva
  */
 @MappedSuperclass
 @JsonIgnoreProperties({"id", "new"})
-public abstract class Data extends AbstractAuditableEntity {
+public abstract class Data extends AbstractAuditableEntity implements Serializable {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

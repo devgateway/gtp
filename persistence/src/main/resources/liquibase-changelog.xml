@@ -77,23 +77,114 @@
     <changeSet id="regionInsert" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="region" />
+            <tableExists tableName="department" />
+            <tableExists tableName="market" />
         </preConditions>
-        <sql>
-            insert into region(id, name, code) values (1, 'Dakar', 'DK');
-            insert into region(id, name, code) values (2, 'Diourbel', 'DL');
-            insert into region(id, name, code) values (3, 'Fatick', 'FK');
-            insert into region(id, name, code) values (4, 'Kaolack', 'KL');
-            insert into region(id, name, code) values (5, 'Kolda', 'KD');
-            insert into region(id, name, code) values (6, 'Louga', 'LG');
-            insert into region(id, name, code) values (7, 'Matam', 'MT');
-            insert into region(id, name, code) values (8, 'Saint-Louis', 'SL');
-            insert into region(id, name, code) values (9, 'Tambacounda', 'TC');
-            insert into region(id, name, code) values (10, 'Thiès', 'TH');
-            insert into region(id, name, code) values (11, 'Ziguinchor', 'ZG');
-            insert into region(id, name, code) values (12, 'Kaffrine', 'KF');
-            insert into region(id, name, code) values (13, 'Kédougou', 'KG');
-            insert into region(id, name, code) values (14, 'Sédhiou', 'SD');
-        </sql>
+        <sql><![CDATA[
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Dakar', 'DK');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Diourbel', 'DL');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Fatick', 'FK');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Kaolack', 'KL');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Kolda', 'KD');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Louga', 'LG');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Matam', 'MT');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Saint-Louis', 'SL');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Tambacounda', 'TC');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Thiès', 'TH');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Ziguinchor', 'ZG');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Kaffrine', 'KF');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Kédougou', 'KG');
+            insert into region(id, name, code) values (nextval('hibernate_sequence'), 'Sédhiou', 'SD');
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Dakar' from region where name='Dakar';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Guédiawaye' from region where name='Dakar';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Pikine' from region where name='Dakar';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Rufisque' from region where name='Dakar';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Bambey' from region where name='Diourbel';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Diourbel' from region where name='Diourbel';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Mbacké' from region where name='Diourbel';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Fatick' from region where name='Fatick';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Foundiougne' from region where name='Fatick';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Gossas' from region where name='Fatick';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Kaolack' from region where name='Kaolack';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Guinguinéo' from region where name='Kaolack';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Nioro du Rip' from region where name='Kaolack';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Kolda' from region where name='Kolda';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Vélingara' from region where name='Kolda';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Médina Yoro Foulah' from region where name='Kolda';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Kébémer' from region where name='Louga';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Linguère' from region where name='Louga';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Louga' from region where name='Louga';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Kanel' from region where name='Matam';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Matam' from region where name='Matam';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Ranérou' from region where name='Matam';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Dagana' from region where name='Saint-Louis';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Podor' from region where name='Saint-Louis';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Saint-Louis' from region where name='Saint-Louis';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Bakel' from region where name='Tambacounda';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Koumpentoum' from region where name='Tambacounda';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Tambacounda' from region where name='Tambacounda';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Goudiry' from region where name='Tambacounda';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'M''bour' from region where name='Thiès';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Thiès' from region where name='Thiès';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Tivaouane' from region where name='Thiès';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Bignona' from region where name='Ziguinchor';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Oussouye' from region where name='Ziguinchor';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Ziguinchor' from region where name='Ziguinchor';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Birkilane' from region where name='Kaffrine';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Kaffrine' from region where name='Kaffrine';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Malem-Hodar' from region where name='Kaffrine';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Kounghel' from region where name='Kaffrine';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Kédougou' from region where name='Kédougou';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Salemata' from region where name='Kédougou';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Saraya' from region where name='Kédougou';
+
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Bounkiling' from region where name='Sédhiou';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Goudomp' from region where name='Sédhiou';
+            insert into department(id, region_id, name) select nextval('hibernate_sequence'),id,'Sédhiou' from region where name='Sédhiou';
+
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Bignona' from department where name='Bignona';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Birkilane' from department where name='Birkilane';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Touba Mouride' from department where name='Bounkiling';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Tilene' from department where name='Dakar';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Diourbel' from department where name='Diourbel';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Fatick' from department where name='Fatick';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Passy' from department where name='Foundiougne';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Kaffrine' from department where name='Kaffrine';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Thiodaye' from department where name='Kanel';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Kaolack' from department where name='Kaolack';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Kolda' from department where name='Kolda';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Mereto' from department where name='Koumpentoum';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Kédougou' from department where name='Kédougou';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Mako' from department where name='Kédougou';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Gouille Mbeuth' from department where name='Louga';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Louga' from department where name='Louga';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Ourossogui' from department where name='Matam';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Thiodaye' from department where name='Matam';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Touba' from department where name='Mbacké';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Porokhane' from department where name='Nioro du Rip';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Thiaroye' from department where name='Pikine';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Mpal' from department where name='Saint-Louis';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Saint-Louis' from department where name='Saint-Louis';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Sédhiou' from department where name='Sédhiou';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Tambacounda' from department where name='Tambacounda';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Thiès' from department where name='Thiès';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Touba Toul' from department where name='Thiès';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Diaobe' from department where name='Vélingara';
+            insert into market(id, department_id, name) select nextval('hibernate_sequence'),id,'Saint-Maur' from department where name='Ziguinchor';
+        ]]></sql>
     </changeSet>
 
 </databaseChangeLog>

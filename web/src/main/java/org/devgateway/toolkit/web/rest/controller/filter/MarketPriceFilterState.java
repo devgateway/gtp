@@ -2,7 +2,6 @@ package org.devgateway.toolkit.web.rest.controller.filter;
 
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.MarketPrice_;
-import org.devgateway.toolkit.persistence.dao.Market_;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -29,7 +28,6 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (filter != null) {
-                addRegionPredicates(root, cb, predicates);
                 addCropPredicates(root, cb, predicates);
                 addYearPredicates(root, cb, predicates);
                 addMarketPredicates(root, cb, predicates);
@@ -42,9 +40,6 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
         addStringPredicates(root, cb, predicates, filter.getCrop(), MarketPrice_.CROP);
     }
 
-    protected void addRegionPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getRegion(), MarketPrice_.REGION);
-    }
 
     protected void addMarketPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
         addStringPredicates(root, cb, predicates, filter.getMarket(), MarketPrice_.MARKET);

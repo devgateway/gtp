@@ -1,15 +1,15 @@
 package org.devgateway.toolkit.persistence.service;
 
 import java.util.Iterator;
-import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
+import org.devgateway.toolkit.persistence.dao.Market;
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
-import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.repository.MarketPriceRepository;
-import org.devgateway.toolkit.persistence.repository.RegionRepository;
+import org.devgateway.toolkit.persistence.repository.MarketRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
  * Created by Daniel Oliva
  */
 @Service("marketPriceImporter")
-public class MarketPriceImporter extends AbstractImportService {
+public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
 
     private static final Logger logger = LoggerFactory.getLogger(MarketPriceImporter.class);
 
@@ -28,7 +28,7 @@ public class MarketPriceImporter extends AbstractImportService {
     private MarketPriceRepository repository;
 
     @Autowired
-    private RegionRepository regionRepository;
+    private MarketRepository marketRepository;
 
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
@@ -45,10 +45,9 @@ public class MarketPriceImporter extends AbstractImportService {
                 //Extract data
                 if (!ImportUtils.getBooleanFromCell(row.getCell(9))) {
                     MarketPrice data = new MarketPrice();
-                    String regionCode = ImportUtils.getStringFromCell(row.getCell(0));
-                    data.setRegion(regionRepository.searchByCode(regionCode.toLowerCase()));
-                    data.setDepartment(ImportUtils.getStringFromCell(row.getCell(1)));
-                    data.setMarket(ImportUtils.getStringFromCell(row.getCell(2)));
+                    String departmentName = ImportUtils.getStringFromCell(row.getCell(1));
+                    String marketName = ImportUtils.getStringFromCell(row.getCell(2));
+                    data.setMarket(getMarket(departmentName, marketName));
                     data.setDate(ImportUtils.getLocalDateFromCell(row.getCell(3)));
                     data.setCrop(ImportUtils.getStringFromCell(row.getCell(4)));
                     data.setQuantity(ImportUtils.getDoubleFromCell(row.getCell(5)));
@@ -66,13 +65,27 @@ public class MarketPriceImporter extends AbstractImportService {
         }
     }
 
+    /**
+     * Market names are unique within a department.
+     * TODO create market if not found?
+     */
+    private Market getMarket(String departmentName, String marketName) {
+        Market market = null;
+        if (StringUtils.isNotBlank(departmentName) && StringUtils.isNotBlank(marketName)) {
+            market = marketRepository.findByName(departmentName.toLowerCase(), marketName.toLowerCase());
+        }
+        if (market == null) {
+            throw new RuntimeException("Could not find market named " + marketName + " in "
+                    + departmentName + " department");
+        }
+        return market;
+    }
+
     @Override
     protected void processResults(final Dataset dataset) {
         if (importResults.isImportOkFlag()) {
-            importResults.getDataInstances().forEach(data -> {
-                data.setDataset(dataset);
-            });
-            repository.saveAll((List<MarketPrice>) (List<?>) importResults.getDataInstances());
+            importResults.getDataInstances().forEach(data -> data.setDataset(dataset));
+            repository.saveAll(importResults.getDataInstances());
             repository.flush();
         }
     }

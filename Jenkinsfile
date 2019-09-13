@@ -25,6 +25,7 @@ pipeline {
         stage('Deploy') {
             input {
                 message "Continue?"
+                parameters { booleanParam(name: 'RECREATE_DB', defaultValue: false, description: 'Recreate database') }
             }
             steps {
                 sh './jenkins/deploy.sh'

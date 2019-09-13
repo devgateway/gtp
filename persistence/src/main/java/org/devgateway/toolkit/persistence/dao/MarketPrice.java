@@ -1,15 +1,15 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -17,16 +17,15 @@ import java.time.LocalDate;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@JsonPropertyOrder({"region_id", "department", "market", "crop", "date", "quantity", "sellPrice", "detailBuyPrice",
-        "wholesaleBuyPrice"})
-public class MarketPrice extends Data implements Serializable {
-    private static final long serialVersionUID = -3339250112046118104L;
+@JsonPropertyOrder({"market", "crop", "date", "quantity", "sellPrice", "detailBuyPrice", "wholesaleBuyPrice"})
+public class MarketPrice extends Data {
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Region region;
-    private String department;
-    private String market;
+    @ManyToOne
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Market market;
+
     private String crop;
     private LocalDate date;
     private Double quantity;
@@ -35,22 +34,6 @@ public class MarketPrice extends Data implements Serializable {
     private Double wholesaleBuyPrice;
 
     public MarketPrice() {
-    }
-
-    public Region getRegion() {
-        return region;
-    }
-
-    @JsonProperty("region_id")
-    public Long getRegionId() {
-        if (region != null) {
-            return region.getId();
-        }
-        return null;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
     }
 
     public String getCrop() {
@@ -69,19 +52,11 @@ public class MarketPrice extends Data implements Serializable {
         this.date = date;
     }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getMarket() {
+    public Market getMarket() {
         return market;
     }
 
-    public void setMarket(String market) {
+    public void setMarket(Market market) {
         this.market = market;
     }
 
