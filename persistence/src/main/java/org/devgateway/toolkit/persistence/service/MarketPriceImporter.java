@@ -75,7 +75,8 @@ public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
             market = marketRepository.findByName(departmentName.toLowerCase(), marketName.toLowerCase());
         }
         if (market == null) {
-            throw new RuntimeException("Could not find market named " + marketName + " in " + departmentName + " department");
+            throw new RuntimeException("Could not find market named " + marketName + " in "
+                    + departmentName + " department");
         }
         return market;
     }
