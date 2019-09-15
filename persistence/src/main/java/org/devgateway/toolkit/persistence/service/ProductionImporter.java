@@ -2,11 +2,14 @@ package org.devgateway.toolkit.persistence.service;
 
 import java.util.Iterator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
 import org.devgateway.toolkit.persistence.dao.Production;
+import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.repository.ProductionRepository;
+import org.devgateway.toolkit.persistence.repository.RegionRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +27,9 @@ public class ProductionImporter extends AbstractImportService<Production> {
     @Autowired
     private ProductionRepository repository;
 
+    @Autowired
+    private RegionRepository regionRepository;
+
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
         Iterator<Row> rowIterator = sheet.iterator();
@@ -37,28 +43,31 @@ public class ProductionImporter extends AbstractImportService<Production> {
                 rowNumber++;
                 Row row = rowIterator.next();
                 //Extract data
-                Production event = new Production();
-                event.setRegion(ImportUtils.getStringFromCell(row.getCell(0)));
+                String regionName = ImportUtils.getStringFromCell(row.getCell(0));
+                Region region = getRegion(regionName);
 
-                event.setCrop1Surface(ImportUtils.getDoubleFromCell(row.getCell(1)));
-                event.setCrop1Production(ImportUtils.getDoubleFromCell(row.getCell(2)));
-                event.setCrop1Yield(ImportUtils.getDoubleFromCell(row.getCell(3)));
+                addData(row, region, "Crop 1", new int[] {1, 2, 3}); //TODO replace with real crop
 
-                event.setCrop2Surface(ImportUtils.getDoubleFromCell(row.getCell(4)));
-                event.setCrop2Production(ImportUtils.getDoubleFromCell(row.getCell(5)));
-                event.setCrop2Yield(ImportUtils.getDoubleFromCell(row.getCell(6)));
+                addData(row, region, "Crop 2", new int[] {4, 5, 6});
 
-                event.setCrop3Surface(ImportUtils.getDoubleFromCell(row.getCell(7)));
-                event.setCrop3Production(ImportUtils.getDoubleFromCell(row.getCell(8)));
-                event.setCrop3Yield(ImportUtils.getDoubleFromCell(row.getCell(9)));
+                addData(row, region, "Crop 3", new int[] {7, 8, 9});
 
-                importResults.addDataInstance(event);
             } catch (Exception e) { //Improve exception handling
                 logger.error("Error: " + e);
                 importResults.setImportOkFlag(false);
                 importResults.addError("At row " + rowNumber + " there were an error: " + e.getMessage());
             }
         }
+    }
+
+    private void addData(Row row, Region region, String s, int[] rows) {
+        Production data = new Production();
+        data.setRegion(region);
+        data.setCrop(s);
+        data.setSurface(ImportUtils.getDoubleFromCell(row.getCell(rows[0])));
+        data.setProduction(ImportUtils.getDoubleFromCell(row.getCell(rows[1])));
+        data.setYield(ImportUtils.getDoubleFromCell(row.getCell(rows[2])));
+        importResults.addDataInstance(data);
     }
 
     @Override
@@ -70,5 +79,17 @@ public class ProductionImporter extends AbstractImportService<Production> {
             repository.saveAll(importResults.getDataInstances());
             repository.flush();
         }
+    }
+
+
+    private Region getRegion(String regionName) {
+        Region region = null;
+        if (StringUtils.isNotBlank(regionName)) {
+            region = regionRepository.findByName(regionName.toLowerCase());
+        }
+        if (region == null) {
+            throw new RuntimeException("Could not find region named " + region);
+        }
+        return region;
     }
 }

@@ -1,9 +1,13 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * Created by Daniel Oliva
@@ -13,94 +17,54 @@ import javax.persistence.Entity;
 public class Production extends Data {
     private static final long serialVersionUID = -3339250112046118104L;
 
-    private String region;
-    private Double crop1Surface;
-    private Double crop1Production;
-    private Double crop1Yield;
-    private Double crop2Surface;
-    private Double crop2Production;
-    private Double crop2Yield;
-    private Double crop3Surface;
-    private Double crop3Production;
-    private Double crop3Yield;
+    @ManyToOne
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Region region;
 
-    public String getRegion() {
+    private String crop;
+    private Double surface;
+    private Double production;
+    private Double yield;
+
+    public Region getRegion() {
         return region;
     }
 
-    public void setRegion(String region) {
+    public void setRegion(Region region) {
         this.region = region;
     }
 
-    public Double getCrop1Surface() {
-        return crop1Surface;
+    public String getCrop() {
+        return crop;
     }
 
-    public void setCrop1Surface(Double crop1Surface) {
-        this.crop1Surface = crop1Surface;
+    public void setCrop(String crop) {
+        this.crop = crop;
     }
 
-    public Double getCrop1Production() {
-        return crop1Production;
+    public Double getSurface() {
+        return surface;
     }
 
-    public void setCrop1Production(Double crop1Production) {
-        this.crop1Production = crop1Production;
+    public void setSurface(Double surface) {
+        this.surface = surface;
     }
 
-    public Double getCrop1Yield() {
-        return crop1Yield;
+    public Double getProduction() {
+        return production;
     }
 
-    public void setCrop1Yield(Double crop1Yield) {
-        this.crop1Yield = crop1Yield;
+    public void setProduction(Double production) {
+        this.production = production;
     }
 
-    public Double getCrop2Surface() {
-        return crop2Surface;
+    public Double getYield() {
+        return yield;
     }
 
-    public void setCrop2Surface(Double crop2Surface) {
-        this.crop2Surface = crop2Surface;
-    }
-
-    public Double getCrop2Production() {
-        return crop2Production;
-    }
-
-    public void setCrop2Production(Double crop2Production) {
-        this.crop2Production = crop2Production;
-    }
-
-    public Double getCrop2Yield() {
-        return crop2Yield;
-    }
-
-    public void setCrop2Yield(Double crop2Yield) {
-        this.crop2Yield = crop2Yield;
-    }
-
-    public Double getCrop3Surface() {
-        return crop3Surface;
-    }
-
-    public void setCrop3Surface(Double crop3Surface) {
-        this.crop3Surface = crop3Surface;
-    }
-
-    public Double getCrop3Production() {
-        return crop3Production;
-    }
-
-    public void setCrop3Production(Double crop3Production) {
-        this.crop3Production = crop3Production;
-    }
-
-    public Double getCrop3Yield() {
-        return crop3Yield;
-    }
-
-    public void setCrop3Yield(Double crop3Yield) {
-        this.crop3Yield = crop3Yield;
+    public void setYield(Double yield) {
+        this.yield = yield;
     }
 }

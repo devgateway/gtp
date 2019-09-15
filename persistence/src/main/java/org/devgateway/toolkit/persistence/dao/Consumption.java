@@ -1,37 +1,39 @@
 package org.devgateway.toolkit.persistence.dao;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.FetchType;
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
+/**
+ * Created by Daniel Oliva
+ */
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Entity
 public class Consumption extends Data implements Serializable {
     private static final long serialVersionUID = -3219250112046118104L;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Region region;
-    private String department;
+    @ManyToOne
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Department department;
     private String crop;
     private String cropType;
     private int householdSize;
     private Double dailyConsumption;
     private Double weeklyConsumption;
 
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
-    public String getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 
