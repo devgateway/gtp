@@ -24,13 +24,25 @@ public class MarketPrice extends Data {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
+    @PivotTableField(hideInAggregators = true, hideInDragAndDrop = true)
     private Market market;
 
+    @PivotTableField(hideInAggregators = true)
     private String crop;
+
+    @PivotTableField(hideInAggregators = true)
     private LocalDate date;
+
+    @PivotTableField(hideInDragAndDrop = true)
     private Double quantity;
+
+    @PivotTableField(hideInDragAndDrop = true)
     private Double sellPrice;
+
+    @PivotTableField(hideInDragAndDrop = true)
     private Double detailBuyPrice;
+
+    @PivotTableField(hideInDragAndDrop = true)
     private Double wholesaleBuyPrice;
 
     public MarketPrice() {

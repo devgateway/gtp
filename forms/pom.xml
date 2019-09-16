@@ -266,7 +266,9 @@
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.css</include>
+                    <include>**/*.css.map</include>
                     <include>**/*.js</include>
+                    <include>**/*.js.map</include>
                     <include>**/*.png</include>
                     <include>**/*.gif</include>
                     <include>**/*.html</include>

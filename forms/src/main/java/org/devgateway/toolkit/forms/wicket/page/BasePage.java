@@ -11,8 +11,16 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.page;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
+
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.ButtonList;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
@@ -26,8 +34,8 @@ import de.agilecoders.wicket.core.markup.html.themes.bootstrap.BootstrapCssRefer
 import de.agilecoders.wicket.core.util.CssClassNames;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeCssReference;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.Component;
-import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.CssHeaderItem;
@@ -47,10 +55,10 @@ import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.resource.JQueryResourceReference;
-import org.apache.wicket.util.string.StringValue;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
+import org.devgateway.toolkit.forms.wicket.page.analysis.AnalysisPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListMarketPriceDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPartnerPage;
@@ -64,10 +72,6 @@ import org.devgateway.toolkit.forms.wicket.styles.BaseStyles;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Base wicket-bootstrap {@link org.apache.wicket.Page}
@@ -125,27 +129,12 @@ public abstract class BasePage extends GenericWebPage<Void> {
     }
 
     /**
-     * Selects/changes the default language in the current session. If the
-     * {@link WebConstants#LANGUAGE_PARAM} is found in the
-     * {@link PageParameters} then its contents is set as language in the
-     * session object.
-     */
-    protected void selectLanguage() {
-        StringValue lang = this.getPageParameters().get(WebConstants.LANGUAGE_PARAM);
-        if (!lang.isEmpty()) {
-            WebSession.get().setLocale(new Locale(lang.toString()));
-        }
-    }
-
-    /**
      * Construct.
      *
      * @param parameters current page parameters
      */
     public BasePage(final PageParameters parameters) {
         super(parameters);
-
-        selectLanguage();
 
         add(new HtmlTag("html"));
 
@@ -197,24 +186,35 @@ public abstract class BasePage extends GenericWebPage<Void> {
         final NavbarDropDownButton languageDropDown =
                 new NavbarDropDownButton(new StringResourceModel("navbar.lang", this, null)) {
 
-                    private static final long serialVersionUID = 319842753824102674L;
-
                     @Override
                     protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
-                        final List<AbstractLink> list = new ArrayList<>();
-
-                        for (final Locale l : WebConstants.AVAILABLE_LOCALES) {
-                            final PageParameters params = new PageParameters(BasePage.this.getPageParameters());
-                            params.set(WebConstants.LANGUAGE_PARAM, l.getLanguage());
-                            list.add(new MenuBookmarkablePageLink<Page>(BasePage.this.getPageClass(), params,
-                                    Model.of(l.getDisplayName())));
-                        }
-
-                        return list;
+                        return WebConstants.AVAILABLE_LOCALES.stream()
+                                .map(ChangeLanguageLink::new)
+                                .collect(Collectors.toList());
                     }
                 };
         languageDropDown.setIconType(FontAwesomeIconType.flag);
         return languageDropDown;
+    }
+
+    private static class ChangeLanguageLink extends BootstrapLink<Locale> {
+
+        ChangeLanguageLink(Locale locale) {
+            super(ButtonList.getButtonMarkupId(), Model.of(locale), Buttons.Type.Menu);
+        }
+
+        protected Component newLabel(final String markupId) {
+            Locale locale = getModelObject();
+            String language = StringUtils.capitalize(locale.getDisplayName(locale));
+            Label label = new Label(markupId, Model.of(language));
+            label.setRenderBodyOnly(true);
+            return label;
+        }
+
+        @Override
+        public void onClick() {
+            WebSession.get().setLocale(getModelObject());
+        }
     }
 
     protected NavbarButton<LogoutPage> newLogoutMenu() {
@@ -253,6 +253,13 @@ public abstract class BasePage extends GenericWebPage<Void> {
         MetaDataRoleAuthorizationStrategy.authorize(homeMenu, Component.RENDER,
                 SecurityConstants.Roles.ROLE_FOCAL_POINT);
         return homeMenu;
+    }
+
+    protected NavbarButton<Homepage> newAnalyticsMenu() {
+        NavbarButton<Homepage> menu = new NavbarButton<>(AnalysisPage.class,
+                new StringResourceModel("navbar.analytics", this));
+        menu.setIconType(FontAwesomeIconType.line_chart);
+        return menu;
     }
 
     protected NavbarDropDownButton newAdminMenu() {
@@ -395,7 +402,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         navbar.setInverted(true);
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
-                newUploadMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
+                newUploadMenu(), newAnalyticsMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
 
