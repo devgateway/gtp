@@ -5,6 +5,7 @@ TARGET="/opt/ad3/ad3.jar"
 
 if [ "$RECREATE_DB" = "true" ] && [ -f "/opt/ad3/recreate-db.sh" ]; then
   sudo systemctl stop ad3
+  sleep 5
   /opt/ad3/recreate-db.sh
 fi
 
