@@ -7,8 +7,6 @@ import java.util.List;
  *
  * <p>Also provides necessary information to generate derived fields.</p>
  *
- * This class uses internal field names and does not concern itself with localization.
- *
  * @author Octavian Ciubotaru
  */
 public interface DatasetAnalysisConfigurer {
@@ -41,5 +39,5 @@ public interface DatasetAnalysisConfigurer {
     /**
      * Any options to pass to javascript part to be able to compute derived fields.
      */
-    Object getExtraOpts();
+    Object getExtraOpts(String language);
 }

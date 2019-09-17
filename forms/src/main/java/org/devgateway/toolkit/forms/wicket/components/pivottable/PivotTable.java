@@ -28,6 +28,7 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.persistence.dao.PivotTableField;
 import org.devgateway.toolkit.persistence.repository.MarketRepository;
+import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
 
 /**
  * Wicket component that acts as a wrapper for pivottable.js library.
@@ -47,6 +48,9 @@ public class PivotTable extends GenericPanel<Class<?>> {
 
     @SpringBean
     private MarketRepository marketRepository;
+
+    @SpringBean
+    private CropTypeRepository cropTypeRepository;
 
     public PivotTable(String id, Model<Class<?>> model) {
         super(id, model);
@@ -76,7 +80,7 @@ public class PivotTable extends GenericPanel<Class<?>> {
                 .map(this::toPivotField)
                 .collect(toList());
 
-        DatasetAnalysisConfigurer mp = new MarketPriceDatasetAnalysisConfigurer(marketRepository);
+        DatasetAnalysisConfigurer mp = new MarketPriceDatasetAnalysisConfigurer(marketRepository, cropTypeRepository);
 
         List<PivotField> extraFields = mp.getExtraFields();
 
@@ -125,7 +129,8 @@ public class PivotTable extends GenericPanel<Class<?>> {
                 .map(agg -> pivotMessages.getMessage(agg, locale))
                 .collect(toList()));
 
-        return String.format("PivotTable.init(%s, %s)", toJson(pivotTableOpts), toJson(mp.getExtraOpts()));
+        return String.format("PivotTable.init(%s, %s)", toJson(pivotTableOpts),
+                toJson(mp.getExtraOpts(locale.getLanguage())));
     }
 
     /**

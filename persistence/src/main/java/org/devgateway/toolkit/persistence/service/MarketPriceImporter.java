@@ -1,17 +1,22 @@
 package org.devgateway.toolkit.persistence.service;
 
 import java.util.Iterator;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
 import org.devgateway.toolkit.persistence.dao.Market;
 import org.devgateway.toolkit.persistence.dao.MarketDataset;
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
+import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.persistence.repository.MarketPriceDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.MarketPriceRepository;
 import org.devgateway.toolkit.persistence.repository.MarketRepository;
+import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +40,11 @@ public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
     @Autowired
     private MarketPriceDatasetRepository datasetRepository;
 
+    @Autowired
+    private CropTypeRepository cropTypeRepository;
+
+    private Map<String, CropType> cropTypes;
+
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
         Iterator<Row> rowIterator = sheet.iterator();
@@ -43,6 +53,10 @@ public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
             rowIterator.next();
             rowNumber++;
         }
+
+        cropTypes = cropTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+
         while (rowIterator.hasNext()) {
             try {
                 rowNumber++;
@@ -54,7 +68,7 @@ public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
                     String marketName = ImportUtils.getStringFromCell(row.getCell(2));
                     data.setMarket(getMarket(departmentName, marketName));
                     data.setDate(ImportUtils.getLocalDateFromCell(row.getCell(3)));
-                    data.setCrop(ImportUtils.getStringFromCell(row.getCell(4)));
+                    data.setCropType(getCropType(row.getCell(4)));
                     data.setQuantity(ImportUtils.getDoubleFromCell(row.getCell(5)));
                     data.setSellPrice(ImportUtils.getDoubleFromCell(row.getCell(6)));
                     data.setDetailBuyPrice(ImportUtils.getDoubleFromCell(row.getCell(7)));
@@ -68,6 +82,18 @@ public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
                 importResults.addError("At row " + rowNumber + " there were an error: " + e.getMessage());
             }
         }
+    }
+
+    private CropType getCropType(Cell cell) {
+        String cropName = ImportUtils.getStringFromCell(cell);
+        if (StringUtils.isBlank(cropName)) {
+            throw new RuntimeException("Crop type is not specified");
+        }
+        CropType cropType = cropTypes.get(cropName.toLowerCase());
+        if (cropType == null) {
+            throw new RuntimeException("Unknown crop type " + cropName);
+        }
+        return cropType;
     }
 
     /**

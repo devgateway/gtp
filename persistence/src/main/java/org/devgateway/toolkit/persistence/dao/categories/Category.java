@@ -11,17 +11,22 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao.categories;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
-
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Entity;
-import javax.persistence.Index;
-import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * @author idobre
@@ -43,6 +48,10 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
 
     private String description;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "category")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private List<LocalizedCategoryLabel> localizedLabels = new ArrayList<>();
+
     public Category(final String label) {
         this.label = label;
     }
@@ -59,6 +68,66 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     @Override
     public void setLabel(final String label) {
         this.label = label;
+    }
+
+    public List<LocalizedCategoryLabel> getLocalizedLabels() {
+        return localizedLabels;
+    }
+
+    public void setLocalizedLabels(List<LocalizedCategoryLabel> localizedLabels) {
+        this.localizedLabels = localizedLabels;
+    }
+
+    /**
+     * Retrieve french label. If not found returns null.
+     */
+    public String getLabelFr() {
+        return getLabel("fr");
+    }
+
+    private String getLabel(String language) {
+        for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
+            if (localizedLabel.getLanguage().equals(language)) {
+                return localizedLabel.getLabel();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Set label for french language.
+     */
+    public void setLabelFr(String label) {
+        setLabel("fr", label);
+    }
+
+    private void setLabel(String language, String label) {
+        LocalizedCategoryLabel target = null;
+        for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
+            if (localizedLabel.getLanguage().equals(language)) {
+                target = localizedLabel;
+            }
+        }
+        if (target == null) {
+            target = new LocalizedCategoryLabel();
+            target.setCategory(this);
+            target.setLanguage(language);
+            localizedLabels.add(target);
+        }
+        target.setLabel(label);
+    }
+
+    /**
+     * Returns a label for localization purposes. Fallback to {@link Category#label} if a
+     * {@link LocalizedCategoryLabel} for requested language was not found.
+     */
+    public String getLocalizedLabel(String language) {
+        String label = getLabel(language);
+        if (label != null) {
+            return label;
+        } else {
+            return this.label;
+        }
     }
 
     public String getDescription() {
@@ -78,5 +147,4 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     public AbstractAuditableEntity getParent() {
         return null;
     }
-
 }

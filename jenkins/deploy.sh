@@ -4,6 +4,7 @@ SRC="forms/target/forms.jar"
 TARGET="/opt/ad3/ad3.jar"
 
 if [ "$RECREATE_DB" = "true" ] && [ -f "/opt/ad3/recreate-db.sh" ]; then
+  sudo systemctl stop ad3
   /opt/ad3/recreate-db.sh
 fi
 

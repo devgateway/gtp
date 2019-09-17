@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.repository.category.OrganizationRepository;
+import org.devgateway.toolkit.persistence.dao.categories.CropType;
+import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
-public class OrganizationServiceImpl extends BaseJpaServiceImpl<Organization> implements OrganizationService {
+public class CropTypeServiceImpl extends BaseJpaServiceImpl<CropType> implements CropTypeService {
 
     @Autowired
-    private OrganizationRepository organizationRepository;
+    private CropTypeRepository cropTypeRepository;
 
     @Override
-    protected BaseJpaRepository<Organization, Long> repository() {
-        return organizationRepository;
+    protected BaseJpaRepository<CropType, Long> repository() {
+        return cropTypeRepository;
     }
 
     @Override
-    public Organization newInstance() {
-        return new Organization();
+    public CropType newInstance() {
+        return new CropType();
     }
 }

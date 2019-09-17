@@ -5,11 +5,15 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
 /**
@@ -17,20 +21,28 @@ import java.time.LocalDate;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@JsonPropertyOrder({"market", "crop", "date", "quantity", "sellPrice", "detailBuyPrice", "wholesaleBuyPrice"})
+@JsonPropertyOrder({"market", "cropType", "date", "quantity", "sellPrice", "detailBuyPrice", "wholesaleBuyPrice"})
 public class MarketPrice extends Data {
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     @PivotTableField(hideInAggregators = true, hideInDragAndDrop = true)
+    @NotNull
     private Market market;
 
-    @PivotTableField(hideInAggregators = true)
-    private String crop;
+    @ManyToOne(optional = false)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @PivotTableField(hideInAggregators = true, hideInDragAndDrop = true)
+    @NotNull
+    private CropType cropType;
 
     @PivotTableField(hideInAggregators = true)
+    @Column(nullable = false)
+    @NotNull
     private LocalDate date;
 
     @PivotTableField(hideInDragAndDrop = true)
@@ -48,12 +60,12 @@ public class MarketPrice extends Data {
     public MarketPrice() {
     }
 
-    public String getCrop() {
-        return crop;
+    public CropType getCropType() {
+        return cropType;
     }
 
-    public void setCrop(String crop) {
-        this.crop = crop;
+    public void setCropType(CropType cropType) {
+        this.cropType = cropType;
     }
 
     public LocalDate getDate() {

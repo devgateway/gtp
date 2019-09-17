@@ -37,7 +37,7 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
     }
 
     protected void addCropPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addStringPredicates(root, cb, predicates, filter.getCrop(), MarketPrice_.CROP);
+        addStringPredicates(root, cb, predicates, filter.getCrop(), MarketPrice_.CROP_TYPE); // TODO fix type mismatch
     }
 
 

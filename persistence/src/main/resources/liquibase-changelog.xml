@@ -187,4 +187,30 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="AD3-53: crop types" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Corn');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Imported Corn');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Millet');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Rice');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Imported Rice');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Imported Scented Rice');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Sorghum');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Imported Sorghum');
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Maïs','fr',id FROM category WHERE label='Corn' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Maïs Importé','fr',id FROM category WHERE label='Imported Corn' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Millet','fr',id FROM category WHERE label='Millet' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Riz','fr',id FROM category WHERE label='Rice' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Riz Importé','fr',id FROM category WHERE label='Imported Rice' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Riz Importé Parfumé','fr',id FROM category WHERE label='Imported Scented Rice' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Sorgho','fr',id FROM category WHERE label='Sorghum' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Sorgho Importé','fr',id FROM category WHERE label='Imported Sorghum' AND dtype='CropType';
+        ]]></sql>
+    </changeSet>
+
 </databaseChangeLog>

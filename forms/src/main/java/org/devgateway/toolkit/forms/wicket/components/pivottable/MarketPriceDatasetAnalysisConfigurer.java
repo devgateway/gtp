@@ -6,7 +6,9 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.Market;
+import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.persistence.repository.MarketRepository;
+import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
 
 /**
  * @author Octavian Ciubotaru
@@ -15,13 +17,17 @@ public class MarketPriceDatasetAnalysisConfigurer implements DatasetAnalysisConf
 
     private MarketRepository marketRepository;
 
-    public MarketPriceDatasetAnalysisConfigurer(MarketRepository marketRepository) {
+    private CropTypeRepository cropTypeRepository;
+
+    public MarketPriceDatasetAnalysisConfigurer(MarketRepository marketRepository,
+            CropTypeRepository cropTypeRepository) {
         this.marketRepository = marketRepository;
+        this.cropTypeRepository = cropTypeRepository;
     }
 
     @Override
     public List<String> getCols() {
-        return ImmutableList.of("crop");
+        return ImmutableList.of("cropTypeName");
     }
 
     @Override
@@ -42,6 +48,7 @@ public class MarketPriceDatasetAnalysisConfigurer implements DatasetAnalysisConf
     @Override
     public List<PivotField> getExtraFields() {
         return ImmutableList.of(
+                new PivotField("cropTypeName", true, false),
                 new PivotField("department", true, false),
                 new PivotField("region", true, false),
                 new PivotField("regionCode", true, false),
@@ -53,7 +60,7 @@ public class MarketPriceDatasetAnalysisConfigurer implements DatasetAnalysisConf
     }
 
     @Override
-    public Object getExtraOpts() {
+    public Object getExtraOpts(String language) {
         List<Market> markets = marketRepository.findAll();
 
         MarketPriceOpts opts = new MarketPriceOpts();
@@ -67,6 +74,10 @@ public class MarketPriceDatasetAnalysisConfigurer implements DatasetAnalysisConf
         opts.setDepartmentNames(markets.stream().collect(toMap(Market::getId, m -> m.getDepartment().getName())));
 
         opts.setMarketNames(markets.stream().collect(toMap(Market::getId, Market::getName)));
+
+        List<CropType> cropTypes = cropTypeRepository.findAll();
+
+        opts.setCropTypeNames(cropTypes.stream().collect(toMap(CropType::getId, ct -> ct.getLocalizedLabel(language))));
 
         return opts;
     }

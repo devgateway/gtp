@@ -39,6 +39,9 @@ var PivotTable = new function() {
     };
 
     function pivotUIOptsForMarketPrices(opts, extraOpts) {
+        var CROP_TYPE = "_cropType";
+        var CROP_TYPE_NAME = "cropTypeName";
+        var MARKET = "_market";
         var MARKET_NAME = "marketName";
         var DEPARTMENT = "department";
         var REGION = "region";
@@ -50,17 +53,20 @@ var PivotTable = new function() {
         var YEAR = "year";
 
         var derivers = $.extend({}, $.pivotUtilities.derivers);
+        derivers.cropTypeIdToName = function(record) {
+            return extraOpts.cropTypeNames[record[CROP_TYPE]];
+        };
         derivers.marketIdToName = function(record) {
-            return extraOpts.marketNames[record._market];
+            return extraOpts.marketNames[record[MARKET]];
         };
         derivers.marketIdToDepartment = function(record) {
-            return extraOpts.departmentNames[record._market];
+            return extraOpts.departmentNames[record[MARKET]];
         };
         derivers.marketIdToRegion = function(record) {
-            return extraOpts.regionNames[record._market];
+            return extraOpts.regionNames[record[MARKET]];
         };
         derivers.marketIdToRegionCode = function(record) {
-            return extraOpts.regionCodes[record._market];
+            return extraOpts.regionCodes[record[MARKET]];
         };
         derivers.quarter = function(col) {
             return function(record) {
@@ -77,6 +83,7 @@ var PivotTable = new function() {
         var dateCol = _fields[DATE];
 
         var derivedAttributes = {};
+        derivedAttributes[extraFields[CROP_TYPE_NAME]] = derivers.cropTypeIdToName;
         derivedAttributes[extraFields[MARKET_NAME]] = derivers.marketIdToName;
         derivedAttributes[extraFields[DEPARTMENT]] = derivers.marketIdToDepartment;
         derivedAttributes[extraFields[REGION]] = derivers.marketIdToRegion;

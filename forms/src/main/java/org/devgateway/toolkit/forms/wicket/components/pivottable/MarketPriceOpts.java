@@ -15,6 +15,9 @@ public class MarketPriceOpts {
     private Map<Long, String> departmentNames;
     private Map<Long, String> marketNames;
 
+    // used to compute derived attribute crop type
+    private Map<Long, String> cropTypeNames;
+
     public Map<Long, String> getRegionNames() {
         return regionNames;
     }
@@ -45,5 +48,13 @@ public class MarketPriceOpts {
 
     public void setMarketNames(Map<Long, String> marketNames) {
         this.marketNames = marketNames;
+    }
+
+    public Map<Long, String> getCropTypeNames() {
+        return cropTypeNames;
+    }
+
+    public void setCropTypeNames(Map<Long, String> cropTypeNames) {
+        this.cropTypeNames = cropTypeNames;
     }
 }

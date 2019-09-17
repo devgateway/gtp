@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 import org.devgateway.toolkit.persistence.dao.Market;
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
+import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.web.spring.WebApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +37,7 @@ public class JsonSerializationTest {
         MarketPrice marketPrice = new MarketPrice();
         marketPrice.setMarket(new Market(1L));
         marketPrice.setDate(LocalDate.parse("2018-11-01"));
-        marketPrice.setCrop("MILLET");
+        marketPrice.setCropType(new CropType(2L, "MILLET"));
         marketPrice.setQuantity(3d);
         marketPrice.setSellPrice(225d);
         marketPrice.setDetailBuyPrice(250d);
@@ -45,7 +46,7 @@ public class JsonSerializationTest {
         JsonContent<MarketPrice> content = marketJacksonTester.write(marketPrice);
 
         assertEquals("{\"market\":1,"
-                + "\"crop\":\"MILLET\","
+                + "\"cropType\":2,"
                 + "\"date\":\"2018-11-01\","
                 + "\"quantity\":3.0,"
                 + "\"sellPrice\":225.0,"
