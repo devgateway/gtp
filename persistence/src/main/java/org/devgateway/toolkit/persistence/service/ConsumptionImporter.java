@@ -3,9 +3,11 @@ package org.devgateway.toolkit.persistence.service;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.devgateway.toolkit.persistence.dao.ConsumptionDataset;
 import org.devgateway.toolkit.persistence.dao.Dataset;
 import org.devgateway.toolkit.persistence.dao.Consumption;
 import org.devgateway.toolkit.persistence.dao.Department;
+import org.devgateway.toolkit.persistence.repository.ConsumptionDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.ConsumptionRepository;
 import org.devgateway.toolkit.persistence.repository.DepartmentRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
@@ -29,6 +31,9 @@ public class ConsumptionImporter extends AbstractImportService<Consumption> {
 
     @Autowired
     private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private ConsumptionDatasetRepository datasetRepository;
 
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
@@ -80,6 +85,7 @@ public class ConsumptionImporter extends AbstractImportService<Consumption> {
     @Override
     protected void processResults(final Dataset dataset) {
         if (importResults.isImportOkFlag()) {
+            datasetRepository.saveAndFlush((ConsumptionDataset) dataset);
             importResults.getDataInstances().forEach(data -> {
                 data.setDataset(dataset);
             });

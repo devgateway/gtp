@@ -7,7 +7,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
 import org.devgateway.toolkit.persistence.dao.Production;
+import org.devgateway.toolkit.persistence.dao.ProductionDataset;
 import org.devgateway.toolkit.persistence.dao.Region;
+import org.devgateway.toolkit.persistence.repository.ProductionDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.ProductionRepository;
 import org.devgateway.toolkit.persistence.repository.RegionRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
@@ -29,6 +31,9 @@ public class ProductionImporter extends AbstractImportService<Production> {
 
     @Autowired
     private RegionRepository regionRepository;
+
+    @Autowired
+    private ProductionDatasetRepository datasetRepository;
 
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
@@ -73,6 +78,7 @@ public class ProductionImporter extends AbstractImportService<Production> {
     @Override
     protected void processResults(final Dataset dataset) {
         if (importResults.isImportOkFlag()) {
+            datasetRepository.saveAndFlush((ProductionDataset) dataset);
             importResults.getDataInstances().forEach(data -> {
                 data.setDataset(dataset);
             });

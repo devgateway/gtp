@@ -2,11 +2,16 @@ package org.devgateway.toolkit.persistence.service;
 
 import java.util.Iterator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
+import org.devgateway.toolkit.persistence.dao.PovertyIndicatorDataset;
+import org.devgateway.toolkit.persistence.dao.Region;
+import org.devgateway.toolkit.persistence.repository.PovertyIndicatorDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.PovertyIndicatorRepository;
+import org.devgateway.toolkit.persistence.repository.RegionRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +29,12 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
     @Autowired
     private PovertyIndicatorRepository repository;
 
+    @Autowired
+    private RegionRepository regionRepository;
+
+    @Autowired
+    private PovertyIndicatorDatasetRepository datasetRepository;
+
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
         Iterator<Row> rowIterator = sheet.iterator();
@@ -37,8 +48,10 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
                 rowNumber++;
                 Row row = rowIterator.next();
                 //Extract data
+                String regionName = ImportUtils.getStringFromCell(row.getCell(0));
+                Region region = getRegion(regionName);
                 PovertyIndicator event = new PovertyIndicator();
-                event.setRegion(ImportUtils.getStringFromCell(row.getCell(0)));
+                event.setRegion(region);
                 event.setLocationType(ImportUtils.getStringFromCell(row.getCell(1)));
                 event.setGender(ImportUtils.getStringFromCell(row.getCell(2)));
                 event.setAge(ImportUtils.getLongFromCell(row.getCell(3)).intValue());
@@ -58,11 +71,24 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
     @Override
     protected void processResults(final Dataset dataset) {
         if (importResults.isImportOkFlag()) {
+            datasetRepository.saveAndFlush((PovertyIndicatorDataset) dataset);
             importResults.getDataInstances().forEach(data -> {
                 data.setDataset(dataset);
             });
             repository.saveAll(importResults.getDataInstances());
             repository.flush();
         }
+    }
+
+
+    private Region getRegion(String regionName) {
+        Region region = null;
+        if (StringUtils.isNotBlank(regionName)) {
+            region = regionRepository.findByName(regionName.toLowerCase());
+        }
+        if (region == null) {
+            throw new RuntimeException("Could not find region named " + region);
+        }
+        return region;
     }
 }

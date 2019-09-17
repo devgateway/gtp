@@ -16,15 +16,10 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.validation.IValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
-import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPovertyIndicatorDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicatorDataset;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.service.DatasetService;
@@ -40,7 +35,7 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
 @MountPath("/editPoverty")
-public class EditPovertyIndicatorDatasetPage extends AbstractEditPage<PovertyIndicatorDataset> {
+public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<PovertyIndicatorDataset> {
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditPovertyIndicatorDatasetPage.class);
@@ -61,33 +56,6 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditPage<PovertyInd
     }
 
     @Override
-    protected void onInitialize() {
-        super.onInitialize();
-
-        final TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("label");
-        name.required();
-        editForm.add(name);
-
-        final CheckBoxPickerBootstrapFormComponent approved = new CheckBoxPickerBootstrapFormComponent("approved");
-        if (!SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
-                .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {
-            approved.setOutputMarkupPlaceholderTag(true);
-            approved.setVisible(false);
-        }
-        editForm.add(approved);
-
-        FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata").maxFiles(1);
-        fileInput.required();
-        fileInput.getField().add((IValidator) new InputFileValidator(getString("fileNotAdded"),
-                getString("filenameError")));
-        if (this.entityId != null) {
-            fileInput.setOutputMarkupPlaceholderTag(true);
-            fileInput.setVisible(false);
-        }
-        editForm.add(fileInput);
-    }
-
-    @Override
     public SaveEditPageButton getSaveEditPageButton() {
         return new SaveEditPageButton("save", new StringResourceModel("save",
                 EditPovertyIndicatorDatasetPage.this, null)) {
@@ -102,7 +70,6 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditPage<PovertyInd
                 } else {
                     model.setOrganization(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
                 }
-                jpaService.saveAndFlush(model);
                 redirectToSelf = false;
                 ImportResults<PovertyIndicator> results = importer.processFile(model);
 

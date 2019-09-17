@@ -7,7 +7,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
 import org.devgateway.toolkit.persistence.dao.Market;
+import org.devgateway.toolkit.persistence.dao.MarketDataset;
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
+import org.devgateway.toolkit.persistence.repository.MarketPriceDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.MarketPriceRepository;
 import org.devgateway.toolkit.persistence.repository.MarketRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
@@ -29,6 +31,9 @@ public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
 
     @Autowired
     private MarketRepository marketRepository;
+
+    @Autowired
+    private MarketPriceDatasetRepository datasetRepository;
 
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
@@ -84,6 +89,7 @@ public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
     @Override
     protected void processResults(final Dataset dataset) {
         if (importResults.isImportOkFlag()) {
+            datasetRepository.saveAndFlush((MarketDataset) dataset);
             importResults.getDataInstances().forEach(data -> data.setDataset(dataset));
             repository.saveAll(importResults.getDataInstances());
             repository.flush();

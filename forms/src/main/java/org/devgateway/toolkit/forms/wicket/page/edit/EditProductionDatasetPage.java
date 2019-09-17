@@ -16,15 +16,11 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.validation.IValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
-import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListProductionDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.persistence.dao.ProductionDataset;
 import org.devgateway.toolkit.persistence.dao.Production;
 import org.devgateway.toolkit.persistence.service.DatasetService;
@@ -41,7 +37,7 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
 @MountPath("/editProduction")
-public class EditProductionDatasetPage extends AbstractEditPage<ProductionDataset> {
+public class EditProductionDatasetPage extends AbstractEditDatasePage<ProductionDataset> {
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditProductionDatasetPage.class);
@@ -65,31 +61,10 @@ public class EditProductionDatasetPage extends AbstractEditPage<ProductionDatase
     protected void onInitialize() {
         super.onInitialize();
 
-        final TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("label");
-        name.required();
-        editForm.add(name);
-
-        final CheckBoxPickerBootstrapFormComponent approved = new CheckBoxPickerBootstrapFormComponent("approved");
-        if (!SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
-                .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {
-            approved.setOutputMarkupPlaceholderTag(true);
-            approved.setVisible(false);
-        }
-        editForm.add(approved);
 
         final TextFieldBootstrapFormComponent<String> source = new TextFieldBootstrapFormComponent<>("source");
         source.required();
         editForm.add(source);
-
-        FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata").maxFiles(1);
-        fileInput.required();
-        fileInput.getField().add((IValidator) new InputFileValidator(getString("fileNotAdded"),
-                getString("filenameError")));
-        if (this.entityId != null) {
-            fileInput.setOutputMarkupPlaceholderTag(true);
-            fileInput.setVisible(false);
-        }
-        editForm.add(fileInput);
     }
 
     @Override
@@ -106,7 +81,6 @@ public class EditProductionDatasetPage extends AbstractEditPage<ProductionDatase
                 } else {
                     model.setOrganization(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
                 }
-                jpaService.saveAndFlush(model);
                 redirectToSelf = false;
                 ImportResults<Production> results = importer.processFile(model);
 
