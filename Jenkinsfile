@@ -28,7 +28,6 @@ pipeline {
                 parameters { booleanParam(name: 'RECREATE_DB', defaultValue: false, description: 'Recreate database') }
             }
             steps {
-                sh 'printenv'
                 sh './jenkins/deploy.sh'
             }
         }
