@@ -18,7 +18,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  * Created by Daniel Oliva
  */
 @RestController
-@RequestMapping(value = "/production")
+@RequestMapping(value = "/data/production")
 @CrossOrigin
 public class ProductionController {
 

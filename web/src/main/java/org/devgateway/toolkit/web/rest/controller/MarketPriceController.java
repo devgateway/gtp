@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by Daniel Oliva
  */
 @RestController
-@RequestMapping(value = "/marketPrice")
+@RequestMapping(value = "/data/marketPrice")
 @CrossOrigin
 public class MarketPriceController {
 

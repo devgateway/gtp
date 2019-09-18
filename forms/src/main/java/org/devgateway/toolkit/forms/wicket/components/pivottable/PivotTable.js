@@ -1,9 +1,7 @@
 
 // TODO
-//  1 do we cache data?
-//  3 even data from some columns could be localized (ex Crop column has MAÏS/CORN)
-//  4 decide on initial setup of the pivot table
-//  9 filtering by ranges not yet possible, see https://github.com/nicolaskruchten/pivottable/issues/191
+//  - do we cache data?
+//  - filtering by ranges not yet possible, see https://github.com/nicolaskruchten/pivottable/issues/191
 
 var PivotTable = new function() {
 
@@ -18,25 +16,42 @@ var PivotTable = new function() {
             url: opts.dataUrl,
             dataType: "json"
         }).done(function (data) {
-            var localizedData = data.map(toLocalizedRow);
+            if (data.length === 0) {
+                el.html("No data.");
+            } else {
+                var localizedData = data.map(toLocalizedRow);
 
-            var extraPivotUIOpts = {};
-            if (opts.dataset === "MarketPrice") {
-                extraPivotUIOpts = pivotUIOptsForMarketPrices(opts, extraOpts);
+                var extraPivotUIOpts = getExtraPivotUIOpts(opts, extraOpts);
+
+                var pivotUIOpts = $.extend({}, opts.pivotUIOpts, extraPivotUIOpts, {
+                    aggregators: buildAggregators(opts.aggregatorNames, opts.language),
+                    renderers: buildRenderers(opts.rendererNames, opts.language),
+                    unusedAttrsVertical: true,
+                    autoSortUnusedAttrs: false
+                });
+
+                el.pivotUI(localizedData, pivotUIOpts, false, opts.language);
             }
-
-            var pivotUIOpts = $.extend({}, opts.pivotUIOpts, extraPivotUIOpts, {
-                aggregators: buildAggregators(opts.aggregatorNames, opts.language),
-                renderers: buildRenderers(opts.rendererNames, opts.language),
-                unusedAttrsVertical: true,
-                autoSortUnusedAttrs: false
-            });
-
-            el.pivotUI(localizedData, pivotUIOpts, false, opts.language);
         }).fail(function () {
-            el.html("Failed to load dataset.");
+            el.html("Failed to load data.");
         });
     };
+
+    /**
+     * Returns any ui options for pivottable.js that are specific to one dataset.
+     * @param opts
+     * @param extraOpts
+     * @returns ui options for pivottable.js
+     */
+    function getExtraPivotUIOpts(opts, extraOpts) {
+        if (opts.dataset === "MarketPrice") {
+            return pivotUIOptsForMarketPrices(opts, extraOpts);
+        } else if (opts.dataset === "Production") {
+            return pivotUIOptsForProduction(opts, extraOpts);
+        } else {
+            throw opts.dataset + " not supported";
+        }
+    }
 
     function pivotUIOptsForMarketPrices(opts, extraOpts) {
         var CROP_TYPE = "_cropType";
@@ -80,7 +95,7 @@ var PivotTable = new function() {
         };
 
         var extraFields = opts.extraFields;
-        var dateCol = _fields[DATE];
+        var dateCol = opts.fields[DATE];
 
         var derivedAttributes = {};
         derivedAttributes[extraFields[CROP_TYPE_NAME]] = derivers.cropTypeIdToName;
@@ -104,23 +119,81 @@ var PivotTable = new function() {
         };
     }
 
+    function pivotUIOptsForProduction(opts, extraOpts) {
+        var YEAR = "_year";
+        var CAMPAIGN = "campaign";
+        var CROP_TYPE = "_cropType";
+        var CROP_TYPE_NAME = "cropTypeName";
+        var REGION = "_region";
+        var REGION_NAME = "regionName";
+        var REGION_CODE = "regionCode";
+
+        var derivers = $.extend({}, $.pivotUtilities.derivers);
+        derivers.campaign = function(record) {
+            var year = record[YEAR];
+            return year + "/" + (year + 1);
+        };
+        derivers.cropTypeIdToName = function(record) {
+            return extraOpts.cropTypeNames[record[CROP_TYPE]];
+        };
+        derivers.regionIdToRegion = function(record) {
+            return extraOpts.regionNames[record[REGION]];
+        };
+        derivers.regionIdToRegionCode = function(record) {
+            return extraOpts.regionCodes[record[REGION]];
+        };
+
+        var extraFields = opts.extraFields;
+
+        var derivedAttributes = {};
+        derivedAttributes[extraFields[CAMPAIGN]] = derivers.campaign;
+        derivedAttributes[extraFields[CROP_TYPE_NAME]] = derivers.cropTypeIdToName;
+        derivedAttributes[extraFields[REGION_NAME]] = derivers.regionIdToRegion;
+        derivedAttributes[extraFields[REGION_CODE]] = derivers.regionIdToRegionCode;
+
+        return {
+            derivedAttributes: derivedAttributes
+        };
+    }
+
+    /**
+     * Returns aggregators to use in pivottable.js.
+     * @param names names of the aggregators
+     * @param language language in which names were specified
+     */
     function buildAggregators(names, language) {
         var ptLocale = $.pivotUtilities.locales[language] ? language : "en";
         return objSubset(names, $.pivotUtilities.locales[ptLocale].aggregators);
     }
 
+    /**
+     * Returns renderers to use in pivottable.js.
+     * @param names names of the renderers
+     * @param language language in which names were specified
+     */
     function buildRenderers(names, language) {
         var ptLocale = $.pivotUtilities.locales[language] ? language : "en";
         return objSubset(names, $.pivotUtilities.locales[ptLocale].renderers);
     }
 
-    function objSubset(names, obj) {
-        return names.reduce(function(acc, name) {
-            acc[name] = obj[name];
+    /**
+     * Given an object, build a another object using only the specified fields.
+     * @param fields array of field names
+     * @param obj source object
+     * @returns subset of the object
+     */
+    function objSubset(fields, obj) {
+        return fields.reduce(function(acc, field) {
+            acc[field] = obj[field];
             return acc;
         }, {});
     }
 
+    /**
+     * Maps internal names to localized labels.
+     * @param row object that uses internal names
+     * @return object that uses localized labels
+     */
     function toLocalizedRow(row) {
         var localizedRow = {};
         for (var field in _fields) {

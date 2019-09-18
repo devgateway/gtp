@@ -1,17 +1,24 @@
 package org.devgateway.toolkit.persistence.service;
 
 import java.util.Iterator;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
 import org.devgateway.toolkit.persistence.dao.Production;
 import org.devgateway.toolkit.persistence.dao.ProductionDataset;
 import org.devgateway.toolkit.persistence.dao.Region;
+import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.persistence.repository.ProductionDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.ProductionRepository;
 import org.devgateway.toolkit.persistence.repository.RegionRepository;
+import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +42,13 @@ public class ProductionImporter extends AbstractImportService<Production> {
     @Autowired
     private ProductionDatasetRepository datasetRepository;
 
+    @Autowired
+    private CropTypeRepository cropTypeRepository;
+
+    private Map<String, CropType> cropTypes;
+
+    private Pattern campaignPattern = Pattern.compile("(\\d{4})/\\d{4}");
+
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
         Iterator<Row> rowIterator = sheet.iterator();
@@ -43,19 +57,28 @@ public class ProductionImporter extends AbstractImportService<Production> {
             rowIterator.next();
             rowNumber++;
         }
+
+        cropTypes = cropTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+
         while (rowIterator.hasNext()) {
             try {
                 rowNumber++;
                 Row row = rowIterator.next();
+
                 //Extract data
                 String regionName = ImportUtils.getStringFromCell(row.getCell(0));
                 Region region = getRegion(regionName);
 
-                addData(row, region, "Crop 1", new int[] {1, 2, 3}); //TODO replace with real crop
+                Production data = new Production();
+                data.setRegion(region);
+                data.setYear(getCampaignYear(row.getCell(1)));
+                data.setCropType(getCropType(row.getCell(2)));
+                data.setSurface(ImportUtils.getDoubleFromCell(row.getCell(3)));
+                data.setYield(ImportUtils.getDoubleFromCell(row.getCell(4)));
+                data.setProduction(ImportUtils.getDoubleFromCell(row.getCell(5)));
 
-                addData(row, region, "Crop 2", new int[] {4, 5, 6});
-
-                addData(row, region, "Crop 3", new int[] {7, 8, 9});
+                importResults.addDataInstance(data);
 
             } catch (Exception e) { //Improve exception handling
                 logger.error("Error: " + e);
@@ -65,14 +88,25 @@ public class ProductionImporter extends AbstractImportService<Production> {
         }
     }
 
-    private void addData(Row row, Region region, String s, int[] rows) {
-        Production data = new Production();
-        data.setRegion(region);
-        data.setCrop(s);
-        data.setSurface(ImportUtils.getDoubleFromCell(row.getCell(rows[0])));
-        data.setProduction(ImportUtils.getDoubleFromCell(row.getCell(rows[1])));
-        data.setYield(ImportUtils.getDoubleFromCell(row.getCell(rows[2])));
-        importResults.addDataInstance(data);
+    private CropType getCropType(Cell cell) {
+        String cropName = ImportUtils.getStringFromCell(cell);
+        if (StringUtils.isBlank(cropName)) {
+            throw new RuntimeException("Crop type is not specified");
+        }
+        CropType cropType = cropTypes.get(cropName.toLowerCase());
+        if (cropType == null) {
+            throw new RuntimeException("Unknown crop type " + cropName);
+        }
+        return cropType;
+    }
+
+    private Integer getCampaignYear(Cell cell) {
+        String campaign = ImportUtils.getStringFromCell(cell);
+        Matcher matcher = campaignPattern.matcher(campaign);
+        if (!matcher.matches()) {
+            throw new RuntimeException("Invalid campaign " + campaign + ". Example campaign '2018/2019'.");
+        }
+        return Integer.parseInt(matcher.group(1));
     }
 
     @Override
@@ -94,7 +128,7 @@ public class ProductionImporter extends AbstractImportService<Production> {
             region = regionRepository.findByName(regionName.toLowerCase());
         }
         if (region == null) {
-            throw new RuntimeException("Could not find region named " + region);
+            throw new RuntimeException("Could not find region named " + regionName);
         }
         return region;
     }
