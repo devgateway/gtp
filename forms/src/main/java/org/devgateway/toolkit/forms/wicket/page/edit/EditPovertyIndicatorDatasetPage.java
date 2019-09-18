@@ -20,7 +20,7 @@ import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPovertyIndicatorDatasetPage;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicatorDataset;
+import org.devgateway.toolkit.persistence.dao.PovertyDataset;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.devgateway.toolkit.persistence.service.ImportService;
@@ -35,7 +35,7 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
 @MountPath("/editPoverty")
-public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<PovertyIndicatorDataset> {
+public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<PovertyDataset> {
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditPovertyIndicatorDatasetPage.class);
@@ -43,7 +43,7 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<Pove
     @SpringBean(name = "povertyIndicatorImporter")
     private transient ImportService importer;
 
-    @SpringBean(name = "povertyIndicatorDatasetService")
+    @SpringBean(name = "povertyDatasetService")
     protected DatasetService service;
 
     @SpringBean
@@ -64,7 +64,7 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<Pove
             @Override
             protected void onSubmit(final AjaxRequestTarget target) {
                 logger.info("Check the file and process it");
-                PovertyIndicatorDataset model = editForm.getModelObject();
+                PovertyDataset model = editForm.getModelObject();
                 if (model.getId() != null) {
                     SecurityUtil.getCurrentAuthenticatedPerson();
                 } else {

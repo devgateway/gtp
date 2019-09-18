@@ -213,6 +213,39 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="Gender and Age Groups" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('AgriculturalWomenGroup', nextval('hibernate_sequence'), 'Age Group');
+            INSERT INTO category (dtype, id, label) VALUES ('AgriculturalWomenGroup', nextval('hibernate_sequence'), 'Method of enforcement');
+            INSERT INTO category (dtype, id, label) VALUES ('AgriculturalWomenGroup', nextval('hibernate_sequence'), 'Crop');
+
+            INSERT INTO category (dtype, id, label) VALUES ('Gender', nextval('hibernate_sequence'), 'Male');
+            INSERT INTO category (dtype, id, label) VALUES ('Gender', nextval('hibernate_sequence'), 'Female');
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Masculin','fr',id FROM category WHERE label='Male' AND dtype='Gender';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Féminin','fr',id FROM category WHERE label='Female' AND dtype='Gender';
+
+            INSERT INTO category (dtype, id, label) VALUES ('AgeGroup', nextval('hibernate_sequence'), 'Under 15');
+            INSERT INTO category (dtype, id, label) VALUES ('AgeGroup', nextval('hibernate_sequence'), '15-25');
+            INSERT INTO category (dtype, id, label) VALUES ('AgeGroup', nextval('hibernate_sequence'), '25-45');
+            INSERT INTO category (dtype, id, label) VALUES ('AgeGroup', nextval('hibernate_sequence'), '45-65');
+            INSERT INTO category (dtype, id, label) VALUES ('AgeGroup', nextval('hibernate_sequence'), 'Over 66');
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Moins de 15','fr',id FROM category WHERE label='Under 15' AND dtype='AgeGroup';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Plus de 66','fr',id FROM category WHERE label='Over 66' AND dtype='AgeGroup';
+
+            INSERT INTO category (dtype, id, label) VALUES ('MethodOfEnforcement', nextval('hibernate_sequence'), 'Ownership');
+            INSERT INTO category (dtype, id, label) VALUES ('MethodOfEnforcement', nextval('hibernate_sequence'), 'Undocumented ownership');
+            INSERT INTO category (dtype, id, label) VALUES ('MethodOfEnforcement', nextval('hibernate_sequence'), 'Rent with agreement');
+            INSERT INTO category (dtype, id, label) VALUES ('MethodOfEnforcement', nextval('hibernate_sequence'), 'Rent without agreement');
+            INSERT INTO category (dtype, id, label) VALUES ('MethodOfEnforcement', nextval('hibernate_sequence'), 'Loan');
+            INSERT INTO category (dtype, id, label) VALUES ('MethodOfEnforcement', nextval('hibernate_sequence'), 'Free Occupation or Occupation without authorization');
+
+        ]]></sql>
+    </changeSet>
+
     <changeSet id="AD3-56: crop types" author="Octavian Ciubotaru">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="category" />

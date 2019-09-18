@@ -101,7 +101,7 @@ public class ConsumptionImporter extends AbstractImportService<Consumption> {
             department = departmentRepository.findByName(departmentName.toLowerCase());
         }
         if (department == null) {
-            throw new RuntimeException("Could not find department named " + department);
+            throw new RuntimeException("Could not find department named " + departmentName);
         }
         return department;
     }

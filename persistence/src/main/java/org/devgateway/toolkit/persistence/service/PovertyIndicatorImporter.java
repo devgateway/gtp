@@ -6,10 +6,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
+import org.devgateway.toolkit.persistence.dao.PovertyDataset;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicatorDataset;
 import org.devgateway.toolkit.persistence.dao.Region;
-import org.devgateway.toolkit.persistence.repository.PovertyIndicatorDatasetRepository;
+import org.devgateway.toolkit.persistence.repository.PovertyDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.PovertyIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.RegionRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
@@ -33,7 +33,7 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
     private RegionRepository regionRepository;
 
     @Autowired
-    private PovertyIndicatorDatasetRepository datasetRepository;
+    private PovertyDatasetRepository datasetRepository;
 
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
@@ -71,7 +71,7 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
     @Override
     protected void processResults(final Dataset dataset) {
         if (importResults.isImportOkFlag()) {
-            datasetRepository.saveAndFlush((PovertyIndicatorDataset) dataset);
+            datasetRepository.saveAndFlush((PovertyDataset) dataset);
             importResults.getDataInstances().forEach(data -> {
                 data.setDataset(dataset);
             });

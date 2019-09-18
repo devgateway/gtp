@@ -10,5 +10,5 @@ import javax.persistence.Entity;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-public class PovertyIndicatorDataset extends Dataset {
+public class AgriculturalWomenDataset extends Dataset {
 }

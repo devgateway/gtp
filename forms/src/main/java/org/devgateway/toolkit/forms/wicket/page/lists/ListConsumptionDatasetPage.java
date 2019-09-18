@@ -35,7 +35,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class ListConsumptionDatasetPage extends AbstractListPage<ConsumptionDataset> {
     private static final long serialVersionUID = -378945525712620234L;
 
-    @SpringBean(name = "productionDatasetService")
+    @SpringBean(name = "consumptionDatasetService")
     protected DatasetService service;
 
     public ListConsumptionDatasetPage(final PageParameters pageParameters) {
