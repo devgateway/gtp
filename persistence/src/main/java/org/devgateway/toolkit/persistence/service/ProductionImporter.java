@@ -94,7 +94,7 @@ public class ProductionImporter extends AbstractImportService<Production> {
             region = regionRepository.findByName(regionName.toLowerCase());
         }
         if (region == null) {
-            throw new RuntimeException("Could not find region named " + region);
+            throw new RuntimeException("Could not find region named " + regionName);
         }
         return region;
     }

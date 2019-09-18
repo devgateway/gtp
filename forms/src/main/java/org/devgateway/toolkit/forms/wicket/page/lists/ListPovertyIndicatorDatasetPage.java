@@ -23,7 +23,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.LinkBootstrapPropert
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DatasetFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditPovertyIndicatorDatasetPage;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicatorDataset;
+import org.devgateway.toolkit.persistence.dao.PovertyDataset;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -32,10 +32,10 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
 @MountPath(value = "/listPoverty")
-public class ListPovertyIndicatorDatasetPage extends AbstractListPage<PovertyIndicatorDataset> {
+public class ListPovertyIndicatorDatasetPage extends AbstractListPage<PovertyDataset> {
     private static final long serialVersionUID = -378945525712620234L;
 
-    @SpringBean(name = "povertyIndicatorDatasetService")
+    @SpringBean(name = "povertyDatasetService")
     protected DatasetService service;
 
     public ListPovertyIndicatorDatasetPage(final PageParameters pageParameters) {
@@ -58,7 +58,7 @@ public class ListPovertyIndicatorDatasetPage extends AbstractListPage<PovertyInd
     }
 
     @Override
-    public JpaFilterState<PovertyIndicatorDataset> newFilterState() {
+    public JpaFilterState<PovertyDataset> newFilterState() {
         return (JpaFilterState) new DatasetFilterState(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
     }
 }
