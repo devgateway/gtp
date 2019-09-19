@@ -43,8 +43,8 @@ public class AgriculturalWomenIndicator extends Data {
     @PivotTableField(hideInAggregators = true, hideInDragAndDrop = true)
     @NotNull
     private Category groupType;
-    private Double value1;
-    private Double value2;
+    private Double percentage;
+    private Double utilizationPercentage;
 
     public Integer getYear() {
         return year;
@@ -78,19 +78,19 @@ public class AgriculturalWomenIndicator extends Data {
         this.groupType = groupType;
     }
 
-    public Double getValue1() {
-        return value1;
+    public Double getPercentage() {
+        return percentage;
     }
 
-    public void setValue1(Double value1) {
-        this.value1 = value1;
+    public void setPercentage(Double percentage) {
+        this.percentage = percentage;
     }
 
-    public Double getValue2() {
-        return value2;
+    public Double getUtilizationPercentage() {
+        return utilizationPercentage;
     }
 
-    public void setValue2(Double value2) {
-        this.value2 = value2;
+    public void setUtilizationPercentage(Double utilizationPercentage) {
+        this.utilizationPercentage = utilizationPercentage;
     }
 }
