@@ -52,8 +52,7 @@ public class FormsSecurityConfig extends WebSecurityConfig {
                 "/favicon.ico",
                 "/wicket/resource/**/*.gif", "/login/**", "/forgotPassword/**", "/changeForgottenPassword/**",
                 "/resources/**", "/resources/public/**",
-                "/marketPrice/**",
-                "/analytics/**");
+                "/data/**", "/analytics/**");
     }
 
     /**

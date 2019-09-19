@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnLoadHeaderItem;
@@ -25,9 +26,13 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.protocol.http.WicketFilter;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.toolkit.persistence.dao.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.PivotTableField;
+import org.devgateway.toolkit.persistence.dao.Production;
 import org.devgateway.toolkit.persistence.repository.MarketRepository;
+import org.devgateway.toolkit.persistence.repository.RegionRepository;
 import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
 
 /**
@@ -36,6 +41,8 @@ import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository
  * @author Octavian Ciubotaru
  */
 public class PivotTable extends GenericPanel<Class<?>> {
+
+    private static final CssResourceReference CSS = new CssResourceReference(PivotTable.class, "PivotTable.css");
 
     private final WebMarkupContainer table;
 
@@ -48,6 +55,9 @@ public class PivotTable extends GenericPanel<Class<?>> {
 
     @SpringBean
     private MarketRepository marketRepository;
+
+    @SpringBean
+    private RegionRepository regionRepository;
 
     @SpringBean
     private CropTypeRepository cropTypeRepository;
@@ -65,6 +75,7 @@ public class PivotTable extends GenericPanel<Class<?>> {
         super.renderHead(response);
 
         response.render(JavaScriptHeaderItem.forReference(PivotTableJavaScriptResourceReference.get()));
+        response.render(CssHeaderItem.forReference(CSS));
         response.render(PivotCSSResourceReference.getHeaderItem(getApplication()));
         response.render(OnLoadHeaderItem.forScript(getInitScript()));
     }
@@ -80,7 +91,7 @@ public class PivotTable extends GenericPanel<Class<?>> {
                 .map(this::toPivotField)
                 .collect(toList());
 
-        DatasetAnalysisConfigurer mp = new MarketPriceDatasetAnalysisConfigurer(marketRepository, cropTypeRepository);
+        DatasetAnalysisConfigurer mp = getDatasetAnalysisConfigurer();
 
         List<PivotField> extraFields = mp.getExtraFields();
 
@@ -133,12 +144,23 @@ public class PivotTable extends GenericPanel<Class<?>> {
                 toJson(mp.getExtraOpts(locale.getLanguage())));
     }
 
+    private DatasetAnalysisConfigurer getDatasetAnalysisConfigurer() {
+        Class<?> dataClass = getModelObject();
+        if (dataClass == MarketPrice.class) {
+            return new MarketPriceDatasetAnalysisConfigurer(marketRepository, cropTypeRepository);
+        } else if (dataClass == Production.class) {
+            return new ProductionDatasetAnalysisConfigurer(regionRepository, cropTypeRepository);
+        } else {
+            throw new RuntimeException(dataClass + " not supported");
+        }
+    }
+
     /**
      * This method makes an assumption that {@link org.springframework.web.servlet.DispatcherServlet}
      * and {@link WicketFilter} are mounted on the same path.
      */
     private String getDataUrl() {
-        String url = String.format("/%s/dump", StringUtils.uncapitalize(getModelObject().getSimpleName()));
+        String url = String.format("/data/%s/dump", StringUtils.uncapitalize(getModelObject().getSimpleName()));
         return RequestCycle.get().getUrlRenderer().renderContextRelativeUrl(url);
     }
 

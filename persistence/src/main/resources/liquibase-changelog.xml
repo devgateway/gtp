@@ -265,4 +265,29 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="AD3-56: crop types" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Fonio');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Peanut Oil');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Cotton');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Cowpea');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Cassava');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Watermelon');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Sesame');
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Fonio','fr',id FROM category WHERE label='Fonio' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Arachide Huilerie','fr',id FROM category WHERE label='Peanut Oil' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Coton','fr',id FROM category WHERE label='Cotton' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Niébé','fr',id FROM category WHERE label='Cowpea' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Manioc','fr',id FROM category WHERE label='Cassava' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Pastèque','fr',id FROM category WHERE label='Watermelon' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Sésame','fr',id FROM category WHERE label='Sesame' AND dtype='CropType';
+        ]]></sql>
+    </changeSet>
+
+
 </databaseChangeLog>
