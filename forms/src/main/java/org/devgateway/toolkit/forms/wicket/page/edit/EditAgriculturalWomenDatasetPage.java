@@ -35,67 +35,24 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
 @MountPath("/editAgriculturalWomen")
-public class EditAgriculturalWomenDatasetPage extends AbstractEditDatasePage<AgriculturalWomenDataset> {
+public class EditAgriculturalWomenDatasetPage extends AbstractEditDatasePage<AgriculturalWomenDataset,
+        AgriculturalWomenIndicator> {
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditAgriculturalWomenDatasetPage.class);
 
     @SpringBean(name = "agriculturalWomenIndicatorImporter")
-    private transient ImportService importer;
+    private transient ImportService importService;
 
     @SpringBean(name = "agriculturalWomenDatasetService")
     protected DatasetService service;
-
-    @SpringBean
-    protected MarkupCacheService markupCacheService;
 
     public EditAgriculturalWomenDatasetPage(final PageParameters parameters) {
         super(parameters);
         this.jpaService = service;
         this.listPageClass = ListAgriculturalWomenDatasetPage.class;
+        this.importer = importService;
     }
 
-    @Override
-    public SaveEditPageButton getSaveEditPageButton() {
-        return new SaveEditPageButton("save", new StringResourceModel("save",
-                EditAgriculturalWomenDatasetPage.this, null)) {
-            private static final long serialVersionUID = 5214537995514151323L;
 
-            @Override
-            protected void onSubmit(final AjaxRequestTarget target) {
-                logger.info("Check the file and process it");
-                AgriculturalWomenDataset model = editForm.getModelObject();
-                if (model.getId() != null) {
-                    SecurityUtil.getCurrentAuthenticatedPerson();
-                } else {
-                    model.setOrganization(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
-                }
-                redirectToSelf = false;
-                ImportResults<AgriculturalWomenIndicator> results = importer.processFile(model);
-
-                //process results
-                if (!results.isImportOkFlag()) {
-                    feedbackPanel.error(new StringResourceModel("uploadError", this, null).getString());
-                    results.getErrorList().forEach(error -> feedbackPanel.error(error));
-                    target.add(feedbackPanel);
-                    redirectToSelf = true;
-                } else {
-                    markupCacheService.clearAllCaches();
-                }
-
-                redirect(target);
-            }
-
-
-            private void redirect(final AjaxRequestTarget target) {
-                if (redirectToSelf) {
-                    // we need to close the blockUI if it's opened and enable all
-                    // the buttons
-                    target.appendJavaScript("$.unblockUI();");
-                } else if (redirect) {
-                    setResponsePage(getResponsePage(), getParameterPage());
-                }
-            }
-        };
-    }
 }

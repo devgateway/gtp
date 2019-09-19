@@ -18,11 +18,11 @@ public class AgriculturalWomenDatasetServiceImpl extends BaseJpaServiceImpl<Agri
         implements DatasetService<AgriculturalWomenDataset>  {
 
     @Autowired
-    private AgriculturalWomenDatasetRepository consumptionDatasetRepository;
+    private AgriculturalWomenDatasetRepository repository;
 
     @Override
     protected BaseJpaRepository<AgriculturalWomenDataset, Long> repository() {
-        return consumptionDatasetRepository;
+        return repository;
     }
 
     @Override
