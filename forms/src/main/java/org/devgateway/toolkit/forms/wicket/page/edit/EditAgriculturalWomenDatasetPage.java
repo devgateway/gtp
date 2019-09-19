@@ -40,7 +40,7 @@ public class EditAgriculturalWomenDatasetPage extends AbstractEditDatasePage<Agr
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditAgriculturalWomenDatasetPage.class);
 
-    @SpringBean(name = "agriculturalWomenImporter")
+    @SpringBean(name = "agriculturalWomenIndicatorImporter")
     private transient ImportService importer;
 
     @SpringBean(name = "agriculturalWomenDatasetService")

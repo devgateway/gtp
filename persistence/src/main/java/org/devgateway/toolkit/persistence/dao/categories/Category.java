@@ -18,7 +18,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -50,8 +49,9 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
 
     private String description;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "category")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "category")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnore
     private List<LocalizedCategoryLabel> localizedLabels = new ArrayList<>();
 
     public Category(final String label) {
@@ -83,17 +83,19 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     /**
      * Retrieve french label. If not found returns null.
      */
+    @JsonIgnore
     public String getLabelFr() {
         return getLabel("fr");
     }
 
+    @JsonIgnore
     private String getLabel(String language) {
         for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
             if (localizedLabel.getLanguage().equals(language)) {
                 return localizedLabel.getLabel();
             }
         }
-        return null;
+        return label; //Dont return null for label, its being used in serialization
     }
 
     /**

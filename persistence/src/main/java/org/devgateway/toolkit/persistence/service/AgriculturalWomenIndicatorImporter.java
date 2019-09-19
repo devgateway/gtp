@@ -99,7 +99,7 @@ public class AgriculturalWomenIndicatorImporter extends AbstractImportService<Ag
                 data.setGroupType(getCategory(row.getCell(3), groupTypeMap, "Group type"));
                 data.setPercentage(ImportUtils.getDoubleFromCell(row.getCell(4)));
                 data.setUtilizationPercentage(ImportUtils.getDoubleFromCell(row.getCell(5)));
-
+                importResults.addDataInstance(data);
 
             } catch (Exception e) { //Improve exception handling
                 logger.error("Error: " + e);

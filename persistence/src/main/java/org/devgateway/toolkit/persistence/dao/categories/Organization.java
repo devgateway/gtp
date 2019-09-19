@@ -33,18 +33,4 @@ public class Organization extends Category {
         this.label = label;
     }
 
-    @Override
-    public String toString() {
-        return getLabel();
-    }
-
-    @Override
-    public String getLabel() {
-        return label;
-    }
-
-    @Override
-    public void setLabel(final String label) {
-        this.label = label;
-    }
 }
