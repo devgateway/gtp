@@ -11,12 +11,12 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao;
 
-import org.hibernate.annotations.Type;
+import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
-import java.io.Serializable;
+
+import org.hibernate.annotations.Type;
 
 /**
  * @author idobre

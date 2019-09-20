@@ -8,23 +8,21 @@ import java.util.stream.Collectors;
 import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
-import org.devgateway.toolkit.persistence.repository.RegionRepository;
-import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
+import org.devgateway.toolkit.persistence.service.category.CropTypeService;
+import org.devgateway.toolkit.persistence.service.category.RegionService;
 
 /**
  * @author Octavian Ciubotaru
  */
 public class ProductionDatasetAnalysisConfigurer implements DatasetAnalysisConfigurer {
 
-    private CropTypeRepository cropTypeRepository;
-
-    private RegionRepository regionRepository;
+    private RegionService regionService;
+    private CropTypeService cropTypeService;
 
     public ProductionDatasetAnalysisConfigurer(
-            RegionRepository regionRepository,
-            CropTypeRepository cropTypeRepository) {
-        this.regionRepository = regionRepository;
-        this.cropTypeRepository = cropTypeRepository;
+            RegionService regionService, CropTypeService cropTypeService) {
+        this.regionService = regionService;
+        this.cropTypeService = cropTypeService;
     }
 
     @Override
@@ -60,11 +58,11 @@ public class ProductionDatasetAnalysisConfigurer implements DatasetAnalysisConfi
     public Object getExtraOpts(String language) {
         ProductionOpts opts = new ProductionOpts();
 
-        List<Region> regions = regionRepository.findAll();
+        List<Region> regions = regionService.findAll();
         opts.setRegionNames(regions.stream().collect(Collectors.toMap(Region::getId, Region::getName)));
         opts.setRegionCodes(regions.stream().collect(Collectors.toMap(Region::getId, Region::getCode)));
 
-        List<CropType> cropTypes = cropTypeRepository.findAll();
+        List<CropType> cropTypes = cropTypeService.findAll();
         opts.setCropTypeNames(cropTypes.stream()
                 .collect(toMap(CropType::getId, ct -> ct.getLocalizedLabel(language))));
 

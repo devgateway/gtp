@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.dao.categories;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,8 @@ import org.springframework.lang.NonNull;
 @Entity
 @Audited
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"category_id", "language"}))
-public class LocalizedCategoryLabel extends AbstractAuditableEntity {
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class LocalizedCategoryLabel extends AbstractAuditableEntity implements Serializable {
 
     @ManyToOne(optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

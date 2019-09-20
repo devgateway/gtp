@@ -15,8 +15,8 @@ import org.devgateway.toolkit.persistence.dao.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.persistence.repository.MarketPriceDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.MarketPriceRepository;
-import org.devgateway.toolkit.persistence.repository.MarketRepository;
 import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
+import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
     private MarketPriceRepository repository;
 
     @Autowired
-    private MarketRepository marketRepository;
+    private MarketService marketService;
 
     @Autowired
     private MarketPriceDatasetRepository datasetRepository;
@@ -103,7 +103,7 @@ public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
     private Market getMarket(String departmentName, String marketName) {
         Market market = null;
         if (StringUtils.isNotBlank(departmentName) && StringUtils.isNotBlank(marketName)) {
-            market = marketRepository.findByName(departmentName.toLowerCase(), marketName.toLowerCase());
+            market = marketService.findByName(departmentName.toLowerCase(), marketName.toLowerCase());
         }
         if (market == null) {
             throw new RuntimeException("Could not find market named " + marketName + " in "

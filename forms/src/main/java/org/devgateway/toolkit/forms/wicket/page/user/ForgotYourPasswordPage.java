@@ -1,12 +1,12 @@
 package org.devgateway.toolkit.forms.wicket.page.user;
 
+import java.time.ZonedDateTime;
+
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapForm;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -19,8 +19,6 @@ import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.repository.PersonRepository;
 import org.devgateway.toolkit.persistence.service.PersonService;
 import org.wicketstuff.annotation.mount.MountPath;
-
-import java.time.ZonedDateTime;
 
 @MountPath(value = "/forgotPassword")
 public class ForgotYourPasswordPage extends BasePage {

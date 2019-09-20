@@ -52,4 +52,9 @@ public class AnalysisPage extends BasePage {
             }
         });
     }
+
+    @Override
+    public Boolean fluidContainer() {
+        return true;
+    }
 }

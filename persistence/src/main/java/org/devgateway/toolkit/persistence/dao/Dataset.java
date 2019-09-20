@@ -1,17 +1,17 @@
 package org.devgateway.toolkit.persistence.dao;
 
-import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * @author Daniel Oliva

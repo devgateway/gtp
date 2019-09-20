@@ -1,17 +1,19 @@
 package org.devgateway.toolkit.persistence.service;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
 import org.devgateway.toolkit.persistence.dao.AgriculturalWomenDataset;
+import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
 import org.devgateway.toolkit.persistence.dao.Dataset;
-import org.devgateway.toolkit.persistence.dao.Department;
-import org.devgateway.toolkit.persistence.dao.categories.AgeGroup;
 import org.devgateway.toolkit.persistence.dao.categories.AgriculturalWomenGroup;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
-import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.persistence.dao.categories.Gender;
 import org.devgateway.toolkit.persistence.repository.AgriculturalWomenDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.AgriculturalWomenIndicatorRepository;
@@ -26,11 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by Daniel Oliva

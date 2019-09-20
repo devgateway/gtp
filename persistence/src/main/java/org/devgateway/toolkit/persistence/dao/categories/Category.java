@@ -25,6 +25,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -51,6 +52,7 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "category")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @BatchSize(size = 100)
     @JsonIgnore
     private List<LocalizedCategoryLabel> localizedLabels = new ArrayList<>();
 

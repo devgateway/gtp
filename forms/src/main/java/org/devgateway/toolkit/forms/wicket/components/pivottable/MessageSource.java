@@ -1,7 +1,9 @@
 package org.devgateway.toolkit.forms.wicket.components.pivottable;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
@@ -9,6 +11,10 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
  * @author Octavian Ciubotaru
  */
 public final class MessageSource {
+
+    private static Map<Class, MessageSource> forClass = new HashMap<>();
+
+    private static Map<String, MessageSource> withBasename = new HashMap<>();
 
     private final ReloadableResourceBundleMessageSource messageSource;
 
@@ -19,11 +25,12 @@ public final class MessageSource {
     }
 
     public static MessageSource forClass(Class<?> targetClass) {
-        return withBasenames(targetClass.getName().replace('.', '/'));
+        return forClass.computeIfAbsent(targetClass,
+                c -> withBasename(c.getName().replace('.', '/')));
     }
 
-    public static MessageSource withBasenames(String... basenames) {
-        return new MessageSource(basenames);
+    public static MessageSource withBasename(String basename) {
+        return withBasename.computeIfAbsent(basename, MessageSource::new);
     }
 
     public String getMessage(String key, Locale locale) {

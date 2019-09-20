@@ -26,6 +26,9 @@ public final class PivotJavaScriptResourceReference extends JavaScriptResourceRe
     private static final JavaScriptResourceReference MIN_FR_REF =
             new PivotJavaScriptResourceReference("pivot.fr.min.js");
 
+    private static final JavaScriptResourceReference SRC_PLOTLY_RENDERERS_REF =
+            new PivotJavaScriptResourceReference("plotly_renderers.js");
+
     private PivotJavaScriptResourceReference(String name) {
         super(PivotJavaScriptResourceReference.class, name);
     }
@@ -36,6 +39,10 @@ public final class PivotJavaScriptResourceReference extends JavaScriptResourceRe
 
     public static HeaderItem getHeaderItemForFrench(Application application) {
         return JavaScriptHeaderItem.forReference(application.usesDeploymentConfig() ? MIN_FR_REF : SRC_FR_REF);
+    }
+
+    public static HeaderItem getHeaderItemForPlotlyRenderers() {
+        return JavaScriptHeaderItem.forReference(SRC_PLOTLY_RENDERERS_REF);
     }
 
     @Override

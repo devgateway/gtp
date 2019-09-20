@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -20,6 +21,8 @@ import org.hibernate.envers.RelationTargetAuditMode;
 @Entity
 @Audited
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"department_id", "name"}))
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@BatchSize(size = 100)
 public class Market extends AbstractAuditableEntity implements Serializable {
 
     @NotNull

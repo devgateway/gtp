@@ -11,7 +11,7 @@ import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.repository.PovertyDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.PovertyIndicatorRepository;
-import org.devgateway.toolkit.persistence.repository.RegionRepository;
+import org.devgateway.toolkit.persistence.service.category.RegionService;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
     private PovertyIndicatorRepository repository;
 
     @Autowired
-    private RegionRepository regionRepository;
+    private RegionService regionService;
 
     @Autowired
     private PovertyDatasetRepository datasetRepository;
@@ -84,7 +84,7 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
     private Region getRegion(String regionName) {
         Region region = null;
         if (StringUtils.isNotBlank(regionName)) {
-            region = regionRepository.findByName(regionName.toLowerCase());
+            region = regionService.findByName(regionName.toLowerCase());
         }
         if (region == null) {
             throw new RuntimeException("Could not find region named " + region);

@@ -1,7 +1,6 @@
 package org.devgateway.toolkit.persistence.repository;
 
 import org.devgateway.toolkit.persistence.dao.Partner;
-import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;

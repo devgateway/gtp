@@ -11,6 +11,10 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.providers;
 
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
+
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
@@ -27,11 +31,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.io.Serializable;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author mpostelnicu

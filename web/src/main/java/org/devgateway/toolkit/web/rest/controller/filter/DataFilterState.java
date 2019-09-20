@@ -1,17 +1,17 @@
 package org.devgateway.toolkit.web.rest.controller.filter;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.devgateway.toolkit.persistence.dao.Data;
-import org.devgateway.toolkit.persistence.dao.Data_;
-import org.springframework.data.jpa.domain.Specification;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.devgateway.toolkit.persistence.dao.Data;
+import org.springframework.data.jpa.domain.Specification;
 
 /**
  * Created by Daniel Oliva

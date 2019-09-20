@@ -17,8 +17,8 @@ import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.persistence.repository.ProductionDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.ProductionRepository;
-import org.devgateway.toolkit.persistence.repository.RegionRepository;
 import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
+import org.devgateway.toolkit.persistence.service.category.RegionService;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ public class ProductionImporter extends AbstractImportService<Production> {
     private ProductionRepository repository;
 
     @Autowired
-    private RegionRepository regionRepository;
+    private RegionService regionService;
 
     @Autowired
     private ProductionDatasetRepository datasetRepository;
@@ -125,7 +125,7 @@ public class ProductionImporter extends AbstractImportService<Production> {
     private Region getRegion(String regionName) {
         Region region = null;
         if (StringUtils.isNotBlank(regionName)) {
-            region = regionRepository.findByName(regionName.toLowerCase());
+            region = regionService.findByName(regionName.toLowerCase());
         }
         if (region == null) {
             throw new RuntimeException("Could not find region named " + regionName);

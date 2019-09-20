@@ -15,7 +15,6 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
-import org.devgateway.toolkit.forms.util.MarkupCacheService;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListConsumptionDatasetPage;
 import org.devgateway.toolkit.persistence.dao.Consumption;
 import org.devgateway.toolkit.persistence.dao.ConsumptionDataset;

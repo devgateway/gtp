@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
+@BatchSize(size = 100)
 public class Region extends GenericPersistable implements Serializable {
 
     @NotNull

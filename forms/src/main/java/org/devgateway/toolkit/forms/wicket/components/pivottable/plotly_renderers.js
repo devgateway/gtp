@@ -120,7 +120,11 @@
             automargin: true
           };
         }
-        result = $("<div>").appendTo($("body"));
+        // originally this div was appended to body tag, but in responsive mode this leads to situation when chart
+        // width is much bigger than the width reserved for its final destination in the pivotUI table, a workaround
+        // is to add the div to the right place, create chart, then detach only to be alter attached
+        // back at the same place
+        result = $("<div>").appendTo($("td.pvtRendererArea"));
         Plotly.newPlot(result[0], data, $.extend(layout, layoutOptions, opts.plotly), opts.plotlyConfig);
         return result.detach();
       };
@@ -226,5 +230,3 @@
   });
 
 }).call(this);
-
-//# sourceMappingURL=plotly_renderers.js.map

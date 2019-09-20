@@ -13,7 +13,6 @@ package org.devgateway.toolkit.forms.wicket.page.lists;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -43,20 +42,19 @@ public class ListConsumptionDatasetPage extends AbstractListPage<ConsumptionData
         this.jpaService = service;
         this.editPageClass = EditConsumptionDatasetPage.class;
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("name", ListConsumptionDatasetPage.this)).getString()), "label",
-                "label"));
+                new StringResourceModel("name", ListConsumptionDatasetPage.this), "label", "label"));
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("organization", ListConsumptionDatasetPage.this)).getString()),
+                new StringResourceModel("organization", ListConsumptionDatasetPage.this),
                 "organization", "organization"));
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("approved", ListConsumptionDatasetPage.this)).getString()),
+                new StringResourceModel("approved", ListConsumptionDatasetPage.this),
                 "approved", "approved"));
-        columns.add(new LinkBootstrapPropertyColumn(new Model<>((new StringResourceModel("fileMetadata",
-                ListConsumptionDatasetPage.this)).getString()), "fileMetadata"));
+        columns.add(new LinkBootstrapPropertyColumn(
+                new StringResourceModel("fileMetadata", ListConsumptionDatasetPage.this), "fileMetadata"));
     }
 
     @Override
     public JpaFilterState<ConsumptionDataset> newFilterState() {
-        return (JpaFilterState) new DatasetFilterState(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
+        return new DatasetFilterState<>(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
     }
 }
