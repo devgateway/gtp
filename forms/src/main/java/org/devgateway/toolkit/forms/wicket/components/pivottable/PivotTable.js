@@ -1,14 +1,11 @@
 
 // TODO
-//  - do we cache data?
+//  - enable http caching
 //  - filtering by ranges not yet possible, see https://github.com/nicolaskruchten/pivottable/issues/191
 
 var PivotTable = new function() {
 
-    var _fields;
-
     this.init = function(opts, extraOpts) {
-        _fields = opts.fields;
 
         var el = $("#" + opts.elementId);
 
@@ -19,7 +16,7 @@ var PivotTable = new function() {
             if (data.length === 0) {
                 el.html("No data.");
             } else {
-                var localizedData = data.map(toLocalizedRow);
+                var localizedData = data.map(function(row) { return toLocalizedRow(row, opts); });
 
                 var extraPivotUIOpts = getExtraPivotUIOpts(opts, extraOpts);
 
@@ -62,6 +59,8 @@ var PivotTable = new function() {
             return pivotUIOptsForMarketPrices(opts, extraOpts);
         } else if (opts.dataset === "Production") {
             return pivotUIOptsForProduction(opts, extraOpts);
+        } else if (opts.dataset === "Consumption") {
+            return pivotUIOptsForConsumption(opts, extraOpts);
         } else {
             throw opts.dataset + " not supported";
         }
@@ -170,6 +169,35 @@ var PivotTable = new function() {
         };
     }
 
+    function pivotUIOptsForConsumption(opts, extraOpts) {
+        var DEPARTMENT = "_department";
+        var DEPARTMENT_NAME = "departmentName";
+        var REGION_NAME = "regionName";
+        var REGION_CODE = "regionCode";
+
+        var derivers = $.extend({}, $.pivotUtilities.derivers);
+        derivers.deptIdToName = function(record) {
+            return extraOpts.departmentNames[record[DEPARTMENT]];
+        };
+        derivers.deptIdToRegion = function(record) {
+            return extraOpts.regionNames[record[DEPARTMENT]];
+        };
+        derivers.deptIdToRegionCode = function(record) {
+            return extraOpts.regionCodes[record[DEPARTMENT]];
+        };
+
+        var extraFields = opts.extraFields;
+
+        var derivedAttributes = {};
+        derivedAttributes[extraFields[DEPARTMENT_NAME]] = derivers.deptIdToName;
+        derivedAttributes[extraFields[REGION_NAME]] = derivers.deptIdToRegion;
+        derivedAttributes[extraFields[REGION_CODE]] = derivers.deptIdToRegionCode;
+
+        return {
+            derivedAttributes: derivedAttributes
+        };
+    }
+
     /**
      * Returns aggregators to use in pivottable.js.
      * @param names names of the aggregators
@@ -213,14 +241,18 @@ var PivotTable = new function() {
      * @param row object that uses internal names
      * @return object that uses localized labels
      */
-    function toLocalizedRow(row) {
+    function toLocalizedRow(row, opts) {
         var localizedRow = {};
-        for (var field in _fields) {
-            if (_fields.hasOwnProperty(field)) {
-                var label = _fields[field];
+        var fields = opts.fields;
+        for (var field in fields) {
+            if (fields.hasOwnProperty(field)) {
+                var label = fields[field];
                 var value = row[field];
                 if (value) {
                     localizedRow[label] = value;
+                } else if (!opts.pivotUIOpts.hiddenFromDragDrop[label]) {
+                    // this value will appear in pivot table axis, otherwise it would be displayed as 'null'
+                    localizedRow[label] = opts.language === 'fr' ? "Non défini" : "Undefined";
                 }
             }
         }

@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import org.devgateway.toolkit.persistence.dao.Consumption;
 import org.devgateway.toolkit.persistence.dao.Dataset;
+import org.devgateway.toolkit.persistence.dao.Department;
 import org.devgateway.toolkit.persistence.dao.Market;
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.Production;
@@ -33,6 +35,9 @@ public class JsonSerializationTest {
 
     @Autowired
     private JacksonTester<Production> productionJacksonTester;
+
+    @Autowired
+    private JacksonTester<Consumption> consumptionJacksonTester;
 
     /**
      * Ensure that only necessary fields are included in output. We want to keep output as compact as possible.
@@ -100,5 +105,50 @@ public class JsonSerializationTest {
         JsonContent<Production> content = productionJacksonTester.write(record);
 
         assertEquals("{}", content.getJson());
+    }
+
+    /**
+     * Make sure that fields with null values are excluded from output for compactness.
+     */
+    @Test
+    public void testConsumptionWithNullValues() throws IOException {
+        Consumption record = new Consumption();
+
+        JsonContent<Consumption> content = consumptionJacksonTester.write(record);
+
+        assertEquals("{}", content.getJson());
+    }
+
+    /**
+     * Make sure that fields with null values are excluded from output for compactness.
+     */
+
+    @Test
+    public void testConsumptionWithAllValuesSpecified() throws IOException {
+        Consumption record = new Consumption();
+        record.setDataset(new Dataset());
+        record.setCrop("A");
+        record.setCropType("B");
+        record.setDepartment(new Department(1L));
+        record.setHouseholdSize(53);
+        record.setDailyConsumption(3.3d);
+        record.setWeeklyConsumption(5.5d);
+
+        JsonContent<Consumption> content = consumptionJacksonTester.write(record);
+
+        assertEquals("{\"department\":1,\"crop\":\"A\",\"cropType\":\"B\","
+                + "\"householdSize\":53,\"dailyConsumption\":3.3,\"weeklyConsumption\":5.5}", content.getJson());
+    }
+
+    @Test
+    public void testConsumptionExtremeValues() throws IOException {
+        Consumption record = new Consumption();
+        record.setDailyConsumption(0.206000000238418d);
+        record.setWeeklyConsumption(0.871700048446655d);
+
+        JsonContent<Consumption> content = consumptionJacksonTester.write(record);
+
+        assertEquals("{\"dailyConsumption\":0.206000000238418,\"weeklyConsumption\":0.871700048446655}",
+                content.getJson());
     }
 }

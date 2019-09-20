@@ -28,6 +28,13 @@ public class Department extends GenericPersistable implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
 
+    public Department() {
+    }
+
+    public Department(Long id) {
+        setId(id);
+    }
+
     public Region getRegion() {
         return region;
     }
