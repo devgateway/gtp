@@ -13,7 +13,6 @@ package org.devgateway.toolkit.forms.wicket.page.lists;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -43,20 +42,20 @@ public class ListFoodLossDatasetPage extends AbstractListPage<FoodLossDataset> {
         this.jpaService = service;
         this.editPageClass = EditFoodLossDatasetPage.class;
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("name", ListFoodLossDatasetPage.this)).getString()), "label",
+                new StringResourceModel("name", ListFoodLossDatasetPage.this), "label",
                 "label"));
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("organization", ListFoodLossDatasetPage.this)).getString()),
+                new StringResourceModel("organization", ListFoodLossDatasetPage.this),
                 "organization", "organization"));
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("approved", ListFoodLossDatasetPage.this)).getString()),
+                new StringResourceModel("approved", ListFoodLossDatasetPage.this),
                 "approved", "approved"));
-        columns.add(new LinkBootstrapPropertyColumn(new Model<>((new StringResourceModel("fileMetadata",
-                ListFoodLossDatasetPage.this)).getString()), "fileMetadata"));
+        columns.add(new LinkBootstrapPropertyColumn(new StringResourceModel("fileMetadata",
+                ListFoodLossDatasetPage.this), "fileMetadata"));
     }
 
     @Override
     public JpaFilterState<FoodLossDataset> newFilterState() {
-        return (JpaFilterState) new DatasetFilterState(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
+        return new DatasetFilterState<>(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
     }
 }
