@@ -36,7 +36,7 @@ var PivotTable = new function() {
                         plotlyConfig: {
                             modeBarButtonsToRemove: ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d',
                                 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian',
-                                'toggleSpikelines'], // hide buttons as to not confuse the user
+                                'toggleSpikelines', 'hoverClosestPie'], // hide buttons as to not confuse the user
                             displaylogo: false,
                             responsive: true, // allow chart to resize with the window
                             locale: opts.language
