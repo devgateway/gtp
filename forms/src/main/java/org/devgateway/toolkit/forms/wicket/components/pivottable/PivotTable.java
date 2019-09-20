@@ -14,6 +14,8 @@ import java.util.stream.IntStream;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.wicket.markup.head.CssHeaderItem;
@@ -31,9 +33,9 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.PivotTableField;
 import org.devgateway.toolkit.persistence.dao.Production;
-import org.devgateway.toolkit.persistence.repository.MarketRepository;
-import org.devgateway.toolkit.persistence.repository.RegionRepository;
-import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
+import org.devgateway.toolkit.persistence.service.category.CropTypeService;
+import org.devgateway.toolkit.persistence.service.category.MarketService;
+import org.devgateway.toolkit.persistence.service.category.RegionService;
 
 /**
  * Wicket component that acts as a wrapper for pivottable.js library.
@@ -44,23 +46,36 @@ public class PivotTable extends GenericPanel<Class<?>> {
 
     private static final CssResourceReference CSS = new CssResourceReference(PivotTable.class, "PivotTable.css");
 
-    private final WebMarkupContainer table;
-
     private static final List<String> AGGREGATOR_NAMES = ImmutableList.of("average", "count", "sum");
 
-    private static final List<String> RENDERER_NAMES = ImmutableList.of("table", "heatmap", "rowHeatmap", "colHeatmap");
+    private static final Map<String, String> RENDERERS = new ImmutableMap.Builder<String, String>()
+            .put("Table", "table")
+            .put("Heatmap", "heatmap")
+            .put("Row Heatmap", "rowHeatmap")
+            .put("Col Heatmap", "colHeatmap")
+            .put("Bar Chart", "plotly.barChart")
+            .put("Stacked Bar Chart", "plotly.stackedBarChart")
+            .put("Horizontal Bar Chart", "plotly.horizontalBarChart")
+            .put("Horizontal Stacked Bar Chart", "plotly.horizontalStackedBarChart")
+            .put("Area Chart", "plotly.areaChart")
+            .put("Line Chart", "plotly.lineChart")
+            .put("Multiple Pie Chart", "plotly.multiplePieChart")
+            .put("Scatter Chart", "plotly.scatterChart")
+            .build();
+
+    private final WebMarkupContainer table;
 
     @SpringBean
     private ObjectMapper objectMapper;
 
     @SpringBean
-    private MarketRepository marketRepository;
+    private MarketService marketService;
 
     @SpringBean
-    private RegionRepository regionRepository;
+    private RegionService regionService;
 
     @SpringBean
-    private CropTypeRepository cropTypeRepository;
+    private CropTypeService cropTypeService;
 
     public PivotTable(String id, Model<Class<?>> model) {
         super(id, model);
@@ -84,7 +99,7 @@ public class PivotTable extends GenericPanel<Class<?>> {
         Class<?> datasetClass = getModelObject();
 
         MessageSource datasetMessages = MessageSource.forClass(datasetClass);
-        MessageSource pivotMessages = MessageSource.withBasenames("pivot");
+        MessageSource pivotMessages = MessageSource.withBasename("pivot");
 
         List<PivotField> fields = FieldUtils.getAllFieldsList(datasetClass).stream()
                 .filter(f -> f.isAnnotationPresent(PivotTableField.class))
@@ -136,9 +151,7 @@ public class PivotTable extends GenericPanel<Class<?>> {
                 .map(agg -> pivotMessages.getMessage(agg, locale))
                 .collect(toList()));
 
-        pivotTableOpts.setRendererNames(RENDERER_NAMES.stream()
-                .map(agg -> pivotMessages.getMessage(agg, locale))
-                .collect(toList()));
+        pivotTableOpts.setRenderers(Maps.transformValues(RENDERERS, m -> pivotMessages.getMessage(m, locale)));
 
         return String.format("PivotTable.init(%s, %s)", toJson(pivotTableOpts),
                 toJson(mp.getExtraOpts(locale.getLanguage())));
@@ -147,9 +160,9 @@ public class PivotTable extends GenericPanel<Class<?>> {
     private DatasetAnalysisConfigurer getDatasetAnalysisConfigurer() {
         Class<?> dataClass = getModelObject();
         if (dataClass == MarketPrice.class) {
-            return new MarketPriceDatasetAnalysisConfigurer(marketRepository, cropTypeRepository);
+            return new MarketPriceDatasetAnalysisConfigurer(marketService, cropTypeService);
         } else if (dataClass == Production.class) {
-            return new ProductionDatasetAnalysisConfigurer(regionRepository, cropTypeRepository);
+            return new ProductionDatasetAnalysisConfigurer(regionService, cropTypeService);
         } else {
             throw new RuntimeException(dataClass + " not supported");
         }

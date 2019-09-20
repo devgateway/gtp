@@ -26,7 +26,7 @@ public class PivotTableOpts {
     private PivotUIOpts pivotUIOpts;
 
     private List<String> aggregatorNames;
-    private List<String> rendererNames;
+    private Map<String, String> renderers;
 
     private List<String> mthNames;
     private List<String> dayNames;
@@ -95,12 +95,12 @@ public class PivotTableOpts {
         this.aggregatorNames = aggregatorNames;
     }
 
-    public List<String> getRendererNames() {
-        return rendererNames;
+    public Map<String, String> getRenderers() {
+        return renderers;
     }
 
-    public void setRendererNames(List<String> rendererNames) {
-        this.rendererNames = rendererNames;
+    public void setRenderers(Map<String, String> renderers) {
+        this.renderers = renderers;
     }
 
     public List<String> getMthNames() {

@@ -25,9 +25,23 @@ var PivotTable = new function() {
 
                 var pivotUIOpts = $.extend({}, opts.pivotUIOpts, extraPivotUIOpts, {
                     aggregators: buildAggregators(opts.aggregatorNames, opts.language),
-                    renderers: buildRenderers(opts.rendererNames, opts.language),
-                    unusedAttrsVertical: true,
-                    autoSortUnusedAttrs: false
+                    renderers: buildRenderers(opts.renderers),
+                    unusedAttrsVertical: false,
+                    autoSortUnusedAttrs: false,
+                    rendererOptions: {
+                        plotly: {
+                            width: null, // clear width to make the chart responsive
+                            height: Math.max(window.innerHeight / 1.4 - 90, 500) // guessing the height
+                        },
+                        plotlyConfig: {
+                            modeBarButtonsToRemove: ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d',
+                                'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian',
+                                'toggleSpikelines'], // hide buttons as to not confuse the user
+                            displaylogo: false,
+                            responsive: true, // allow chart to resize with the window
+                            locale: opts.language
+                        }
+                    }
                 });
 
                 el.pivotUI(localizedData, pivotUIOpts, false, opts.language);
@@ -168,12 +182,17 @@ var PivotTable = new function() {
 
     /**
      * Returns renderers to use in pivottable.js.
-     * @param names names of the renderers
-     * @param language language in which names were specified
+     * @param names an object where keys are english renderer name and values are localized renderer name
      */
-    function buildRenderers(names, language) {
-        var ptLocale = $.pivotUtilities.locales[language] ? language : "en";
-        return objSubset(names, $.pivotUtilities.locales[ptLocale].renderers);
+    function buildRenderers(names) {
+        var availableRenderers = $.extend({}, $.pivotUtilities.renderers, $.pivotUtilities.plotly_renderers);
+        var renderers = {};
+        for (var name in names) {
+            if (names.hasOwnProperty(name)) {
+                renderers[names[name]] = availableRenderers[name];
+            }
+        }
+        return renderers;
     }
 
     /**

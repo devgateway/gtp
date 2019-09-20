@@ -7,22 +7,20 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.Market;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
-import org.devgateway.toolkit.persistence.repository.MarketRepository;
-import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
+import org.devgateway.toolkit.persistence.service.category.CropTypeService;
+import org.devgateway.toolkit.persistence.service.category.MarketService;
 
 /**
  * @author Octavian Ciubotaru
  */
 public class MarketPriceDatasetAnalysisConfigurer implements DatasetAnalysisConfigurer {
 
-    private MarketRepository marketRepository;
+    private MarketService marketService;
+    private CropTypeService cropTypeService;
 
-    private CropTypeRepository cropTypeRepository;
-
-    public MarketPriceDatasetAnalysisConfigurer(MarketRepository marketRepository,
-            CropTypeRepository cropTypeRepository) {
-        this.marketRepository = marketRepository;
-        this.cropTypeRepository = cropTypeRepository;
+    public MarketPriceDatasetAnalysisConfigurer(MarketService marketService, CropTypeService cropTypeService) {
+        this.marketService = marketService;
+        this.cropTypeService = cropTypeService;
     }
 
     @Override
@@ -61,10 +59,10 @@ public class MarketPriceDatasetAnalysisConfigurer implements DatasetAnalysisConf
 
     @Override
     public Object getExtraOpts(String language) {
-        List<Market> markets = marketRepository.findAll();
 
         MarketPriceOpts opts = new MarketPriceOpts();
 
+        List<Market> markets = marketService.findAll();
         opts.setRegionNames(
                 markets.stream().collect(toMap(Market::getId, m -> m.getDepartment().getRegion().getName())));
 
@@ -75,8 +73,7 @@ public class MarketPriceDatasetAnalysisConfigurer implements DatasetAnalysisConf
 
         opts.setMarketNames(markets.stream().collect(toMap(Market::getId, Market::getName)));
 
-        List<CropType> cropTypes = cropTypeRepository.findAll();
-
+        List<CropType> cropTypes = cropTypeService.findAll();
         opts.setCropTypeNames(cropTypes.stream().collect(toMap(CropType::getId, ct -> ct.getLocalizedLabel(language))));
 
         return opts;

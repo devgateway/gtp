@@ -3,3 +3,16 @@
 .pvtVal, .pvtTotal, .pvtGrandTotal {
     white-space: nowrap;
 }
+
+.pvtUi {
+    width: 100%;
+}
+.pvtUnused {
+    width: 0;
+}
+.pvtRows {
+    width: 0;
+}
+.pvtRendererArea {
+    width: 100%;
+}
