@@ -9,28 +9,15 @@
  * Contributors:
  * Development Gateway - initial API and implementation
  *******************************************************************************/
-package org.devgateway.toolkit.persistence.dao.categories;
+package org.devgateway.toolkit.persistence.repository.category;
 
-import javax.persistence.Entity;
-
-import org.hibernate.envers.Audited;
+import org.devgateway.toolkit.persistence.dao.categories.LossType;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 
- * @author mpostelnicu
- *
+ * @author Daniel Oliva
  */
-@Entity
-@Audited
-public class Organization extends Category {
-
-    public Organization() {
-        super();
-    }
-
-    public Organization(final String label) {
-        super();
-        this.label = label;
-    }
+@Transactional
+public interface LossTypeRepository extends CategoryRepository<LossType> {
 
 }

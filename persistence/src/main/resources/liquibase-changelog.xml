@@ -219,9 +219,20 @@
             <tableExists tableName="localized_category_label" />
         </preConditions>
         <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Peanut');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Irrigated Rice');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Rainfed Rice');
+            INSERT INTO category (dtype, id, label) VALUES ('CropType', nextval('hibernate_sequence'), 'Mock Tomato');
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Arachide','fr',id FROM category WHERE label='Peanut' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Riz Irrigué','fr',id FROM category WHERE label='Irrigated Rice' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Riz pluvial','fr',id FROM category WHERE label='Rainfed Rice' AND dtype='CropType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Diakhatou','fr',id FROM category WHERE label='Mock Tomato' AND dtype='CropType';
+
+
             INSERT INTO category (dtype, id, label) VALUES ('AgriculturalWomenGroup', nextval('hibernate_sequence'), 'Age Group');
             INSERT INTO category (dtype, id, label) VALUES ('AgriculturalWomenGroup', nextval('hibernate_sequence'), 'Method of enforcement');
-            INSERT INTO category (dtype, id, label) VALUES ('AgriculturalWomenGroup', nextval('hibernate_sequence'), 'Crop');
+            INSERT INTO category (dtype, id, label) VALUES ('AgriculturalWomenGroup', nextval('hibernate_sequence'), 'Distribution areas/parcels');
+            INSERT INTO category (dtype, id, label) VALUES ('AgriculturalWomenGroup', nextval('hibernate_sequence'), 'Distribution zones/utilized zones');
 
             INSERT INTO category (dtype, id, label) VALUES ('Gender', nextval('hibernate_sequence'), 'Male');
             INSERT INTO category (dtype, id, label) VALUES ('Gender', nextval('hibernate_sequence'), 'Female');
@@ -243,6 +254,30 @@
             INSERT INTO category (dtype, id, label) VALUES ('MethodOfEnforcement', nextval('hibernate_sequence'), 'Loan');
             INSERT INTO category (dtype, id, label) VALUES ('MethodOfEnforcement', nextval('hibernate_sequence'), 'Free Occupation or Occupation without authorization');
 
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="Food type loss" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('LossType', nextval('hibernate_sequence'), 'Lost in storage');
+            INSERT INTO category (dtype, id, label) VALUES ('LossType', nextval('hibernate_sequence'), 'Used in seed lots');
+            INSERT INTO category (dtype, id, label) VALUES ('LossType', nextval('hibernate_sequence'), 'Sold');
+            INSERT INTO category (dtype, id, label) VALUES ('LossType', nextval('hibernate_sequence'), 'Personal consumption');
+            INSERT INTO category (dtype, id, label) VALUES ('LossType', nextval('hibernate_sequence'), 'Transformation');
+            INSERT INTO category (dtype, id, label) VALUES ('LossType', nextval('hibernate_sequence'), 'Donation & Zakat');
+            INSERT INTO category (dtype, id, label) VALUES ('LossType', nextval('hibernate_sequence'), 'For animals consumption');
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Perdu dans le stockage','fr',id FROM category WHERE label='Lost in storage' AND dtype='LossType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Utilisé dans les lots de semences','fr',id FROM category WHERE label='Used in seed lots' AND dtype='LossType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Vendu','fr',id FROM category WHERE label='Sold' AND dtype='LossType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Consommation personnelle','fr',id FROM category WHERE label='Personal consumption' AND dtype='LossType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Transformation','fr',id FROM category WHERE label='Transformation' AND dtype='LossType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Don et Zakat','fr',id FROM category WHERE label='Donation & Zakat' AND dtype='LossType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Pour la consommation animale','fr',id FROM category WHERE label='For animals consumption' AND dtype='LossType';
         ]]></sql>
     </changeSet>
 

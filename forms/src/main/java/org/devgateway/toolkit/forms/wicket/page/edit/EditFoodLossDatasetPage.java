@@ -15,10 +15,9 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
-import org.devgateway.toolkit.forms.util.MarkupCacheService;
-import org.devgateway.toolkit.forms.wicket.page.lists.ListMarketPriceDatasetPage;
-import org.devgateway.toolkit.persistence.dao.MarketPrice;
-import org.devgateway.toolkit.persistence.dao.MarketDataset;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListFoodLossDatasetPage;
+import org.devgateway.toolkit.persistence.dao.FoodLossDataset;
+import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.devgateway.toolkit.persistence.service.ImportService;
 import org.slf4j.Logger;
@@ -30,24 +29,24 @@ import org.wicketstuff.annotation.mount.MountPath;
  * Created by Daniel Oliva
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
-@MountPath("/editMarketPrice")
-public class EditMarketPriceDatasetPage extends AbstractEditDatasePage<MarketDataset, MarketPrice> {
+@MountPath("/editFoodLoss")
+public class EditFoodLossDatasetPage extends AbstractEditDatasePage<FoodLossDataset, FoodLossIndicator> {
 
     private static final long serialVersionUID = -6069250112046118104L;
-    private static final Logger logger = LoggerFactory.getLogger(EditMarketPriceDatasetPage.class);
+    private static final Logger logger = LoggerFactory.getLogger(EditFoodLossDatasetPage.class);
 
-    @SpringBean(name = "marketPriceImporter")
+    @SpringBean(name = "foodLossIndicatorImporter")
     private transient ImportService importService;
 
-    @SpringBean(name = "marketPriceDatasetService")
+    @SpringBean(name = "foodLossDatasetService")
     protected DatasetService service;
 
-    public EditMarketPriceDatasetPage(final PageParameters parameters) {
+
+    public EditFoodLossDatasetPage(final PageParameters parameters) {
         super(parameters);
         this.jpaService = service;
-        this.listPageClass = ListMarketPriceDatasetPage.class;
+        this.listPageClass = ListFoodLossDatasetPage.class;
         this.importer = importService;
     }
-
 
 }

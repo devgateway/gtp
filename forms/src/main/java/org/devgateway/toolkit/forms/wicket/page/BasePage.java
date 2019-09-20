@@ -59,6 +59,9 @@ import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.page.analysis.AnalysisPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListAgriculturalWomenDatasetPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListConsumptionDatasetPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListFoodLossDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListMarketPriceDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPartnerPage;
@@ -359,16 +362,33 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 final List<AbstractLink> list = new ArrayList<>();
                 list.add(new MenuBookmarkablePageLink<ListProductionDatasetPage>(ListProductionDatasetPage.class, null,
                         new StringResourceModel("navbar.production", this, null))
-                        .setIconType(FontAwesomeIconType.th_list));
+                        .setIconType(FontAwesomeIconType.pagelines));
+
+                list.add(new MenuBookmarkablePageLink<ListConsumptionDatasetPage>(
+                        ListConsumptionDatasetPage.class, null,
+                        new StringResourceModel("navbar.consumption", this, null))
+                        .setIconType(FontAwesomeIconType.shopping_basket));
 
                 list.add(new MenuBookmarkablePageLink<ListMarketPriceDatasetPage>(ListMarketPriceDatasetPage.class,
                         null, new StringResourceModel("navbar.marketPrice", this, null))
                         .setIconType(FontAwesomeIconType.usd));
 
+                list.add(new MenuDivider());
+
                 list.add(new MenuBookmarkablePageLink<ListPovertyIndicatorDatasetPage>(
                         ListPovertyIndicatorDatasetPage.class, null,
                         new StringResourceModel("navbar.poverty", this, null))
-                        .setIconType(FontAwesomeIconType.money));
+                        .setIconType(FontAwesomeIconType.group));
+
+                list.add(new MenuBookmarkablePageLink<ListAgriculturalWomenDatasetPage>(
+                        ListAgriculturalWomenDatasetPage.class, null,
+                        new StringResourceModel("navbar.agriculturalWomen", this, null))
+                        .setIconType(FontAwesomeIconType.female));
+
+                list.add(new MenuBookmarkablePageLink<ListFoodLossDatasetPage>(
+                        ListFoodLossDatasetPage.class, null,
+                        new StringResourceModel("navbar.foodLoss", this, null))
+                        .setIconType(FontAwesomeIconType.bolt));
 
 
                 return list;

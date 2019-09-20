@@ -11,13 +11,10 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.page.edit;
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
-import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListProductionDatasetPage;
@@ -25,7 +22,6 @@ import org.devgateway.toolkit.persistence.dao.ProductionDataset;
 import org.devgateway.toolkit.persistence.dao.Production;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.devgateway.toolkit.persistence.service.ImportService;
-import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -37,13 +33,13 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
 @MountPath("/editProduction")
-public class EditProductionDatasetPage extends AbstractEditDatasePage<ProductionDataset> {
+public class EditProductionDatasetPage extends AbstractEditDatasePage<ProductionDataset, Production> {
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditProductionDatasetPage.class);
 
     @SpringBean(name = "productionImporter")
-    private transient ImportService importer;
+    private transient ImportService importService;
 
     @SpringBean(name = "productionDatasetService")
     protected DatasetService service;
@@ -55,58 +51,16 @@ public class EditProductionDatasetPage extends AbstractEditDatasePage<Production
         super(parameters);
         this.jpaService = service;
         this.listPageClass = ListProductionDatasetPage.class;
+        this.importer = importService;
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
 
-
         final TextFieldBootstrapFormComponent<String> source = new TextFieldBootstrapFormComponent<>("source");
         source.required();
         editForm.add(source);
     }
 
-    @Override
-    public SaveEditPageButton getSaveEditPageButton() {
-        return new SaveEditPageButton("save", new StringResourceModel("save", EditProductionDatasetPage.this, null)) {
-            private static final long serialVersionUID = 5214537995514151323L;
-
-            @Override
-            protected void onSubmit(final AjaxRequestTarget target) {
-                logger.info("Check the file and process it");
-                ProductionDataset model = editForm.getModelObject();
-                if (model.getId() != null) {
-                    SecurityUtil.getCurrentAuthenticatedPerson();
-                } else {
-                    model.setOrganization(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
-                }
-                redirectToSelf = false;
-                ImportResults<Production> results = importer.processFile(model);
-
-                //process results
-                if (!results.isImportOkFlag()) {
-                    feedbackPanel.error(new StringResourceModel("uploadError", this, null).getString());
-                    results.getErrorList().forEach(error -> feedbackPanel.error(error));
-                    target.add(feedbackPanel);
-                    redirectToSelf = true;
-                } else {
-                    markupCacheService.clearAllCaches();
-                }
-
-                redirect(target);
-            }
-
-
-            private void redirect(final AjaxRequestTarget target) {
-                if (redirectToSelf) {
-                    // we need to close the blockUI if it's opened and enable all
-                    // the buttons
-                    target.appendJavaScript("$.unblockUI();");
-                } else if (redirect) {
-                    setResponsePage(getResponsePage(), getParameterPage());
-                }
-            }
-        };
-    }
 }

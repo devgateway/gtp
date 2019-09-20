@@ -22,6 +22,7 @@ import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.hibernate.annotations.BatchSize;
@@ -52,6 +53,7 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "category")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @BatchSize(size = 100)
+    @JsonIgnore
     private List<LocalizedCategoryLabel> localizedLabels = new ArrayList<>();
 
     public Category(final String label) {
@@ -83,17 +85,19 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     /**
      * Retrieve french label. If not found returns null.
      */
+    @JsonIgnore
     public String getLabelFr() {
         return getLabel("fr");
     }
 
+    @JsonIgnore
     private String getLabel(String language) {
         for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
             if (localizedLabel.getLanguage().equals(language)) {
                 return localizedLabel.getLabel();
             }
         }
-        return null;
+        return label; //Dont return null for label, its being used in serialization
     }
 
     /**

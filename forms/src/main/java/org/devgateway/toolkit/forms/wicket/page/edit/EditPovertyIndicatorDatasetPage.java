@@ -35,13 +35,13 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
 @MountPath("/editPoverty")
-public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<PovertyDataset> {
+public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<PovertyDataset, PovertyIndicator> {
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditPovertyIndicatorDatasetPage.class);
 
     @SpringBean(name = "povertyIndicatorImporter")
-    private transient ImportService importer;
+    private transient ImportService importService;
 
     @SpringBean(name = "povertyDatasetService")
     protected DatasetService service;
@@ -53,49 +53,8 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<Pove
         super(parameters);
         this.jpaService = service;
         this.listPageClass = ListPovertyIndicatorDatasetPage.class;
+        this.importer = importService;
     }
 
-    @Override
-    public SaveEditPageButton getSaveEditPageButton() {
-        return new SaveEditPageButton("save", new StringResourceModel("save",
-                EditPovertyIndicatorDatasetPage.this, null)) {
-            private static final long serialVersionUID = 5214537995514151323L;
 
-            @Override
-            protected void onSubmit(final AjaxRequestTarget target) {
-                logger.info("Check the file and process it");
-                PovertyDataset model = editForm.getModelObject();
-                if (model.getId() != null) {
-                    SecurityUtil.getCurrentAuthenticatedPerson();
-                } else {
-                    model.setOrganization(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
-                }
-                redirectToSelf = false;
-                ImportResults<PovertyIndicator> results = importer.processFile(model);
-
-                //process results
-                if (!results.isImportOkFlag()) {
-                    feedbackPanel.error(new StringResourceModel("uploadError", this, null).getString());
-                    results.getErrorList().forEach(error -> feedbackPanel.error(error));
-                    target.add(feedbackPanel);
-                    redirectToSelf = true;
-                } else {
-                    markupCacheService.clearAllCaches();
-                }
-
-                redirect(target);
-            }
-
-
-            private void redirect(final AjaxRequestTarget target) {
-                if (redirectToSelf) {
-                    // we need to close the blockUI if it's opened and enable all
-                    // the buttons
-                    target.appendJavaScript("$.unblockUI();");
-                } else if (redirect) {
-                    setResponsePage(getResponsePage(), getParameterPage());
-                }
-            }
-        };
-    }
 }

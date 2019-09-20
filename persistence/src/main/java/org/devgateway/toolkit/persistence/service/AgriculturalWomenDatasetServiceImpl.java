@@ -11,18 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Daniel Oliva
  */
-@Service("agriculturalWomenDataset")
+@Service("agriculturalWomenDatasetService")
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class AgriculturalWomenDatasetServiceImpl extends BaseJpaServiceImpl<AgriculturalWomenDataset>
         implements DatasetService<AgriculturalWomenDataset>  {
 
     @Autowired
-    private AgriculturalWomenDatasetRepository consumptionDatasetRepository;
+    private AgriculturalWomenDatasetRepository repository;
 
     @Override
     protected BaseJpaRepository<AgriculturalWomenDataset, Long> repository() {
-        return consumptionDatasetRepository;
+        return repository;
     }
 
     @Override
