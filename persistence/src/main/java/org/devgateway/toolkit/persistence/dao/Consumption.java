@@ -1,14 +1,15 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import java.io.Serializable;
 
 /**
  * Created by Daniel Oliva
@@ -16,17 +17,29 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 public class Consumption extends Data implements Serializable {
+
     private static final long serialVersionUID = -3219250112046118104L;
 
     @ManyToOne
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
+    @PivotTableField(hideInAggregators = true, hideInDragAndDrop = true)
     private Department department;
+
+    @PivotTableField(hideInAggregators = true)
     private String crop;
+
+    @PivotTableField(hideInAggregators = true)
     private String cropType;
-    private int householdSize;
+
+    @PivotTableField(hideInDragAndDrop = true)
+    private Integer householdSize;
+
+    @PivotTableField(hideInDragAndDrop = true)
     private Double dailyConsumption;
+
+    @PivotTableField(hideInDragAndDrop = true)
     private Double weeklyConsumption;
 
     public Department getDepartment() {
@@ -53,11 +66,11 @@ public class Consumption extends Data implements Serializable {
         this.cropType = cropType;
     }
 
-    public int getHouseholdSize() {
+    public Integer getHouseholdSize() {
         return householdSize;
     }
 
-    public void setHouseholdSize(int householdSize) {
+    public void setHouseholdSize(Integer householdSize) {
         this.householdSize = householdSize;
     }
 

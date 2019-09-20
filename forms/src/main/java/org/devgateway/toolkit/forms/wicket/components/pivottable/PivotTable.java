@@ -30,10 +30,12 @@ import org.apache.wicket.protocol.http.WicketFilter;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.toolkit.persistence.dao.Consumption;
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.PivotTableField;
 import org.devgateway.toolkit.persistence.dao.Production;
 import org.devgateway.toolkit.persistence.service.category.CropTypeService;
+import org.devgateway.toolkit.persistence.service.category.DepartmentService;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.service.category.RegionService;
 
@@ -70,6 +72,9 @@ public class PivotTable extends GenericPanel<Class<?>> {
 
     @SpringBean
     private MarketService marketService;
+
+    @SpringBean
+    private DepartmentService departmentService;
 
     @SpringBean
     private RegionService regionService;
@@ -163,6 +168,8 @@ public class PivotTable extends GenericPanel<Class<?>> {
             return new MarketPriceDatasetAnalysisConfigurer(marketService, cropTypeService);
         } else if (dataClass == Production.class) {
             return new ProductionDatasetAnalysisConfigurer(regionService, cropTypeService);
+        } else if (dataClass == Consumption.class) {
+            return new ConsumptionDatasetAnalysisConfigurer(departmentService);
         } else {
             throw new RuntimeException(dataClass + " not supported");
         }

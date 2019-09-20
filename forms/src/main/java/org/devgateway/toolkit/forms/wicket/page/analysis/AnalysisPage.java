@@ -8,6 +8,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstra
 import org.devgateway.toolkit.forms.wicket.components.pivottable.PivotTable;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
+import org.devgateway.toolkit.persistence.dao.Consumption;
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.Production;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -27,7 +28,7 @@ public class AnalysisPage extends BasePage {
         pivotTable.setOutputMarkupId(true);
         add(pivotTable);
 
-        ImmutableList<Class<?>> dataClasses = ImmutableList.of(MarketPrice.class, Production.class);
+        ImmutableList<Class<?>> dataClasses = ImmutableList.of(MarketPrice.class, Production.class, Consumption.class);
 
         GenericChoiceProvider<Class<?>> choiceProvider = new GenericChoiceProvider<Class<?>>(dataClasses) {
 
