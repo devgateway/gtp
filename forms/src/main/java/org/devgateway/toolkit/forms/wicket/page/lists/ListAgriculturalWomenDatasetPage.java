@@ -43,11 +43,11 @@ public class ListAgriculturalWomenDatasetPage extends AbstractListPage<Agricultu
         this.jpaService = service;
         this.editPageClass = EditAgriculturalWomenDatasetPage.class;
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("name", ListAgriculturalWomenDatasetPage.this)).getString()), "label",
-                "label"));
+                new Model<>((new StringResourceModel("name", ListAgriculturalWomenDatasetPage.this)).getString()),
+                "label", "label"));
         columns.add(new PropertyColumn<>(
-                new Model<>((new StringResourceModel("organization", ListAgriculturalWomenDatasetPage.this)).getString()),
-                "organization", "organization"));
+                new Model<>((new StringResourceModel("organization", ListAgriculturalWomenDatasetPage.this))
+                        .getString()), "organization", "organization"));
         columns.add(new PropertyColumn<>(
                 new Model<>((new StringResourceModel("approved", ListAgriculturalWomenDatasetPage.this)).getString()),
                 "approved", "approved"));
