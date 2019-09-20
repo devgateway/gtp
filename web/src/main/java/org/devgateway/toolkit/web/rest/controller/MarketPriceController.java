@@ -3,6 +3,7 @@ package org.devgateway.toolkit.web.rest.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.validation.Valid;
 
@@ -53,4 +54,5 @@ public class MarketPriceController {
     public List<MarketPrice> getAll() {
         return marketPriceService.findAll();
     }
+
 }
