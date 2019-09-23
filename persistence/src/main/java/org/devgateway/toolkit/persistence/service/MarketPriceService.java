@@ -5,5 +5,5 @@ import org.devgateway.toolkit.persistence.dao.MarketPrice;
 /**
  * Created by Daniel Oliva
  */
-public interface MarketPriceService extends BaseJpaService<MarketPrice> {
+public interface MarketPriceService extends AbstractDatasetService<MarketPrice> {
 }

@@ -5,5 +5,5 @@ import org.devgateway.toolkit.persistence.dao.Consumption;
 /**
  * Created by Daniel Oliva
  */
-public interface ConsumptionService extends BaseJpaService<Consumption> {
+public interface ConsumptionService extends AbstractDatasetService<Consumption> {
 }

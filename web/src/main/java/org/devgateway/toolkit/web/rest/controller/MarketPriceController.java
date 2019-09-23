@@ -2,8 +2,6 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +11,6 @@ import org.devgateway.toolkit.web.rest.controller.filter.MarketFilterPagingReque
 import org.devgateway.toolkit.web.rest.controller.filter.MarketPriceFilterState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,12 +26,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/data/marketPrice")
 @CrossOrigin
-public class MarketPriceController {
+public class MarketPriceController extends AbstractDatasetController<MarketPrice> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MarketPriceController.class);
 
-    @Autowired
     private MarketPriceService marketPriceService;
+
+    public MarketPriceController(MarketPriceService marketPriceService) {
+        super(marketPriceService);
+        this.marketPriceService = marketPriceService;
+    }
 
     @CrossOrigin
     @ApiOperation(value = "Get paginated market price data")
@@ -46,12 +47,4 @@ public class MarketPriceController {
         MarketPriceFilterState filter = new MarketPriceFilterState(pageRequest);
         return marketPriceService.findAll(filter.getSpecification(), pageable);
     }
-
-    @CrossOrigin
-    @ApiOperation(value = "Dump market price dataset")
-    @RequestMapping(value = "/dump", method = GET)
-    public List<MarketPrice> getAll() {
-        return marketPriceService.findAll();
-    }
-
 }

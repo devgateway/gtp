@@ -5,5 +5,5 @@ import org.devgateway.toolkit.persistence.dao.Production;
 /**
  * Created by Daniel Oliva
  */
-public interface ProductionService extends BaseJpaService<Production> {
+public interface ProductionService extends AbstractDatasetService<Production> {
 }
