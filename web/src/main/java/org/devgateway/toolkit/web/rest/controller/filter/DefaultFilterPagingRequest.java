@@ -13,7 +13,7 @@ public class DefaultFilterPagingRequest extends GenericPagingRequest {
     private TreeSet<Integer> region;
 
     @ApiModelProperty(value = "Filter by crop name")
-    private TreeSet<String> crop;
+    private TreeSet<Integer> crop;
 
     @ApiModelProperty(value = "Filter by year")
     private TreeSet<Integer> year;
@@ -26,11 +26,11 @@ public class DefaultFilterPagingRequest extends GenericPagingRequest {
         this.region = region;
     }
 
-    public TreeSet<String> getCrop() {
+    public TreeSet<Integer> getCrop() {
         return crop;
     }
 
-    public void setCrop(TreeSet<String> crop) {
+    public void setCrop(TreeSet<Integer> crop) {
         this.crop = crop;
     }
 

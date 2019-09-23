@@ -1,6 +1,8 @@
 package org.devgateway.toolkit.persistence.service;
 
 import java.util.Iterator;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
@@ -9,8 +11,11 @@ import org.devgateway.toolkit.persistence.dao.Dataset;
 import org.devgateway.toolkit.persistence.dao.PovertyDataset;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dao.Region;
+import org.devgateway.toolkit.persistence.dao.categories.Category;
+import org.devgateway.toolkit.persistence.dao.categories.Gender;
 import org.devgateway.toolkit.persistence.repository.PovertyDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.PovertyIndicatorRepository;
+import org.devgateway.toolkit.persistence.repository.category.GenderRepository;
 import org.devgateway.toolkit.persistence.service.category.RegionService;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
@@ -33,7 +38,12 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
     private RegionService regionService;
 
     @Autowired
+    private GenderRepository genderRepository;
+
+    @Autowired
     private PovertyDatasetRepository datasetRepository;
+
+    private Map<String, Category> genderMap;
 
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
@@ -43,23 +53,26 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
             rowIterator.next();
             rowNumber++;
         }
+        genderMap = genderRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
         while (rowIterator.hasNext()) {
             try {
                 rowNumber++;
                 Row row = rowIterator.next();
                 //Extract data
-                String regionName = ImportUtils.getStringFromCell(row.getCell(0));
+                String regionName = ImportUtils.getStringFromCell(row.getCell(1));
                 Region region = getRegion(regionName);
-                PovertyIndicator event = new PovertyIndicator();
-                event.setRegion(region);
-                event.setLocationType(ImportUtils.getStringFromCell(row.getCell(1)));
-                event.setGender(ImportUtils.getStringFromCell(row.getCell(2)));
-                event.setAge(ImportUtils.getLongFromCell(row.getCell(3)).intValue());
-                event.setProfessionalActivity(ImportUtils.getStringFromCell(row.getCell(4)));
-                event.setPovertyScore(ImportUtils.getDoubleFromCell(row.getCell(5)));
+                PovertyIndicator data = new PovertyIndicator();
+                data.setYear(ImportUtils.getDoubleFromCell(row.getCell(0)).intValue());
+                data.setRegion(region);
+                data.setLocationType(ImportUtils.getStringFromCell(row.getCell(2)));
+                data.setGender((Gender) getCategory(row.getCell(3), genderMap, "Gender"));
+                data.setAge(ImportUtils.getLongFromCell(row.getCell(4)).intValue());
+                data.setProfessionalActivity(ImportUtils.getStringFromCell(row.getCell(5)));
+                data.setPovertyScore(ImportUtils.getDoubleFromCell(row.getCell(6)));
 
 
-                importResults.addDataInstance(event);
+                importResults.addDataInstance(data);
             } catch (Exception e) { //Improve exception handling
                 logger.error("Error: " + e);
                 importResults.setImportOkFlag(false);

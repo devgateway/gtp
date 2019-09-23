@@ -1,7 +1,5 @@
 package org.devgateway.toolkit.persistence.service;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.FoodLossDataset;
@@ -94,17 +92,5 @@ public class FoodLossIndicatorImporter extends AbstractImportService<FoodLossInd
             repository.saveAll(importResults.getDataInstances());
             repository.flush();
         }
-    }
-
-    private Category getCategory(Cell cell, Map<String, Category> map, String categoryName) {
-        String label = ImportUtils.getStringFromCell(cell);
-        if (StringUtils.isBlank(label)) {
-            throw new RuntimeException(categoryName + " is not specified");
-        }
-        Category cat = map.get(label.toLowerCase());
-        if (cat == null) {
-            throw new RuntimeException("Unknown " + categoryName.toLowerCase() + " " + label);
-        }
-        return cat;
     }
 }

@@ -46,6 +46,17 @@ public class DataFilterState<T extends Data> implements Serializable {
     protected void addIntPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
                                     TreeSet<Integer> values, String columnName) {
         if (values != null) {
+            List<Predicate> intPred = new ArrayList<>();
+            for (Integer value:values) {
+                intPred.add(cb.equal(root.get(columnName), value));
+            }
+            predicates.add(cb.or(intPred.toArray(new Predicate[predicates.size()])));
+        }
+    }
+
+    protected void addYearPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
+                                    TreeSet<Integer> values, String columnName) {
+        if (values != null) {
             List<Predicate> yearPred = new ArrayList<>();
             for (Integer value:values) {
                 yearPred.add(cb.equal(cb.function(YEAR, Integer.class, root.get(columnName)), value));

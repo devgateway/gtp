@@ -29,7 +29,7 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
             List<Predicate> predicates = new ArrayList<>();
             if (filter != null) {
                 addCropPredicates(root, cb, predicates);
-                addYearPredicates(root, cb, predicates);
+                addYearPredicates(root, cb, predicates, filter.getYear(), MarketPrice_.DATE);
                 addMarketPredicates(root, cb, predicates);
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -37,17 +37,12 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
     }
 
     protected void addCropPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addStringPredicates(root, cb, predicates, filter.getCrop(), MarketPrice_.CROP_TYPE); // TODO fix type mismatch
+        addIntPredicates(root, cb, predicates, filter.getCrop(), MarketPrice_.CROP_TYPE); // TODO fix type mismatch
     }
 
 
     protected void addMarketPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
         addStringPredicates(root, cb, predicates, filter.getMarket(), MarketPrice_.MARKET);
-    }
-
-
-    protected void addYearPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getYear(), MarketPrice_.DATE);
     }
 
 }
