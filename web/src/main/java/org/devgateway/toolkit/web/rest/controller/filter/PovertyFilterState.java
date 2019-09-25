@@ -30,6 +30,8 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
             if (filter != null) {
                 addRegionPredicates(root, cb, predicates);
                 addYearPredicates(root, cb, predicates);
+                addGenderPredicates(root, cb, predicates);
+                addApprovedDatasets(root, cb, predicates);
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
@@ -37,6 +39,10 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
 
     protected void addRegionPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
         addIntPredicates(root, cb, predicates, filter.getRegion(), PovertyIndicator_.REGION); // TODO fix type mismatch
+    }
+
+    protected void addGenderPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        addIntPredicates(root, cb, predicates, filter.getGender(), PovertyIndicator_.GENDER); // TODO fix type mismatch
     }
 
     protected void addYearPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {

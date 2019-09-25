@@ -38,7 +38,7 @@ public class FoodLossIndicatorController {
     @CrossOrigin
     @ApiOperation(value = "Get paginated food loss data")
     @RequestMapping(value = "/all", method = GET)
-    public Page<FoodLossIndicator> getAll(@ModelAttribute @Valid final FoodLossFilterPagingRequest pageRequest) {
+    public Page<FoodLossIndicator> getPaginated(@ModelAttribute @Valid final FoodLossFilterPagingRequest pageRequest) {
         LOGGER.debug("get food loss data");
         Pageable pageable = PageRequest.of(pageRequest.getPageNumber(), pageRequest.getPageSize(),
                 Sort.Direction.ASC, "id");
@@ -49,8 +49,9 @@ public class FoodLossIndicatorController {
     @CrossOrigin
     @ApiOperation(value = "Dump agricutural women dataset")
     @RequestMapping(value = "/dump", method = GET)
-    public List<FoodLossIndicator> getAll() {
-        return service.findAll();
+    public List<FoodLossIndicator> getDump(@ModelAttribute @Valid final FoodLossFilterPagingRequest req) {
+        FoodLossFilterState filter = new FoodLossFilterState(req);
+        return service.findAll(filter.getSpecification());
     }
 
 }

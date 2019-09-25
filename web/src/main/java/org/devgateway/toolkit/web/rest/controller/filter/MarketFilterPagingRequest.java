@@ -6,14 +6,14 @@ import java.util.TreeSet;
 
 public class MarketFilterPagingRequest extends DefaultFilterPagingRequest {
 
-    @ApiModelProperty(value = "Filter by market name")
-    private TreeSet<String> market;
+    @ApiModelProperty(value = "Filter by market id")
+    private TreeSet<Integer> market;
 
-    public TreeSet<String> getMarket() {
+    public TreeSet<Integer> getMarket() {
         return market;
     }
 
-    public void setMarket(TreeSet<String> market) {
+    public void setMarket(TreeSet<Integer> market) {
         this.market = market;
     }
 }

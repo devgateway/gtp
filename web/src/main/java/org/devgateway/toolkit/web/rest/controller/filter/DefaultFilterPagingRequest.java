@@ -9,14 +9,17 @@ import java.util.TreeSet;
  */
 public class DefaultFilterPagingRequest extends GenericPagingRequest {
 
-    @ApiModelProperty(value = "Filter by region name")
+    @ApiModelProperty(value = "Filter by region id")
     private TreeSet<Integer> region;
 
-    @ApiModelProperty(value = "Filter by crop name")
+    @ApiModelProperty(value = "Filter by crop type id")
     private TreeSet<Integer> crop;
 
     @ApiModelProperty(value = "Filter by year")
     private TreeSet<Integer> year;
+
+    @ApiModelProperty(value = "Filter by gender")
+    private TreeSet<Integer> gender;
 
     public TreeSet<Integer> getRegion() {
         return region;
@@ -40,5 +43,13 @@ public class DefaultFilterPagingRequest extends GenericPagingRequest {
 
     public void setYear(TreeSet<Integer> year) {
         this.year = year;
+    }
+
+    public TreeSet<Integer> getGender() {
+        return gender;
+    }
+
+    public void setGender(TreeSet<Integer> gender) {
+        this.gender = gender;
     }
 }

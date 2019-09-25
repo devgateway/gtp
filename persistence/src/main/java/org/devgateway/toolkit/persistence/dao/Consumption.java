@@ -2,12 +2,16 @@ package org.devgateway.toolkit.persistence.dao;
 
 import java.io.Serializable;
 
+import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.devgateway.toolkit.persistence.dao.categories.CropSubType;
+import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,11 +31,21 @@ public class Consumption extends Data implements Serializable {
     @PivotTableField(hideInAggregators = true, hideInDragAndDrop = true)
     private Department department;
 
-    @PivotTableField(hideInAggregators = true)
-    private String crop;
+    @ManyToOne(optional = false)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @PivotTableField(hideInAggregators = true, hideInDragAndDrop = true)
+    @NotNull
+    private CropType cropType;
 
-    @PivotTableField(hideInAggregators = true)
-    private String cropType;
+    @ManyToOne(optional = true)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @PivotTableField(hideInAggregators = true, hideInDragAndDrop = true)
+    @Nullable
+    private CropSubType cropSubType;
 
     @PivotTableField(hideInDragAndDrop = true)
     private Integer householdSize;
@@ -50,20 +64,20 @@ public class Consumption extends Data implements Serializable {
         this.department = department;
     }
 
-    public String getCrop() {
-        return crop;
-    }
-
-    public void setCrop(String crop) {
-        this.crop = crop;
-    }
-
-    public String getCropType() {
+    public CropType getCropType() {
         return cropType;
     }
 
-    public void setCropType(String cropType) {
+    public void setCropType(CropType cropType) {
         this.cropType = cropType;
+    }
+
+    public CropSubType getCropSubType() {
+        return cropSubType;
+    }
+
+    public void setCropSubType(CropSubType cropSubType) {
+        this.cropSubType = cropSubType;
     }
 
     public Integer getHouseholdSize() {

@@ -32,6 +32,7 @@ public class AgriculturalWomenFilterState extends DataFilterState<AgriculturalWo
                 addYearPredicates(root, cb, predicates);
                 addAwGroupPredicates(root, cb, predicates);
                 addAwGroupTypePredicates(root, cb, predicates);
+                addApprovedDatasets(root, cb, predicates);
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };

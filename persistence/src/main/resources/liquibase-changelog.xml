@@ -305,5 +305,21 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="Crop subtypes" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('CropSubType', nextval('hibernate_sequence'), 'Both');
+            INSERT INTO category (dtype, id, label) VALUES ('CropSubType', nextval('hibernate_sequence'), 'Scented');
+            INSERT INTO category (dtype, id, label) VALUES ('CropSubType', nextval('hibernate_sequence'), 'Unscented (ordinary)');
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Parfumé','fr',id FROM category WHERE label='Scented' AND dtype='CropSubType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Non parfumé (ordinaire)','fr',id FROM category WHERE label='Unscented (ordinary)' AND dtype='CropSubType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Les deux','fr',id FROM category WHERE label='Both' AND dtype='CropSubType';
+        ]]></sql>
+    </changeSet>
+
 
 </databaseChangeLog>

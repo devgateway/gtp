@@ -52,6 +52,10 @@ public abstract class AbstractImportService<T extends Data> implements ImportSer
 
     protected Category getCategory(Cell cell, Map<String, Category> map, String categoryName) {
         String label = ImportUtils.getStringFromCell(cell);
+        return getCategory(label, map, categoryName);
+    }
+
+    protected Category getCategory(String label, Map<String, Category> map, String categoryName) {
         if (StringUtils.isBlank(label)) {
             throw new RuntimeException(categoryName + " is not specified");
         }

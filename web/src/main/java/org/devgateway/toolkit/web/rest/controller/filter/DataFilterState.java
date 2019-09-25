@@ -6,11 +6,16 @@ import java.util.List;
 import java.util.TreeSet;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.Data;
+import org.devgateway.toolkit.persistence.dao.Data_;
+import org.devgateway.toolkit.persistence.dao.Dataset;
+import org.devgateway.toolkit.persistence.dao.Dataset_;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
@@ -30,6 +35,11 @@ public class DataFilterState<T extends Data> implements Serializable {
     @JsonIgnore
     public Specification<T> getSpecification() {
         return (root, query, cb) -> cb.and();
+    }
+
+    protected void addApprovedDatasets(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        Join<T, Dataset> join = root.join(Data_.DATASET, JoinType.LEFT);
+        predicates.add(cb.and(cb.isTrue(join.get(Dataset_.approved))));
     }
 
     protected void addStringPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,

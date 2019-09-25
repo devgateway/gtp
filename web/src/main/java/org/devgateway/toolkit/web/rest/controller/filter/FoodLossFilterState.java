@@ -31,6 +31,7 @@ public class FoodLossFilterState extends DataFilterState<FoodLossIndicator> {
                 addCropPredicates(root, cb, predicates);
                 addYearPredicates(root, cb, predicates);
                 addLossTypePredicates(root, cb, predicates);
+                addApprovedDatasets(root, cb, predicates);
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };

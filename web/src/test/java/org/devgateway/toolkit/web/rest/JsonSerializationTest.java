@@ -11,6 +11,7 @@ import org.devgateway.toolkit.persistence.dao.Department;
 import org.devgateway.toolkit.persistence.dao.Market;
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.Production;
+import org.devgateway.toolkit.persistence.dao.categories.CropSubType;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.web.spring.WebApplication;
 import org.junit.Test;
@@ -127,8 +128,8 @@ public class JsonSerializationTest {
     public void testConsumptionWithAllValuesSpecified() throws IOException {
         Consumption record = new Consumption();
         record.setDataset(new Dataset());
-        record.setCrop("A");
-        record.setCropType("B");
+        record.setCropType(new CropType(66L, "Rice"));
+        record.setCropSubType(new CropSubType(77L, "Scented"));
         record.setDepartment(new Department(1L));
         record.setHouseholdSize(53);
         record.setDailyConsumption(3.3d);
@@ -136,8 +137,8 @@ public class JsonSerializationTest {
 
         JsonContent<Consumption> content = consumptionJacksonTester.write(record);
 
-        assertEquals("{\"department\":1,\"crop\":\"A\",\"cropType\":\"B\","
-                + "\"householdSize\":53,\"dailyConsumption\":3.3,\"weeklyConsumption\":5.5}", content.getJson());
+        assertEquals("{\"department\":1,\"cropType\":66,\"cropSubType\":77,\"householdSize\":53," +
+                "\"dailyConsumption\":3.3,\"weeklyConsumption\":5.5}", content.getJson());
     }
 
     @Test
