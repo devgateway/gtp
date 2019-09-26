@@ -73,7 +73,6 @@ var PivotTable = new function() {
         var MARKET_NAME = "marketName";
         var DEPARTMENT = "department";
         var REGION = "region";
-        var REGION_CODE = "regionCode";
         var DATE = "date";
         var WEEK_DAY = "weekDay";
         var MONTH = "month";
@@ -92,9 +91,6 @@ var PivotTable = new function() {
         };
         derivers.marketIdToRegion = function(record) {
             return extraOpts.regionNames[record[MARKET]];
-        };
-        derivers.marketIdToRegionCode = function(record) {
-            return extraOpts.regionCodes[record[MARKET]];
         };
         derivers.quarter = function(col) {
             return function(record) {
@@ -115,7 +111,6 @@ var PivotTable = new function() {
         derivedAttributes[extraFields[MARKET_NAME]] = derivers.marketIdToName;
         derivedAttributes[extraFields[DEPARTMENT]] = derivers.marketIdToDepartment;
         derivedAttributes[extraFields[REGION]] = derivers.marketIdToRegion;
-        derivedAttributes[extraFields[REGION_CODE]] = derivers.marketIdToRegionCode;
         derivedAttributes[extraFields[WEEK_DAY]] = derivers.dateFormat(dateCol, "%w", false, opts.mthNames, opts.dayNames);
         derivedAttributes[extraFields[MONTH]] = derivers.dateFormat(dateCol, "%n", false, opts.mthNames, opts.dayNames);
         derivedAttributes[extraFields[QUARTER]] = derivers.quarter(dateCol);
@@ -139,7 +134,6 @@ var PivotTable = new function() {
         var CROP_TYPE_NAME = "cropTypeName";
         var REGION = "_region";
         var REGION_NAME = "regionName";
-        var REGION_CODE = "regionCode";
 
         var derivers = $.extend({}, $.pivotUtilities.derivers);
         derivers.campaign = function(record) {
@@ -152,9 +146,6 @@ var PivotTable = new function() {
         derivers.regionIdToRegion = function(record) {
             return extraOpts.regionNames[record[REGION]];
         };
-        derivers.regionIdToRegionCode = function(record) {
-            return extraOpts.regionCodes[record[REGION]];
-        };
 
         var extraFields = opts.extraFields;
 
@@ -162,7 +153,6 @@ var PivotTable = new function() {
         derivedAttributes[extraFields[CAMPAIGN]] = derivers.campaign;
         derivedAttributes[extraFields[CROP_TYPE_NAME]] = derivers.cropTypeIdToName;
         derivedAttributes[extraFields[REGION_NAME]] = derivers.regionIdToRegion;
-        derivedAttributes[extraFields[REGION_CODE]] = derivers.regionIdToRegionCode;
 
         return {
             derivedAttributes: derivedAttributes
@@ -173,7 +163,8 @@ var PivotTable = new function() {
         var DEPARTMENT = "_department";
         var DEPARTMENT_NAME = "departmentName";
         var REGION_NAME = "regionName";
-        var REGION_CODE = "regionCode";
+        var CROP_TYPE = "_cropType";
+        var CROP_TYPE_NAME = "cropTypeName";
 
         var derivers = $.extend({}, $.pivotUtilities.derivers);
         derivers.deptIdToName = function(record) {
@@ -182,16 +173,16 @@ var PivotTable = new function() {
         derivers.deptIdToRegion = function(record) {
             return extraOpts.regionNames[record[DEPARTMENT]];
         };
-        derivers.deptIdToRegionCode = function(record) {
-            return extraOpts.regionCodes[record[DEPARTMENT]];
+        derivers.cropTypeIdToName = function(record) {
+            return extraOpts.cropTypeNames[record[CROP_TYPE]];
         };
 
         var extraFields = opts.extraFields;
 
         var derivedAttributes = {};
         derivedAttributes[extraFields[DEPARTMENT_NAME]] = derivers.deptIdToName;
+        derivedAttributes[extraFields[CROP_TYPE_NAME]] = derivers.cropTypeIdToName;
         derivedAttributes[extraFields[REGION_NAME]] = derivers.deptIdToRegion;
-        derivedAttributes[extraFields[REGION_CODE]] = derivers.deptIdToRegionCode;
 
         return {
             derivedAttributes: derivedAttributes

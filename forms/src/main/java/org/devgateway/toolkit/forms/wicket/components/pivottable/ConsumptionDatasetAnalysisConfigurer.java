@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.Department;
+import org.devgateway.toolkit.persistence.dao.categories.CropType;
+import org.devgateway.toolkit.persistence.service.category.CropTypeService;
 import org.devgateway.toolkit.persistence.service.category.DepartmentService;
 
 /**
@@ -13,17 +15,18 @@ import org.devgateway.toolkit.persistence.service.category.DepartmentService;
  */
 public class ConsumptionDatasetAnalysisConfigurer implements DatasetAnalysisConfigurer {
 
-
     private DepartmentService departmentService;
 
-    public ConsumptionDatasetAnalysisConfigurer(
-            DepartmentService departmentService) {
+    private CropTypeService cropTypeService;
+
+    public ConsumptionDatasetAnalysisConfigurer(DepartmentService departmentService, CropTypeService cropTypeService) {
         this.departmentService = departmentService;
+        this.cropTypeService = cropTypeService;
     }
 
     @Override
     public List<String> getCols() {
-        return ImmutableList.of("crop");
+        return ImmutableList.of("cropTypeName");
     }
 
     @Override
@@ -44,9 +47,9 @@ public class ConsumptionDatasetAnalysisConfigurer implements DatasetAnalysisConf
     @Override
     public List<PivotField> getExtraFields() {
         return ImmutableList.of(
+                new PivotField("cropTypeName", true, false),
                 new PivotField("departmentName", true, false),
-                new PivotField("regionName", true, false),
-                new PivotField("regionCode", true, false));
+                new PivotField("regionName", true, false));
     }
 
     @Override
@@ -58,7 +61,8 @@ public class ConsumptionDatasetAnalysisConfigurer implements DatasetAnalysisConf
         opts.setDepartmentNames(departments.stream().collect(toMap(Department::getId, Department::getName)));
 
         opts.setRegionNames(departments.stream().collect(toMap(Department::getId, d -> d.getRegion().getName())));
-        opts.setRegionCodes(departments.stream().collect(toMap(Department::getId, d -> d.getRegion().getCode())));
+        List<CropType> cropTypes = cropTypeService.findAll();
+        opts.setCropTypeNames(cropTypes.stream().collect(toMap(CropType::getId, ct -> ct.getLocalizedLabel(language))));
 
         return opts;
     }

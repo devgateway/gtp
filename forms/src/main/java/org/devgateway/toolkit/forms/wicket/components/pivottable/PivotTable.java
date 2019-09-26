@@ -169,7 +169,7 @@ public class PivotTable extends GenericPanel<Class<?>> {
         } else if (dataClass == Production.class) {
             return new ProductionDatasetAnalysisConfigurer(regionService, cropTypeService);
         } else if (dataClass == Consumption.class) {
-            return new ConsumptionDatasetAnalysisConfigurer(departmentService);
+            return new ConsumptionDatasetAnalysisConfigurer(departmentService, cropTypeService);
         } else {
             throw new RuntimeException(dataClass + " not supported");
         }

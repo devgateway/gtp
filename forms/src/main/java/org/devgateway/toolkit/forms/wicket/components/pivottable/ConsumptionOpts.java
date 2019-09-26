@@ -7,9 +7,11 @@ import java.util.Map;
  */
 public class ConsumptionOpts {
 
+    // used to compute derived attribute crop type
+    private Map<Long, String> cropTypeNames;
+
     // used to compute derived attributes for location
     private Map<Long, String> regionNames;
-    private Map<Long, String> regionCodes;
 
     private Map<Long, String> departmentNames;
 
@@ -21,19 +23,19 @@ public class ConsumptionOpts {
         this.regionNames = regionNames;
     }
 
-    public Map<Long, String> getRegionCodes() {
-        return regionCodes;
-    }
-
-    public void setRegionCodes(Map<Long, String> regionCodes) {
-        this.regionCodes = regionCodes;
-    }
-
     public Map<Long, String> getDepartmentNames() {
         return departmentNames;
     }
 
     public void setDepartmentNames(Map<Long, String> departmentNames) {
         this.departmentNames = departmentNames;
+    }
+
+    public Map<Long, String> getCropTypeNames() {
+        return cropTypeNames;
+    }
+
+    public void setCropTypeNames(Map<Long, String> cropTypeNames) {
+        this.cropTypeNames = cropTypeNames;
     }
 }
