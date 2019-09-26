@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -15,8 +17,9 @@ import java.io.Serializable;
 /**
  * Created by Daniel Oliva
  */
-@MappedSuperclass
+@Entity
 @JsonIgnoreProperties({"id", "new"})
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Data extends AbstractAuditableEntity implements Serializable {
 
     @JsonIgnore

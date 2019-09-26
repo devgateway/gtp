@@ -23,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.hibernate.annotations.BatchSize;
@@ -39,6 +40,7 @@ import org.hibernate.envers.Audited;
 @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @DiscriminatorColumn(length = Category.DTYPE_COLUMN_LENGTH)
+@JsonIgnoreProperties({"new"})
 @Table(indexes = {@Index(columnList = "label"), @Index(columnList = "DTYPE")})
 public class Category extends AbstractAuditableEntity implements Serializable, Labelable {
 

@@ -15,9 +15,12 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EnableSwagger2
 public class SwaggerConfig {
     @Bean
-    public Docket yaliApi() {
-        return new Docket(DocumentationType.SWAGGER_2).groupName("Api").apiInfo(yaliApiInfo())
-                .select().apis(RequestHandlerSelectors.any()).paths(regex("/api/.*")).build();
+    public Docket ad3Api() {
+        return new Docket(DocumentationType.SWAGGER_2).groupName("AD3 Api").apiInfo(ad3ApiInfo())
+                .select().apis(RequestHandlerSelectors.any())
+                .paths(regex("/data/.*"))
+                .paths(regex("/files/.*"))
+                .build();
     }
 
     @Bean
@@ -26,9 +29,9 @@ public class SwaggerConfig {
                 .select().apis(RequestHandlerSelectors.any()).paths(regex("/manage/.*")).build();
     }
 
-    private ApiInfo yaliApiInfo() {
+    private ApiInfo ad3ApiInfo() {
         return new ApiInfoBuilder().title("Application API")
-                .description("These endpoints are used to feed reports").license("MIT License")
+                .description("These endpoints are used to get data from db").license("MIT License")
                 .licenseUrl("https://opensource.org/licenses/MIT").version("1.0").build();
     }
 

@@ -10,6 +10,7 @@ import org.devgateway.toolkit.persistence.dao.categories.CropSubType;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.persistence.dao.categories.Gender;
 import org.devgateway.toolkit.persistence.dao.categories.LossType;
+import org.devgateway.toolkit.persistence.dao.categories.MethodOfEnforcement;
 import org.devgateway.toolkit.persistence.service.category.AgeGroupService;
 import org.devgateway.toolkit.persistence.service.category.AgriculturalWomenGroupService;
 import org.devgateway.toolkit.persistence.service.category.CropSubTypeService;
@@ -18,6 +19,7 @@ import org.devgateway.toolkit.persistence.service.category.DepartmentService;
 import org.devgateway.toolkit.persistence.service.category.GenderService;
 import org.devgateway.toolkit.persistence.service.category.LossTypeService;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
+import org.devgateway.toolkit.persistence.service.category.MethodOfEnforcementService;
 import org.devgateway.toolkit.persistence.service.category.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -59,6 +61,9 @@ public class FilterController {
 
     @Autowired
     private AgriculturalWomenGroupService awGroupService;
+
+    @Autowired
+    private MethodOfEnforcementService mofService;
 
     @Autowired
     private AgeGroupService ageGroupService;
@@ -124,5 +129,13 @@ public class FilterController {
     @RequestMapping(value = "/ageGroup", method = GET)
     public List<AgeGroup> getAllAgeGroup() {
         return ageGroupService.findAll();
+    }
+
+
+    @CrossOrigin
+    @ApiOperation(value = "Get method of enforcement information")
+    @RequestMapping(value = "/methodOfEnforcement", method = GET)
+    public List<MethodOfEnforcement> getAllMethodOfEnforcement() {
+        return mofService.findAll();
     }
 }

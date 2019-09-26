@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.dao;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,6 +23,10 @@ public class Dataset extends AbstractAuditableEntity implements Serializable, La
     private String label;
 
     private String source;
+
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @OneToMany(mappedBy = "dataset", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Collection<Data> data;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -54,6 +59,14 @@ public class Dataset extends AbstractAuditableEntity implements Serializable, La
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public Collection<Data> getData() {
+        return data;
+    }
+
+    public void setData(Collection<Data> data) {
+        this.data = data;
     }
 
     public Set<FileMetadata> getFileMetadata() {

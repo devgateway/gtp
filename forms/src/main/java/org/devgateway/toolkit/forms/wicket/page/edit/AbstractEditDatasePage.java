@@ -69,16 +69,17 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
             protected void onSubmit(final AjaxRequestTarget target) {
                 logger.info("Check the file and process it");
                 T model = editForm.getModelObject();
+                ImportResults<S> results = null;
                 if (model.getId() != null) {
                     SecurityUtil.getCurrentAuthenticatedPerson();
                 } else {
                     model.setOrganization(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
+                    redirectToSelf = false;
+                    results = importer.processFile(model);
                 }
-                redirectToSelf = false;
-                ImportResults<S> results = importer.processFile(model);
 
                 //process results
-                if (!results.isImportOkFlag()) {
+                if (results != null && !results.isImportOkFlag()) {
                     feedbackPanel.error(new StringResourceModel("uploadError", this, null).getString());
                     results.getErrorList().forEach(error -> feedbackPanel.error(error));
                     target.add(feedbackPanel);

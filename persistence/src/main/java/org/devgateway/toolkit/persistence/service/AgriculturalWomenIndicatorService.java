@@ -6,5 +6,5 @@ import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
 /**
  * Created by Daniel Oliva
  */
-public interface AgriculturalWomenIndicatorService extends BaseJpaService<AgriculturalWomenIndicator> {
+public interface AgriculturalWomenIndicatorService extends AbstractDatasetService<AgriculturalWomenIndicator> {
 }
