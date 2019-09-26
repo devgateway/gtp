@@ -72,6 +72,7 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
                 ImportResults<S> results = null;
                 if (model.getId() != null) {
                     SecurityUtil.getCurrentAuthenticatedPerson();
+                    jpaService.saveAndFlush(model);
                 } else {
                     model.setOrganization(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
                     redirectToSelf = false;
