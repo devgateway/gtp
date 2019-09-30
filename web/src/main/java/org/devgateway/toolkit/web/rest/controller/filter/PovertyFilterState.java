@@ -28,6 +28,8 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (filter != null) {
+                addDataIdPredicates(root, cb, predicates);
+                addDatasetIdPredicates(root, cb, predicates);
                 addRegionPredicates(root, cb, predicates);
                 addYearPredicates(root, cb, predicates);
                 addGenderPredicates(root, cb, predicates);

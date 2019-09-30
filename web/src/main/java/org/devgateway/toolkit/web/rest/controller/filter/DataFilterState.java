@@ -37,9 +37,21 @@ public class DataFilterState<T extends Data> implements Serializable {
         return (root, query, cb) -> cb.and();
     }
 
+    protected void addDataIdPredicates(Root<T> root, CriteriaBuilder cb,
+                                        List<Predicate> predicates) {
+        addIntPredicates(root, cb, predicates, filter.getId(), "id");
+        // TODO fix type mismatch
+    }
+
+    protected void addDatasetIdPredicates(Root<T> root, CriteriaBuilder cb,
+                                       List<Predicate> predicates) {
+        addIntPredicates(root, cb, predicates, filter.getDatasetId(), Data_.DATASET);
+        // TODO fix type mismatch
+    }
+
     protected void addApprovedDatasets(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
         Join<T, Dataset> join = root.join(Data_.DATASET, JoinType.LEFT);
-        predicates.add(cb.and(cb.isTrue(join.get(Dataset_.approved))));
+        predicates.add(cb.and(cb.isTrue(join.get(Dataset_.APPROVED))));
     }
 
     protected void addStringPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,

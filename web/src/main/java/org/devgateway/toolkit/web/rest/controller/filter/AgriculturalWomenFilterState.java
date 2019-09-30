@@ -28,6 +28,8 @@ public class AgriculturalWomenFilterState extends DataFilterState<AgriculturalWo
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (filter != null) {
+                addDataIdPredicates(root, cb, predicates);
+                addDatasetIdPredicates(root, cb, predicates);
                 addGenderPredicates(root, cb, predicates);
                 addYearPredicates(root, cb, predicates);
                 addAwGroupPredicates(root, cb, predicates);

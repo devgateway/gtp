@@ -28,6 +28,8 @@ public class FoodLossFilterState extends DataFilterState<FoodLossIndicator> {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (filter != null) {
+                addDataIdPredicates(root, cb, predicates);
+                addDatasetIdPredicates(root, cb, predicates);
                 addCropPredicates(root, cb, predicates);
                 addYearPredicates(root, cb, predicates);
                 addLossTypePredicates(root, cb, predicates);

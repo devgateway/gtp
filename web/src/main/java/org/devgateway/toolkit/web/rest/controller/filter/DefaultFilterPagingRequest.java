@@ -9,6 +9,12 @@ import java.util.TreeSet;
  */
 public class DefaultFilterPagingRequest extends GenericPagingRequest {
 
+    @ApiModelProperty(value = "Filter by data id")
+    private TreeSet<Integer> id;
+
+    @ApiModelProperty(value = "Filter by dataset id")
+    private TreeSet<Integer> datasetId;
+
     @ApiModelProperty(value = "Filter by region id")
     private TreeSet<Integer> region;
 
@@ -20,6 +26,22 @@ public class DefaultFilterPagingRequest extends GenericPagingRequest {
 
     @ApiModelProperty(value = "Filter by gender")
     private TreeSet<Integer> gender;
+
+    public TreeSet<Integer> getId() {
+        return id;
+    }
+
+    public void setId(TreeSet<Integer> id) {
+        this.id = id;
+    }
+
+    public TreeSet<Integer> getDatasetId() {
+        return datasetId;
+    }
+
+    public void setDatasetId(TreeSet<Integer> datasetId) {
+        this.datasetId = datasetId;
+    }
 
     public TreeSet<Integer> getRegion() {
         return region;

@@ -12,3 +12,4 @@ npm-debug.log
 .idea
 rebel.xml
 /logs/
+/ui/package-lock.json

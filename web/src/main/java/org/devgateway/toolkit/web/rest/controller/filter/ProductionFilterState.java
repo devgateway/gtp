@@ -28,6 +28,8 @@ public class ProductionFilterState extends DataFilterState<Production> {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (filter != null) {
+                addDataIdPredicates(root, cb, predicates);
+                addDatasetIdPredicates(root, cb, predicates);
                 addRegionPredicates(root, cb, predicates);
                 addYearPredicates(root, cb, predicates);
                 addCropTypePredicates(root, cb, predicates);

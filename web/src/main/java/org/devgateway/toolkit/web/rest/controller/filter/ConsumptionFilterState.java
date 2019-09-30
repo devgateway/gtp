@@ -28,6 +28,8 @@ public class ConsumptionFilterState extends DataFilterState<Consumption> {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (filter != null) {
+                addDataIdPredicates(root, cb, predicates);
+                addDatasetIdPredicates(root, cb, predicates);
                 addDeparmentPredicates(root, cb, predicates);
                 addCropTypePredicates(root, cb, predicates);
                 addCropSubTypePredicates(root, cb, predicates);
