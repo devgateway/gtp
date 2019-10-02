@@ -31,7 +31,7 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
                 addDataIdPredicates(root, cb, predicates);
                 addDatasetIdPredicates(root, cb, predicates);
                 addRegionPredicates(root, cb, predicates);
-                addYearPredicates(root, cb, predicates);
+                addYearPredicates(root, cb, predicates, filter.getYear(), PovertyIndicator_.YEAR);
                 addGenderPredicates(root, cb, predicates);
                 addMinAgePredicate(root, cb, predicates);
                 addMaxAgePredicate(root, cb, predicates);
@@ -65,9 +65,5 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
 
     protected void addGenderPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
         addIntPredicates(root, cb, predicates, filter.getGender(), PovertyIndicator_.GENDER); // TODO fix type mismatch
-    }
-
-    protected void addYearPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getYear(), PovertyIndicator_.YEAR); // TODO fix type mismatch
     }
 }

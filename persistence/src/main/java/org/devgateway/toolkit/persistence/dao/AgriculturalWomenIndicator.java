@@ -18,8 +18,6 @@ import javax.validation.constraints.NotNull;
 public class AgriculturalWomenIndicator extends Data {
     private static final long serialVersionUID = -3339250112046134104L;
 
-    private Integer year;
-
     @ManyToOne(optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -45,14 +43,6 @@ public class AgriculturalWomenIndicator extends Data {
     private Category groupType;
     private Double percentage;
     private Double utilizationPercentage;
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
 
     public Gender getGender() {
         return gender;

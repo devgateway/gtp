@@ -56,6 +56,15 @@ public class Consumption extends Data implements Serializable {
     @PivotTableField(hideInDragAndDrop = true)
     private Double weeklyConsumption;
 
+    public Consumption() {
+    }
+
+    public Consumption(Integer year, Department department, Integer householdSize) {
+        this.setYear(year);
+        this.department = department;
+        this.householdSize = householdSize;
+    }
+
     public Department getDepartment() {
         return department;
     }

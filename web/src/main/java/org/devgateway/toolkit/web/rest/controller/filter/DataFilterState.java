@@ -87,6 +87,11 @@ public class DataFilterState<T extends Data> implements Serializable {
         }
     }
 
+    protected void addCropTypePredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
+                                         TreeSet<Integer> values, String columnName) {
+        addIntPredicates(root, cb, predicates, values, columnName);
+    }
+
     protected void addMinPredicate(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
                                       Integer value, String columnName) {
         if (value != null) {

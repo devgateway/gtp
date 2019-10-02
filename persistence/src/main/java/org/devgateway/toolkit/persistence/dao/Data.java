@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
@@ -28,12 +29,25 @@ public abstract class Data extends AbstractAuditableEntity implements Serializab
     @NotNull
     protected Dataset dataset;
 
+    @PivotTableField(hideInAggregators = true)
+    @Column(nullable = false)
+    @NotNull
+    private Integer year;
+
     public Dataset getDataset() {
         return dataset;
     }
 
     public void setDataset(Dataset dataset) {
         this.dataset = dataset;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     @Override

@@ -13,9 +13,13 @@ import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
 import org.devgateway.toolkit.persistence.dao.categories.Gender;
+import org.devgateway.toolkit.persistence.dao.categories.LocationType;
+import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
 import org.devgateway.toolkit.persistence.repository.PovertyDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.PovertyIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.category.GenderRepository;
+import org.devgateway.toolkit.persistence.repository.category.LocationTypeRepository;
+import org.devgateway.toolkit.persistence.repository.category.ProfessionalActivityRepository;
 import org.devgateway.toolkit.persistence.service.category.RegionService;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
@@ -41,9 +45,17 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
     private GenderRepository genderRepository;
 
     @Autowired
+    private ProfessionalActivityRepository profActRepository;
+
+    @Autowired
+    private LocationTypeRepository locTypeRepository;
+
+    @Autowired
     private PovertyDatasetRepository datasetRepository;
 
     private Map<String, Category> genderMap;
+    private Map<String, Category> profActMap;
+    private Map<String, Category> locTypeMap;
 
     @Override
     protected void generateDataInstanceFromSheet(Sheet sheet) {
@@ -55,6 +67,11 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
         }
         genderMap = genderRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+        profActMap = profActRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+        locTypeMap = locTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+
         while (rowIterator.hasNext()) {
             try {
                 rowNumber++;
@@ -65,10 +82,11 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
                 PovertyIndicator data = new PovertyIndicator();
                 data.setYear(ImportUtils.getDoubleFromCell(row.getCell(0)).intValue());
                 data.setRegion(region);
-                data.setLocationType(ImportUtils.getStringFromCell(row.getCell(2)));
+                data.setLocationType((LocationType) getCategory(row.getCell(2), locTypeMap, "Location Type"));
                 data.setGender((Gender) getCategory(row.getCell(3), genderMap, "Gender"));
                 data.setAge(ImportUtils.getLongFromCell(row.getCell(4)).intValue());
-                data.setProfessionalActivity(ImportUtils.getStringFromCell(row.getCell(5)));
+                data.setProfessionalActivity((ProfessionalActivity) getCategory(row.getCell(5), profActMap,
+                        "Professional activity"));
                 data.setPovertyScore(ImportUtils.getDoubleFromCell(row.getCell(6)));
 
 

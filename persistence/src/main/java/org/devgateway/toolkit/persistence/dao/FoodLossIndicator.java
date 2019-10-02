@@ -19,9 +19,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class FoodLossIndicator extends Data {
 
-    @NotNull
-    private Integer year;
-
     @ManyToOne(optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -41,14 +38,6 @@ public class FoodLossIndicator extends Data {
     private Double avgPercentage;
 
     private Double avgKilograms;
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
 
     public CropType getCropType() {
         return cropType;

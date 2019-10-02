@@ -31,7 +31,7 @@ public class AgriculturalWomenFilterState extends DataFilterState<AgriculturalWo
                 addDataIdPredicates(root, cb, predicates);
                 addDatasetIdPredicates(root, cb, predicates);
                 addGenderPredicates(root, cb, predicates);
-                addYearPredicates(root, cb, predicates);
+                addYearPredicates(root, cb, predicates, filter.getYear(), AgriculturalWomenIndicator_.YEAR);
                 addAwGroupPredicates(root, cb, predicates);
                 addAwGroupTypePredicates(root, cb, predicates);
                 addApprovedDatasets(root, cb, predicates);
@@ -58,9 +58,4 @@ public class AgriculturalWomenFilterState extends DataFilterState<AgriculturalWo
         // TODO fix type mismatch
     }
 
-    protected void addYearPredicates(Root<AgriculturalWomenIndicator> root, CriteriaBuilder cb,
-                                     List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getYear(), AgriculturalWomenIndicator_.YEAR);
-        // TODO fix type mismatch
-    }
 }

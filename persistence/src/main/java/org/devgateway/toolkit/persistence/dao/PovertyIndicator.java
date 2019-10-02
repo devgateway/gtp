@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.categories.Gender;
+import org.devgateway.toolkit.persistence.dao.categories.LocationType;
+import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by Daniel Oliva
@@ -26,12 +26,11 @@ public class PovertyIndicator extends Data {
     @JsonIdentityReference(alwaysAsId = true)
     private Region region;
 
-    @PivotTableField(hideInAggregators = true)
-    @Column(nullable = false)
-    @NotNull
-    private Integer year;
-
-    private String locationType;
+    @ManyToOne
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private LocationType locationType;
 
     @ManyToOne
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -40,7 +39,13 @@ public class PovertyIndicator extends Data {
     private Gender gender;
 
     private Integer age;
-    private String professionalActivity;
+
+    @ManyToOne
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private ProfessionalActivity professionalActivity;
+
     private Double povertyScore;
 
     public Region getRegion() {
@@ -51,11 +56,11 @@ public class PovertyIndicator extends Data {
         this.region = region;
     }
 
-    public String getLocationType() {
+    public LocationType getLocationType() {
         return locationType;
     }
 
-    public void setLocationType(String locationType) {
+    public void setLocationType(LocationType locationType) {
         this.locationType = locationType;
     }
 
@@ -75,11 +80,11 @@ public class PovertyIndicator extends Data {
         this.age = age;
     }
 
-    public String getProfessionalActivity() {
+    public ProfessionalActivity getProfessionalActivity() {
         return professionalActivity;
     }
 
-    public void setProfessionalActivity(String professionalActivity) {
+    public void setProfessionalActivity(ProfessionalActivity professionalActivity) {
         this.professionalActivity = professionalActivity;
     }
 
@@ -89,13 +94,5 @@ public class PovertyIndicator extends Data {
 
     public void setPovertyScore(Double povertyScore) {
         this.povertyScore = povertyScore;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
     }
 }

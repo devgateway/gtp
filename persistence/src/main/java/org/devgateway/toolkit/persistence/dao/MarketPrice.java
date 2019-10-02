@@ -116,6 +116,8 @@ public class MarketPrice extends Data {
         this.wholesaleBuyPrice = wholesaleBuyPrice;
     }
 
+
+
     @JsonIgnore
     public boolean isValid() {
         boolean ret = true;

@@ -30,17 +30,13 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
             if (filter != null) {
                 addDataIdPredicates(root, cb, predicates);
                 addDatasetIdPredicates(root, cb, predicates);
-                addCropPredicates(root, cb, predicates);
+                addCropTypePredicates(root, cb, predicates, filter.getCrop(), MarketPrice_.CROP_TYPE);
                 addYearPredicates(root, cb, predicates, filter.getYear(), MarketPrice_.DATE);
                 addMarketPredicates(root, cb, predicates);
                 addApprovedDatasets(root, cb, predicates);
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
-    }
-
-    protected void addCropPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getCrop(), MarketPrice_.CROP_TYPE); // TODO fix type mismatch
     }
 
 

@@ -32,6 +32,10 @@ import java.util.stream.Collectors;
 public class ConsumptionImporter extends AbstractImportService<Consumption> {
 
     private static final Logger logger = LoggerFactory.getLogger(ConsumptionImporter.class);
+    public static final String RICE = "Rice";
+    public static final String MILLET = "Millet";
+    public static final String CORN = "Corn";
+    public static final String SORGHUM = "Sorghum";
 
     @Autowired
     private ConsumptionRepository repository;
@@ -77,17 +81,18 @@ public class ConsumptionImporter extends AbstractImportService<Consumption> {
                 rowNumber++;
                 Row row = rowIterator.next();
                 //Extract data
-                String departmentName = ImportUtils.getStringFromCell(row.getCell(1));
+                Integer year = ImportUtils.getDoubleFromCell(row.getCell(0)).intValue();
+                String departmentName = ImportUtils.getStringFromCell(row.getCell(2));
                 Department department = getDepartment(departmentName);
-                int householdSize = ImportUtils.getDoubleFromCell(row.getCell(4)).intValue();
+                int householdSize = ImportUtils.getDoubleFromCell(row.getCell(5)).intValue();
 
-                addData(row, department, "Rice", householdSize, 3, 2, 8);
+                addData(row, new Consumption(year, department, householdSize), RICE, 4, 3, 9);
 
-                addData(row, department, "Millet", householdSize, null, 5, 9);
+                addData(row, new Consumption(year, department, householdSize), MILLET, null, 6, 10);
 
-                addData(row, department, "Corn", householdSize, null, 6, 10);
+                addData(row, new Consumption(year, department, householdSize), CORN, null, 7, 11);
 
-                addData(row, department, "Sorghum", householdSize, null, 7, 11);
+                addData(row, new Consumption(year, department, householdSize), SORGHUM, null, 8, 12);
 
             } catch (Exception e) { //Improve exception handling
                 logger.error("Error: " + e);
@@ -97,10 +102,7 @@ public class ConsumptionImporter extends AbstractImportService<Consumption> {
         }
     }
 
-    private void addData(Row row, Department department, String crop, int householdSize, Integer cropSubTypePos,
-                         int dailyPos, int weeklyPos) {
-        Consumption data = new Consumption();
-        data.setDepartment(department);
+    private void addData(Row row, Consumption data, String crop, Integer cropSubTypePos, int dailyPos, int weeklyPos) {
         data.setCropType((CropType) getCategory(crop, cropTypes, "Crop type"));
         if (cropSubTypePos != null) {
             String subType = ImportUtils.getStringFromCell(row.getCell(cropSubTypePos));
@@ -108,7 +110,6 @@ public class ConsumptionImporter extends AbstractImportService<Consumption> {
                 data.setCropSubType((CropSubType) getCategory(subType, cropSubTypes, "Crop subtype"));
             }
         }
-        data.setHouseholdSize(householdSize);
         data.setDailyConsumption(ImportUtils.getDoubleFromCell(row.getCell(dailyPos)));
         data.setWeeklyConsumption(ImportUtils.getDoubleFromCell(row.getCell(weeklyPos)));
         importResults.addDataInstance(data);

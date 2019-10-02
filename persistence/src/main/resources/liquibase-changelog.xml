@@ -321,5 +321,32 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="Poverty - loc type and prof activity" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('LocationType', nextval('hibernate_sequence'), 'Urban');
+            INSERT INTO category (dtype, id, label) VALUES ('LocationType', nextval('hibernate_sequence'), 'Suburban');
+            INSERT INTO category (dtype, id, label) VALUES ('LocationType', nextval('hibernate_sequence'), 'Rural');
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Urbain','fr',id FROM category WHERE label='Urban' AND dtype='LocationType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Suburbain','fr',id FROM category WHERE label='Suburban' AND dtype='LocationType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Rural','fr',id FROM category WHERE label='Rural' AND dtype='LocationType';
+
+            INSERT INTO category (dtype, id, label) VALUES ('ProfessionalActivity', nextval('hibernate_sequence'), 'Arts and crafts');
+            INSERT INTO category (dtype, id, label) VALUES ('ProfessionalActivity', nextval('hibernate_sequence'), 'Commercial/sales');
+            INSERT INTO category (dtype, id, label) VALUES ('ProfessionalActivity', nextval('hibernate_sequence'), 'Inactive/unemployed');
+            INSERT INTO category (dtype, id, label) VALUES ('ProfessionalActivity', nextval('hibernate_sequence'), 'Retirees');
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Artisanat','fr',id FROM category WHERE label='Arts and crafts' AND dtype='ProfessionalActivity';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Commerce/vente','fr',id FROM category WHERE label='Commercial/sales' AND dtype='ProfessionalActivity';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Inactifs/chômeurs','fr',id FROM category WHERE label='Inactive/unemployed' AND dtype='ProfessionalActivity';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Retraités','fr',id FROM category WHERE label='Retirees' AND dtype='ProfessionalActivity';
+
+        ]]></sql>
+    </changeSet>
+
 
 </databaseChangeLog>

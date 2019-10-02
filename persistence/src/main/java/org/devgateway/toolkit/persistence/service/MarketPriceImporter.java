@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.service;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -67,7 +68,9 @@ public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
                     String departmentName = ImportUtils.getStringFromCell(row.getCell(1));
                     String marketName = ImportUtils.getStringFromCell(row.getCell(2));
                     data.setMarket(getMarket(departmentName, marketName));
-                    data.setDate(ImportUtils.getLocalDateFromCell(row.getCell(3)));
+                    LocalDate localDate = ImportUtils.getLocalDateFromCell(row.getCell(3));
+                    data.setDate(localDate);
+                    data.setYear(localDate.getYear());
                     data.setCropType(getCropType(row.getCell(4)));
                     data.setQuantity(ImportUtils.getDoubleFromCell(row.getCell(5)));
                     data.setSellPrice(ImportUtils.getDoubleFromCell(row.getCell(6)));

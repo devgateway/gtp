@@ -31,7 +31,8 @@ public class ConsumptionFilterState extends DataFilterState<Consumption> {
                 addDataIdPredicates(root, cb, predicates);
                 addDatasetIdPredicates(root, cb, predicates);
                 addDeparmentPredicates(root, cb, predicates);
-                addCropTypePredicates(root, cb, predicates);
+                addYearPredicates(root, cb, predicates, filter.getYear(), Consumption_.YEAR);
+                addCropTypePredicates(root, cb, predicates, filter.getCrop(), Consumption_.CROP_TYPE);
                 addCropSubTypePredicates(root, cb, predicates);
                 addApprovedDatasets(root, cb, predicates);
             }
@@ -41,10 +42,6 @@ public class ConsumptionFilterState extends DataFilterState<Consumption> {
 
     protected void addDeparmentPredicates(Root<Consumption> root, CriteriaBuilder cb, List<Predicate> predicates) {
         addIntPredicates(root, cb, predicates, filter.getRegion(), Consumption_.DEPARTMENT); // TODO fix type mismatch
-    }
-
-    protected void addCropTypePredicates(Root<Consumption> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getCrop(), Consumption_.CROP_TYPE); // TODO fix type mismatch
     }
 
     protected void addCropSubTypePredicates(Root<Consumption> root, CriteriaBuilder cb, List<Predicate> predicates) {

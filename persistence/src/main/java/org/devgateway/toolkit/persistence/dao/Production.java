@@ -7,7 +7,6 @@ import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
@@ -36,13 +35,6 @@ public class Production extends Data {
     @PivotTableField(hideInAggregators = true, hideInDragAndDrop = true)
     private CropType cropType;
 
-    /**
-     * Campaign!
-     */
-    @NotNull
-    @Column(nullable = false)
-    @PivotTableField(hideInAggregators = true, hideInDragAndDrop = true)
-    private Integer year;
 
     @PivotTableField(hideInDragAndDrop = true)
     private Double surface; // surfaceArea
@@ -67,14 +59,6 @@ public class Production extends Data {
 
     public void setCropType(CropType cropType) {
         this.cropType = cropType;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
     }
 
     public Double getSurface() {

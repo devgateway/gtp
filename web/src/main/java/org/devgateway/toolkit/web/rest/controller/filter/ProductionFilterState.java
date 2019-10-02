@@ -31,8 +31,8 @@ public class ProductionFilterState extends DataFilterState<Production> {
                 addDataIdPredicates(root, cb, predicates);
                 addDatasetIdPredicates(root, cb, predicates);
                 addRegionPredicates(root, cb, predicates);
-                addYearPredicates(root, cb, predicates);
-                addCropTypePredicates(root, cb, predicates);
+                addYearPredicates(root, cb, predicates, filter.getYear(), Production_.YEAR);
+                addCropTypePredicates(root, cb, predicates, filter.getCrop(), Production_.CROP_TYPE);
                 addApprovedDatasets(root, cb, predicates);
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -41,13 +41,5 @@ public class ProductionFilterState extends DataFilterState<Production> {
 
     protected void addRegionPredicates(Root<Production> root, CriteriaBuilder cb, List<Predicate> predicates) {
         addIntPredicates(root, cb, predicates, filter.getRegion(), Production_.REGION); // TODO fix type mismatch
-    }
-
-    protected void addCropTypePredicates(Root<Production> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getCrop(), Production_.CROP_TYPE); // TODO fix type mismatch
-    }
-
-    protected void addYearPredicates(Root<Production> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getYear(), Production_.YEAR); // TODO fix type mismatch
     }
 }
