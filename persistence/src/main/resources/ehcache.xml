@@ -29,7 +29,7 @@
            eternal="true"
            diskPersistent="false"
            memoryStoreEvictionPolicy="LRU"
-           maxEntriesLocalHeap="100000"
+           maxEntriesLocalHeap="1000"
            statistics="true">
     </cache>
 
@@ -38,7 +38,7 @@
            diskPersistent="false"
            diskExpiryThreadIntervalSeconds="120"
            memoryStoreEvictionPolicy="LRU"
-           maxEntriesLocalHeap="100000"
+           maxEntriesLocalHeap="1000"
            statistics="true">
     </cache>
 
@@ -47,7 +47,7 @@
            diskPersistent="false"
            diskExpiryThreadIntervalSeconds="120"
            memoryStoreEvictionPolicy="LRU"
-           maxEntriesLocalHeap="100000"
+           maxEntriesLocalHeap="1000"
            statistics="true">
     </cache>
 
@@ -59,4 +59,13 @@
            maxEntriesLocalHeap="100000"
            statistics="true">
     </cache>
+
+    <cache name="indicatorsCache"
+           eternal="true"
+           statistics="true"
+           maxEntriesLocalHeap="100000"
+           overflowToDisk="true"
+           maxElementsOnDisk="100000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="120" />
 </ehcache>

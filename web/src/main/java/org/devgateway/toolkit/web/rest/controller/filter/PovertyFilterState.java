@@ -33,10 +33,30 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
                 addRegionPredicates(root, cb, predicates);
                 addYearPredicates(root, cb, predicates);
                 addGenderPredicates(root, cb, predicates);
+                addMinAgePredicate(root, cb, predicates);
+                addMaxAgePredicate(root, cb, predicates);
+                addMinScorePredicate(root, cb, predicates);
+                addMaxScorePredicate(root, cb, predicates);
                 addApprovedDatasets(root, cb, predicates);
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
+    }
+
+    protected void addMinAgePredicate(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        addMinPredicate(root, cb, predicates, filter.getMinAge(), PovertyIndicator_.AGE);
+    }
+
+    protected void addMaxAgePredicate(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        addMaxPredicate(root, cb, predicates, filter.getMaxAge(), PovertyIndicator_.AGE);
+    }
+
+    protected void addMinScorePredicate(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        addMinPredicate(root, cb, predicates, filter.getMinScore(), PovertyIndicator_.POVERTY_SCORE);
+    }
+
+    protected void addMaxScorePredicate(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        addMaxPredicate(root, cb, predicates, filter.getMaxScore(), PovertyIndicator_.POVERTY_SCORE);
     }
 
     protected void addRegionPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {

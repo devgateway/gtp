@@ -86,4 +86,18 @@ public class DataFilterState<T extends Data> implements Serializable {
             predicates.add(cb.or(yearPred.toArray(new Predicate[predicates.size()])));
         }
     }
+
+    protected void addMinPredicate(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
+                                      Integer value, String columnName) {
+        if (value != null) {
+            predicates.add(cb.greaterThanOrEqualTo(root.get(columnName), value));
+        }
+    }
+
+    protected void addMaxPredicate(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
+                                   Integer value, String columnName) {
+        if (value != null) {
+            predicates.add(cb.lessThanOrEqualTo(root.get(columnName), value));
+        }
+    }
 }

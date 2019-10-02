@@ -30,10 +30,11 @@ import javax.validation.Valid;
 public abstract class AbstractDatasetController<T extends AbstractAuditableEntity & Serializable,
         S extends DefaultFilterPagingRequest> {
 
-
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDatasetController.class);
+    public static final String MIN = "min";
+    public static final String MAX = "max";
 
-    private AbstractDatasetService<T> datasetService;
+    protected AbstractDatasetService<T> datasetService;
 
     AbstractDatasetController(AbstractDatasetService<T> datasetService) {
         this.datasetService = datasetService;
