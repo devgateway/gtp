@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Min;
-import java.io.Serializable;
 
 /**
  * @author mpostelnicu
