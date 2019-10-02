@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.hibernate.annotations.Cache;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
+@JsonPropertyOrder({"year", "region", "cropType", "surface", "production", "yield"})
 public class Production extends Data {
     private static final long serialVersionUID = -3339250112046118104L;
 

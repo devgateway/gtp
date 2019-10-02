@@ -21,7 +21,8 @@ import java.time.LocalDate;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@JsonPropertyOrder({"market", "cropType", "date", "quantity", "sellPrice", "detailBuyPrice", "wholesaleBuyPrice"})
+@JsonPropertyOrder({"year", "market", "cropType", "date", "quantity", "sellPrice", "detailBuyPrice",
+        "wholesaleBuyPrice"})
 public class MarketPrice extends Data {
 
     @ManyToOne(optional = false)

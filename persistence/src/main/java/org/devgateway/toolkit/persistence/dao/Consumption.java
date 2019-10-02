@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.categories.CropSubType;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
@@ -20,6 +21,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
+@JsonPropertyOrder({"year", "department", "cropType", "cropSubType", "householdSize", "dailyConsumption",
+        "weeklyConsumption"})
 public class Consumption extends Data implements Serializable {
 
     private static final long serialVersionUID = -3219250112046118104L;

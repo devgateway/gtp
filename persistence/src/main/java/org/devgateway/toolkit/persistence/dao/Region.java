@@ -26,6 +26,10 @@ public class Region extends GenericPersistable implements Serializable {
     public Region() {
     }
 
+    public Region(Long id) {
+        setId(id);
+    }
+
     public Region(Long id, String name, String code) {
         setId(id);
         this.name = name;
