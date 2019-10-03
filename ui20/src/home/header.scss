@@ -1,0 +1,23 @@
+.header {
+  .header-nav {
+    margin: auto;
+    height: 50px;
+    border-bottom: 1px solid #90b47a;
+    width: 1366px;
+    box-sizing: border-box;
+    background-image: url("/header-nav-background.png");
+
+    .header-title{
+      color: #FFF;
+    }
+  }
+
+  .header-main {
+    margin: auto;
+    height: 567px;
+    border-bottom: 1px solid #90b47a;
+    width: 1366px;
+    box-sizing: border-box;
+    background-image: url("/header-image-background.png");
+  }
+}
