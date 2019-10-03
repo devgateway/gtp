@@ -53,8 +53,7 @@ public class MarketPriceDatasetAnalysisConfigurer implements DatasetAnalysisConf
                 new PivotField("marketName", true, false),
                 new PivotField("weekDay", true, false),
                 new PivotField("month", true, false),
-                new PivotField("quarter", true, false),
-                new PivotField("year", true, false));
+                new PivotField("quarter", true, false));
     }
 
     @Override

@@ -77,7 +77,6 @@ var PivotTable = new function() {
         var WEEK_DAY = "weekDay";
         var MONTH = "month";
         var QUARTER = "quarter";
-        var YEAR = "year";
 
         var derivers = $.extend({}, $.pivotUtilities.derivers);
         derivers.cropTypeIdToName = function(record) {
@@ -114,7 +113,6 @@ var PivotTable = new function() {
         derivedAttributes[extraFields[WEEK_DAY]] = derivers.dateFormat(dateCol, "%w", false, opts.mthNames, opts.dayNames);
         derivedAttributes[extraFields[MONTH]] = derivers.dateFormat(dateCol, "%n", false, opts.mthNames, opts.dayNames);
         derivedAttributes[extraFields[QUARTER]] = derivers.quarter(dateCol);
-        derivedAttributes[extraFields[YEAR]] = derivers.dateFormat(dateCol, "%y");
 
         var sortAs = $.pivotUtilities.sortAs;
         var sorters = {};
@@ -128,18 +126,17 @@ var PivotTable = new function() {
     }
 
     function pivotUIOptsForProduction(opts, extraOpts) {
-        var YEAR = "_year";
-        var CAMPAIGN = "campaign";
+        //var CAMPAIGN = "campaign";
         var CROP_TYPE = "_cropType";
         var CROP_TYPE_NAME = "cropTypeName";
         var REGION = "_region";
         var REGION_NAME = "regionName";
 
         var derivers = $.extend({}, $.pivotUtilities.derivers);
-        derivers.campaign = function(record) {
-            var year = record[YEAR];
+        /*derivers.campaign = function(record) {
+            var year = record["year"];
             return year + "/" + (year + 1);
-        };
+        };*/
         derivers.cropTypeIdToName = function(record) {
             return extraOpts.cropTypeNames[record[CROP_TYPE]];
         };
@@ -150,7 +147,7 @@ var PivotTable = new function() {
         var extraFields = opts.extraFields;
 
         var derivedAttributes = {};
-        derivedAttributes[extraFields[CAMPAIGN]] = derivers.campaign;
+        //derivedAttributes[extraFields[CAMPAIGN]] = derivers.campaign;
         derivedAttributes[extraFields[CROP_TYPE_NAME]] = derivers.cropTypeIdToName;
         derivedAttributes[extraFields[REGION_NAME]] = derivers.regionIdToRegion;
 
@@ -167,6 +164,7 @@ var PivotTable = new function() {
         var CROP_TYPE_NAME = "cropTypeName";
 
         var derivers = $.extend({}, $.pivotUtilities.derivers);
+
         derivers.deptIdToName = function(record) {
             return extraOpts.departmentNames[record[DEPARTMENT]];
         };

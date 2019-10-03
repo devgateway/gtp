@@ -48,7 +48,7 @@ public class ProductionDatasetAnalysisConfigurer implements DatasetAnalysisConfi
     @Override
     public List<PivotField> getExtraFields() {
         return ImmutableList.of(
-                new PivotField("campaign", true, false),
+               // new PivotField("campaign", true, false),
                 new PivotField("cropTypeName", true, false),
                 new PivotField("regionName", true, false),
                 new PivotField("regionCode", true, false));

@@ -32,7 +32,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RestController
 @RequestMapping(value = "/data/poverty")
 @CrossOrigin
-@CacheConfig(cacheNames = "indicatorsCache")
+@CacheConfig(cacheNames = "servicesCache")
 public class PovertyIndicatorController extends AbstractDatasetController<PovertyIndicator,
         PovertyFilterPagingRequest> {
 
