@@ -15,10 +15,12 @@ const HeaderImage = (props) => {
 }
 
 const HeaderNavButtons=(props)=>{
-  return (<div className="header-nav">
+  return (<div className="header-nav-bar">
+
       <div className="nav link">  <FormattedMessage id="nav.home" defaultMessage={"Home"} values={""}/></div>
       <div className="nav link">  <FormattedMessage id="nav.dashboard" defaultMessage={"Dashboard"} values={""}/></div>
       <div className="nav link">  <FormattedMessage id="nav.resources" defaultMessage={"Resources"} values={""}/></div>
+
   </div>)
 }
 
@@ -42,7 +44,7 @@ class Home extends Component {
 
   render() {
     return (<div className="header">
-      <HeaderNav>
+        <HeaderNav>
           <HeaderTitle {...this.props}/>
           <HeaderNavButtons {...this.props}/>
         </HeaderNav>
