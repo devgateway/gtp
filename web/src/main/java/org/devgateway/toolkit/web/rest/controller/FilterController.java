@@ -9,17 +9,21 @@ import org.devgateway.toolkit.persistence.dao.categories.AgriculturalWomenGroup;
 import org.devgateway.toolkit.persistence.dao.categories.CropSubType;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.persistence.dao.categories.Gender;
+import org.devgateway.toolkit.persistence.dao.categories.LocationType;
 import org.devgateway.toolkit.persistence.dao.categories.LossType;
 import org.devgateway.toolkit.persistence.dao.categories.MethodOfEnforcement;
+import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
 import org.devgateway.toolkit.persistence.service.category.AgeGroupService;
 import org.devgateway.toolkit.persistence.service.category.AgriculturalWomenGroupService;
 import org.devgateway.toolkit.persistence.service.category.CropSubTypeService;
 import org.devgateway.toolkit.persistence.service.category.CropTypeService;
 import org.devgateway.toolkit.persistence.service.category.DepartmentService;
 import org.devgateway.toolkit.persistence.service.category.GenderService;
+import org.devgateway.toolkit.persistence.service.category.LocationTypeService;
 import org.devgateway.toolkit.persistence.service.category.LossTypeService;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.service.category.MethodOfEnforcementService;
+import org.devgateway.toolkit.persistence.service.category.ProfessionalActivityService;
 import org.devgateway.toolkit.persistence.service.category.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -67,6 +71,12 @@ public class FilterController {
 
     @Autowired
     private AgeGroupService ageGroupService;
+
+    @Autowired
+    private ProfessionalActivityService profService;
+
+    @Autowired
+    private LocationTypeService locService;
 
     @CrossOrigin
     @ApiOperation(value = "Get regions information")
@@ -137,5 +147,20 @@ public class FilterController {
     @RequestMapping(value = "/methodOfEnforcement", method = GET)
     public List<MethodOfEnforcement> getAllMethodOfEnforcement() {
         return mofService.findAll();
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get location type information")
+    @RequestMapping(value = "/locationType", method = GET)
+    public List<LocationType> getAllLocationType() {
+        return locService.findAll();
+    }
+
+
+    @CrossOrigin
+    @ApiOperation(value = "Get professional activity information")
+    @RequestMapping(value = "/professionalActivity", method = GET)
+    public List<ProfessionalActivity> getAllProfActivity() {
+        return profService.findAll();
     }
 }

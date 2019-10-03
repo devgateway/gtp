@@ -87,12 +87,10 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     /**
      * Retrieve french label. If not found returns null.
      */
-    @JsonIgnore
     public String getLabelFr() {
         return getLabel("fr");
     }
 
-    @JsonIgnore
     private String getLabel(String language) {
         for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
             if (localizedLabel.getLanguage().equals(language)) {
