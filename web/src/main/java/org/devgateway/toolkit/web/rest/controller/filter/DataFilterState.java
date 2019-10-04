@@ -93,14 +93,14 @@ public class DataFilterState<T extends Data> implements Serializable {
     }
 
     protected void addMinPredicate(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
-                                      Integer value, String columnName) {
+                                   Double value, String columnName) {
         if (value != null) {
             predicates.add(cb.greaterThanOrEqualTo(root.get(columnName), value));
         }
     }
 
     protected void addMaxPredicate(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
-                                   Integer value, String columnName) {
+                                   Double value, String columnName) {
         if (value != null) {
             predicates.add(cb.lessThanOrEqualTo(root.get(columnName), value));
         }

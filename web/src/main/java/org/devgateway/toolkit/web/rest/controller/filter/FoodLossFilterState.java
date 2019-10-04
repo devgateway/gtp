@@ -33,10 +33,36 @@ public class FoodLossFilterState extends DataFilterState<FoodLossIndicator> {
                 addCropTypePredicates(root, cb, predicates, filter.getCrop(), FoodLossIndicator_.CROP_TYPE);
                 addYearPredicates(root, cb, predicates, filter.getYear(), FoodLossIndicator_.YEAR);
                 addLossTypePredicates(root, cb, predicates);
+                addMinPercentagePredicate(root, cb, predicates);
+                addMaxPercentagePredicate(root, cb, predicates);
+                addMinKgPredicate(root, cb, predicates);
+                addMaxKgPredicate(root, cb, predicates);
                 addApprovedDatasets(root, cb, predicates);
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
+    }
+
+
+    protected void addMinPercentagePredicate(Root<FoodLossIndicator> root, CriteriaBuilder cb,
+                                             List<Predicate> predicates) {
+        addMinPredicate(root, cb, predicates, filter.getMinPercentage(), FoodLossIndicator_.AVG_PERCENTAGE);
+    }
+
+    protected void addMaxPercentagePredicate(Root<FoodLossIndicator> root, CriteriaBuilder cb,
+                                             List<Predicate> predicates) {
+        addMaxPredicate(root, cb, predicates, filter.getMaxPercentage(), FoodLossIndicator_.AVG_PERCENTAGE);
+    }
+
+
+    protected void addMinKgPredicate(Root<FoodLossIndicator> root, CriteriaBuilder cb,
+                                             List<Predicate> predicates) {
+        addMinPredicate(root, cb, predicates, filter.getMinKg(), FoodLossIndicator_.AVG_KILOGRAMS);
+    }
+
+    protected void addMaxKgPredicate(Root<FoodLossIndicator> root, CriteriaBuilder cb,
+                                             List<Predicate> predicates) {
+        addMaxPredicate(root, cb, predicates, filter.getMaxKg(), FoodLossIndicator_.AVG_KILOGRAMS);
     }
 
     protected void addLossTypePredicates(Root<FoodLossIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {

@@ -8,46 +8,46 @@ import java.io.Serializable;
 public class PovertyFilterPagingRequest extends DefaultFilterPagingRequest implements Serializable {
 
     @ApiModelProperty(value = "Filter by minimum age")
-    private Integer minAge;
+    private Double minAge;
 
     @ApiModelProperty(value = "Filter by maximum age")
-    private Integer maxAge;
+    private Double maxAge;
 
     @ApiModelProperty(value = "Filter by minimum poverty score")
-    private Integer minScore;
+    private Double minScore;
 
     @ApiModelProperty(value = "Filter by maximum poverty score")
-    private Integer maxScore;
+    private Double maxScore;
 
-    public Integer getMinAge() {
+    public Double getMinAge() {
         return minAge;
     }
 
-    public void setMinAge(Integer minAge) {
+    public void setMinAge(Double minAge) {
         this.minAge = minAge;
     }
 
-    public Integer getMaxAge() {
+    public Double getMaxAge() {
         return maxAge;
     }
 
-    public void setMaxAge(Integer maxAge) {
+    public void setMaxAge(Double maxAge) {
         this.maxAge = maxAge;
     }
 
-    public Integer getMinScore() {
+    public Double getMinScore() {
         return minScore;
     }
 
-    public void setMinScore(Integer minScore) {
+    public void setMinScore(Double minScore) {
         this.minScore = minScore;
     }
 
-    public Integer getMaxScore() {
+    public Double getMaxScore() {
         return maxScore;
     }
 
-    public void setMaxScore(Integer maxScore) {
+    public void setMaxScore(Double maxScore) {
         this.maxScore = maxScore;
     }
 }

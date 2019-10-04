@@ -34,10 +34,23 @@ public class AgriculturalWomenFilterState extends DataFilterState<AgriculturalWo
                 addYearPredicates(root, cb, predicates, filter.getYear(), AgriculturalWomenIndicator_.YEAR);
                 addAwGroupPredicates(root, cb, predicates);
                 addAwGroupTypePredicates(root, cb, predicates);
+                addMinPercentagePredicate(root, cb, predicates);
+                addMaxPercentagePredicate(root, cb, predicates);
                 addApprovedDatasets(root, cb, predicates);
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
+    }
+
+
+    protected void addMinPercentagePredicate(Root<AgriculturalWomenIndicator> root, CriteriaBuilder cb,
+                                             List<Predicate> predicates) {
+        addMinPredicate(root, cb, predicates, filter.getMinPercentage(), AgriculturalWomenIndicator_.PERCENTAGE);
+    }
+
+    protected void addMaxPercentagePredicate(Root<AgriculturalWomenIndicator> root, CriteriaBuilder cb,
+                                             List<Predicate> predicates) {
+        addMaxPredicate(root, cb, predicates, filter.getMaxPercentage(), AgriculturalWomenIndicator_.PERCENTAGE);
     }
 
     protected void addAwGroupPredicates(Root<AgriculturalWomenIndicator> root, CriteriaBuilder cb,
