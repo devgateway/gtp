@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {FormattedMessage} from 'react-intl';
 
+
+import './header.scss';
+
+
 const HeaderNav = (props) => {
   return <div className="header-nav">{props.children}</div>
 }
@@ -35,9 +39,8 @@ const Header=(props)=>{
         <HeaderTitle {...props}/>
         <HeaderNavButtons {...props}/>
       </HeaderNav>
-    <HeaderImage>
-    </HeaderImage>
+
   </div>);
 }
 
-export {Header}
+export default Header

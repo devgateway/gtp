@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
 
-import './header.scss';
-import './main.scss';
-
 import {simpleAction} from '../actions/SimpleAction';
 
-import {Header} from './header'
+import Header from './Header'
+import Main from './Intro'
+import Links from './Links'
+import Stories from './Sotries'
+import Weather from './Weather'
+import Newsletter from './NewsLetter'
+import Footer from './Footer'
 
 class Home extends Component {
   componentDidMount() {
@@ -15,9 +18,15 @@ class Home extends Component {
   }
 
   render() {
-      return (<div>
-        <Header {...this.props}></Header>
-      </div>)
+    return (<div>
+      <Header {...this.props}></Header>
+      <Main {...this.props}></Main>
+      <Links {...this.props}></Links>
+      <Stories {...this.props}></Stories>
+      <Weather {...this.props}></Weather>
+      <Newsletter {...this.props}></Newsletter>
+      <Footer {...this.props}></Footer>
+    </div>)
   }
 }
 
