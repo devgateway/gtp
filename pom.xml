@@ -37,10 +37,8 @@
     <modules>
         <module>persistence</module>
         <module>web</module>
-<!--        <module>ui</module>-->
-<!--        <module>reporting</module>-->
+        <module>ui20</module>
         <module>forms</module>
-<!--        <module>persistence-mongodb</module>-->
     </modules>
 
     <inceptionYear>2015</inceptionYear>

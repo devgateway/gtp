@@ -23,7 +23,7 @@
     "babel-plugin-react-intl": "^4.1.20"
   },
   "scripts": {
-    "extract-messages": "NODE_ENV=production babel ./src  --out-file /dev/null", 
+    "extract-messages": "NODE_ENV=production babel ./src  --out-file /dev/null",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

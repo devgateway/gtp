@@ -19,7 +19,9 @@ import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ * Created by Daniel Oliva
+ */
 public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> extends AbstractEditPage<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractEditDatasePage.class);
