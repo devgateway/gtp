@@ -67,6 +67,7 @@ import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPartnerPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPovertyIndicatorDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListProductionDatasetPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListRapidLinkFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListTestFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
 import org.devgateway.toolkit.forms.wicket.page.user.EditUserPage;
@@ -274,6 +275,10 @@ public abstract class BasePage extends GenericWebPage<Void> {
             @Override
             protected List<AbstractLink> newSubMenuButtons(final String arg0) {
                 final List<AbstractLink> list = new ArrayList<>();
+                list.add(new MenuBookmarkablePageLink<ListRapidLinkFormPage>(ListRapidLinkFormPage.class, null,
+                        new StringResourceModel("navbar.production", this, null))
+                        .setIconType(FontAwesomeIconType.pagelines));
+
                 list.add(new MenuBookmarkablePageLink<>(ListUserPage.class, null,
                         new StringResourceModel("navbar.users", this, null))
                         .setIconType(FontAwesomeIconType.users));
