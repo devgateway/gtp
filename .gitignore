@@ -13,3 +13,5 @@ npm-debug.log
 rebel.xml
 /logs/
 /ui/package-lock.json
+/ui20/node
+/ui20/target
