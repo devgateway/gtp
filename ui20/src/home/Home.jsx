@@ -2,19 +2,18 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
 
-import {simpleAction} from '../actions/SimpleAction';
 
-import Header from './Header'
+import Header from '../layout/Header'
 import Main from './Intro'
 import Links from './Links'
 import Stories from './Sotries'
 import Weather from './Weather'
 import Newsletter from './NewsLetter'
-import Footer from './Footer'
+import Footer from '../layout/Footer'
 
 class Home extends Component {
   componentDidMount() {
-    this.props.simpleAction();
+    
   }
 
   render() {
@@ -31,16 +30,16 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
-  return state.getIn(['home'])
+  return { home:state.getIn(['home'])}
 }
 
 const mapDispatchToProps = dispatch => ({
-  doLoadData: () => simpleAction()
+
 })
 
 const mapActionCreators = {
 
-  simpleAction
+
 
 };
 
