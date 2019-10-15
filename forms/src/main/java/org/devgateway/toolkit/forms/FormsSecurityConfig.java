@@ -45,8 +45,8 @@ public class FormsSecurityConfig extends WebSecurityConfig {
     @Override
     public void configure(final WebSecurity web) throws Exception {
         super.configure(web);
-        web.ignoring().antMatchers("/ui/**", "/static/**", "/img/**", "/css*/**", "/js*/**",
-                "/assets*/**", "/wicket/resource/**/*.js", "/ui20/**",
+        web.ignoring().antMatchers("/ui/**", "/static/**",  "/ui/static/**", "/img/**", "/css*/**", "/js*/**",
+                "/assets*/**", "/wicket/resource/**/*.js",
                 "/wicket/resource/**/*.css", "/wicket/resource/**/*.js.map", "/wicket/resource/**/*.css.map",
                 "/wicket/resource/**/*.png", "/wicket/resource/**/*.jpg",
                 "/wicket/resource/**/*.woff", "/wicket/resource/**/*.woff2", "/wicket/resource/**/*.ttf",
