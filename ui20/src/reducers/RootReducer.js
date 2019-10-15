@@ -2,13 +2,13 @@ import {combineReducers} from 'redux-immutable';
 
 import { connectRouter } from 'connected-react-router/immutable'
 
-import home from '../modules/Home';
+import data from '../modules/Data';
 import analytic from '../modules/Analytic';
 
 
 const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
-  home,
+  data,
   analytic
 })
 

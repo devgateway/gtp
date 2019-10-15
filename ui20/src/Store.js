@@ -5,7 +5,7 @@ import {
 } from 'redux'
 import thunk from 'redux-thunk';
 import {
-  createBrowserHistory
+  createHashHistory
 } from 'history'
 import createRootReducer from './reducers/RootReducer';
 import {
@@ -14,7 +14,7 @@ import {
 import Immutable from 'immutable'
 
 
-export const history = createBrowserHistory()
+export const history = createHashHistory()
 
 const initialState = Immutable.Map()
 

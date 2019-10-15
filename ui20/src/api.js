@@ -1,7 +1,8 @@
-const API_ROOT = 'http://localhost:8080'
-const GET_DATASET_DUMP_DATA = name => `/data/${name}/dump`
+const API_ROOT = document.location.href.indexOf('localhost') > -1 ? 'http://localhost:8080' : '/'
 
+const dumpUrlBuilder = name => `/data/${name}/dump`
 
+const itemsURLBuilder = category => `/data/filter/${category}`
 
 
 function queryParams(params) {
@@ -37,14 +38,13 @@ const post = (url, params) => {
       });
   })
 }
-
 const get = (url) => {
   return new Promise((resolve, reject) => {
     fetch(url)
       .then(
         function(response) {
-          if (response.status !== 200) {
 
+          if (response.status !== 200) {
             reject(response)
           }
 
@@ -61,5 +61,9 @@ const get = (url) => {
 
 
 export const getDataSet = (name) => {
-  return get(API_ROOT + GET_DATASET_DUMP_DATA(name))
+  return get(API_ROOT + dumpUrlBuilder(name))
+}
+
+export const getItems = (category) => {
+  return get(API_ROOT + itemsURLBuilder(category))
 }
