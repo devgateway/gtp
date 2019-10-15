@@ -34,7 +34,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/ui/static/")
                 .resourceChain(true)
-                .addResolver(new PathResourceResolver());;
+                .addResolver(new PathResourceResolver());
     }
 
     @Bean(name = "genericExcelKeyGenerator")
