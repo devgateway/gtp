@@ -31,12 +31,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/ui/**").addResourceLocations("classpath:/static/ui");
-    }
-
-    @Override
-    public void addViewControllers(final ViewControllerRegistry registry) {
-        registry.addViewController("/ui/").setViewName("forward:/ui/index.html");
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/ui/static");
     }
 
     @Bean(name = "genericExcelKeyGenerator")
