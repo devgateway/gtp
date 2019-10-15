@@ -70,6 +70,7 @@ import org.devgateway.toolkit.forms.wicket.page.lists.ListProductionDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListRapidLinkFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListTestFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListWebContentFormPage;
 import org.devgateway.toolkit.forms.wicket.page.user.EditUserPage;
 import org.devgateway.toolkit.forms.wicket.page.user.LogoutPage;
 import org.devgateway.toolkit.forms.wicket.styles.BaseStyles;
@@ -276,8 +277,11 @@ public abstract class BasePage extends GenericWebPage<Void> {
             protected List<AbstractLink> newSubMenuButtons(final String arg0) {
                 final List<AbstractLink> list = new ArrayList<>();
                 list.add(new MenuBookmarkablePageLink<ListRapidLinkFormPage>(ListRapidLinkFormPage.class, null,
-                        new StringResourceModel("navbar.production", this, null))
-                        .setIconType(FontAwesomeIconType.pagelines));
+                        new StringResourceModel("navbar.rapidLink", this, null))
+                        .setIconType(FontAwesomeIconType.link));
+                list.add(new MenuBookmarkablePageLink<ListWebContentFormPage>(ListWebContentFormPage.class, null,
+                        new StringResourceModel("navbar.webContent", this, null))
+                        .setIconType(FontAwesomeIconType.html5));
 
                 list.add(new MenuBookmarkablePageLink<>(ListUserPage.class, null,
                         new StringResourceModel("navbar.users", this, null))
