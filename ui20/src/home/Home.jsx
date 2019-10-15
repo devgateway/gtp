@@ -13,7 +13,7 @@ import Footer from '../layout/Footer'
 
 class Home extends Component {
   componentDidMount() {
-    
+
   }
 
   render() {
