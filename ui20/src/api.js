@@ -60,8 +60,6 @@ const get = (url) => {
 }
 
 
-export const getDataSet = (name) => {return new Promise((resolve, reject) => {
-
-}
-   get(API_ROOT + GET_DATASET_DUMP_DATA(name))
+export const getDataSet = (name) => {
+  return get(API_ROOT + GET_DATASET_DUMP_DATA(name))
 }

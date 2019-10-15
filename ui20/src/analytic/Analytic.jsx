@@ -3,7 +3,7 @@ import "./analytic.scss"
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage,injectIntl} from 'react-intl';
 
 import {loadDataSet} from '../modules/Analytic';
 
@@ -25,9 +25,8 @@ var usFmt = numberFormat();
 var usFmtInt = numberFormat({digitsAfterDecimal: 0});
 var usFmtPct = numberFormat({digitsAfterDecimal: 1, scaler: 100, suffix: '%'});
 
-function intl(key, values) {
-  return formattedMessage({id:"123", defaultMessage:"some message"});
-}
+
+
 // default aggregators & renderers use US naming and number formatting
 var aggregators = function(tpl) {
   return {
@@ -207,4 +206,4 @@ var aggregators = function(tpl) {
     onLoad: loadDataSet
   };
 
-  export default connect(mapStateToProps, mapActionCreators)(Home);
+  export default injectIntl(connect(mapStateToProps, mapActionCreators)(Home));
