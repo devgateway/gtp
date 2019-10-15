@@ -43,10 +43,11 @@ const initialState = Immutable.fromJS({
         "region": "_region",
         "cropType": "_cropType"
       },
+
       "extraFields": {
-        "regionCode": "Region Code",
-        "regionName": "Region",
-        "cropTypeName": "Crop Type"
+        "regionCode": {name:"Region Code", extractor:(regions)=>{regions[this.value].code},
+        "regionName": {name:"Region", extractor:(regions)=>{regions[this.value].code},
+        "cropTypeName": {name:"Crop Type", extractor:(regions)=>{regions[this.value].code}
       },
 
 
