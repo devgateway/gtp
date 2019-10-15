@@ -22,7 +22,7 @@ import './stories.scss';
 
 
 const Stories=injectIntl( (props)=>{
-    debugger;
+    
   return (
 
     <div className="home-stories">

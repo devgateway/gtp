@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
+import { Link } from "react-router-dom";
 
 import './links.scss'
 
@@ -31,7 +32,7 @@ const LinksBlock = (props) => {
       <div className="link active microdata">
         <div className="btn">
           <div className="icon"></div>
-          <div className="label"><FormattedMessage id="home.links.microdata" defaultMessage={"Microdonnées"} values={""}/>
+          <div className="label"> <Link to="analytic"> <FormattedMessage id="home.links.microdata" defaultMessage={"Microdata"} values={""}/></Link>
           </div>
         </div>
       </div>
