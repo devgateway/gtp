@@ -1,5 +1,5 @@
 const API_ROOT = 'http://localhost:8080'
-const PRODUCTION_DUMP_DATA = name => `/data/${name}/dump`
+const GET_DATASET_DUMP_DATA = name => `/data/${name}/dump`
 
 
 
@@ -60,6 +60,8 @@ const get = (url) => {
 }
 
 
-export const getDataSet = (name) => {
-  return get(API_ROOT + PRODUCTION_DUMP_DATA(name))
+export const getDataSet = (name) => {return new Promise((resolve, reject) => {
+
+}
+   get(API_ROOT + GET_DATASET_DUMP_DATA(name))
 }

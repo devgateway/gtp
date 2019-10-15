@@ -5,7 +5,9 @@
   "dependencies": {
     "connected-react-router": "^6.5.2",
     "intl": "^1.2.5",
+    "jquery": "^3.4.1",
     "node-sass": "^4.12.0",
+    "pivottable": "^2.23.0",
     "plotly.js": "1.40.0",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
