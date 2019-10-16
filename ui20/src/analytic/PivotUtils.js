@@ -69,19 +69,3 @@ export const locales = {
     }
   }
 };
-
-
-
-export const mapFields = (data, fields, extraFields) => {
-  return data.map(r => {
-    let nr = {}
-    console.log(extraFields)
-    Object.keys(r).forEach(k => {
-      const name = fields[k];
-      nr[name] = r[k]
-    })
-
-
-    return nr
-  });
-}
