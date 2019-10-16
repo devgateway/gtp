@@ -3,73 +3,52 @@ import {
 } from '../api'
 
 import Immutable from 'immutable'
+import production from './states/ProductionConf'
+import consumption from './states/ConsumptionConf'
+import marketPrice from './states/MarketPriceConf'
 
+import {
+  loadDataItems
+} from '../modules/Data'
 
 const initialState = Immutable.fromJS({
-  production: {
-    config: {
-      "pivottable": {
-        "rows": ["Region"],
-        "cols": ["Crop Type"],
-        "vals": ["Production"],
-        "hiddenFromAggregators": [ "Year", "Crop Type", "Region", "Region Code"],
-        "hiddenFromDragDrop": ["_region", "_cropType", "Area", "Production", "Yield"],
-        "aggregatorName": "Sum",
-        "rendererName": "Table",
-        "aggregatorNames": ["Average", "Count", "Sum"],
-      },
-
-      "fields": {
-        "surface": "Area",
-        "production": "Production",
-        "year": "Year",
-        "yield": "Yield",
-        "region": "_region",
-        "cropType": "_cropType"
-      },
-
-      "extraFields": {
-        "regionCode": {name:"Region Code", extractor:(state)=>{
-          debugger;
-          return this.code
-        }},
-        "regionName": {name:"Region", extractor:(state)=>{
-          debugger;
-        }},
-        "cropTypeName": {name:"Crop Type", extractor:(state)=>{}}
-      },
-
-
-      "renderers": {
-        "Table": "Table",
-        "Heatmap": "Heatmap",
-        "Row Heatmap": "Row Heatmap",
-        "Col Heatmap": "Col Heatmap",
-        "Bar Chart": "Bar Chart",
-        "Stacked Bar Chart": "Stacked Bar Chart",
-        "Horizontal Bar Chart": "Horizontal Bar Chart",
-        "Horizontal Stacked Bar Chart": "Horizontal Stacked Bar Chart",
-        "Area Chart": "Area Chart",
-        "Line Chart": "Line Chart",
-        "Multiple Pie Chart": "Multiple Pie Chart",
-        "Scatter Chart": "Scatter Chart"
-      },
-      "mthNames": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-      "dayNames": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    }
-  }
+  production,
+  consumption,
+  marketPrice
 })
 
 
+const mapFields = (data, fields, extraFields, dataItems) => {
 
-export const loadDataSet = (name) => dispatch => {
+  return data.map(r => {
+    let nr = {}
+    Object.keys(r).forEach(k => {
+      const name = fields[k];
+      nr[name] = r[k]
+    })
+
+    Object.keys(extraFields).forEach(ex => {
+      const extra = extraFields[ex];
+
+      nr[ex] = extra.extractor(nr)(dataItems)
+    })
+    return nr
+  });
+}
+
+export const loadDataSet = (name) => (dispatch, getState) => {
   getDataSet(name).then(data => {
+    const dataItems = getState().getIn(['data', 'items']).toJS();
+    const fields = getState().getIn(['analytic', name, 'config', 'fields']).toJS();
+    const extraFields = getState().getIn(['analytic', name, 'config', 'extraFields']).toJS();
+    const preparedData = mapFields(data, fields, extraFields, dataItems)
 
     dispatch({
       type: 'LOAD_DATASET_DATA_OK',
       name,
-      data
+      data: preparedData
     })
+
   }).catch(error => {
     dispatch({
       type: 'LOAD_DATASET_DATA_ERROR',
@@ -79,17 +58,8 @@ export const loadDataSet = (name) => dispatch => {
 }
 
 
-export const mapFields = (data, fields, extraFields, dataItems) => {
-  return data.map(r => {
-    let nr = {}
-    console.log(extraFields)
-    Object.keys(r).forEach(k => {
-      const name = fields[k];
-      nr[name] = r[k]
-    })
-    return nr
-  });
-}
+
+
 
 
 export default (state = initialState, action) => {
