@@ -72,9 +72,13 @@ public class ConsumptionImporter extends AbstractImportService<Consumption> {
 
         cropTypes = cropTypeRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        cropTypes.putAll(cropTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
 
         cropSubTypes = cropSubTypeRepository.findAll().stream()
-                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+                .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        cropSubTypes.putAll(cropSubTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
 
         while (rowIterator.hasNext()) {
             try {

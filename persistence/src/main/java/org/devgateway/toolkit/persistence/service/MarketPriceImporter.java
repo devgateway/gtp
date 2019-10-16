@@ -56,7 +56,9 @@ public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
         }
 
         cropTypes = cropTypeRepository.findAll().stream()
-                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+                .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        cropTypes.putAll(cropTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
 
         while (rowIterator.hasNext()) {
             try {

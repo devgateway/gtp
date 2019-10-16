@@ -55,10 +55,14 @@ public class FoodLossIndicatorImporter extends AbstractImportService<FoodLossInd
         }
 
         cropTypes = cropTypeRepository.findAll().stream()
-                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+                .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        cropTypes.putAll(cropTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
 
         lossTypes = lossTypeRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        lossTypes.putAll(lossTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
 
 
         while (rowIterator.hasNext()) {

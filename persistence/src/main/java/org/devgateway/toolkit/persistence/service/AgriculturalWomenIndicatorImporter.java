@@ -73,13 +73,17 @@ public class AgriculturalWomenIndicatorImporter extends AbstractImportService<Ag
         }
         genderMap = genderRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        genderMap.putAll(genderRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
+
         groupMap = awgRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        groupMap.putAll(awgRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
+
         groupTypeMap.putAll(ageGroupRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z)));
-        groupTypeMap.putAll(cropTypeRepository.findAll().stream()
-                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
-        groupTypeMap.putAll(moeRepository.findAll().stream()
+        groupTypeMap.putAll(ageGroupRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
 
         while (rowIterator.hasNext()) {

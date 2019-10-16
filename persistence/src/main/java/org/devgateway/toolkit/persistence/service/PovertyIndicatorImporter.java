@@ -66,11 +66,20 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
             rowNumber++;
         }
         genderMap = genderRepository.findAll().stream()
-                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+                .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        genderMap.putAll(genderRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
+
         profActMap = profActRepository.findAll().stream()
-                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+                .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        profActMap.putAll(profActRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
+
         locTypeMap = locTypeRepository.findAll().stream()
-                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+                .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        locTypeMap.putAll(locTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
+
 
         while (rowIterator.hasNext()) {
             try {
