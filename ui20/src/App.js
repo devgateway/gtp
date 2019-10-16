@@ -42,16 +42,16 @@ const IntlRoutes = (props) => {
 
   return (<IntlProvider locale={language} messages={messages[props.match.params.lan]}>
     <Switch>
-      <Route exact="exact" path="/:lan/home" render={() => (<div>
+      <Route exact path="/:lan/home" render={() => (<div>
           <Home language={props.match.params.lan}></Home>
         </div>)}/>
-      <Route exact="exact" path="/:lan/analytic/production" render={() => (<div>
+      <Route exact  path="/:lan/analytic/production" render={() => (<div>
           <Analytic language={props.match.params.lan}></Analytic>
         </div>)}/>
-      <Route exact="exact" path="/:lan/analytic/marketPrice" render={() => (<div>
+      <Route exact path="/:lan/analytic/marketPrice" render={() => (<div>
           <Analytic language={props.match.params.lan}></Analytic>
         </div>)}/>
-      <Route exact="exact" path="/:lan/analytic/consumption" render={() => (<div>
+      <Route exact  path="/:lan/analytic/consumption" render={() => (<div>
           <Analytic language={props.match.params.lan}></Analytic>
         </div>)}/>
 

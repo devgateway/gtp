@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
 import {loadDataSet} from '../modules/Analytic';
+import {loadDataItems} from '../modules/Data';
 
 import ReactDOM from 'react-dom';
 import PivotTable from 'react-pivottable/PivotTable'
@@ -19,7 +20,7 @@ import {mapFields} from './PivotUtils'
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
 
-class Production extends Component {
+class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {}
@@ -47,6 +48,10 @@ class Production extends Component {
 
 class Analytic extends Component {
   componentDidMount() {
+    this.props.loadFilterData('region')
+    this.props.loadFilterData('cropType')
+    this.props.loadFilterData('department')
+    this.props.loadFilterData('market')
     this.props.onLoad(this.props.dataset)
   }
 
@@ -62,7 +67,8 @@ class Analytic extends Component {
     return (<div>
 
       <div className="analytic-container">
-        {dataset == 'production' && <Production {...this.props}></Production>}
+        <Table {...this.props}></Table>
+
       </div>
     </div>)
   }
@@ -79,6 +85,7 @@ const mapStateToProps = state => {
 }
 
 const mapActionCreators = {
+  loadFilterData:loadDataItems,
   onLoad: loadDataSet
 };
 
