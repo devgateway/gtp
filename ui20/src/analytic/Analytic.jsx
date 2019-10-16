@@ -29,7 +29,7 @@ class Production extends Component {
     const {config,data}=this.props
     const fields=config.get('fields').toJS()
     const extraFields=config.get('extraFields').toJS()
-    
+
     return (<div>
       <div className="analytic-container">
 
@@ -37,7 +37,7 @@ class Production extends Component {
             {...config.get('pivottable').toJS()}
 
           renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
-          data={mapFields(data.toJS(),fields,extraFields)}
+          data={data.toJS()}
          onChange={s => this.setState(s)} {...this.state}></PivotTableUI>}
       </div>
 

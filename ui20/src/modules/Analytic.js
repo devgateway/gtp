@@ -4,22 +4,6 @@ import {
 
 import Immutable from 'immutable'
 
-export const loadDataSet = (name) => dispatch => {
-  getDataSet(name).then(data => {
-
-    dispatch({
-      type: 'LOAD_DATASET_DATA_OK',
-      name,
-      data
-    })
-  }).catch(error => {
-    dispatch({
-      type: 'LOAD_DATASET_DATA_ERROR',
-      error
-    })
-  })
-}
-
 
 const initialState = Immutable.fromJS({
   production: {
@@ -45,9 +29,14 @@ const initialState = Immutable.fromJS({
       },
 
       "extraFields": {
-        "regionCode": {name:"Region Code", extractor:(regions)=>regions[this.value].code},
-        "regionName": {name:"Region", extractor:(regions)=>regions[this.value].code},
-        "cropTypeName": {name:"Crop Type", extractor:(regions)=>regions[this.value].code}
+        "regionCode": {name:"Region Code", extractor:(state)=>{
+          debugger;
+          return this.code
+        }},
+        "regionName": {name:"Region", extractor:(state)=>{
+          debugger;
+        }},
+        "cropTypeName": {name:"Crop Type", extractor:(state)=>{}}
       },
 
 
@@ -71,9 +60,42 @@ const initialState = Immutable.fromJS({
   }
 })
 
+
+
+export const loadDataSet = (name) => dispatch => {
+  getDataSet(name).then(data => {
+
+    dispatch({
+      type: 'LOAD_DATASET_DATA_OK',
+      name,
+      data
+    })
+  }).catch(error => {
+    dispatch({
+      type: 'LOAD_DATASET_DATA_ERROR',
+      error
+    })
+  })
+}
+
+
+export const mapFields = (data, fields, extraFields, dataItems) => {
+  return data.map(r => {
+    let nr = {}
+    console.log(extraFields)
+    Object.keys(r).forEach(k => {
+      const name = fields[k];
+      nr[name] = r[k]
+    })
+    return nr
+  });
+}
+
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'LOAD_DATASET_DATA_OK':
+      debugger;
 
       return state.setIn([action.name, 'data'], Immutable.List(action.data))
     case 'LOAD_DATASET_DATA_ERROR':

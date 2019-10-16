@@ -36,7 +36,7 @@ const Weather = injectIntl((props) => {
         </div>
         <div className="st-column st-column-3">
           <ContentBlock big>
-              <img src="/icon_weather.png"></img>
+              <img src="icon_weather.png"></img>
               <TitleSubtitleBlock big title={props.intl.formatMessage({id: "weather.title_3", defaultMessage: "Meteorological data"})} subtitle={props.intl.formatMessage({id: "weather.subtitle_3", defaultMessage: "Weather forecast for next 10 days"})}/>
               <TitleSubtitleBlock showSeparator title={props.intl.formatMessage({id: "weather.title_4", defaultMessage: "Main crops by zone"})} subtitle={props.intl.formatMessage({id: "weather.subtitle_4", defaultMessage: "This is where the short descriptive line will go here to describe the category"})}/>
               <div className="btn-learn"><FormattedMessage id="wather.learn" defaultMessage="Learn more"></FormattedMessage></div>
