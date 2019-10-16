@@ -62,7 +62,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/classes/static/</outputDirectory>
+                            <outputDirectory>${basedir}/target/classes/static/ui</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>build</directory>
