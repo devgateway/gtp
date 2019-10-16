@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
+import org.hibernate.LazyInitializationException;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -92,12 +93,17 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     }
 
     private String getLabel(String language) {
-        for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
-            if (localizedLabel.getLanguage().equals(language)) {
-                return localizedLabel.getLabel();
+        try {
+            for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
+                if (localizedLabel.getLanguage().equals(language)) {
+                    return localizedLabel.getLabel();
+                }
             }
+        } catch (LazyInitializationException e) {
+            return label;
+            //Dont return null for label, its being used in serialization
         }
-        return label; //Dont return null for label, its being used in serialization
+        return null;
     }
 
     /**
