@@ -58,15 +58,15 @@
 
   <script>
     // tell the embed parent frame the height of the content
-    if (window.parent && window.parent.parent){
-      window.parent.parent.postMessage(["resultsFrame", {
+    if (parent && parent.parent){
+      parent.parent.postMessage(["resultsFrame", {
         height: document.body.getBoundingClientRect().height,
         slug: "wqrzsn4g"
       }], "*")
     }
 
-    // always overwrite window.name, in case users try to set it manually
-    window.name = "result"
+    // always overwrite name, in case users try to set it manually
+    name = "result"
   </script>
 </body>
 </html>

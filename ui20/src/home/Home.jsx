@@ -18,12 +18,13 @@ class Home extends Component {
   }
 
   render() {
-    return (<div>
+    return (
+      <div>
         <Main {...this.props}></Main>
-      <Links {...this.props}></Links>
-      <Stories {...this.props}></Stories>
-      <Weather {...this.props}></Weather>
-      <Newsletter {...this.props}></Newsletter>
+        <Links {...this.props}></Links>
+        <Stories {...this.props}></Stories>
+       <Weather {...this.props}></Weather>
+       <Newsletter {...this.props}></Newsletter>
 
     </div>)
   }

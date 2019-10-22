@@ -3,6 +3,10 @@ import {injectIntl, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 
 import './weather.scss';
 
+
+import messages from '../translations/messages'
+
+
 const Weather = injectIntl((props) => {
 
   const TitleSubtitleBlock = (props) => {
@@ -31,20 +35,30 @@ const Weather = injectIntl((props) => {
       <div className="st-row">
         <div className="st-column st-column-3">
           <ContentBlock>
-            <TitleSubtitleBlock  showSeparator title={props.intl.formatMessage({id: "weather.title_1", defaultMessage: "Main crops by zone"})} subtitle={props.intl.formatMessage({id: "weather.subtitle_1", defaultMessage: "This is where the short descriptive line will go here to describe the category"})}/>
+            <TitleSubtitleBlock  showSeparator
+              title={props.intl.formatMessage(messages.weather_title_1)}
+              subtitle={props.intl.formatMessage(messages.weather_subtitle_1)}/>
           </ContentBlock>
         </div>
         <div className="st-column st-column-3">
           <ContentBlock big>
               <img src="icon_weather.png"></img>
-              <TitleSubtitleBlock big title={props.intl.formatMessage({id: "weather.title_3", defaultMessage: "Meteorological data"})} subtitle={props.intl.formatMessage({id: "weather.subtitle_3", defaultMessage: "Weather forecast for next 10 days"})}/>
-              <TitleSubtitleBlock showSeparator title={props.intl.formatMessage({id: "weather.title_4", defaultMessage: "Main crops by zone"})} subtitle={props.intl.formatMessage({id: "weather.subtitle_4", defaultMessage: "This is where the short descriptive line will go here to describe the category"})}/>
-              <div className="btn-learn"><FormattedMessage id="wather.learn" defaultMessage="Learn more"></FormattedMessage></div>
+              <TitleSubtitleBlock big
+                title={props.intl.formatMessage(messages.weather_title_2)}
+                subtitle={props.intl.formatMessage(messages.weather_subtitle_2)}/>
+
+              <TitleSubtitleBlock showSeparator
+                title={props.intl.formatMessage(messages.weather_title_3)}
+                subtitle={props.intl.formatMessage(messages.weather_subtitle_3)}/>
+              <div className="btn-learn"><FormattedMessage id="weather.learn" defaultMessage="Learn more"></FormattedMessage></div>
            </ContentBlock>
         </div>
         <div className="st-column st-column-3">
           <ContentBlock>
-            <TitleSubtitleBlock showSeparator title={props.intl.formatMessage({id: "weather.title_5", defaultMessage: "Main crops by zone"})} subtitle={props.intl.formatMessage({id: "weather.subtitle_3", defaultMessage: "This is where the short descriptive line will go here to describe the category"})}/>
+            <TitleSubtitleBlock showSeparator
+              title={props.intl.formatMessage(messages.weather_title_4)}
+              subtitle={props.intl.formatMessage(messages.weather_subtitle_4)}/>
+
           </ContentBlock>
 
         </div>

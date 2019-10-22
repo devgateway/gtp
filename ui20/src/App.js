@@ -38,8 +38,10 @@ const messages = {
 
 const language = navigator.language.split(/[-_]/)[0]; // language without region code
 
-const IntlRoutes = (props) => {
 
+
+
+const IntlRoutes = (props) => {
   return (<IntlProvider locale={language} messages={messages[props.match.params.lan]}>
     <Switch>
       <Route exact path="/:lan/home" render={() => (<div>

@@ -258,7 +258,7 @@ We recognize that this is suboptimal, but it is currently required due to the wa
 
 Visual Studio Code supports live-editing and debugging out of the box with Create React App. This enables you as a developer to write and debug your React code without leaving the editor, and most importantly it enables you to have a continuous development workflow, where context switching is minimal, as you don’t have to switch between tools.
 
-You would need to have the latest version of [VS Code](https://code.visualstudio.com) and VS Code [Chrome Debugger Extension](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) installed.
+You would need to have the latest version of [VS Code](https://code.visualstudio.com) and VS Code [Chrome  Extension](https://marketplace.visualstudio.com/items?itemName=msjsdiag.-for-chrome) installed.
 
 Then add the block below to your `launch.json` file and put it inside the `.vscode` folder in your app’s root directory.
 
@@ -578,7 +578,7 @@ When you include a script in the HTML file that defines global variables and try
 You can avoid this by reading the global variable explicitly from the `window` object, for example:
 
 ```js
-const $ = window.$;
+const $ = $;
 ```
 
 This makes it obvious you are using a global variable intentionally rather than because of a typo.
@@ -883,11 +883,11 @@ Similarly to the previous section, you can leave some placeholders in the HTML t
 <html lang="en">
   <head>
     <script>
-      window.SERVER_DATA = __SERVER_DATA__;
+      SERVER_DATA = __SERVER_DATA__;
     </script>
 ```
 
-Then, on the server, you can replace `__SERVER_DATA__` with a JSON of real data right before sending the response. The client code can then read `window.SERVER_DATA` to use it. **Make sure to [sanitize the JSON before sending it to the client](https://medium.com/node-security/the-most-common-xss-vulnerability-in-react-js-applications-2bdffbcc1fa0) as it makes your app vulnerable to XSS attacks.**
+Then, on the server, you can replace `__SERVER_DATA__` with a JSON of real data right before sending the response. The client code can then read `SERVER_DATA` to use it. **Make sure to [sanitize the JSON before sending it to the client](https://medium.com/node-security/the-most-common-xss-vulnerability-in-react-js-applications-2bdffbcc1fa0) as it makes your app vulnerable to XSS attacks.**
 
 ## Running Tests
 

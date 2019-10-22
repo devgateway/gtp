@@ -8,7 +8,11 @@ import {
   numberFormat,
   localeStrings
 } from 'react-pivottable/Utilities';
-// aggregator templates default to US number formatting but this is overrideable
+
+import messages from '../translations/messages'
+
+
+
 var usFmt = numberFormat();
 var usFmtInt = numberFormat({
   digitsAfterDecimal: 0
@@ -20,32 +24,53 @@ var usFmtPct = numberFormat({
 });
 
 
-// default aggregators & renderers use US naming and number formatting
-export const aggregators = (tpl) => {
-  return {
-    'Count': tpl.count(usFmtInt),
-    'Count Unique Values': tpl.countUnique(usFmtInt),
-    'List Unique Values': tpl.listUnique(', '),
-    'Sum': tpl.sum(usFmt),
-    'Integer Sum': tpl.sum(usFmtInt),
-    'Average': tpl.average(usFmt),
-    'Median': tpl.median(usFmt),
-    'Sample Variance': tpl.var(1, usFmt),
-    'Sample Standard Deviation': tpl.stdev(1, usFmt),
-    'Minimum': tpl.min(usFmt),
-    'Maximum': tpl.max(usFmt),
-    'First': tpl.first(usFmt),
-    'Last': tpl.last(usFmt),
-    'Sum over Sum': tpl.sumOverSum(usFmt),
-    'Sum as Fraction of Total': tpl.fractionOf(tpl.sum(), 'total', usFmtPct),
-    'Sum as Fraction of Rows': tpl.fractionOf(tpl.sum(), 'row', usFmtPct),
-    'Sum as Fraction of Columns': tpl.fractionOf(tpl.sum(), 'col', usFmtPct),
-    'Count as Fraction of Total': tpl.fractionOf(tpl.count(), 'total', usFmtPct),
-    'Count as Fraction of Rows': tpl.fractionOf(tpl.count(), 'row', usFmtPct),
-    'Count as Fraction of Columns': tpl.fractionOf(tpl.count(), 'col', usFmtPct)
-  }
-};
+var frFmt = numberFormat({
+  thousandsSep: " ",
+  decimalSep: ","
+});
+var frFmtInt = numberFormat({
+  digitsAfterDecimal: 0,
+  thousandsSep: " ",
+  decimalSep: ","
+});
+var frFmtPct = numberFormat({
+  digitsAfterDecimal: 1,
+  scaler: 100,
+  suffix: "%",
+  thousandsSep: " ",
+  decimalSep: ","
+});
 
+
+// default aggregators & renderers use US naming and number formatting
+export const aggregators = (int) => {
+
+
+  let aggregators = {}
+
+  aggregators[int.formatMessage(messages.count)] = aggregatorTemplates.count(usFmtInt)
+  aggregators[int.formatMessage(messages.count_unique_values)] = aggregatorTemplates.countUnique(usFmtInt)
+  aggregators[int.formatMessage(messages.list_unique_values)] = aggregatorTemplates.listUnique(', ')
+  aggregators[int.formatMessage(messages.sum)] = aggregatorTemplates.sum(usFmt)
+  aggregators[int.formatMessage(messages.integer_sum)] = aggregatorTemplates.sum(usFmtInt)
+  aggregators[int.formatMessage(messages.average)] = aggregatorTemplates.average(usFmt)
+  aggregators[int.formatMessage(messages.median)] = aggregatorTemplates.median(usFmt)
+  aggregators[int.formatMessage(messages.sample_variance)] = aggregatorTemplates.var(1, usFmt)
+  aggregators[int.formatMessage(messages.sample_standard_deviation)] = aggregatorTemplates.stdev(1, usFmt)
+  aggregators[int.formatMessage(messages.minimum)] = aggregatorTemplates.min(usFmt)
+  aggregators[int.formatMessage(messages.maximum)] = aggregatorTemplates.max(usFmt)
+  aggregators[int.formatMessage(messages.first)] = aggregatorTemplates.first(usFmt)
+  aggregators[int.formatMessage(messages.last)] = aggregatorTemplates.last(usFmt)
+  aggregators[int.formatMessage(messages.sum_over_sum)] = aggregatorTemplates.sumOverSum(usFmt)
+  aggregators[int.formatMessage(messages.sum_as_fraction_of_total)] = aggregatorTemplates.fractionOf(aggregatorTemplates.sum(), 'total', usFmtPct)
+  aggregators[int.formatMessage(messages.sum_as_fraction_of_rows)] = aggregatorTemplates.fractionOf(aggregatorTemplates.sum(), 'row', usFmtPct)
+  aggregators[int.formatMessage(messages.sum_as_fraction_of_columns)] = aggregatorTemplates.fractionOf(aggregatorTemplates.sum(), 'col', usFmtPct)
+  aggregators[int.formatMessage(messages.count_as_fraction_of_total)] = aggregatorTemplates.fractionOf(aggregatorTemplates.count(), 'total', usFmtPct)
+  aggregators[int.formatMessage(messages.count_as_fraction_of_rows)] = aggregatorTemplates.fractionOf(aggregatorTemplates.count(), 'row', usFmtPct)
+  aggregators[int.formatMessage(messages.count_as_fraction_of_columns)] = aggregatorTemplates.fractionOf(aggregatorTemplates.count(), 'col', usFmtPct)
+
+  return aggregators
+}
 
 
 //renderers, aggregators and localeStrings
