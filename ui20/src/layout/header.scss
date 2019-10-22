@@ -9,39 +9,44 @@
     box-sizing: border-box;
     background-image: url("/header-nav-background.png");
 
-    .header-title{
+    .header-title {
       float: left;
       line-height: 50px;
       height: 50px;
       width: 60%;
-      .title{
+
+      .title {
         margin-left: 27px;
         font-size: 24px;
         font-weight: bold;
         float: left;
-
       }
-      .legend{
+
+      .legend {
         margin-left: 26px;
         float: left;
         font-size: 18px;
-        font-weight: 600  ;
+        font-weight: 600;
       }
-
     }
   }
 
-
-  .header-nav-bar{
-
+  .header-nav-bar {
     float: right;
-    .nav.link{
+
+    .nav.link {
+      cursor: pointer;
       line-height: 50px;
       margin-right: 35px;
       float: left;
       font-size: 14px;
       font-weight: 600;
     }
-  }
 
+    a {
+      cursor: pointer;
+      color: #FFF;
+      text-decoration: none;
+    }
+  }
 }

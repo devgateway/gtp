@@ -65,7 +65,7 @@ const LinksBlock = (props) => {
             The information provides information on the type of inputs and the type of pesticides used by region and crop.`} values={""}/>
 
 
-        <div className="links source"><div className="source-icon"></div>Data comes from DAPSA, ANSD and FAO</div>
+          <div className="links source"><div className="source-icon"></div>  <FormattedMessage id="home.links.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"} values={""}/></div>
     </div>
     <div className="source-separator "></div>
   </div>);

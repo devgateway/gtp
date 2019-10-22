@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import {withRouter} from "react-router";
 import {Provider} from 'react-redux'
 import {Route, Switch, Redirect} from 'react-router' // react-router v4/v5
 import {ConnectedRouter, ConnectedRoute} from 'connected-react-router/immutable'
@@ -38,55 +38,61 @@ const messages = {
 
 const language = navigator.language.split(/[-_]/)[0]; // language without region code
 
-const IntlRoutes = (props) => {
+debugger;
 
-  return (<IntlProvider locale={language} messages={messages[props.match.params.lan]}>
-    <Switch>
-      <Route exact path="/:lan/home" render={() => (<div>
-          <Home language={props.match.params.lan}></Home>
-        </div>)}/>
-      <Route exact  path="/:lan/analytic/production" render={() => (<div>
-          <Analytic language={props.match.params.lan}></Analytic>
-        </div>)}/>
-      <Route exact path="/:lan/analytic/marketPrice" render={() => (<div>
-          <Analytic language={props.match.params.lan}></Analytic>
-        </div>)}/>
-      <Route exact  path="/:lan/analytic/consumption" render={() => (<div>
-          <Analytic language={props.match.params.lan}></Analytic>
-        </div>)}/>
+class IntlRoutes extends Component {
 
-      <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
-    </Switch>
-  </IntlProvider>)
+  render() {
+    debugger;
+    const props = this.props;
+    const locale=this.props.location.pathname.split("/")[1]
+    return (<IntlProvider key={locale } locale={locale} messages={messages[props.match.params.lan]}>
+      <Switch>
+        <Route exact="exact" path="/:lan/home" render={() => (<div>
+            <Home language={props.match.params.lan}></Home>
+          </div>)}/>
+        <Route exact="exact" path="/:lan/analytic/production" render={() => (<div>
+            <Analytic language={props.match.params.lan}></Analytic>
+          </div>)}/>
+        <Route exact="exact" path="/:lan/analytic/marketPrice" render={() => (<div>
+            <Analytic language={props.match.params.lan}></Analytic>
+          </div>)}/>
+        <Route exact="exact" path="/:lan/analytic/consumption" render={() => (<div>
+            <Analytic language={props.match.params.lan}></Analytic>
+          </div>)}/>
 
+        <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
+      </Switch>
+    </IntlProvider>)
+  }
 }
 
-const MainRoutes=(props) => {
+const IntlRoutesRouted=withRouter(IntlRoutes)
+
+const MainRoutes = (props) => {
   return (<ConnectedRouter history={history}>
+    <Header></Header>
     <Switch>
-      <Route path="/:lan/" component={IntlRoutes}></Route>
+
+      <Route path="/:lan/" component={IntlRoutesRouted}></Route>
       <Redirect to="/en/home"></Redirect>
+
     </Switch>
+    <Footer></Footer>
   </ConnectedRouter>)
 }
-
-
 
 const store = configureStore()
 
 class AppWrapper extends Component {
 
-  componentDidMount() {}
-
   render() {
+
     return (<Provider store={store}>
-      <Header></Header>
       <MainRoutes></MainRoutes>
-      <Footer></Footer>
+
     </Provider>);
   }
 }
-
-
 
 export default AppWrapper;
