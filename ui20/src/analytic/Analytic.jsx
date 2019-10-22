@@ -28,8 +28,6 @@ class Table extends Component {
 
   render() {
     const {config, data} = this.props
-    console.log(aggregatorTemplates)
-
 
     const fields = config
       ? config.get('fields').toJS()
@@ -41,9 +39,7 @@ class Table extends Component {
     return (<div>
       <div className="analytic-container">
 
-        {data && data.size > 0 && <PivotTableUI aggregators={aggregators(this.props.intl)}
-         {...config.get('pivottable').toJS()} renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
-         data={data.toJS()} onChange={s => this.setState(s)} {...this.state}></PivotTableUI>}
+        {data && data.size > 0 && <PivotTableUI aggregators={aggregators(this.props.intl)} {...config.get('pivottable').toJS()} renderers={Object.assign({}, TableRenderers, PlotlyRenderers)} data={data.toJS()} onChange={s => this.setState(s)} {...this.state}></PivotTableUI>}
       </div>
 
     </div>)
@@ -51,9 +47,22 @@ class Table extends Component {
 }
 
 class Analytic extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+
+    if (prevProps.dataset != this.props.dataset || prevProps.language != this.props.language) {
+
+      this.props.onConfigure(this.props.intl)
+      this.props.onLoadData(this.props.dataset)
+    }
+  }
 
   componentDidMount() {
+
     this.props.onLoadFilterData('region')
     this.props.onLoadFilterData('cropType')
     this.props.onLoadFilterData('department')
@@ -62,31 +71,31 @@ class Analytic extends Component {
     this.props.onLoadData(this.props.dataset)
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
-
   render() {
-    ;
+
     const {dataset, isDataReady} = this.props
     const data = this.props.data
       ? this.props.data.toJS()
       : []
 
+
     return (<div>
       <div className="analytic-container">
-        {isDataReady && <Table {...this.props} ></Table>}
+        {isDataReady && (this.props.language==this.props.configLanguage) && <Table {...this.props}></Table>}
       </div>
     </div>)
   }
 }
 
 const mapStateToProps = state => {
+  const language = state.getIn(['router', 'location', 'pathname']).split('/')[1]
+
   const dataset = state.getIn(['router', 'location', 'pathname']).split("/").pop()
   const isDataReady = (state.getIn(['data', 'items', 'region']) != null) && (state.getIn(['data', 'items', 'cropType']) != null) && (state.getIn(['data', 'items', 'department']) != null) && (state.getIn(['data', 'items', 'market']) != null)
 
   return {
+    configLanguage:state.getIn(['analytic', 'config', 'language']),
+    language,
     isDataReady,
     dataset,
     data: state.getIn(['analytic', dataset, 'data']),

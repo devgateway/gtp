@@ -34,23 +34,21 @@ const mapFields = (data, fields, extraFields, dataItems) => {
 }
 
 export const configure = (intl) => (dispatch, getState) => {
-  ;
   const production = productionConfigurator(intl)
   const consumption = consumptionConfigurator(intl)
   const marketPrice = marketPriceConfigurator(intl)
-
-
+  const language=intl.locale
   dispatch({
     type: 'LOAD_CONFIG_OK',
     production,
     consumption,
-    marketPrice
+    marketPrice,
+    language
   })
 }
 
 export const loadDataSet = (name) => (dispatch, getState) => {
   getDataSet(name).then(data => {
-
     const dataItems = getState().getIn(['data', 'items']).toJS();
     const fields = getState().getIn(['analytic', name, 'config', 'fields']).toJS();
     const extraFields = getState().getIn(['analytic', name, 'config', 'extraFields']).toJS();
@@ -81,10 +79,11 @@ export default (state = initialState, action) => {
     case 'LOAD_DATASET_DATA_ERROR':
       return state
     case 'LOAD_CONFIG_OK':
-
+      debugger;
       return state.setIn(['production', 'config'], Immutable.fromJS(action.production))
         .setIn(['consumption', 'config'], Immutable.fromJS(action.consumption))
         .setIn(['marketPrice', 'config'], Immutable.fromJS(action.marketPrice))
+        .setIn(['config','language'],action.language)
 
 
     default:
