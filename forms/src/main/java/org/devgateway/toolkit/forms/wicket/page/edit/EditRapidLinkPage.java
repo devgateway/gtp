@@ -16,13 +16,11 @@ package org.devgateway.toolkit.forms.wicket.page.edit;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
-import org.devgateway.toolkit.forms.wicket.components.form.BootstrapSubmitButton;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
@@ -96,8 +94,8 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 RapidLink rapidLink = editForm.getModelObject();
-                if (rapidLink.getRapidLinkPosition() != null &&
-                        service.findByRapidLinkPositionId(rapidLink.getRapidLinkPosition().getId()) != null) {
+                if (rapidLink.getRapidLinkPosition() != null
+                        && service.findByRapidLinkPositionId(rapidLink.getRapidLinkPosition().getId()) != null) {
                     feedbackPanel.error(new StringResourceModel("positionError", this, null).getString());
                     redirectToSelf = true;
                 } else {
