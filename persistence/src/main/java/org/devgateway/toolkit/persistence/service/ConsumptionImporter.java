@@ -101,7 +101,7 @@ public class ConsumptionImporter extends AbstractImportService<Consumption> {
             } catch (Exception e) { //Improve exception handling
                 logger.error("Error: " + e);
                 importResults.setImportOkFlag(false);
-                importResults.addError("At row " + rowNumber + " there were an error: " + e.getMessage());
+                importResults.addError("At row " + rowNumber + " there was an error: " + e.getMessage());
             }
         }
     }
