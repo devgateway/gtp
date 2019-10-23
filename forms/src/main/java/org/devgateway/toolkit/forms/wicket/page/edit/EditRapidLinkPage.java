@@ -34,6 +34,8 @@ import org.devgateway.toolkit.persistence.service.RapidLinkService;
 import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.util.Optional;
+
 /**
  * Created by Daniel Oliva
  */
@@ -95,8 +97,10 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
             protected void onSubmit(AjaxRequestTarget target) {
                 RapidLink rapidLink = editForm.getModelObject();
                 if (rapidLink.getRapidLinkPosition() != null
-                        && service.findByRapidLinkPositionId(rapidLink.getRapidLinkPosition().getId()) != null) {
+                        && !service.findByRapidLinkPositionId(rapidLink.getRapidLinkPosition().getId())
+                        .equals(Optional.empty())) {
                     feedbackPanel.error(new StringResourceModel("positionError", this, null).getString());
+                    target.add(feedbackPanel);
                     redirectToSelf = true;
                 } else {
                     jpaService.save(rapidLink);
