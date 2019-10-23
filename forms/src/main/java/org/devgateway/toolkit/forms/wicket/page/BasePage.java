@@ -129,7 +129,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         private static final long serialVersionUID = -750983217518258464L;
 
         public UIRedirectPage() {
-            super(WebApplication.get().getServletContext().getContextPath() + "/ui/index.html");
+            super(WebApplication.get().getServletContext().getContextPath() + "/index.html");
         }
     }
 

@@ -1,12 +1,17 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import org.devgateway.toolkit.persistence.dao.categories.RapidLinkPosition;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -22,6 +27,10 @@ public class RapidLink extends AbstractAuditableEntity implements Serializable {
     private String subtitle;
 
     private String link;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
+    private RapidLinkPosition rapidLinkPosition;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -57,6 +66,14 @@ public class RapidLink extends AbstractAuditableEntity implements Serializable {
 
     public void setFileMetadata(Set<FileMetadata> fileMetadata) {
         this.fileMetadata = fileMetadata;
+    }
+
+    public RapidLinkPosition getRapidLinkPosition() {
+        return rapidLinkPosition;
+    }
+
+    public void setRapidLinkPosition(RapidLinkPosition rapidLinkPosition) {
+        this.rapidLinkPosition = rapidLinkPosition;
     }
 
     @Override

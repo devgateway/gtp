@@ -348,5 +348,26 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="RapidLinkPosition" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('RapidLinkPosition', nextval('hibernate_sequence'), 'First');
+            INSERT INTO category (dtype, id, label) VALUES ('RapidLinkPosition', nextval('hibernate_sequence'), 'Second');
+            INSERT INTO category (dtype, id, label) VALUES ('RapidLinkPosition', nextval('hibernate_sequence'), 'Third');
+            INSERT INTO category (dtype, id, label) VALUES ('RapidLinkPosition', nextval('hibernate_sequence'), 'Fourth');
+            INSERT INTO category (dtype, id, label) VALUES ('RapidLinkPosition', nextval('hibernate_sequence'), 'Fifth');
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Première','fr',id FROM category WHERE label='First' AND dtype='RapidLinkPosition';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Second','fr',id FROM category WHERE label='Second' AND dtype='RapidLinkPosition';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Troisième','fr',id FROM category WHERE label='Third' AND dtype='RapidLinkPosition';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Quatrième','fr',id FROM category WHERE label='Fourth' AND dtype='RapidLinkPosition';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Cinquième','fr',id FROM category WHERE label='Fifth' AND dtype='RapidLinkPosition';
+
+        ]]></sql>
+    </changeSet>
+
 
 </databaseChangeLog>
