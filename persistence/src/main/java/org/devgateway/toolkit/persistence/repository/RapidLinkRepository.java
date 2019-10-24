@@ -12,4 +12,6 @@ import java.util.Optional;
 @Transactional
 public interface RapidLinkRepository extends BaseJpaRepository<RapidLink, Long> {
     Optional<RapidLink> findByRapidLinkPositionId(Long id);
+
+    Iterable<RapidLink> findByRapidLinkPositionIdNotNull();
 }

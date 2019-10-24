@@ -42,4 +42,12 @@ public class RapidLinkController {
                 Sort.Direction.DESC, "id");
         return service.findAll(pageable);
     }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get rapid link top 5 list.")
+    @RequestMapping(value = "/top5", method = GET)
+    public Iterable<RapidLink> getTop5() {
+        LOGGER.info("get rapid link top 5 list");
+        return service.findByRapidLinkPositionIdNotNull();
+    }
 }

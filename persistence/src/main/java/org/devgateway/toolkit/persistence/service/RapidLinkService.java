@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface RapidLinkService extends BaseJpaService<RapidLink> {
 
     Optional<RapidLink> findByRapidLinkPositionId(Long id);
+
+    Iterable<RapidLink> findByRapidLinkPositionIdNotNull();
 }

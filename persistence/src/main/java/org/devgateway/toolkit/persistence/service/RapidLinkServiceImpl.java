@@ -35,4 +35,11 @@ public class RapidLinkServiceImpl extends BaseJpaServiceImpl<RapidLink> implemen
     public Optional<RapidLink> findByRapidLinkPositionId(Long id) {
         return repository.findByRapidLinkPositionId(id);
     }
+
+    @Override
+    public Iterable<RapidLink> findByRapidLinkPositionIdNotNull() {
+        return repository.findByRapidLinkPositionIdNotNull();
+    }
+
+
 }

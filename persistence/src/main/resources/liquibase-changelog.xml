@@ -369,5 +369,17 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="RapidLinkPosition2" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE category SET description='1' WHERE dtype = 'RapidLinkPosition' AND label = 'First';
+            UPDATE category SET description='2' WHERE dtype = 'RapidLinkPosition' AND label = 'Second';
+            UPDATE category SET description='3' WHERE dtype = 'RapidLinkPosition' AND label = 'Third';
+            UPDATE category SET description='4' WHERE dtype = 'RapidLinkPosition' AND label = 'Fourth';
+            UPDATE category SET description='5' WHERE dtype = 'RapidLinkPosition' AND label = 'Fifth';
+        ]]></sql>
+    </changeSet>
 
 </databaseChangeLog>

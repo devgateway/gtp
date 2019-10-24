@@ -83,7 +83,6 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
         editForm.add(rapidLinkPosition);
 
         FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata").maxFiles(1);
-        fileInput.required();
         fileInput.getField().add((IValidator) new InputFileValidator(getString("fileNotAdded"),
                 getString("filenameError")));
         editForm.add(fileInput);
