@@ -39,5 +39,25 @@ html {
 
 .st-column-3:last-child {
   margin-right: 0;
+}
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.separator {
+  width: 1px;
+  float: left;
+}
+
+.separator:before {
+  content: '';
+  width: 2px;
+  float: left;
+  height: 18px;
+  margin-top: 23px;
+  background-color: #ced0da;
 }

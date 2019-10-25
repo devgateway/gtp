@@ -79,7 +79,7 @@ export default (state = initialState, action) => {
     case 'LOAD_DATASET_DATA_ERROR':
       return state
     case 'LOAD_CONFIG_OK':
-      debugger;
+
       return state.setIn(['production', 'config'], Immutable.fromJS(action.production))
         .setIn(['consumption', 'config'], Immutable.fromJS(action.consumption))
         .setIn(['marketPrice', 'config'], Immutable.fromJS(action.marketPrice))

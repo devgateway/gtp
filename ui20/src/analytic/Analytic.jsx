@@ -55,14 +55,12 @@ class Analytic extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
 
     if (prevProps.dataset != this.props.dataset || prevProps.language != this.props.language) {
-
       this.props.onConfigure(this.props.intl)
       this.props.onLoadData(this.props.dataset)
     }
   }
 
   componentDidMount() {
-
     this.props.onLoadFilterData('region')
     this.props.onLoadFilterData('cropType')
     this.props.onLoadFilterData('department')
@@ -78,24 +76,21 @@ class Analytic extends Component {
       ? this.props.data.toJS()
       : []
 
-
     return (<div>
       <div className="analytic-container">
-        {isDataReady && (this.props.language==this.props.configLanguage) && <Table {...this.props}></Table>}
+        {isDataReady && (this.props.language == this.props.configLanguage) && <Table {...this.props}></Table>}
       </div>
     </div>)
   }
 }
 
-const mapStateToProps = state => {
-  const language = state.getIn(['router', 'location', 'pathname']).split('/')[1]
+const mapStateToProps = (state, ownProps) => {
 
   const dataset = state.getIn(['router', 'location', 'pathname']).split("/").pop()
   const isDataReady = (state.getIn(['data', 'items', 'region']) != null) && (state.getIn(['data', 'items', 'cropType']) != null) && (state.getIn(['data', 'items', 'department']) != null) && (state.getIn(['data', 'items', 'market']) != null)
 
   return {
-    configLanguage:state.getIn(['analytic', 'config', 'language']),
-    language,
+    configLanguage: state.getIn(['analytic', 'config', 'language']),
     isDataReady,
     dataset,
     data: state.getIn(['analytic', dataset, 'data']),

@@ -1,0 +1,238 @@
+@import '../base.scss';
+
+.ui.fixed.table {
+  border: 1px solid red;
+}
+
+.core-filters {
+  position: fixed;
+  top: 70px;
+  width: 100%;
+  z-index: 9999999!important;
+}
+
+.main.filter {
+  margin: auto;
+  width: 100%;
+  z-index: 1000;
+  height: 70px;
+  background-color: $color-green;
+  width: $page-width;
+  line-height: 70px;
+
+  .filter.nav.item.title {
+    font-size: 20px;
+    padding-left: 99px;
+  }
+
+  .filter.nav.separator {
+    margin: 5px 20px 0;
+  }
+
+  .filter.nav.item {
+    font-size: 15px;
+    float: left;
+    width: 250px;
+  }
+
+  .filter.item {
+    .text {
+      margin-left: 10px;
+    }
+
+    .ui.dropdown .menu {
+      z-index: 999999 !important;
+    }
+
+    .menu {
+      border-radius: 0;
+      border: 1px solid $border-color;
+      background-color: #FFF !important;
+      border: 0;
+
+      .header {
+        line-height: 22px;
+        padding: 13px 22px;
+        margin: 0;
+        font-size: 14px;
+        color: $color-green;
+        text-transform: none;
+
+        span {
+          font-size: 11px;
+          color: #000;
+        }
+      }
+    }
+
+    .dropdown.icon {
+      float: none;
+    }
+
+    .visible {
+      color: $color-green;
+      background-color: #f6f6f6;
+      border: 1px solid $border-color;
+    }
+  }
+
+  .filter.options {
+    width: 300px;
+    columns: 3;
+    color: #848484;
+    font-size: 12px;
+  }
+
+  div.checkbox {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-top: -2px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+  }
+
+  div.checkbox.checked {}
+
+  div.checkbox.checked::before {
+    content: '';
+    background-color: #8dc63f;
+    margin-left: -1px;
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-top: -1px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    position: absolute;
+    padding-left: 2px;
+  }
+}
+
+.indicators.content.fixed {
+  color: #818181;
+  font-size: 16px;
+  padding-top: 150px;
+  min-height: 200px;
+  display: block;
+  clear: both;
+  width: $content-width;
+  margin: auto;
+
+  .indicators.title {
+    line-height: 40px;
+    padding-bottom: 10px;
+    margin: auto;
+    border-bottom: 2px solid $border-color;
+    width: $content-width;
+    font-size: 31px;
+    color: $color-green;
+    margin-bottom: 10px;
+
+    span {
+      margin-left: 20px;
+    }
+  }
+
+  .indicators.title::before {
+    content: '';
+    display: flex;
+    float: left;
+    margin-top: 7px;
+    width: 33px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-image: url("/icon_indicators_title.png");
+  }
+
+  .intro {
+    padding: 10px;
+    line-height: 25px;
+  }
+
+  .column {
+    padding: 0;
+  }
+
+  .indicator.global.numbers {
+
+    margin: 20px;
+    .row {
+      padding: 0;
+    }
+    .column{
+    }
+  }
+
+  .indicator.big.number {
+    font-size: 74px;
+    color: #818181;
+    text-align: center;
+    line-height: 174px;
+
+    span {
+      margin: auto;
+    }
+  }
+
+  .indicator.description {
+    border-top: 2px solid $border-color;
+    border-bottom: 2px solid $border-color;
+    padding: 20px;
+    font-size: 15px;
+
+    .indicator.logo {
+      float: left;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-top: 5px;
+      height: 80px;
+    }
+
+    .indicator.name {
+      word-wrap: normal;
+    }
+  }
+
+  .indicator.link {
+    height: 40px;
+    clear: both;
+    display: flex;
+
+    .btn {
+      margin: auto;
+    }
+
+    .icon.go {
+      float: left;
+      width: 20px;
+      height: 20px;
+      background-image: url("/icon_hand.png");
+      background-repeat: no-repeat;
+    }
+
+    a {
+      font-size: 12px;
+      font-weight: bold;
+      color: #497423;
+      text-decoration: none;
+      float: left;
+    }
+  }
+
+  .info-text {
+    border: 0;
+    box-shadow: none;
+    line-height: 27px;
+    font-size: 14px;
+  }
+
+  .info-text.table {
+    .column {
+      padding: 20px;
+    }
+  }
+}

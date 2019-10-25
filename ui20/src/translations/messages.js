@@ -4,6 +4,11 @@ import {
 
 const messages = defineMessages({
 
+  nav_analyst:{
+    id:"nav.analyst",
+    defaultMessage: "Analyst"
+  },
+
   stories_title_1: {
     id: "stories.title_1",
     defaultMessage: "Main crops by zone"
