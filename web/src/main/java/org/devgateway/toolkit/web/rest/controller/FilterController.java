@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
+import org.devgateway.toolkit.persistence.dao.AdminSettings;
 import org.devgateway.toolkit.persistence.dao.Department;
 import org.devgateway.toolkit.persistence.dao.Market;
 import org.devgateway.toolkit.persistence.dao.Region;
@@ -13,6 +14,7 @@ import org.devgateway.toolkit.persistence.dao.categories.LocationType;
 import org.devgateway.toolkit.persistence.dao.categories.LossType;
 import org.devgateway.toolkit.persistence.dao.categories.MethodOfEnforcement;
 import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
+import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.category.AgeGroupService;
 import org.devgateway.toolkit.persistence.service.category.AgriculturalWomenGroupService;
 import org.devgateway.toolkit.persistence.service.category.CropSubTypeService;
@@ -30,7 +32,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -77,6 +83,9 @@ public class FilterController {
 
     @Autowired
     private LocationTypeService locService;
+
+    @Autowired
+    private AdminSettingsService adminService;
 
     @CrossOrigin
     @ApiOperation(value = "Get regions information")
@@ -162,5 +171,33 @@ public class FilterController {
     @RequestMapping(value = "/professionalActivity", method = GET)
     public List<ProfessionalActivity> getAllProfActivity() {
         return profService.findAll();
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get campaing/year information")
+    @RequestMapping(value = "/year", method = GET)
+    public List<Map<String, Integer>> getAllYears() {
+        Integer startingYear = 2016;
+        List<AdminSettings> adminSettings =  adminService.findAll();
+        if (adminSettings.size() > 0 && adminSettings.get(0).getStartingYear() != null) {
+            startingYear = adminSettings.get(0).getStartingYear();
+        }
+        Map<String, Integer> yearMap = new HashMap<>();
+        yearMap.put("id", startingYear);
+        yearMap.put("label", startingYear);
+        List<Map<String, Integer>> ret = new ArrayList<>();
+        ret.add(yearMap);
+
+        Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        int year = startingYear + 1;
+        while (currentYear >= year ) {
+            Map<String, Integer> map = new HashMap<>();
+            map.put("id", year);
+            map.put("label", year);
+            ret.add(map);
+            year += 1;
+        }
+
+        return ret;
     }
 }

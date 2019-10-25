@@ -18,6 +18,7 @@ public class AdminSettings extends AbstractAuditableEntity implements Serializab
 
     private static final long serialVersionUID = -1051140524022133178L;
     private Boolean rebootServer = false;
+    private Integer startingYear;
 
     @Override
     public AbstractAuditableEntity getParent() {
@@ -30,5 +31,13 @@ public class AdminSettings extends AbstractAuditableEntity implements Serializab
 
     public void setRebootServer(final Boolean rebootServer) {
         this.rebootServer = rebootServer;
+    }
+
+    public Integer getStartingYear() {
+        return startingYear;
+    }
+
+    public void setStartingYear(Integer startingYear) {
+        this.startingYear = startingYear;
     }
 }

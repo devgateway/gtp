@@ -5,13 +5,16 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.validator.RangeValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxToggleBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.persistence.dao.AdminSettings;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -52,5 +55,10 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
 
         rebootServer = new CheckBoxToggleBootstrapFormComponent("rebootServer");
         editForm.add(rebootServer);
+
+        TextFieldBootstrapFormComponent<Integer> startingYear = new TextFieldBootstrapFormComponent<>("startingYear");
+        startingYear.getField().add(new RangeValidator<>("2010", "2030"));
+        editForm.add(startingYear);
+        startingYear.required();
     }
 }
