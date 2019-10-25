@@ -14,7 +14,6 @@ import org.devgateway.toolkit.persistence.dao.AdminSettings;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
