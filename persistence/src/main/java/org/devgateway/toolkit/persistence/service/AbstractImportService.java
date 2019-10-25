@@ -41,7 +41,7 @@ public abstract class AbstractImportService<T extends Data> implements ImportSer
         } catch (Exception e) {
             logger.error("error: " + e);
             importResults.setImportOkFlag(false);
-            importResults.addError("File is empty or corrupted");
+            importResults.addError("File extension not supported");
         }
         return importResults;
     }
