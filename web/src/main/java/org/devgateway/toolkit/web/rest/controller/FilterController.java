@@ -190,7 +190,7 @@ public class FilterController {
 
         Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
         int year = startingYear + 1;
-        while (currentYear >= year ) {
+        while (currentYear >= year) {
             Map<String, Integer> map = new HashMap<>();
             map.put("id", year);
             map.put("label", year);
