@@ -261,12 +261,6 @@ public abstract class BasePage extends GenericWebPage<Void> {
         return homeMenu;
     }
 
-    protected NavbarButton<Homepage> newAnalyticsMenu() {
-        NavbarButton<Homepage> menu = new NavbarButton<>(AnalysisPage.class,
-                new StringResourceModel("navbar.analytics", this));
-        menu.setIconType(FontAwesomeIconType.line_chart);
-        return menu;
-    }
 
     protected NavbarDropDownButton newAdminMenu() {
 
@@ -437,7 +431,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         navbar.setInverted(true);
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
-                newUploadMenu(), newAnalyticsMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
+                newUploadMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
 
