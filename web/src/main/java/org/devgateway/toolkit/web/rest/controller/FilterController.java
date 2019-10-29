@@ -10,6 +10,7 @@ import org.devgateway.toolkit.persistence.dao.categories.AgriculturalWomenGroup;
 import org.devgateway.toolkit.persistence.dao.categories.CropSubType;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.persistence.dao.categories.Gender;
+import org.devgateway.toolkit.persistence.dao.categories.IndexType;
 import org.devgateway.toolkit.persistence.dao.categories.LocationType;
 import org.devgateway.toolkit.persistence.dao.categories.LossType;
 import org.devgateway.toolkit.persistence.dao.categories.MethodOfEnforcement;
@@ -21,6 +22,7 @@ import org.devgateway.toolkit.persistence.service.category.CropSubTypeService;
 import org.devgateway.toolkit.persistence.service.category.CropTypeService;
 import org.devgateway.toolkit.persistence.service.category.DepartmentService;
 import org.devgateway.toolkit.persistence.service.category.GenderService;
+import org.devgateway.toolkit.persistence.service.category.IndexTypeService;
 import org.devgateway.toolkit.persistence.service.category.LocationTypeService;
 import org.devgateway.toolkit.persistence.service.category.LossTypeService;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
@@ -65,6 +67,9 @@ public class FilterController {
 
     @Autowired
     private MarketService marketService;
+
+    @Autowired
+    private IndexTypeService indexTypeService;
 
     @Autowired
     private LossTypeService lossTypeService;
@@ -130,10 +135,17 @@ public class FilterController {
     }
 
     @CrossOrigin
-    @ApiOperation(value = "Get loss type information")
+    @ApiOperation(value = "Get index type information")
     @RequestMapping(value = "/lossType", method = GET)
     public List<LossType> getAllLossType() {
         return lossTypeService.findAll();
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get loss type information")
+    @RequestMapping(value = "/indexType", method = GET)
+    public List<IndexType> getAllIndexType() {
+        return indexTypeService.findAll();
     }
 
     @CrossOrigin
