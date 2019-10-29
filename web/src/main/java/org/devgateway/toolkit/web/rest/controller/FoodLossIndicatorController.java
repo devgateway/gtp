@@ -46,23 +46,23 @@ public class FoodLossIndicatorController extends AbstractDatasetController<FoodL
     @CrossOrigin
     @ApiOperation(value = "Get ranges")
     @RequestMapping(value = "/range", method = GET)
-    public Map<String, Map<String, Integer>> getFoodLossRanges(
+    public Map<String, Map<String, Double>> getFoodLossRanges(
             @ModelAttribute @Valid final FoodLossFilterPagingRequest request) {
-        Map<String, Map<String, Integer>> ret = new HashMap<>();
+        Map<String, Map<String, Double>> ret = new HashMap<>();
         List<FoodLossIndicator> list = datasetService.findAll(getSpecifications(request));
         if (list != null && list.size() > 0) {
-            Map<String, Integer> percentageMap = new HashMap<>();
-            percentageMap.put(MIN, (int) (Math.floor(Collections.min(list,
-                    Comparator.comparing(s -> s.getAvgPercentage())).getAvgPercentage())));
-            percentageMap.put(MAX, (int) (Math.ceil(Collections.max(list,
-                    Comparator.comparing(s -> s.getAvgPercentage())).getAvgPercentage())));
+            Map<String, Double> percentageMap = new HashMap<>();
+            percentageMap.put(MIN, Collections.min(list,
+                    Comparator.comparingDouble(s -> s.getAvgPercentage())).getAvgPercentage());
+            percentageMap.put(MAX, Collections.max(list,
+                    Comparator.comparingDouble(s -> s.getAvgPercentage())).getAvgPercentage());
             ret.put(PERCENTAGE, percentageMap);
 
-            Map<String, Integer> kilogramMap = new HashMap<>();
-            kilogramMap.put(MIN, (int) (Math.floor(Collections.min(list,
-                    Comparator.comparing(s -> s.getAvgKilograms())).getAvgKilograms())));
-            kilogramMap.put(MAX, (int) (Math.ceil(Collections.max(list,
-                    Comparator.comparing(s -> s.getAvgKilograms())).getAvgKilograms())));
+            Map<String, Double> kilogramMap = new HashMap<>();
+            kilogramMap.put(MIN, Collections.min(list,
+                    Comparator.comparingDouble(s -> s.getAvgKilograms())).getAvgKilograms());
+            kilogramMap.put(MAX, Collections.max(list,
+                    Comparator.comparingDouble(s -> s.getAvgKilograms())).getAvgKilograms());
             ret.put(KILOGRAM, kilogramMap);
         }
 
