@@ -17,16 +17,19 @@
 
       .title {
         margin-left: 74px;
-        font-size: 22px;
-        line-height: 38px;
+        font-size: 24px;
+        line-height: 30px;
         font-weight: bold;
+        margin-top: 7px;
+        letter-spacing: -1px
       }
 
       .legend {
         margin-left: 74px;
         font-size: 18px;
-        font-weight: 600;
-        line-height: 24px;
+        font-weight: normal;
+        line-height: 15px;
+          letter-spacing: -1px
       }
     }
   }
@@ -165,15 +168,4 @@
   margin: auto;
   width: 100%;
   z-index: 1000;
-}
-
-
-.source-icon {
-  height: 26px;
-  margin-right: 12px;
-  background-position: center;
-  width: 15px;
-  background-image: url("/icon-source.png");
-  background-repeat: no-repeat;
-  float: left;
 }

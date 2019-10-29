@@ -1,8 +1,6 @@
 @import '../base.scss';
 
-.ui.fixed.table {
-  border: 1px solid red;
-}
+.ui.fixed.table {}
 
 .core-filters {
   position: fixed;
@@ -15,33 +13,78 @@
   margin: auto;
   width: 100%;
   z-index: 1000;
-  height: 70px;
+  height: 79px;
+  line-height: 79px;
   background-color: $color-green;
   width: $page-width;
-  line-height: 70px;
+  box-sizing: border-box;
 
   .filter.nav.item.title {
-    font-size: 20px;
-    padding-left: 99px;
+    font-size: 24px;
+    padding-left: 75px;
+    min-width: 240px;
   }
 
   .filter.nav.separator {
-    margin: 5px 20px 0;
+    width: 12px;
+    margin-top: 8px;
+  }
+
+  .filter.nav.separator:before {
+    margin-left: 6px;
   }
 
   .filter.nav.item {
+    font-size: 16px;
+    font-weight: normal;
+    float: left;
+    min-width: 220px;
+    cursor: pointer;
+  }
+
+  .filter.nav.btn {
     font-size: 15px;
     float: left;
-    width: 250px;
+    min-width: 70px!important;
+    font-weight: bold;
+  }
+
+  .filter.nav.download {
+    .icon {
+      margin-top: 15px;
+      width: 34px;
+      height: 39px;
+      margin-left: 5px;
+      float: right;
+    }
+
+    .xls {
+      background-image: url("/icon_white_xls.png");
+    }
+
+    .csv {
+      background-image: url("/icon_white_csv.png");
+    }
+
+    .png {
+      background-image: url("/icon_white_png.png");
+    }
+
+    .json {
+      background-image: url("/icon_white_json.png");
+    }
   }
 
   .filter.item {
-    .text {
-      margin-left: 10px;
-    }
+    cursor: pointer;
 
-    .ui.dropdown .menu {
-      z-index: 999999 !important;
+    .text {
+      padding-left: 4px;
+      .breadcrums {
+        span {
+          font-size: 12px;
+        }
+      }
     }
 
     .menu {
@@ -49,7 +92,7 @@
       border: 1px solid $border-color;
       background-color: #FFF !important;
       border: 0;
-
+      margin-left: -1px;
       .header {
         line-height: 22px;
         padding: 13px 22px;
@@ -59,10 +102,18 @@
         text-transform: none;
 
         span {
+          cursor: pointer;
           font-size: 11px;
           color: #000;
         }
       }
+    }
+
+    .ui.fluid.dropdown {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      height: 79px;
     }
 
     .dropdown.icon {
@@ -114,7 +165,7 @@
 
 .indicators.content.fixed {
   color: #818181;
-  font-size: 16px;
+  font-size: 21px;
   padding-top: 150px;
   min-height: 200px;
   display: block;
@@ -123,12 +174,13 @@
   margin: auto;
 
   .indicators.title {
-    line-height: 40px;
+    height: 72px;
+    line-height: 72px;
     padding-bottom: 10px;
     margin: auto;
     border-bottom: 2px solid $border-color;
     width: $content-width;
-    font-size: 31px;
+    font-size: 36px;
     color: $color-green;
     margin-bottom: 10px;
 
@@ -141,7 +193,7 @@
     content: '';
     display: flex;
     float: left;
-    margin-top: 7px;
+    margin-top: 20px;
     width: 33px;
     height: 32px;
     background-repeat: no-repeat;
@@ -158,17 +210,18 @@
   }
 
   .indicator.global.numbers {
-
     margin: 20px;
+
     .row {
       padding: 0;
     }
-    .column{
-    }
+
+    .column {}
   }
 
   .indicator.big.number {
-    font-size: 74px;
+    font-size: 100px;
+    font-weight: 300;
     color: #818181;
     text-align: center;
     line-height: 174px;
@@ -181,19 +234,24 @@
   .indicator.description {
     border-top: 2px solid $border-color;
     border-bottom: 2px solid $border-color;
+      min-height: 120px;
     padding: 20px;
     font-size: 15px;
 
     .indicator.logo {
       float: left;
-      padding-left: 10px;
-      padding-right: 10px;
+      padding-left: 0;
+      margin-right: 10px;
       margin-top: 5px;
-      height: 80px;
+      min-height: 80px;
+      img {
+        width: 40px;
+      }
     }
 
     .indicator.name {
       word-wrap: normal;
+      font-size: 18px;
     }
   }
 
@@ -227,12 +285,124 @@
     border: 0;
     box-shadow: none;
     line-height: 27px;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .info-text.table {
     .column {
       padding: 20px;
     }
+  }
+
+  .source-icon {
+    height: 20px;
+    float: left;
+    width: 17px;
+    height: 18px;
+    background-repeat: no-repeat;
+    margin-top: 6px;
+    background-image: url("/icon-source.png");
+  }
+
+  .chart.toggler.view {
+    float: right;
+    height: 74px;
+    padding-top: 20px;
+
+    input {
+      width: 100px;
+    }
+
+    .ui.toggle.checkbox .box:before {
+      height: 16px!important;
+      background-color: #FFFF!important;
+    }
+
+    .ui.toggle.checkbox .box:before,
+    .ui.toggle.checkbox label:before {
+      background-color: #FFF !important;
+      border: 1px solid #cccccc;
+      width: 34px;
+      height: 17px;
+      margin-left: 16px;
+    }
+
+    .ui.toggle.checkbox input:checked~.box:before,
+    .ui.toggle.checkbox input:checked~label:before {
+      background-color: #fff!important;
+    }
+
+    .ui.toggle.checkbox input:checked~.box:after,
+    .ui.toggle.checkbox input:checked~label:after {
+      left: 32px !important;
+    }
+
+    .ui.toggle.checkbox .box:after,
+    .ui.toggle.checkbox label:after {
+      border: 4px solid #a4db77;
+      height: 16px;
+      width: 16px;
+      left: 17px;
+    }
+  }
+
+  .indicator.chart.title {
+    background-color: #FFF;
+    border-top: 2px solid $border-color;
+    height: 74px;
+    color: #497423;
+
+    p {
+      font-size: 22px;
+      line-height: 74px;
+      float: left;
+    }
+  }
+
+  .indicator.chart.title.poverty::before {
+    content: '';
+    width: 60px;
+    height: 20px;
+    float: left;
+    margin-left: 5px;
+    margin-top: 10px;
+    height: 70px;
+    background-image: url("/sdg/1.svg");
+    background-repeat: no-repeat;
+    background-size: 48px 48px;
+  }
+
+  .indicator.chart.description {
+    clear: both;
+    background-color: #f6faf5;
+    border-top: 2px solid $border-color;
+    height: 74px;
+    font-size: 12px;
+    color: #646464;
+
+    p {
+      float: left;
+      width: 1000px;
+    }
+  }
+
+  .indicator.chart.icon.download {
+    width: 30px;
+    margin-left: 7px;
+    height: 40px;
+    background-repeat: no-repeat;
+    float: right;
+  }
+
+  .indicator.chart.icon.download.xls {
+    background-image: url("/icon_xls_gray.png");
+  }
+
+  .indicator.chart.icon.download.png {
+    background-image: url("/icon_png_gray.png");
+  }
+
+  .indicator.chart.icon.download.csv {
+    background-image: url("/icon_csv_gray.png");
   }
 }

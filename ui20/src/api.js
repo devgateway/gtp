@@ -67,3 +67,42 @@ export const getDataSet = (name) => {
 export const getItems = (category) => {
   return get(API_ROOT + itemsURLBuilder(category))
 }
+
+
+
+export const getGlobalIndicators = (params) => {
+
+  const data = [{
+    value: '55%',
+    image: '/sdg/1.svg',
+    text: 'Proportion of population below the international poverty line'
+  }, {
+    value: '2.2M',
+    image: '/sdg/5.svg',
+    text: 'Women in the Agricultural sector'
+  }, {
+    value: '2.2M',
+    image: '/sdg/12.svg',
+    text: 'Agriculture orientation index for government expenditures'
+  },
+  {
+    value: '2.2M',
+    image: '/sdg/2.svg',
+    text: 'Global Food Loss Index'
+  }]
+
+
+  return new Promise((resolve, reject) => {
+      resolve(data)
+  })
+}
+
+export const getDefaultIndicatorFilters = () => {
+  return new Promise((resolve, reject) => {
+    resolve({
+      years: [2019],
+      regions: ['DK'],
+      crops: [95]
+    })
+  })
+}
