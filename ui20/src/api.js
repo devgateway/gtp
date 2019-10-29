@@ -71,22 +71,28 @@ export const getItems = (category) => {
 
 
 export const getGlobalIndicators = (params) => {
+  debugger;
+
+  const val=Math.floor(Math.random() * 100)
+  const val1=Math.floor(Math.random() * 100)
+  const val2=Math.floor(Math.random() * 100)
+  const val3=Math.floor(Math.random() * 100)
 
   const data = [{
-    value: '55%',
+    value: val+' %',
     image: '/sdg/1.svg',
     text: 'Proportion of population below the international poverty line'
   }, {
-    value: '2.2M',
+    value: val1+' %',
     image: '/sdg/5.svg',
     text: 'Women in the Agricultural sector'
   }, {
-    value: '2.2M',
+    value:val2+'K',
     image: '/sdg/12.svg',
     text: 'Agriculture orientation index for government expenditures'
   },
   {
-    value: '2.2M',
+    value: val3+'M',
     image: '/sdg/2.svg',
     text: 'Global Food Loss Index'
   }]

@@ -27,8 +27,9 @@ export const updateGlobalFilter = (name, selection) => dispatch => {
 
 export const getGlobalIndicators = () => (dispatch, getState) => {
 
-  console.log(getState().getIn(['indicator','filters']).toJS())
-  api.getGlobalIndicators().then(data => {
+  const filters=getState().getIn(['indicator','filters','global']).toJS()
+
+  api.getGlobalIndicators(filters).then(data => {
     dispatch({
       type: 'LOAD_GLOBAL_INDICATORS_DONE',
       data
