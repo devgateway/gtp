@@ -80,6 +80,7 @@
 
     .text {
       padding-left: 4px;
+
       .breadcrums {
         span {
           font-size: 12px;
@@ -93,6 +94,7 @@
       background-color: #FFF !important;
       border: 0;
       margin-left: -1px;
+
       .header {
         line-height: 22px;
         padding: 13px 22px;
@@ -234,7 +236,7 @@
   .indicator.description {
     border-top: 2px solid $border-color;
     border-bottom: 2px solid $border-color;
-      min-height: 120px;
+    min-height: 120px;
     padding: 20px;
     font-size: 15px;
 
@@ -244,6 +246,7 @@
       margin-right: 10px;
       margin-top: 5px;
       min-height: 80px;
+
       img {
         width: 40px;
       }
@@ -307,7 +310,12 @@
   .chart.toggler.view {
     float: right;
     height: 74px;
-    padding-top: 20px;
+    padding-top: 22px;
+    font-size: 12px;
+
+    .active {
+      color: #65b457;
+    }
 
     input {
       width: 100px;
@@ -323,7 +331,7 @@
       background-color: #FFF !important;
       border: 1px solid #cccccc;
       width: 34px;
-      height: 17px;
+      height: 16px;
       margin-left: 16px;
     }
 
@@ -334,15 +342,16 @@
 
     .ui.toggle.checkbox input:checked~.box:after,
     .ui.toggle.checkbox input:checked~label:after {
-      left: 32px !important;
+      left: 34px !important;
     }
 
     .ui.toggle.checkbox .box:after,
     .ui.toggle.checkbox label:after {
-      border: 4px solid #a4db77;
-      height: 16px;
-      width: 16px;
+      border: 3px solid #a4db77;
+      height: 12px;
+      width: 12px;
       left: 17px;
+      margin-top: 2px;
     }
   }
 
@@ -351,58 +360,68 @@
     border-top: 2px solid $border-color;
     height: 74px;
     color: #497423;
+    margin: 0;
 
     p {
-      font-size: 22px;
-      line-height: 74px;
+      font-size: 28px;
+      line-height: 72px;
       float: left;
+      margin: 0;
     }
   }
 
-  .indicator.chart.title.poverty::before {
-    content: '';
-    width: 60px;
-    height: 20px;
+  .slider {
+    margin-top: -10px;
+    margin-left: 20px;
+    width: 200px;
     float: left;
-    margin-left: 5px;
-    margin-top: 10px;
     height: 70px;
-    background-image: url("/sdg/1.svg");
-    background-repeat: no-repeat;
-    background-size: 48px 48px;
-  }
-
-  .indicator.chart.description {
-    clear: both;
-    background-color: #f6faf5;
-    border-top: 2px solid $border-color;
-    height: 74px;
-    font-size: 12px;
-    color: #646464;
 
     p {
-      float: left;
-      width: 1000px;
+      margin: 0;
+      padding: 0;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 5px;
     }
   }
 
-  .indicator.chart.icon.download {
-    width: 30px;
-    margin-left: 7px;
-    height: 40px;
-    background-repeat: no-repeat;
-    float: right;
-  }
+  .indicator.filter.options {
+    margin-top: -10px;
+    margin-left: 20px;
+    float: left;
+    height: 70px;
 
-  .indicator.chart.icon.download.xls {
-    background-image: url("/icon_xls_gray.png");
-  }
+    p {
+      opacity: 0;
+      font-size: 12px;
+      margin: 0 0 5px;
+      font-weight: 600;
+    }
 
-  .indicator.chart.icon.download.png {
-    background-image: url("/icon_png_gray.png");
-  }
+    .item.active {
+      .checkbox {
+        background-color: #8dc63f;
+      }
+    }
 
-  .indicator.chart.icon.download.csv {
-    background-image: url("/icon_csv_gray.png");
+    .item {
+      cursor: pointer;
+      float: left;
+      font-size: 12px;
+
+      .checkbox {
+        float: left;
+        margin: 2px 3px 0 2px;
+      }
+
+      .label {
+        float: left;
+        margin-left: 0;
+        letter-spacing: -1px;
+        margin-right: 7px;
+        line-height: 20px;
+      }
+    }
   }
 }

@@ -74,15 +74,20 @@ export const CustomFilterDropDown = ({options, selected, onChange, text}) => {
 
 export const Slider = () => {}
 
-export const ChartTableSwitcher = (props) => (<div className="chart toggler view">
-  <div class="ui toggle checkbox">
-    <div className="">
-      <FormattedMessage id="indicators.chart.toggler.chart" defaultMessage="Chart"></FormattedMessage>
+export const ChartTableSwitcher = (props) =>
+
+
+(
+  <div className="chart toggler view">
+    <div class="ui toggle checkbox">
+      <div className={props.mode=='chart'?'active':''}>
+        <FormattedMessage id="indicators.chart.toggler.chart" defaultMessage="chart"></FormattedMessage>
+      </div>
+      <input type="checkbox" onChange={e => null} name="view" defaultChecked={props.mode=='table'}/>
+      <label></label>
+      <div className={props.mode=='table'?'active':''}>
+        <FormattedMessage id="indicators.chart.toggler.table" defaultMessage="table"></FormattedMessage>
+      </div>
     </div>
-    <input type="checkbox" onChange={e => null} name="view" defaultChecked={false}/>
-    <label></label>
-    <div className="">
-      <FormattedMessage id="indicators.chart.toggler.table" defaultMessage="Table"></FormattedMessage>
-    </div>
-  </div>
-</div>)
+ </div>
+)

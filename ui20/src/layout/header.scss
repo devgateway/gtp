@@ -165,6 +165,7 @@
 .header.fix {
   position: fixed;
   top: 0;
+  z-index: 99999999999999999999999999999 !important; 
   margin: auto;
   width: 100%;
   z-index: 1000;

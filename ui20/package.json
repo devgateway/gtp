@@ -12,6 +12,7 @@
     "npm": "^6.12.0",
     "pivottable": "^2.23.0",
     "plotly.js": "1.40.0",
+    "rc-slider": "^8.7.1",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-intl": "^3.3.2",
