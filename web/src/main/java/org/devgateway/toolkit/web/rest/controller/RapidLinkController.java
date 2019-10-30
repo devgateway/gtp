@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by Daniel Oliva
@@ -35,7 +36,7 @@ public class RapidLinkController {
 
     @CrossOrigin
     @ApiOperation(value = "Get rapid link paginated list.")
-    @RequestMapping(value = "/all", method = GET)
+    @RequestMapping(value = "/all", method = {POST, GET})
     public Page<RapidLink> getRapidLinkPaginated(@ModelAttribute @Valid final GenericPagingRequest request) {
         LOGGER.info("get rapid link paginated list");
         Pageable pageable = PageRequest.of(request.getPageNumber(), request.getPageSize(),
@@ -45,7 +46,7 @@ public class RapidLinkController {
 
     @CrossOrigin
     @ApiOperation(value = "Get rapid link top 5 list.")
-    @RequestMapping(value = "/top5", method = GET)
+    @RequestMapping(value = "/top5", method = {POST, GET})
     public Iterable<RapidLink> getTop5() {
         LOGGER.info("get rapid link top 5 list");
         return service.findByRapidLinkPositionIdNotNull();

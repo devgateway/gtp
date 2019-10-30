@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.categories.Gender;
 import org.devgateway.toolkit.persistence.dao.categories.LocationType;
+import org.devgateway.toolkit.persistence.dao.categories.PovertyLevel;
 import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -45,6 +46,12 @@ public class PovertyIndicator extends Data {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     private ProfessionalActivity professionalActivity;
+
+    @ManyToOne
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private PovertyLevel povertyLevel;
 
     private Double povertyScore;
 
@@ -94,5 +101,13 @@ public class PovertyIndicator extends Data {
 
     public void setPovertyScore(Double povertyScore) {
         this.povertyScore = povertyScore;
+    }
+
+    public PovertyLevel getPovertyLevel() {
+        return povertyLevel;
+    }
+
+    public void setPovertyLevel(PovertyLevel povertyLevel) {
+        this.povertyLevel = povertyLevel;
     }
 }

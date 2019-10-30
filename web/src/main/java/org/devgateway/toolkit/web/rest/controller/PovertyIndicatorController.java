@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
 /**
@@ -52,7 +53,7 @@ public class PovertyIndicatorController extends AbstractDatasetController<Povert
 
     @CrossOrigin
     @ApiOperation(value = "Get ranges")
-    @RequestMapping(value = "/range", method = GET)
+    @RequestMapping(value = "/range", method = {POST, GET})
     public Map<String, Map<String, Integer>> getPovertyRanges(
             @ModelAttribute @Valid final PovertyFilterPagingRequest request) {
         Map<String, Map<String, Integer>> ret = new HashMap<>();

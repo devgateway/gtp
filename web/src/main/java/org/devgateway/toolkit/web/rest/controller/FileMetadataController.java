@@ -28,6 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by Daniel Oliva
@@ -44,7 +45,7 @@ public class FileMetadataController {
 
     @CrossOrigin
     @ApiOperation(value = "Export a file with the provided {id}.")
-    @RequestMapping(value = "/{id}", method = GET)
+    @RequestMapping(value = "/{id}", method = {POST, GET})
     public FileMetadata findFileMetadataById(@PathVariable final long id) {
         LOGGER.info("get file by id: " + id);
         return fileMetadataService.findById(id);
@@ -52,7 +53,7 @@ public class FileMetadataController {
 
 
     @ApiOperation(value = "Download a file with the provided {id}.")
-    @RequestMapping(value = "/download/{id}", method = GET)
+    @RequestMapping(value = "/download/{id}", method = {POST, GET})
     public void download(final HttpServletResponse response, @PathVariable final long id) {
         try {
             FileMetadata fileMetadata = fileMetadataService.findById(id);

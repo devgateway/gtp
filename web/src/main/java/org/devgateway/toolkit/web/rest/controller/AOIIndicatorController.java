@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
 /**
@@ -46,8 +47,8 @@ public class AOIIndicatorController extends AbstractDatasetController<Agricultur
 
     @CrossOrigin
     @ApiOperation(value = "Get ranges")
-    @RequestMapping(value = "/range", method = GET)
-    public Map<String, Map<String, Double>> getPovertyRanges(
+    @RequestMapping(value = "/range", method = {POST, GET})
+    public Map<String, Map<String, Double>> getAOIRanges(
             @ModelAttribute @Valid final AOIFilterPagingRequest request) {
         Map<String, Map<String, Double>> ret = new HashMap<>();
         List<AgricultureOrientationIndexIndicator> list = datasetService.findAll(getSpecifications(request));

@@ -14,6 +14,7 @@ import org.devgateway.toolkit.persistence.dao.categories.IndexType;
 import org.devgateway.toolkit.persistence.dao.categories.LocationType;
 import org.devgateway.toolkit.persistence.dao.categories.LossType;
 import org.devgateway.toolkit.persistence.dao.categories.MethodOfEnforcement;
+import org.devgateway.toolkit.persistence.dao.categories.PovertyLevel;
 import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.category.AgeGroupService;
@@ -27,6 +28,7 @@ import org.devgateway.toolkit.persistence.service.category.LocationTypeService;
 import org.devgateway.toolkit.persistence.service.category.LossTypeService;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.service.category.MethodOfEnforcementService;
+import org.devgateway.toolkit.persistence.service.category.PovertyLevelService;
 import org.devgateway.toolkit.persistence.service.category.ProfessionalActivityService;
 import org.devgateway.toolkit.persistence.service.category.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by Daniel Oliva
@@ -92,72 +95,75 @@ public class FilterController {
     @Autowired
     private AdminSettingsService adminService;
 
+    @Autowired
+    private PovertyLevelService povertyLevelService;
+
     @CrossOrigin
     @ApiOperation(value = "Get regions information")
-    @RequestMapping(value = "/region", method = GET)
+    @RequestMapping(value = "/region", method = {POST, GET})
     public List<Region> getAllRegions() {
         return regionService.findAll();
     }
 
     @CrossOrigin
     @ApiOperation(value = "Get departments information")
-    @RequestMapping(value = "/department", method = GET)
+    @RequestMapping(value = "/department", method = {POST, GET})
     public List<Department> getAllDeparments() {
         return departmentService.findAll();
     }
 
     @CrossOrigin
     @ApiOperation(value = "Get crop types information")
-    @RequestMapping(value = "/cropType", method = GET)
+    @RequestMapping(value = "/cropType", method = {POST, GET})
     public List<CropType> getAllCropType() {
         return cropTypeService.findAll();
     }
 
     @CrossOrigin
     @ApiOperation(value = "Get crop subtypes information")
-    @RequestMapping(value = "/cropSubType", method = GET)
+    @RequestMapping(value = "/cropSubType", method = {POST, GET})
     public List<CropSubType> getAllCropSubType() {
         return cropSubTypeService.findAll();
     }
 
     @CrossOrigin
     @ApiOperation(value = "Get gender information")
-    @RequestMapping(value = "/gender", method = GET)
+    @RequestMapping(value = "/gender", method = {POST, GET})
     public List<Gender> getAllGender() {
         return genderService.findAll();
     }
 
     @CrossOrigin
     @ApiOperation(value = "Get market information")
-    @RequestMapping(value = "/market", method = GET)
+    @RequestMapping(value = "/market", method = {POST, GET})
     public List<Market> getAllMarket() {
         return marketService.findAll();
     }
 
     @CrossOrigin
     @ApiOperation(value = "Get index type information")
-    @RequestMapping(value = "/lossType", method = GET)
+    @RequestMapping(value = "/lossType", method = {POST, GET})
     public List<LossType> getAllLossType() {
         return lossTypeService.findAll();
     }
 
     @CrossOrigin
     @ApiOperation(value = "Get loss type information")
-    @RequestMapping(value = "/indexType", method = GET)
+    @RequestMapping(value = "/indexType", method = {POST, GET})
     public List<IndexType> getAllIndexType() {
         return indexTypeService.findAll();
     }
 
     @CrossOrigin
     @ApiOperation(value = "Get agricultural women group information")
-    @RequestMapping(value = "/awGroup", method = GET)
+    @RequestMapping(value = "/awGroup", method = {POST, GET})
     public List<AgriculturalWomenGroup> getAllAwGroup() {
         return awGroupService.findAll();
     }
 
     @CrossOrigin
     @ApiOperation(value = "Get age group information")
-    @RequestMapping(value = "/ageGroup", method = GET)
+    @RequestMapping(value = "/ageGroup", method = {POST, GET})
     public List<AgeGroup> getAllAgeGroup() {
         return ageGroupService.findAll();
     }
@@ -172,7 +178,7 @@ public class FilterController {
 
     @CrossOrigin
     @ApiOperation(value = "Get location type information")
-    @RequestMapping(value = "/locationType", method = GET)
+    @RequestMapping(value = "/locationType", method = {POST, GET})
     public List<LocationType> getAllLocationType() {
         return locService.findAll();
     }
@@ -180,14 +186,22 @@ public class FilterController {
 
     @CrossOrigin
     @ApiOperation(value = "Get professional activity information")
-    @RequestMapping(value = "/professionalActivity", method = GET)
+    @RequestMapping(value = "/professionalActivity", method = {POST, GET})
     public List<ProfessionalActivity> getAllProfActivity() {
         return profService.findAll();
     }
 
+
+    @CrossOrigin
+    @ApiOperation(value = "Get poverty level information")
+    @RequestMapping(value = "/povertyLevel", method = {POST, GET})
+    public List<PovertyLevel> getAllPovertyLevel() {
+        return povertyLevelService.findAll();
+    }
+
     @CrossOrigin
     @ApiOperation(value = "Get campaing/year information")
-    @RequestMapping(value = "/year", method = GET)
+    @RequestMapping(value = "/year", method = {POST, GET})
     public List<Map<String, Integer>> getAllYears() {
         Integer startingYear = 2016;
         List<AdminSettings> adminSettings =  adminService.findAll();

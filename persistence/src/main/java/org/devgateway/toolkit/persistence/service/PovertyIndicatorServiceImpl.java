@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
@@ -26,4 +27,5 @@ public class PovertyIndicatorServiceImpl extends  AbstractDatasetServiceImpl<Pov
     public PovertyIndicator newInstance() {
         return new PovertyIndicator();
     }
+
 }

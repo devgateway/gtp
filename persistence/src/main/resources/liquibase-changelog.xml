@@ -443,4 +443,21 @@
         ]]></sql>
     </changeSet-->
 
+    <changeSet id="PovertyLevels" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('PovertyLevel', nextval('hibernate_sequence'), 'Not poor');
+            INSERT INTO category (dtype, id, label) VALUES ('PovertyLevel', nextval('hibernate_sequence'), 'Poor');
+            INSERT INTO category (dtype, id, label) VALUES ('PovertyLevel', nextval('hibernate_sequence'), 'Very poor');
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Non pauvre','fr',id FROM category WHERE label='Not poor' AND dtype='PovertyLevel';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Pauvre','fr',id FROM category WHERE label='Poor' AND dtype='PovertyLevel';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Très pauvre','fr',id FROM category WHERE label='Very poor' AND dtype='PovertyLevel';
+
+        ]]></sql>
+    </changeSet>
+
 </databaseChangeLog>
