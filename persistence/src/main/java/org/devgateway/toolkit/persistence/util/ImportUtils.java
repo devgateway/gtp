@@ -70,7 +70,7 @@ public final class ImportUtils {
         } else if (cell != null && cell.getCellType() == CellType.STRING) {
             ret = cell.getStringCellValue();
         }
-        return ret;
+        return ret.trim();
     }
 
     public static boolean getBooleanFromCell(final Cell cell) {

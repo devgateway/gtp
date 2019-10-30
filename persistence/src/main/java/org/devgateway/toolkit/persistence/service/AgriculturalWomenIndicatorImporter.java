@@ -73,13 +73,17 @@ public class AgriculturalWomenIndicatorImporter extends AbstractImportService<Ag
         }
         genderMap = genderRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        genderMap.putAll(genderRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
+
         groupMap = awgRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        groupMap.putAll(awgRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
+
         groupTypeMap.putAll(ageGroupRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z)));
-        groupTypeMap.putAll(cropTypeRepository.findAll().stream()
-                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
-        groupTypeMap.putAll(moeRepository.findAll().stream()
+        groupTypeMap.putAll(ageGroupRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
 
         while (rowIterator.hasNext()) {
@@ -99,7 +103,7 @@ public class AgriculturalWomenIndicatorImporter extends AbstractImportService<Ag
             } catch (Exception e) { //Improve exception handling
                 logger.error("Error: " + e);
                 importResults.setImportOkFlag(false);
-                importResults.addError("At row " + rowNumber + " there were an error: " + e.getMessage());
+                importResults.addError("At row " + rowNumber + " there was an error: " + e.getMessage());
             }
         }
     }

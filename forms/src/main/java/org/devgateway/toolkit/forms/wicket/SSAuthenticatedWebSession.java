@@ -59,6 +59,16 @@ public class SSAuthenticatedWebSession extends AuthenticatedWebSession {
     @SpringBean
     private RoleHierarchy roleHierarchy;
 
+    public SSAuthenticatedWebSession(final Request request) {
+        super(request);
+        Injector.get().inject(this);
+        ensureDependenciesNotNull();
+        if (authenticationManager == null) {
+            throw new IllegalStateException("Injection of AuthenticationManager failed.");
+        }
+
+    }
+
     // @SpringBean
     // private SessionRegistry sessionRegistry;
 
@@ -76,16 +86,6 @@ public class SSAuthenticatedWebSession extends AuthenticatedWebSession {
         if (authenticationManager == null) {
             throw new IllegalStateException("An authenticationManager is required.");
         }
-    }
-
-    public SSAuthenticatedWebSession(final Request request) {
-        super(request);
-        Injector.get().inject(this);
-        ensureDependenciesNotNull();
-        if (authenticationManager == null) {
-            throw new IllegalStateException("Injection of AuthenticationManager failed.");
-        }
-
     }
 
     public static SSAuthenticatedWebSession getSSAuthenticatedWebSession() {

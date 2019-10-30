@@ -11,18 +11,15 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket;
 
-import java.util.EnumSet;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 import org.apache.wicket.protocol.http.WicketFilter;
 import org.apache.wicket.spring.SpringWebApplicationFactory;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
-
-import javax.servlet.FilterRegistration;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.SessionTrackingMode;
 
 /**
  * This class is the replacement of the web.xml. It registers the wicket filter
@@ -35,44 +32,26 @@ import javax.servlet.SessionTrackingMode;
 public class WebInitializer implements ServletContextInitializer {
 
     private static final String PARAM_APP_BEAN = "applicationBean";
+    public static final String ADMIN_PATH = "/admin/*";
 
     @Override
     public void onStartup(final ServletContext sc) throws ServletException {
 
         // AUTO configured by spring boot 1.2.x and upper
-        // sc.addFilter(AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME,
-        // new DelegatingFilterProxy("springSecurityFilterChain"))
-        // .addMappingForUrlPatterns(null, false, "/*");
-
         sc.addFilter("Spring OpenEntityManagerInViewFilter",
                 org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter.class)
-                .addMappingForUrlPatterns(null, false, "/*");
+                .addMappingForUrlPatterns(null, false, ADMIN_PATH);
 
         FilterRegistration filter = sc.addFilter("wicket-filter", WicketFilter.class);
         filter.setInitParameter(WicketFilter.APP_FACT_PARAM, SpringWebApplicationFactory.class.getName());
         filter.setInitParameter(PARAM_APP_BEAN, "formsWebApplication");
         // This line is the only surprise when comparing to the equivalent
         // web.xml. Without some initialization seems to be missing.
-        filter.setInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/*");
-        filter.addMappingForUrlPatterns(null, false, "/*");
+        filter.setInitParameter(WicketFilter.FILTER_MAPPING_PARAM, ADMIN_PATH);
+        filter.addMappingForUrlPatterns(null, false, ADMIN_PATH);
 
-        // // Request Listener
-        // sc.addListener(new RequestContextListener());
-        //
-        // sc.addListener(new ContextCleanupListener());
-        //
         sc.addListener(new HttpSessionEventPublisher());
 
-        sc.setSessionTrackingModes(EnumSet.of(SessionTrackingMode.COOKIE));
     }
 
-    // @Bean
-    // public SessionFactory sessionFactory(EntityManagerFactory factory) {
-    // if (factory.unwrap(SessionFactory.class) == null) {
-    // throw new NullPointerException("factory is not a hibernate factory");
-    // }
-    //
-    // return factory.unwrap(SessionFactory.class);
-    // }
-    //
 }

@@ -59,7 +59,9 @@ public class ProductionImporter extends AbstractImportService<Production> {
         }
 
         cropTypes = cropTypeRepository.findAll().stream()
-                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+                .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        cropTypes.putAll(cropTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
 
         while (rowIterator.hasNext()) {
             try {
@@ -83,7 +85,7 @@ public class ProductionImporter extends AbstractImportService<Production> {
             } catch (Exception e) { //Improve exception handling
                 logger.error("Error: " + e);
                 importResults.setImportOkFlag(false);
-                importResults.addError("At row " + rowNumber + " there were an error: " + e.getMessage());
+                importResults.addError("At row " + rowNumber + " there was an error: " + e.getMessage());
             }
         }
     }

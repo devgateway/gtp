@@ -137,8 +137,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
         lastName.required();
 
         email = ComponentUtil.addTextField(editForm, "email");
-        email.required()
-                .getField().add(RfcCompliantEmailAddressValidator.getInstance());
+        email.required().getField().add(RfcCompliantEmailAddressValidator.getInstance());
         if (!idPerson.isNull()) {
             email.getField().add(new UniqueEmailAddressValidator(idPerson.toLong()));
         } else {

@@ -55,10 +55,14 @@ public class FoodLossIndicatorImporter extends AbstractImportService<FoodLossInd
         }
 
         cropTypes = cropTypeRepository.findAll().stream()
-                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z));
+                .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        cropTypes.putAll(cropTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
 
         lossTypes = lossTypeRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
+        lossTypes.putAll(lossTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
 
 
         while (rowIterator.hasNext()) {
@@ -77,7 +81,7 @@ public class FoodLossIndicatorImporter extends AbstractImportService<FoodLossInd
             } catch (Exception e) { //Improve exception handling
                 logger.error("Error: " + e);
                 importResults.setImportOkFlag(false);
-                importResults.addError("At row " + rowNumber + " there were an error: " + e.getMessage());
+                importResults.addError("At row " + rowNumber + " there was an error: " + e.getMessage());
             }
         }
     }

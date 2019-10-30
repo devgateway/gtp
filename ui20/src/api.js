@@ -1,4 +1,4 @@
-const API_ROOT = document.location.href.indexOf('localhost') > -1 ? 'http://localhost:8080' : 'https://ad3.dgstg.org/'
+const API_ROOT = document.location.href.indexOf('localhost') > -1 ? 'http://localhost:8080' : document.location.origin
 
 const dumpUrlBuilder = name => `/data/${name}/dump`
 

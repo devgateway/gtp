@@ -42,6 +42,8 @@ public class ListRapidLinkFormPage extends AbstractListPage<RapidLink> {
         this.editPageClass = EditRapidLinkPage.class;
 
         columns.add(new TextFilteredBootstrapPropertyColumn<>(new Model<>("Title"), "title", "title"));
+        columns.add(new TextFilteredBootstrapPropertyColumn<>(new Model<>("Position"), "rapidLinkPosition",
+                "rapidLinkPosition"));
     }
 
     @Override

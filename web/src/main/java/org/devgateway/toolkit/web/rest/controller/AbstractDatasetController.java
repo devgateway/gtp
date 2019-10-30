@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.Serializable;
 import java.util.List;
@@ -45,7 +46,7 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
 
     @CrossOrigin
     @ApiOperation(value = "Get validated data paginated")
-    @RequestMapping(value = "/all", method = GET)
+    @RequestMapping(value = "/all", method = {POST, GET})
     public Page<T> getPaginated(@ModelAttribute @Valid final S pageRequest) {
         LOGGER.debug("get all validated data");
         Pageable pageable = PageRequest.of(pageRequest.getPageNumber(), pageRequest.getPageSize(),
@@ -55,7 +56,7 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
 
     @CrossOrigin
     @ApiOperation(value = "Dump validated data")
-    @RequestMapping(value = "/dump", method = GET)
+    @RequestMapping(value = "/dump", method = {POST, GET})
     public ResponseEntity<List<T>> getAllValidated(WebRequest webRequest,
                                           @ModelAttribute @Valid final S pageRequest) {
         ResponseEntity.BodyBuilder responseBuilder = getBodyBuilder(webRequest);
@@ -68,7 +69,7 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
 
     @CrossOrigin
     @ApiOperation(value = "Dump all data, even not validated")
-    @RequestMapping(value = "/unchecked", method = GET)
+    @RequestMapping(value = "/unchecked", method = {POST, GET})
     public ResponseEntity<List<T>> getAllData(WebRequest webRequest) {
         ResponseEntity.BodyBuilder responseBuilder = getBodyBuilder(webRequest);
         if (responseBuilder == null) {

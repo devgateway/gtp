@@ -58,7 +58,7 @@ import org.apache.wicket.resource.JQueryResourceReference;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
-import org.devgateway.toolkit.forms.wicket.page.analysis.AnalysisPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListAOIIndicatorDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListAgriculturalWomenDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListConsumptionDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListFoodLossDatasetPage;
@@ -129,7 +129,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         private static final long serialVersionUID = -750983217518258464L;
 
         public UIRedirectPage() {
-            super(WebApplication.get().getServletContext().getContextPath() + "/ui/index.html");
+            super(WebApplication.get().getServletContext().getContextPath() + "/index.html");
         }
     }
 
@@ -260,12 +260,6 @@ public abstract class BasePage extends GenericWebPage<Void> {
         return homeMenu;
     }
 
-    protected NavbarButton<Homepage> newAnalyticsMenu() {
-        NavbarButton<Homepage> menu = new NavbarButton<>(AnalysisPage.class,
-                new StringResourceModel("navbar.analytics", this));
-        menu.setIconType(FontAwesomeIconType.line_chart);
-        return menu;
-    }
 
     protected NavbarDropDownButton newAdminMenu() {
 
@@ -399,6 +393,11 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         new StringResourceModel("navbar.foodLoss", this, null))
                         .setIconType(FontAwesomeIconType.bolt));
 
+                list.add(new MenuBookmarkablePageLink<ListAOIIndicatorDatasetPage>(
+                        ListAOIIndicatorDatasetPage.class, null,
+                        new StringResourceModel("navbar.aoi", this, null))
+                        .setIconType(FontAwesomeIconType.arrows_alt));
+
 
                 return list;
             }
@@ -431,7 +430,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         navbar.setInverted(true);
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
-                newUploadMenu(), newAnalyticsMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
+                newUploadMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
 

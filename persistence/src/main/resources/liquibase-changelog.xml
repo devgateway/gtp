@@ -348,5 +348,116 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="RapidLinkPosition" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('RapidLinkPosition', nextval('hibernate_sequence'), 'First');
+            INSERT INTO category (dtype, id, label) VALUES ('RapidLinkPosition', nextval('hibernate_sequence'), 'Second');
+            INSERT INTO category (dtype, id, label) VALUES ('RapidLinkPosition', nextval('hibernate_sequence'), 'Third');
+            INSERT INTO category (dtype, id, label) VALUES ('RapidLinkPosition', nextval('hibernate_sequence'), 'Fourth');
+            INSERT INTO category (dtype, id, label) VALUES ('RapidLinkPosition', nextval('hibernate_sequence'), 'Fifth');
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Première','fr',id FROM category WHERE label='First' AND dtype='RapidLinkPosition';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Second','fr',id FROM category WHERE label='Second' AND dtype='RapidLinkPosition';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Troisième','fr',id FROM category WHERE label='Third' AND dtype='RapidLinkPosition';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Quatrième','fr',id FROM category WHERE label='Fourth' AND dtype='RapidLinkPosition';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Cinquième','fr',id FROM category WHERE label='Fifth' AND dtype='RapidLinkPosition';
+
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="RapidLinkPosition2" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE category SET description='1' WHERE dtype = 'RapidLinkPosition' AND label = 'First';
+            UPDATE category SET description='2' WHERE dtype = 'RapidLinkPosition' AND label = 'Second';
+            UPDATE category SET description='3' WHERE dtype = 'RapidLinkPosition' AND label = 'Third';
+            UPDATE category SET description='4' WHERE dtype = 'RapidLinkPosition' AND label = 'Fourth';
+            UPDATE category SET description='5' WHERE dtype = 'RapidLinkPosition' AND label = 'Fifth';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="AlterDatasetTableDtypeColumn" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="dataset" />
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE dataset ALTER COLUMN dtype TYPE varchar(255);
+        ]]></sql>
+    </changeSet>
+
+
+
+    <changeSet id="IndexTypesEN" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Budget public total');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Specific Agriculture Expenditures');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Expenditure on agriculture');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Administrative costs');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Government Expenditures in Support of Agriculture and Food (DPAA)');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Administrative costs in DPAA');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Specific expenditure in total public budget (DPAA meaning restricted)');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Expenditure in favor in total public budget');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'DPAA (broad sense) in total public budget');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Variable inputs (seeds, fertilizers, other)');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Other payments to producers');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Capital (equipment, on-farm irrigation, livestock, other basic on-farm infrastructure)');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'On-farm services (control (e.g. pests, veterinary services, technical assistance, extension, etc.)');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Income Support');
+            INSERT INTO category (dtype, id, label) VALUES ('IndexType', nextval('hibernate_sequence'), 'Input subsidy ratio / GDP');
+
+        ]]></sql>
+    </changeSet>
+
+    <!--changeSet id="IndexTypesFR" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Première','fr',id FROM category WHERE label='Budget public total' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Second','fr',id FROM category WHERE label='Specific Agriculture Expenditures' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Troisième','fr',id FROM category WHERE label='Expenditure on agriculture' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Quatrième','fr',id FROM category WHERE label='Administrative costs' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Cinquième','fr',id FROM category WHERE label='Government Expenditures in Support of Agriculture and Food (DPAA)' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Première','fr',id FROM category WHERE label='Administrative costs in DPAA' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Second','fr',id FROM category WHERE label='Specific expenditure in total public budget (DPAA meaning restricted)' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Troisième','fr',id FROM category WHERE label='Expenditure in favor in total public budget' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Quatrième','fr',id FROM category WHERE label='DPAA (broad sense) in total public budget' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Cinquième','fr',id FROM category WHERE label='Variable inputs (seeds, fertilizers, other)' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Première','fr',id FROM category WHERE label='Other payments to producers' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Second','fr',id FROM category WHERE label='Capital (equipment, on-farm irrigation, livestock, other basic on-farm infrastructure)' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Troisième','fr',id FROM category WHERE label='On-farm services (control (e.g. pests, veterinary services, technical assistance, extension, etc.)' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Quatrième','fr',id FROM category WHERE label='Income Support' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Cinquième','fr',id FROM category WHERE label='Input subsidy ratio / GDP' AND dtype='IndexType';
+
+        ]]></sql>
+    </changeSet-->
+
+    <changeSet id="PovertyLevels" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('PovertyLevel', nextval('hibernate_sequence'), 'Not poor');
+            INSERT INTO category (dtype, id, label) VALUES ('PovertyLevel', nextval('hibernate_sequence'), 'Poor');
+            INSERT INTO category (dtype, id, label) VALUES ('PovertyLevel', nextval('hibernate_sequence'), 'Very poor');
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Non pauvre','fr',id FROM category WHERE label='Not poor' AND dtype='PovertyLevel';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Pauvre','fr',id FROM category WHERE label='Poor' AND dtype='PovertyLevel';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Très pauvre','fr',id FROM category WHERE label='Very poor' AND dtype='PovertyLevel';
+
+        ]]></sql>
+    </changeSet>
 
 </databaseChangeLog>

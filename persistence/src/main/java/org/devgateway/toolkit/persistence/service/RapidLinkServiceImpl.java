@@ -8,6 +8,8 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
  * Created by Daniel Oliva
  */
@@ -28,4 +30,16 @@ public class RapidLinkServiceImpl extends BaseJpaServiceImpl<RapidLink> implemen
     public RapidLink newInstance() {
         return new RapidLink();
     }
+
+    @Override
+    public Optional<RapidLink> findByRapidLinkPositionId(Long id) {
+        return repository.findByRapidLinkPositionId(id);
+    }
+
+    @Override
+    public Iterable<RapidLink> findByRapidLinkPositionIdNotNull() {
+        return repository.findByRapidLinkPositionIdNotNull();
+    }
+
+
 }

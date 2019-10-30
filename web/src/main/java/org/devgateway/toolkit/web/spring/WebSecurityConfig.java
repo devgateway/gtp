@@ -83,16 +83,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(final WebSecurity web) throws Exception {
-        web.httpFirewall(allowUrlEncodedSlashHttpFirewall()).ignoring().antMatchers(allowedApiEndpoints);
+        super.configure(web);
+        web.ignoring().antMatchers("/**", "/data/**", "/files/**");
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.authorizeRequests().expressionHandler(webExpressionHandler()) // inject role hierarchy
-                .antMatchers("/", "/home").permitAll().antMatchers("/dummy").authenticated().anyRequest()
-                .authenticated().and().formLogin().loginPage("/login").permitAll().and()
-                .requestCache().and().logout().permitAll().and()
-                .sessionManagement().and().csrf().disable();
+        http.authorizeRequests()
+                .expressionHandler(webExpressionHandler()) // inject role hierarchy
+                .antMatchers("/").permitAll()
+                .antMatchers("/home").permitAll()
+                .antMatchers("/dummy").permitAll()
+                .antMatchers("/data/**").permitAll()
+                .antMatchers("/files/**").permitAll()
+                .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
+                .permitAll().and().sessionManagement().and().csrf().disable();
         http.addFilter(securityContextPersistenceFilter());
     }
 
