@@ -38,13 +38,13 @@ class IntlRoutes extends Component {
    }
 
   componentDidMount(){
-    this.props.onLoadFilterData('region')
-    this.props.onLoadFilterData('cropType')
-    this.props.onLoadFilterData('department')
-    this.props.onLoadFilterData('market')
-    this.props.onLoadFilterData('ageGroup')
-    this.props.onLoadFilterData('professionalActivity')
-    this.props.onLoadFilterData('gender')
+    this.props.onLoadFilterData('region','filter')
+    this.props.onLoadFilterData('cropType','filter')
+    this.props.onLoadFilterData('department','filter')
+    this.props.onLoadFilterData('market','filter')
+    this.props.onLoadFilterData('ageGroup','filter')
+    this.props.onLoadFilterData('professionalActivity','filter')
+    this.props.onLoadFilterData('gender','filter')
   }
 
   render() {

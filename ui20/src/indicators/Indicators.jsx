@@ -5,6 +5,7 @@ import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
 import {loadDefaultFilters, updateGlobalFilter, getGlobalIndicators, updateFilter} from '../modules/Indicator'
+import {loadDataItems} from '../modules/Data'
 import {
   Dropdown,
   Grid,
@@ -31,25 +32,29 @@ class Indicators extends Component {
     this.onChangeChartFilter = this.onChangeChartFilter.bind(this);
   }
 
-  componentDidMount() {
-    this.props.onLoadDefaultFilters();
-  }
-
   onChangeGlobalFilter(name, selection) {
     this.props.onChangeGlobalFilter(name, selection)
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.readyToLoad && !this.props.initialDataLoaded) {
+
+    if (this.props.globalFiltersReady && !this.props.initialDataLoaded) {
       this.props.onLoadGlobalIndicators()
     }
   }
 
+  componentDidMount() {
+    //load default filters
+    this.props.onLoadDefaultFilters();
+  }
+
   onAppllyFilters() {
+    //reload data
     this.props.onLoadGlobalIndicators()
   }
 
   onResetFilters() {
+    //reload filter
     this.props.onLoadDefaultFilters();
   }
 
@@ -83,15 +88,12 @@ class Indicators extends Component {
           <Grid.Row>
             {
               [1, 2].map(n => (<Grid.Column>
-
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-              </Grid.Column>))
+            </Grid.Column>))
             }
             </Grid.Row>
         </Grid>
-
-        <Poverty onChange={this.onChangeChartFilter} {...this.props}></Poverty>
+        {this.props.globalFiltersReady&&<Poverty onChange={this.onChangeChartFilter} {...this.props}></Poverty>}
 
       </div>
     </div>)
@@ -103,25 +105,17 @@ const mapStateToProps = state => {
   const globalNumbers = state.getIn(['indicator', 'globalNumbers'])
   const regions = state.getIn(['data', 'items', 'region']);
   const crops = state.getIn(['data', 'items', 'cropType']);
-
-  const activities = state.getIn(['data', 'items', 'professionalActivity']);
-  const genders = state.getIn(['data', 'items', 'gender']);
-  const ageGroups = state.getIn(['data', 'items', 'ageGroup']);
-
-  const readyToLoad = globalFilters && regions && crops && genders && ageGroups && activities
+  const globalFiltersReady = (globalFilters && regions && crops) != null
   const initialDataLoaded = globalNumbers != null
-  const filters= state.getIn(['indicator','filters'])
-  debugger;
+
+  const filters = state.getIn(['indicator', 'filters'])
   return {
     globalFilters,
     filters,
     globalNumbers,
     regions,
     crops,
-    genders,
-    activities,
-    ageGroups,
-    readyToLoad,
+    globalFiltersReady,
     initialDataLoaded
   }
 }
@@ -130,7 +124,8 @@ const mapActionCreators = {
   onLoadDefaultFilters: loadDefaultFilters,
   onChangeGlobalFilter: updateGlobalFilter,
   onLoadGlobalIndicators: getGlobalIndicators,
-  onChangeFilter: updateFilter
+  onChangeFilter: updateFilter,
+  onLoadFilterData: loadDataItems
 };
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(Indicators));

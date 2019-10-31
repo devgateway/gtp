@@ -50,7 +50,7 @@
   background-image: url("/icon_csv_gray.png");
 }
 
-.indicator.chart.filter {
+.indicator.chart.filter  {
   border: 1px solid #e6eaee;
   height: 100px;
   margin: 0;
@@ -156,5 +156,11 @@
     border-radius: 4px;
     position: absolute;
     padding-left: 2px;
+  }
+
+  .filter.item{
+    float: left;
+    margin-left: 30px;
+  
   }
 }

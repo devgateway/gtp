@@ -41,7 +41,7 @@ export const CustomFilterDropDown = ({options, selected, onChange, text}) => {
     }
   }
 
-  return (<Dropdown fluid="fluid" text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
+  return (<Dropdown fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
       const keepOpen = !e || e.currentTarget.getAttribute("role") != 'listbox'
       setOpen(!keepOpen)
     }}>

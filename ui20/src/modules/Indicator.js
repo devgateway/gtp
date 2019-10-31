@@ -7,6 +7,36 @@ const initialState = Immutable.fromJS({
 })
 
 
+export const loadDefaultPovertyFilters=()=>(dispatch, getState)=>{
+  const filters=getState().getIn('filters')
+  let povertyFilters=Immutable.Map()
+    povertyFilters=povertyFilters
+    .setIn(['gender'],Immutable.List( getState().getIn(['data','items','gender']).map(a=>a.id)))
+    .setIn(['activity'],Immutable.List(getState().getIn(['data','items','professionalActivity']).map(a=>a.id)))
+    .setIn(['ageGroup'],Immutable.List(getState().getIn(['data','items','ageGroup']).map(a=>a.id)))
+
+    debugger;
+    dispatch({
+      type: 'LOAD_DEFAULT_POVERTY_FILTERS_DONE',
+      povertyFilters
+    })
+}
+
+
+export const loadPovertyChartData = () => dispatch => {
+  debugger;
+  api.loadPovertyChartData().then(data => {
+    dispatch({
+      type: 'NNNN',
+      data
+    })
+  }).catch(error => dispatch({
+    type: 'NNNN',
+    error
+  }))
+}
+
+
 /*
 Get default selected filters
 */
@@ -39,6 +69,7 @@ export const updateGlobalFilter = (name, selection) => dispatch => {
 Update values at chart level indicated by path
 */
 export const updateFilter = (path, selection) => dispatch => {
+  console.log(selection)
   dispatch({
     type: 'CHANGE_CHART_FILTER',
     path,
@@ -51,7 +82,7 @@ Get global indicators values (responsive to filters)
 */
 export const getGlobalIndicators = () => (dispatch, getState) => {
 
-  const filters = getState().getIn(['indicator', 'filters', 'global']).toJS()
+  const filters = getState().getIn(['indicator', 'filters']).toJS()
 
   api.getGlobalIndicators(filters).then(data => {
     dispatch({
@@ -96,8 +127,13 @@ export default (state = initialState, action) => {
         path,
         selection
       } = action
-      debugger;
       return state.setIn(path, Immutable.fromJS(selection))
+    }
+
+    case 'LOAD_DEFAULT_POVERTY_FILTERS_DONE':{
+      const {povertyFilters} = action
+        debugger;
+      return state.setIn(['filters','poverty'], povertyFilters)
     }
 
     default: {

@@ -2,7 +2,7 @@ const API_ROOT = document.location.href.indexOf('localhost') > -1 ? 'http://loca
 
 const dumpUrlBuilder = name => `/data/${name}/dump`
 
-const itemsURLBuilder = category => `/data/filter/${category}`
+const itemsURLBuilder = (category, path) => `/data/${path}/${category}`
 
 
 function queryParams(params) {
@@ -64,42 +64,48 @@ export const getDataSet = (name) => {
   return get(API_ROOT + dumpUrlBuilder(name))
 }
 
-export const getItems = (category) => {
-  return get(API_ROOT + itemsURLBuilder(category))
+export const getItems = (category, path) => {
+  return get(API_ROOT + itemsURLBuilder(category, path))
 }
 
 
+export const loadPovertyChartData=(params) => {
+  return new Promise((resolve, reject) => {
+      resolve({})
+    })
+}
 
 export const getGlobalIndicators = (params) => {
-  debugger;
 
-  const val=Math.floor(Math.random() * 100)
-  const val1=Math.floor(Math.random() * 100)
-  const val2=Math.floor(Math.random() * 100)
-  const val3=Math.floor(Math.random() * 100)
+
+  const val = Math.floor(Math.random() * 100)
+  const val1 = Math.floor(Math.random() * 100)
+  const val2 = Math.floor(Math.random() * 100)
+  const val3 = Math.floor(Math.random() * 100)
 
   const data = [{
-    value: val+' %',
-    image: '/sdg/1.svg',
-    text: 'Proportion of population below the international poverty line'
-  }, {
-    value: val1+' %',
-    image: '/sdg/5.svg',
-    text: 'Women in the Agricultural sector'
-  }, {
-    value:val2+'K',
-    image: '/sdg/12.svg',
-    text: 'Agriculture orientation index for government expenditures'
-  },
-  {
-    value: val3+'M',
-    image: '/sdg/2.svg',
-    text: 'Global Food Loss Index'
-  }]
+      value: val + ' %',
+      image: '/sdg/1.svg',
+      text: 'Proportion of population below the international poverty line'
+    }, {
+      value: val1 + ' %',
+      image: '/sdg/5.svg',
+      text: 'Women in the Agricultural sector'
+    }, {
+      value: val2 + 'K',
+      image: '/sdg/12.svg',
+      text: 'Agriculture orientation index for government expenditures'
+    },
+    {
+      value: val3 + 'M',
+      image: '/sdg/2.svg',
+      text: 'Global Food Loss Index'
+    }
+  ]
 
 
   return new Promise((resolve, reject) => {
-      resolve(data)
+    resolve(data)
   })
 }
 
