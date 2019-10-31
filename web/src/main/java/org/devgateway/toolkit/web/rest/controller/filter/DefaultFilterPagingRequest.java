@@ -9,6 +9,20 @@ import java.util.TreeSet;
  */
 public class DefaultFilterPagingRequest extends GenericPagingRequest {
 
+    public DefaultFilterPagingRequest() {
+    }
+
+    public DefaultFilterPagingRequest(DefaultFilterPagingRequest req) {
+        this.setId(req.getId());
+        this.setDatasetId(req.getDatasetId());
+        this.setCrop(req.getCrop());
+        this.setRegion(req.getRegion());
+        this.setYear(req.getYear());
+        this.setGender(req.getGender());
+        this.setPageNumber(req.getPageNumber());
+        this.setPageSize(req.getPageSize());
+    }
+
     @ApiModelProperty(value = "Filter by data id")
     private TreeSet<Integer> id;
 

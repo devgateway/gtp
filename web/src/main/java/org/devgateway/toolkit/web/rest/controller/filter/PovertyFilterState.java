@@ -31,12 +31,13 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
                 addDataIdPredicates(root, cb, predicates);
                 addDatasetIdPredicates(root, cb, predicates);
                 addRegionPredicates(root, cb, predicates);
-                addYearPredicates(root, cb, predicates, filter.getYear(), PovertyIndicator_.YEAR);
+                addYearPredicates(root, cb, predicates);
                 addGenderPredicates(root, cb, predicates);
                 addMinAgePredicate(root, cb, predicates);
                 addMaxAgePredicate(root, cb, predicates);
                 addMinScorePredicate(root, cb, predicates);
                 addMaxScorePredicate(root, cb, predicates);
+                addPovLevelPredicates(root, cb, predicates);
                 addApprovedDatasets(root, cb, predicates);
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -59,11 +60,7 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
         addMaxPredicate(root, cb, predicates, filter.getMaxScore(), PovertyIndicator_.POVERTY_SCORE);
     }
 
-    protected void addRegionPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getRegion(), PovertyIndicator_.REGION); // TODO fix type mismatch
-    }
-
-    protected void addGenderPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getGender(), PovertyIndicator_.GENDER); // TODO fix type mismatch
+    protected void addPovLevelPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        addIntPredicates(root, cb, predicates, filter.getPovertyLevel(), PovertyIndicator_.POVERTY_LEVEL);
     }
 }

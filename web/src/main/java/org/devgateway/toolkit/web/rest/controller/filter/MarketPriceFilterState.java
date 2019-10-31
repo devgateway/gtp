@@ -30,8 +30,8 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
             if (filter != null) {
                 addDataIdPredicates(root, cb, predicates);
                 addDatasetIdPredicates(root, cb, predicates);
-                addCropTypePredicates(root, cb, predicates, filter.getCrop(), MarketPrice_.CROP_TYPE);
-                addYearPredicates(root, cb, predicates, filter.getYear(), MarketPrice_.DATE);
+                addCropTypePredicates(root, cb, predicates);
+                addYearDatePredicates(root, cb, predicates, MarketPrice_.DATE);
                 addMarketPredicates(root, cb, predicates);
                 addApprovedDatasets(root, cb, predicates);
             }

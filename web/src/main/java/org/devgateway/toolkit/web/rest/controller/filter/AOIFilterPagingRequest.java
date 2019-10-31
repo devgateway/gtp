@@ -11,6 +11,13 @@ public class AOIFilterPagingRequest extends DefaultFilterPagingRequest implement
     @ApiModelProperty(value = "Filter by index type")
     private TreeSet<Integer> indexType;
 
+    public AOIFilterPagingRequest() {
+    }
+
+    public AOIFilterPagingRequest(DefaultFilterPagingRequest req) {
+        super(req);
+    }
+
     public TreeSet<Integer> getIndexType() {
         return indexType;
     }

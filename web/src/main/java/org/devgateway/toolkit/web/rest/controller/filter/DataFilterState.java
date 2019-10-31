@@ -25,6 +25,10 @@ public class DataFilterState<T extends Data> implements Serializable {
 
     private static final long serialVersionUID = 2241550275925712593L;
     public static final String YEAR = "YEAR";
+    public static final String YEAR_COLUMN = "year";
+    public static final String REGION_COLUMN = "region";
+    public static final String GENDER_COLUMN = "gender";
+    public static final String CROPTYPE_COLUMN = "cropType";
 
     private DefaultFilterPagingRequest filter;
 
@@ -76,20 +80,18 @@ public class DataFilterState<T extends Data> implements Serializable {
         }
     }
 
-    protected void addYearPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
-                                    TreeSet<Integer> values, String columnName) {
-        if (values != null) {
+    protected void addYearPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        addIntPredicates(root, cb, predicates, filter.getYear(), YEAR_COLUMN);
+    }
+
+    protected void addYearDatePredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates, String column) {
+        if (filter.getYear() != null) {
             List<Predicate> yearPred = new ArrayList<>();
-            for (Integer value:values) {
-                yearPred.add(cb.equal(cb.function(YEAR, Integer.class, root.get(columnName)), value));
+            for (Integer value:filter.getYear()) {
+                yearPred.add(cb.equal(cb.function(YEAR, Integer.class, root.get(column)), value));
             }
             predicates.add(cb.or(yearPred.toArray(new Predicate[predicates.size()])));
         }
-    }
-
-    protected void addCropTypePredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
-                                         TreeSet<Integer> values, String columnName) {
-        addIntPredicates(root, cb, predicates, values, columnName);
     }
 
     protected void addMinPredicate(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
@@ -104,5 +106,18 @@ public class DataFilterState<T extends Data> implements Serializable {
         if (value != null) {
             predicates.add(cb.lessThanOrEqualTo(root.get(columnName), value));
         }
+    }
+
+    protected void addRegionPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        addIntPredicates(root, cb, predicates, filter.getRegion(), REGION_COLUMN);
+    }
+
+
+    protected void addGenderPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        addIntPredicates(root, cb, predicates, filter.getGender(), GENDER_COLUMN); // TODO fix type mismatch
+    }
+
+    protected void addCropTypePredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        addIntPredicates(root, cb, predicates, filter.getCrop(), CROPTYPE_COLUMN);
     }
 }
