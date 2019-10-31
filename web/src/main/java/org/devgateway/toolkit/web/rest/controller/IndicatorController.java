@@ -31,6 +31,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -82,6 +83,7 @@ public class IndicatorController {
         List<PovertyIndicator> list = povertyService.findAll(filterState.getSpecification());
         Map<String, Map<String, Double>> counterMap = new HashMap<>();
         AtomicInteger maxYear = new AtomicInteger(0);
+        AtomicBoolean dataFlag = new AtomicBoolean(false);
         list.stream().forEach(p -> {
             Map<String, Double> values = counterMap.get(p.getYear().toString());
             if (values == null) {
@@ -93,6 +95,7 @@ public class IndicatorController {
             if (p.getPovertyLevel().getLabel().toLowerCase().equals("poor")
                     || p.getPovertyLevel().getLabel().toLowerCase().equals("very poor")) {
                 values.merge(ACCUM, 1D, Double::sum);
+                dataFlag.set(true);
             }
             if (maxYear.doubleValue() < p.getYear()) {
                 maxYear.set(p.getYear());
@@ -100,7 +103,9 @@ public class IndicatorController {
         });
 
         //Add indicator data
-        counterMap.values().stream().forEach(v -> v.put(VALUE, v.get(ACCUM) / v.get(COUNT)));
+        if (dataFlag.get()) {
+            counterMap.values().stream().forEach(v -> v.put(VALUE, v.get(ACCUM) / v.get(COUNT)));
+        }
         IndicatorData ret = new IndicatorData(counterMap.get(maxYear.toString()), counterMap.values());
         return ret;
     }
@@ -113,6 +118,7 @@ public class IndicatorController {
         List<FoodLossIndicator> list = foodService.findAll(filterState.getSpecification());
         Map<String, Map<String, Double>> counterMap = new HashMap<>();
         AtomicInteger maxYear = new AtomicInteger(0);
+        AtomicBoolean dataFlag = new AtomicBoolean(false);
         list.stream().forEach(p -> {
             Map<String, Double> values = counterMap.get(p.getYear().toString());
             if (values == null) {
@@ -123,13 +129,16 @@ public class IndicatorController {
             if (p.getLossType().getLabel().toLowerCase().equals("personal consumption")) {
                 values.merge(COUNT, 1D, Double::sum);
                 values.merge(ACCUM, p.getAvgPercentage(), Double::sum);
+                dataFlag.set(true);
             }
             if (maxYear.doubleValue() < p.getYear()) {
                 maxYear.set(p.getYear());
             }
         });
         //Add indicator data
-        counterMap.values().stream().forEach(v -> v.put(VALUE, 1 - (v.get(ACCUM) / v.get(COUNT) / 100)));
+        if (dataFlag.get()) {
+            counterMap.values().stream().forEach(v -> v.put(VALUE, 1 - (v.get(ACCUM) / v.get(COUNT) / 100)));
+        }
         IndicatorData ret = new IndicatorData(counterMap.get(maxYear.toString()), counterMap.values());
         return ret;
     }
@@ -143,6 +152,7 @@ public class IndicatorController {
         List<AgriculturalWomenIndicator> list = womenService.findAll(filterState.getSpecification());
         Map<String, Map<String, Double>> counterMap = new HashMap<>();
         AtomicInteger maxYear = new AtomicInteger(0);
+        AtomicBoolean dataFlag = new AtomicBoolean(false);
         list.stream().forEach(p -> {
             Map<String, Double> values = counterMap.get(p.getYear().toString());
             if (values == null) {
@@ -154,13 +164,16 @@ public class IndicatorController {
                     && p.getGroup().getLabel().toLowerCase().equals("age group")) {
                 values.merge(COUNT, 1D, Double::sum);
                 values.merge(ACCUM, p.getPercentage(), Double::sum);
+                dataFlag.set(true);
             }
             if (maxYear.doubleValue() < p.getYear()) {
                 maxYear.set(p.getYear());
             }
         });
         //Add indicator data
-        counterMap.values().stream().forEach(v -> v.put(VALUE, v.get(ACCUM) / v.get(COUNT) / 100));
+        if (dataFlag.get()) {
+            counterMap.values().stream().forEach(v -> v.put(VALUE, v.get(ACCUM) / v.get(COUNT) / 100));
+        }
         IndicatorData ret = new IndicatorData(counterMap.get(maxYear.toString()), counterMap.values());
         return ret;
     }
