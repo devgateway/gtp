@@ -31,8 +31,8 @@ public class ConsumptionFilterState extends DataFilterState<Consumption> {
                 addDataIdPredicates(root, cb, predicates);
                 addDatasetIdPredicates(root, cb, predicates);
                 addDeparmentPredicates(root, cb, predicates);
-                addYearPredicates(root, cb, predicates, filter.getYear(), Consumption_.YEAR);
-                addCropTypePredicates(root, cb, predicates, filter.getCrop(), Consumption_.CROP_TYPE);
+                addYearPredicates(root, cb, predicates);
+                addCropTypePredicates(root, cb, predicates);
                 addCropSubTypePredicates(root, cb, predicates);
                 addApprovedDatasets(root, cb, predicates);
             }

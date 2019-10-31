@@ -30,8 +30,8 @@ public class FoodLossFilterState extends DataFilterState<FoodLossIndicator> {
             if (filter != null) {
                 addDataIdPredicates(root, cb, predicates);
                 addDatasetIdPredicates(root, cb, predicates);
-                addCropTypePredicates(root, cb, predicates, filter.getCrop(), FoodLossIndicator_.CROP_TYPE);
-                addYearPredicates(root, cb, predicates, filter.getYear(), FoodLossIndicator_.YEAR);
+                addCropTypePredicates(root, cb, predicates);
+                addYearPredicates(root, cb, predicates);
                 addLossTypePredicates(root, cb, predicates);
                 addMinPercentagePredicate(root, cb, predicates);
                 addMaxPercentagePredicate(root, cb, predicates);
@@ -67,6 +67,5 @@ public class FoodLossFilterState extends DataFilterState<FoodLossIndicator> {
 
     protected void addLossTypePredicates(Root<FoodLossIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
         addIntPredicates(root, cb, predicates, filter.getLossType(), FoodLossIndicator_.LOSS_TYPE);
-        // TODO fix type mismatch
     }
 }

@@ -15,7 +15,6 @@ import org.devgateway.toolkit.persistence.dao.categories.Category;
 import org.devgateway.toolkit.persistence.dao.categories.Gender;
 import org.devgateway.toolkit.persistence.repository.AgriculturalWomenDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.AgriculturalWomenIndicatorRepository;
-import org.devgateway.toolkit.persistence.repository.DepartmentRepository;
 import org.devgateway.toolkit.persistence.repository.category.AgeGroupRepository;
 import org.devgateway.toolkit.persistence.repository.category.AgriculturalWomenGroupRepository;
 import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
@@ -37,9 +36,6 @@ public class AgriculturalWomenIndicatorImporter extends AbstractImportService<Ag
 
     @Autowired
     private AgriculturalWomenIndicatorRepository repository;
-
-    @Autowired
-    private DepartmentRepository departmentRepository;
 
     @Autowired
     private AgriculturalWomenDatasetRepository datasetRepository;
@@ -86,6 +82,16 @@ public class AgriculturalWomenIndicatorImporter extends AbstractImportService<Ag
         groupTypeMap.putAll(ageGroupRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
 
+        groupTypeMap.putAll(cropTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z)));
+        groupTypeMap.putAll(cropTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
+
+        groupTypeMap.putAll(moeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z)));
+        groupTypeMap.putAll(moeRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getLabelFr().toLowerCase(), z -> z)));
+
         while (rowIterator.hasNext()) {
             try {
                 rowNumber++;
@@ -95,7 +101,7 @@ public class AgriculturalWomenIndicatorImporter extends AbstractImportService<Ag
                 data.setYear(ImportUtils.getDoubleFromCell(row.getCell(0)).intValue());
                 data.setGender((Gender) getCategory(row.getCell(1), genderMap, "Gender"));
                 data.setGroup((AgriculturalWomenGroup) getCategory(row.getCell(2), groupMap, "Group type"));
-                data.setGroupType(getCategory(row.getCell(3), groupTypeMap, "Group type"));
+                data.setGroupType(getCategory(row.getCell(3), groupTypeMap, "Group subtype"));
                 data.setPercentage(ImportUtils.getDoubleFromCell(row.getCell(4)));
                 data.setUtilizationPercentage(ImportUtils.getDoubleFromCell(row.getCell(5)));
                 importResults.addDataInstance(data);

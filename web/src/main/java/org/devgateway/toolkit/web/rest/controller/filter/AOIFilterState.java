@@ -30,7 +30,7 @@ public class AOIFilterState extends DataFilterState<AgricultureOrientationIndexI
             if (filter != null) {
                 addDataIdPredicates(root, cb, predicates);
                 addDatasetIdPredicates(root, cb, predicates);
-                addYearPredicates(root, cb, predicates, filter.getYear(), AgricultureOrientationIndexIndicator_.YEAR);
+                addYearPredicates(root, cb, predicates);
                 addIndexTypePredicates(root, cb, predicates);
                 addApprovedDatasets(root, cb, predicates);
             }

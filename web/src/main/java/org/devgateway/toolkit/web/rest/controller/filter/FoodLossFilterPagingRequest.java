@@ -22,6 +22,13 @@ public class FoodLossFilterPagingRequest extends DefaultFilterPagingRequest {
     @ApiModelProperty(value = "Filter by loss type")
     private TreeSet<Integer> lossType;
 
+    public FoodLossFilterPagingRequest() {
+    }
+
+    public FoodLossFilterPagingRequest(DefaultFilterPagingRequest req) {
+        super(req);
+    }
+
     public TreeSet<Integer> getLossType() {
         return lossType;
     }

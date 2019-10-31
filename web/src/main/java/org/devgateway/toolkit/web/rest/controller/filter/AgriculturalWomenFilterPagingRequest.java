@@ -19,6 +19,13 @@ public class AgriculturalWomenFilterPagingRequest extends DefaultFilterPagingReq
     @ApiModelProperty(value = "Filter by agricultural women group type")
     private TreeSet<Integer> awGroupType;
 
+    public AgriculturalWomenFilterPagingRequest() {
+    }
+
+    public AgriculturalWomenFilterPagingRequest(DefaultFilterPagingRequest req) {
+        super(req);
+    }
+
     public Double getMinPercentage() {
         return minPercentage;
     }

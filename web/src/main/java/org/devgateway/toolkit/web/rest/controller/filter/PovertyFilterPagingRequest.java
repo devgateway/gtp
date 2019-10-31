@@ -4,6 +4,7 @@ package org.devgateway.toolkit.web.rest.controller.filter;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.TreeSet;
 
 public class PovertyFilterPagingRequest extends DefaultFilterPagingRequest implements Serializable {
 
@@ -18,6 +19,16 @@ public class PovertyFilterPagingRequest extends DefaultFilterPagingRequest imple
 
     @ApiModelProperty(value = "Filter by maximum poverty score")
     private Double maxScore;
+
+    @ApiModelProperty(value = "Filter by poverty level")
+    private TreeSet<Integer> povertyLevel;
+
+    public PovertyFilterPagingRequest() {
+    }
+
+    public PovertyFilterPagingRequest(DefaultFilterPagingRequest req) {
+        super(req);
+    }
 
     public Double getMinAge() {
         return minAge;
@@ -49,5 +60,13 @@ public class PovertyFilterPagingRequest extends DefaultFilterPagingRequest imple
 
     public void setMaxScore(Double maxScore) {
         this.maxScore = maxScore;
+    }
+
+    public TreeSet<Integer> getPovertyLevel() {
+        return povertyLevel;
+    }
+
+    public void setPovertyLevel(TreeSet<Integer> povertyLevel) {
+        this.povertyLevel = povertyLevel;
     }
 }

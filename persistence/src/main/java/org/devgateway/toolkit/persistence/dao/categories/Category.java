@@ -103,7 +103,7 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
             return label;
             //Dont return null for label, its being used in serialization
         }
-        return null;
+        return label;
     }
 
     /**
