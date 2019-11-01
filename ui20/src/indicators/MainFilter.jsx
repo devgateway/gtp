@@ -24,15 +24,15 @@ const MainFilter = ({regions, crops, globalFilters,onChange,onApply,onReset}) =>
       </div>
       <div className="filter nav separator"></div>
       <div className="filter nav item">
-        <CustomFilterDropDown onChange={s=>onChange('years',s)}  selected={globalFilters&&globalFilters.get('years')?globalFilters.get('years').toJS():[]} text={<FormattedMessage id = "indicators.main.filter.year" defaultMessage = "Campain/Years" > </FormattedMessage>} options={year2options()}></CustomFilterDropDown>
+        <CustomFilterDropDown onChange={s=>onChange('year',s)}  selected={globalFilters&&globalFilters.get('year')?globalFilters.get('year').toJS():[]} text={<FormattedMessage id = "indicators.main.filter.year" defaultMessage = "Campain/Years" > </FormattedMessage>} options={year2options()}></CustomFilterDropDown>
       </div>
         <div className="filter nav separator"></div>
       <div className="filter nav item">
-        <CustomFilterDropDown onChange={s=>onChange('regions',s)} selected={globalFilters&&globalFilters.get('regions')?globalFilters.get('regions').toJS():[]} text={<FormattedMessage id = "indicators.main.filter.regions" defaultMessage = "Regions" > </FormattedMessage>} options={region2options(regions)}></CustomFilterDropDown>
+        <CustomFilterDropDown onChange={s=>onChange('region',s)} selected={globalFilters&&globalFilters.get('region')?globalFilters.get('region').toJS():[]} text={<FormattedMessage id = "indicators.main.filter.regions" defaultMessage = "Regions" > </FormattedMessage>} options={region2options(regions)}></CustomFilterDropDown>
       </div>
         <div className="filter nav separator"></div>
       <div className="filter nav item">
-        <CustomFilterDropDown onChange={s=>onChange('crops',s)} selected={globalFilters&&globalFilters.get('crops')?globalFilters.get('crops').toJS():[]} text={<FormattedMessage id = "indicators.main.filter.crops" defaultMessage = "Crop Type" > </FormattedMessage>} options={crop2options(crops)}></CustomFilterDropDown>
+        <CustomFilterDropDown onChange={s=>onChange('crop',s)} selected={globalFilters&&globalFilters.get('crop')?globalFilters.get('crop').toJS():[]} text={<FormattedMessage id = "indicators.main.filter.crops" defaultMessage = "Crop Type" > </FormattedMessage>} options={crop2options(crops)}></CustomFilterDropDown>
       </div>
         <div className="filter nav separator"></div>
       <div className="filter nav item btn" onClick={onApply}>

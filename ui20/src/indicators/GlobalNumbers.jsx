@@ -2,7 +2,7 @@
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
 import {FormattedMessage} from 'react-intl';
-
+import {FormattedNumber}  from 'react-intl'
 import {
   Dropdown,
   Grid,
@@ -15,8 +15,7 @@ import {
 
 
  const GlobalNumbers=(props)=>{
-  const data=props.data || []
-
+ const data=props.data || []
 
   return (
     <Grid className="indicator global numbers" columns={4} divided>
@@ -24,10 +23,13 @@ import {
       {
         data.map(n=>(
         <Grid.Column>
-          <div className="indicator big number">{n.value}</div>
+          <div className="indicator big number">
+              <FormattedNumber minimumFractionDigits={0}  maximumFractionDigits={0} style={n.style} value={n.value}></FormattedNumber>
+                <span className="indicator big number year">{n.year}</span>
+          </div>
           <div className="indicator description">
             <div className="indicator logo"><Image src={n.image}></Image></div>
-            <div className="indicator name">{n.text}</div>
+            <div className="indicator name"><FormattedMessage id={n.key} defaultMessage={n.text}/></div>
           </div>
         </Grid.Column>))
       }

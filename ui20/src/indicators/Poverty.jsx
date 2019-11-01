@@ -72,13 +72,19 @@ class Pooverty extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+
     if (this.props.povertyFiltersReady && !this.props.defaultFilterReady) {
       this.props.loadDefaultPovertyFilters()
     }
 
+
     if (this.props.defaultFilterReady && !this.initialDataLoaded){
       this.initialDataLoaded=true;
       this.props.loadPovertyChartData()
+    }
+
+    if (this.props.defaultFilterReady && this.initialDataLoaded){
+
     }
   }
 
@@ -95,6 +101,9 @@ class Pooverty extends Component {
 
     const povertyRangeSelection = filters && filters.getIn(['poverty', 'range'])? filters.getIn(['poverty', 'range']).toJS():[min,max]
 
+      if(this.props.data){
+          debugger;
+      }
 
     return (<div className="indicator-chart-container">
       <div className="indicator chart title poverty">
@@ -115,10 +124,10 @@ class Pooverty extends Component {
 
       <div className="indicator chart filter  poverty">
         <div className="filter item">
-          <CustomFilterDropDown onChange={s => {onChange([ 'filters', 'poverty', 'gender'], s)}} selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender" > </FormattedMessage>} options={gender2options(genders)}/>
+          <CustomFilterDropDown options={gender2options(genders)}  onChange={s => {onChange([ 'filters', 'poverty', 'gender'], s)}} selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
         </div>
         <div className="filter item">
-          <CustomFilterDropDown onChange={s => {onChange(['filters', 'poverty', 'activity'], s)}} selected={activitySelection} text={<FormattedMessage id = "indicators.filter.activity" defaultMessage = "Profesional Activity" > </FormattedMessage>} options={activity2options(activities)}/>
+          <CustomFilterDropDown options={activity2options(activities)} onChange={s => {onChange(['filters', 'poverty', 'activity'], s)}} selected={activitySelection} text={<FormattedMessage id = "indicators.filter.activity" defaultMessage = "Profesional Activity" > </FormattedMessage>} />
         </div>
         <div className="filter item">
           {min&&max&&<RangeSlider onChange={s => {onChange(['filters', 'poverty', 'range'], s)}} max={max} min={min}  selected={povertyRangeSelection} text={<FormattedMessage id="inidicators.filter.slider.level" defaultMessage="Poverty Level"/>}></RangeSlider>}
@@ -130,32 +139,8 @@ class Pooverty extends Component {
 
       </div>
 
-      <Plot data={[
-          {
-            x: [
-              1, 2, 3
-            ],
-            y: [
-              2, 6, 3
-            ],
-            type: 'scatter',
-            mode: 'lines+points',
-            marker: {
-              color: 'red'
-            }
-          }, {
-            type: 'bar',
-            x: [
-              1, 2, 3
-            ],
-            y: [2, 5, 3]
-          }
-        ]} layout={{
-          width: 1000,
-          height: 500,
-          title: 'A Fancy Plot'
-        }}/>
-      < /div>)
+      {this.props.data&& <Plot layout={this.props.data.layout} data={this.props.data.data}></Plot>}
+      </div>)
 
   }
 
@@ -167,12 +152,10 @@ const mapStateToProps = state => {
   const ageGroups = state.getIn(['data', 'items', 'ageGroup']);
   const povertyRange = state.getIn(['data', 'items', 'range']);
   const filters = state.getIn(['indicator', 'filters'])
-
   const povertyFiltersReady = (activities && genders && ageGroups && povertyRange) != null
-
   const defaultFilterReady = filters.get('poverty') != null
-
-  return {activities, ageGroups, povertyRange, povertyFiltersReady, defaultFilterReady}
+  const data=state.getIn(['indicator','poverty','data'])
+  return {activities, genders, ageGroups, povertyRange, povertyFiltersReady, defaultFilterReady, data}
 }
 
 const mapActionCreators = {

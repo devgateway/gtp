@@ -7,31 +7,38 @@ const initialState = Immutable.fromJS({
 })
 
 
-export const loadDefaultPovertyFilters=()=>(dispatch, getState)=>{
-  const filters=getState().getIn('filters')
-  let povertyFilters=Immutable.Map()
-    povertyFilters=povertyFilters
-    .setIn(['gender'],Immutable.List( getState().getIn(['data','items','gender']).map(a=>a.id)))
-    .setIn(['activity'],Immutable.List(getState().getIn(['data','items','professionalActivity']).map(a=>a.id)))
-    .setIn(['ageGroup'],Immutable.List(getState().getIn(['data','items','ageGroup']).map(a=>a.id)))
+export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
+  const filters = getState().getIn('filters')
 
-    debugger;
-    dispatch({
-      type: 'LOAD_DEFAULT_POVERTY_FILTERS_DONE',
-      povertyFilters
-    })
+  const gender = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
+  const professionalActivity = getState().getIn(['data', 'items', 'professionalActivity']).map(a => a.id);
+  const ageGroup = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);
+
+
+  let povertyFilters = Immutable.Map()
+  povertyFilters = povertyFilters
+    .setIn(['gender'], Immutable.List())
+    .setIn(['activity'], Immutable.List())
+    .setIn(['ageGroup'], Immutable.List())
+
+
+  dispatch({
+    type: 'LOAD_DEFAULT_POVERTY_FILTERS_DONE',
+    povertyFilters
+  })
 }
 
 
 export const loadPovertyChartData = () => dispatch => {
-  debugger;
+
   api.loadPovertyChartData().then(data => {
+    debugger;
     dispatch({
-      type: 'NNNN',
+      type: 'LOAD_POVERTY_CHART_DATA_DONE',
       data
     })
   }).catch(error => dispatch({
-    type: 'NNNN',
+    type: 'POVERTY_CHART_DATA_ERROR',
     error
   }))
 }
@@ -130,10 +137,18 @@ export default (state = initialState, action) => {
       return state.setIn(path, Immutable.fromJS(selection))
     }
 
-    case 'LOAD_DEFAULT_POVERTY_FILTERS_DONE':{
-      const {povertyFilters} = action
-        debugger;
-      return state.setIn(['filters','poverty'], povertyFilters)
+    case 'LOAD_DEFAULT_POVERTY_FILTERS_DONE': {
+      const {
+        povertyFilters
+      } = action
+      return state.setIn(['filters', 'poverty'], povertyFilters)
+    }
+    case 'LOAD_POVERTY_CHART_DATA_DONE': {
+      const {
+        data
+      } = action
+      debugger;
+      return state.setIn(['poverty', 'data'], data)
     }
 
     default: {
