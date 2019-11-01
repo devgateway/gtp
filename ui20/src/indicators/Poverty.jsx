@@ -2,7 +2,7 @@ import './poverty.scss'
 import 'rc-slider/assets/index.css'
 
 import ReactDOM from 'react-dom';
-import connect from 'redux-connect-decorator'
+import {connect} from 'react-redux';
 import React, {Component, createRef, useState} from 'react'
 import {FormattedMessage} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown} from './Components'
