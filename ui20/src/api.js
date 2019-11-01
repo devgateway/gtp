@@ -107,26 +107,8 @@ export const loadPovertyChartData = (params) => {
 
 export const getGlobalIndicators = (params) => {
   return new Promise((resolve, reject) => {
-    /*
-          Name	Description
-          crop array[integer]
-          datasetId array[integer]
-          gender array[integer]
-          id array[integer]
-          region array[integer]
-          year array[integer]
-
-    */
-
-
-    const val = Math.floor(Math.random() * 100)
-    const val1 = Math.floor(Math.random() * 100)
-    const val2 = Math.floor(Math.random() * 100)
-    const val3 = Math.floor(Math.random() * 100)
-
-
     post(URL_INDICATORS, params.global).then((data) => {
-
+      debugger;
       const mockData = [{
           value: data.poverty.data.value,
           image: '/sdg/1.svg',
@@ -142,11 +124,11 @@ export const getGlobalIndicators = (params) => {
           year: data.agriculturalWomen.data.year,
           style: "percent"
         }, {
-          value: data.aoi.data.value,
+          value: data.agOrientation.data.value,
           image: '/sdg/12.svg',
           text: 'Agriculture orientation index for government expenditures',
           key: 'indicator.global.aoi.short',
-          year: data.aoi.data.year,
+          year: data.agOrientation.data.year,
           style: "percent"
         },
         {
@@ -163,7 +145,8 @@ export const getGlobalIndicators = (params) => {
       resolve(mockData)
 
     }).catch(error => {
-
+        console.log('ERROR')
+        reject(error)
     })
   })
 }
