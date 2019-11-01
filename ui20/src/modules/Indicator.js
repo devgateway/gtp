@@ -32,7 +32,7 @@ export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
 export const loadPovertyChartData = () => dispatch => {
 
   api.loadPovertyChartData().then(data => {
-    debugger;
+
     dispatch({
       type: 'LOAD_POVERTY_CHART_DATA_DONE',
       data
@@ -147,7 +147,7 @@ export default (state = initialState, action) => {
       const {
         data
       } = action
-      debugger;
+
       return state.setIn(['poverty', 'data'], data)
     }
 

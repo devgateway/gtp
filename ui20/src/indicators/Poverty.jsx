@@ -102,7 +102,7 @@ class Pooverty extends Component {
     const povertyRangeSelection = filters && filters.getIn(['poverty', 'range'])? filters.getIn(['poverty', 'range']).toJS():[min,max]
 
       if(this.props.data){
-          debugger;
+
       }
 
     return (<div className="indicator-chart-container">
