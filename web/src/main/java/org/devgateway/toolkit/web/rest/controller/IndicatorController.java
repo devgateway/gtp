@@ -50,6 +50,16 @@ public class IndicatorController {
     public static final String COUNT = "count";
     public static final String YEAR = "year";
     public static final String VALUE = "value";
+    public static final String FEMALE = "female";
+    public static final String AGE_GROUP = "age group";
+    public static final String PERSONAL_CONSUMPTION = "personal consumption";
+    public static final String VERY_POOR = "very poor";
+    public static final String POOR = "poor";
+    public static final String POVERTY = "poverty";
+    public static final String FOOD_LOSS = "foodLoss";
+    public static final String AGRICULTURAL_WOMEN = "agriculturalWomen";
+    public static final String AG_ORIENTATION = "agOrientation";
+    public static final String INPUT_SUBSIDY = "input subsidy ratio / gdp";
 
     @Autowired
     private PovertyIndicatorService povertyService;
@@ -68,10 +78,10 @@ public class IndicatorController {
     @RequestMapping(method = {POST, GET})
     public Map<String, IndicatorData> getIndicatorData(@ModelAttribute @Valid final DefaultFilterPagingRequest req) {
         Map<String, IndicatorData> ret = new HashMap<>();
-        ret.put("poverty", getIndicatorPoverty(new PovertyFilterPagingRequest(req)));
-        ret.put("foodLoss", getIndicatorFoodLoss(new FoodLossFilterPagingRequest(req)));
-        ret.put("agriculturalWomen", getIndicatorAgriculturalWomen(new AgriculturalWomenFilterPagingRequest(req)));
-        ret.put("aoi", getIndicatorAOI(new AOIFilterPagingRequest(req)));
+        ret.put(POVERTY, getIndicatorPoverty(new PovertyFilterPagingRequest(req)));
+        ret.put(FOOD_LOSS, getIndicatorFoodLoss(new FoodLossFilterPagingRequest(req)));
+        ret.put(AGRICULTURAL_WOMEN, getIndicatorAgriculturalWomen(new AgriculturalWomenFilterPagingRequest(req)));
+        ret.put(AG_ORIENTATION, getIndicatorAOI(new AOIFilterPagingRequest(req)));
         return ret;
     }
 
@@ -92,8 +102,8 @@ public class IndicatorController {
                 counterMap.put(p.getYear().toString(), values);
             }
             values.merge(COUNT, 1D, Double::sum);
-            if (p.getPovertyLevel().getLabel().toLowerCase().equals("poor")
-                    || p.getPovertyLevel().getLabel().toLowerCase().equals("very poor")) {
+            if (p.getPovertyLevel().getLabel().toLowerCase().equals(POOR)
+                    || p.getPovertyLevel().getLabel().toLowerCase().equals(VERY_POOR)) {
                 values.merge(ACCUM, 1D, Double::sum);
                 dataFlag.set(true);
             }
@@ -126,7 +136,7 @@ public class IndicatorController {
                 values.put(YEAR, p.getYear().doubleValue());
                 counterMap.put(p.getYear().toString(), values);
             }
-            if (p.getLossType().getLabel().toLowerCase().equals("personal consumption")) {
+            if (p.getLossType().getLabel().toLowerCase().equals(PERSONAL_CONSUMPTION)) {
                 values.merge(COUNT, 1D, Double::sum);
                 values.merge(ACCUM, p.getAvgPercentage(), Double::sum);
                 dataFlag.set(true);
@@ -160,8 +170,8 @@ public class IndicatorController {
                 values.put(YEAR, p.getYear().doubleValue());
                 counterMap.put(p.getYear().toString(), values);
             }
-            if (p.getGender().getLabel().toLowerCase().equals("female")
-                    && p.getGroup().getLabel().toLowerCase().equals("age group")) {
+            if (p.getGender().getLabel().toLowerCase().equals(FEMALE)
+                    && p.getGroup().getLabel().toLowerCase().equals(AGE_GROUP)) {
                 values.merge(COUNT, 1D, Double::sum);
                 values.merge(ACCUM, p.getPercentage(), Double::sum);
                 dataFlag.set(true);
@@ -180,7 +190,7 @@ public class IndicatorController {
 
     @CrossOrigin
     @ApiOperation(value = "Get 'agriculture orientation index' summary data")
-    @RequestMapping(value = "/aoi", method = {POST, GET})
+    @RequestMapping(value = "/agOrientation", method = {POST, GET})
     public IndicatorData getIndicatorAOI(
             @ModelAttribute @Valid final AOIFilterPagingRequest req) {
         AOIFilterState filterState = new AOIFilterState(req);
@@ -194,7 +204,7 @@ public class IndicatorController {
                 values.put(YEAR, p.getYear().doubleValue());
                 counterMap.put(p.getYear().toString(), values);
             }
-            if (p.getIndexType().getLabel().toLowerCase().equals("input subsidy ratio / gdp")) {
+            if (p.getIndexType().getLabel().toLowerCase().equals(INPUT_SUBSIDY)) {
                 values.put(VALUE, p.getSubsidies());
             }
             if (maxYear.doubleValue() < p.getYear()) {

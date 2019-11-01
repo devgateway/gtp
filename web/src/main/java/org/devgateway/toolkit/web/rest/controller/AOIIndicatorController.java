@@ -31,7 +31,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  */
 @Cacheable
 @RestController
-@RequestMapping(value = "/data/aoi")
+@RequestMapping(value = "/data/agOrientation")
 @CrossOrigin
 @CacheConfig(cacheNames = "servicesCache")
 public class AOIIndicatorController extends AbstractDatasetController<AgricultureOrientationIndexIndicator,
