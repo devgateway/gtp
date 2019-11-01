@@ -1,0 +1,166 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                      @import '../base.scss';
+
+.indicator.chart.title.poverty::before {
+  content: '';
+  width: 47px;
+  height: 47px;
+  float: left;
+  margin-right: 17px;
+  margin-left: 0;
+  margin-top: 12px;
+  background-image: url("/sdg/1.svg");
+  background-repeat: no-repeat;
+  background-size: 48px 48px;
+}
+
+.indicator.chart.description {
+  margin: 0;
+  clear: both;
+  background-color: #f6faf5;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  height: 74px;
+  font-size: 18px;
+  color: #646464;
+
+  p {
+    float: left;
+    width: 1000px;
+  }
+  clear: both;
+}
+
+.indicator.chart.icon.download {
+  width: 30px;
+  margin-left: 7px;
+  height: 40px;
+  background-repeat: no-repeat;
+  float: right;
+}
+
+.indicator.chart.icon.download.xls {
+  background-image: url("/icon_xls_gray.png");
+}
+
+.indicator.chart.icon.download.png {
+  background-image: url("/icon_png_gray.png");
+}
+
+.indicator.chart.icon.download.csv {
+  background-image: url("/icon_csv_gray.png");
+}
+
+.indicator.chart.filter  {
+  border: 1px solid #e6eaee;
+  height: 100px;
+  margin: 0;
+  padding-top: 30px;
+
+  .ui.fluid.dropdown {
+    width: 210px !important;
+    float: left;
+    font-size: 12px;
+    border: 1px solid #ced0da;
+    float: left;
+    border-radius: 4px;
+    background-color: #f9fafc;
+    margin-left: 22px;
+  }
+  cursor: pointer;
+
+  .text {
+    font-weight: 600;
+    line-height: 36px;
+    padding-left: 5px;
+    font-size: 14px;
+
+    .breadcrums {
+      span {
+        font-size: 11px;
+      }
+    }
+  }
+
+  .menu {
+    border-radius: 0;
+    border: 1px solid $border-color;
+    background-color: #FFF !important;
+    border: 0;
+    margin-left: 0;
+    min-width: 209px;
+
+    .item {
+      padding-left: 10px !important;
+      font-size: 12px;
+    }
+
+    .header {
+      line-height: 22px;
+      padding: 10px 10px 0;
+      text-align: left;
+      margin: 0;
+      font-size: 14px;
+      color: $color-green;
+      text-transform: none;
+
+      span {
+        cursor: pointer;
+        font-size: 11px;
+        color: #000;
+      }
+    }
+  }
+
+  .ui.fluid.dropdown {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 36px;
+  }
+
+  .dropdown.icon {
+    float: right;
+    margin-right: 7px;
+    margin-top: 12px;
+  }
+
+  .visible {
+    color: $color-green;
+    background-color: #f6f6f6;
+    border: 1px solid $border-color;
+  }
+
+  div.checkbox {
+    margin-left: 0;
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-top: -2px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+  }
+
+  div.checkbox.checked {}
+
+  div.checkbox.checked::before {
+    content: '';
+    background-color: #8dc63f;
+    margin-left: -1px;
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-top: -1px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    position: absolute;
+    padding-left: 2px;
+  }
+
+  .filter.item{
+    float: left;
+    margin-left: 30px;
+
+  }
+}

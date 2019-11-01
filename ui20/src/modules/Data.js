@@ -8,9 +8,9 @@ const initialState = Immutable.Map()
 
 
 
-export const loadDataItems = category => dispatch => {
-
-  api.getItems(category)
+export const loadDataItems = (category, path) => (dispatch, getState) => {
+  const filters = getState().getIn(['indicator', 'filters']).toJS()
+  api.getItems(category, path)
   .then(data => {
     dispatch({
       type: 'LOAD_DATA_ITEM_DONE',

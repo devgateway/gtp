@@ -9,25 +9,15 @@ import configureStore, {history} from './Store'
 import {connect} from 'react-redux';
 import messages_fr from "./translations/fr.json";
 import messages_en from "./translations/en.json";
-
+import {IntlProvider} from "react-intl";
 import {loadDataItems} from './modules/Data'
 import Home from './home/Home'
 import Analytic from "./analytic/Analytic"
-
+import {Container} from 'semantic-ui-react'
 import Header from './layout/Header'
 import Footer from './layout/Footer'
+import Indicators from './indicators/Indicators'
 
-import {
-  IntlProvider,
-  FormattedNumber,
-  FormattedDate,
-  addLocaleData,
-  createIntl,
-  createIntlCache,
-  injectIntl,
-  FormattedMessage,
-  defineMessages
-} from "react-intl";
 
 var areIntlLocalesSupported = require('intl-locales-supported');
 
@@ -38,47 +28,92 @@ const messages = {
 
 const language = navigator.language.split(/[-_]/)[0]; // language without region code
 
-debugger;
 
 class IntlRoutes extends Component {
 
-  render() {
-    debugger;
-    const props = this.props;
-    const locale=this.props.location.pathname.split("/")[1]
-    return (<IntlProvider key={locale } locale={locale} messages={messages[props.match.params.lan]}>
-      <Switch>
-        <Route exact="exact" path="/:lan/home" render={() => (<div>
-            <Home language={props.match.params.lan}></Home>
-          </div>)}/>
-        <Route exact="exact" path="/:lan/analytic/production" render={() => (<div>
-            <Analytic language={props.match.params.lan}></Analytic>
-          </div>)}/>
-        <Route exact="exact" path="/:lan/analytic/marketPrice" render={() => (<div>
-            <Analytic language={props.match.params.lan}></Analytic>
-          </div>)}/>
-        <Route exact="exact" path="/:lan/analytic/consumption" render={() => (<div>
-            <Analytic language={props.match.params.lan}></Analytic>
-          </div>)}/>
 
-        <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
-      </Switch>
+  constructor(props) {
+     super(props);
+     this.header = React.createRef()
+   }
+
+  componentDidMount(){
+    this.props.onLoadFilterData('region','filter')
+    this.props.onLoadFilterData('cropType','filter')
+    this.props.onLoadFilterData('department','filter')
+    this.props.onLoadFilterData('market','filter')
+    this.props.onLoadFilterData('ageGroup','filter')
+    this.props.onLoadFilterData('professionalActivity','filter')
+    this.props.onLoadFilterData('gender','filter')
+  }
+
+  render() {
+    const self=this;
+    const props = this.props;
+    const locale = this.props.location.pathname.split("/")[1]
+    return (<IntlProvider key={locale} locale={locale} messages={messages[props.match.params.lan]}>
+      <div>
+
+          <Switch>
+
+            <Route exact={true} path="/:lan/home" render={() => (<div>
+                    <Header ></Header>
+                  <Home language={props.match.params.lan}></Home>
+              </div>)}/>
+            <Route exact={true} path="/:lan/analytic/production" render={() => (<div>
+                  <Header ></Header>
+                  <Analytic language={props.match.params.lan}></Analytic>
+              </div>)}/>
+            <Route exact={true} path="/:lan/analytic/marketPrice" render={() => (<div>
+                <Header ></Header>
+                  <Analytic language={props.match.params.lan}></Analytic>
+              </div>)}/>
+            <Route exact={true} path="/:lan/analytic/consumption" render={() => (<div>
+                <Header ></Header>
+                  <Analytic language={props.match.params.lan}></Analytic>
+              </div>)}/>
+            <Route exact={true} path="/:lan/indicators" render={() => (<div>
+                <Header className="fix" ></Header>
+                  <Indicators header={e=>this.divRef} language={props.match.params.lan}></Indicators>
+              </div>)}/>
+            <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
+          </Switch>
+
+          <Footer></Footer>
+      </div>
     </IntlProvider>)
   }
 }
 
-const IntlRoutesRouted=withRouter(IntlRoutes)
+
+
+
+const mapStateToProps = (state, ownProps) => {
+
+
+  return {
+
+  }
+}
+
+const mapActionCreators = {
+  onLoadFilterData: loadDataItems,
+
+};
+
+const IntlRoutesRouted = connect(mapStateToProps, mapActionCreators)(withRouter(IntlRoutes))
+
+
 
 const MainRoutes = (props) => {
   return (<ConnectedRouter history={history}>
-    <Header></Header>
-    <Switch>
+  <Switch>
 
       <Route path="/:lan/" component={IntlRoutesRouted}></Route>
       <Redirect to="/en/home"></Redirect>
 
     </Switch>
-    <Footer></Footer>
+
   </ConnectedRouter>)
 }
 

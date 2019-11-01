@@ -4,6 +4,7 @@
         [ "react-intl", {
             "messagesDir": "./build/messages",
             "extractSourceLocation": true
-        }]
+        }],
+         ["@babel/plugin-proposal-decorators", { "legacy": true }]
     ]
 }

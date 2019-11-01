@@ -1,0 +1,487 @@
+@import '../base.scss';
+
+.ui.fixed.table {}
+
+.core-filters {
+  position: fixed;
+  top: 70px;
+  width: 100%;
+  z-index: 9999999!important;
+}
+
+.main.filter {
+  margin: auto;
+  width: 100%;
+  z-index: 1000;
+  height: 79px;
+  line-height: 79px;
+  background-color: $color-green;
+  width: $page-width;
+  box-sizing: border-box;
+
+  .filter.nav.item.title {
+    font-size: 24px;
+    padding-left: 75px;
+    min-width: 240px;
+  }
+
+  .filter.nav.separator {
+    width: 12px;
+    margin-top: 8px;
+  }
+
+  .filter.nav.separator:before {
+    margin-left: 6px;
+  }
+
+  .filter.nav.item {
+    font-size: 16px;
+    font-weight: normal;
+    float: left;
+    min-width: 220px;
+    cursor: pointer;
+  }
+
+  .filter.nav.btn {
+    font-size: 15px;
+    float: left;
+    min-width: 70px!important;
+    font-weight: bold;
+  }
+
+  .filter.nav.download {
+    .icon {
+      margin-top: 15px;
+      width: 34px;
+      height: 39px;
+      margin-left: 5px;
+      float: right;
+    }
+
+    .xls {
+      background-image: url("/icon_white_xls.png");
+    }
+
+    .csv {
+      background-image: url("/icon_white_csv.png");
+    }
+
+    .png {
+      background-image: url("/icon_white_png.png");
+    }
+
+    .json {
+      background-image: url("/icon_white_json.png");
+    }
+  }
+
+  .filter.item {
+    cursor: pointer;
+
+    .text {
+      padding-left: 4px;
+
+      .breadcrums {
+        span {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .menu {
+      border-radius: 0;
+      border: 1px solid $border-color;
+      background-color: #FFF !important;
+      border: 0;
+      margin-left: -1px;
+
+      .header {
+        line-height: 22px;
+        padding: 13px 22px;
+        margin: 0;
+        font-size: 14px;
+        color: $color-green;
+        text-transform: none;
+
+        span {
+          cursor: pointer;
+          font-size: 11px;
+          color: #000;
+        }
+      }
+    }
+
+    .ui.fluid.dropdown {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      height: 79px;
+    }
+
+    .dropdown.icon {
+      float: none;
+    }
+
+    .visible {
+      color: $color-green;
+      background-color: #f6f6f6;
+      border: 1px solid $border-color;
+    }
+  }
+
+  .filter.options {
+    width: 300px;
+    columns: 3;
+    color: #848484;
+    font-size: 12px;
+  }
+
+  div.checkbox {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-top: -2px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+  }
+
+  div.checkbox.checked {}
+
+  div.checkbox.checked::before {
+    content: '';
+    background-color: #8dc63f;
+    margin-left: -1px;
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-top: -1px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    position: absolute;
+    padding-left: 2px;
+  }
+}
+
+.indicators.content.fixed {
+  color: #818181;
+  font-size: 21px;
+  padding-top: 150px;
+  min-height: 200px;
+  display: block;
+  clear: both;
+  width: $content-width;
+  margin: auto;
+
+  .indicators.title {
+    height: 72px;
+    line-height: 72px;
+    padding-bottom: 10px;
+    margin: auto;
+    border-bottom: 2px solid $border-color;
+    width: $content-width;
+    font-size: 36px;
+    color: $color-green;
+    margin-bottom: 10px;
+
+    span {
+      margin-left: 20px;
+    }
+  }
+
+  .indicators.title::before {
+    content: '';
+    display: flex;
+    float: left;
+    margin-top: 20px;
+    width: 33px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-image: url("/icon_indicators_title.png");
+  }
+
+  .intro {
+    padding: 10px;
+    line-height: 25px;
+  }
+
+  .column {
+    padding: 0;
+  }
+
+  .indicator.global.numbers {
+    margin: 20px;
+
+    .row {
+      padding: 0;
+    }
+
+    .column {}
+  }
+
+  .indicator.big.number {
+    font-size: 100px;
+    font-weight: 300;
+    color: #818181;
+    text-align: center;
+    line-height: 174px;
+
+    span {
+      margin: auto;
+    }
+  }
+
+  .indicator.big.number.year{
+    font-size: 12px;
+    text-align: center;
+    
+  }
+
+  .indicator.description {
+    border-top: 2px solid $border-color;
+    border-bottom: 2px solid $border-color;
+    min-height: 120px;
+    padding: 20px;
+    font-size: 15px;
+
+    .indicator.logo {
+      float: left;
+      padding-left: 0;
+      margin-right: 10px;
+      margin-top: 5px;
+      min-height: 80px;
+
+      img {
+        width: 40px;
+      }
+    }
+
+    .indicator.name {
+      word-wrap: normal;
+      font-size: 18px;
+    }
+  }
+
+  .indicator.link {
+    height: 40px;
+    clear: both;
+    display: flex;
+
+    .btn {
+      margin: auto;
+    }
+
+    .icon.go {
+      float: left;
+      width: 20px;
+      height: 20px;
+      background-image: url("/icon_hand.png");
+      background-repeat: no-repeat;
+    }
+
+    a {
+      font-size: 12px;
+      font-weight: bold;
+      color: #497423;
+      text-decoration: none;
+      float: left;
+    }
+  }
+
+  .info-text {
+    border: 0;
+    box-shadow: none;
+    line-height: 27px;
+    font-size: 12px;
+  }
+
+  .info-text.table {
+    .column {
+      padding: 20px;
+    }
+  }
+
+  .source-icon {
+    height: 20px;
+    float: left;
+    width: 17px;
+    height: 18px;
+    background-repeat: no-repeat;
+    margin-top: 6px;
+    background-image: url("/icon-source.png");
+  }
+
+  .chart.toggler.view {
+    float: right;
+    height: 74px;
+    padding-top: 22px;
+    font-size: 12px;
+
+    .active {
+      color: #65b457;
+    }
+
+    input {
+      width: 100px;
+    }
+
+    .ui.toggle.checkbox .box:before {
+      height: 16px!important;
+      background-color: #FFFF!important;
+    }
+
+    .ui.toggle.checkbox .box:before,
+    .ui.toggle.checkbox label:before {
+      background-color: #FFF !important;
+      border: 1px solid #cccccc;
+      width: 34px;
+      height: 16px;
+      margin-left: 16px;
+    }
+
+    .ui.toggle.checkbox input:checked~.box:before,
+    .ui.toggle.checkbox input:checked~label:before {
+      background-color: #fff!important;
+    }
+
+    .ui.toggle.checkbox input:checked~.box:after,
+    .ui.toggle.checkbox input:checked~label:after {
+      left: 34px !important;
+    }
+
+    .ui.toggle.checkbox .box:after,
+    .ui.toggle.checkbox label:after {
+      border: 3px solid #a4db77;
+      height: 12px;
+      width: 12px;
+      left: 17px;
+      margin-top: 2px;
+    }
+  }
+
+  .indicator.chart.title {
+    background-color: #FFF;
+    border-top: 2px solid $border-color;
+    height: 74px;
+    color: #497423;
+    margin: 0;
+
+    p {
+      font-size: 28px;
+      line-height: 72px;
+      float: left;
+      margin: 0;
+    }
+  }
+
+  .slider {
+    margin-top: -10px;
+    margin-left: 20px;
+    width: 200px;
+    float: left;
+    height: 70px;
+
+    p {
+      margin: 0;
+      padding: 0;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+  }
+
+  .indicator.filter.options {
+    margin-top: -10px;
+    margin-left: 20px;
+    float: left;
+    height: 70px;
+
+    p {
+      text-align: center;
+      font-size: 12px;
+      margin: 0 0 5px;
+      font-weight: 600;
+    }
+
+    .item.active {
+      .checkbox {
+        background-color: #8dc63f;
+      }
+    }
+
+    .item {
+      cursor: pointer;
+      float: left;
+      font-size: 12px;
+
+      .checkbox {
+        float: left;
+        margin: 2px 3px 0 2px;
+      }
+
+      .label {
+        float: left;
+        margin-left: 0;
+        letter-spacing: -1px;
+        margin-right: 7px;
+        line-height: 20px;
+      }
+    }
+  }
+
+  .slider.container {
+    p {
+      text-align: center;
+    }
+
+    .rc-slider-track {
+      background-color: #65b457 !important;
+      height: 8px;
+      margin-top: -2px;
+    }
+
+    .rc-slider-handle {
+      width: 14px;
+      height: 14px;
+          border: solid 2px #65b457 !important;
+    }
+
+    .rc-slider-handle:hover {
+        border: solid 2px #65b457 !important;
+    }
+
+    .rc-slider-handle:focus {
+        border: solid 2px #65b457 !important;
+    }
+
+    .rc-slider-handle:active {
+      border-color: #65b457 !important;
+      box-shadow: none
+    }
+
+    .rc-slider-dot {
+      border-color: #65b457;
+    }
+    font-size: 12px;
+
+    .breadcrumbs {
+      border: 1px solid #e6e7ec;
+      border-radius: 4px;
+      padding: 2px;
+      margin-top: 2px;
+      font-size: 11px;
+    }
+
+    .min {
+      float: left;
+      margin-left: 2px;
+    }
+
+    .max {
+      float: right;
+      margin-right: 2px;
+    }
+  }
+}
