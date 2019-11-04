@@ -1,6 +1,6 @@
 import "./indicators.scss"
 
-import connect from 'redux-connect-decorator'
+import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
