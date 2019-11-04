@@ -3,9 +3,11 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
+import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.PovertyIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterState;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
@@ -39,6 +41,9 @@ public class PovertyIndicatorController extends AbstractDatasetController<Povert
 
     public static final String AGE = "age";
     public static final String SCORE = "score";
+
+    @Autowired
+    private SummaryIndicatorRepository summaryIndicatorRepository;
 
     public PovertyIndicatorController(PovertyIndicatorService datasetService) {
         super(datasetService);
@@ -75,6 +80,16 @@ public class PovertyIndicatorController extends AbstractDatasetController<Povert
         }
 
         return ret;
+    }
+
+
+
+    @CrossOrigin
+    @ApiOperation(value = "Get poverty by region and year summary data")
+    @RequestMapping(value = "/summary", method = {POST, GET})
+    public List getSummaryIndicatorPoverty(@ModelAttribute @Valid final PovertyFilterPagingRequest req) {
+        PovertyFilterState filterState = new PovertyFilterState(req);
+        return summaryIndicatorRepository.getPovertyByYearAndRegion(filterState.getSpecification());
     }
 
 }

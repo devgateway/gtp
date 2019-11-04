@@ -64,7 +64,6 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     }
 
     public Category() {
-
     }
 
     @Override

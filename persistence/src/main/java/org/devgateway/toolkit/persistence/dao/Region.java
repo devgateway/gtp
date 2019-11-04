@@ -51,4 +51,9 @@ public class Region extends GenericPersistable implements Serializable {
     public void setCode(String code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
