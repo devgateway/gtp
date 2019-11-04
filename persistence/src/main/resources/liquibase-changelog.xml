@@ -417,31 +417,41 @@
         ]]></sql>
     </changeSet>
 
-    <!--changeSet id="IndexTypesFR" author="Daniel Oliva">
+    <changeSet id="FrenchLabels" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="category" />
             <tableExists tableName="localized_category_label" />
         </preConditions>
         <sql><![CDATA[
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Budget public total','fr',id FROM category WHERE label='Budget public total' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Dépenses spécifiques à l'agriculture','fr',id FROM category WHERE label='Specific Agriculture Expenditures' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Dépenses en faveur de l'agriculture','fr',id FROM category WHERE label='Expenditure on agriculture' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Coût Administratif','fr',id FROM category WHERE label='Administrative costs' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Dépenses publiques d'appui à l'agriculture et à l'alimentation (DPAA)','fr',id FROM category WHERE label='Government Expenditures in Support of Agriculture and Food (DPAA)' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Coûts administratifs des DPAA','fr',id FROM category WHERE label='Administrative costs in DPAA' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Dépenses spécifiques dans budget public total (DPAA sens restreint)','fr',id FROM category WHERE label='Specific expenditure in total public budget (DPAA meaning restricted)' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Dépenes en faveur dans budget public total','fr',id FROM category WHERE label='Expenditure in favor in total public budget' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'DPAA (sens large) dans budget public total','fr',id FROM category WHERE label='DPAA (broad sense) in total public budget' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Intrants variables (semences, engrais, autres)','fr',id FROM category WHERE label='Variable inputs (seeds, fertilizers, other)' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Autres paiements aux producteurs','fr',id FROM category WHERE label='Other payments to producers' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Immobilisations (équipement, irrigation à la ferme, bétail, autres infrastructures de base à la ferme)','fr',id FROM category WHERE label='Capital (equipment, on-farm irrigation, livestock, other basic on-farm infrastructure)' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Services à la ferme (lutte contre les ravageurs, services vétérinaires, assistance technique, vulgarisation, etc.','fr',id FROM category WHERE label='On-farm services (control (e.g. pests, veterinary services, technical assistance, extension, etc.)' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Soutien au revenu','fr',id FROM category WHERE label='Income Support' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Taux de subvention des intrants / PIB','fr',id FROM category WHERE label='Input subsidy ratio / GDP' AND dtype='IndexType';
 
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Première','fr',id FROM category WHERE label='Budget public total' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Second','fr',id FROM category WHERE label='Specific Agriculture Expenditures' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Troisième','fr',id FROM category WHERE label='Expenditure on agriculture' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Quatrième','fr',id FROM category WHERE label='Administrative costs' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Cinquième','fr',id FROM category WHERE label='Government Expenditures in Support of Agriculture and Food (DPAA)' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Première','fr',id FROM category WHERE label='Administrative costs in DPAA' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Second','fr',id FROM category WHERE label='Specific expenditure in total public budget (DPAA meaning restricted)' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Troisième','fr',id FROM category WHERE label='Expenditure in favor in total public budget' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Quatrième','fr',id FROM category WHERE label='DPAA (broad sense) in total public budget' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Cinquième','fr',id FROM category WHERE label='Variable inputs (seeds, fertilizers, other)' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Première','fr',id FROM category WHERE label='Other payments to producers' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Second','fr',id FROM category WHERE label='Capital (equipment, on-farm irrigation, livestock, other basic on-farm infrastructure)' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Troisième','fr',id FROM category WHERE label='On-farm services (control (e.g. pests, veterinary services, technical assistance, extension, etc.)' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Quatrième','fr',id FROM category WHERE label='Income Support' AND dtype='IndexType';
-            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Cinquième','fr',id FROM category WHERE label='Input subsidy ratio / GDP' AND dtype='IndexType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Groupe d'âge','fr',id FROM category WHERE label='Age Group' AND dtype='AgriculturalWomenGroup';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Mode d'exécution','fr',id FROM category WHERE label='Method of enforcement' AND dtype='AgriculturalWomenGroup';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Zones de distribution/parcelles','fr',id FROM category WHERE label='Distribution areas/parcels' AND dtype='AgriculturalWomenGroup';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Zones de distribution/zones utilisées','fr',id FROM category WHERE label='Distribution zones/utilized zones' AND dtype='AgriculturalWomenGroup';
 
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Propriété','fr',id FROM category WHERE label='Ownership' AND dtype='MethodOfEnforcement';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Propriété non documentée','fr',id FROM category WHERE label='Undocumented ownership' AND dtype='MethodOfEnforcement';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Loyer avec convention','fr',id FROM category WHERE label='Rent with agreement' AND dtype='MethodOfEnforcement';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Loyer sans convention','fr',id FROM category WHERE label='Rent without agreement' AND dtype='MethodOfEnforcement';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Prêt','fr',id FROM category WHERE label='Loan' AND dtype='MethodOfEnforcement';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Occupation libre ou occupation sans autorisation','fr',id FROM category WHERE label='Free Occupation or Occupation without authorization' AND dtype='MethodOfEnforcement';
         ]]></sql>
-    </changeSet-->
+    </changeSet>
 
     <changeSet id="PovertyLevels" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
