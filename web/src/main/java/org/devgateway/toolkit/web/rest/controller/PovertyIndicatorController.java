@@ -12,8 +12,9 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -24,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
@@ -58,9 +58,9 @@ public class PovertyIndicatorController extends AbstractDatasetController<Povert
 
     @CrossOrigin
     @ApiOperation(value = "Get ranges")
-    @RequestMapping(value = "/range", method = {POST, GET})
-    public Map<String, Map<String, Integer>> getPovertyRanges(
-            @ModelAttribute @Valid final PovertyFilterPagingRequest request) {
+    @RequestMapping(value = "/range", method = POST)
+    public @ResponseBody Map<String, Map<String, Integer>> getPovertyRanges(
+            @RequestBody @Valid final PovertyFilterPagingRequest request) {
         Map<String, Map<String, Integer>> ret = new HashMap<>();
         List<PovertyIndicator> povertyList = datasetService.findAll(getSpecifications(request));
         if (povertyList != null && povertyList.size() > 0) {
@@ -86,8 +86,8 @@ public class PovertyIndicatorController extends AbstractDatasetController<Povert
 
     @CrossOrigin
     @ApiOperation(value = "Get poverty by region and year summary data")
-    @RequestMapping(value = "/summary", method = {POST, GET})
-    public List getSummaryIndicatorPoverty(@ModelAttribute @Valid final PovertyFilterPagingRequest req) {
+    @RequestMapping(value = "/summary", method = POST)
+    public @ResponseBody List getSummaryIndicatorPoverty(@RequestBody @Valid final PovertyFilterPagingRequest req) {
         PovertyFilterState filterState = new PovertyFilterState(req);
         return summaryIndicatorRepository.getPovertyByYearAndRegion(filterState.getSpecification());
     }

@@ -1,6 +1,5 @@
 package org.devgateway.toolkit.web.rest.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.Serializable;
@@ -19,8 +18,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
@@ -46,8 +46,8 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
 
     @CrossOrigin
     @ApiOperation(value = "Get validated data paginated")
-    @RequestMapping(value = "/all", method = {POST, GET})
-    public Page<T> getPaginated(@ModelAttribute @Valid final S pageRequest) {
+    @RequestMapping(value = "/all", method = POST)
+    public @ResponseBody Page<T> getPaginated(@RequestBody @Valid final S pageRequest) {
         LOGGER.debug("get all validated data");
         Pageable pageable = PageRequest.of(pageRequest.getPageNumber(), pageRequest.getPageSize(),
                 Sort.Direction.ASC, "id");
@@ -56,9 +56,9 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
 
     @CrossOrigin
     @ApiOperation(value = "Dump validated data")
-    @RequestMapping(value = "/dump", method = {POST, GET})
-    public ResponseEntity<List<T>> getAllValidated(WebRequest webRequest,
-                                          @ModelAttribute @Valid final S pageRequest) {
+    @RequestMapping(value = "/dump", method = POST)
+    public @ResponseBody ResponseEntity<List<T>> getAllValidated(WebRequest webRequest,
+                                          @RequestBody @Valid final S pageRequest) {
         ResponseEntity.BodyBuilder responseBuilder = getBodyBuilder(webRequest);
         if (responseBuilder == null) {
             return null;
@@ -69,8 +69,8 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
 
     @CrossOrigin
     @ApiOperation(value = "Dump all data, even not validated")
-    @RequestMapping(value = "/unchecked", method = {POST, GET})
-    public ResponseEntity<List<T>> getAllData(WebRequest webRequest) {
+    @RequestMapping(value = "/unchecked", method = POST)
+    public @ResponseBody ResponseEntity<List<T>> getAllData(WebRequest webRequest) {
         ResponseEntity.BodyBuilder responseBuilder = getBodyBuilder(webRequest);
         if (responseBuilder == null) {
             return null;

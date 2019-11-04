@@ -2,14 +2,17 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
+import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalWomenIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.AgriculturalWomenFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.AgriculturalWomenFilterState;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -19,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
@@ -34,8 +36,11 @@ public class AgriculturalWomenIndicatorController extends AbstractDatasetControl
 
     public static final String PERCENTAGE = "percentage";
 
-    public AgriculturalWomenIndicatorController(AgriculturalWomenIndicatorService datasetService) {
-        super(datasetService);
+    @Autowired
+    private SummaryIndicatorRepository summaryIndicatorRepository;
+
+    public AgriculturalWomenIndicatorController(AgriculturalWomenIndicatorService indicatorService) {
+        super(indicatorService);
     }
 
     @Override
@@ -47,9 +52,9 @@ public class AgriculturalWomenIndicatorController extends AbstractDatasetControl
 
     @CrossOrigin
     @ApiOperation(value = "Get ranges")
-    @RequestMapping(value = "/range", method = {POST, GET})
-    public Map<String, Map<String, Integer>> getAgriculturalWomenRanges(
-            @ModelAttribute @Valid final AgriculturalWomenFilterPagingRequest request) {
+    @RequestMapping(value = "/range", method = POST)
+    public @ResponseBody Map<String, Map<String, Integer>> getAgriculturalWomenRanges(
+            @RequestBody @Valid final AgriculturalWomenFilterPagingRequest request) {
         Map<String, Map<String, Integer>> ret = new HashMap<>();
         List<AgriculturalWomenIndicator> list = datasetService.findAll(getSpecifications(request));
         if (list != null && list.size() > 0) {
@@ -62,6 +67,15 @@ public class AgriculturalWomenIndicatorController extends AbstractDatasetControl
         }
 
         return ret;
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get poverty by region and year summary data")
+    @RequestMapping(value = "/summary", method = POST)
+    public @ResponseBody List getSummaryIndicatorWomen(
+            @RequestBody @Valid final AgriculturalWomenFilterPagingRequest req) {
+        AgriculturalWomenFilterState filterState = new AgriculturalWomenFilterState(req);
+        return summaryIndicatorRepository.getAgriculturalWomenIndicator(filterState.getSpecification());
     }
 
 }

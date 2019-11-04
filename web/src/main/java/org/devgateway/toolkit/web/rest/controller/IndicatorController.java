@@ -21,8 +21,9 @@ import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -34,7 +35,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
@@ -75,8 +75,9 @@ public class IndicatorController {
 
     @CrossOrigin
     @ApiOperation(value = "Get summary data")
-    @RequestMapping(method = {POST, GET})
-    public Map<String, IndicatorData> getIndicatorData(@ModelAttribute @Valid final DefaultFilterPagingRequest req) {
+    @RequestMapping(method = POST)
+    public @ResponseBody Map<String, IndicatorData> getIndicatorData(
+            @RequestBody @Valid final DefaultFilterPagingRequest req) {
         Map<String, IndicatorData> ret = new HashMap<>();
         ret.put(POVERTY, getIndicatorPoverty(new PovertyFilterPagingRequest(req)));
         ret.put(FOOD_LOSS, getIndicatorFoodLoss(new FoodLossFilterPagingRequest(req)));
@@ -87,8 +88,8 @@ public class IndicatorController {
 
     @CrossOrigin
     @ApiOperation(value = "Get poverty summary data")
-    @RequestMapping(value = "/poverty", method = {POST, GET})
-    public IndicatorData getIndicatorPoverty(@ModelAttribute @Valid final PovertyFilterPagingRequest req) {
+    @RequestMapping(value = "/poverty", method = POST)
+    public @ResponseBody IndicatorData getIndicatorPoverty(@RequestBody @Valid final PovertyFilterPagingRequest req) {
         PovertyFilterState filterState = new PovertyFilterState(req);
         List<PovertyIndicator> list = povertyService.findAll(filterState.getSpecification());
         Map<String, Map<String, Double>> counterMap = new HashMap<>();
@@ -122,8 +123,8 @@ public class IndicatorController {
 
     @CrossOrigin
     @ApiOperation(value = "Get food loss summary data")
-    @RequestMapping(value = "/foodLoss", method = {POST, GET})
-    public IndicatorData getIndicatorFoodLoss(@ModelAttribute @Valid final FoodLossFilterPagingRequest req) {
+    @RequestMapping(value = "/foodLoss", method = POST)
+    public @ResponseBody IndicatorData getIndicatorFoodLoss(@RequestBody @Valid final FoodLossFilterPagingRequest req) {
         FoodLossFilterState filterState = new FoodLossFilterState(req);
         List<FoodLossIndicator> list = foodService.findAll(filterState.getSpecification());
         Map<String, Map<String, Double>> counterMap = new HashMap<>();
@@ -155,9 +156,9 @@ public class IndicatorController {
 
     @CrossOrigin
     @ApiOperation(value = "Get 'women in agricultural sector' summary data")
-    @RequestMapping(value = "/agriculturalWomen", method = {POST, GET})
-    public IndicatorData getIndicatorAgriculturalWomen(
-            @ModelAttribute @Valid final AgriculturalWomenFilterPagingRequest req) {
+    @RequestMapping(value = "/agriculturalWomen", method = POST)
+    public @ResponseBody IndicatorData getIndicatorAgriculturalWomen(
+            @RequestBody @Valid final AgriculturalWomenFilterPagingRequest req) {
         AgriculturalWomenFilterState filterState = new AgriculturalWomenFilterState(req);
         List<AgriculturalWomenIndicator> list = womenService.findAll(filterState.getSpecification());
         Map<String, Map<String, Double>> counterMap = new HashMap<>();
@@ -190,9 +191,9 @@ public class IndicatorController {
 
     @CrossOrigin
     @ApiOperation(value = "Get 'agriculture orientation index' summary data")
-    @RequestMapping(value = "/agOrientation", method = {POST, GET})
-    public IndicatorData getIndicatorAOI(
-            @ModelAttribute @Valid final AOIFilterPagingRequest req) {
+    @RequestMapping(value = "/agOrientation", method = POST)
+    public @ResponseBody IndicatorData getIndicatorAOI(
+            @RequestBody @Valid final AOIFilterPagingRequest req) {
         AOIFilterState filterState = new AOIFilterState(req);
         List<AgricultureOrientationIndexIndicator> list = aoiService.findAll(filterState.getSpecification());
         Map<String, Map<String, Double>> counterMap = new HashMap<>();

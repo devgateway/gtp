@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 import java.util.Optional;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by Daniel Oliva
@@ -31,8 +32,8 @@ public class WebContentController {
 
     @CrossOrigin
     @ApiOperation(value = "Get web content by id.")
-    @RequestMapping(value = "/{id}", method = GET)
-    public Optional<WebContent> getContentById(@PathVariable final long id) {
+    @RequestMapping(value = "/{id}", method = POST)
+    public @ResponseBody Optional<WebContent> getContentById(@PathVariable final long id) {
         LOGGER.info("get content by id: " + id);
         return service.findById(id);
     }

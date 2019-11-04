@@ -8,8 +8,9 @@ import org.devgateway.toolkit.web.rest.controller.filter.FoodLossFilterState;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -19,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
@@ -48,9 +48,9 @@ public class FoodLossIndicatorController extends AbstractDatasetController<FoodL
 
     @CrossOrigin
     @ApiOperation(value = "Get ranges")
-    @RequestMapping(value = "/range", method = {POST, GET})
-    public Map<String, Map<String, Double>> getFoodLossRanges(
-            @ModelAttribute @Valid final FoodLossFilterPagingRequest request) {
+    @RequestMapping(value = "/range", method = POST)
+    public @ResponseBody Map<String, Map<String, Double>> getFoodLossRanges(
+            @RequestBody @Valid final FoodLossFilterPagingRequest request) {
         Map<String, Map<String, Double>> ret = new HashMap<>();
         List<FoodLossIndicator> list = datasetService.findAll(getSpecifications(request));
         if (list != null && list.size() > 0) {
