@@ -2,6 +2,7 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
+import org.devgateway.toolkit.persistence.dto.AgriculturalWomenSummary;
 import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalWomenIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.AgriculturalWomenFilterPagingRequest;
@@ -54,7 +55,7 @@ public class AgriculturalWomenIndicatorController extends AbstractDatasetControl
     @ApiOperation(value = "Get ranges")
     @RequestMapping(value = "/range", method = POST)
     public @ResponseBody Map<String, Map<String, Integer>> getAgriculturalWomenRanges(
-            @RequestBody @Valid final AgriculturalWomenFilterPagingRequest request) {
+            @RequestBody(required = false) @Valid final AgriculturalWomenFilterPagingRequest request) {
         Map<String, Map<String, Integer>> ret = new HashMap<>();
         List<AgriculturalWomenIndicator> list = datasetService.findAll(getSpecifications(request));
         if (list != null && list.size() > 0) {
@@ -70,10 +71,10 @@ public class AgriculturalWomenIndicatorController extends AbstractDatasetControl
     }
 
     @CrossOrigin
-    @ApiOperation(value = "Get poverty by region and year summary data")
+    @ApiOperation(value = "Get agricultural women summary data")
     @RequestMapping(value = "/summary", method = POST)
-    public @ResponseBody List getSummaryIndicatorWomen(
-            @RequestBody @Valid final AgriculturalWomenFilterPagingRequest req) {
+    public @ResponseBody List<AgriculturalWomenSummary> getSummaryIndicatorWomen(
+            @RequestBody(required = false) @Valid final AgriculturalWomenFilterPagingRequest req) {
         AgriculturalWomenFilterState filterState = new AgriculturalWomenFilterState(req);
         return summaryIndicatorRepository.getAgriculturalWomenIndicator(filterState.getSpecification());
     }

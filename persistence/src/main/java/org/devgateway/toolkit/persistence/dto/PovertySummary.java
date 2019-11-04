@@ -1,18 +1,24 @@
 package org.devgateway.toolkit.persistence.dto;
 
+import org.devgateway.toolkit.persistence.dao.categories.PovertyLevel;
+
 public class PovertySummary {
     private long count;
     private String povertyLevel;
     private String povertyLevelFr;
     private String region;
+    private String regionFr;
     private int year;
 
     public PovertySummary(Object[] objects) {
         if (objects != null && objects.length > 3) {
             this.count = (long) objects[0];
-            this.povertyLevel = objects[1].toString();
+            PovertyLevel povertyLevel = (PovertyLevel) objects[1];
+            this.povertyLevel = povertyLevel.getLabel();
+            this.povertyLevelFr = povertyLevel.getLabelFr();
             this.year = (int) objects[2];
             this.region = objects[3].toString();
+            this.regionFr = objects[3].toString();
         }
     }
 
@@ -54,5 +60,13 @@ public class PovertySummary {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public String getRegionFr() {
+        return regionFr;
+    }
+
+    public void setRegionFr(String regionFr) {
+        this.regionFr = regionFr;
     }
 }

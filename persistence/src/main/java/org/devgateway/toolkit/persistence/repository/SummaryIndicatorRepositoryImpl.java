@@ -2,11 +2,17 @@ package org.devgateway.toolkit.persistence.repository;
 
 
 import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
+import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
+import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator_;
+import org.devgateway.toolkit.persistence.dto.AOISummary;
 import org.devgateway.toolkit.persistence.dto.AgriculturalWomenSummary;
+import org.devgateway.toolkit.persistence.dto.FoodLossSummary;
 import org.devgateway.toolkit.persistence.dto.PovertySummary;
+import org.devgateway.toolkit.persistence.service.AOIIndicatorService;
 import org.devgateway.toolkit.persistence.service.AgriculturalWomenIndicatorService;
+import org.devgateway.toolkit.persistence.service.FoodLossIndicatorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +44,12 @@ public class SummaryIndicatorRepositoryImpl implements SummaryIndicatorRepositor
 
     @Autowired
     private AgriculturalWomenIndicatorService womenService;
+
+    @Autowired
+    private AOIIndicatorService aoiService;
+
+    @Autowired
+    private FoodLossIndicatorService foodLossService;
 
     public List<PovertySummary> getPovertyByYearAndRegion(final Specification<PovertyIndicator> spec) {
         LOGGER.debug("getPovertyByYearAndRegion");
@@ -76,5 +88,15 @@ public class SummaryIndicatorRepositoryImpl implements SummaryIndicatorRepositor
         return womenIndicators.stream().map(w -> new AgriculturalWomenSummary(w)).collect(Collectors.toList());
     }
 
+    @Override
+    public List<AOISummary> getAOIIndicator(Specification<AgricultureOrientationIndexIndicator> spec) {
+        List<AgricultureOrientationIndexIndicator> aoiIndicators = aoiService.findAll(spec);
+        return aoiIndicators.stream().map(a -> new AOISummary(a)).collect(Collectors.toList());
+    }
 
+    @Override
+    public List<FoodLossSummary> getFoodLossIndicator(Specification<FoodLossIndicator> spec) {
+        List<FoodLossIndicator> foodIndicators = foodLossService.findAll(spec);
+        return foodIndicators.stream().map(f -> new FoodLossSummary(f)).collect(Collectors.toList());
+    }
 }

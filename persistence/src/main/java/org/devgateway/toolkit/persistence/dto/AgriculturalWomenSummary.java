@@ -12,6 +12,7 @@ public class AgriculturalWomenSummary {
     private String groupType;
     private String groupTypeFr;
     private Double percentage;
+    private Double utilizationPercentage;
 
     public AgriculturalWomenSummary(AgriculturalWomenIndicator womenIndicator) {
         this.year = womenIndicator.getYear();
@@ -22,6 +23,7 @@ public class AgriculturalWomenSummary {
         this.groupType = womenIndicator.getGroupType().getLabel();
         this.groupTypeFr = womenIndicator.getGroupType().getLabelFr();
         this.percentage = womenIndicator.getPercentage();
+        this.utilizationPercentage = womenIndicator.getUtilizationPercentage();
     }
 
     public int getYear() {
@@ -86,5 +88,13 @@ public class AgriculturalWomenSummary {
 
     public void setPercentage(Double percentage) {
         this.percentage = percentage;
+    }
+
+    public Double getUtilizationPercentage() {
+        return utilizationPercentage;
+    }
+
+    public void setUtilizationPercentage(Double utilizationPercentage) {
+        this.utilizationPercentage = utilizationPercentage;
     }
 }

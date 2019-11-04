@@ -47,7 +47,7 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
     @CrossOrigin
     @ApiOperation(value = "Get validated data paginated")
     @RequestMapping(value = "/all", method = POST)
-    public @ResponseBody Page<T> getPaginated(@RequestBody @Valid final S pageRequest) {
+    public @ResponseBody Page<T> getPaginated(@RequestBody(required = false) @Valid final S pageRequest) {
         LOGGER.debug("get all validated data");
         Pageable pageable = PageRequest.of(pageRequest.getPageNumber(), pageRequest.getPageSize(),
                 Sort.Direction.ASC, "id");
@@ -58,7 +58,7 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
     @ApiOperation(value = "Dump validated data")
     @RequestMapping(value = "/dump", method = POST)
     public @ResponseBody ResponseEntity<List<T>> getAllValidated(WebRequest webRequest,
-                                          @RequestBody @Valid final S pageRequest) {
+                                          @RequestBody(required = false) @Valid final S pageRequest) {
         ResponseEntity.BodyBuilder responseBuilder = getBodyBuilder(webRequest);
         if (responseBuilder == null) {
             return null;

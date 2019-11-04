@@ -3,9 +3,12 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
+import org.devgateway.toolkit.persistence.dto.AOISummary;
+import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.AOIIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterState;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
@@ -41,6 +44,9 @@ public class AOIIndicatorController extends AbstractDatasetController<Agricultur
     public static final String DISBURSED = "disbursedExpenditures";
     public static final String SUBSIDIES = "subsidies";
 
+    @Autowired
+    private SummaryIndicatorRepository summaryIndicatorRepository;
+
     public AOIIndicatorController(AOIIndicatorService datasetService) {
         super(datasetService);
     }
@@ -49,7 +55,7 @@ public class AOIIndicatorController extends AbstractDatasetController<Agricultur
     @ApiOperation(value = "Get ranges")
     @RequestMapping(value = "/range", method = POST)
     public @ResponseBody Map<String, Map<String, Double>> getAOIRanges(
-            @RequestBody @Valid final AOIFilterPagingRequest request) {
+            @RequestBody(required = false) @Valid final AOIFilterPagingRequest request) {
         Map<String, Map<String, Double>> ret = new HashMap<>();
         List<AgricultureOrientationIndexIndicator> list = datasetService.findAll(getSpecifications(request));
         if (list != null && list.size() > 0) {
@@ -83,6 +89,15 @@ public class AOIIndicatorController extends AbstractDatasetController<Agricultur
         }
 
         return ret;
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get agriculture orientation index data")
+    @RequestMapping(value = "/summary", method = POST)
+    public @ResponseBody List<AOISummary> getSummaryIndicatorWomen(
+            @RequestBody(required = false) @Valid final AOIFilterPagingRequest req) {
+        AOIFilterState filterState = new AOIFilterState(req);
+        return summaryIndicatorRepository.getAOIIndicator(filterState.getSpecification());
     }
 
     @Override
