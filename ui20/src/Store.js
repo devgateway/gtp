@@ -32,5 +32,10 @@ export default function configureStore() {
     ),
   )
 
+
+store.subscribe(()=>{
+
+  
+})
   return store
 }

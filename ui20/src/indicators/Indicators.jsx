@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
-import {loadDefaultFilters, updateGlobalFilter, getGlobalIndicators, updateFilter} from '../modules/Indicator'
+import {loadDefaultFilters, updateGlobalFilter, getGlobalIndicators, updateFilter, applyFilter,applyFilterReady} from '../modules/Indicator'
 import {loadDataItems} from '../modules/Data'
 import {
   Dropdown,
@@ -41,16 +41,28 @@ class Indicators extends Component {
     if (this.props.globalFiltersReady && !this.props.initialDataLoaded) {
       this.props.onLoadGlobalIndicators()
     }
+
+    if (this.props.globalFiltersReady && this.props.initialDataLoaded) {
+        if (this.props.applyFlag){
+            this.props.onApplyReady()
+            this.props.onLoadGlobalIndicators()
+        }
+    }
   }
 
   componentDidMount() {
     //load default filters
     this.props.onLoadDefaultFilters();
+
+    if(this.props.shouldApplyFilters){
+        this.props.onLoadGlobalIndicators()
+        this.props.onApplyReady()
+    }
   }
 
   onAppllyFilters() {
-    //reload data
-    this.props.onLoadGlobalIndicators()
+    this.props.onApply()
+
   }
 
   onResetFilters() {
@@ -108,7 +120,9 @@ const mapStateToProps = state => {
   const globalFiltersReady = (globalFilters && regions && crops) != null
   const initialDataLoaded = globalNumbers != null
 
+  const applyFlag= state.getIn(['indicator', 'applyFlag'])
   const filters = state.getIn(['indicator', 'filters'])
+
   return {
     globalFilters,
     filters,
@@ -116,7 +130,8 @@ const mapStateToProps = state => {
     regions,
     crops,
     globalFiltersReady,
-    initialDataLoaded
+    initialDataLoaded,
+    applyFlag
   }
 }
 
@@ -125,7 +140,9 @@ const mapActionCreators = {
   onChangeGlobalFilter: updateGlobalFilter,
   onLoadGlobalIndicators: getGlobalIndicators,
   onChangeFilter: updateFilter,
-  onLoadFilterData: loadDataItems
+  onLoadFilterData: loadDataItems,
+  onApplyReady: applyFilterReady,
+  onApply:  applyFilter
 };
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(Indicators));
