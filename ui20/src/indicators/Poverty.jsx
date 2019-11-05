@@ -7,7 +7,8 @@ import React, {Component, createRef, useState} from 'react'
 import {FormattedMessage} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown} from './Components'
 import Plot from 'react-plotly.js';
-import {loadDefaultPovertyFilters, loadPovertyChartData, loadDataItems} from '../modules/Indicator'
+import {loadDataItems} from '../modules/Data'
+import {loadDefaultPovertyFilters, loadPovertyChartData} from '../modules/Indicator'
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import PovertyCharts from './PovertyCharts'
@@ -68,21 +69,19 @@ export const RangeSlider = ({max,min,step,selected,onChange,text}) => {
 
 class Pooverty extends Component {
 
-  componentDidMount() {
-  }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
 
-        if (this.props.globalFiltersReady){
+      if (this.props.globalFiltersReady && !this.props.povertyFiltersReady){
+          this.props.onLoadFilterData('range','poverty')
+      }
 
-        }
       if (this.props.filterItemsReady && !this.props.povertyFiltersReady){
           this.props.loadDefaultPovertyFilters()
       }
 
       if (this.props.globalFiltersReady && this.props.povertyFiltersReady && !this.props.data){
-          debugger;
-          this.props.loadPovertyChartData()
+          this.props.onLoadChartData()
       }
   }
 
@@ -165,8 +164,9 @@ const mapStateToProps = state => {
 }
 
 const mapActionCreators = {
-  
+  onLoadFilterData:loadDataItems,
   loadDefaultPovertyFilters,
+  onLoadChartData:loadPovertyChartData
 };
 
 export default connect(mapStateToProps, mapActionCreators)(Pooverty);

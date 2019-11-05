@@ -103,7 +103,7 @@ export const updateFilter = (path, selection) => dispatch => {
 Get global indicators values (responsive to filters)
 */
 export const getGlobalIndicators = () => (dispatch, getState) => {
-
+  debugger;
   const filters = getState().getIn(['indicator', 'filters']).toJS()
 
   api.getGlobalIndicators(filters).then(data => {
@@ -142,6 +142,14 @@ export default (state = initialState, action) => {
         data
       } = action
       return state.set('globalNumbers', Immutable.fromJS(data))
+    }
+
+    case 'LOAD_GLOBAL_INDICATORS_ERROR': {
+      const {
+        data
+      } = action
+      console.log('Error loading data')
+      return state.set('globalNumbers', Immutable.fromJS([]))
     }
 
     case 'CHANGE_CHART_FILTER': {

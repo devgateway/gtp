@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
-import {loadDefaultFilters, updateGlobalFilter, getGlobalIndicators, updateFilter, applyFilter,applyFilterReady} from '../modules/Indicator'
+import {loadDefaultFilters, updateGlobalFilter, updateFilter, applyFilter,applyFilterReady} from '../modules/Indicator'
 import {loadDataItems} from '../modules/Data'
 import {
   Dropdown,
