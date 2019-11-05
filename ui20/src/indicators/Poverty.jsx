@@ -7,7 +7,7 @@ import React, {Component, createRef, useState} from 'react'
 import {FormattedMessage} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown} from './Components'
 import Plot from 'react-plotly.js';
-import {loadDefaultPovertyFilters, loadPovertyChartData} from '../modules/Indicator'
+import {loadDefaultPovertyFilters, loadPovertyChartData, loadDataItems} from '../modules/Indicator'
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import PovertyCharts from './PovertyCharts'
@@ -69,32 +69,27 @@ export const RangeSlider = ({max,min,step,selected,onChange,text}) => {
 class Pooverty extends Component {
 
   componentDidMount() {
-    this.props.onLoadFilterData('range', 'poverty')
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
 
-    if (this.props.povertyFiltersReady && !this.props.defaultFilterReady) {
-      this.props.loadDefaultPovertyFilters()
-    }
+        if (this.props.globalFiltersReady){
 
-
-    if (this.props.defaultFilterReady && !this.initialDataLoaded){
-      this.initialDataLoaded=true;
-      this.props.loadPovertyChartData()
-    }
-
-    if (this.props.defaultFilterReady && this.initialDataLoaded){
-
-        if (this.props.applyFlag){
-            this.props.loadPovertyChartData()
         }
-    }
+      if (this.props.filterItemsReady && !this.props.povertyFiltersReady){
+          this.props.loadDefaultPovertyFilters()
+      }
+
+      if (this.props.globalFiltersReady && this.props.povertyFiltersReady && !this.props.data){
+          debugger;
+          this.props.loadPovertyChartData()
+      }
   }
 
 
   render() {
     const {filters, onChange,povertyRange,genders=[],activities=[],ageGroups=[]} = this.props
+
 
     const genderSelection = filters && filters.getIn(['poverty', 'gender'])? filters.getIn(['poverty', 'gender']).toJS(): []
     const activitySelection = filters && filters.getIn(['poverty', 'activity'])? filters.getIn(['poverty', 'activity']).toJS() :[]
@@ -106,6 +101,10 @@ class Pooverty extends Component {
     const povertyRangeSelection = filters && filters.getIn(['poverty', 'range'])? filters.getIn(['poverty', 'range']).toJS():[min,max]
 
     return (<div className="indicator.chart.container">
+
+      {(this.props.globalFiltersReady)?<h1>Global Filter  ready</h1>:""}
+
+
       <div className="indicator chart title poverty">
         <p>
           <FormattedMessage id="inidicators.chart.poverty.title" defaultMessage="Proportion of population below the international poverty line"></FormattedMessage>
@@ -148,20 +147,26 @@ class Pooverty extends Component {
 }
 
 const mapStateToProps = state => {
+
+  const filters = state.getIn(['indicator', 'filters'])
+
   const activities = state.getIn(['data', 'items', 'professionalActivity']);
   const genders = state.getIn(['data', 'items', 'gender']);
   const ageGroups = state.getIn(['data', 'items', 'ageGroup']);
   const povertyRange = state.getIn(['data', 'items', 'range']);
-  const filters = state.getIn(['indicator', 'filters'])
-  const povertyFiltersReady = (activities && genders && ageGroups && povertyRange) != null
-  const defaultFilterReady = filters.get('poverty') != null
+
+
+  const filterItemsReady = (activities  && ageGroups && povertyRange) != null
+  const povertyFiltersReady = filters.get('poverty') != null
+
   const data=state.getIn(['indicator','poverty','data'])
-  return {activities, genders, ageGroups, povertyRange, povertyFiltersReady, defaultFilterReady, data}
+
+  return {activities, genders, ageGroups, povertyRange, filterItemsReady, povertyFiltersReady,data}
 }
 
 const mapActionCreators = {
+  
   loadDefaultPovertyFilters,
-  loadPovertyChartData
 };
 
 export default connect(mapStateToProps, mapActionCreators)(Pooverty);

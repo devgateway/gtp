@@ -8,8 +8,8 @@ const initialState = Immutable.fromJS({
 
 
 export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
-  const filters = getState().getIn('filters')
 
+  const filters = getState().getIn('filters')
   const gender = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
   const professionalActivity = getState().getIn(['data', 'items', 'professionalActivity']).map(a => a.id);
   const ageGroup = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);
@@ -32,12 +32,12 @@ export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
 
 
 export  const applyFilter=()=>dispatch=>{
-  debugger;
+
   dispatch({type: 'APPLY_FILTER_FLAG_ON'})
 }
 
 export  const applyFilterReady=()=>dispatch=>{
-  debugger;
+
   dispatch({type: 'APPLY_FILTER_FLAG_OFF'})
 }
 

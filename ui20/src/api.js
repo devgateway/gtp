@@ -68,7 +68,7 @@ export const getDataSet = (name) => {
 }
 
 export const getItems = (category, path) => {
-  return get(API_ROOT + itemsURLBuilder(category, path))
+  return post(API_ROOT + itemsURLBuilder(category, path))
 }
 
 
@@ -82,7 +82,7 @@ export const loadPovertyChartData = (params) => {
            resolve(data)
 
         }).catch(error=>{
-          debugger;
+
           reject(error)
         })
       })
@@ -136,7 +136,7 @@ export const loadPovertyChartData = (params) => {
     export const getDefaultIndicatorFilters = () => {
       return new Promise((resolve, reject) => {
         resolve({
-          year: [2019],
+          year: [],
           region: [],
           crop: []
         })

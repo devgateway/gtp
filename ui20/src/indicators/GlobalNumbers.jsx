@@ -1,8 +1,8 @@
 
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
-import {FormattedMessage} from 'react-intl';
-import {FormattedNumber}  from 'react-intl'
+import {FormattedMessage, FormattedNumber} from 'react-intl';
+import {getGlobalIndicators}  from '../modules/Indicator'
 import {
   Dropdown,
   Grid,
@@ -14,11 +14,15 @@ import {
 } from 'semantic-ui-react'
 
 
+import {connect} from 'react-redux';
+
+
  const GlobalNumbers=(props)=>{
  const data=props.data || []
 
   return (
     <Grid className="indicator global numbers" columns={4} divided>
+      <h2>{props.globalFiltersReady?"Global Numbers Ready To Load":""}</h2>
       <Grid.Row>
       {
         data.map(n=>(
@@ -49,4 +53,15 @@ import {
     </Grid>)
 }
 
-export default GlobalNumbers
+
+
+const mapStateToProps = state => {
+
+  return {}
+}
+
+const mapActionCreators = {
+  getGlobalIndicators,
+};
+
+export default connect(mapStateToProps, mapActionCreators)(GlobalNumbers);
