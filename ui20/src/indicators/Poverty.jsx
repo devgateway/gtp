@@ -86,7 +86,9 @@ class Pooverty extends Component {
 
     if (this.props.defaultFilterReady && this.initialDataLoaded){
 
-        debugger;
+        if (this.props.applyFlag){
+            this.props.loadPovertyChartData()
+        }
     }
   }
 
