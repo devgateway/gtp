@@ -29,6 +29,21 @@ export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
 }
 
 
+
+
+export  const applyFilter=()=>dispatch=>{
+  debugger;
+  dispatch({type: 'APPLY_FILTER_FLAG_ON'})
+}
+
+export  const applyFilterReady=()=>dispatch=>{
+  debugger;
+  dispatch({type: 'APPLY_FILTER_FLAG_OFF'})
+}
+
+
+
+
 export const loadPovertyChartData = () => dispatch => {
 
   api.loadPovertyChartData().then(data => {
@@ -149,6 +164,15 @@ export default (state = initialState, action) => {
       } = action
 
       return state.setIn(['poverty', 'data'], data)
+    }
+
+    case 'APPLY_FILTER_FLAG_ON': {
+      const {data} = action
+      return state.setIn(['applyFlag'], true)
+    }
+    case 'APPLY_FILTER_FLAG_OFF': {
+      const {data} = action
+      return state.setIn(['applyFlag'], false)
     }
 
     default: {
