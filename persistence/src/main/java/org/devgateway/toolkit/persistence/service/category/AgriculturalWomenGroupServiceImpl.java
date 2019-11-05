@@ -30,4 +30,5 @@ public class AgriculturalWomenGroupServiceImpl extends BaseJpaServiceImpl<Agricu
     public AgriculturalWomenGroup newInstance() {
         return new AgriculturalWomenGroup();
     }
+
 }

@@ -32,11 +32,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 /**
  * Created by Daniel Oliva
  */
-@Cacheable
 @RestController
 @RequestMapping(value = "/data/poverty")
 @CrossOrigin
-@CacheConfig(cacheNames = "servicesCache")
+@CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "servicesCache")
+@Cacheable
 public class PovertyIndicatorController extends AbstractDatasetController<PovertyIndicator,
         PovertyFilterPagingRequest> {
 

@@ -29,4 +29,5 @@ public interface CategoryRepository<T extends Category> extends TextSearchableRe
     @Override
     @Query("select cat from  #{#entityName} cat where lower(cat.label) like %:code%")
     Page<T> searchText(@Param("code") String code, Pageable page);
+
 }

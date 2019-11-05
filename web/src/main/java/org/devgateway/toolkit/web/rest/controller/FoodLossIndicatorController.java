@@ -9,6 +9,7 @@ import org.devgateway.toolkit.web.rest.controller.filter.FoodLossFilterPagingReq
 import org.devgateway.toolkit.web.rest.controller.filter.FoodLossFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +32,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping(value = "/data/foodLoss")
 @CrossOrigin
-@CacheConfig(cacheNames = "servicesCache")
+@CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "servicesCache")
+@Cacheable
 public class FoodLossIndicatorController extends AbstractDatasetController<FoodLossIndicator,
         FoodLossFilterPagingRequest> {
 

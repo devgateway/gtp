@@ -470,4 +470,36 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="CategoryTypeIds" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE category add column type int8;
+
+            UPDATE category SET type='1' WHERE dtype = 'AgriculturalWomenGroup' AND label = 'Age Group';
+            UPDATE category SET type='2' WHERE dtype = 'AgriculturalWomenGroup' AND label = 'Method of enforcement';
+            UPDATE category SET type='3' WHERE dtype = 'AgriculturalWomenGroup' AND label = 'Distribution areas/parcels';
+            UPDATE category SET type='4' WHERE dtype = 'AgriculturalWomenGroup' AND label = 'Distribution zones/utilized zones';
+
+            UPDATE category SET type='1' WHERE dtype = 'IndexType' AND label = 'Budget public total';
+            UPDATE category SET type='1' WHERE dtype = 'IndexType' AND label = 'Specific Agriculture Expenditures';
+            UPDATE category SET type='1' WHERE dtype = 'IndexType' AND label = 'Expenditure on agriculture';
+            UPDATE category SET type='1' WHERE dtype = 'IndexType' AND label = 'Administrative costs';
+            UPDATE category SET type='1' WHERE dtype = 'IndexType' AND label = 'Government Expenditures in Support of Agriculture and Food (DPAA)';
+            UPDATE category SET type='1' WHERE dtype = 'IndexType' AND label = 'Administrative costs in DPAA';
+            UPDATE category SET type='1' WHERE dtype = 'IndexType' AND label = 'Specific expenditure in total public budget (DPAA meaning restricted)';
+            UPDATE category SET type='1' WHERE dtype = 'IndexType' AND label = 'Expenditure in favor in total public budget';
+            UPDATE category SET type='1' WHERE dtype = 'IndexType' AND label = 'DPAA (broad sense) in total public budget';
+            UPDATE category SET type='2' WHERE dtype = 'IndexType' AND label = 'Variable inputs (seeds, fertilizers, other)';
+            UPDATE category SET type='2' WHERE dtype = 'IndexType' AND label = 'Other payments to producers';
+            UPDATE category SET type='2' WHERE dtype = 'IndexType' AND label = 'Capital (equipment, on-farm irrigation, livestock, other basic on-farm infrastructure)';
+            UPDATE category SET type='2' WHERE dtype = 'IndexType' AND label = 'On-farm services (control (e.g. pests, veterinary services, technical assistance, extension, etc.)';
+            UPDATE category SET type='2' WHERE dtype = 'IndexType' AND label = 'Income Support';
+            UPDATE category SET type='2' WHERE dtype = 'IndexType' AND label = 'Input subsidy ratio / GDP';
+
+        ]]></sql>
+    </changeSet>
+
+
 </databaseChangeLog>

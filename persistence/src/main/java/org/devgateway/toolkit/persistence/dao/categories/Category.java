@@ -53,6 +53,8 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
 
     private String description;
 
+    private Integer type;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "category")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @BatchSize(size = 100)
@@ -147,6 +149,14 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
 
     public void setDescription(final String description) {
         this.description = description;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     @Override

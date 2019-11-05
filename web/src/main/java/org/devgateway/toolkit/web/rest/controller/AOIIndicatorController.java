@@ -3,9 +3,11 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
+import org.devgateway.toolkit.persistence.dao.categories.IndexType;
 import org.devgateway.toolkit.persistence.dto.AOISummary;
 import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.AOIIndicatorService;
+import org.devgateway.toolkit.persistence.service.category.IndexTypeService;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -32,23 +35,28 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 /**
  * Created by Daniel Oliva
  */
-@Cacheable
 @RestController
 @RequestMapping(value = "/data/agOrientation")
 @CrossOrigin
-@CacheConfig(cacheNames = "servicesCache")
+@CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "servicesCache")
+@Cacheable
 public class AOIIndicatorController extends AbstractDatasetController<AgricultureOrientationIndexIndicator,
         AOIFilterPagingRequest> {
 
     public static final String BUDGETED = "budgetedExpenditures";
     public static final String DISBURSED = "disbursedExpenditures";
     public static final String SUBSIDIES = "subsidies";
+    public static final int TOTAL_PUBLIC_BUDGET_TYPE_ID = 1;
+    public static final int SUBSIDIES_TYPE_ID = 2;
 
     @Autowired
     private SummaryIndicatorRepository summaryIndicatorRepository;
 
-    public AOIIndicatorController(AOIIndicatorService datasetService) {
+    private final List<IndexType> indexTypes;
+
+    public AOIIndicatorController(AOIIndicatorService datasetService, IndexTypeService indexTypeService) {
         super(datasetService);
+        indexTypes = indexTypeService.findAll();
     }
 
     @CrossOrigin
@@ -94,10 +102,26 @@ public class AOIIndicatorController extends AbstractDatasetController<Agricultur
     @CrossOrigin
     @ApiOperation(value = "Get agriculture orientation index data")
     @RequestMapping(value = "/summary", method = POST)
-    public @ResponseBody List<AOISummary> getSummaryIndicatorWomen(
+    public @ResponseBody List<AOISummary> getSummaryIndicatorAOI(
             @RequestBody(required = false) @Valid final AOIFilterPagingRequest req) {
         AOIFilterState filterState = new AOIFilterState(req);
         return summaryIndicatorRepository.getAOIIndicator(filterState.getSpecification());
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get agriculture orientation index data by total budget")
+    @RequestMapping(value = "/summary/totalBudget", method = POST)
+    public @ResponseBody List<AOISummary> getSummaryIndicatorAOIByTotalBudget(
+            @RequestBody(required = false) @Valid final AOIFilterPagingRequest req) {
+        return getSummaryByIndexType(req, TOTAL_PUBLIC_BUDGET_TYPE_ID);
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get agriculture orientation index data by subsidies")
+    @RequestMapping(value = "/summary/subsidies", method = POST)
+    public @ResponseBody List<AOISummary> getSummaryIndicatorAOIBySubsidies(
+            @RequestBody(required = false) @Valid final AOIFilterPagingRequest req) {
+        return getSummaryByIndexType(req, SUBSIDIES_TYPE_ID);
     }
 
     @Override
@@ -105,6 +129,21 @@ public class AOIIndicatorController extends AbstractDatasetController<Agricultur
             AOIFilterPagingRequest pagingRequest) {
         AOIFilterState filterState = new AOIFilterState(pagingRequest);
         return filterState.getSpecification();
+    }
+
+    private List<AOISummary> getSummaryByIndexType(AOIFilterPagingRequest req,
+                                                             final int type) {
+        List<Integer> idList = indexTypes.stream()
+                .filter(g -> g.getType().equals(type))
+                .map(g -> new Integer(g.getId().intValue()))
+                .collect(Collectors.toList());
+        if (req == null) {
+            req = new AOIFilterPagingRequest();
+        }
+        req.setIndexType(new TreeSet<>(idList));
+
+        AOIFilterState filterState = new AOIFilterState(req);
+        return summaryIndicatorRepository.getAOIIndicator(filterState.getSpecification());
     }
 
 }

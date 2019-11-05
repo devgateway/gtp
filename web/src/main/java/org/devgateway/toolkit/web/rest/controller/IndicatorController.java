@@ -21,6 +21,7 @@ import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterPagingRequ
 import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping(value = "/data/indicator")
 @CrossOrigin
-@CacheConfig(cacheNames = "servicesCache")
+@CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "servicesCache")
+@Cacheable
 public class IndicatorController {
 
     public static final String ACCUM = "accum";
