@@ -13,14 +13,19 @@ public class DefaultFilterPagingRequest extends GenericPagingRequest {
     }
 
     public DefaultFilterPagingRequest(DefaultFilterPagingRequest req) {
-        this.setId(req.getId());
-        this.setDatasetId(req.getDatasetId());
-        this.setCrop(req.getCrop());
-        this.setRegion(req.getRegion());
-        this.setYear(req.getYear());
-        this.setGender(req.getGender());
-        this.setPageNumber(req.getPageNumber());
-        this.setPageSize(req.getPageSize());
+        if (req != null) {
+            this.setId(req.getId());
+            this.setDatasetId(req.getDatasetId());
+            this.setCrop(req.getCrop());
+            this.setRegion(req.getRegion());
+            this.setYear(req.getYear());
+            this.setGender(req.getGender());
+            this.setPageNumber(req.getPageNumber());
+            this.setPageSize(req.getPageSize());
+        } else {
+            this.setPageNumber(0);
+            this.setPageSize(DEFAULT_PAGE_SIZE);
+        }
     }
 
     @ApiModelProperty(value = "Filter by data id")

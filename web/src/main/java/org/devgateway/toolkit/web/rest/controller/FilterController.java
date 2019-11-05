@@ -32,6 +32,8 @@ import org.devgateway.toolkit.persistence.service.category.PovertyLevelService;
 import org.devgateway.toolkit.persistence.service.category.ProfessionalActivityService;
 import org.devgateway.toolkit.persistence.service.category.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,6 +53,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping(value = "/data/filter")
 @CrossOrigin
+@CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "servicesCache")
+@Cacheable
 public class FilterController {
 
     @Autowired
@@ -203,7 +207,7 @@ public class FilterController {
     @ApiOperation(value = "Get campaing/year information")
     @RequestMapping(value = "/year", method = {POST, GET})
     public List<Map<String, Integer>> getAllYears() {
-        Integer startingYear = 2016;
+        Integer startingYear = 2010;
         List<AdminSettings> adminSettings =  adminService.findAll();
         if (adminSettings.size() > 0 && adminSettings.get(0).getStartingYear() != null) {
             startingYear = adminSettings.get(0).getStartingYear();

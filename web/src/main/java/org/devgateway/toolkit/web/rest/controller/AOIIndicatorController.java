@@ -3,15 +3,21 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
+import org.devgateway.toolkit.persistence.dao.categories.IndexType;
+import org.devgateway.toolkit.persistence.dto.AOISummary;
+import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.AOIIndicatorService;
+import org.devgateway.toolkit.persistence.service.category.IndexTypeService;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterState;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -20,36 +26,44 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
 /**
  * Created by Daniel Oliva
  */
-@Cacheable
 @RestController
 @RequestMapping(value = "/data/agOrientation")
 @CrossOrigin
-@CacheConfig(cacheNames = "servicesCache")
+@CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "servicesCache")
+@Cacheable
 public class AOIIndicatorController extends AbstractDatasetController<AgricultureOrientationIndexIndicator,
         AOIFilterPagingRequest> {
 
     public static final String BUDGETED = "budgetedExpenditures";
     public static final String DISBURSED = "disbursedExpenditures";
     public static final String SUBSIDIES = "subsidies";
+    public static final int TOTAL_PUBLIC_BUDGET_TYPE_ID = 1;
+    public static final int SUBSIDIES_TYPE_ID = 2;
 
-    public AOIIndicatorController(AOIIndicatorService datasetService) {
+    @Autowired
+    private SummaryIndicatorRepository summaryIndicatorRepository;
+
+    private final List<IndexType> indexTypes;
+
+    public AOIIndicatorController(AOIIndicatorService datasetService, IndexTypeService indexTypeService) {
         super(datasetService);
+        indexTypes = indexTypeService.findAll();
     }
 
     @CrossOrigin
     @ApiOperation(value = "Get ranges")
-    @RequestMapping(value = "/range", method = {POST, GET})
-    public Map<String, Map<String, Double>> getAOIRanges(
-            @ModelAttribute @Valid final AOIFilterPagingRequest request) {
+    @RequestMapping(value = "/range", method = POST)
+    public @ResponseBody Map<String, Map<String, Double>> getAOIRanges(
+            @RequestBody(required = false) @Valid final AOIFilterPagingRequest request) {
         Map<String, Map<String, Double>> ret = new HashMap<>();
         List<AgricultureOrientationIndexIndicator> list = datasetService.findAll(getSpecifications(request));
         if (list != null && list.size() > 0) {
@@ -85,11 +99,51 @@ public class AOIIndicatorController extends AbstractDatasetController<Agricultur
         return ret;
     }
 
+    @CrossOrigin
+    @ApiOperation(value = "Get agriculture orientation index data")
+    @RequestMapping(value = "/summary", method = POST)
+    public @ResponseBody List<AOISummary> getSummaryIndicatorAOI(
+            @RequestBody(required = false) @Valid final AOIFilterPagingRequest req) {
+        AOIFilterState filterState = new AOIFilterState(req);
+        return summaryIndicatorRepository.getAOIIndicator(filterState.getSpecification());
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get agriculture orientation index data by total budget")
+    @RequestMapping(value = "/summary/totalBudget", method = POST)
+    public @ResponseBody List<AOISummary> getSummaryIndicatorAOIByTotalBudget(
+            @RequestBody(required = false) @Valid final AOIFilterPagingRequest req) {
+        return getSummaryByIndexType(req, TOTAL_PUBLIC_BUDGET_TYPE_ID);
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get agriculture orientation index data by subsidies")
+    @RequestMapping(value = "/summary/subsidies", method = POST)
+    public @ResponseBody List<AOISummary> getSummaryIndicatorAOIBySubsidies(
+            @RequestBody(required = false) @Valid final AOIFilterPagingRequest req) {
+        return getSummaryByIndexType(req, SUBSIDIES_TYPE_ID);
+    }
+
     @Override
     protected Specification<AgricultureOrientationIndexIndicator> getSpecifications(
             AOIFilterPagingRequest pagingRequest) {
         AOIFilterState filterState = new AOIFilterState(pagingRequest);
         return filterState.getSpecification();
+    }
+
+    private List<AOISummary> getSummaryByIndexType(AOIFilterPagingRequest req,
+                                                             final int type) {
+        List<Integer> idList = indexTypes.stream()
+                .filter(g -> g.getType().equals(type))
+                .map(g -> new Integer(g.getId().intValue()))
+                .collect(Collectors.toList());
+        if (req == null) {
+            req = new AOIFilterPagingRequest();
+        }
+        req.setIndexType(new TreeSet<>(idList));
+
+        AOIFilterState filterState = new AOIFilterState(req);
+        return summaryIndicatorRepository.getAOIIndicator(filterState.getSpecification());
     }
 
 }

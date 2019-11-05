@@ -1,8 +1,18 @@
 package org.devgateway.toolkit.persistence.repository;
 
 
+import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
+import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
+import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator_;
+import org.devgateway.toolkit.persistence.dto.AOISummary;
+import org.devgateway.toolkit.persistence.dto.AgriculturalWomenSummary;
+import org.devgateway.toolkit.persistence.dto.FoodLossSummary;
+import org.devgateway.toolkit.persistence.dto.PovertySummary;
+import org.devgateway.toolkit.persistence.service.AOIIndicatorService;
+import org.devgateway.toolkit.persistence.service.AgriculturalWomenIndicatorService;
+import org.devgateway.toolkit.persistence.service.FoodLossIndicatorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +41,15 @@ public class SummaryIndicatorRepositoryImpl implements SummaryIndicatorRepositor
 
     @Autowired
     private EntityManager em;
+
+    @Autowired
+    private AgriculturalWomenIndicatorService womenService;
+
+    @Autowired
+    private AOIIndicatorService aoiService;
+
+    @Autowired
+    private FoodLossIndicatorService foodLossService;
 
     public List<PovertySummary> getPovertyByYearAndRegion(final Specification<PovertyIndicator> spec) {
         LOGGER.debug("getPovertyByYearAndRegion");
@@ -63,60 +82,21 @@ public class SummaryIndicatorRepositoryImpl implements SummaryIndicatorRepositor
         return summary;
     }
 
-    class PovertySummary {
-        private long count;
-        private String povertyLevel;
-        private String povertyLevelFr;
-        private String region;
-        private int year;
+    public List<AgriculturalWomenSummary> getAgriculturalWomenIndicator(
+            final Specification<AgriculturalWomenIndicator> spec) {
+        List<AgriculturalWomenIndicator> womenIndicators = womenService.findAll(spec);
+        return womenIndicators.stream().map(w -> new AgriculturalWomenSummary(w)).collect(Collectors.toList());
+    }
 
-        PovertySummary(Object[] objects) {
-            if (objects != null && objects.length > 3) {
-                this.count = (long) objects[0];
-                this.povertyLevel = objects[1].toString();
-                this.year = (int) objects[2];
-                this.region = objects[3].toString();
-            }
-        }
+    @Override
+    public List<AOISummary> getAOIIndicator(Specification<AgricultureOrientationIndexIndicator> spec) {
+        List<AgricultureOrientationIndexIndicator> aoiIndicators = aoiService.findAll(spec);
+        return aoiIndicators.stream().map(a -> new AOISummary(a)).collect(Collectors.toList());
+    }
 
-        public long getCount() {
-            return count;
-        }
-
-        public void setCount(long count) {
-            this.count = count;
-        }
-
-        public String getPovertyLevel() {
-            return povertyLevel;
-        }
-
-        public void setPovertyLevel(String povertyLevel) {
-            this.povertyLevel = povertyLevel;
-        }
-
-        public String getPovertyLevelFr() {
-            return povertyLevelFr;
-        }
-
-        public void setPovertyLevelFr(String povertyLevelFr) {
-            this.povertyLevelFr = povertyLevelFr;
-        }
-
-        public String getRegion() {
-            return region;
-        }
-
-        public void setRegion(String region) {
-            this.region = region;
-        }
-
-        public int getYear() {
-            return year;
-        }
-
-        public void setYear(int year) {
-            this.year = year;
-        }
+    @Override
+    public List<FoodLossSummary> getFoodLossIndicator(Specification<FoodLossIndicator> spec) {
+        List<FoodLossIndicator> foodIndicators = foodLossService.findAll(spec);
+        return foodIndicators.stream().map(f -> new FoodLossSummary(f)).collect(Collectors.toList());
     }
 }

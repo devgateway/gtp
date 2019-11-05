@@ -2,14 +2,19 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
+import org.devgateway.toolkit.persistence.dto.FoodLossSummary;
+import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.FoodLossIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.FoodLossFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.FoodLossFilterState;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -19,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
@@ -28,12 +32,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping(value = "/data/foodLoss")
 @CrossOrigin
-@CacheConfig(cacheNames = "servicesCache")
+@CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "servicesCache")
+@Cacheable
 public class FoodLossIndicatorController extends AbstractDatasetController<FoodLossIndicator,
         FoodLossFilterPagingRequest> {
 
     public static final String KILOGRAM = "avgKilogram";
     public static final String PERCENTAGE = "avgPercentage";
+
+    @Autowired
+    private SummaryIndicatorRepository summaryIndicatorRepository;
 
     public FoodLossIndicatorController(FoodLossIndicatorService datasetService) {
         super(datasetService);
@@ -48,9 +56,9 @@ public class FoodLossIndicatorController extends AbstractDatasetController<FoodL
 
     @CrossOrigin
     @ApiOperation(value = "Get ranges")
-    @RequestMapping(value = "/range", method = {POST, GET})
-    public Map<String, Map<String, Double>> getFoodLossRanges(
-            @ModelAttribute @Valid final FoodLossFilterPagingRequest request) {
+    @RequestMapping(value = "/range", method = POST)
+    public @ResponseBody Map<String, Map<String, Double>> getFoodLossRanges(
+            @RequestBody(required = false) @Valid final FoodLossFilterPagingRequest request) {
         Map<String, Map<String, Double>> ret = new HashMap<>();
         List<FoodLossIndicator> list = datasetService.findAll(getSpecifications(request));
         if (list != null && list.size() > 0) {
@@ -70,5 +78,14 @@ public class FoodLossIndicatorController extends AbstractDatasetController<FoodL
         }
 
         return ret;
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get food loss summary data")
+    @RequestMapping(value = "/summary", method = POST)
+    public @ResponseBody List<FoodLossSummary> getSummaryIndicatorWomen(
+            @RequestBody(required = false) @Valid final FoodLossFilterPagingRequest req) {
+        FoodLossFilterState filterState = new FoodLossFilterState(req);
+        return summaryIndicatorRepository.getFoodLossIndicator(filterState.getSpecification());
     }
 }
