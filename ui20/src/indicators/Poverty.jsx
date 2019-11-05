@@ -10,6 +10,7 @@ import Plot from 'react-plotly.js';
 import {loadDefaultPovertyFilters, loadPovertyChartData} from '../modules/Indicator'
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
+import PovertyCharts from './PovertyCharts'
 
 const gender2options = (genders) => genders
   ? genders.sort((c1, c2) => c1.label.localeCompare(c2.label)).map(r => ({'key': r.id, 'text': r.label, 'value': r.id}))
@@ -85,6 +86,7 @@ class Pooverty extends Component {
 
     if (this.props.defaultFilterReady && this.initialDataLoaded){
 
+        debugger;
     }
   }
 
@@ -101,11 +103,7 @@ class Pooverty extends Component {
 
     const povertyRangeSelection = filters && filters.getIn(['poverty', 'range'])? filters.getIn(['poverty', 'range']).toJS():[min,max]
 
-      if(this.props.data){
-
-      }
-
-    return (<div className="indicator-chart-container">
+    return (<div className="indicator.chart.container">
       <div className="indicator chart title poverty">
         <p>
           <FormattedMessage id="inidicators.chart.poverty.title" defaultMessage="Proportion of population below the international poverty line"></FormattedMessage>
@@ -139,7 +137,8 @@ class Pooverty extends Component {
 
       </div>
 
-      {this.props.data&& <Plot layout={this.props.data.layout} data={this.props.data.data}></Plot>}
+      {this.props.data && <PovertyCharts data={this.props.data}/>}
+
       </div>)
 
   }
