@@ -60,7 +60,7 @@ public class DataFilterState<T extends Data> implements Serializable {
 
     protected void addStringPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,
                                        TreeSet<String> values, String columnName) {
-        if (values != null) {
+        if (values != null && values.size() > 0) {
             CriteriaBuilder.In<String> inClause = cb.in(root.get(columnName));
             for (String str:values) {
                 inClause.value(str);
@@ -85,7 +85,7 @@ public class DataFilterState<T extends Data> implements Serializable {
     }
 
     protected void addYearDatePredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates, String column) {
-        if (filter.getYear() != null) {
+        if (filter.getYear() != null  && filter.getYear().size() > 0) {
             List<Predicate> yearPred = new ArrayList<>();
             for (Integer value:filter.getYear()) {
                 yearPred.add(cb.equal(cb.function(YEAR, Integer.class, root.get(column)), value));
