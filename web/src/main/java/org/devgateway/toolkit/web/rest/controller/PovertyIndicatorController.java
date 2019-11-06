@@ -91,7 +91,7 @@ public class PovertyIndicatorController extends AbstractDatasetController<Povert
     public @ResponseBody List<PovertySummary> getSummaryIndicatorPoverty(
             @RequestBody(required = false) @Valid final PovertyFilterPagingRequest req) {
         PovertyFilterState filterState = new PovertyFilterState(req);
-        return summaryIndicatorRepository.getPovertyByYearAndRegion(filterState.getSpecification());
+        return summaryIndicatorRepository.getPovertyByYearAndRegionAndLevel(filterState.getSpecification());
     }
 
 }

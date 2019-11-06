@@ -6,6 +6,7 @@ import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicat
 import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator_;
+import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.dto.AOISummary;
 import org.devgateway.toolkit.persistence.dto.AgriculturalWomenSummary;
 import org.devgateway.toolkit.persistence.dto.FoodLossSummary;
@@ -28,6 +29,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -51,7 +53,7 @@ public class SummaryIndicatorRepositoryImpl implements SummaryIndicatorRepositor
     @Autowired
     private FoodLossIndicatorService foodLossService;
 
-    public List<PovertySummary> getPovertyByYearAndRegion(final Specification<PovertyIndicator> spec) {
+    public List<PovertySummary> getPovertyByYearAndRegionAndLevel(final Specification<PovertyIndicator> spec) {
         LOGGER.debug("getPovertyByYearAndRegion");
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery query = cb.createQuery();
@@ -79,7 +81,41 @@ public class SummaryIndicatorRepositoryImpl implements SummaryIndicatorRepositor
         TypedQuery q = em.createQuery(query);
         List<Object[]> allItems = q.getResultList();
         List<PovertySummary> summary = allItems.stream().map(s -> new PovertySummary(s)).collect(Collectors.toList());
+        calculatePercentage(summary, spec);
         return summary;
+    }
+
+    private void calculatePercentage(List<PovertySummary> summary, final Specification<PovertyIndicator> spec) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery query = cb.createQuery();
+        Root<PovertyIndicator> root = query.from(PovertyIndicator.class);
+        Path<Integer> region = root.join(PovertyIndicator_.REGION);
+
+        query.multiselect(
+                cb.count(root.get(PovertyIndicator_.POVERTY_LEVEL)),
+                root.get(PovertyIndicator_.YEAR),
+                region
+        );
+        query.groupBy(
+                root.get(PovertyIndicator_.YEAR),
+                region
+        );
+        query.orderBy(cb.asc(root.get(PovertyIndicator_.YEAR)), cb.asc(region));
+
+        Predicate predicate = spec.toPredicate(root, query, cb);
+        if (predicate != null) {
+            query.where(predicate);
+        }
+        TypedQuery q = em.createQuery(query);
+        List<Object[]> allItems = q.getResultList();
+        summary.stream().forEach(s -> {
+            Optional<Object[]> total = allItems.stream()
+                    .filter(obj -> (int) obj[1] == s.getYear() && ((Region) obj[2]).getId().equals(s.getRegionId()))
+                    .findAny();
+            if (total.isPresent()) {
+                s.setPercentage(new Double(s.getCount()) / new Double((Long) total.get()[0]));
+            }
+        });
     }
 
     public List<AgriculturalWomenSummary> getAgriculturalWomenIndicator(

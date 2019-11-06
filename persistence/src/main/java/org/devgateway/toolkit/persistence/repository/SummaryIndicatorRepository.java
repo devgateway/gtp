@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface SummaryIndicatorRepository {
 
-    List<PovertySummary> getPovertyByYearAndRegion(final Specification<PovertyIndicator> spec);
+    List<PovertySummary> getPovertyByYearAndRegionAndLevel(final Specification<PovertyIndicator> spec);
 
     List<AgriculturalWomenSummary> getAgriculturalWomenIndicator(final Specification<AgriculturalWomenIndicator> spec);
 
