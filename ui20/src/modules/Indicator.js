@@ -31,31 +31,23 @@ export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
 
 
 
-export  const applyFilter=()=>dispatch=>{
+export const refresh=()=>(dispatch, getState)=>{
+    dispatch(getGlobalIndicators())
+    dispatch(loadPovertyChartData())
 
-  dispatch({type: 'APPLY_FILTER_FLAG_ON'})
-}
-
-export  const applyFilterReady=()=>dispatch=>{
-
-  dispatch({type: 'APPLY_FILTER_FLAG_OFF'})
 }
 
 
 
 
-export const loadPovertyChartData = () => dispatch => {
 
-  api.loadPovertyChartData().then(data => {
+export const loadPovertyChartData = () => (dispatch,getState) => {
 
-    dispatch({
-      type: 'LOAD_POVERTY_CHART_DATA_DONE',
-      data
-    })
-  }).catch(error => dispatch({
-    type: 'POVERTY_CHART_DATA_ERROR',
-    error
-  }))
+  const filters = getState().getIn(['indicator', 'filters']).toJS()
+
+  api.loadPovertyChartData(filters).then(data => {
+    dispatch({type: 'LOAD_POVERTY_CHART_DATA_DONE',data})
+  }).catch(error => dispatch({type: 'POVERTY_CHART_DATA_ERROR',error}))
 }
 
 
@@ -63,12 +55,15 @@ export const loadPovertyChartData = () => dispatch => {
 Get default selected filters
 */
 
-export const loadDefaultFilters = () => dispatch => {
+export const loadDefaultFilters = (refreshData) => dispatch => {
+
+
   api.getDefaultIndicatorFilters().then(data => {
-    dispatch({
-      type: 'LOAD_DEFAULT_FILTERS_DONE',
-      data
-    })
+
+    dispatch({type: 'LOAD_DEFAULT_FILTERS_DONE',data})
+    if(refreshData){
+      dispatch(refresh())
+    }
   }).catch(error => dispatch({
     type: 'LOAD_DEFAULT_FILTERS_ERROR',
     error
@@ -79,6 +74,7 @@ export const loadDefaultFilters = () => dispatch => {
 Update values at global filter level
 */
 export const updateGlobalFilter = (name, selection) => dispatch => {
+
   dispatch({
     type: 'CHANGE_GLOBAL_FILTER',
     name,
@@ -103,14 +99,10 @@ export const updateFilter = (path, selection) => dispatch => {
 Get global indicators values (responsive to filters)
 */
 export const getGlobalIndicators = () => (dispatch, getState) => {
-  debugger;
-  const filters = getState().getIn(['indicator', 'filters']).toJS()
 
+  const filters = getState().getIn(['indicator', 'filters']).toJS()
   api.getGlobalIndicators(filters).then(data => {
-    dispatch({
-      type: 'LOAD_GLOBAL_INDICATORS_DONE',
-      data
-    })
+    dispatch({type: 'LOAD_GLOBAL_INDICATORS_DONE',data})
   }).catch(error => dispatch({
     type: 'LOAD_GLOBAL_INDICATORS_ERROR',
     error
@@ -123,10 +115,7 @@ export const getGlobalIndicators = () => (dispatch, getState) => {
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'LOAD_DEFAULT_FILTERS_DONE': {
-      const {
-        category,
-        data
-      } = action
+      const {category,data} = action
       return state.setIn(['filters', 'global'], Immutable.fromJS(data))
     }
     case 'CHANGE_GLOBAL_FILTER': {
@@ -138,18 +127,16 @@ export default (state = initialState, action) => {
     }
 
     case 'LOAD_GLOBAL_INDICATORS_DONE': {
-      const {
-        data
-      } = action
-      return state.set('globalNumbers', Immutable.fromJS(data))
+      const {data} = action
+      debugger;
+      return state.setIn(['globalNumbers','data'], Immutable.fromJS(data))
+              .deleteIn(['globalNumbers','error'])
     }
 
     case 'LOAD_GLOBAL_INDICATORS_ERROR': {
-      const {
-        data
-      } = action
-      console.log('Error loading data')
-      return state.set('globalNumbers', Immutable.fromJS([]))
+      const {error} = action
+      debugger;
+      return state.setIn(['globalNumbers','data'], Immutable.fromJS([])).setIn(['globalNumbers','error'],error)
     }
 
     case 'CHANGE_CHART_FILTER': {

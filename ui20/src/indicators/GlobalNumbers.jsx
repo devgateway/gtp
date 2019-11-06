@@ -22,24 +22,22 @@ class GlobalNumbers extends Component {
 
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-
       if (this.props.globalFiltersReady && !this.props.data){
-
-          this.props.onLoad()
+        this.props.onLoad()
       }
 
   }
 
 
    render(){
-
-       const data=this.props.data || []
+       const {error}=this.props
+       debugger;
+       const data=this.props.data?this.props.data.toJS():null
         return (
           <Grid className="indicator global numbers" columns={4} divided>
-            <h2>{this.props.globalFiltersReady?"Global Numbers Ready To Load":""}</h2>
+            {error?<div className="message error">Can't load data - {error.message}</div>:null}
             <Grid.Row>
-            {
-              data.map(n=>(
+            {data && data.map(n=>(
               <Grid.Column>
                 <div className="indicator big number">
                     <FormattedNumber minimumFractionDigits={0}  maximumFractionDigits={0} style={n.style} value={n.value}></FormattedNumber>
@@ -53,7 +51,7 @@ class GlobalNumbers extends Component {
             }
             </Grid.Row>
             <Grid.Row>
-              {data.map(n=>(
+              {data && data.map(n=>(
               <Grid.Column>
                 <div className="indicator link">
                   <div className="btn">
@@ -70,8 +68,11 @@ class GlobalNumbers extends Component {
 
 
 const mapStateToProps = state => {
-  const data=state.getIn(['indicator','globalNumbers'])
-  return {data}
+  const data=state.getIn(['indicator','globalNumbers','data'])
+  const error=state.getIn(['indicator','globalNumbers','error'])
+
+  debugger;
+  return {data,error}
 }
 
 const mapActionCreators = {

@@ -4,7 +4,13 @@ import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
-import {loadDefaultFilters, updateGlobalFilter, updateFilter, applyFilter,applyFilterReady} from '../modules/Indicator'
+import {loadDefaultFilters,
+    updateGlobalFilter,
+    getGlobalIndicators,
+    updateFilter,
+    applyFilter,
+    applyFilterReady,
+    refresh} from '../modules/Indicator'
 import {loadDataItems} from '../modules/Data'
 import {
   Dropdown,
@@ -42,12 +48,13 @@ class Indicators extends Component {
   }
 
   onAppllyFilters() {
-
-
+      this.props.onApply()
   }
 
   onResetFilters() {
-    this.props.onLoadDefaultFilters();
+    debugger;
+    this.props.onLoadDefaultFilters(true);
+
   }
 
   onChangeChartFilter(path, value) {
@@ -67,8 +74,6 @@ class Indicators extends Component {
         <div className="indicators global intro">
           <FormattedMessage id="indicators.global.intro" defaultMessage={`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled`}></FormattedMessage>
         </div>
-
-        <h1>{this.props.globalFiltersReady?'READY':''}</h1>
 
 
           <GlobalNumbers  {...this.props}></GlobalNumbers>
@@ -115,7 +120,8 @@ const mapActionCreators = {
   onLoadDefaultFilters: loadDefaultFilters,
   onChangeGlobalFilter: updateGlobalFilter,
   onLoadFilterData: loadDataItems,
-  onChangeFilter:updateFilter
+  onChangeFilter:updateFilter,
+  onApply:refresh
 };
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(Indicators));
