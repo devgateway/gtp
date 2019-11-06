@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.interceptor.KeyGenerator;
 
+import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -30,7 +31,6 @@ public class GenericKeyGenerator implements KeyGenerator {
     public Object generate(final Object target, final Method method, final Object... params) {
         final StringBuilder key = new StringBuilder(target.getClass().getSimpleName());
         key.append(method.getName());
-
         for (final Object param : params) {
             if (param instanceof List<?>) {
                 ((List<?>) param).stream()
@@ -44,6 +44,9 @@ public class GenericKeyGenerator implements KeyGenerator {
     }
 
     private String createKey(final Object param) {
+        if (param instanceof HttpServletResponse) {
+            return "";
+        }
         if (param instanceof GenericPersistable) {
             final GenericPersistable persistable = (GenericPersistable) param;
             if (persistable.getId() != null) {
@@ -53,7 +56,7 @@ public class GenericKeyGenerator implements KeyGenerator {
             }
         } else {
             try {
-                objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+                objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
                 return objectMapper.writeValueAsString(param);
             } catch (JsonProcessingException e) {
                 logger.error(e.getMessage());

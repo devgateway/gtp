@@ -23,6 +23,9 @@ public class PovertyFilterPagingRequest extends DefaultFilterPagingRequest imple
     @ApiModelProperty(value = "Filter by poverty level")
     private TreeSet<Integer> povertyLevel;
 
+    @ApiModelProperty(value = "Filter by professional activity")
+    private TreeSet<Integer> professionalActivity;
+
     public PovertyFilterPagingRequest() {
     }
 
@@ -68,5 +71,13 @@ public class PovertyFilterPagingRequest extends DefaultFilterPagingRequest imple
 
     public void setPovertyLevel(TreeSet<Integer> povertyLevel) {
         this.povertyLevel = povertyLevel;
+    }
+
+    public TreeSet<Integer> getProfessionalActivity() {
+        return professionalActivity;
+    }
+
+    public void setProfessionalActivity(TreeSet<Integer> professionalActivity) {
+        this.professionalActivity = professionalActivity;
     }
 }

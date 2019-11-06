@@ -2,6 +2,7 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
+import org.devgateway.toolkit.persistence.dto.FoodLossDTO;
 import org.devgateway.toolkit.persistence.dto.FoodLossSummary;
 import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.FoodLossIndicatorService;
@@ -35,7 +36,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "servicesCache")
 @Cacheable
 public class FoodLossIndicatorController extends AbstractDatasetController<FoodLossIndicator,
-        FoodLossFilterPagingRequest> {
+        FoodLossFilterPagingRequest, FoodLossDTO> {
 
     public static final String KILOGRAM = "avgKilogram";
     public static final String PERCENTAGE = "avgPercentage";
@@ -52,6 +53,11 @@ public class FoodLossIndicatorController extends AbstractDatasetController<FoodL
             FoodLossFilterPagingRequest pagingRequest) {
         FoodLossFilterState filterState = new FoodLossFilterState(pagingRequest);
         return filterState.getSpecification();
+    }
+
+    @Override
+    protected FoodLossDTO getDTO(FoodLossIndicator indicator) {
+        return new FoodLossDTO(indicator);
     }
 
     @CrossOrigin
