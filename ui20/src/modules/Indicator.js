@@ -8,8 +8,8 @@ const initialState = Immutable.fromJS({
 
 
 export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
-  const filters = getState().getIn('filters')
 
+  const filters = getState().getIn('filters')
   const gender = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
   const professionalActivity = getState().getIn(['data', 'items', 'professionalActivity']).map(a => a.id);
   const ageGroup = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);
@@ -31,31 +31,30 @@ export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
 
 
 
-export  const applyFilter=()=>dispatch=>{
-  debugger;
-  dispatch({type: 'APPLY_FILTER_FLAG_ON'})
-}
-
-export  const applyFilterReady=()=>dispatch=>{
-  debugger;
-  dispatch({type: 'APPLY_FILTER_FLAG_OFF'})
+export const reset=()=>(dispatch,getState)=>{
+    debugger;
+      dispatch(loadDefaultFilters());
+      dispatch(loadDefaultPovertyFilters());
+      dispatch(refresh());
 }
 
 
+export const refresh=()=>(dispatch, getState)=>{
+    dispatch(getGlobalIndicators())
+    dispatch(loadPovertyChartData())
+
+}
 
 
-export const loadPovertyChartData = () => dispatch => {
 
-  api.loadPovertyChartData().then(data => {
+export const loadPovertyChartData = () => (dispatch,getState) => {
+  const filters = getState().getIn(['indicator', 'filters']).toJS()
 
-    dispatch({
-      type: 'LOAD_POVERTY_CHART_DATA_DONE',
-      data
-    })
-  }).catch(error => dispatch({
-    type: 'POVERTY_CHART_DATA_ERROR',
-    error
-  }))
+  debugger;
+
+  api.loadPovertyChartData(filters).then(data => {
+    dispatch({type: 'LOAD_POVERTY_CHART_DATA_DONE',data})
+  }).catch(error => dispatch({type: 'POVERTY_CHART_DATA_ERROR',error}))
 }
 
 
@@ -63,12 +62,14 @@ export const loadPovertyChartData = () => dispatch => {
 Get default selected filters
 */
 
-export const loadDefaultFilters = () => dispatch => {
+export const loadDefaultFilters = (refreshData) => dispatch => {
+
   api.getDefaultIndicatorFilters().then(data => {
-    dispatch({
-      type: 'LOAD_DEFAULT_FILTERS_DONE',
-      data
-    })
+
+    dispatch({type: 'LOAD_DEFAULT_FILTERS_DONE',data})
+    if(refreshData){
+      dispatch(refresh())
+    }
   }).catch(error => dispatch({
     type: 'LOAD_DEFAULT_FILTERS_ERROR',
     error
@@ -79,6 +80,7 @@ export const loadDefaultFilters = () => dispatch => {
 Update values at global filter level
 */
 export const updateGlobalFilter = (name, selection) => dispatch => {
+
   dispatch({
     type: 'CHANGE_GLOBAL_FILTER',
     name,
@@ -105,12 +107,9 @@ Get global indicators values (responsive to filters)
 export const getGlobalIndicators = () => (dispatch, getState) => {
 
   const filters = getState().getIn(['indicator', 'filters']).toJS()
-
+  debugger
   api.getGlobalIndicators(filters).then(data => {
-    dispatch({
-      type: 'LOAD_GLOBAL_INDICATORS_DONE',
-      data
-    })
+    dispatch({type: 'LOAD_GLOBAL_INDICATORS_DONE',data})
   }).catch(error => dispatch({
     type: 'LOAD_GLOBAL_INDICATORS_ERROR',
     error
@@ -123,10 +122,7 @@ export const getGlobalIndicators = () => (dispatch, getState) => {
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'LOAD_DEFAULT_FILTERS_DONE': {
-      const {
-        category,
-        data
-      } = action
+      const {category,data} = action
       return state.setIn(['filters', 'global'], Immutable.fromJS(data))
     }
     case 'CHANGE_GLOBAL_FILTER': {
@@ -138,10 +134,16 @@ export default (state = initialState, action) => {
     }
 
     case 'LOAD_GLOBAL_INDICATORS_DONE': {
-      const {
-        data
-      } = action
-      return state.set('globalNumbers', Immutable.fromJS(data))
+      const {data} = action
+
+      return state.setIn(['globalNumbers','data'], Immutable.fromJS(data))
+              .deleteIn(['globalNumbers','error'])
+    }
+
+    case 'LOAD_GLOBAL_INDICATORS_ERROR': {
+      const {error} = action
+
+      return state.setIn(['globalNumbers','data'], Immutable.fromJS([])).setIn(['globalNumbers','error'],error)
     }
 
     case 'CHANGE_CHART_FILTER': {

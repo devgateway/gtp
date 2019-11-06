@@ -5,7 +5,7 @@ import {CustomFilterDropDown} from './Components'
 import {FormattedMessage} from 'react-intl';
 
 const region2options = (regions) => regions
-  ? regions.sort((r1, r2) => r1.name.localeCompare(r2.name)).map(r => ({'key': r.code, 'text': r.name, 'value': r.id}))
+  ? regions.sort((r1, r2) => r1.name.localeCompare(r2.name)).map(r => ({'key': r.id, 'text': r.name, 'value': r.id}))
   : []
 
 const crop2options = (crops) => crops
