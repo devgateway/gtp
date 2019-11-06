@@ -9,7 +9,7 @@ import {loadDefaultFilters,
     getGlobalIndicators,
     updateFilter,
     applyFilter,
-    applyFilterReady,
+    applyFilterReady,reset,
     refresh} from '../modules/Indicator'
 import {loadDataItems} from '../modules/Data'
 import {
@@ -52,8 +52,7 @@ class Indicators extends Component {
   }
 
   onResetFilters() {
-    debugger;
-    this.props.onLoadDefaultFilters(true);
+    this.props.onReset();
 
   }
 
@@ -121,6 +120,7 @@ const mapActionCreators = {
   onChangeGlobalFilter: updateGlobalFilter,
   onLoadFilterData: loadDataItems,
   onChangeFilter:updateFilter,
+  onReset:reset,
   onApply:refresh
 };
 
