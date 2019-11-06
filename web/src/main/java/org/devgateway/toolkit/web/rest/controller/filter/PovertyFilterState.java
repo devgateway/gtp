@@ -46,7 +46,7 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
     }
 
     private void addProfActivityPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> pred) {
-        addIntPredicates(root, cb, pred, filter.getProfessionalActivity(), PovertyIndicator_.PROFESSIONAL_ACTIVITY);
+        addIntPredicates(root, cb, pred, filter.getActivity(), PovertyIndicator_.PROFESSIONAL_ACTIVITY);
     }
 
     protected void addMinAgePredicate(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
