@@ -74,77 +74,79 @@ export const getItems = (category, path) => {
 
 export const loadPovertyChartData = (params) => {
 
-    return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
 
-        post(URL_POVERTY, params).then((data) => {
+    post(URL_POVERTY, {
+      ...params.global,
+      ...params.poverty
+    }).then((data) => {
 
 
-           resolve(data)
+      resolve(data)
 
-        }).catch(error=>{
+    }).catch(error => {
 
-          reject(error)
-        })
-      })
-    }
+      reject(error)
+    })
+  })
+}
 
-    export const getGlobalIndicators = (params) => {
-      return new Promise((resolve, reject) => {
+export const getGlobalIndicators = (params) => {
+  return new Promise((resolve, reject) => {
 
-        debugger;
-        post(URL_INDICATORS, params.global).then((data) => {
 
-          debugger;
+    post(URL_INDICATORS, params.global).then((data) => {
 
-          const mockData = [
-            {
-              value: data.poverty.data?data.poverty.data.value:null,
-              image: '/sdg/1.svg',
-              text: 'Proportion of population below the international poverty line',
-              key: 'indicator.global.population.short',
-              year: data.poverty.data?data.poverty.data.year:null,
-              style: "percent"
-            }, {
-              value: data.agriculturalWomen.data?data.agriculturalWomen.data.value:null,
-              image: '/sdg/5.svg',
-              text: 'Women in the Agricultural sector',
-              key: 'indicator.global.agricultrural.short',
-              year: data.agriculturalWomen.data?data.agriculturalWomen.data.year:null,
-              style: "percent"
-            }, {
-              value: data.agOrientation.data?data.agOrientation.data.value:null,
-              image: '/sdg/12.svg',
-              text: 'Agriculture orientation index for government expenditures',
-              key: 'indicator.global.aoi.short',
-              year: data.agOrientation.data?data.agOrientation.data.year:null,
-              style: "percent"
-            },
-            {
-              value: data.foodLoss.data?data.foodLoss.data.value:null,
-              image: '/sdg/2.svg',
-              text: 'Global Food Loss Index',
-              key: 'indicator.global.global.food.short',
-              year: data.agriculturalWomen.data?data.agriculturalWomen.data.year:null,
-              style: "percent"
-            }
-          ]
 
-            debugger;
-          resolve(mockData)
 
-        }).catch(error => {
-          console.log('ERROR')
-          reject(error)
-        })
-      })
-    }
+      const mockData = [{
+          value: data.poverty.data ? data.poverty.data.value : null,
+          image: '/sdg/1.svg',
+          text: 'Proportion of population below the international poverty line',
+          key: 'indicator.global.population.short',
+          year: data.poverty.data ? data.poverty.data.year : null,
+          style: "percent"
+        }, {
+          value: data.agriculturalWomen.data ? data.agriculturalWomen.data.value : null,
+          image: '/sdg/5.svg',
+          text: 'Women in the Agricultural sector',
+          key: 'indicator.global.agricultrural.short',
+          year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
+          style: "percent"
+        }, {
+          value: data.agOrientation.data ? data.agOrientation.data.value : null,
+          image: '/sdg/12.svg',
+          text: 'Agriculture orientation index for government expenditures',
+          key: 'indicator.global.aoi.short',
+          year: data.agOrientation.data ? data.agOrientation.data.year : null,
+          style: "percent"
+        },
+        {
+          value: data.foodLoss.data ? data.foodLoss.data.value : null,
+          image: '/sdg/2.svg',
+          text: 'Global Food Loss Index',
+          key: 'indicator.global.global.food.short',
+          year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
+          style: "percent"
+        }
+      ]
 
-    export const getDefaultIndicatorFilters = () => {
-      return new Promise((resolve, reject) => {
-        resolve({
-          year: [],
-          region: [],
-          crop: []
-        })
-      })
-    }
+
+      resolve(mockData)
+
+    }).catch(error => {
+      console.log('ERROR')
+      reject(error)
+    })
+  })
+}
+
+export const getDefaultIndicatorFilters = () => {
+  return new Promise((resolve, reject) => {
+    resolve({
+      year: [],
+      region: [],
+      crop: []
+    })
+  })
+}

@@ -31,7 +31,7 @@ class GlobalNumbers extends Component {
 
    render(){
        const {error}=this.props
-       debugger;
+
        const data=this.props.data?this.props.data.toJS():null
         return (
           <Grid className="indicator global numbers" columns={4} divided>
@@ -71,7 +71,7 @@ const mapStateToProps = state => {
   const data=state.getIn(['indicator','globalNumbers','data'])
   const error=state.getIn(['indicator','globalNumbers','error'])
 
-  debugger;
+
   return {data,error}
 }
 
