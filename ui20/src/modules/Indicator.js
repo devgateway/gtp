@@ -14,13 +14,21 @@ export const loadDefaultPovertyFilters = (chain) => (dispatch, getState) => {
   const professionalActivity = getState().getIn(['data', 'items', 'professionalActivity']).map(a => a.id);
   const ageGroup = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);
 
+  //default values
+  const minAge =getState().getIn(['data', 'items','range']).age.min
+  const maxAge = getState().getIn(['data', 'items','range']).age.max
+  const minScore = getState().getIn(['data', 'items','range']).score.min
+  const maxScore = getState().getIn(['data', 'items','range']).score.max
 
   let povertyFilters = Immutable.Map()
   povertyFilters = povertyFilters
     .setIn(['gender'], Immutable.List())
     .setIn(['activity'], Immutable.List())
     .setIn(['ageGroup'], Immutable.List())
-
+    .setIn(['minAge'], minAge)
+    .setIn(['maxAge'], maxAge)
+    .setIn(['minScore'], minScore)
+    .setIn(['maxScore'], maxScore)
 
   dispatch({
     type: 'LOAD_DEFAULT_POVERTY_FILTERS_DONE',
@@ -33,33 +41,31 @@ export const loadDefaultPovertyFilters = (chain) => (dispatch, getState) => {
 }
 
 
+export const apply=()=> (dispatch, getState)=>{
+      dispatch(refresh(['ALL']))
+}
 
 
 export const reset = () => (dispatch, getState) => {
-
-
-  const chainActions2 = () => (dispatch, getState)=> {
-    dispatch(refresh());
+  const actionRefresh = () => (dispatch, getState)=> {
+    dispatch(refresh(['ALL']));
   }
-
-
-  const chainActions1 = () => (dispatch, getState)=> {
-    dispatch(loadDefaultPovertyFilters(chainActions2));
+  const actionLoadPovertyFilters = () => (dispatch, getState)=> {
+    dispatch(loadDefaultPovertyFilters(actionRefresh));
   }
-
-
-
-  dispatch(loadDefaultFilters(chainActions1));
+  dispatch(loadDefaultFilters(actionLoadPovertyFilters));
 
 }
 
 
-export const refresh = () => (dispatch, getState) => {
-  dispatch(getGlobalIndicators())
-  dispatch(loadPovertyChartData())
-
+export const refresh = (updates) => (dispatch, getState) => {
+    if (updates  && (updates.indexOf('GLOBAL') > -1 || updates.indexOf('ALL') > -1 )){
+    dispatch(getGlobalIndicators())
+  }
+  if (updates  &&  (updates.indexOf('POVERTY') > -1 || updates.indexOf('ALL')> -1)){
+    dispatch(loadPovertyChartData())
+  }
 }
-
 
 
 export const loadPovertyChartData = () => (dispatch, getState) => {
@@ -116,7 +122,7 @@ export const updateGlobalFilter = (name, selection) => dispatch => {
 /*
 Update values at chart level indicated by path
 */
-export const updateFilter = (path, selection) => dispatch => {
+export const updateFilter = (path, selection, updates) => dispatch => {
   console.log(selection)
   dispatch({
     type: 'CHANGE_CHART_FILTER',
@@ -124,7 +130,9 @@ export const updateFilter = (path, selection) => dispatch => {
     selection
   })
 
-  dispatch(refresh())
+    debugger;
+    dispatch(refresh(updates))
+
 }
 
 /*
