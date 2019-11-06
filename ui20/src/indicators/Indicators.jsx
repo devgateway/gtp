@@ -4,7 +4,13 @@ import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
-import {loadDefaultFilters, updateGlobalFilter, getGlobalIndicators, updateFilter, applyFilter,applyFilterReady} from '../modules/Indicator'
+import {loadDefaultFilters,
+    updateGlobalFilter,
+    getGlobalIndicators,
+    updateFilter,
+    applyFilter,
+    applyFilterReady,
+    refresh} from '../modules/Indicator'
 import {loadDataItems} from '../modules/Data'
 import {
   Dropdown,
@@ -36,38 +42,19 @@ class Indicators extends Component {
     this.props.onChangeGlobalFilter(name, selection)
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-
-    if (this.props.globalFiltersReady && !this.props.initialDataLoaded) {
-      this.props.onLoadGlobalIndicators()
-    }
-
-    if (this.props.globalFiltersReady && this.props.initialDataLoaded) {
-        if (this.props.applyFlag){
-            this.props.onApplyReady()
-            this.props.onLoadGlobalIndicators()
-        }
-    }
-  }
 
   componentDidMount() {
-    //load default filters
     this.props.onLoadDefaultFilters();
-
-    if(this.props.shouldApplyFilters){
-        this.props.onLoadGlobalIndicators()
-        this.props.onApplyReady()
-    }
   }
 
   onAppllyFilters() {
-    this.props.onApply()
-
+      this.props.onApply()
   }
 
   onResetFilters() {
-    //reload filter
-    this.props.onLoadDefaultFilters();
+    debugger;
+    this.props.onLoadDefaultFilters(true);
+
   }
 
   onChangeChartFilter(path, value) {
@@ -88,9 +75,8 @@ class Indicators extends Component {
           <FormattedMessage id="indicators.global.intro" defaultMessage={`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled`}></FormattedMessage>
         </div>
 
-        <GlobalNumbers data={this.props.globalNumbers
-            ? this.props.globalNumbers.toJS()
-            : []}></GlobalNumbers>
+
+          <GlobalNumbers  {...this.props}></GlobalNumbers>
 
         <Segment className="info-text">
           <div className="source-icon"></div>
@@ -105,7 +91,7 @@ class Indicators extends Component {
             }
             </Grid.Row>
         </Grid>
-        {this.props.globalFiltersReady&&<Poverty onChange={this.onChangeChartFilter} {...this.props}></Poverty>}
+          <Poverty onChange={this.onChangeChartFilter} {...this.props}></Poverty>
 
       </div>
     </div>)
@@ -114,35 +100,28 @@ class Indicators extends Component {
 
 const mapStateToProps = state => {
   const globalFilters = state.getIn(['indicator', 'filters', 'global']);
-  const globalNumbers = state.getIn(['indicator', 'globalNumbers'])
   const regions = state.getIn(['data', 'items', 'region']);
   const crops = state.getIn(['data', 'items', 'cropType']);
-  const globalFiltersReady = (globalFilters && regions && crops) != null
-  const initialDataLoaded = globalNumbers != null
+  const gender = state.getIn(['data', 'items', 'gender']);
 
-  const applyFlag= state.getIn(['indicator', 'applyFlag'])
+  const globalFiltersReady = (globalFilters && regions && crops && gender) != null
   const filters = state.getIn(['indicator', 'filters'])
 
   return {
     globalFilters,
+    globalFiltersReady,
     filters,
-    globalNumbers,
     regions,
     crops,
-    globalFiltersReady,
-    initialDataLoaded,
-    applyFlag
   }
 }
 
 const mapActionCreators = {
   onLoadDefaultFilters: loadDefaultFilters,
   onChangeGlobalFilter: updateGlobalFilter,
-  onLoadGlobalIndicators: getGlobalIndicators,
-  onChangeFilter: updateFilter,
   onLoadFilterData: loadDataItems,
-  onApplyReady: applyFilterReady,
-  onApply:  applyFilter
+  onChangeFilter:updateFilter,
+  onApply:refresh
 };
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(Indicators));

@@ -122,6 +122,10 @@
       float: none;
     }
 
+      .item{
+        cursor: pointer !important;
+      }
+
     .visible {
       color: $color-green;
       background-color: #f6f6f6;
@@ -236,7 +240,7 @@
   .indicator.big.number.year{
     font-size: 12px;
     text-align: center;
-    
+
   }
 
   .indicator.description {
