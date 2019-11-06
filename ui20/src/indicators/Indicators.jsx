@@ -9,8 +9,9 @@ import {loadDefaultFilters,
     getGlobalIndicators,
     updateFilter,
     applyFilter,
-    applyFilterReady,reset,
-    refresh} from '../modules/Indicator'
+    applyFilterReady,
+    reset,
+    apply} from '../modules/Indicator'
 import {loadDataItems} from '../modules/Data'
 import {
   Dropdown,
@@ -56,8 +57,8 @@ class Indicators extends Component {
 
   }
 
-  onChangeChartFilter(path, value) {
-    this.props.onChangeFilter(path, value)
+  onChangeChartFilter(path, value, options) {
+    this.props.onChangeFilter(path, value,options)
   }
 
   render() {
@@ -121,7 +122,7 @@ const mapActionCreators = {
   onLoadFilterData: loadDataItems,
   onChangeFilter:updateFilter,
   onReset:reset,
-  onApply:refresh
+  onApply:apply
 };
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(Indicators));

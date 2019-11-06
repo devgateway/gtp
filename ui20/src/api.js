@@ -46,11 +46,9 @@ const get = (url) => {
     fetch(url)
       .then(
         function(response) {
-
           if (response.status !== 200) {
             reject(response)
           }
-
           response.json().then(function(data) {
             resolve(data);
           });
@@ -94,10 +92,7 @@ export const loadPovertyChartData = (params) => {
 export const getGlobalIndicators = (params) => {
   return new Promise((resolve, reject) => {
 
-
     post(URL_INDICATORS, params.global).then((data) => {
-
-
 
       const mockData = [{
           value: data.poverty.data ? data.poverty.data.value : null,
