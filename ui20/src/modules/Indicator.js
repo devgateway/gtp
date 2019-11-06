@@ -99,6 +99,8 @@ export const updateFilter = (path, selection) => dispatch => {
     path,
     selection
   })
+
+  dispatch(refresh())
 }
 
 /*
