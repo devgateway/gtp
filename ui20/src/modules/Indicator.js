@@ -7,7 +7,7 @@ const initialState = Immutable.fromJS({
 })
 
 
-export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
+export const loadDefaultPovertyFilters = (chain) => (dispatch, getState) => {
 
   const filters = getState().getIn('filters')
   const gender = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
@@ -26,35 +26,53 @@ export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
     type: 'LOAD_DEFAULT_POVERTY_FILTERS_DONE',
     povertyFilters
   })
+
+  if(chain){
+    dispatch(chain())
+  }
 }
 
 
 
 
-export const reset=()=>(dispatch,getState)=>{
-    debugger;
-      dispatch(loadDefaultFilters());
-      dispatch(loadDefaultPovertyFilters());
-      dispatch(refresh());
+export const reset = () => (dispatch, getState) => {
+
+
+  const chainActions2 = () => (dispatch, getState)=> {
+    dispatch(refresh());
+  }
+
+
+  const chainActions1 = () => (dispatch, getState)=> {
+    dispatch(loadDefaultPovertyFilters(chainActions2));
+  }
+
+
+
+  dispatch(loadDefaultFilters(chainActions1));
+
 }
 
 
-export const refresh=()=>(dispatch, getState)=>{
-    dispatch(getGlobalIndicators())
-    dispatch(loadPovertyChartData())
+export const refresh = () => (dispatch, getState) => {
+  dispatch(getGlobalIndicators())
+  dispatch(loadPovertyChartData())
 
 }
 
 
 
-export const loadPovertyChartData = () => (dispatch,getState) => {
+export const loadPovertyChartData = () => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
-
-  debugger;
-
   api.loadPovertyChartData(filters).then(data => {
-    dispatch({type: 'LOAD_POVERTY_CHART_DATA_DONE',data})
-  }).catch(error => dispatch({type: 'POVERTY_CHART_DATA_ERROR',error}))
+    dispatch({
+      type: 'LOAD_POVERTY_CHART_DATA_DONE',
+      data
+    })
+  }).catch(error => dispatch({
+    type: 'POVERTY_CHART_DATA_ERROR',
+    error
+  }))
 }
 
 
@@ -62,14 +80,20 @@ export const loadPovertyChartData = () => (dispatch,getState) => {
 Get default selected filters
 */
 
-export const loadDefaultFilters = (refreshData) => dispatch => {
+export const loadDefaultFilters = (chain) => dispatch => {
 
   api.getDefaultIndicatorFilters().then(data => {
 
-    dispatch({type: 'LOAD_DEFAULT_FILTERS_DONE',data})
-    if(refreshData){
-      dispatch(refresh())
+    dispatch({
+      type: 'LOAD_DEFAULT_FILTERS_DONE',
+      data
+    })
+
+    if (chain) {
+      dispatch(chain())
     }
+
+
   }).catch(error => dispatch({
     type: 'LOAD_DEFAULT_FILTERS_ERROR',
     error
@@ -111,7 +135,10 @@ export const getGlobalIndicators = () => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
   debugger
   api.getGlobalIndicators(filters).then(data => {
-    dispatch({type: 'LOAD_GLOBAL_INDICATORS_DONE',data})
+    dispatch({
+      type: 'LOAD_GLOBAL_INDICATORS_DONE',
+      data
+    })
   }).catch(error => dispatch({
     type: 'LOAD_GLOBAL_INDICATORS_ERROR',
     error
@@ -124,7 +151,10 @@ export const getGlobalIndicators = () => (dispatch, getState) => {
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'LOAD_DEFAULT_FILTERS_DONE': {
-      const {category,data} = action
+      const {
+        category,
+        data
+      } = action
       return state.setIn(['filters', 'global'], Immutable.fromJS(data))
     }
     case 'CHANGE_GLOBAL_FILTER': {
@@ -136,16 +166,20 @@ export default (state = initialState, action) => {
     }
 
     case 'LOAD_GLOBAL_INDICATORS_DONE': {
-      const {data} = action
+      const {
+        data
+      } = action
 
-      return state.setIn(['globalNumbers','data'], Immutable.fromJS(data))
-              .deleteIn(['globalNumbers','error'])
+      return state.setIn(['globalNumbers', 'data'], Immutable.fromJS(data))
+        .deleteIn(['globalNumbers', 'error'])
     }
 
     case 'LOAD_GLOBAL_INDICATORS_ERROR': {
-      const {error} = action
+      const {
+        error
+      } = action
 
-      return state.setIn(['globalNumbers','data'], Immutable.fromJS([])).setIn(['globalNumbers','error'],error)
+      return state.setIn(['globalNumbers', 'data'], Immutable.fromJS([])).setIn(['globalNumbers', 'error'], error)
     }
 
     case 'CHANGE_CHART_FILTER': {
@@ -171,11 +205,15 @@ export default (state = initialState, action) => {
     }
 
     case 'APPLY_FILTER_FLAG_ON': {
-      const {data} = action
+      const {
+        data
+      } = action
       return state.setIn(['applyFlag'], true)
     }
     case 'APPLY_FILTER_FLAG_OFF': {
-      const {data} = action
+      const {
+        data
+      } = action
       return state.setIn(['applyFlag'], false)
     }
 
