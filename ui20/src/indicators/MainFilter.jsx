@@ -12,9 +12,9 @@ const crop2options = (crops) => crops
   ? crops.sort((c1, c2) => c1.label.localeCompare(c2.label)).map(r => ({'key': r.id, 'text': r.label, 'value': r.id}))
   : []
 
-const year2options = () => [2017, 2018, 2019].map(y => ({'key': y, 'text': y, 'value': y}))
+const year2options = (years) => years?years.map(y => ({'key': y.id, 'text': y.label, 'value': y.id})):[]
 
-const MainFilter = ({regions, crops, globalFilters,onChange,onApply,onReset}) => {
+const MainFilter = ({regions, years, crops, globalFilters,onChange,onApply,onReset}) => {
 
 
   return (<div className="core-filters">
@@ -24,7 +24,7 @@ const MainFilter = ({regions, crops, globalFilters,onChange,onApply,onReset}) =>
       </div>
       <div className="filter nav separator"></div>
       <div className="filter nav item">
-        <CustomFilterDropDown onChange={s=>onChange('year',s)}  selected={globalFilters&&globalFilters.get('year')?globalFilters.get('year').toJS():[]} text={<FormattedMessage id = "indicators.main.filter.year" defaultMessage = "Campain/Years" > </FormattedMessage>} options={year2options()}></CustomFilterDropDown>
+        <CustomFilterDropDown onChange={s=>onChange('year',s)}  selected={globalFilters&&globalFilters.get('year')?globalFilters.get('year').toJS():[]} text={<FormattedMessage id = "indicators.main.filter.year" defaultMessage = "Campain/Years" > </FormattedMessage>} options={year2options(years)}></CustomFilterDropDown>
       </div>
         <div className="filter nav separator"></div>
       <div className="filter nav item">

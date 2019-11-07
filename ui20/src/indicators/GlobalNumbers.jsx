@@ -75,8 +75,6 @@ const mapStateToProps = state => {
   return {data,error}
 }
 
-const mapActionCreators = {
-  onLoad:getGlobalIndicators,
-};
+const mapActionCreators = {};
 
 export default connect(mapStateToProps, mapActionCreators)(GlobalNumbers);

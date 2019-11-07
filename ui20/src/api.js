@@ -65,8 +65,8 @@ export const getDataSet = (name) => {
   return get(API_ROOT + dumpUrlBuilder(name))
 }
 
-export const getItems = (category, path) => {
-  return post(API_ROOT + itemsURLBuilder(category, path))
+export const getItems = (category, path, params) => {
+  return post(API_ROOT + itemsURLBuilder(category, path,), params.global)
 }
 
 

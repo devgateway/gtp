@@ -1,24 +1,34 @@
 import * as api from '../api'
 import Immutable from 'immutable'
-
+import {
+  loadDataItems
+} from './Data'
 
 const initialState = Immutable.fromJS({
   filters: {}
 })
 
 
-export const loadDefaultPovertyFilters = (chain) => (dispatch, getState) => {
 
+
+
+export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
+  console.log("loadDefaultPovertyFilters")
   const filters = getState().getIn('filters')
   const gender = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
   const professionalActivity = getState().getIn(['data', 'items', 'professionalActivity']).map(a => a.id);
   const ageGroup = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);
 
   //default values
-  const minAge =getState().getIn(['data', 'items','range']).age.min
-  const maxAge = getState().getIn(['data', 'items','range']).age.max
-  const minScore = getState().getIn(['data', 'items','range']).score.min
-  const maxScore = getState().getIn(['data', 'items','range']).score.max
+  const ranges=getState().getIn(['data', 'items', 'range']);
+
+
+  const minAge = ranges.age?ranges.age.min:0
+  const maxAge = ranges.age?ranges.age.max:0
+
+
+  const minScore = ranges.score?ranges.score.min:0
+  const maxScore = ranges.score?ranges.score.max:0
 
   let povertyFilters = Immutable.Map()
   povertyFilters = povertyFilters
@@ -34,38 +44,30 @@ export const loadDefaultPovertyFilters = (chain) => (dispatch, getState) => {
     type: 'LOAD_DEFAULT_POVERTY_FILTERS_DONE',
     povertyFilters
   })
+}
 
-  if(chain){
-    dispatch(chain())
-  }
+export const apply = () => (dispatch, getState) => {
+  dispatch({
+    type: 'APPLY_FILTER_FLAG_ON'
+  })
 }
 
 
-export const apply=()=> (dispatch, getState)=>{
-      dispatch(refresh(['ALL']))
+
+export const refresh = () => (dispatch, getState) => {
+  dispatch(loadGlobalIndicators())
+  dispatch(loadPovertyChartData())
 }
 
 
 export const reset = () => (dispatch, getState) => {
-  const actionRefresh = () => (dispatch, getState)=> {
-    dispatch(refresh(['ALL']));
-  }
-  const actionLoadPovertyFilters = () => (dispatch, getState)=> {
-    dispatch(loadDefaultPovertyFilters(actionRefresh));
-  }
-  dispatch(loadDefaultFilters(actionLoadPovertyFilters));
 
+  dispatch({
+    type: 'RESET_FILTER_FLAG_ON'
+  })
 }
 
 
-export const refresh = (updates) => (dispatch, getState) => {
-    if (updates  && (updates.indexOf('GLOBAL') > -1 || updates.indexOf('ALL') > -1 )){
-    dispatch(getGlobalIndicators())
-  }
-  if (updates  &&  (updates.indexOf('POVERTY') > -1 || updates.indexOf('ALL')> -1)){
-    dispatch(loadPovertyChartData())
-  }
-}
 
 
 export const loadPovertyChartData = () => (dispatch, getState) => {
@@ -86,7 +88,7 @@ export const loadPovertyChartData = () => (dispatch, getState) => {
 Get default selected filters
 */
 
-export const loadDefaultFilters = (chain) => dispatch => {
+export const loadDefaultFilters = () => dispatch => {
 
   api.getDefaultIndicatorFilters().then(data => {
 
@@ -95,9 +97,6 @@ export const loadDefaultFilters = (chain) => dispatch => {
       data
     })
 
-    if (chain) {
-      dispatch(chain())
-    }
 
 
   }).catch(error => dispatch({
@@ -129,19 +128,20 @@ export const updateFilter = (path, selection, updates) => dispatch => {
     path,
     selection
   })
-
-    debugger;
-    dispatch(refresh(updates))
+  debugger;
+  if(updates&&updates.indexOf('POVERTY')>-1){
+    dispatch(loadPovertyChartData())
+  }
 
 }
 
 /*
 Get global indicators values (responsive to filters)
 */
-export const getGlobalIndicators = () => (dispatch, getState) => {
+export const loadGlobalIndicators = () => (dispatch, getState) => {
 
   const filters = getState().getIn(['indicator', 'filters']).toJS()
-  debugger
+
   api.getGlobalIndicators(filters).then(data => {
     dispatch({
       type: 'LOAD_GLOBAL_INDICATORS_DONE',
@@ -216,14 +216,32 @@ export default (state = initialState, action) => {
       const {
         data
       } = action
+
       return state.setIn(['applyFlag'], true)
     }
     case 'APPLY_FILTER_FLAG_OFF': {
       const {
         data
       } = action
-      return state.setIn(['applyFlag'], false)
+      return state.deleteIn(['applyFlag'])
     }
+
+
+    case 'RESET_FILTER_FLAG_ON': {
+      const {
+        data
+      } = action
+
+      return state.setIn(['resetFlag'], true)
+    }
+    case 'RESET_FILTER_FLAG_OFF': {
+      const {
+        data
+      } = action
+      return state.deleteIn(['resetFlag'])
+    }
+
+
 
     default: {
       return state
