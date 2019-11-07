@@ -3,6 +3,7 @@ import { ResponsiveBar } from '@nivo/bar'
 import { generateCountriesData } from '@nivo/generators'
 import { ResponsiveLine } from '@nivo/line'
 import { Tab } from 'semantic-ui-react'
+import {FormattedMessage, FormattedNumber, injectIntl} from 'react-intl';
 
 const curveOptions = ['linear', 'monotoneX', 'step', 'stepBefore', 'stepAfter'];
 
@@ -14,19 +15,23 @@ const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
 );
 
 
-const LineChart = ({ data }) => (
+const LineChart =injectIntl( ({intl, data }) => (
       <ResponsiveLine
-        enableGridY={true}
-        enableGridX={true}
+          enableGridY={true}
+          enableGridX={true}
 
           data={data}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+
+             yScale={{ type: 'linear', stacked: true, min: 'auto', max: 'auto' }}
+
           xScale={{ type: 'point' }}
-         colors={{ scheme: 'set1' }}
+          colors={{ scheme: 'set1' }}
           useMesh={true}
-          enablePointLabel={true}
+
           pointSymbol={CustomSymbol}
           pointSize={16}
+
           pointBorderWidth={1}
           pointBorderColor={{
             from: 'color',
@@ -34,9 +39,8 @@ const LineChart = ({ data }) => (
           }}
 
           enableSlices={false}
-           curve="monotoneX"
+          curve="monotoneX"
 
-          yScale={{ type: 'linear', stacked: false, min: 'auto', max: 'auto' }}
           axisTop={null}
           axisRight={null}
           axisBottom={{
@@ -62,7 +66,11 @@ const LineChart = ({ data }) => (
           pointColor={{ theme: 'background' }}
           pointBorderWidth={2}
           pointBorderColor={{ from: 'serieColor' }}
-          pointLabel="y"
+
+
+          enablePointLabel={true}
+
+          pointLabel={(s)=>intl.formatNumber(s.y/100, {style: 'percent', minimumFractionDigits: 2,maximumFractionDigits: 2}) }
           pointLabelYOffset={-12}
           useMesh={true}
           legends={[
@@ -92,9 +100,9 @@ const LineChart = ({ data }) => (
               }
           ]}
       />
-  )
+  ))
 
-const BarChart = ({ data /* see data tab */, keys,indexBy , groupMode, colors}) => {
+const BarChart =injectIntl(({ data , intl/* see data tab */, keys,indexBy , groupMode, colors}) => {
 
 return (
     <ResponsiveBar
@@ -146,6 +154,7 @@ return (
             legendPosition: 'middle',
             legendOffset: -40
         }}
+        label={(s)=>intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 2,maximumFractionDigits: 2}) }
         labelSkipWidth={12}
         labelSkipHeight={12}
         labelTextColor={"#FFF"}
@@ -179,7 +188,7 @@ return (
     />
 
 )}
-
+)
 
 
 
@@ -192,7 +201,7 @@ const generateYearlyBarData = (data) => {
       barData[key] = {};
     }
     if (r.povertyLevel != 'Not poor') {
-      barData[key][r.year] = barData[key][r.year] ? barData[key][r.year] : 0 + r.count;
+      barData[key][r.year] = barData[key][r.year] ? barData[key][r.year] : 0 + r.percentage*100;
       barData[key]['region'] = r.region;
     }
   })
@@ -210,7 +219,7 @@ const generateStackedData = (data) => {
       stackedData[key] = {};
     }
     stackedData[key]['region'] = r.region;
-    stackedData[key][r.povertyLevel] = r.count;
+    stackedData[key][r.povertyLevel] = r.percentage *100;
 
   })
   return Object.keys(stackedData).map(k => stackedData[k]);
@@ -221,7 +230,7 @@ const generateLineData=(data)=>{
   const regions=Array.from(new Set(data.map(d=>d.region)))
 
   const lineData=regions.map(r=>{
-    const subData=data.filter(d=>d.region==r).map(f=>{return {x:f.year, y:f.count, level:f.povertyLevel}}).filter(f=>f.level!='Not poor')
+    const subData=data.filter(d=>d.region==r).map(f=>{return {x:f.year, y:(f.percentage*100), level:f.povertyLevel}}).filter(f=>f.level!='Not poor')
     const series=Array.from(new Set(subData.map(r=>r.x))).map(year=>{
       let y=0;
       subData.filter(s=>s.x==year).forEach(val=>y=y+val.y)
@@ -244,7 +253,7 @@ const generateLineData=(data)=>{
     return Object.keys(lineData).map(k=>lineData[k])
 }
 
-const PovertyChart=({data})=>{
+const PovertyChart=({data,intl})=>{
 
   const yearlyData=generateYearlyBarData(data)
   const yearlyKeys=Array.from(new Set(data.map(d=>d.year)))
@@ -282,4 +291,4 @@ const PovertyChart=({data})=>{
 
 
 
-export default PovertyChart
+export default injectIntl(PovertyChart)

@@ -9,7 +9,7 @@ const initialState = Immutable.Map()
 export const loadDataItems = (category, path, filtered) => (dispatch, getState) => {
 
   const filters = getState().getIn(['indicator', 'filters']).toJS()
-  debugger;
+
 
   dispatch({type: 'LOAD_ITEM_DATA',category})
 
