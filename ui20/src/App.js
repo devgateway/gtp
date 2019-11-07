@@ -38,6 +38,7 @@ class IntlRoutes extends Component {
    }
 
   componentDidMount(){
+    this.props.onLoadFilterData('year','filter')
     this.props.onLoadFilterData('region','filter')
     this.props.onLoadFilterData('cropType','filter')
     this.props.onLoadFilterData('department','filter')

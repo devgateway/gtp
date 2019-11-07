@@ -7,8 +7,6 @@ import React, {Component, createRef, useState} from 'react'
 import {FormattedMessage} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown} from './Components'
 import Plot from 'react-plotly.js';
-import {loadDataItems} from '../modules/Data'
-import {loadDefaultPovertyFilters, loadPovertyChartData} from '../modules/Indicator'
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import PovertyCharts from './PovertyCharts'
@@ -60,8 +58,8 @@ export const RangeSlider = ({max,min,step,selected,onChange,text}) => {
     <p>{text}</p>
     <div>
       <Range step={1} dots={false} value={selected} min={min} max={max} onChange={onChange}/>
-      <span className="breadcrumbs min">Max: {selected[0]}</span>
-      <span className="breadcrumbs max">Min: {selected[1]}
+      <span className="breadcrumbs min">Min: {selected[0]}</span>
+      <span className="breadcrumbs max">Max: {selected[1]}
       </span>
     </div>
   </div>
@@ -70,24 +68,9 @@ export const RangeSlider = ({max,min,step,selected,onChange,text}) => {
 class Pooverty extends Component {
 
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-
-      if (this.props.globalFiltersReady && !this.props.povertyFiltersReady){
-          this.props.onLoadFilterData('range','poverty')
-      }
-
-      if (this.props.filterItemsReady && !this.props.povertyFiltersReady){
-          this.props.loadDefaultPovertyFilters()
-      }
-
-      if (this.props.globalFiltersReady && this.props.povertyFiltersReady && !this.props.data){
-          this.props.onLoadChartData()
-      }
-  }
-
 
   render() {
-    const {filters, onChange,range,genders=[],activities=[],ageGroups=[]} = this.props
+    const {filters, onChange,range={},genders=[],activities=[],ageGroups=[]} = this.props
 
 
     const genderSelection = filters && filters.getIn(['poverty', 'gender'])? filters.getIn(['poverty', 'gender']).toJS(): []
@@ -95,18 +78,17 @@ class Pooverty extends Component {
     const ageGroupsSelection = filters && filters.getIn(['poverty', 'ageGroup'])? filters.getIn(['poverty', 'ageGroup']).toJS() :[]
 
     //age and score limits
-    const minAge =range?range.age.min:0
-    const maxAge = range?range.age.max:0
+    const minAge =range.age?range.age.min:0
+    const maxAge = range.age?range.age.max:0
 
-    const minScore = range?range.score.min:0
-    const maxScore = range?range.score.max:100
+    const minScore = range.score?range.score.min:0
+    const maxScore = range.score?range.score.max:0
 
     //age and score selection
     const age= [filters.getIn(['poverty','minAge']),filters.getIn(['poverty','maxAge'])]
 
     const score=[ filters.getIn(['poverty','minScore']),filters.getIn(['poverty','maxScore'])]
 
-    console.log(score)
 
     return (<div className="indicator.chart.container">
 
@@ -134,19 +116,19 @@ class Pooverty extends Component {
           <CustomFilterDropDown options={activity2options(activities)} onChange={s => {onChange(['filters', 'poverty', 'activity'], s,['POVERTY'])}} selected={activitySelection} text={<FormattedMessage id = "indicators.filter.activity" defaultMessage = "Profesional Activity" > </FormattedMessage>} />
         </div>
         <div className="filter item">
-          {minScore&&maxScore&&<RangeSlider onChange={s => {
-            onChange(['filters', 'poverty', 'minScore'],s[0],['NONE'])
+          {<RangeSlider onChange={s => {
+            onChange(['filters', 'poverty', 'minScore'],s[0])
             onChange(['filters', 'poverty', 'maxScore'],s[1],['POVERTY'])
 
           }} max={maxScore} min={minScore}  selected={score} text={<FormattedMessage id="inidicators.filter.slider.score" defaultMessage="Score Range"/>}></RangeSlider>}
         </div>
 
         <div className="filter item">
-          {minAge&&maxAge&&<RangeSlider onChange={s => {
-            onChange(['filters', 'poverty', 'minAge'],s[0],['NONE'])
+          {<RangeSlider onChange={s => {
+            onChange(['filters', 'poverty', 'minAge'],s[0])
             onChange(['filters', 'poverty', 'maxAge'],s[1],['POVERTY'])
 
-          }} max={maxAge} min={minAge}  selected={age } text={<FormattedMessage id="inidicators.filter.slider.age" defaultMessage="Age Range"/>}></RangeSlider>}
+          }} max={maxAge} min={minAge}  selected={age} text={<FormattedMessage id="inidicators.filter.slider.age" defaultMessage="Age Range"/>}></RangeSlider>}
         </div>
       </div>
 
@@ -161,26 +143,17 @@ class Pooverty extends Component {
 const mapStateToProps = state => {
 
   const filters = state.getIn(['indicator', 'filters'])
-
   const activities = state.getIn(['data', 'items', 'professionalActivity']);
   const genders = state.getIn(['data', 'items', 'gender']);
   const ageGroups = state.getIn(['data', 'items', 'ageGroup']);
-
   const range = state.getIn(['data', 'items', 'range']);
 
 
-  const filterItemsReady = (activities  && ageGroups && range) != null
-  const povertyFiltersReady = filters.get('poverty') != null
-
   const data=state.getIn(['indicator','poverty','data'])
 
-  return {activities, genders, ageGroups, range, filterItemsReady, povertyFiltersReady,data}
+  return {filters,activities, genders, ageGroups, range,data}
 }
 
-const mapActionCreators = {
-  onLoadFilterData:loadDataItems,
-  loadDefaultPovertyFilters,
-  onLoadChartData:loadPovertyChartData
-};
+const mapActionCreators = {};
 
 export default connect(mapStateToProps, mapActionCreators)(Pooverty);

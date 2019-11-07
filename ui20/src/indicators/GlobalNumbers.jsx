@@ -1,7 +1,7 @@
 
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
-import {FormattedMessage, FormattedNumber} from 'react-intl';
+import {FormattedMessage, FormattedNumber, injectIntl} from 'react-intl';
 
 import { getGlobalIndicators} from '../modules/Indicator'
 
@@ -75,8 +75,6 @@ const mapStateToProps = state => {
   return {data,error}
 }
 
-const mapActionCreators = {
-  onLoad:getGlobalIndicators,
-};
+const mapActionCreators = {};
 
-export default connect(mapStateToProps, mapActionCreators)(GlobalNumbers);
+export default injectIntl(connect(mapStateToProps, mapActionCreators)(GlobalNumbers)) ;

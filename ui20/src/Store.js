@@ -12,7 +12,7 @@ import {
   routerMiddleware
 } from 'connected-react-router/immutable'
 import Immutable from 'immutable'
-
+import indicatorListener from './IndicatorListener'
 
 export const history = createHashHistory()
 
@@ -33,9 +33,11 @@ export default function configureStore() {
   )
 
 
-store.subscribe(()=>{
 
+store.subscribe(()=>{
   
+    indicatorListener(store)
 })
+
   return store
 }

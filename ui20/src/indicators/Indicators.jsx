@@ -4,14 +4,8 @@ import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
-import {loadDefaultFilters,
-    updateGlobalFilter,
-    getGlobalIndicators,
-    updateFilter,
-    applyFilter,
-    applyFilterReady,
-    reset,
-    apply} from '../modules/Indicator'
+import {updateGlobalFilter,updateFilter,reset,apply} from '../modules/Indicator'
+
 import {loadDataItems} from '../modules/Data'
 import {
   Dropdown,
@@ -43,10 +37,6 @@ class Indicators extends Component {
     this.props.onChangeGlobalFilter(name, selection)
   }
 
-
-  componentDidMount() {
-    this.props.onLoadDefaultFilters();
-  }
 
   onAppllyFilters() {
       this.props.onApply()
@@ -103,21 +93,20 @@ const mapStateToProps = state => {
   const regions = state.getIn(['data', 'items', 'region']);
   const crops = state.getIn(['data', 'items', 'cropType']);
   const gender = state.getIn(['data', 'items', 'gender']);
+  const years = state.getIn(['data', 'items', 'year']);
 
-  const globalFiltersReady = (globalFilters && regions && crops && gender) != null
   const filters = state.getIn(['indicator', 'filters'])
 
   return {
     globalFilters,
-    globalFiltersReady,
     filters,
     regions,
     crops,
+    years,
   }
 }
 
 const mapActionCreators = {
-  onLoadDefaultFilters: loadDefaultFilters,
   onChangeGlobalFilter: updateGlobalFilter,
   onLoadFilterData: loadDataItems,
   onChangeFilter:updateFilter,
