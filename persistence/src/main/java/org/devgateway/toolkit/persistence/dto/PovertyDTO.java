@@ -1,19 +1,16 @@
 package org.devgateway.toolkit.persistence.dto;
 
-import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 
 public class PovertyDTO extends DataDTO {
-
-    private static final String EMPTY = "";
 
     private String region;
     private String locationType;
     private String gender;
     private String professionalActivity;
     private String povertyLevel;
-    private int age;
-    private double povertyScore;
+    private Integer age;
+    private Double povertyScore;
 
     public PovertyDTO(PovertyIndicator p) {
         super(p);
@@ -24,14 +21,6 @@ public class PovertyDTO extends DataDTO {
         this.povertyLevel = getStr(p.getPovertyLevel());
         this.age = p.getAge();
         this.povertyScore = p.getPovertyScore();
-    }
-
-    private String getStr(Labelable labelable) {
-        String ret = EMPTY;
-        if (labelable != null) {
-            ret = labelable.getLabel().replace(",", " ");
-        }
-        return ret;
     }
 
     public String getRegion() {
@@ -74,19 +63,19 @@ public class PovertyDTO extends DataDTO {
         this.povertyLevel = povertyLevel;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public double getPovertyScore() {
+    public Double getPovertyScore() {
         return povertyScore;
     }
 
-    public void setPovertyScore(double povertyScore) {
+    public void setPovertyScore(Double povertyScore) {
         this.povertyScore = povertyScore;
     }
 }

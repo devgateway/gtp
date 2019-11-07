@@ -23,7 +23,7 @@ import org.hibernate.envers.RelationTargetAuditMode;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"department_id", "name"}))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
-public class Market extends AbstractAuditableEntity implements Serializable {
+public class Market extends AbstractAuditableEntity implements Serializable, Labelable {
 
     @NotNull
     @ManyToOne(optional = false)
@@ -61,5 +61,15 @@ public class Market extends AbstractAuditableEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public void setLabel(String label) {
+        this.name = label;
+    }
+
+    @Override
+    public String getLabel() {
+        return name;
     }
 }

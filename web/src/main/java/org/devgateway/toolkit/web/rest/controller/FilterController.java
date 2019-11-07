@@ -175,7 +175,7 @@ public class FilterController {
 
     @CrossOrigin
     @ApiOperation(value = "Get method of enforcement information")
-    @RequestMapping(value = "/methodOfEnforcement", method = GET)
+    @RequestMapping(value = "/methodOfEnforcement", method = {POST, GET})
     public List<MethodOfEnforcement> getAllMethodOfEnforcement() {
         return mofService.findAll();
     }

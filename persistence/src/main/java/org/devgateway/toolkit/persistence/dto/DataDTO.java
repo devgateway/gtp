@@ -1,30 +1,41 @@
 package org.devgateway.toolkit.persistence.dto;
 
 import org.devgateway.toolkit.persistence.dao.Data;
+import org.devgateway.toolkit.persistence.dao.Labelable;
 
 public class DataDTO {
 
-    private long id;
-    private int year;
+    private static final String EMPTY = "";
+
+    private Long id;
+    private Integer year;
 
     public DataDTO(Data data) {
         this.id = data.getId();
         this.year = data.getYear();
     }
 
-    public long getId() {
+    protected String getStr(Labelable labelable) {
+        String ret = EMPTY;
+        if (labelable != null) {
+            ret = labelable.getLabel().replace(",", " ");
+        }
+        return ret;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 }
