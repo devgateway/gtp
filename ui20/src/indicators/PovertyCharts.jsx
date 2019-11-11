@@ -70,7 +70,7 @@ const LineChart =injectIntl( ({intl, data }) => (
 
           enablePointLabel={true}
 
-          pointLabel={(s)=>intl.formatNumber(s.y/100, {style: 'percent', minimumFractionDigits: 2,maximumFractionDigits: 2}) }
+          pointLabel={(s)=>intl.formatNumber(s.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0}) }
           pointLabelYOffset={-12}
           useMesh={true}
           legends={[
@@ -154,7 +154,7 @@ return (
             legendPosition: 'middle',
             legendOffset: -40
         }}
-        label={(s)=>intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 2,maximumFractionDigits: 2}) }
+        label={(s)=>intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0}) }
         labelSkipWidth={12}
         labelSkipHeight={12}
         labelTextColor={"#FFF"}

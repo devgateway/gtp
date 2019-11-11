@@ -87,7 +87,7 @@ const BarChart = ({
 }
 
 const generateStackedData = (data = []) => {
-
+  debugger;
   let stackedData = []
   data.forEach(r => {
     const key = r.group;
@@ -105,15 +105,18 @@ const generateStackedData = (data = []) => {
 const ChartContainer = (props) => {
 
   const {data} = props
-  if (data) {
-      debugger;
-    const keys = Array.from(new Set(data.map(d => {
-      d.group
-    })))
+
+  const ageData=data.filter(d=>d.group='Age Group')
+
+
+  if (ageData) {
+    const keys = Array.from(new Set(ageData.map(d => {return d.groupType})))
     const options = {
       keys,
-      data: generateStackedData(data)
+      data: generateStackedData(ageData)
     }
+
+
     return <div>
       <BarChart {...options}></BarChart>
     </div>

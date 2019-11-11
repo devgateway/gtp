@@ -9,11 +9,10 @@ import {ChartTableSwitcher, CustomFilterDropDown,OptionList} from './Components'
 import Plot from 'react-plotly.js';
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
-import PovertyCharts from './PovertyCharts'
 import { Tab } from 'semantic-ui-react'
 import {gender2options,age2options,items2options} from '../api'
 import './women.scss'
-
+import AgriculturalPopulation from './AgriculturalPopulation'
 const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange})=>{
 
   const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []
@@ -44,7 +43,7 @@ const ChartSection = ( props)=>{
          menuItem:  { key: 'bar', icon: '', content: 'Bar Chart' },
          render: () =>   <div className="indicators chart poverty">
          <Filters {...props}></Filters>
-
+          <AgriculturalPopulation {...props}></AgriculturalPopulation>
       </div>,
        },
        {
@@ -89,7 +88,7 @@ const mapStateToProps = state => {
   const genders = state.getIn(['data', 'items', 'gender']);
   const filters = state.getIn(['indicator', 'filters'])
   const methodOfEnforcements=state.getIn(['data','items','methodOfEnforcement'])
-  const population=state.getIn(['indicator','women','population', 'data'])
+  const data=state.getIn(['indicator','women','population', 'data'])
 
 
   return {
@@ -97,7 +96,7 @@ const mapStateToProps = state => {
     genders,
     methodOfEnforcements,
     ageGroups,
-    population
+    data
 
   }
 
