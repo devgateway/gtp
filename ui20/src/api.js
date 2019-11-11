@@ -6,6 +6,8 @@ const itemsURLBuilder = (category, path) => `/data/${path}/${category}`
 
 const URL_INDICATORS = API_ROOT + '/data/indicator'
 const URL_POVERTY = API_ROOT + '/data/poverty/summary'
+const URL_AGRICULTURAL_POPULATION = API_ROOT + '/data/agriculturalWomen/summary'
+
 
 
 function queryParams(params) {
@@ -88,6 +90,44 @@ export const loadPovertyChartData = (params) => {
     })
   })
 }
+
+
+
+
+export const getAgricuturalPopulation = (params) => {
+
+  return new Promise((resolve, reject) => {
+
+    post(URL_AGRICULTURAL_POPULATION, {
+      ...params.global,
+      ...params.poverty
+    }).then((data) => {
+
+
+      resolve(data)
+
+    }).catch(error => {
+
+      reject(error)
+    })
+  })
+}
+
+export const gender2options = (genders) => genders
+  ? genders.sort((c1, c2) => c1.label.localeCompare(c2.label)).map(r => ({'key': r.id, 'text': r.label, 'value': r.id}))
+  : []
+
+export const activity2options = (activities) => activities
+  ? activities.sort((c1, c2) => c1.label.localeCompare(c2.label)).map(r => ({'key': r.id, 'text': r.label, 'value': r.id}))
+  : []
+
+export const age2options = (activities) => activities
+  ? activities.sort((c1, c2) => c1.id - c2.id).map(r => ({'key': r.id, 'text': r.label, 'value': r.id}))
+  : []
+
+export const items2options=(items)=> items
+  ? items.sort((c1, c2) => c1.id - c2.id).map(r => ({'key': r.id, 'text': r.label, 'value': r.id}))
+  : []
 
 export const getGlobalIndicators = (params) => {
   return new Promise((resolve, reject) => {

@@ -3,6 +3,7 @@ import {
   loadDefaultPovertyFilters,
   loadPovertyChartData,
   loadGlobalIndicators,
+  loadAgricuturalPopulationData,
   refresh
 } from './modules/Indicator'
 import {
@@ -71,7 +72,10 @@ const listener = (store) => {
   if (filtersReady && !flags['loadGlobalIndicatorsCalled']) {
     flags['loadGlobalIndicatorsCalled'] = true
     console.log('Loading Global Indicators')
+
     store.dispatch(loadGlobalIndicators())
+    store.dispatch(loadAgricuturalPopulationData())
+
   }
 
   if (povertyFiltersReady && !flags['loadPovertyDataCalled']) {

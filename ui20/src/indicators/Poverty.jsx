@@ -1,14 +1,10 @@
 import './poverty.scss'
 import 'rc-slider/assets/index.css'
-
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import React, {Component, createRef, useState} from 'react'
 import {FormattedMessage} from 'react-intl';
-import {ChartTableSwitcher, CustomFilterDropDown} from './Components'
-import Plot from 'react-plotly.js';
-import Slider, {Range} from 'rc-slider';
-import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
+import {ChartTableSwitcher, CustomFilterDropDown, RangeSlider} from './Components'
 import PovertyCharts from './PovertyCharts'
 
 const gender2options = (genders) => genders
@@ -23,47 +19,6 @@ const age2options = (activities) => activities
   ? activities.sort((c1, c2) => c1.id - c2.id).map(r => ({'key': r.id, 'text': r.label, 'value': r.id}))
   : []
 
-export const OptionList = ({options, selected, onChange, text}) => {
-  const updateSelection = (key) => {
-    const newSelection = selected.slice(0)
-    if (newSelection.indexOf(key) > -1) {
-      newSelection.splice(newSelection.indexOf(key), 1);
-    } else {
-      newSelection.push(key)
-    }
-    onChange(newSelection)
-  }
-
-  const getChecked = (key) => {
-    return selected.indexOf(key) > -1
-  }
-  return (<div className="indicator filter options age">
-    <p>{text}</p>
-    {
-      options.map((a) => {
-        return <div onClick={e => updateSelection(a.key)} className={`item ${getChecked(a.key)
-            ? 'active'
-            : ''}`}>
-          <div className="checkbox"></div>
-          <div className="label">{a.text}</div>
-        </div>
-      })
-    }
-  </div>)
-}
-
-export const RangeSlider = ({max,min,step,selected,onChange,text}) => {
-
-  return <div className="slider container">
-    <p>{text}</p>
-    <div>
-      <Range step={1} dots={false} value={selected} min={min} max={max} onChange={onChange}/>
-      <span className="breadcrumbs min">Min: {selected[0]}</span>
-      <span className="breadcrumbs max">Max: {selected[1]}
-      </span>
-    </div>
-  </div>
-}
 
 class Pooverty extends Component {
 

@@ -23,7 +23,7 @@ const LineChart =injectIntl( ({intl, data }) => (
           data={data}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
 
-             yScale={{ type: 'linear', stacked: true, min: 'auto', max: 'auto' }}
+             yScale={{ type: 'linear', stacked: false, min: 'auto', max: 'auto' }}
 
           xScale={{ type: 'point' }}
           colors={{ scheme: 'set1' }}
