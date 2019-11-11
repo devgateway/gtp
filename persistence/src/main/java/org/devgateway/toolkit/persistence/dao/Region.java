@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -13,7 +14,7 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @BatchSize(size = 100)
-public class Region extends GenericPersistable implements Serializable {
+public class Region extends GenericPersistable implements Serializable, Labelable {
 
     @NotNull
     @Column(nullable = false, unique = true)
@@ -54,6 +55,17 @@ public class Region extends GenericPersistable implements Serializable {
 
     @Override
     public String toString() {
+        return name;
+    }
+
+    @Override
+    public void setLabel(String label) {
+        this.name = label;
+    }
+
+    @Override
+    @JsonIgnore
+    public String getLabel() {
         return name;
     }
 }

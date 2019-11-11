@@ -38,10 +38,15 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
                 addMinScorePredicate(root, cb, predicates);
                 addMaxScorePredicate(root, cb, predicates);
                 addPovLevelPredicates(root, cb, predicates);
+                addProfActivityPredicates(root, cb, predicates);
                 addApprovedDatasets(root, cb, predicates);
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
+    }
+
+    private void addProfActivityPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> pred) {
+        addIntPredicates(root, cb, pred, filter.getActivity(), PovertyIndicator_.PROFESSIONAL_ACTIVITY);
     }
 
     protected void addMinAgePredicate(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {

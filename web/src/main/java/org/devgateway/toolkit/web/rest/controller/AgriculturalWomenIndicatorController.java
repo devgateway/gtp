@@ -3,6 +3,7 @@ package org.devgateway.toolkit.web.rest.controller;
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
 import org.devgateway.toolkit.persistence.dao.categories.AgriculturalWomenGroup;
+import org.devgateway.toolkit.persistence.dto.AgriculturalWomenDTO;
 import org.devgateway.toolkit.persistence.dto.AgriculturalWomenSummary;
 import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalWomenIndicatorService;
@@ -39,7 +40,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "servicesCache")
 @Cacheable
 public class AgriculturalWomenIndicatorController extends AbstractDatasetController<AgriculturalWomenIndicator,
-        AgriculturalWomenFilterPagingRequest> {
+        AgriculturalWomenFilterPagingRequest, AgriculturalWomenDTO> {
 
     public static final String PERCENTAGE = "percentage";
     public static final int AGE_GROUP = 1;
@@ -63,6 +64,11 @@ public class AgriculturalWomenIndicatorController extends AbstractDatasetControl
             AgriculturalWomenFilterPagingRequest pagingRequest) {
         AgriculturalWomenFilterState filterState = new AgriculturalWomenFilterState(pagingRequest);
         return filterState.getSpecification();
+    }
+
+    @Override
+    protected AgriculturalWomenDTO getDTO(AgriculturalWomenIndicator indicator) {
+        return new AgriculturalWomenDTO(indicator);
     }
 
     @CrossOrigin

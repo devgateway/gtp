@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -17,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
-public class Department extends GenericPersistable implements Serializable {
+public class Department extends GenericPersistable implements Serializable, Labelable {
 
     @NotNull
     @ManyToOne(optional = false)
@@ -49,5 +50,16 @@ public class Department extends GenericPersistable implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public void setLabel(String label) {
+        this.name = label;
+    }
+
+    @Override
+    @JsonIgnore
+    public String getLabel() {
+        return name;
     }
 }

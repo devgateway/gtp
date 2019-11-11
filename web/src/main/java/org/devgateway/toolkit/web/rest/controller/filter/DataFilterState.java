@@ -76,7 +76,7 @@ public class DataFilterState<T extends Data> implements Serializable {
             for (Integer value:values) {
                 intPred.add(cb.equal(root.get(columnName), value));
             }
-            predicates.add(cb.or(intPred.toArray(new Predicate[predicates.size()])));
+            predicates.add(cb.or(intPred.toArray(new Predicate[intPred.size()])));
         }
     }
 

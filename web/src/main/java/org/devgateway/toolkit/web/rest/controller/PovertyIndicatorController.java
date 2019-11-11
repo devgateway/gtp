@@ -3,6 +3,7 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
+import org.devgateway.toolkit.persistence.dto.PovertyDTO;
 import org.devgateway.toolkit.persistence.dto.PovertySummary;
 import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.PovertyIndicatorService;
@@ -38,7 +39,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "servicesCache")
 @Cacheable
 public class PovertyIndicatorController extends AbstractDatasetController<PovertyIndicator,
-        PovertyFilterPagingRequest> {
+        PovertyFilterPagingRequest, PovertyDTO> {
 
     public static final String AGE = "age";
     public static final String SCORE = "score";
@@ -84,7 +85,6 @@ public class PovertyIndicatorController extends AbstractDatasetController<Povert
     }
 
 
-
     @CrossOrigin
     @ApiOperation(value = "Get poverty by region and year summary data")
     @RequestMapping(value = "/summary", method = POST)
@@ -92,6 +92,11 @@ public class PovertyIndicatorController extends AbstractDatasetController<Povert
             @RequestBody(required = false) @Valid final PovertyFilterPagingRequest req) {
         PovertyFilterState filterState = new PovertyFilterState(req);
         return summaryIndicatorRepository.getPovertyByYearAndRegionAndLevel(filterState.getSpecification());
+    }
+
+    @Override
+    protected PovertyDTO getDTO(PovertyIndicator povertyIndicator) {
+        return new PovertyDTO(povertyIndicator);
     }
 
 }

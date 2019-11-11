@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
 import org.devgateway.toolkit.persistence.dao.categories.IndexType;
 import org.devgateway.toolkit.persistence.dto.AOISummary;
+import org.devgateway.toolkit.persistence.dto.AgricultureOrientationIndexDTO;
 import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.AOIIndicatorService;
 import org.devgateway.toolkit.persistence.service.category.IndexTypeService;
@@ -41,7 +42,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "servicesCache")
 @Cacheable
 public class AOIIndicatorController extends AbstractDatasetController<AgricultureOrientationIndexIndicator,
-        AOIFilterPagingRequest> {
+        AOIFilterPagingRequest, AgricultureOrientationIndexDTO> {
 
     public static final String BUDGETED = "budgetedExpenditures";
     public static final String DISBURSED = "disbursedExpenditures";
@@ -129,6 +130,11 @@ public class AOIIndicatorController extends AbstractDatasetController<Agricultur
             AOIFilterPagingRequest pagingRequest) {
         AOIFilterState filterState = new AOIFilterState(pagingRequest);
         return filterState.getSpecification();
+    }
+
+    @Override
+    protected AgricultureOrientationIndexDTO getDTO(AgricultureOrientationIndexIndicator indicator) {
+        return new AgricultureOrientationIndexDTO(indicator);
     }
 
     private List<AOISummary> getSummaryByIndexType(AOIFilterPagingRequest req,
