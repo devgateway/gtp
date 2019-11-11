@@ -155,8 +155,8 @@ return (
             legendOffset: -40
         }}
         label={(s)=>intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0}) }
-        labelSkipWidth={12}
-        labelSkipHeight={12}
+        labelSkipWidth={20}
+        labelSkipHeight={22}
         labelTextColor={"#FFF"}
         legends={[
             {
