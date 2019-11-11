@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
 import {updateGlobalFilter,updateFilter,reset,apply} from '../modules/Indicator'
 
-import {loadDataItems} from '../modules/Data'
 import {
   Dropdown,
   Grid,
@@ -21,6 +20,8 @@ import GlobalNumbers from './GlobalNumbers'
 
 import MainFilter from './MainFilter'
 import Poverty from './Poverty'
+import Women from './Women'
+
 import {ChartTableSwitcher, CustomFilterDropDown} from './Components'
 
 class Indicators extends Component {
@@ -82,7 +83,7 @@ class Indicators extends Component {
             </Grid.Row>
         </Grid>
           <Poverty onChange={this.onChangeChartFilter} {...this.props}></Poverty>
-
+          <Women onChange={this.onChangeChartFilter} {...this.props}></Women>
       </div>
     </div>)
   }
@@ -94,7 +95,6 @@ const mapStateToProps = state => {
   const crops = state.getIn(['data', 'items', 'cropType']);
   const gender = state.getIn(['data', 'items', 'gender']);
   const years = state.getIn(['data', 'items', 'year']);
-
   const filters = state.getIn(['indicator', 'filters'])
 
   return {
@@ -108,7 +108,6 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   onChangeGlobalFilter: updateGlobalFilter,
-  onLoadFilterData: loadDataItems,
   onChangeFilter:updateFilter,
   onReset:reset,
   onApply:apply

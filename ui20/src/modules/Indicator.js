@@ -69,6 +69,19 @@ export const reset = () => (dispatch, getState) => {
 
 
 
+export const loadAgricuturalPopulationData = () => (dispatch, getState) => {
+  const filters = getState().getIn(['indicator', 'filters']).toJS()
+  api.getAgricuturalPopulation(filters).then(data => {
+    dispatch({
+      type: 'LOAD_AGRICUTURAL_POPULATION_DATA_DONE',
+      data
+    })
+  }).catch(error => dispatch({
+    type: 'LOAD_AGRICUTURAL_POPULATION_DATA_ERROR',
+    error
+  }))
+}
+
 
 export const loadPovertyChartData = () => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
@@ -210,6 +223,17 @@ export default (state = initialState, action) => {
       } = action
 
       return state.setIn(['poverty', 'data'], data)
+    }
+    case 'LOAD_AGRICUTURAL_POPULATION_DATA_DONE': {
+      const {data} = action
+      return state.setIn(['women','population', 'data'], data)
+    }
+    case 'LOAD_AGRICUTURAL_POPULATION_DATA_ERROR': {
+      const {
+        error
+      } = action
+
+      return state.setIn(['women','population', 'error'], error).state.setIn(['women','population', 'data'], null)
     }
 
     case 'APPLY_FILTER_FLAG_ON': {
