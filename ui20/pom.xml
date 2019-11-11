@@ -124,7 +124,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <arguments>run build</arguments>
+                            <arguments>run build --max-old-space-size=4096</arguments>
                         </configuration>
                     </execution>
 
