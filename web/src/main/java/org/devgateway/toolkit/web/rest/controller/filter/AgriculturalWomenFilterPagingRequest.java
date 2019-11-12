@@ -19,6 +19,10 @@ public class AgriculturalWomenFilterPagingRequest extends DefaultFilterPagingReq
     @ApiModelProperty(value = "Filter by agricultural women group type")
     private TreeSet<Integer> awGroupType;
 
+    private TreeSet<Integer> ageGroup;
+
+    private TreeSet<Integer> methodOfEnforcement;
+
     public AgriculturalWomenFilterPagingRequest() {
     }
 
@@ -51,10 +55,36 @@ public class AgriculturalWomenFilterPagingRequest extends DefaultFilterPagingReq
     }
 
     public TreeSet<Integer> getAwGroupType() {
-        return awGroupType;
+        TreeSet<Integer> all = new TreeSet<>();
+        if (awGroupType != null) {
+            all.addAll(awGroupType);
+        }
+        if (ageGroup != null) {
+            all.addAll(ageGroup);
+        }
+        if (methodOfEnforcement != null) {
+            all.addAll(methodOfEnforcement);
+        }
+        return all;
     }
 
     public void setAwGroupType(TreeSet<Integer> awGroupType) {
         this.awGroupType = awGroupType;
+    }
+
+    public TreeSet<Integer> getAgeGroup() {
+        return ageGroup;
+    }
+
+    public void setAgeGroup(TreeSet<Integer> ageGroup) {
+        this.ageGroup = ageGroup;
+    }
+
+    public TreeSet<Integer> getMethodOfEnforcement() {
+        return methodOfEnforcement;
+    }
+
+    public void setMethodOfEnforcement(TreeSet<Integer> methodOfEnforcement) {
+        this.methodOfEnforcement = methodOfEnforcement;
     }
 }
