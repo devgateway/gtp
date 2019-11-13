@@ -57,7 +57,7 @@ const LineChart =injectIntl( ({intl, data }) => (
               tickSize: 5,
               tickPadding: 5,
               tickRotation: 0,
-              legend: 'count',
+              legend: 'Percent',
               legendOffset: -40,
               legendPosition: 'middle'
           }}
@@ -112,8 +112,8 @@ return (
         groupMode={groupMode}
         colors={colors}
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-        padding={0.35}
-        innerPadding={3}
+        padding={0.2}
+        innerPadding={1}
         defs={[
             {
                 id: 'dots',
@@ -150,13 +150,13 @@ return (
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'Count',
+            legend: 'Percent',
             legendPosition: 'middle',
             legendOffset: -40
         }}
         label={(s)=>intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0}) }
-        labelSkipWidth={12}
-        labelSkipHeight={12}
+        labelSkipWidth={25}
+        labelSkipHeight={22}
         labelTextColor={"#FFF"}
         legends={[
             {
@@ -240,18 +240,10 @@ const generateLineData=(data)=>{
     return {id:r,  "color": "hsl(332, 70%, 50%)", data:series}
 
   })
-
-      /*
-      {
-        id:'Dakar',
-        data=[
-        {x=2017, y=10},{x=2018, y=12},{x=2019), y=18},
-      ]
-      }
-  */
-
-    return Object.keys(lineData).map(k=>lineData[k])
+  return Object.keys(lineData).map(k=>lineData[k])
 }
+
+
 
 const PovertyChart=({data,intl})=>{
 
@@ -264,7 +256,6 @@ const PovertyChart=({data,intl})=>{
 
 
   const lineData=generateLineData(data)
-
     const panes = [
       {
         menuItem: 'Yearly Regional',
