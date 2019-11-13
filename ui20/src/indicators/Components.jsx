@@ -14,16 +14,9 @@ import {
 } from 'semantic-ui-react'
 
 
-
-
-
-
-
-export const CustomFilterDropDown = ({options, selected, onChange, text}) => {
+export const CustomFilterDropDown = ({options, selected, onChange, text, disabled}) => {
   const [open, setOpen] = useState(false);
-
   const breadcrum=(<div className="breadcrums">{text} {true?<span>({selected.length} of {options.length})</span>:null}</div>)
-
   const updateSelection = (key) => {
     const newSelection = selected.slice(0)
     if (newSelection.indexOf(key) > -1) {
@@ -48,7 +41,8 @@ export const CustomFilterDropDown = ({options, selected, onChange, text}) => {
     }
   }
 
-  return (<Dropdown fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
+
+  return (<Dropdown className={disabled?"disabled":""} fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
       const keepOpen = !e || e.currentTarget.getAttribute("role") != 'listbox'
       setOpen(!keepOpen)
     }}>

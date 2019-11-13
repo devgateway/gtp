@@ -113,8 +113,6 @@
 
     .ui.fluid.dropdown {
       display: block;
-      width: 100%;
-      min-width: 0;
       height: 79px;
     }
 
@@ -503,6 +501,7 @@
       border-color:  $border-color;
       height: 75px;
       cursor: pointer;
+
       .icon{
         margin-left: -30px;
         display: block;
@@ -511,24 +510,7 @@
       }
     }
 
-    .item:nth-child(1) {
-      .icon{
-        background-image: url('/icon_bar_chart.png');
-        background-repeat:no-repeat;
-        }
-    }
-    .item:nth-child(2) {
-      .icon{
-        background-image: url('/icon_bar_chart.png');
-        background-repeat:no-repeat;
-        }
-    }
-    .item:nth-child(3) {
-      .icon{
-        background-image: url('/icon_line_chart.png');
-        background-repeat:no-repeat;
-        }
-    }
+
 
 
 
@@ -588,7 +570,7 @@
     padding-top: 30px;
 
     .ui.fluid.dropdown {
-      width: 210px !important;
+      min-width: 210px !important;
       float: left;
       font-size: 12px;
       border: 1px solid #ced0da;
