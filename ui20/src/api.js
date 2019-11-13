@@ -6,7 +6,9 @@ const itemsURLBuilder = (category, path) => `/data/${path}/${category}`
 
 const URL_INDICATORS = API_ROOT + '/data/indicator'
 const URL_POVERTY = API_ROOT + '/data/poverty/summary'
-const URL_AGRICULTURAL_POPULATION = API_ROOT + '/data/agriculturalWomen/summary'
+const URL_AGRICULTURAL_POPULATION = API_ROOT + '/data/agriculturalWomen/summary/byAgeGroup'
+const URL_AGRICULTURAL_DISTRIBUTION = API_ROOT + '/data/agriculturalWomen/summary/byMethodOfEnforcement'
+
 
 
 
@@ -92,7 +94,24 @@ export const loadPovertyChartData = (params) => {
 }
 
 
+export const getAgricuturalDistribution = (params) => {
 
+  return new Promise((resolve, reject) => {
+
+    post(URL_AGRICULTURAL_DISTRIBUTION, {
+      ...params.global,
+      ...params.women
+    }).then((data) => {
+
+
+      resolve(data)
+
+    }).catch(error => {
+
+      reject(error)
+    })
+  })
+}
 
 export const getAgricuturalPopulation = (params) => {
 
@@ -100,7 +119,7 @@ export const getAgricuturalPopulation = (params) => {
 
     post(URL_AGRICULTURAL_POPULATION, {
       ...params.global,
-      ...params.poverty
+      ...params.women
     }).then((data) => {
 
 

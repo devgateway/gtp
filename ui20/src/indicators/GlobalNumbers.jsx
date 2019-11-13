@@ -1,6 +1,6 @@
 
 import ReactDOM from 'react-dom';
-import React, {Component, createRef, useState} from 'react'
+import React, {Component, createRef, useState, useEffect} from 'react'
 import {FormattedMessage, FormattedNumber, injectIntl} from 'react-intl';
 
 import { getGlobalIndicators} from '../modules/Indicator'
@@ -14,9 +14,11 @@ import {
   Segment,
   Sticky
 } from 'semantic-ui-react'
-
+import CountUp from 'react-countup';
 
 import {connect} from 'react-redux';
+
+
 
 class GlobalNumbers extends Component {
 
@@ -30,8 +32,8 @@ class GlobalNumbers extends Component {
 
 
    render(){
-       const {error}=this.props
-
+       const {intl,error}=this.props
+        debugger;
        const data=this.props.data?this.props.data.toJS():null
         return (
           <Grid className="indicator global numbers" columns={4} divided>
@@ -40,7 +42,7 @@ class GlobalNumbers extends Component {
             {data && data.map(n=>(
               <Grid.Column>
                 <div className="indicator big number">
-                    <FormattedNumber minimumFractionDigits={0}  maximumFractionDigits={0} style={n.style} value={n.value}></FormattedNumber>
+                  <CountUp  redraw={true} start={0} end={n.value*100} delay={0} useEasing={true}  formattingFn={(f)=>intl.formatNumber(f/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}/>
                       <span className="indicator big number year">{n.year}</span>
                 </div>
                 <div className="indicator description">

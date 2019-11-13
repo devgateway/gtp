@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
@@ -101,7 +102,7 @@ public class AgriculturalWomenIndicatorController extends AbstractDatasetControl
 
     @CrossOrigin
     @ApiOperation(value = "Get agricultural women summary data by age group")
-    @RequestMapping(value = "/summary/byAgeGroup", method = POST)
+    @RequestMapping(value = "/summary/byAgeGroup", method = {POST,GET})
     public @ResponseBody List<AgriculturalWomenSummary> getSummaryIndicatorWomenByAgeGroup(
             @RequestBody(required = false) @Valid final AgriculturalWomenFilterPagingRequest req) {
         return getSummaryByGroup(req, AGE_GROUP);

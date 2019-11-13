@@ -57,6 +57,8 @@ export const apply = () => (dispatch, getState) => {
 export const refresh = () => (dispatch, getState) => {
   dispatch(loadGlobalIndicators())
   dispatch(loadPovertyChartData())
+  dispatch(loadAgricuturalPopulationData())
+  dispatch(loadAgricuturalDistribution())
 }
 
 
@@ -71,6 +73,7 @@ export const reset = () => (dispatch, getState) => {
 
 export const loadAgricuturalPopulationData = () => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
+
   api.getAgricuturalPopulation(filters).then(data => {
     dispatch({
       type: 'LOAD_AGRICUTURAL_POPULATION_DATA_DONE',
@@ -78,6 +81,22 @@ export const loadAgricuturalPopulationData = () => (dispatch, getState) => {
     })
   }).catch(error => dispatch({
     type: 'LOAD_AGRICUTURAL_POPULATION_DATA_ERROR',
+    error
+  }))
+}
+
+
+
+export const loadAgricuturalDistribution = () => (dispatch, getState) => {
+  const filters = getState().getIn(['indicator', 'filters']).toJS()
+
+  api.getAgricuturalDistribution(filters).then(data => {
+    dispatch({
+      type: 'LOAD_AGRICUTURAL_DISTRIBUTION_DATA_DONE',
+      data
+    })
+  }).catch(error => dispatch({
+    type: 'LOAD_AGRICUTURAL_DISTRIBUTION_DATA_ERROR',
     error
   }))
 }
@@ -146,6 +165,11 @@ export const updateFilter = (path, selection, updates) => dispatch => {
     dispatch(loadPovertyChartData())
   }
 
+  if(updates&&updates.indexOf('WOMEN')>-1){
+
+    dispatch(loadAgricuturalPopulationData())
+      dispatch(loadAgricuturalDistribution())
+  }
 }
 
 /*
@@ -224,17 +248,26 @@ export default (state = initialState, action) => {
 
       return state.setIn(['poverty', 'data'], data)
     }
+
     case 'LOAD_AGRICUTURAL_POPULATION_DATA_DONE': {
       const {data} = action
       return state.setIn(['women','population', 'data'], data)
     }
     case 'LOAD_AGRICUTURAL_POPULATION_DATA_ERROR': {
-      const {
-        error
-      } = action
-
-      return state.setIn(['women','population', 'error'], error).state.setIn(['women','population', 'data'], null)
+      const {error} = action
+      return state.setIn(['women','population', 'error'], error).setIn(['women','population', 'data'], null)
     }
+
+    case 'LOAD_AGRICUTURAL_DISTRIBUTION_DATA_DONE': {
+      const {data} = action
+      return state.setIn(['women','distribution', 'data'], data)
+    }
+    case 'LOAD_AGRICUTURAL_DISTRIBUTION_DATA_ERROR': {
+      const {error} = action
+      return state.setIn(['women','distribution', 'error'], error).setIn(['women','distribution', 'data'], null)
+    }
+
+
 
     case 'APPLY_FILTER_FLAG_ON': {
       const {

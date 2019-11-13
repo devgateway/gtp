@@ -12,12 +12,14 @@ import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import { Tab } from 'semantic-ui-react'
 import {gender2options,age2options,items2options} from '../api'
 import './women.scss'
-import AgriculturalPopulation from './AgriculturalPopulation'
+
+import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './WomenCharts'
+
 const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange})=>{
 
   const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []
-  const ageSelection = filters && filters.getIn(['women', 'age'])? filters.getIn(['women', 'age']).toJS(): []
-  const methodOfEnforcementsSelection = filters && filters.getIn(['women', 'methodOfEnforcement'])? filters.getIn(['women', 'methodOfEnforcement']).toJS(): []
+  const ageSelection = filters && filters.getIn(['women', 'awGroup'])? filters.getIn(['women', 'awGroup']).toJS(): []
+  const methodOfEnforcementsSelection = filters && filters.getIn(['women', 'awGroup'])? filters.getIn(['women', 'awGroup']).toJS(): []
 
 
   return (<div className="indicator chart filter  women">
@@ -25,12 +27,12 @@ const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange})=>{
         <CustomFilterDropDown options={items2options(genders)}  onChange={s => {onChange([ 'filters', 'women', 'gender'], s,['WOMEN'])}} selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
       </div>
       <div className="filter item">
-        <CustomFilterDropDown options={items2options(methodOfEnforcements)}  onChange={s => {onChange([ 'filters', 'women', 'methodOfEnforcement'], s,['WOMEN'])}} selected={methodOfEnforcementsSelection} text={<FormattedMessage id = "indicators.filter.enforcement.method" defaultMessage = "Enforcement Method"  > </FormattedMessage>} />
+        <CustomFilterDropDown options={items2options(methodOfEnforcements)}  onChange={s => {onChange([ 'filters', 'women', 'awGroup'], s,['WOMEN'])}} selected={methodOfEnforcementsSelection} text={<FormattedMessage id = "indicators.filter.enforcement.method" defaultMessage = "Enforcement Method"  > </FormattedMessage>} />
 
       </div>
       <div className="filter item">
 
-        <OptionList options={items2options(ageGroups)}  onChange={s => {onChange([ 'filters', 'women', 'age'], s,['WOMEN'])}} selected={ageSelection} text={<FormattedMessage id = "indicators.filter.ageGroup" defaultMessage = "Age Group"  > </FormattedMessage>} />
+        <OptionList options={items2options(ageGroups)}  onChange={s => {onChange([ 'filters', 'women', 'awGroup'], s,['WOMEN'])}} selected={ageSelection} text={<FormattedMessage id = "indicators.filter.ageGroup" defaultMessage = "Age Group"  > </FormattedMessage>} />
       </div>
 
     </div>)
@@ -38,35 +40,55 @@ const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange})=>{
 
 
 const ChartSection = ( props)=>{
+  let lastetYear=null
+    if (props.population){
+      lastetYear=props.population.map(d=>d.year).sort()[props.population.length-1];
+    }
     const panes = [
        {
-         menuItem:  { key: 'bar', icon: '', content: 'Bar Chart' },
-         render: () =>   <div className="indicators chart poverty">
-         <Filters {...props}></Filters>
-          <AgriculturalPopulation {...props}></AgriculturalPopulation>
-      </div>,
+         menuItem:  { key: 'bar', icon: '', content: 'Agricultural Population '+(lastetYear?'('+lastetYear+')':'') },
+         render: () =>
+            <div className="indicators chart women">
+              <Filters {...props}></Filters>
+              <ByAgeBar  {...props} data={props.population}></ByAgeBar>
+            </div>,
        },
        {
-         menuItem:  { key: 'pie', icon: '', content: 'Pie Chart' },
-         render: () =>   <div className="indicators chart poverty"><Filters {...props}></Filters></div>,
+         menuItem:  { key: 'line', icon: '', content: 'Historical Agricultural Population' },
+         render: () =><div className="indicators chart women">
+               <Filters {...props}></Filters>
+               <ByAgeAndYearLine  data={props.population} {...props}></ByAgeAndYearLine>
+             </div>,
 
        },
        {
-         menuItem:  { key: 'line', icon: '', content: 'Line Chart' },
-         render: () => <div className="indicators chart poverty"><Filters {...props}></Filters></div>,
+         menuItem:  { key: 'bar', icon: '', content: 'Parcel Distribution '+(lastetYear?'('+lastetYear+')':'') },
+         render: () =><div className="indicators chart women">
+               <Filters {...props}></Filters>
+               <ByMethodOfEnforcementBar {...props} data={props.distribution}></ByMethodOfEnforcementBar>
+             </div>,
+
+       },
+       {
+         menuItem:  { key: 'line', icon: '', content: 'Historical Parcel Distribution' },
+         render: () =><div className="indicators chart women">
+               <Filters {...props}></Filters>
+               <ByMethodOfEnforcementLine {...props} data={props.distribution}></ByMethodOfEnforcementLine>
+             </div>,
+
        }
      ]
     return (
         <div className="indicator.chart.container">
 
-        <div className="indicator chart title women">
+        <div className="indicator chart women title ">
           <p>
             <FormattedMessage id="inidicators.chart.women.title" defaultMessage="Women in the Agricultural sector"></FormattedMessage>
           </p>
           <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
         </div>
 
-        <div className="indicator chart description women">
+        <div className="indicator chart women description">
           <p>
             <FormattedMessage id="inidicators.chart.women.description" defaultMessage="Measuring women's access to land through the percentage of men and women (aged 15-49) who solely own land which is legally registered to their name."></FormattedMessage>
           </p>
@@ -88,7 +110,8 @@ const mapStateToProps = state => {
   const genders = state.getIn(['data', 'items', 'gender']);
   const filters = state.getIn(['indicator', 'filters'])
   const methodOfEnforcements=state.getIn(['data','items','methodOfEnforcement'])
-  const data=state.getIn(['indicator','women','population', 'data'])
+  const population=state.getIn(['indicator','women','population', 'data'])
+  const distribution=state.getIn(['indicator','women','distribution', 'data'])
 
 
   return {
@@ -96,8 +119,8 @@ const mapStateToProps = state => {
     genders,
     methodOfEnforcements,
     ageGroups,
-    data
-
+    population,
+    distribution
   }
 
 }
