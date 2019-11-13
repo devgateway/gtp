@@ -16,12 +16,9 @@ import './women.scss'
 import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './WomenCharts'
 
 const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange, options})=>{
-
   const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []
   const ageSelection = filters && filters.getIn(['women', 'ageGroup'])? filters.getIn(['women', 'ageGroup']).toJS(): []
   const methodOfEnforcementsSelection = filters && filters.getIn(['women', 'methodOfEnforcement'])? filters.getIn(['women', 'methodOfEnforcement']).toJS(): []
-
-
   return (<div className="indicator chart filter  women">
       <div className="filter item">
         <CustomFilterDropDown disabled={!options.gender} options={items2options(genders)}  onChange={s => {onChange([ 'filters', 'women', 'gender'], s,['WOMEN'])}} selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
@@ -49,14 +46,14 @@ const ChartSection = ( props)=>{
          menuItem:  { key: 'bar', icon: '', content: 'By Gender '+(lastetYear?'('+lastetYear+')':'') },
          render: () =>
             <div className="indicators chart women">
-              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:true}}></Filters>
+              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
               <ByAgeBar  {...props} data={props.population}></ByAgeBar>
             </div>,
        },
        {
          menuItem:  { key: 'line', icon: '', content: 'Female Progression' },
          render: () =><div className="indicators chart women">
-               <Filters {...props} options={{gender:false, age:true,methodOfEnforcement:true}}></Filters>
+               <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
                <ByAgeAndYearLine  data={props.population} {...props}></ByAgeAndYearLine>
              </div>,
 
@@ -64,7 +61,7 @@ const ChartSection = ( props)=>{
        {
          menuItem:  { key: 'bar', icon: '', content: 'By Method '+(lastetYear?'('+lastetYear+')':'') },
          render: () =><div className="indicators chart women">
-               <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:true}}></Filters>
+               <Filters {...props} options={{gender:true, age:false,methodOfEnforcement:true}}></Filters>
                <ByMethodOfEnforcementBar {...props} data={props.distribution}></ByMethodOfEnforcementBar>
              </div>,
 
@@ -72,7 +69,7 @@ const ChartSection = ( props)=>{
        {
          menuItem:  { key: 'line', icon: '', content: 'Female Progression' },
          render: () =><div className="indicators chart women">
-               <Filters {...props} options={{gender:false, age:true,methodOfEnforcement:true}}></Filters>
+               <Filters {...props} options={{gender:false, age:false,methodOfEnforcement:true}}></Filters>
                <ByMethodOfEnforcementLine {...props} data={props.distribution}></ByMethodOfEnforcementLine>
              </div>,
 

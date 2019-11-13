@@ -138,6 +138,9 @@
     font-size: 12px;
   }
 
+
+
+
   div.checkbox {
     margin-left: 5px;
     margin-right: 5px;
@@ -429,6 +432,16 @@
         letter-spacing: -1px;
         margin-right: 7px;
         line-height: 20px;
+      }
+    }
+  }
+  .filter.disabled.options {
+      opacity: 0.5;
+
+    .item{
+
+      .checkbox {
+        background-color: #EEE !important;
       }
     }
   }

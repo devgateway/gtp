@@ -90,7 +90,7 @@ export const ChartTableSwitcher = (props) =>(
 
 
 
-export const OptionList = ({options, selected, onChange, text}) => {
+export const OptionList = ({options, selected, onChange, text, disabled}) => {
   const updateSelection = (key) => {
     const newSelection = selected.slice(0)
     if (newSelection.indexOf(key) > -1) {
@@ -104,11 +104,11 @@ export const OptionList = ({options, selected, onChange, text}) => {
   const getChecked = (key) => {
     return selected.indexOf(key) > -1
   }
-  return (<div className="indicator filter options age">
+  return (<div className={`indicator filter ${disabled?'disabled':''} options  age`}>
     <p>{text}</p>
     {
       options.map((a) => {
-        return <div onClick={e => updateSelection(a.key)} className={`item ${getChecked(a.key)
+        return <div onClick={e => {if(!disabled) {updateSelection(a.key)}}} className={`item ${getChecked(a.key)
             ? 'active'
             : ''}`}>
           <div className="checkbox"></div>

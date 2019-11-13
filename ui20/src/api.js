@@ -97,10 +97,12 @@ export const loadPovertyChartData = (params) => {
 export const getAgricuturalDistribution = (params) => {
 
   return new Promise((resolve, reject) => {
+    const specificFilters=params.women;
+    specificFilters.ageGroup=[]
 
     post(URL_AGRICULTURAL_DISTRIBUTION, {
       ...params.global,
-      ...params.women
+      ...specificFilters
     }).then((data) => {
 
 
@@ -117,9 +119,12 @@ export const getAgricuturalPopulation = (params) => {
 
   return new Promise((resolve, reject) => {
 
+    const specificFilters=params.women;
+    specificFilters.methodOfEnforcement=[]
+
     post(URL_AGRICULTURAL_POPULATION, {
       ...params.global,
-      ...params.women
+      ...specificFilters
     }).then((data) => {
 
 
