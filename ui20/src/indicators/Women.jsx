@@ -18,8 +18,8 @@ import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcemen
 const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange, options})=>{
 
   const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []
-  const ageSelection = filters && filters.getIn(['women', 'awGroup'])? filters.getIn(['women', 'awGroup']).toJS(): []
-  const methodOfEnforcementsSelection = filters && filters.getIn(['women', 'awGroup'])? filters.getIn(['women', 'awGroup']).toJS(): []
+  const ageSelection = filters && filters.getIn(['women', 'ageGroup'])? filters.getIn(['women', 'ageGroup']).toJS(): []
+  const methodOfEnforcementsSelection = filters && filters.getIn(['women', 'methodOfEnforcement'])? filters.getIn(['women', 'methodOfEnforcement']).toJS(): []
 
 
   return (<div className="indicator chart filter  women">
@@ -28,11 +28,11 @@ const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange, option
       </div>
 
        <div className="filter item">
-        <CustomFilterDropDown disabled={!options.methodOfEnforcement} options={items2options(methodOfEnforcements)}  onChange={s => {onChange([ 'filters', 'women', 'awGroup'], s,['WOMEN'])}} selected={methodOfEnforcementsSelection} text={<FormattedMessage id = "indicators.filter.enforcement.method" defaultMessage = "Enforcement Method"  > </FormattedMessage>} />
+        <CustomFilterDropDown disabled={!options.methodOfEnforcement} options={items2options(methodOfEnforcements)}  onChange={s => {onChange([ 'filters', 'women', 'methodOfEnforcement'], s,['WOMEN'])}} selected={methodOfEnforcementsSelection} text={<FormattedMessage id = "indicators.filter.enforcement.method" defaultMessage = "Enforcement Method"  > </FormattedMessage>} />
       </div>
 
       <div className="filter item">
-        <OptionList disabled={!options.age} options={items2options(ageGroups)}  onChange={s => {onChange([ 'filters', 'women', 'awGroup'], s,['WOMEN'])}} selected={ageSelection} text={<FormattedMessage id = "indicators.filter.ageGroup" defaultMessage = "Age Group"  > </FormattedMessage>} />
+        <OptionList disabled={!options.age} options={items2options(ageGroups)}  onChange={s => {onChange([ 'filters', 'women', 'ageGroup'], s,['WOMEN'])}} selected={ageSelection} text={<FormattedMessage id = "indicators.filter.ageGroup" defaultMessage = "Age Group"  > </FormattedMessage>} />
       </div>
 
     </div>)

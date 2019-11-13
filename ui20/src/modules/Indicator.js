@@ -46,6 +46,31 @@ export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
   })
 }
 
+
+
+export const loadDefaultWomenFilters = () => (dispatch, getState) => {
+  console.log("loadDefaultWomenFilters")
+  const filters = getState().getIn(['indicator', 'filters']).map(a => a.id);
+  const ageGroups = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);;
+  const methodOfEnforcements=getState().getIn(['data','items','methodOfEnforcement']).map(a => a.id);
+
+  const genders = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
+
+  const womenFilters = Immutable.Map()
+    .setIn(['gender'], Immutable.List())
+    .setIn(['ageGroup'], Immutable.List())
+    .setIn(['methodOfEnforcement'], Immutable.List())
+
+    debugger;
+
+
+  dispatch({
+    type: 'LOAD_DEFAULT_WOMEN_FILTERS_DONE',
+    womenFilters
+  })
+}
+
+
 export const apply = () => (dispatch, getState) => {
   dispatch({
     type: 'APPLY_FILTER_FLAG_ON'
@@ -241,6 +266,19 @@ export default (state = initialState, action) => {
       } = action
       return state.setIn(['filters', 'poverty'], povertyFilters)
     }
+
+
+
+        case 'LOAD_DEFAULT_WOMEN_FILTERS_DONE': {
+          const {
+            womenFilters
+          } = action
+          debugger
+          return state.setIn(['filters', 'women'], womenFilters)
+        }
+
+
+
     case 'LOAD_POVERTY_CHART_DATA_DONE': {
       const {
         data
