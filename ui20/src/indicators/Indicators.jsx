@@ -21,6 +21,8 @@ import GlobalNumbers from './GlobalNumbers'
 import MainFilter from './MainFilter'
 import Poverty from './Poverty'
 import Women from './Women'
+import Food from './GlobalFoodLoss'
+import AgriculturalIndex from './AgricutureIndex'
 
 import {ChartTableSwitcher, CustomFilterDropDown} from './Components'
 
@@ -84,6 +86,8 @@ class Indicators extends Component {
         </Grid>
           <Poverty onChange={this.onChangeChartFilter} {...this.props}></Poverty>
           <Women onChange={this.onChangeChartFilter} {...this.props}></Women>
+          <Food onChange={this.onChangeChartFilter} {...this.props}></Food>
+          <AgriculturalIndex onChange={this.onChangeChartFilter} {...this.props}></AgriculturalIndex>
       </div>
     </div>)
   }

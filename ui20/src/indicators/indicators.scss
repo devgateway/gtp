@@ -244,30 +244,7 @@
 
   }
 
-  .indicator.description {
-    border-top: 2px solid $border-color;
-    border-bottom: 2px solid $border-color;
-    min-height: 120px;
-    padding: 20px;
-    font-size: 15px;
 
-    .indicator.logo {
-      float: left;
-      padding-left: 0;
-      margin-right: 10px;
-      margin-top: 5px;
-      min-height: 80px;
-
-      img {
-        width: 40px;
-      }
-    }
-
-    .indicator.name {
-      word-wrap: normal;
-      font-size: 18px;
-    }
-  }
 
   .indicator.link {
     height: 40px;
@@ -371,7 +348,7 @@
     border-top: 2px solid $border-color;
     height: 74px;
     color: #497423;
-    margin: 0;
+    margin-top:  50px;
 
     p {
       font-size: 28px;
@@ -524,9 +501,6 @@
     }
 
 
-
-
-
     .active.item{
 
       background-color: #f6faf5;
@@ -539,13 +513,16 @@
   }
 
 
-  .indicator.chart.description {
-    margin: 0;
-    clear: both;
+  .indicator.description {
+    border-top: 2px solid $border-color;
+    border-bottom: 2px solid $border-color;
+    padding: 15px;
+    font-size: 15px;
+    display: flex;
     background-color: #f6faf5;
     border: 1px solid $border-color;
     border-radius: 4px;
-    height: 74px;
+
     font-size: 18px;
     color: #646464;
 
@@ -554,7 +531,28 @@
       width: 1000px;
     }
     clear: both;
+
+
+    .indicator.logo {
+      float: left;
+      padding-left: 0;
+      margin-right: 10px;
+      margin-top: 5px;
+      min-height: 80px;
+
+      img {
+        width: 40px;
+      }
+    }
+
+    .indicator.name {
+      word-wrap: normal;
+      font-size: 18px;
+    }
   }
+
+
+
 
   .indicator.chart.icon.download {
     width: 30px;
