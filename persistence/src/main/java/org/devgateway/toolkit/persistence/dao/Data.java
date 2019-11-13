@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,6 +33,7 @@ public abstract class Data extends AbstractAuditableEntity implements Serializab
     @PivotTableField(hideInAggregators = true)
     @Column(nullable = false)
     @NotNull
+    @ExcelExport
     private Integer year;
 
     public Dataset getDataset() {

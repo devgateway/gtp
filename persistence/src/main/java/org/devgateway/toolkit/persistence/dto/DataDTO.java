@@ -2,12 +2,16 @@ package org.devgateway.toolkit.persistence.dto;
 
 import org.devgateway.toolkit.persistence.dao.Data;
 import org.devgateway.toolkit.persistence.dao.Labelable;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 public class DataDTO {
 
     private static final String EMPTY = "";
 
+    @ExcelExport
     private Long id;
+
+    @ExcelExport
     private Integer year;
 
     public DataDTO(Data data) {

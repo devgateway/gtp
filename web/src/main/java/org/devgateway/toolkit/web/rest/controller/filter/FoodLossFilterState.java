@@ -46,23 +46,23 @@ public class FoodLossFilterState extends DataFilterState<FoodLossIndicator> {
 
     protected void addMinPercentagePredicate(Root<FoodLossIndicator> root, CriteriaBuilder cb,
                                              List<Predicate> predicates) {
-        addMinPredicate(root, cb, predicates, filter.getMinPercentage(), FoodLossIndicator_.AVG_PERCENTAGE);
+        addMinPredicate(root, cb, predicates, filter.getMinAvgPercentage(), FoodLossIndicator_.AVG_PERCENTAGE);
     }
 
     protected void addMaxPercentagePredicate(Root<FoodLossIndicator> root, CriteriaBuilder cb,
                                              List<Predicate> predicates) {
-        addMaxPredicate(root, cb, predicates, filter.getMaxPercentage(), FoodLossIndicator_.AVG_PERCENTAGE);
+        addMaxPredicate(root, cb, predicates, filter.getMaxAvgPercentage(), FoodLossIndicator_.AVG_PERCENTAGE);
     }
 
 
     protected void addMinKgPredicate(Root<FoodLossIndicator> root, CriteriaBuilder cb,
                                              List<Predicate> predicates) {
-        addMinPredicate(root, cb, predicates, filter.getMinKg(), FoodLossIndicator_.AVG_KILOGRAMS);
+        addMinPredicate(root, cb, predicates, filter.getMinAvgKilogram(), FoodLossIndicator_.AVG_KILOGRAMS);
     }
 
     protected void addMaxKgPredicate(Root<FoodLossIndicator> root, CriteriaBuilder cb,
                                              List<Predicate> predicates) {
-        addMaxPredicate(root, cb, predicates, filter.getMaxKg(), FoodLossIndicator_.AVG_KILOGRAMS);
+        addMaxPredicate(root, cb, predicates, filter.getMaxAvgKilogram(), FoodLossIndicator_.AVG_KILOGRAMS);
     }
 
     protected void addLossTypePredicates(Root<FoodLossIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {

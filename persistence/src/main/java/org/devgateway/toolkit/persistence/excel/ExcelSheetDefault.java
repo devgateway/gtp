@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.devgateway.toolkit.persistence.excel.service.TranslateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +45,7 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
     private Map<String, Object> parentInfo;
 
     // Boolean that identifies if the header was written already for this sheet.
-    private Boolean headerWasWritten = false;
+    private Boolean hideHeader = false;
 
     /**
      * Constructor used to print an Object in a separate excel sheet.
@@ -68,10 +69,12 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
             excelSheet = workbook.createSheet(excelSheetName);
 
             // freeze the header row
-            excelSheet.createFreezePane(0, 1);
+            excelSheet.createFreezePane(0, 3);
+            excelSheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
+            excelSheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 5));
 
             // create the first row that is used as a header
-            createRow(excelSheet, 0);
+            //createRow(excelSheet, 0);
 
             // set a default width - this will increase the performance
             excelSheet.setDefaultColumnWidth(35);
@@ -93,17 +96,22 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
     }
 
     @Override
-    public void writeRow(final Class clazz, final Object object, final Row row) {
+    public void writeRow(final Class clazz, final Object object, final Row rowData) {
+        writeRow(clazz, object, null, rowData);
+    }
+
+    @Override
+    public void writeRow(final Class clazz, final Object object, final Row rowTitle, final Row rowData) {
         final Iterator<Field> fields = ExcelFieldService.getFields(clazz);
 
         // if we have a parent then the first row should be the parent name with a link.
-        if (getFreeColl(row) == 0 && parentInfo != null) {
+        if (getFreeColl(rowData) == 0 && parentInfo != null) {
             String parentCell = (String) parentInfo.get(PARENTSHEET);
             if (parentInfo.get(PARENTID) != null) {
                 parentCell += " - " + parentInfo.get(PARENTID);
             }
-            writeHeaderLabel("Parent", row, 0);
-            writeCellLink(parentCell, row, 0,
+            writeHeaderLabel("Parent", rowData, 0);
+            writeCellLink(parentCell, rowData, 0,
                     (String) parentInfo.get(PARENTSHEET), (int) parentInfo.get(PARENTROWNUMBER));
         }
 
@@ -114,9 +122,9 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
             try {
                 switch (fieldType) {
                     case basic:
-                        int coll = getFreeColl(row);
-                        writeHeaderLabel(clazz, field, row, coll);
-                        writeCell(getFieldValue(field, object), row, coll);
+                        int coll = getFreeColl(rowData);
+                        writeHeaderLabel(clazz, field, rowTitle, coll);
+                        writeCell(getFieldValue(field, object), rowData, coll);
 
                         break;
 
@@ -127,9 +135,9 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
                         if (ExcelFieldService.isCollection(field)) {
                             final List<Object> flattenObjects = new ArrayList();
                             flattenObjects.addAll((Collection) getFieldValue(field, object));
-                            writeRowFlattenObject(fieldClass, flattenObjects, row);
+                            writeRowFlattenObject(fieldClass, flattenObjects, rowData);
                         } else {
-                            writeRow(fieldClass, getFieldValue(field, object), row);
+                            writeRow(fieldClass, getFieldValue(field, object), rowTitle, rowData);
                         }
 
                         headerPrefix.pop();
@@ -142,7 +150,7 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
                         final Map<String, Object> info = new HashMap();
                         info.put(PARENTSHEET, excelSheetName);
                         info.put(PARENTID, ExcelFieldService.getObjectID(object));
-                        info.put(PARENTROWNUMBER, row.getRowNum() + 1);
+                        info.put(PARENTROWNUMBER, rowData.getRowNum() + 1);
 
                         final ExcelSheet objectSepareteSheet = new ExcelSheetDefault(workbook, this.translateService,
                                 fieldClass.getSimpleName().toLowerCase(), info);
@@ -157,14 +165,14 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
                             }
                         }
 
-                        coll = getFreeColl(row);
-                        writeHeaderLabel(clazz, field, row, coll);
+                        coll = getFreeColl(rowData);
+                        writeHeaderLabel(clazz, field, rowTitle, coll);
                         final int rowNumber = objectSepareteSheet.writeSheetGetLink(fieldClass, newObjects);
                         if (rowNumber != -1) {
-                            writeCellLink(field.getName(), row, coll,
+                            writeCellLink(field.getName(), rowData, coll,
                                     objectSepareteSheet.getExcelSheetName(), rowNumber);
                         } else {
-                            writeCell(null, row, coll);
+                            writeCell(null, rowData, coll);
                         }
 
                         break;
@@ -258,6 +266,8 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
         }
     }
 
+
+
     @Override
     public void writeSheet(final Class clazz, final List<Object> objects) {
         for (Object obj : objects) {
@@ -266,6 +276,33 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
 
             writeRow(clazz, obj, row);
         }
+    }
+
+    @Override
+    public void writeSheet(final Class clazz, final List<Object> objects, boolean hasHeader) {
+        hideHeader = !hasHeader;
+        boolean flag = hasHeader;
+        for (Object obj : objects) {
+            int lastRow = excelSheet.getLastRowNum();
+            if (hasHeader && flag) {
+                final Row rowHeader = createRow(excelSheet, ++lastRow);
+                final Row rowData = createRow(excelSheet, ++lastRow);
+
+                writeRow(clazz, obj, rowHeader, rowData);
+                flag = !hasHeader;
+            } else {
+                final Row rowData = createRow(excelSheet, ++lastRow);
+
+                writeRow(clazz, obj, rowData);
+            }
+        }
+    }
+
+    @Override
+    public void writeIntro(Class clazz, Object object) {
+        int lastRow = excelSheet.getLastRowNum();
+        final Row rowData = createRow(excelSheet, lastRow);
+        writeRow(clazz, object, rowData);
     }
 
     @Override
@@ -316,17 +353,14 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
      * Functions that check if the header cell is empty, if yes then add the label.
      */
     private void writeHeaderLabel(final String label, final Row row, final int coll) {
-        if (!headerWasWritten) {
-            if (row.getRowNum() == 1) { // write the header only once.
-                final Row headerRow = excelSheet.getRow(0);
-                final Cell headerCell = headerRow.getCell(coll);
+        if (!hideHeader) {
+            final Row headerRow = row;
+            final Cell headerCell = headerRow.getCell(coll);
 
-                if (headerCell == null) {
-                    writeHeaderCell(label, headerRow, coll);
-                }
-            } else {
-                headerWasWritten = true;
+            if (headerCell == null) {
+                writeHeaderCell(label, headerRow, coll);
             }
+
         }
     }
 
@@ -334,7 +368,7 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
      * Functions that check if the header cell is empty, if yes then add the field label.
      */
     private void writeHeaderLabel(final Class clazz, final Field field, final Row row, final int coll) {
-        if (!headerWasWritten) {
+        if (!hideHeader && row != null) {
             writeHeaderLabel(getHeaderPrefix()
                     + ExcelFieldService.getFieldName(clazz, field, translateService), row, coll);
         }

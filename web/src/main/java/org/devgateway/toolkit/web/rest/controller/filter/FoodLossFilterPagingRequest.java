@@ -8,16 +8,16 @@ import java.util.TreeSet;
 public class FoodLossFilterPagingRequest extends DefaultFilterPagingRequest {
 
     @ApiModelProperty(value = "Filter by minimum percentage")
-    private Double minPercentage;
+    private Double minAvgPercentage;
 
     @ApiModelProperty(value = "Filter by maximum percentage")
-    private Double maxPercentage;
+    private Double maxAvgPercentage;
 
     @ApiModelProperty(value = "Filter by minimum kilogram")
-    private Double minKg;
+    private Double minAvgKilogram;
 
     @ApiModelProperty(value = "Filter by maximum kilogram")
-    private Double maxKg;
+    private Double maxAvgKilogram;
 
     @ApiModelProperty(value = "Filter by loss type")
     private TreeSet<Integer> lossType;
@@ -37,35 +37,35 @@ public class FoodLossFilterPagingRequest extends DefaultFilterPagingRequest {
         this.lossType = lossType;
     }
 
-    public Double getMinPercentage() {
-        return minPercentage;
+    public Double getMinAvgPercentage() {
+        return minAvgPercentage;
     }
 
-    public void setMinPercentage(Double minPercentage) {
-        this.minPercentage = minPercentage;
+    public void setMinAvgPercentage(Double minAvgPercentage) {
+        this.minAvgPercentage = minAvgPercentage;
     }
 
-    public Double getMaxPercentage() {
-        return maxPercentage;
+    public Double getMaxAvgPercentage() {
+        return maxAvgPercentage;
     }
 
-    public void setMaxPercentage(Double maxPercentage) {
-        this.maxPercentage = maxPercentage;
+    public void setMaxAvgPercentage(Double maxAvgPercentage) {
+        this.maxAvgPercentage = maxAvgPercentage;
     }
 
-    public Double getMinKg() {
-        return minKg;
+    public Double getMinAvgKilogram() {
+        return minAvgKilogram;
     }
 
-    public void setMinKg(Double minKg) {
-        this.minKg = minKg;
+    public void setMinAvgKilogram(Double minAvgKilogram) {
+        this.minAvgKilogram = minAvgKilogram;
     }
 
-    public Double getMaxKg() {
-        return maxKg;
+    public Double getMaxAvgKilogram() {
+        return maxAvgKilogram;
     }
 
-    public void setMaxKg(Double maxKg) {
-        this.maxKg = maxKg;
+    public void setMaxAvgKilogram(Double maxAvgKilogram) {
+        this.maxAvgKilogram = maxAvgKilogram;
     }
 }

@@ -34,11 +34,15 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
 
     private Font headerFont;
 
+    private Font introFont;
+
     private Font linkFont;
 
     private final CellStyle dataStyleCell;
 
     private final CellStyle headerStyleCell;
+
+    private final CellStyle introStyleCell;
 
     private final CellStyle linkStyleCell;
 
@@ -55,6 +59,7 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
             this.dataStyleCell = workbook.getCellStyleAt((short) 1);
             this.headerStyleCell = workbook.getCellStyleAt((short) 2);
             this.linkStyleCell = workbook.getCellStyleAt((short) 3);
+            this.introStyleCell = workbook.getCellStyleAt((short) 4);
         } else {
             // init the fonts and styles
             this.dataFont = this.workbook.createFont();
@@ -63,10 +68,16 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
             this.dataFont.setColor(HSSFColor.HSSFColorPredefined.BLACK.getIndex());
 
             this.headerFont = this.workbook.createFont();
-            this.headerFont.setFontHeightInPoints((short) 14);
+            this.headerFont.setFontHeightInPoints((short) 12);
             this.headerFont.setFontName("Times New Roman");
             this.headerFont.setColor(HSSFColor.HSSFColorPredefined.BLACK.getIndex());
             this.headerFont.setBold(true);
+
+            this.introFont = this.workbook.createFont();
+            this.introFont.setFontHeightInPoints((short) 14);
+            this.introFont.setFontName("Times New Roman");
+            this.introFont.setColor(HSSFColor.HSSFColorPredefined.BLACK.getIndex());
+            this.introFont.setBold(true);
 
             this.linkFont = this.workbook.createFont();
             this.linkFont.setFontHeightInPoints((short) 12);
@@ -86,6 +97,12 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
             this.headerStyleCell.setVerticalAlignment(VerticalAlignment.CENTER);
             this.headerStyleCell.setWrapText(true);
             this.headerStyleCell.setFont(this.headerFont);
+
+            this.introStyleCell = this.workbook.createCellStyle();
+            this.introStyleCell.setAlignment(HorizontalAlignment.LEFT);
+            this.introStyleCell.setVerticalAlignment(VerticalAlignment.TOP);
+            this.introStyleCell.setWrapText(true);
+            this.introStyleCell.setFont(this.introFont);
 
             this.linkStyleCell = this.workbook.createCellStyle();
             this.linkStyleCell.setAlignment(HorizontalAlignment.LEFT);
@@ -142,8 +159,11 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
                     }
                 }
             }
-
-            cell.setCellStyle(dataStyleCell);
+            if (row.getRowNum() >= 1) {
+                cell.setCellStyle(dataStyleCell);
+            } else {
+                cell.setCellStyle(introStyleCell);
+            }
         } else {
             // create a CellType.BLANK
             row.createCell(column);
