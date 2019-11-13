@@ -102,7 +102,7 @@ public class AgriculturalWomenIndicatorController extends AbstractDatasetControl
 
     @CrossOrigin
     @ApiOperation(value = "Get agricultural women summary data by age group")
-    @RequestMapping(value = "/summary/byAgeGroup", method = {POST,GET})
+    @RequestMapping(value = "/summary/byAgeGroup", method = POST)
     public @ResponseBody List<AgriculturalWomenSummary> getSummaryIndicatorWomenByAgeGroup(
             @RequestBody(required = false) @Valid final AgriculturalWomenFilterPagingRequest req) {
         return getSummaryByGroup(req, AGE_GROUP);
