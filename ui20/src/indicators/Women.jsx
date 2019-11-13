@@ -15,7 +15,7 @@ import './women.scss'
 
 import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './WomenCharts'
 
-const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange})=>{
+const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange, options})=>{
 
   const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []
   const ageSelection = filters && filters.getIn(['women', 'awGroup'])? filters.getIn(['women', 'awGroup']).toJS(): []
@@ -24,15 +24,15 @@ const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange})=>{
 
   return (<div className="indicator chart filter  women">
       <div className="filter item">
-        <CustomFilterDropDown options={items2options(genders)}  onChange={s => {onChange([ 'filters', 'women', 'gender'], s,['WOMEN'])}} selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
+        <CustomFilterDropDown disabled={!options.gender} options={items2options(genders)}  onChange={s => {onChange([ 'filters', 'women', 'gender'], s,['WOMEN'])}} selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
       </div>
-      <div className="filter item">
-        <CustomFilterDropDown options={items2options(methodOfEnforcements)}  onChange={s => {onChange([ 'filters', 'women', 'awGroup'], s,['WOMEN'])}} selected={methodOfEnforcementsSelection} text={<FormattedMessage id = "indicators.filter.enforcement.method" defaultMessage = "Enforcement Method"  > </FormattedMessage>} />
 
+       <div className="filter item">
+        <CustomFilterDropDown disabled={!options.methodOfEnforcement} options={items2options(methodOfEnforcements)}  onChange={s => {onChange([ 'filters', 'women', 'awGroup'], s,['WOMEN'])}} selected={methodOfEnforcementsSelection} text={<FormattedMessage id = "indicators.filter.enforcement.method" defaultMessage = "Enforcement Method"  > </FormattedMessage>} />
       </div>
-      <div className="filter item">
 
-        <OptionList options={items2options(ageGroups)}  onChange={s => {onChange([ 'filters', 'women', 'awGroup'], s,['WOMEN'])}} selected={ageSelection} text={<FormattedMessage id = "indicators.filter.ageGroup" defaultMessage = "Age Group"  > </FormattedMessage>} />
+      <div className="filter item">
+        <OptionList disabled={!options.age} options={items2options(ageGroups)}  onChange={s => {onChange([ 'filters', 'women', 'awGroup'], s,['WOMEN'])}} selected={ageSelection} text={<FormattedMessage id = "indicators.filter.ageGroup" defaultMessage = "Age Group"  > </FormattedMessage>} />
       </div>
 
     </div>)
@@ -46,33 +46,33 @@ const ChartSection = ( props)=>{
     }
     const panes = [
        {
-         menuItem:  { key: 'bar', icon: '', content: 'Agricultural Population '+(lastetYear?'('+lastetYear+')':'') },
+         menuItem:  { key: 'bar', icon: '', content: 'By Gender '+(lastetYear?'('+lastetYear+')':'') },
          render: () =>
             <div className="indicators chart women">
-              <Filters {...props}></Filters>
+              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:true}}></Filters>
               <ByAgeBar  {...props} data={props.population}></ByAgeBar>
             </div>,
        },
        {
-         menuItem:  { key: 'line', icon: '', content: 'Historical Agricultural Population' },
+         menuItem:  { key: 'line', icon: '', content: 'Female Progression' },
          render: () =><div className="indicators chart women">
-               <Filters {...props}></Filters>
+               <Filters {...props} options={{gender:false, age:true,methodOfEnforcement:true}}></Filters>
                <ByAgeAndYearLine  data={props.population} {...props}></ByAgeAndYearLine>
              </div>,
 
        },
        {
-         menuItem:  { key: 'bar', icon: '', content: 'Parcel Distribution '+(lastetYear?'('+lastetYear+')':'') },
+         menuItem:  { key: 'bar', icon: '', content: 'By Method '+(lastetYear?'('+lastetYear+')':'') },
          render: () =><div className="indicators chart women">
-               <Filters {...props}></Filters>
+               <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:true}}></Filters>
                <ByMethodOfEnforcementBar {...props} data={props.distribution}></ByMethodOfEnforcementBar>
              </div>,
 
        },
        {
-         menuItem:  { key: 'line', icon: '', content: 'Historical Parcel Distribution' },
+         menuItem:  { key: 'line', icon: '', content: 'Female Progression' },
          render: () =><div className="indicators chart women">
-               <Filters {...props}></Filters>
+               <Filters {...props} options={{gender:false, age:true,methodOfEnforcement:true}}></Filters>
                <ByMethodOfEnforcementLine {...props} data={props.distribution}></ByMethodOfEnforcementLine>
              </div>,
 
@@ -87,7 +87,6 @@ const ChartSection = ( props)=>{
           </p>
           <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
         </div>
-
         <div className="indicator chart women description">
           <p>
             <FormattedMessage id="inidicators.chart.women.description" defaultMessage="Measuring women's access to land through the percentage of men and women (aged 15-49) who solely own land which is legally registered to their name."></FormattedMessage>
@@ -96,7 +95,6 @@ const ChartSection = ( props)=>{
           <div className="indicator chart icon download png"></div>
           <div className="indicator chart icon download csv"></div>
         </div>
-
           <Tab menu={{ pointing: true }} panes={panes} />
         </div>
       )
@@ -112,8 +110,6 @@ const mapStateToProps = state => {
   const methodOfEnforcements=state.getIn(['data','items','methodOfEnforcement'])
   const population=state.getIn(['indicator','women','population', 'data'])
   const distribution=state.getIn(['indicator','women','distribution', 'data'])
-
-
   return {
     filters,
     genders,
@@ -122,7 +118,6 @@ const mapStateToProps = state => {
     population,
     distribution
   }
-
 }
 
 const mapActionCreators = {};

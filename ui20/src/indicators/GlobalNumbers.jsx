@@ -33,7 +33,7 @@ class GlobalNumbers extends Component {
 
    render(){
        const {intl,error}=this.props
-        debugger;
+       
        const data=this.props.data?this.props.data.toJS():null
         return (
           <Grid className="indicator global numbers" columns={4} divided>
