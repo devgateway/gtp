@@ -11,9 +11,9 @@ import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import { Tab } from 'semantic-ui-react'
 import {gender2options,age2options,items2options} from '../api'
-import './women.scss'
+import './globalFoodLoss.scss'
 
-import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './WomenCharts'
+import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './GlobalFoodLossCharts'
 
 const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange, options})=>{
   const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []
@@ -45,32 +45,16 @@ const ChartSection = ( props)=>{
        {
          menuItem:  { key: 'bar', icon: '', content: 'By Gender '+(lastetYear?'('+lastetYear+')':'') },
          render: () =>
-            <div className="indicators chart women">
+            <div className="indicators chart food">
               <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
               <ByAgeBar  {...props} data={props.population}></ByAgeBar>
             </div>,
        },
        {
          menuItem:  { key: 'line', icon: '', content: 'Female Progression' },
-         render: () =><div className="indicators chart women">
+         render: () =><div className="indicators chart food">
                <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
                <ByAgeAndYearLine  data={props.population} {...props}></ByAgeAndYearLine>
-             </div>,
-
-       },
-       {
-         menuItem:  { key: 'bar', icon: '', content: 'By Method '+(lastetYear?'('+lastetYear+')':'') },
-         render: () =><div className="indicators chart women">
-               <Filters {...props} options={{gender:true, age:false,methodOfEnforcement:true}}></Filters>
-               <ByMethodOfEnforcementBar {...props} data={props.distribution}></ByMethodOfEnforcementBar>
-             </div>,
-
-       },
-       {
-         menuItem:  { key: 'line', icon: '', content: 'Female Progression' },
-         render: () =><div className="indicators chart women">
-               <Filters {...props} options={{gender:false, age:false,methodOfEnforcement:true}}></Filters>
-               <ByMethodOfEnforcementLine {...props} data={props.distribution}></ByMethodOfEnforcementLine>
              </div>,
 
        }
@@ -78,15 +62,16 @@ const ChartSection = ( props)=>{
     return (
         <div className="indicator.chart.container">
 
-        <div className="indicator chart women title ">
+        <div className="indicator chart food title ">
           <p>
-            <FormattedMessage id="inidicators.chart.women.title" defaultMessage="Women in the Agricultural sector"></FormattedMessage>
+            <FormattedMessage id="inidicators.chart.food.title" defaultMessage="Global Food Loss Index"></FormattedMessage>
           </p>
           <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
         </div>
-        <div className="indicator chart women description">
+        <div className="indicator chart food description">
           <p>
-            <FormattedMessage id="inidicators.chart.women.description" defaultMessage="Measuring women's access to land through the percentage of men and women (aged 15-49) who solely own land which is legally registered to their name."></FormattedMessage>
+            <FormattedMessage id="inidicators.chart.food.description" defaultMessage="Global Food Loss Index (GFLI), measuring the total losses of ag. commodities from the production to the retail level. By 2030, halve
+per capita global food waste at the retail and consumer levels and reduce food losses along production and supply chains."></FormattedMessage>
           </p>
           <div className="indicator chart icon download xls"></div>
           <div className="indicator chart icon download png"></div>
