@@ -36,14 +36,14 @@ const ChartSection = ( props)=>{
          render: () =>
             <div className="indicators chart food">
               <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
-              <ByAgeBar  {...props} data={props.population}></ByAgeBar>
+              <ByAgeBar  {...props} ></ByAgeBar>
             </div>,
        },
        {
          menuItem:  { key: 'line', icon: '', content: 'Female Progression' },
          render: () =><div className="indicators chart food">
            <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
-           <ByAgeAndYearLine  data={props.population} {...props}></ByAgeAndYearLine>
+           <ByAgeAndYearLine  {...props}></ByAgeAndYearLine>
          </div>,
 
        }
@@ -76,9 +76,12 @@ const mapStateToProps = state => {
   const filters = state.getIn(['indicator', 'filters'])
   const lossTypes = state.getIn(['data', 'items', 'lossType']);
   const data = state.getIn(['data', 'items', 'lossType']);
+
+
   return {
     filters,
-    lossTypes
+    lossTypes,
+    data
     }
 }
 
