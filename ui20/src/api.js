@@ -8,8 +8,7 @@ const URL_INDICATORS = API_ROOT + '/data/indicator'
 const URL_POVERTY = API_ROOT + '/data/poverty/summary'
 const URL_AGRICULTURAL_POPULATION = API_ROOT + '/data/agriculturalWomen/summary/byAgeGroup'
 const URL_AGRICULTURAL_DISTRIBUTION = API_ROOT + '/data/agriculturalWomen/summary/byMethodOfEnforcement'
-
-
+const URL_FOOD_LOSS = API_ROOT + '/data/foodLoss/summary'
 
 
 function queryParams(params) {
@@ -73,26 +72,18 @@ export const getItems = (category, path, params) => {
   return post(API_ROOT + itemsURLBuilder(category, path,), params.global)
 }
 
-
 export const loadPovertyChartData = (params) => {
-
   return new Promise((resolve, reject) => {
-
     post(URL_POVERTY, {
       ...params.global,
       ...params.poverty
     }).then((data) => {
-
-
       resolve(data)
-
     }).catch(error => {
-
       reject(error)
     })
   })
 }
-
 
 export const getAgricuturalDistribution = (params) => {
 
@@ -118,24 +109,36 @@ export const getAgricuturalDistribution = (params) => {
 export const getAgricuturalPopulation = (params) => {
 
   return new Promise((resolve, reject) => {
-
     const specificFilters=params.women;
     specificFilters.methodOfEnforcement=[]
-
     post(URL_AGRICULTURAL_POPULATION, {
       ...params.global,
       ...specificFilters
     }).then((data) => {
-
-
       resolve(data)
-
     }).catch(error => {
-
       reject(error)
     })
   })
 }
+
+export const getFoodLoss=(params)=>{
+  return new Promise((resolve, reject) => {
+
+    post(URL_FOOD_LOSS, {
+      ...params.global,
+      ...params.food
+    }).then((data) => {
+      resolve(data)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
+
+
+
+
 
 export const gender2options = (genders) => genders
   ? genders.sort((c1, c2) => c1.label.localeCompare(c2.label)).map(r => ({'key': r.id, 'text': r.label, 'value': r.id}))

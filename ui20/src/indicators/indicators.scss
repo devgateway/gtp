@@ -300,6 +300,7 @@
   }
 
   .chart.toggler.view {
+    display: none;
     float: right;
     height: 74px;
     padding-top: 22px;
@@ -537,10 +538,12 @@
       padding-left: 0;
       margin-right: 10px;
       margin-top: 5px;
+      min-width: 40px;
       min-height: 80px;
 
       img {
-        width: 40px;
+        width: 40px !important;
+        height: 40px;
       }
     }
 
