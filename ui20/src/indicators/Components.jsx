@@ -108,7 +108,7 @@ export const OptionList = ({options, selected, onChange, text, disabled}) => {
     <p>{text}</p>
     {
       options.map((a) => {
-        return <div onClick={e => {if(!disabled) {updateSelection(a.key)}}} className={`item ${getChecked(a.key)
+        return <div key={a.key} onClick={e => {if(!disabled) {updateSelection(a.key)}}} className={`item ${getChecked(a.key)
             ? 'active'
             : ''}`}>
           <div className="checkbox"></div>

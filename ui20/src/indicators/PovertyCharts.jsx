@@ -217,11 +217,13 @@ const generateStackedData = (data) => {
     const key = r.region;
     if (!stackedData[key]) {
       stackedData[key] = {};
+      stackedData['id']=r.region
     }
     stackedData[key]['region'] = r.region;
     stackedData[key][r.povertyLevel] = r.percentage *100;
 
   })
+  
   return Object.keys(stackedData).map(k => stackedData[k]);
 }
 
@@ -254,7 +256,6 @@ const PovertyChart=({data,intl})=>{
   const stackedData=generateStackedData(data.filter(d=>d.year==maxYear))
   const povertyCategories=Array.from(new Set(data.map(d=>d.povertyLevel)))
 
-
   const lineData=generateLineData(data)
     const panes = [
       {
@@ -274,7 +275,7 @@ const PovertyChart=({data,intl})=>{
     ]
 
 
-  return (<Tab menu={{ pointing: true }} panes={panes} />)
+  return (<Tab key="poverty" menu={{ pointing: true }} panes={panes} />)
 }
 
 

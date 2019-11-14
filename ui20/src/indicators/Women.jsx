@@ -37,6 +37,7 @@ const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange, option
 
 
 const ChartSection = ( props)=>{
+
   let lastetYear=null
     if (props.population){
       lastetYear=props.population.map(d=>d.year).sort()[props.population.length-1];
@@ -92,7 +93,7 @@ const ChartSection = ( props)=>{
           <div className="indicator chart icon download png"></div>
           <div className="indicator chart icon download csv"></div>
         </div>
-          <Tab menu={{ pointing: true }} panes={panes} />
+          <Tab key="women" menu={{ pointing: true }} panes={panes} />
         </div>
       )
 

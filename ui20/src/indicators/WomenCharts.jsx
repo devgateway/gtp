@@ -211,49 +211,18 @@ const generateBarByGroup = (data = []) => {
     const value = mostRecent.filter(d => d.groupType == g).forEach(gd=>{
       r[gd.gender]=gd.percentage
     });
-
-
     barData.push(r)
   })
+
+  console.log(barData)
   return   {
       data: barData,
       keys:genders,
       indexBy:"Age",
       groupMode:'stacked'
     }
+
 }
-
-
-const generateByEnforcementMethod = (data = []) => {
-
-  const keys = Array.from(new Set(data.map(d => d.groupType)));
-  const groups =  Array.from(new Set(data.map(r => r.groupType)))
-  const genders =  Array.from(new Set(data.map(r => r.gender)))
-
-  let barData = []
-  const years = new Set(data.map(r => r.year))
-  const maxYear = Array.from(years).sort()[years.size - 1]
-
-  const mostRecent =data.filter(d=>d.year==maxYear)
-
-  groups.forEach(g => {
-    const r = {'Age': g}
-
-    const value = mostRecent.filter(d => d.groupType == g).forEach(gd=>{
-      r[gd.gender]=gd.percentage
-    });
-
-
-    barData.push(r)
-  })
-  return   {
-      data: barData,
-      keys:genders,
-      indexBy:"Age",
-      groupMode:'stacked'
-    }
-}
-
 
 
 
@@ -264,7 +233,7 @@ const generateLineHistorical = (data = []) => {
   const genders =  Array.from(new Set(data.map(r => r.gender)))
   const years = Array.from(new Set(data.map(r => r.year)))
 
-  debugger;
+  
   const filteredData=data.filter(d=>d.gender=='Female')
 
   const colors={'Male':[],'Female':[]}
@@ -294,6 +263,7 @@ const generateLineHistorical = (data = []) => {
     })
 
     const sorted=lineData.sort((a,b)=>a.gender.localeCompare(b.gender))
+    console.log(sorted)
     return   {data:sorted}
 
 }
@@ -301,18 +271,18 @@ const generateLineHistorical = (data = []) => {
 export const ByAgeBar = injectIntl((props) => {
   const {data} = props
   if (data) {
-    return (<div className="chart container"><BarChart {...generateBarByGroup(data)}></BarChart></div>)
+    return (<div className="chart container"><BarChart   key="ByAgeBar" {...generateBarByGroup(data)}></BarChart></div>)
   } else {
-    return (<div className="no.data">No Data</div>)
+    return (<div className="no data">There is no data available</div>)
   }
 })
 
 export const ByAgeAndYearLine = injectIntl((props) => {
   const {data} = props
   if (data) {
-    return (<div className="chart container"><LineChart {...generateLineHistorical(data)}/></div>)
+    return (<div className="chart container"><LineChart   key="ByAgeAndYearLine" {...generateLineHistorical(data)}/></div>)
   } else {
-    return (<div className="no.data">No Data</div>)
+    return (<div className="no data">There is no data available</div>)
   }
 })
 
@@ -320,17 +290,17 @@ export const ByAgeAndYearLine = injectIntl((props) => {
 export const ByMethodOfEnforcementBar=injectIntl((props) => {
   const {data} = props
   if (data) {
-    return (<div className="chart container"><BarChart {...generateBarByGroup(data)}></BarChart></div>)
+    return (<div className="chart container"><BarChart  key="ByMethodOfEnforcementBar" {...generateBarByGroup(data)}></BarChart></div>)
   } else {
-    return (<div className="no.data">No Data</div>)
+    return (<div className="no data">There is no data available</div>)
   }
 })
 
 export const ByMethodOfEnforcementLine=injectIntl((props) => {
   const {data} = props
   if (data) {
-    return (<div className="chart container"><LineChart {...generateLineHistorical(data)}></LineChart></div>)
+    return (<div className="chart container"><LineChart  key="ByMethodOfEnforcementLine"  {...generateLineHistorical(data)}></LineChart></div>)
   } else {
-    return (<div className="no.data">No Data</div>)
+    return (<div className="no data">There is no data available</div>)
   }
 })

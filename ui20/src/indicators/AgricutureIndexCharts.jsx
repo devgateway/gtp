@@ -264,7 +264,7 @@ const generateLineHistorical = (data = []) => {
   const genders =  Array.from(new Set(data.map(r => r.gender)))
   const years = Array.from(new Set(data.map(r => r.year)))
 
-  debugger;
+
   const filteredData=data.filter(d=>d.gender=='Female')
 
   const colors={'Male':[],'Female':[]}
@@ -303,7 +303,7 @@ export const ByAgeBar = injectIntl((props) => {
   if (data) {
     return (<div className="chart container"><BarChart {...generateBarByGroup(data)}></BarChart></div>)
   } else {
-    return (<div className="no.data">No Data</div>)
+    return (<div className="no data">There is no data available</div>)
   }
 })
 
@@ -312,7 +312,7 @@ export const ByAgeAndYearLine = injectIntl((props) => {
   if (data) {
     return (<div className="chart container"><LineChart {...generateLineHistorical(data)}/></div>)
   } else {
-    return (<div className="no.data">No Data</div>)
+    return (<div className="no data">There is no data available</div>)
   }
 })
 
@@ -322,7 +322,7 @@ export const ByMethodOfEnforcementBar=injectIntl((props) => {
   if (data) {
     return (<div className="chart container"><BarChart {...generateBarByGroup(data)}></BarChart></div>)
   } else {
-    return (<div className="no.data">No Data</div>)
+    return (<div className="no data">There is no data available</div>)
   }
 })
 
@@ -331,6 +331,6 @@ export const ByMethodOfEnforcementLine=injectIntl((props) => {
   if (data) {
     return (<div className="chart container"><LineChart {...generateLineHistorical(data)}></LineChart></div>)
   } else {
-    return (<div className="no.data">No Data</div>)
+    return (<div className="no data">There is no data available</div>)
   }
 })

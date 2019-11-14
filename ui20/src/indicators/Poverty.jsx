@@ -21,13 +21,8 @@ const age2options = (activities) => activities
 
 
 class Pooverty extends Component {
-
-
-
   render() {
     const {filters, onChange,range={},genders=[],activities=[],ageGroups=[]} = this.props
-
-
     const genderSelection = filters && filters.getIn(['poverty', 'gender'])? filters.getIn(['poverty', 'gender']).toJS(): []
     const activitySelection = filters && filters.getIn(['poverty', 'activity'])? filters.getIn(['poverty', 'activity']).toJS() :[]
     const ageGroupsSelection = filters && filters.getIn(['poverty', 'ageGroup'])? filters.getIn(['poverty', 'ageGroup']).toJS() :[]
@@ -90,22 +85,17 @@ class Pooverty extends Component {
       {this.props.data && <PovertyCharts data={this.props.data}/>}
 
       </div>)
-
   }
 
-  }
+}
 
 const mapStateToProps = state => {
-
   const filters = state.getIn(['indicator', 'filters'])
   const activities = state.getIn(['data', 'items', 'professionalActivity']);
   const genders = state.getIn(['data', 'items', 'gender']);
   const ageGroups = state.getIn(['data', 'items', 'ageGroup']);
   const range = state.getIn(['data', 'items', 'range']);
-
-
   const data=state.getIn(['indicator','poverty','data'])
-
   return {filters,activities, genders, ageGroups, range,data}
 }
 
