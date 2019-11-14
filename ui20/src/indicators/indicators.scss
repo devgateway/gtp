@@ -120,9 +120,9 @@
       float: none;
     }
 
-      .item{
-        cursor: pointer !important;
-      }
+    .item {
+      cursor: pointer !important;
+    }
 
     .visible {
       color: $color-green;
@@ -137,9 +137,6 @@
     color: #848484;
     font-size: 12px;
   }
-
-
-
 
   div.checkbox {
     margin-left: 5px;
@@ -171,6 +168,16 @@
 }
 
 .indicators.content.fixed {
+
+  .no.data{
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid $border-color;
+    margin-bottom: 20px;
+  }
+
   color: #818181;
   font-size: 21px;
   padding-top: 150px;
@@ -238,13 +245,10 @@
     }
   }
 
-  .indicator.big.number.year{
+  .indicator.big.number.year {
     font-size: 12px;
     text-align: center;
-
   }
-
-
 
   .indicator.link {
     height: 40px;
@@ -348,7 +352,7 @@
     border-top: 2px solid $border-color;
     height: 74px;
     color: #497423;
-    margin-top:  50px;
+    margin-top: 50px;
 
     p {
       font-size: 28px;
@@ -412,11 +416,11 @@
       }
     }
   }
+
   .filter.disabled.options {
-      opacity: 0.5;
+    opacity: 0.5;
 
-    .item{
-
+    .item {
       .checkbox {
         background-color: #EEE !important;
       }
@@ -437,20 +441,20 @@
     .rc-slider-handle {
       width: 14px;
       height: 14px;
-          border: solid 2px #65b457 !important;
+      border: solid 2px #65b457 !important;
     }
 
     .rc-slider-handle:hover {
-        border: solid 2px #65b457 !important;
+      border: solid 2px #65b457 !important;
     }
 
     .rc-slider-handle:focus {
-        border: solid 2px #65b457 !important;
+      border: solid 2px #65b457 !important;
     }
 
     .rc-slider-handle:active {
       border-color: #65b457 !important;
-      box-shadow: none
+      box-shadow: none;
     }
 
     .rc-slider-dot {
@@ -477,22 +481,23 @@
     }
   }
 
-  .ui.pointing.menu{
-    margin: 0px;
+  .ui.pointing.menu {
+    margin: 0;
     width: 100%;
-    .item{
+
+    .item {
       line-height: 75px;
       text-align: center;
       justify-content: center;
       flex: 1;
       font-size: 16px;
-      color:#818181;
+      color: #818181;
       text-align: center;
-      border-color:  $border-color;
+      border-color: $border-color;
       height: 75px;
       cursor: pointer;
 
-      .icon{
+      .icon {
         margin-left: -30px;
         display: block;
         width: 20px;
@@ -500,18 +505,14 @@
       }
     }
 
-
-    .active.item{
-
+    .active.item {
       background-color: #f6faf5;
-
-    }
-    .item::after{
-      display: none
     }
 
+    .item::after {
+      display: none;
+    }
   }
-
 
   .indicator.description {
     border-top: 2px solid $border-color;
@@ -522,7 +523,6 @@
     background-color: #f6faf5;
     border: 1px solid $border-color;
     border-radius: 4px;
-
     font-size: 18px;
     color: #646464;
 
@@ -531,7 +531,6 @@
       width: 1000px;
     }
     clear: both;
-
 
     .indicator.logo {
       float: left;
@@ -550,9 +549,6 @@
       font-size: 18px;
     }
   }
-
-
-
 
   .indicator.chart.icon.download {
     width: 30px;
@@ -694,22 +690,20 @@
     height: 400px;
     margin-bottom: 20px;
 
-    text{
+    text {
       text-transform: capitalize;
     }
   }
 
-  .chart.container{
+  .chart.container {
     width: 100%;
     height: 400px;
     font-size: 12px;
 
-      .tooltip{
-        border: 1px solid #000;
-        padding: 10px;
-        border-radius: 3px;
-
-      }
-
+    .tooltip {
+      border: 1px solid #000;
+      padding: 10px;
+      border-radius: 3px;
+    }
   }
 }

@@ -11,26 +11,19 @@ import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import { Tab } from 'semantic-ui-react'
 import {gender2options,age2options,items2options} from '../api'
-import './globalFoodLoss.scss'
+import './agricutureIndex.scss'
 
 import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './GlobalFoodLossCharts'
 
-const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange, options})=>{
-  const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []
-  const ageSelection = filters && filters.getIn(['women', 'ageGroup'])? filters.getIn(['women', 'ageGroup']).toJS(): []
-  const methodOfEnforcementsSelection = filters && filters.getIn(['women', 'methodOfEnforcement'])? filters.getIn(['women', 'methodOfEnforcement']).toJS(): []
+const  Filters=({indexTypes,filters,onChange, options})=>{
+  const indexTypeSelection = filters && filters.getIn(['aoi', 'indexType'])? filters.getIn(['aoi', 'indexType']).toJS(): []
+
   return (<div className="indicator chart filter  women">
       <div className="filter item">
-        <CustomFilterDropDown disabled={!options.gender} options={items2options(genders)}  onChange={s => {onChange([ 'filters', 'women', 'gender'], s,['WOMEN'])}} selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
+        <CustomFilterDropDown  options={items2options(indexTypes)}  onChange={s => {onChange([ 'filters', 'aoi', 'indexType'], s,['AOI'])}}
+          selected={indexTypeSelection} text={<FormattedMessage id = "indicators.aoi.indexType" defaultMessage = "Index Type"  > </FormattedMessage>} />
       </div>
 
-       <div className="filter item">
-        <CustomFilterDropDown disabled={!options.methodOfEnforcement} options={items2options(methodOfEnforcements)}  onChange={s => {onChange([ 'filters', 'women', 'methodOfEnforcement'], s,['WOMEN'])}} selected={methodOfEnforcementsSelection} text={<FormattedMessage id = "indicators.filter.enforcement.method" defaultMessage = "Enforcement Method"  > </FormattedMessage>} />
-      </div>
-
-      <div className="filter item">
-        <OptionList disabled={!options.age} options={items2options(ageGroups)}  onChange={s => {onChange([ 'filters', 'women', 'ageGroup'], s,['WOMEN'])}} selected={ageSelection} text={<FormattedMessage id = "indicators.filter.ageGroup" defaultMessage = "Age Group"  > </FormattedMessage>} />
-      </div>
 
     </div>)
 }
@@ -85,19 +78,14 @@ const ChartSection = ( props)=>{
   }
 
 const mapStateToProps = state => {
-  const ageGroups = state.getIn(['data', 'items', 'ageGroup']);
-  const genders = state.getIn(['data', 'items', 'gender']);
   const filters = state.getIn(['indicator', 'filters'])
-  const methodOfEnforcements=state.getIn(['data','items','methodOfEnforcement'])
-  const population=state.getIn(['indicator','women','population', 'data'])
-  const distribution=state.getIn(['indicator','women','distribution', 'data'])
+  const indexTypes = state.getIn(['data', 'items', 'indexType']);
+  const data=state.getIn(['indicator','aoi', 'data'])
+
   return {
     filters,
-    genders,
-    methodOfEnforcements,
-    ageGroups,
-    population,
-    distribution
+    indexTypes,
+    data
   }
 }
 

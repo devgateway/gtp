@@ -33,14 +33,14 @@ class GlobalNumbers extends Component {
 
    render(){
        const {intl,error}=this.props
-       
+
        const data=this.props.data?this.props.data.toJS():null
         return (
           <Grid className="indicator global numbers" columns={4} divided>
             {error?<div className="message error">Can't load data - {error.message}</div>:null}
             <Grid.Row>
             {data && data.map(n=>(
-              <Grid.Column>
+              <Grid.Column key={n.key}>
                 <div className="indicator big number">
                   <CountUp  redraw={true} start={0} end={n.value*100} delay={0} useEasing={true}  formattingFn={(f)=>intl.formatNumber(f/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}/>
                       <span className="indicator big number year">{n.year}</span>
@@ -54,7 +54,7 @@ class GlobalNumbers extends Component {
             </Grid.Row>
             <Grid.Row>
               {data && data.map(n=>(
-              <Grid.Column>
+              <Grid.Column key={n.key+'_link'}>
                 <div className="indicator link">
                   <div className="btn">
                     <div className="icon go"/>
