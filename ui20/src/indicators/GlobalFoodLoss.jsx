@@ -13,7 +13,7 @@ import { Tab } from 'semantic-ui-react'
 import {gender2options,age2options,items2options} from '../api'
 import './globalFoodLoss.scss'
 
-import { ByAgeBar, ByAgeAndYearLine, ByMethodOfEnforcementBar, ByMethodOfEnforcementLine } from './GlobalFoodLossCharts'
+import {AverageQuantity,AverageProduction } from './GlobalFoodLossCharts'
 
 const  Filters=({lossTypes,filters,onChange, options})=>{
   const lossTypesSelection = filters && filters.getIn(['food','lossType'])? filters.getIn(['food','lossType']).toJS(): []
@@ -27,26 +27,29 @@ const  Filters=({lossTypes,filters,onChange, options})=>{
 
 const ChartSection = ( props)=>{
   let lastetYear=null
-    if (props.population){
-      lastetYear=props.population.map(d=>d.year).sort()[props.population.length-1];
+
+    if (props.data){
+        debugger;
+      lastetYear=props.data.map(d=>d.year).sort()[props.data.length-1];
     }
     const panes = [
        {
-         menuItem:  { key: 'bar', icon: '', content: 'By Gender '+(lastetYear?'('+lastetYear+')':'') },
+         menuItem:  { key: 'bar', icon: '', content: 'Average production loss  (%) '+lastetYear },
          render: () =>
             <div className="indicators chart food">
               <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
-              <ByAgeBar  {...props} ></ByAgeBar>
+              <AverageProduction  {...props} ></AverageProduction>
             </div>,
        },
        {
-         menuItem:  { key: 'line', icon: '', content: 'Female Progression' },
-         render: () =><div className="indicators chart food">
-           <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
-           <ByAgeAndYearLine  {...props}></ByAgeAndYearLine>
-         </div>,
-
+         menuItem:  { key: 'bar', icon: '', content: 'Average quantity (in kg) per household '+(lastetYear-1)+'/'+(lastetYear) },
+         render: () =>
+            <div className="indicators chart food">
+              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
+              <AverageQuantity  {...props} ></AverageQuantity>
+            </div>,
        }
+
      ]
 
     return (
@@ -75,7 +78,7 @@ const ChartSection = ( props)=>{
 const mapStateToProps = state => {
   const filters = state.getIn(['indicator', 'filters'])
   const lossTypes = state.getIn(['data', 'items', 'lossType']);
-  const data = state.getIn(['data', 'items', 'lossType']);
+  const data = state.getIn(['indicator','food', 'data']);
 
 
   return {

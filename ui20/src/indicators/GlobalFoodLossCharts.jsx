@@ -180,10 +180,30 @@ const BarChart = ({data, intl,keys,indexBy,groupMode,colors}) => {
     motionDamping={15}/>)
 }
 
-const generateBarByGroup = (data = []) => {
-  const keys = Array.from(new Set(data.map(d => d.groupType)));
-  const groups =  Array.from(new Set(data.map(r => r.groupType)))
-  const genders =  Array.from(new Set(data.map(r => r.gender)))
+
+
+
+
+
+
+
+
+const getAverageProductionLossData = (data = [], valueField) => {
+
+/*
+  avgKilograms: 65
+  avgPercentage: 13
+  cropType: "Peanut"
+  cropTypeFr: "Arachide"
+  lossType: "Lost in storage"
+  lossTypeFr: "Perdu dans le stockage"
+  year: 2015
+*/
+
+
+  const crops = Array.from(new Set(data.map(d => d.cropType)));
+  const types =  Array.from(new Set(data.map(r => r.lossType)))
+
 
   let barData = []
   const years = new Set(data.map(r => r.year))
@@ -191,115 +211,41 @@ const generateBarByGroup = (data = []) => {
 
   const mostRecent =data.filter(d=>d.year==maxYear)
 
-  groups.forEach(g => {
-    const r = {'Age': g}
+  crops.forEach(g => {
+    const r = {'Crop': g}
 
-    const value = mostRecent.filter(d => d.groupType == g).forEach(gd=>{
-      r[gd.gender]=gd.percentage
+    const value = mostRecent.filter(d => d.cropType == g).forEach(gd=>{
+      r[gd.lossType]=gd[valueField]
     });
     barData.push(r)
   })
   return   {
       data: barData,
-      keys:genders,
-      indexBy:"Age",
+      keys:types,
+      indexBy:"Crop",
       groupMode:'stacked'
     }
 }
 
 
-const generateByEnforcementMethod = (data = []) => {
-
-  const keys = Array.from(new Set(data.map(d => d.groupType)));
-  const groups =  Array.from(new Set(data.map(r => r.groupType)))
-  const genders =  Array.from(new Set(data.map(r => r.gender)))
-
-  let barData = []
-  const years = new Set(data.map(r => r.year))
-  const maxYear = Array.from(years).sort()[years.size - 1]
-  const mostRecent =data.filter(d=>d.year==maxYear)
-
-  groups.forEach(g => {
-    const r = {'Age': g}
-    const value = mostRecent.filter(d => d.groupType == g).forEach(gd=>{
-      r[gd.gender]=gd.percentage
-    });
-
-    barData.push(r)
-  })
-  return   {
-      data: barData,
-      keys:genders,
-      indexBy:"Age",
-      groupMode:'stacked'
-     }
-}
 
 
 
-
-const generateLineHistorical = (data = []) => {
-  const keys = Array.from(new Set(data.map(d => d.groupType)));
-  const groups =  Array.from(new Set(data.map(r => r.groupType)))
-  const genders =  Array.from(new Set(data.map(r => r.gender)))
-  const years = Array.from(new Set(data.map(r => r.year)))
-  const filteredData=data.filter(d=>d.gender=='Female')
-  const colors={'Male':[],'Female':[]}
-
-  let lineData = []
-    groups.forEach(g =>
-      {
-        const r2 = {'id': g ,gender:'Female',  data:[]}
-        years.forEach(year=>{
-          const filtered=filteredData.filter(d=>d.year==year && d.groupType==g&&d.gender=='Female');
-          if (filtered.length >0){
-            const value=filtered.reduce((a,b)=>{return a+b.percentage;},0)
-            r2.data.push({'x':year, 'y':value})
-          }
-        })
-
-        if(r2.data.length >0){
-            lineData.push(r2)
-        }
-      })
-
-    const sorted=lineData.sort((a,b)=>a.gender.localeCompare(b.gender))
-    return   {data:sorted}
-
-}
-
-export const ByAgeBar = injectIntl((props) => {
+export const AverageQuantity = injectIntl((props) => {
   const {data} = props
   if (data) {
-    return (<div className="chart container"><BarChart {...generateBarByGroup(data)}></BarChart></div>)
-  } else {
-    return (<div className="no data">There is no data available</div>)
-  }
-})
-
-export const ByAgeAndYearLine = injectIntl((props) => {
-  const {data} = props
-  if (data) {
-    return (<div className="chart container"><LineChart {...generateLineHistorical(data)}/></div>)
+    return (<div className="chart container"><BarChart {...getAverageProductionLossData(data,'avgPercentage')}></BarChart></div>)
   } else {
     return (<div className="no data">There is no data available</div>)
   }
 })
 
 
-export const ByMethodOfEnforcementBar=injectIntl((props) => {
-  const {data} = props
-  if (data) {
-    return (<div className="chart container"><BarChart {...generateBarByGroup(data)}></BarChart></div>)
-  } else {
-    return (<div className="no data">There is no data available</div>)
-  }
-})
 
-export const ByMethodOfEnforcementLine=injectIntl((props) => {
+export const AverageProduction=injectIntl((props) => {
   const {data} = props
   if (data) {
-    return (<div className="chart container"><LineChart {...generateLineHistorical(data)}></LineChart></div>)
+    return (<div className="chart container"><BarChart {...getAverageProductionLossData(data,'avgKilograms')}></BarChart></div>)
   } else {
     return (<div className="no data">There is no data available</div>)
   }

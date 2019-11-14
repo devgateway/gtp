@@ -13,7 +13,7 @@ import { Tab } from 'semantic-ui-react'
 import {gender2options,age2options,items2options} from '../api'
 import './agricutureIndex.scss'
 
-import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './GlobalFoodLossCharts'
+import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './AgricutureIndexCharts'
 
 const  Filters=({indexTypes,filters,onChange, options})=>{
   const indexTypeSelection = filters && filters.getIn(['aoi', 'indexType'])? filters.getIn(['aoi', 'indexType']).toJS(): []

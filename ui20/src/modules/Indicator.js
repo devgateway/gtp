@@ -100,7 +100,7 @@ export const loadDefaultWomenFilters = () => (dispatch, getState) => {
 export const loadDefaultFoodFilters = () => (dispatch, getState) => {
   console.log("loadDefaultFoodFilters")
   const lossType = getState().getIn(['data', 'items', 'lossType']).map(a => a.id);
-  const foodFilters = Immutable.Map().setIn(['lossType'], Immutable.List(lossType))
+  const foodFilters = Immutable.Map().setIn(['lossType'], Immutable.List())
   dispatch({type: LOAD_DEFAULT_FOOD_FILTERS_DONE,foodFilters})
 }
 
@@ -131,6 +131,7 @@ export const refresh = () => (dispatch, getState) => {
   dispatch(loadPovertyChartData())
   dispatch(loadAgricuturalPopulationData())
   dispatch(loadAgricuturalDistribution())
+  dispatch(loadFoodLossData())
 }
 
 
@@ -225,6 +226,14 @@ export const updateFilter = (path, selection, updates) => dispatch => {
     dispatch(loadAgricuturalPopulationData())
     dispatch(loadAgricuturalDistribution())
   }
+
+  if (updates && updates.indexOf('FOOD') > -1) {
+
+    dispatch(loadFoodLossData())
+
+  }
+
+
 }
 
 /*
@@ -322,6 +331,7 @@ export default (state = initialState, action) => {
       const {data} = action
       return state.setIn(['food', 'data'], data)
     }
+
     case LOAD_FOOD_LOSS_ERROR: {
       const {error} = action
       return state.setIn(['food', 'data', 'error'], error)
