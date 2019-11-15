@@ -6,17 +6,13 @@ import {
   loadGlobalIndicators,
   loadDefaultPovertyFilters,
   loadDefaultWomenFilters,
+  loadDefaultFoodFilters,
+  loadDefaultAOIFilters,
   refresh
 } from './modules/Indicator'
 import {
   loadDataItems
 } from './modules/Data'
-
-const selectedRegions = []
-
-const selectedCrops = []
-
-const selectedYears = []
 
 
 const flags = []
@@ -32,38 +28,44 @@ const listener = (store) => {
   const regions = state.getIn(['data', 'items', 'region']);
   const crops = state.getIn(['data', 'items', 'cropType']);
   const years = state.getIn(['data', 'items', 'year']);
-
-  //check all needed items were loaded
-  const itemsLoaded = (regions && crops && years) != null
-
-  //check if default options were loaded
-  const filtersReady = (globalFilters && itemsLoaded) != null
-
-  if (itemsLoaded && !filtersReady && !flags['loadDefaultFiltersCalled']) {
-    console.log('Loading Default Main Filters Options ')
-    flags['loadDefaultFiltersCalled'] = true //avoid loop if error
-    store.dispatch(loadDefaultFilters())
-  }
-
-  //poverty options items
+  const lossType = state.getIn(['data', 'items', 'lossType']);
   const activities = state.getIn(['data', 'items', 'professionalActivity']);
   const genders = state.getIn(['data', 'items', 'gender']);
   const ageGroups = state.getIn(['data', 'items', 'ageGroup']);
   const range = state.getIn(['data', 'items', 'range']);
+
   const methodOfEnforcements=state.getIn(['data', 'items', 'methodOfEnforcement']);
 
+  const indexType=state.getIn(['data', 'items', 'indexType']);
+
+  //Main filters
+  const itemsLoaded = (regions && crops && years) != null
+  const filtersReady = (globalFilters && itemsLoaded) != null
+
+  if (itemsLoaded && !filtersReady && !flags['loadDefaultFiltersCalled']) {
+    console.log('Listener -> Loading Default Main Filters Options ')
+    flags['loadDefaultFiltersCalled'] = true //avoid loop if error
+    store.dispatch(loadDefaultFilters())
+  }
+
+  //Specific filters status
   const povertyFiltersItemReady = (activities && ageGroups && range) != null
   const povertyFiltersReady = filters.get('poverty') != null
 
   const womenFiltersItemReady = (genders && ageGroups && methodOfEnforcements) != null
   const womenFiltersReady = filters.get('women') != null
 
-  const poveryData = state.getIn(['indicator', 'poverty', 'data'])
+  const foodFiltersItemReady = (lossType) != null
+  const foodFiltersReady = filters.get('food') != null
+
+
+  const aoiFiltersItemReady = (indexType) != null
+  const aoiFiltersReady = filters.get('aoi') != null
 
 
   //main filters are ready let's load poverty filters
   if (filtersReady && !povertyFiltersReady && !flags['loadRangeCalled']) {
-    console.log("Loading poverty filter options")
+    console.log("Listener -> Loading poverty filter options")
     flags['loadRangeCalled'] = true //avoid loop if error
     store.dispatch(loadDataItems('range', 'poverty'))
   }
@@ -71,13 +73,13 @@ const listener = (store) => {
   //all items were loaded then let's load default selected options
   if (povertyFiltersItemReady && !povertyFiltersReady && !flags['loadDefaultPovertyFiltersCalled']) {
     flags['loadDefaultPovertyFiltersCalled'] = true
-    console.log("Loading deafult poverty filter options")
+    console.log("Listener -> Loading deafult poverty filter options")
     store.dispatch(loadDefaultPovertyFilters())
   }
 
   if (povertyFiltersReady && !flags['loadPovertyDataCalled']) {
     flags['loadPovertyDataCalled'] = true;
-    console.log('Loading Poverty Data')
+    console.log('Listener -> Loading Poverty Data')
     store.dispatch(loadPovertyChartData())
   }
 
@@ -85,23 +87,52 @@ const listener = (store) => {
 
   //Women Filters and Data
   if (womenFiltersItemReady && !womenFiltersReady && !flags['loadDefaultWomenFiltersCalled']) {
-      debugger;
+
     flags['loadDefaultWomenFiltersCalled'] = true
-    console.log("Loading deafult poverty filter options")
+    console.log("Listener -> Loading deafult women filter options")
     store.dispatch(loadDefaultWomenFilters())
   }
 
   if (womenFiltersReady && !flags['loadWomenDataCalled']) {
     flags['loadWomenDataCalled'] = true;
-    console.log('Loading Poverty Data')
+    console.log('Listener -> Loading women Data')
     store.dispatch(loadAgricuturalPopulationData())
     store.dispatch(loadAgricuturalDistribution())
+  }
+
+
+
+  //loadDefaultFoodFilters
+  if (foodFiltersItemReady && !foodFiltersReady && !flags['loadDefaultFoodFiltersCalled']) {
+    flags['loadDefaultFoodFiltersCalled'] = true
+    console.log("Listener -> Loading deafult food filter options")
+    store.dispatch(loadDefaultFoodFilters())
+  }
+
+  if (foodFiltersReady && !flags['foodDataCalled']) {
+    flags['foodDataCalled'] = true;
+    console.log('Listener -> Load Food Data')
+
+  }
+
+
+  //aoi
+  if (aoiFiltersItemReady && !aoiFiltersReady && !flags['loadDefaultAOIFiltersCalled']) {
+    flags['loadDefaultAOIFiltersCalled'] = true
+    console.log("Listener -> Loading deafult food filter options")
+    store.dispatch(loadDefaultAOIFilters())
+  }
+
+  if (aoiFiltersReady && !flags['aoidWomenDataCalled']) {
+    flags['aoidWomenDataCalled'] = true;
+    console.log('Listener -> Load AOI Data')
+
   }
 
   //initial data load
   if (filtersReady && !flags['loadGlobalIndicatorsCalled']) {
     flags['loadGlobalIndicatorsCalled'] = true
-    console.log('Loading Global Indicators')
+    console.log('Listener -> Loading Global Indicators')
       store.dispatch(loadGlobalIndicators())
 
   }
@@ -117,11 +148,9 @@ let applyFlags = []
 /*Apply filters sequence*/
 const apply = (store) => {
   const state = store.getState()
-  const filters = state.getIn(['indicator', 'filters'])
   const rangeLoading = state.getIn(['data','items','status','range','loading']);
-  const povertyFiltersReady = filters.get('poverty') != null
 
-  if (state.getIn(['indicator', 'applyFlag']) == true) {
+  if (state.getIn(['indicator', 'applyFlag']) === true) {
 
     if(applyFlags['updatingFilters']){
         console.log('flag off apply filter')

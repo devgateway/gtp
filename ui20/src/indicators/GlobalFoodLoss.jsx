@@ -15,21 +15,14 @@ import './globalFoodLoss.scss'
 
 import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './GlobalFoodLossCharts'
 
-const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange, options})=>{
-  const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []
-  const ageSelection = filters && filters.getIn(['women', 'ageGroup'])? filters.getIn(['women', 'ageGroup']).toJS(): []
-  const methodOfEnforcementsSelection = filters && filters.getIn(['women', 'methodOfEnforcement'])? filters.getIn(['women', 'methodOfEnforcement']).toJS(): []
+const  Filters=({lossTypes,filters,onChange, options})=>{
+  debugger;
+  const lossTypesSelection = filters && filters.getIn(['food','lossType'])? filters.getIn(['food','lossType']).toJS(): []
+
+
   return (<div className="indicator chart filter  women">
       <div className="filter item">
-        <CustomFilterDropDown disabled={!options.gender} options={items2options(genders)}  onChange={s => {onChange([ 'filters', 'women', 'gender'], s,['WOMEN'])}} selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
-      </div>
-
-       <div className="filter item">
-        <CustomFilterDropDown disabled={!options.methodOfEnforcement} options={items2options(methodOfEnforcements)}  onChange={s => {onChange([ 'filters', 'women', 'methodOfEnforcement'], s,['WOMEN'])}} selected={methodOfEnforcementsSelection} text={<FormattedMessage id = "indicators.filter.enforcement.method" defaultMessage = "Enforcement Method"  > </FormattedMessage>} />
-      </div>
-
-      <div className="filter item">
-        <OptionList disabled={!options.age} options={items2options(ageGroups)}  onChange={s => {onChange([ 'filters', 'women', 'ageGroup'], s,['WOMEN'])}} selected={ageSelection} text={<FormattedMessage id = "indicators.filter.ageGroup" defaultMessage = "Age Group"  > </FormattedMessage>} />
+        <CustomFilterDropDown  options={items2options(lossTypes)}  onChange={s => {onChange([ 'filters', 'food', 'lossType'], s,['FOOD'])}} selected={lossTypesSelection} text={<FormattedMessage id = "indicators.filter.losstype" defaultMessage = "Loss Type"  > </FormattedMessage>} />
       </div>
 
     </div>)
@@ -86,20 +79,13 @@ per capita global food waste at the retail and consumer levels and reduce food l
   }
 
 const mapStateToProps = state => {
-  const ageGroups = state.getIn(['data', 'items', 'ageGroup']);
-  const genders = state.getIn(['data', 'items', 'gender']);
   const filters = state.getIn(['indicator', 'filters'])
-  const methodOfEnforcements=state.getIn(['data','items','methodOfEnforcement'])
-  const population=state.getIn(['indicator','women','population', 'data'])
-  const distribution=state.getIn(['indicator','women','distribution', 'data'])
+  const lossTypes = state.getIn(['data', 'items', 'lossType']);
+
   return {
     filters,
-    genders,
-    methodOfEnforcements,
-    ageGroups,
-    population,
-    distribution
-  }
+    lossTypes
+    }
 }
 
 const mapActionCreators = {};
