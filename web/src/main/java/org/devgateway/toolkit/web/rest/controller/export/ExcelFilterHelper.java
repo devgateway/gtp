@@ -11,8 +11,10 @@ import org.devgateway.toolkit.persistence.dao.categories.LossType;
 import org.devgateway.toolkit.persistence.dao.categories.PovertyLevel;
 import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
 import org.devgateway.toolkit.persistence.dto.ExcelFilterDTO;
-import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterPagingRequest;
+import org.devgateway.toolkit.web.rest.controller.filter.AgriculturalWomenFilterPagingRequest;
+import org.devgateway.toolkit.web.rest.controller.filter.FoodLossFilterPagingRequest;
+import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterPagingRequest;
 
 import java.util.TreeSet;
 
@@ -20,9 +22,6 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
 
     public static final String EMPTY_STRING = "";
     public static final String FILTERS_USED = "Filters used: ";
-
-    @ExcelExport(name = "Filters")
-    private String filters;
 
     private TreeSet<Region> region;
 
@@ -73,6 +72,23 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
     }
 
     public ExcelFilterHelper(AOIFilterPagingRequest req) {
+        year = req.getYear();
+        filters = filtersToString();
+    }
+
+    public ExcelFilterHelper(AgriculturalWomenFilterPagingRequest req) {
+        year = req.getYear();
+
+        filters = filtersToString();
+    }
+
+    public ExcelFilterHelper(FoodLossFilterPagingRequest req) {
+        year = req.getYear();
+
+        filters = filtersToString();
+    }
+
+    public ExcelFilterHelper(PovertyFilterPagingRequest req) {
         year = req.getYear();
 
         filters = filtersToString();

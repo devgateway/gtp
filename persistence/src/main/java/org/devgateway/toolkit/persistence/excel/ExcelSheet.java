@@ -14,6 +14,7 @@ import java.util.List;
  * @since 13/11/2017
  */
 public interface ExcelSheet {
+
     /**
      * Write the value into specified {@link Row} and column number.
      *
@@ -48,7 +49,7 @@ public interface ExcelSheet {
 
     void writeSheet(Class clazz, List<Object> objects, boolean hasHeader);
 
-    void writeIntro(Class clazz, Object object);
+    void writeIntro(String object);
 
     /**
      * Write the objects and return the first row index.

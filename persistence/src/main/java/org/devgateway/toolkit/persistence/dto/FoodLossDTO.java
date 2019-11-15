@@ -1,12 +1,20 @@
 package org.devgateway.toolkit.persistence.dto;
 
 import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 public class FoodLossDTO extends DataDTO {
 
+    @ExcelExport
     private String cropType;
+
+    @ExcelExport
     private String lossType;
+
+    @ExcelExport
     private Double avgPercentage;
+
+    @ExcelExport
     private Double avgKilograms;
 
     public FoodLossDTO(FoodLossIndicator foodLoss) {

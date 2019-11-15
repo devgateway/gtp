@@ -1,21 +1,34 @@
 package org.devgateway.toolkit.web.rest.controller.export;
 
 import org.apache.poi.ss.usermodel.Workbook;
+import org.devgateway.toolkit.persistence.dto.AgriculturalWomenDTO;
 import org.devgateway.toolkit.persistence.dto.AgricultureOrientationIndexDTO;
 import org.devgateway.toolkit.persistence.dto.ExcelFilterDTO;
 import org.devgateway.toolkit.persistence.dto.ExcelInfo;
+import org.devgateway.toolkit.persistence.dto.FoodLossDTO;
+import org.devgateway.toolkit.persistence.dto.PovertyDTO;
 import org.devgateway.toolkit.persistence.excel.ExcelFile;
 import org.devgateway.toolkit.persistence.excel.ExcelFileData;
 import org.devgateway.toolkit.persistence.service.AOIIndicatorService;
+import org.devgateway.toolkit.persistence.service.AgriculturalWomenIndicatorService;
+import org.devgateway.toolkit.persistence.service.FoodLossIndicatorService;
+import org.devgateway.toolkit.persistence.service.PovertyIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterState;
+import org.devgateway.toolkit.web.rest.controller.filter.AgriculturalWomenFilterPagingRequest;
+import org.devgateway.toolkit.web.rest.controller.filter.AgriculturalWomenFilterState;
 import org.devgateway.toolkit.web.rest.controller.filter.DefaultFilterPagingRequest;
+import org.devgateway.toolkit.web.rest.controller.filter.FoodLossFilterPagingRequest;
+import org.devgateway.toolkit.web.rest.controller.filter.FoodLossFilterState;
+import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterPagingRequest;
+import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,26 +36,77 @@ import java.util.stream.Collectors;
 @CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "excelExportCache")
 public class ExcelGenerator {
 
+    public static final String AOI_INDICATOR = "AOI Indicator";
+    public static final String AGRICULTURAL_WOMEN_INDICATOR = "Agricultural Women Indicator";
+    public static final String FOOD_LOSS_INDICATOR = "Food Loss Indicator";
+    public static final String POVERTY_INDICATOR = "Poverty Indicator";
+
     @Autowired
     private AOIIndicatorService aoiIndicatorService;
 
+    @Autowired
+    private AgriculturalWomenIndicatorService womenIndicatorService;
+
+    @Autowired
+    private FoodLossIndicatorService foodLossIndicatorService;
+
+    @Autowired
+    private PovertyIndicatorService povertyIndicatorService;
+
     public byte[] getExcelDownload(final DefaultFilterPagingRequest req) throws IOException {
 
-        AOIFilterPagingRequest aoiReq = new AOIFilterPagingRequest(req);
-        AOIFilterState filterState = new AOIFilterState(aoiReq);
-        List<AgricultureOrientationIndexDTO> aoi = aoiIndicatorService.findAll(filterState.getSpecification())
-                .stream().map(data -> new AgricultureOrientationIndexDTO(data)).collect(Collectors.toList());
-        ExcelFilterDTO filters = new ExcelFilterHelper(aoiReq);
-        ExcelInfo<AgricultureOrientationIndexDTO> info = new ExcelInfo("AOI Indicator", "Some intro",
-                filters, aoi, null);
+        ExcelInfo<PovertyDTO> povertyInfo = getPovertyDTOExcelInfo(req);
+        ExcelInfo<AgriculturalWomenDTO> womenInfo = getAgriculturalWomenExcelInfo(req);
+        ExcelInfo<AgricultureOrientationIndexDTO> aoiInfo = getAOIExcelInfo(req);
+        ExcelInfo<FoodLossDTO> foodLossInfo = getFoodLossExcelInfo(req);
 
-        ExcelFile file = new ExcelFileData(info);
-        Workbook workbook = file.createWorkbook();
+        ExcelFile excelFile = new ExcelFileData(Arrays.asList(povertyInfo, womenInfo, aoiInfo, foodLossInfo));
+        Workbook workbook = excelFile.createWorkbook();
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         workbook.write(baos);
         byte[] bytes = baos.toByteArray();
 
         return bytes;
+    }
+
+    private ExcelInfo<PovertyDTO> getPovertyDTOExcelInfo(DefaultFilterPagingRequest filters) {
+        PovertyFilterPagingRequest request = new PovertyFilterPagingRequest(filters);
+        PovertyFilterState filterState = new PovertyFilterState(request);
+        List<PovertyDTO> aoi = povertyIndicatorService.findAll(filterState.getSpecification())
+                .stream().map(data -> new PovertyDTO(data)).collect(Collectors.toList());
+        ExcelFilterDTO excelFilter = new ExcelFilterHelper(request);
+        return (ExcelInfo<PovertyDTO>) new ExcelInfo(POVERTY_INDICATOR,
+                "Some intro for Poverty", excelFilter, aoi, null);
+    }
+
+    private ExcelInfo<AgricultureOrientationIndexDTO> getAOIExcelInfo(DefaultFilterPagingRequest filters) {
+        AOIFilterPagingRequest request = new AOIFilterPagingRequest(filters);
+        AOIFilterState filterState = new AOIFilterState(request);
+        List<AgricultureOrientationIndexDTO> aoi = aoiIndicatorService.findAll(filterState.getSpecification())
+                .stream().map(data -> new AgricultureOrientationIndexDTO(data)).collect(Collectors.toList());
+        ExcelFilterDTO excelFilter = new ExcelFilterHelper(request);
+        return (ExcelInfo<AgricultureOrientationIndexDTO>) new ExcelInfo(AOI_INDICATOR, "Some intro",
+                excelFilter, aoi, null);
+    }
+
+    private ExcelInfo<AgriculturalWomenDTO> getAgriculturalWomenExcelInfo(DefaultFilterPagingRequest filters) {
+        AgriculturalWomenFilterPagingRequest request = new AgriculturalWomenFilterPagingRequest(filters);
+        AgriculturalWomenFilterState filterState = new AgriculturalWomenFilterState(request);
+        List<AgriculturalWomenDTO> aoi = womenIndicatorService.findAll(filterState.getSpecification())
+                .stream().map(data -> new AgriculturalWomenDTO(data)).collect(Collectors.toList());
+        ExcelFilterDTO excelFilter = new ExcelFilterHelper(request);
+        return (ExcelInfo<AgriculturalWomenDTO>) new ExcelInfo(AGRICULTURAL_WOMEN_INDICATOR,
+                "Some intro for AgriculturalWomen", excelFilter, aoi, null);
+    }
+
+    private ExcelInfo<FoodLossDTO> getFoodLossExcelInfo(DefaultFilterPagingRequest filters) {
+        FoodLossFilterPagingRequest request = new FoodLossFilterPagingRequest(filters);
+        FoodLossFilterState filterState = new FoodLossFilterState(request);
+        List<FoodLossDTO> aoi = foodLossIndicatorService.findAll(filterState.getSpecification())
+                .stream().map(data -> new FoodLossDTO(data)).collect(Collectors.toList());
+        ExcelFilterDTO excelFilter = new ExcelFilterHelper(request);
+        return (ExcelInfo<FoodLossDTO>) new ExcelInfo(FOOD_LOSS_INDICATOR,
+                "Some intro for Food Loss", excelFilter, aoi, null);
     }
 }

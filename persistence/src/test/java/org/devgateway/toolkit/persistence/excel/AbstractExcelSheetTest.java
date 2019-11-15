@@ -41,7 +41,7 @@ public class AbstractExcelSheetTest {
         }
 
         @Override
-        public void writeIntro(Class clazz, Object object) {
+        public void writeIntro(String object) {
 
         }
 

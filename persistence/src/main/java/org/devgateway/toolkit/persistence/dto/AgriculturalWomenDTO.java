@@ -1,13 +1,24 @@
 package org.devgateway.toolkit.persistence.dto;
 
 import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 public class AgriculturalWomenDTO extends DataDTO {
 
+
+    @ExcelExport
     private String gender;
+
+    @ExcelExport
     private String group;
+
+    @ExcelExport
     private String groupType;
+
+    @ExcelExport
     private Double percentage;
+
+    @ExcelExport
     private Double utilizationPercentage;
 
     public AgriculturalWomenDTO(AgriculturalWomenIndicator women) {

@@ -9,7 +9,7 @@ public class ExcelInfo<T extends DataDTO> {
 
     private String sheetName;
 
-    @ExcelExport(name = "intro")
+    @ExcelExport(name = "Intro")
     private String intro;
 
     private ExcelFilterDTO filters;

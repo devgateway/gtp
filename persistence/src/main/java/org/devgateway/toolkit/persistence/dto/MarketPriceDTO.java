@@ -1,17 +1,31 @@
 package org.devgateway.toolkit.persistence.dto;
 
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 import java.time.LocalDate;
 
 public class MarketPriceDTO extends DataDTO {
 
+    @ExcelExport
     private String cropType;
+
+    @ExcelExport
     private String market;
+
+    @ExcelExport
     private LocalDate date;
+
+    @ExcelExport
     private Double quantity;
+
+    @ExcelExport
     private Double sellPrice;
+
+    @ExcelExport
     private Double detailBuyPrice;
+
+    @ExcelExport
     private Double wholesaleBuyPrice;
 
     public MarketPriceDTO(MarketPrice data) {

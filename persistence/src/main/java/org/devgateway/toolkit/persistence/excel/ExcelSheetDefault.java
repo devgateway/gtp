@@ -70,8 +70,8 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
 
             // freeze the header row
             excelSheet.createFreezePane(0, 3);
-            excelSheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
-            excelSheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 5));
+            excelSheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
+            excelSheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 4));
 
             // create the first row that is used as a header
             //createRow(excelSheet, 0);
@@ -103,17 +103,6 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
     @Override
     public void writeRow(final Class clazz, final Object object, final Row rowTitle, final Row rowData) {
         final Iterator<Field> fields = ExcelFieldService.getFields(clazz);
-
-        // if we have a parent then the first row should be the parent name with a link.
-        if (getFreeColl(rowData) == 0 && parentInfo != null) {
-            String parentCell = (String) parentInfo.get(PARENTSHEET);
-            if (parentInfo.get(PARENTID) != null) {
-                parentCell += " - " + parentInfo.get(PARENTID);
-            }
-            writeHeaderLabel("Parent", rowData, 0);
-            writeCellLink(parentCell, rowData, 0,
-                    (String) parentInfo.get(PARENTSHEET), (int) parentInfo.get(PARENTROWNUMBER));
-        }
 
         while (fields.hasNext()) {
             final Field field = fields.next();
@@ -169,8 +158,7 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
                         writeHeaderLabel(clazz, field, rowTitle, coll);
                         final int rowNumber = objectSepareteSheet.writeSheetGetLink(fieldClass, newObjects);
                         if (rowNumber != -1) {
-                            writeCellLink(field.getName(), rowData, coll,
-                                    objectSepareteSheet.getExcelSheetName(), rowNumber);
+                            writeCell(field.getName(), rowData, coll);
                         } else {
                             writeCell(null, rowData, coll);
                         }
@@ -299,10 +287,11 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
     }
 
     @Override
-    public void writeIntro(Class clazz, Object object) {
+    public void writeIntro(String value) {
         int lastRow = excelSheet.getLastRowNum();
         final Row rowData = createRow(excelSheet, lastRow);
-        writeRow(clazz, object, rowData);
+        int coll = getFreeColl(rowData);
+        writeCell(value, rowData, coll);
     }
 
     @Override

@@ -1,15 +1,30 @@
 package org.devgateway.toolkit.persistence.dto;
 
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 public class PovertyDTO extends DataDTO {
 
+
+    @ExcelExport
     private String region;
+
+    @ExcelExport
     private String locationType;
+
+    @ExcelExport
     private String gender;
+
+    @ExcelExport
     private String professionalActivity;
+
+    @ExcelExport
     private String povertyLevel;
+
+    @ExcelExport
     private Integer age;
+
+    @ExcelExport
     private Double povertyScore;
 
     public PovertyDTO(PovertyIndicator p) {
