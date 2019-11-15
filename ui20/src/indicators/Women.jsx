@@ -10,10 +10,10 @@ import Plot from 'react-plotly.js';
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import { Tab } from 'semantic-ui-react'
-import {gender2options,age2options,items2options} from '../api'
+import {items2options} from './DataUtil'
 import './women.scss'
-
-import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './WomenCharts'
+import  {getWomenDistributionByGroup, getWomebHistoricalDistribution} from './DataUtil'
+import {BarChart,LineChart} from './WomenCharts'
 
 const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange, options})=>{
   const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []
@@ -37,45 +37,68 @@ const  Filters=({genders,ageGroups,methodOfEnforcements,filters,onChange, option
 
 
 const ChartSection = ( props)=>{
+  const {population=[]} = props
+  const years = Array.from(new Set(population.map(r => r.year))).sort()
+  const maxYear=years.pop()
 
-  let lastetYear=null
-    if (props.population){
-      lastetYear=props.population.map(d=>d.year).sort()[props.population.length-1];
-    }
-    const panes = [
-       {
-         menuItem:  { key: 'bar', icon: '', content: 'By Gender '+(lastetYear?'('+lastetYear+')':'') },
-         render: () =>
-            <div className="indicators chart women">
-              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
-              <ByAgeBar  {...props} data={props.population}></ByAgeBar>
+
+    const byAgePanes=[
+      {
+        menuItem:  { key: 'bar', icon: '', content: 'Distribution of the agricultural population by age group and gender '+(maxYear?'('+maxYear+')':'') },
+        render: () =>
+           <div className="indicators chart women">
+             <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
+             <div className="chart container"><BarChart  {...getWomenDistributionByGroup(props.population)}></BarChart></div>
+           </div>,
+      },
+      {
+        menuItem:  { key: 'line', icon: '', content: 'Historical Female Distribution' },
+        render: () =><div className="indicators chart women">
+              <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
+              <div className="chart container"><LineChart   {...getWomebHistoricalDistribution(props.population)}/></div>
             </div>,
-       },
-       {
-         menuItem:  { key: 'line', icon: '', content: 'Female Progression' },
-         render: () =><div className="indicators chart women">
-               <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
-               <ByAgeAndYearLine  data={props.population} {...props}></ByAgeAndYearLine>
-             </div>,
 
-       },
-       {
-         menuItem:  { key: 'bar', icon: '', content: 'By Method '+(lastetYear?'('+lastetYear+')':'') },
-         render: () =><div className="indicators chart women">
-               <Filters {...props} options={{gender:true, age:false,methodOfEnforcement:true}}></Filters>
-               <ByMethodOfEnforcementBar {...props} data={props.distribution}></ByMethodOfEnforcementBar>
-             </div>,
+      }]
 
-       },
-       {
-         menuItem:  { key: 'line', icon: '', content: 'Female Progression' },
-         render: () =><div className="indicators chart women">
-               <Filters {...props} options={{gender:false, age:false,methodOfEnforcement:true}}></Filters>
-               <ByMethodOfEnforcementLine {...props} data={props.distribution}></ByMethodOfEnforcementLine>
-             </div>,
+      const byMethodPanes=[
+        {
+          menuItem:  { key: 'bar', icon: '', content: 'Distribution of parcels by method of enforcement and gender '+(maxYear?'('+maxYear+')':'') },
+          render: () =><div className="indicators chart women">
+                <Filters {...props} options={{gender:true, age:false,methodOfEnforcement:true}}></Filters>
+                <div className="chart container"><BarChart  {...getWomenDistributionByGroup(props.distribution)}></BarChart></div>
+              </div>,
 
-       }
-     ]
+        },
+        {
+          menuItem:  { key: 'line', icon: '', content: 'Historical female distribution of parcels by method of enforcement' },
+          render: () =><div className="indicators chart women">
+                <Filters {...props} options={{gender:false, age:false,methodOfEnforcement:true}}></Filters>
+                <div className="chart container"><LineChart  key="ByMethodOfEnforcementLine"  {...getWomebHistoricalDistribution(props.distribution)}></LineChart></div>
+              </div>,
+
+        }]
+
+    const panes = [
+      {
+        menuItem:  { key: 'bar', icon: '', content: 'By Age '},
+        render: () =><Tab class="sub tab" key="byAge" menu={{ pointing: true }} panes={byAgePanes}/>,
+
+      },
+      {
+        menuItem:  { key: 'line', icon: '', content: 'By Method' },
+        render: () =><Tab class="sub tab" key="byAge" menu={{ pointing: true }} panes={byMethodPanes}/>,
+
+      },
+      {
+        menuItem:  { key: 'line', icon: '', content: 'By Other 1' },
+        render: () =><div/>,
+
+      },
+      {
+        menuItem:  { key: 'line', icon: '', content: 'By Other 2' },
+        render: () =><div/>,
+
+      }]
     return (
         <div className="indicator.chart.container">
 

@@ -482,6 +482,7 @@
     }
   }
 
+
   .ui.pointing.menu {
     margin: 0;
     width: 100%;
@@ -514,6 +515,18 @@
       display: none;
     }
   }
+
+
+
+    .sub.tab{
+        .ui.pointing.menu{
+
+              .item {
+                line-height: 40px ;
+                  height: 40px;
+              }
+        }
+    }
 
   .indicator.description {
     border-top: 2px solid $border-color;

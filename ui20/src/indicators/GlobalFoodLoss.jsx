@@ -10,10 +10,11 @@ import Plot from 'react-plotly.js';
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import { Tab } from 'semantic-ui-react'
-import {gender2options,age2options,items2options} from '../api'
+import {items2options} from './DataUtil'
 import './globalFoodLoss.scss'
 
-import {AverageQuantity,AverageProduction } from './GlobalFoodLossCharts'
+import {BarChart} from './GlobalFoodLossCharts'
+import {getAverageProductionLossData} from './DataUtil'
 
 const  Filters=({lossTypes,filters,onChange, options})=>{
   const lossTypesSelection = filters && filters.getIn(['food','lossType'])? filters.getIn(['food','lossType']).toJS(): []
@@ -25,28 +26,28 @@ const  Filters=({lossTypes,filters,onChange, options})=>{
 }
 
 
-const ChartSection = ( props)=>{
-  let lastetYear=null
 
-    if (props.data){
-        debugger;
-      lastetYear=props.data.map(d=>d.year).sort()[props.data.length-1];
-    }
+
+const ChartSection = ( props)=>{
+  const {data=[]} = props
+  const years = Array.from(new Set(data.map(r => r.year)))
+  const maxYear=years.pop()
+
     const panes = [
        {
-         menuItem:  { key: 'bar', icon: '', content: 'Average production loss  (%) '+lastetYear },
+         menuItem:  { key: 'bar', icon: '', content: 'Average production loss  (%) '+maxYear },
          render: () =>
             <div className="indicators chart food">
               <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
-              <AverageProduction  {...props} ></AverageProduction>
+              <div className="chart container"><BarChart {...getAverageProductionLossData(props.data,'avgPercentage')}></BarChart></div>
             </div>,
        },
        {
-         menuItem:  { key: 'bar', icon: '', content: 'Average quantity (in kg) per household '+(lastetYear-1)+'/'+(lastetYear) },
+         menuItem:  { key: 'bar', icon: '', content: 'Average quantity (in kg) per household '+(maxYear-1)+'/'+(maxYear) },
          render: () =>
             <div className="indicators chart food">
               <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
-              <AverageQuantity  {...props} ></AverageQuantity>
+              <div className="chart container"><BarChart {...getAverageProductionLossData(props.data,'avgKilograms')}></BarChart></div>
             </div>,
        }
 

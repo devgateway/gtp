@@ -1,9 +1,7 @@
 import React, {Component, createRef, useState} from 'react'
 import {ResponsiveBar} from '@nivo/bar'
-import {generateCountriesData} from '@nivo/generators'
 import {ResponsiveLine} from '@nivo/line'
-import {Tab} from 'semantic-ui-react'
-import {FormattedMessage, FormattedNumber, injectIntl} from 'react-intl';
+import {injectIntl} from 'react-intl';
 
 const curveOptions = ['linear', 'monotoneX', 'step', 'stepBefore', 'stepAfter'];
 
@@ -23,7 +21,7 @@ const CustomBarComponent = (props) => {
   return (<circle cx={x + width / 2} cy={y + height / 2} r={Math.min(width, height) / 2} fill={color} />)
 }
 
-const LineChart =injectIntl( ({intl, data }) => (
+export const LineChart =injectIntl( ({intl, data }) => (
         <ResponsiveLine
           pointSymbol={CustomSymbol}
           enableGridY={true}
@@ -93,7 +91,7 @@ const LineChart =injectIntl( ({intl, data }) => (
         />
     ))
 
-const BarChart = ({data, intl,keys,indexBy,groupMode,colors}) => {
+export const BarChart = ({data, intl,keys,indexBy,groupMode,colors}) => {
   return (
   <ResponsiveBar data={data} keys={keys} indexBy={indexBy}
     groupMode={groupMode}
@@ -179,74 +177,3 @@ const BarChart = ({data, intl,keys,indexBy,groupMode,colors}) => {
     motionStiffness={90}
     motionDamping={15}/>)
 }
-
-
-
-
-
-
-
-
-
-const getAverageProductionLossData = (data = [], valueField) => {
-
-/*
-  avgKilograms: 65
-  avgPercentage: 13
-  cropType: "Peanut"
-  cropTypeFr: "Arachide"
-  lossType: "Lost in storage"
-  lossTypeFr: "Perdu dans le stockage"
-  year: 2015
-*/
-
-
-  const crops = Array.from(new Set(data.map(d => d.cropType)));
-  const types =  Array.from(new Set(data.map(r => r.lossType)))
-
-
-  let barData = []
-  const years = new Set(data.map(r => r.year))
-  const maxYear = Array.from(years).sort()[years.size - 1]
-
-  const mostRecent =data.filter(d=>d.year==maxYear)
-
-  crops.forEach(g => {
-    const r = {'Crop': g}
-
-    const value = mostRecent.filter(d => d.cropType == g).forEach(gd=>{
-      r[gd.lossType]=gd[valueField]
-    });
-    barData.push(r)
-  })
-  return   {
-      data: barData,
-      keys:types,
-      indexBy:"Crop",
-      groupMode:'stacked'
-    }
-}
-
-
-
-
-
-export const AverageQuantity = injectIntl((props) => {
-  const {data} = props
-  if (data) {
-    return (<div className="chart container"><BarChart {...getAverageProductionLossData(data,'avgPercentage')}></BarChart></div>)
-  } else {
-    return (<div className="no data">There is no data available</div>)
-  }
-})
-
-
-
-export const AverageProduction=injectIntl((props) => {
-  const {data} = props
-  if (data) {
-    return (<div className="chart container"><BarChart {...getAverageProductionLossData(data,'avgKilograms')}></BarChart></div>)
-  } else {
-    return (<div className="no data">There is no data available</div>)
-  }
-})
