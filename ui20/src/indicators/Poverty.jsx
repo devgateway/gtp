@@ -5,39 +5,75 @@ import {connect} from 'react-redux';
 import React, {Component, createRef, useState} from 'react'
 import {FormattedMessage} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown, RangeSlider} from './Components'
-import PovertyCharts from './PovertyCharts'
+import {BarChart,LineChart} from './PovertyCharts'
+import { Tab } from 'semantic-ui-react'
+import {getPovertyRegionalYearly,getPovertyRegionalStackedByPovertyLevel, getPovertyTimeLine, items2options} from './DataUtil'
 
-const gender2options = (genders) => genders
-  ? genders.sort((c1, c2) => c1.label.localeCompare(c2.label)).map(r => ({'key': r.id, 'text': r.label, 'value': r.id}))
-  : []
+const PovertyFitlers=(props)=>{
+  const {filters, onChange,range={},genders=[],activities=[],ageGroups=[]} = props
+  const genderSelection = filters && filters.getIn(['poverty', 'gender'])? filters.getIn(['poverty', 'gender']).toJS(): []
+  const activitySelection = filters && filters.getIn(['poverty', 'activity'])? filters.getIn(['poverty', 'activity']).toJS() :[]
+  const ageGroupsSelection = filters && filters.getIn(['poverty', 'ageGroup'])? filters.getIn(['poverty', 'ageGroup']).toJS() :[]
 
-const activity2options = (activities) => activities
-  ? activities.sort((c1, c2) => c1.label.localeCompare(c2.label)).map(r => ({'key': r.id, 'text': r.label, 'value': r.id}))
-  : []
+  //age and score limits
+  const minAge =range.age?range.age.min:0
+  const maxAge = range.age?range.age.max:0
 
-const age2options = (activities) => activities
-  ? activities.sort((c1, c2) => c1.id - c2.id).map(r => ({'key': r.id, 'text': r.label, 'value': r.id}))
-  : []
+  const minScore = range.score?range.score.min:0
+  const maxScore = range.score?range.score.max:0
 
+  //age and score selection
+  const age= [filters.getIn(['poverty','minAge']),filters.getIn(['poverty','maxAge'])]
+
+  const score=[ filters.getIn(['poverty','minScore']),filters.getIn(['poverty','maxScore'])]
+
+  return (<div className="indicator chart filter  poverty">
+    <div className="filter item">
+      <CustomFilterDropDown options={items2options(genders)}  onChange={s => {onChange([ 'filters', 'poverty', 'gender'], s,['POVERTY'])}} selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
+    </div>
+    <div className="filter item">
+      <CustomFilterDropDown options={items2options(activities)} onChange={s => {onChange(['filters', 'poverty', 'activity'], s,['POVERTY'])}} selected={activitySelection} text={<FormattedMessage id = "indicators.filter.activity" defaultMessage = "Profesional Activity" > </FormattedMessage>} />
+    </div>
+    <div className="filter item">
+      {<RangeSlider onChange={s => {
+        onChange(['filters', 'poverty', 'minScore'],s[0])
+        onChange(['filters', 'poverty', 'maxScore'],s[1],['POVERTY'])
+
+      }} max={maxScore} min={minScore}  selected={score} text={<FormattedMessage id="inidicators.filter.slider.score" defaultMessage="Score Range"/>}></RangeSlider>}
+    </div>
+
+    <div className="filter item">
+      {<RangeSlider onChange={s => {
+        onChange(['filters', 'poverty', 'minAge'],s[0])
+        onChange(['filters', 'poverty', 'maxAge'],s[1],['POVERTY'])
+
+      }} max={maxAge} min={minAge}  selected={age} text={<FormattedMessage id="inidicators.filter.slider.age" defaultMessage="Age Range"/>}></RangeSlider>}
+    </div>
+  </div>)
+}
 
 class Pooverty extends Component {
   render() {
-    const {filters, onChange,range={},genders=[],activities=[],ageGroups=[]} = this.props
-    const genderSelection = filters && filters.getIn(['poverty', 'gender'])? filters.getIn(['poverty', 'gender']).toJS(): []
-    const activitySelection = filters && filters.getIn(['poverty', 'activity'])? filters.getIn(['poverty', 'activity']).toJS() :[]
-    const ageGroupsSelection = filters && filters.getIn(['poverty', 'ageGroup'])? filters.getIn(['poverty', 'ageGroup']).toJS() :[]
+    const {data=[]} = this.props
+    const years = Array.from(new Set(data.map(r => r.year)))
+    const maxYear=years.pop()
 
-    //age and score limits
-    const minAge =range.age?range.age.min:0
-    const maxAge = range.age?range.age.max:0
+    const panes = [
+      {
+        menuItem: 'Yearly Regional',
+        render: () =>  (<div> <PovertyFitlers {...this.props}/> <div className="indicators chart poverty"><BarChart {...getPovertyRegionalYearly(data)}/></div></div>),
+      },
+      {
+        menuItem: `${maxYear} Stacked`,
+        render: () =>   (<div> <PovertyFitlers {...this.props}/> <div className="indicators chart poverty"><BarChart {...getPovertyRegionalStackedByPovertyLevel(data)}/></div></div>),
 
-    const minScore = range.score?range.score.min:0
-    const maxScore = range.score?range.score.max:0
+      },
+      {
+        menuItem: 'Time Line',
+        render: () =>  (<div> <PovertyFitlers {...this.props}/><div className="indicators chart poverty"><LineChart {...getPovertyTimeLine(data)}/></div></div>),
+      }
+    ]
 
-    //age and score selection
-    const age= [filters.getIn(['poverty','minAge']),filters.getIn(['poverty','maxAge'])]
-
-    const score=[ filters.getIn(['poverty','minScore']),filters.getIn(['poverty','maxScore'])]
 
 
     return (<div className="indicator.chart.container">
@@ -56,33 +92,7 @@ class Pooverty extends Component {
         <div className="indicator chart icon download png"></div>
         <div className="indicator chart icon download csv"></div>
       </div>
-
-
-      <div className="indicator chart filter  poverty">
-        <div className="filter item">
-          <CustomFilterDropDown options={gender2options(genders)}  onChange={s => {onChange([ 'filters', 'poverty', 'gender'], s,['POVERTY'])}} selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
-        </div>
-        <div className="filter item">
-          <CustomFilterDropDown options={activity2options(activities)} onChange={s => {onChange(['filters', 'poverty', 'activity'], s,['POVERTY'])}} selected={activitySelection} text={<FormattedMessage id = "indicators.filter.activity" defaultMessage = "Profesional Activity" > </FormattedMessage>} />
-        </div>
-        <div className="filter item">
-          {<RangeSlider onChange={s => {
-            onChange(['filters', 'poverty', 'minScore'],s[0])
-            onChange(['filters', 'poverty', 'maxScore'],s[1],['POVERTY'])
-
-          }} max={maxScore} min={minScore}  selected={score} text={<FormattedMessage id="inidicators.filter.slider.score" defaultMessage="Score Range"/>}></RangeSlider>}
-        </div>
-
-        <div className="filter item">
-          {<RangeSlider onChange={s => {
-            onChange(['filters', 'poverty', 'minAge'],s[0])
-            onChange(['filters', 'poverty', 'maxAge'],s[1],['POVERTY'])
-
-          }} max={maxAge} min={minAge}  selected={age} text={<FormattedMessage id="inidicators.filter.slider.age" defaultMessage="Age Range"/>}></RangeSlider>}
-        </div>
-      </div>
-
-      {this.props.data && <PovertyCharts data={this.props.data}/>}
+      <Tab key="poverty" menu={{ pointing: true }} panes={panes} />
 
       </div>)
   }

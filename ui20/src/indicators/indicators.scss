@@ -300,6 +300,7 @@
   }
 
   .chart.toggler.view {
+    display: none;
     float: right;
     height: 74px;
     padding-top: 22px;
@@ -481,6 +482,7 @@
     }
   }
 
+
   .ui.pointing.menu {
     margin: 0;
     width: 100%;
@@ -514,6 +516,18 @@
     }
   }
 
+
+
+    .sub.tab{
+        .ui.pointing.menu{
+
+              .item {
+                line-height: 40px ;
+                  height: 40px;
+              }
+        }
+    }
+
   .indicator.description {
     border-top: 2px solid $border-color;
     border-bottom: 2px solid $border-color;
@@ -537,10 +551,12 @@
       padding-left: 0;
       margin-right: 10px;
       margin-top: 5px;
+      min-width: 40px;
       min-height: 80px;
 
       img {
-        width: 40px;
+        width: 40px !important;
+        height: 40px;
       }
     }
 

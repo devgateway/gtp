@@ -1,13 +1,19 @@
 import {
   loadDefaultFilters,
   loadPovertyChartData,
+  loadGlobalIndicators,
+
   loadAgricuturalPopulationData,
   loadAgricuturalDistribution,
-  loadGlobalIndicators,
+
   loadDefaultPovertyFilters,
   loadDefaultWomenFilters,
+
   loadDefaultFoodFilters,
+  loadFoodLossData,
+
   loadDefaultAOIFilters,
+
   refresh
 } from './modules/Indicator'
 import {
@@ -112,7 +118,7 @@ const listener = (store) => {
   if (foodFiltersReady && !flags['foodDataCalled']) {
     flags['foodDataCalled'] = true;
     console.log('Listener -> Load Food Data')
-
+    store.dispatch(loadFoodLossData())
   }
 
 

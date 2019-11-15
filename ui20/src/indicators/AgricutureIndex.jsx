@@ -10,10 +10,10 @@ import Plot from 'react-plotly.js';
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import { Tab } from 'semantic-ui-react'
-import {gender2options,age2options,items2options} from '../api'
+import {items2options} from './DataUtil'
 import './agricutureIndex.scss'
 
-import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './GlobalFoodLossCharts'
+import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './AgricutureIndexCharts'
 
 const  Filters=({indexTypes,filters,onChange, options})=>{
   const indexTypeSelection = filters && filters.getIn(['aoi', 'indexType'])? filters.getIn(['aoi', 'indexType']).toJS(): []
