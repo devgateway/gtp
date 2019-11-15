@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,14 +54,22 @@ public class ExcelGenerator {
     @Autowired
     private PovertyIndicatorService povertyIndicatorService;
 
-    public byte[] getExcelDownload(final DefaultFilterPagingRequest req) throws IOException {
+    public byte[] getExcelDownload(final DefaultFilterPagingRequest req, Indicators sheet) throws IOException {
+        List<ExcelInfo> sheetList = new ArrayList<>();
+        if (sheet.equals(Indicators.ALL) || sheet.equals(Indicators.POVERTY)) {
+            sheetList.add(getPovertyDTOExcelInfo(req));
+        }
+        if (sheet.equals(Indicators.ALL) || sheet.equals(Indicators.WOMEN)) {
+            sheetList.add(getAgriculturalWomenExcelInfo(req));
+        }
+        if (sheet.equals(Indicators.ALL) || sheet.equals(Indicators.AOI)) {
+            sheetList.add(getAOIExcelInfo(req));
+        }
+        if (sheet.equals(Indicators.ALL) || sheet.equals(Indicators.FOODLOSS)) {
+            sheetList.add(getFoodLossExcelInfo(req));
+        }
 
-        ExcelInfo<PovertyDTO> povertyInfo = getPovertyDTOExcelInfo(req);
-        ExcelInfo<AgriculturalWomenDTO> womenInfo = getAgriculturalWomenExcelInfo(req);
-        ExcelInfo<AgricultureOrientationIndexDTO> aoiInfo = getAOIExcelInfo(req);
-        ExcelInfo<FoodLossDTO> foodLossInfo = getFoodLossExcelInfo(req);
-
-        ExcelFile excelFile = new ExcelFileData(Arrays.asList(povertyInfo, womenInfo, aoiInfo, foodLossInfo));
+        ExcelFile excelFile = new ExcelFileData(sheetList);
         Workbook workbook = excelFile.createWorkbook();
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -108,5 +117,13 @@ public class ExcelGenerator {
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request);
         return (ExcelInfo<FoodLossDTO>) new ExcelInfo(FOOD_LOSS_INDICATOR,
                 "Some intro for Food Loss", excelFilter, aoi, null);
+    }
+
+    enum Indicators {
+        ALL,
+        POVERTY,
+        WOMEN,
+        AOI,
+        FOODLOSS
     }
 }
