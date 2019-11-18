@@ -29,6 +29,15 @@ public class FoodLossFilterPagingRequest extends DefaultFilterPagingRequest {
         super(req);
     }
 
+    public FoodLossFilterPagingRequest(IndicatorFilterPagingRequest req) {
+        super(req);
+        this.minAvgPercentage = req.getMinAvgPercentage();
+        this.maxAvgPercentage = req.getMaxAvgPercentage();
+        this.minAvgKilogram = req.getMinAvgKilogram();
+        this.maxAvgKilogram = req.getMaxAvgKilogram();
+        this.lossType = req.getLossType();
+    }
+
     public TreeSet<Integer> getLossType() {
         return lossType;
     }

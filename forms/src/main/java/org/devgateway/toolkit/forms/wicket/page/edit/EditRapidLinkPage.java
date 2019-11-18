@@ -69,9 +69,17 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
         editForm.add(titleField);
         titleField.required();
 
+        TextFieldBootstrapFormComponent<String> titleFrField = new TextFieldBootstrapFormComponent<>("titleFr");
+        editForm.add(titleFrField);
+        titleFrField.required();
+
         TextFieldBootstrapFormComponent<String> subtitleField = new TextFieldBootstrapFormComponent<>("subtitle");
         editForm.add(subtitleField);
         subtitleField.required();
+
+        TextFieldBootstrapFormComponent<String> subtitleFrField = new TextFieldBootstrapFormComponent<>("subtitleFr");
+        editForm.add(subtitleFrField);
+        subtitleFrField.required();
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");
         editForm.add(linkField);
@@ -95,9 +103,9 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 RapidLink rapidLink = editForm.getModelObject();
+                Optional<RapidLink> rl = service.findByRapidLinkPositionId(rapidLink.getRapidLinkPosition().getId());
                 if (rapidLink.getRapidLinkPosition() != null
-                        && !service.findByRapidLinkPositionId(rapidLink.getRapidLinkPosition().getId())
-                        .equals(Optional.empty())) {
+                        && !rl.equals(Optional.empty()) && !rl.get().getId().equals(rapidLink.getId())) {
                     feedbackPanel.error(new StringResourceModel("positionError", this, null).getString());
                     target.add(feedbackPanel);
                     redirectToSelf = true;

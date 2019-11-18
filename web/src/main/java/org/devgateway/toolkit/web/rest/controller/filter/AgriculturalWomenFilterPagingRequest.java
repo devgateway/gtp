@@ -30,6 +30,16 @@ public class AgriculturalWomenFilterPagingRequest extends DefaultFilterPagingReq
         super(req);
     }
 
+    public AgriculturalWomenFilterPagingRequest(IndicatorFilterPagingRequest req) {
+        super(req);
+        this.minPercentage = req.getMinPercentage();
+        this.maxPercentage = req.getMaxPercentage();
+        this.awGroup = req.getAwGroup();
+        this.awGroupType = req.getAwGroupType();
+        this.ageGroup = req.getAgeGroup();
+        this.methodOfEnforcement = req.getMethodOfEnforcement();
+    }
+
     public Double getMinPercentage() {
         return minPercentage;
     }

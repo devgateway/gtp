@@ -18,6 +18,11 @@ public class AOIFilterPagingRequest extends DefaultFilterPagingRequest implement
         super(req);
     }
 
+    public AOIFilterPagingRequest(IndicatorFilterPagingRequest req) {
+        super(req);
+        this.indexType = req.getIndexType();
+    }
+
     public TreeSet<Integer> getIndexType() {
         return indexType;
     }
