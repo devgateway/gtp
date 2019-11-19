@@ -49,6 +49,7 @@ public class AOIIndicatorController extends AbstractDatasetController<Agricultur
     public static final String SUBSIDIES = "subsidies";
     public static final int TOTAL_PUBLIC_BUDGET_TYPE_ID = 1;
     public static final int SUBSIDIES_TYPE_ID = 2;
+    public static final int RATIOS_TYPE_ID = 3;
 
     @Autowired
     private SummaryIndicatorRepository summaryIndicatorRepository;
@@ -123,6 +124,14 @@ public class AOIIndicatorController extends AbstractDatasetController<Agricultur
     public @ResponseBody List<AOISummary> getSummaryIndicatorAOIBySubsidies(
             @RequestBody(required = false) @Valid final AOIFilterPagingRequest req) {
         return getSummaryByIndexType(req, SUBSIDIES_TYPE_ID);
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get agriculture orientation index data by ratios")
+    @RequestMapping(value = "/summary/ratios", method = POST)
+    public @ResponseBody List<AOISummary> getSummaryIndicatorAOIByRatios(
+            @RequestBody(required = false) @Valid final AOIFilterPagingRequest req) {
+        return getSummaryByIndexType(req, RATIOS_TYPE_ID);
     }
 
     @Override
