@@ -20,10 +20,17 @@ public class WebContent extends AbstractAuditableEntity implements Serializable 
 
     private String subtitle;
 
+    private String titleFr;
+
+    private String subtitleFr;
+
     private String link;
 
     @Column(length = DBConstants.MAX_DEFAULT_TEXT_LENGTH)
     private String summernote;
+
+    @Column(length = DBConstants.MAX_DEFAULT_TEXT_LENGTH)
+    private String summernoteFr;
 
     public String getTitle() {
         return title;
@@ -55,6 +62,30 @@ public class WebContent extends AbstractAuditableEntity implements Serializable 
 
     public void setSummernote(String summernote) {
         this.summernote = summernote;
+    }
+
+    public String getTitleFr() {
+        return titleFr;
+    }
+
+    public void setTitleFr(String titleFr) {
+        this.titleFr = titleFr;
+    }
+
+    public String getSubtitleFr() {
+        return subtitleFr;
+    }
+
+    public void setSubtitleFr(String subtitleFr) {
+        this.subtitleFr = subtitleFr;
+    }
+
+    public String getSummernoteFr() {
+        return summernoteFr;
+    }
+
+    public void setSummernoteFr(String summernoteFr) {
+        this.summernoteFr = summernoteFr;
     }
 
     @Override
