@@ -515,5 +515,18 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="Indicators" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('Indicator', nextval('hibernate_sequence'), 'Proportion of population below the international poverty line');
+            INSERT INTO category (dtype, id, label) VALUES ('Indicator', nextval('hibernate_sequence'), 'Women in the agricultural sector');
+            INSERT INTO category (dtype, id, label) VALUES ('Indicator', nextval('hibernate_sequence'), 'Global food loss index');
+            INSERT INTO category (dtype, id, label) VALUES ('Indicator', nextval('hibernate_sequence'), 'Agriculture orientation index for government expenditures');
+
+        ]]></sql>
+    </changeSet>
+
 
 </databaseChangeLog>

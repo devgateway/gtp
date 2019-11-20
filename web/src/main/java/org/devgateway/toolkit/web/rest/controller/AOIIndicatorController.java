@@ -155,7 +155,9 @@ public class AOIIndicatorController extends AbstractDatasetController<Agricultur
         if (req == null) {
             req = new AOIFilterPagingRequest();
         }
-        req.setIndexType(new TreeSet<>(idList));
+        if (req.getIndexType() == null || req.getIndexType().isEmpty()) {
+            req.setIndexType(new TreeSet<>(idList));
+        }
 
         AOIFilterState filterState = new AOIFilterState(req);
         return summaryIndicatorRepository.getAOIIndicator(filterState.getSpecification());
