@@ -27,6 +27,14 @@ const	CHANGE_CHART_FILTER	=	'CHANGE_CHART_FILTER'
 const	LOAD_GLOBAL_INDICATORS_DONE	=	'LOAD_GLOBAL_INDICATORS_DONE'
 const	LOAD_GLOBAL_INDICATORS_ERROR	=	'LOAD_GLOBAL_INDICATORS_ERROR'
 
+
+const	LOAD_AOI_SUBSIDIES_DONE	=	'LOAD_AOI_SUBSIDIES_DONE'
+const	LOAD_AOI_SUBSIDIES_ERROR	=	'LOAD_AOI_SUBSIDIES_ERROR'
+
+const	LOAD_AOI_TOTAL_BUDGET_DONE	=	'LOAD_AOI_TOTAL_BUDGET_DONE'
+const	LOAD_AOI_TOTAL_BUDGET_ERROR	=	'LOAD_AOI_TOTAL_BUDGET_ERROR'
+
+
 const initialState = Immutable.fromJS({
   filters: {}
 })
@@ -41,21 +49,18 @@ export const loadDefaultFilters = () => dispatch => {
   }).catch(error => dispatch({type: LOAD_DEFAULT_FILTERS_ERROR,error}))
 }
 
-
+//Set here initial selected poverty filters if needed
 export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
   console.log("loadDefaultPovertyFilters")
   const filters = getState().getIn('filters')
   const gender = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
   const professionalActivity = getState().getIn(['data', 'items', 'professionalActivity']).map(a => a.id);
   const ageGroup = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);
-
   //default values
   const ranges = getState().getIn(['data', 'items', 'range']);
 
-
   const minAge = ranges.age ? ranges.age.min : 0
   const maxAge = ranges.age ? ranges.age.max : 0
-
 
   const minScore = ranges.score ? ranges.score.min : 0
   const maxScore = ranges.score ? ranges.score.max : 0
@@ -76,8 +81,7 @@ export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
   })
 }
 
-
-
+//Set here initial selected women filters if needed
 export const loadDefaultWomenFilters = () => (dispatch, getState) => {
   console.log("loadDefaultWomenFilters")
   const ageGroups = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);
@@ -93,10 +97,7 @@ export const loadDefaultWomenFilters = () => (dispatch, getState) => {
   })
 }
 
-
-//Default Filters
-
-
+//Set here initial selected food loss filters if needed
 export const loadDefaultFoodFilters = () => (dispatch, getState) => {
   console.log("loadDefaultFoodFilters")
   const lossType = getState().getIn(['data', 'items', 'lossType']).map(a => a.id);
@@ -104,36 +105,34 @@ export const loadDefaultFoodFilters = () => (dispatch, getState) => {
   dispatch({type: LOAD_DEFAULT_FOOD_FILTERS_DONE,foodFilters})
 }
 
+//Set here initial selected AOI  filters if needed
 export const loadDefaultAOIFilters = () => (dispatch, getState) => {
   console.log("loadDefaultAOIFilters")
-
   const indexType = getState().getIn(['data', 'items', 'indexType']).map(a => a.id);
-  const aoiFilters = Immutable.Map().setIn(['indexType'], Immutable.List(indexType))
-
+  const aoiFilters = Immutable.Map().setIn(['indexType'], Immutable.List())
   dispatch({
     type: LOAD_DEFAULT_AOI_FILTERS_DONE,
     aoiFilters
   })
 }
 
-
-
+//Set apply flag on (see IndicatorListener)
 export const apply = () => (dispatch, getState) => {
   dispatch({
     type: APPLY_FILTER_FLAG_ON
   })
 }
 
-
-
+//Reload all datasets (called from IndicatorListener whenever it i needed)
 export const refresh = () => (dispatch, getState) => {
   dispatch(loadGlobalIndicators())
   dispatch(loadPovertyChartData())
   dispatch(loadAgricuturalPopulationData())
   dispatch(loadAgricuturalDistribution())
   dispatch(loadFoodLossData())
+  dispatch(loadAOIsubsidies())
+  dispatch(loadAOItotalbudget())
 }
-
 
 export const reset = () => (dispatch, getState) => {
   dispatch({
@@ -141,9 +140,7 @@ export const reset = () => (dispatch, getState) => {
   })
 }
 
-
-//Data loaders
-
+//Agricutural Population Distribution by gender and age
 export const loadAgricuturalPopulationData = () => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
   api.getAgricuturalPopulation(filters).then(data => {
@@ -153,8 +150,7 @@ export const loadAgricuturalPopulationData = () => (dispatch, getState) => {
   }).catch(error => dispatch({type: LOAD_AGRICUTURAL_POPULATION_DATA_ERROR,error}))
 }
 
-
-
+//Agricutural Population Distribution by method and age
 export const loadAgricuturalDistribution = () => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
   api.getAgricuturalDistribution(filters).then(data => {
@@ -165,7 +161,7 @@ export const loadAgricuturalDistribution = () => (dispatch, getState) => {
   }).catch(error => dispatch({type: LOAD_AGRICUTURAL_DISTRIBUTION_DATA_ERROR,error}))
 }
 
-
+//Proportion of population under poverty line
 export const loadPovertyChartData = () => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
   api.loadPovertyChartData(filters).then(data => {
@@ -179,9 +175,7 @@ export const loadPovertyChartData = () => (dispatch, getState) => {
   }))
 }
 
-
-
-
+//Food Loss Index Kg and %
 export const loadFoodLossData = () => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
   api.getFoodLoss(filters).then(data => {
@@ -191,6 +185,23 @@ export const loadFoodLossData = () => (dispatch, getState) => {
 }
 
 
+export const loadAOIsubsidies=()=>(dispatch, getState)=>{
+  const filters = getState().getIn(['indicator', 'filters']).toJS()
+  api.getAOIsubsidies(filters).then(data => {
+
+    dispatch({type: LOAD_AOI_SUBSIDIES_DONE,data})
+
+  }).catch(error => dispatch({type: LOAD_AOI_SUBSIDIES_ERROR,error}))
+}
+
+
+export const loadAOItotalbudget=()=>(dispatch, getState)=>{
+  const filters = getState().getIn(['indicator', 'filters']).toJS()
+  api.getAOItotalBudget(filters).then(data => {
+    dispatch({type: LOAD_AOI_TOTAL_BUDGET_DONE,data})
+
+  }).catch(error => dispatch({type: LOAD_AOI_TOTAL_BUDGET_ERROR,error}))
+}
 
 
 /*
@@ -204,8 +215,6 @@ export const updateGlobalFilter = (name, selection) => dispatch => {
     selection
   })
 }
-
-
 /*
 Update values at chart level indicated by path
 */
@@ -228,14 +237,15 @@ export const updateFilter = (path, selection, updates) => dispatch => {
   }
 
   if (updates && updates.indexOf('FOOD') > -1) {
-
     dispatch(loadFoodLossData())
-
   }
 
+  if (updates && updates.indexOf('AOI') > -1) {
+    dispatch(loadAOItotalbudget());
+    dispatch(loadAOIsubsidies());
+  }
 
 }
-
 /*
 Get global indicators values (responsive to filters)
 */
@@ -254,8 +264,6 @@ export const loadGlobalIndicators = () => (dispatch, getState) => {
   }))
 
 }
-
-
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -337,8 +345,28 @@ export default (state = initialState, action) => {
       return state.setIn(['food', 'data', 'error'], error)
       .setIn(['food', 'data'], null)
     }
+    case LOAD_AOI_SUBSIDIES_DONE: {
+      const {data} = action
+      
+      return state.setIn(['aoi', 'data','subsidies'], data)
+    }
 
+    case LOAD_AOI_SUBSIDIES_ERROR: {
+      const {error} = action
+      return state.setIn(['aoi', 'data','subsidies', 'error'], error)
+      .setIn(['food', 'data'], null)
+    }
 
+    case LOAD_AOI_TOTAL_BUDGET_DONE: {
+      const {data} = action
+      return state.setIn(['aoi', 'data','budget'], data)
+    }
+
+    case LOAD_AOI_TOTAL_BUDGET_ERROR: {
+      const {error} = action
+      return state.setIn(['aoi', 'data','budget', 'error'], error)
+      .setIn(['food', 'data'], null)
+    }
 
     case APPLY_FILTER_FLAG_ON: {
       const {data} = action

@@ -13,6 +13,8 @@ import {
   loadFoodLossData,
 
   loadDefaultAOIFilters,
+  loadAOIsubsidies,
+  loadAOItotalbudget,
 
   refresh
 } from './modules/Indicator'
@@ -76,6 +78,7 @@ const listener = (store) => {
     store.dispatch(loadDataItems('range', 'poverty'))
   }
 
+
   //all items were loaded then let's load default selected options
   if (povertyFiltersItemReady && !povertyFiltersReady && !flags['loadDefaultPovertyFiltersCalled']) {
     flags['loadDefaultPovertyFiltersCalled'] = true
@@ -91,7 +94,7 @@ const listener = (store) => {
 
 
 
-  //Women Filters and Data
+  //Women initial load
   if (womenFiltersItemReady && !womenFiltersReady && !flags['loadDefaultWomenFiltersCalled']) {
 
     flags['loadDefaultWomenFiltersCalled'] = true
@@ -108,7 +111,7 @@ const listener = (store) => {
 
 
 
-  //loadDefaultFoodFilters
+  //food initial load
   if (foodFiltersItemReady && !foodFiltersReady && !flags['loadDefaultFoodFiltersCalled']) {
     flags['loadDefaultFoodFiltersCalled'] = true
     console.log("Listener -> Loading deafult food filter options")
@@ -122,18 +125,23 @@ const listener = (store) => {
   }
 
 
-  //aoi
+
+  //AOI  inital load
   if (aoiFiltersItemReady && !aoiFiltersReady && !flags['loadDefaultAOIFiltersCalled']) {
     flags['loadDefaultAOIFiltersCalled'] = true
     console.log("Listener -> Loading deafult food filter options")
     store.dispatch(loadDefaultAOIFilters())
   }
 
-  if (aoiFiltersReady && !flags['aoidWomenDataCalled']) {
-    flags['aoidWomenDataCalled'] = true;
-    console.log('Listener -> Load AOI Data')
-
+  if (aoiFiltersReady && !flags['aoiDataCalled']) {
+    flags['aoiDataCalled'] = true;
+    console.log('Listener -> Load Food Data')
+    store.dispatch(loadAOIsubsidies())
+    store.dispatch(loadAOItotalbudget())
   }
+
+
+
 
   //initial data load
   if (filtersReady && !flags['loadGlobalIndicatorsCalled']) {
@@ -210,7 +218,17 @@ const reset = (store) => {
         resetFlags['loadDefaultWomenFiltersCalled'] = true //avoid loop if error
         store.dispatch(loadDefaultWomenFilters())
 
-    } else if (rangeLoading == false && resetFlags['reloadRange'] && !resetFlags['updatingFilters']) {
+    } else if(!resetFlags['loadDefaultFoodFiltersCalled']){
+      console.log('Loading Default loadDefaultFoodFiltersCalled Filters Options ')
+      resetFlags['loadDefaultFoodFiltersCalled'] = true //avoid loop if error
+      store.dispatch(loadDefaultFoodFilters())
+
+    }else if(!resetFlags['loadDefaultAOIFiltersCalled']){
+      console.log('Loading Default loadDefaultAOIFiltersCalled Filters Options ')
+      resetFlags['loadDefaultAOIFiltersCalled'] = true //avoid loop if error
+      store.dispatch(loadDefaultAOIFilters())
+
+    }else if (rangeLoading == false && resetFlags['reloadRange'] && !resetFlags['updatingFilters']) {
       resetFlags['updatingFilters'] = true
       console.log('Reload filter options')
       store.dispatch(loadDefaultPovertyFilters())

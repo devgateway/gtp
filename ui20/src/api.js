@@ -9,7 +9,8 @@ const URL_POVERTY = API_ROOT + '/data/poverty/summary'
 const URL_AGRICULTURAL_POPULATION = API_ROOT + '/data/agriculturalWomen/summary/byAgeGroup'
 const URL_AGRICULTURAL_DISTRIBUTION = API_ROOT + '/data/agriculturalWomen/summary/byMethodOfEnforcement'
 const URL_FOOD_LOSS = API_ROOT + '/data/foodLoss/summary'
-
+const URL_AOI_SUBSIDIES=API_ROOT+'/data/agOrientation/summary/subsidies'
+const URL_AOI_TOTAL_BUDGET=API_ROOT+'/data/agOrientation/summary/totalBudget'
 
 function queryParams(params) {
   return Object.keys(params)
@@ -86,7 +87,6 @@ export const loadPovertyChartData = (params) => {
 }
 
 export const getAgricuturalDistribution = (params) => {
-
   return new Promise((resolve, reject) => {
     const specificFilters=params.women;
     specificFilters.ageGroup=[]
@@ -107,7 +107,6 @@ export const getAgricuturalDistribution = (params) => {
 }
 
 export const getAgricuturalPopulation = (params) => {
-
   return new Promise((resolve, reject) => {
     const specificFilters=params.women;
     specificFilters.methodOfEnforcement=[]
@@ -136,8 +135,34 @@ export const getFoodLoss=(params)=>{
   })
 }
 
+export const getAOIsubsidies=(params)=>{
+  return new Promise((resolve, reject) => {
+
+    post(URL_AOI_SUBSIDIES, {
+      ...params.global,
+      ...params.aoi
+    }).then((data) => {
+      resolve(data)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
 
 
+export const getAOItotalBudget=(params)=>{
+  return new Promise((resolve, reject) => {
+
+    post(URL_AOI_TOTAL_BUDGET, {
+      ...params.global,
+      ...params.aoi
+    }).then((data) => {
+      resolve(data)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
 
 export const getGlobalIndicators = (params) => {
   return new Promise((resolve, reject) => {

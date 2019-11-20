@@ -10,10 +10,10 @@ import Plot from 'react-plotly.js';
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import { Tab } from 'semantic-ui-react'
-import {items2options} from './DataUtil'
+import {items2options,getAOIsubsidies, getAOItotalBudget} from './DataUtil'
 import './agricutureIndex.scss'
 
-import {ByAgeBar,ByAgeAndYearLine, ByMethodOfEnforcementBar,ByMethodOfEnforcementLine} from './AgricutureIndexCharts'
+import {BarChart, LineChart} from './AgricutureIndexCharts'
 
 const  Filters=({indexTypes,filters,onChange, options})=>{
   const indexTypeSelection = filters && filters.getIn(['aoi', 'indexType'])? filters.getIn(['aoi', 'indexType']).toJS(): []
@@ -30,28 +30,30 @@ const  Filters=({indexTypes,filters,onChange, options})=>{
 
 
 const ChartSection = ( props)=>{
-  let lastetYear=null
-    if (props.population){
-      lastetYear=props.population.map(d=>d.year).sort()[props.population.length-1];
-    }
-    const panes = [
-       {
-         menuItem:  { key: 'bar', icon: '', content: 'By Gender '+(lastetYear?'('+lastetYear+')':'') },
-         render: () =>
-            <div className="indicators chart food">
-              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
-              <ByAgeBar  {...props} data={props.population}></ByAgeBar>
-            </div>,
-       },
-       {
-         menuItem:  { key: 'line', icon: '', content: 'Female Progression' },
-         render: () =><div className="indicators chart food">
-               <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
-               <ByAgeAndYearLine  data={props.population} {...props}></ByAgeAndYearLine>
-             </div>,
+  const {population=[]} = props
+  const years = Array.from(new Set(population.map(r => r.year))).sort()
+  const maxYear=years.pop()
 
-       }
-     ]
+
+    const panes=[
+      {
+        menuItem:  { key: 'bar', icon: '', content: 'Distribution of the agricultural population by age group and gender '+(maxYear?'('+maxYear+')':'') },
+        render: () =>
+           <div className="indicators chart women">
+             <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
+             <div className="chart container"><BarChart  {...getAOItotalBudget(props.budget)}></BarChart></div>
+           </div>,
+      },
+      {
+        menuItem:  { key: 'line', icon: '', content: 'Composition of subsidies to agricultural investments' },
+        render: () =><div className="indicators chart women">
+              <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
+              <div className="chart container"><BarChart   {...getAOIsubsidies(props.subsidies)}/></div>
+            </div>,
+
+      }]
+
+
     return (
         <div className="indicator.chart.container">
 
@@ -80,12 +82,15 @@ const ChartSection = ( props)=>{
 const mapStateToProps = state => {
   const filters = state.getIn(['indicator', 'filters'])
   const indexTypes = state.getIn(['data', 'items', 'indexType']);
-  const data=state.getIn(['indicator','aoi', 'data'])
+  const subsidies=state.getIn(['indicator','aoi', 'data','subsidies'])
+  const budget=state.getIn(['indicator','aoi', 'data','budget'])
+
 
   return {
     filters,
     indexTypes,
-    data
+    subsidies,
+    budget
   }
 }
 

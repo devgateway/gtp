@@ -166,7 +166,6 @@ export const getWomenDistributionByGroup = (data = []) => {
 
   groups.forEach(g => {
     const r = {'Age': g}
-
     const value = mostRecent.filter(d => d.groupType == g).forEach(gd=>{
       r[gd.gender]=gd.percentage
     });
@@ -185,43 +184,78 @@ export const getWomenDistributionByGroup = (data = []) => {
 
 
 export const getWomebHistoricalDistribution = (data = []) => {
-
   const keys = Array.from(new Set(data.map(d => d.groupType)));
   const groups =  Array.from(new Set(data.map(r => r.groupType)))
   const genders =  Array.from(new Set(data.map(r => r.gender)))
   const years = Array.from(new Set(data.map(r => r.year)))
-
-
   const filteredData=data.filter(d=>d.gender=='Female')
-
   const colors={'Male':[],'Female':[]}
+  const getColor = (p) =>{}
 
-  const getColor=(p)=>{
-
-  }
-    let lineData = []
-
-    groups.forEach(g =>
-      {
-
+  let lineData = []
+    groups.forEach((g) =>{
       const r2 = {'id': g ,gender:'Female',  data:[]}
-        years.forEach(year=>{
+        years.forEach((year) =>{
           const filtered=filteredData.filter(d=>d.year==year && d.groupType==g&&d.gender=='Female');
           if (filtered.length >0){
             const value=filtered.reduce((a,b)=>{return a+b.percentage;},0)
             r2.data.push({'x':year, 'y':value})
           }
         })
-
         if(r2.data.length >0){
             lineData.push(r2)
         }
+      })
+    const sorted = lineData.sort((a,b) => a.gender.localeCompare(b.gender))
+    return  {data:sorted}
+}
 
 
-    })
 
-    const sorted=lineData.sort((a,b)=>a.gender.localeCompare(b.gender))
-    console.log(sorted)
-    return   {data:sorted}
+export const getAOItotalBudget=(data)=>{
+  const barData=[]
+  let years=[]
+  if (data){
+    years= [...new Set(data.map(d=>d.year))]
+    data.sort((a,b)=>a.year-b.year)
+}
+  return   {
+      data: barData,
+      keys:[],
+      groupMode:"grouped",
+      indexBy:"Type",
+      groupMode:'stacked'
+  }
+}
 
+
+export const getAOIsubsidies=(data)=>{
+  let barData=[]
+  let years=[]
+  let keys=[]
+
+    if (data){
+      data.sort((a,b)=>a.year-b.year)
+      years= [...new Set(data.map(d=>d.year))]
+      keys= [...new Set(data.map(d=>d.indexType))]
+
+      years.map(y=>{
+          const row={'Year':y}
+          const yearlyData=data.filter(d=>d.year==y).forEach(r=>{
+            row[r.indexType]=r.subsidies
+          })
+          barData.push(row)
+
+      })
+    }
+
+  if(data){
+    debugger;
+  }
+  return   {
+      data: barData,
+      keys:keys,
+      groupMode:"stacked",
+      indexBy:"Year",
+  }
 }
