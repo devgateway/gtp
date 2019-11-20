@@ -108,8 +108,10 @@ export const loadDefaultFoodFilters = () => (dispatch, getState) => {
 //Set here initial selected AOI  filters if needed
 export const loadDefaultAOIFilters = () => (dispatch, getState) => {
   console.log("loadDefaultAOIFilters")
-  const indexType = getState().getIn(['data', 'items', 'indexType']).map(a => a.id);
-  const aoiFilters = Immutable.Map().setIn(['indexType'], Immutable.List())
+  const indexType1 = getState().getIn(['data', 'items', 'indexType/1']).map(a => a.id);
+  const indexType2 = getState().getIn(['data', 'items', 'indexType/2']).map(a => a.id);
+  const aoiFilters = Immutable.Map().setIn(['budget','indexType'], Immutable.List(indexType1)).setIn(['subsidies','indexType'], Immutable.List(indexType2))
+
   dispatch({
     type: LOAD_DEFAULT_AOI_FILTERS_DONE,
     aoiFilters
@@ -225,13 +227,12 @@ export const updateFilter = (path, selection, updates) => dispatch => {
     path,
     selection
   })
-
+  debugger;
   if (updates && updates.indexOf('POVERTY') > -1) {
     dispatch(loadPovertyChartData())
   }
 
   if (updates && updates.indexOf('WOMEN') > -1) {
-
     dispatch(loadAgricuturalPopulationData())
     dispatch(loadAgricuturalDistribution())
   }
@@ -240,8 +241,11 @@ export const updateFilter = (path, selection, updates) => dispatch => {
     dispatch(loadFoodLossData())
   }
 
-  if (updates && updates.indexOf('AOI') > -1) {
+  if (updates && updates.indexOf('BUDGET') > -1) {
     dispatch(loadAOItotalbudget());
+
+  }
+  if (updates && updates.indexOf('SUBSIDIES') > -1) {
     dispatch(loadAOIsubsidies());
   }
 
@@ -347,7 +351,7 @@ export default (state = initialState, action) => {
     }
     case LOAD_AOI_SUBSIDIES_DONE: {
       const {data} = action
-      
+
       return state.setIn(['aoi', 'data','subsidies'], data)
     }
 

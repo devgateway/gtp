@@ -45,6 +45,8 @@ const listener = (store) => {
   const methodOfEnforcements=state.getIn(['data', 'items', 'methodOfEnforcement']);
 
   const indexType=state.getIn(['data', 'items', 'indexType']);
+  const indexType1=state.getIn(['data', 'items', 'indexType/1']);
+  const indexType2=state.getIn(['data', 'items', 'indexType/2']);
 
   //Main filters
   const itemsLoaded = (regions && crops && years) != null
@@ -67,7 +69,7 @@ const listener = (store) => {
   const foodFiltersReady = filters.get('food') != null
 
 
-  const aoiFiltersItemReady = (indexType) != null
+  const aoiFiltersItemReady = (indexType1&&indexType2) != null
   const aoiFiltersReady = filters.get('aoi') != null
 
 
@@ -136,6 +138,7 @@ const listener = (store) => {
   if (aoiFiltersReady && !flags['aoiDataCalled']) {
     flags['aoiDataCalled'] = true;
     console.log('Listener -> Load Food Data')
+    debugger;
     store.dispatch(loadAOIsubsidies())
     store.dispatch(loadAOItotalbudget())
   }

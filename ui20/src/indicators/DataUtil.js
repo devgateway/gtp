@@ -213,18 +213,32 @@ export const getWomebHistoricalDistribution = (data = []) => {
 
 
 export const getAOItotalBudget=(data)=>{
-  const barData=[]
+  let barData=[]
   let years=[]
-  if (data){
-    years= [...new Set(data.map(d=>d.year))]
-    data.sort((a,b)=>a.year-b.year)
-}
+  let keys=[]
+
+    if (data){
+      debugger;
+      data.sort((a,b)=>a.year-b.year)
+      years= [...new Set(data.map(d=>d.year))]
+      keys= [...new Set(data.map(d=>d.indexType))]
+
+      years.map(y=>{
+          const row={'Year':y}
+          const yearlyData=data.filter(d=>d.year==y).forEach(r=>{
+            row[r.indexType]=r.budgetedExpenditures
+          })
+          barData.push(row)
+
+      })
+    }
+
+
   return   {
       data: barData,
-      keys:[],
-      groupMode:"grouped",
-      indexBy:"Type",
-      groupMode:'stacked'
+      keys:keys,
+      groupMode:"stacked",
+      indexBy:"Year",
   }
 }
 
@@ -249,9 +263,7 @@ export const getAOIsubsidies=(data)=>{
       })
     }
 
-  if(data){
-    debugger;
-  }
+
   return   {
       data: barData,
       keys:keys,

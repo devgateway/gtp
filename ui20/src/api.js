@@ -140,7 +140,7 @@ export const getAOIsubsidies=(params)=>{
 
     post(URL_AOI_SUBSIDIES, {
       ...params.global,
-      ...params.aoi
+      ...(params.aoi?params.aoi.subsidies:{})
     }).then((data) => {
       resolve(data)
     }).catch(error => {
@@ -155,7 +155,7 @@ export const getAOItotalBudget=(params)=>{
 
     post(URL_AOI_TOTAL_BUDGET, {
       ...params.global,
-      ...params.aoi
+      ...(params.aoi?params.aoi.budget:{})
     }).then((data) => {
       resolve(data)
     }).catch(error => {
