@@ -1,13 +1,23 @@
 package org.devgateway.toolkit.persistence.dto;
 
 import org.devgateway.toolkit.persistence.dao.Production;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 public class ProductionDTO extends DataDTO {
 
+    @ExcelExport
     private String region;
+
+    @ExcelExport
     private String cropType;
+
+    @ExcelExport
     private Double surface;
+
+    @ExcelExport
     private Double production;
+
+    @ExcelExport
     private Double yield;
 
     public ProductionDTO(Production data) {

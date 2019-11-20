@@ -18,11 +18,24 @@ public class AOIFilterPagingRequest extends DefaultFilterPagingRequest implement
         super(req);
     }
 
+    public AOIFilterPagingRequest(IndicatorFilterPagingRequest req) {
+        super(req);
+        this.indexType = req.getIndexType();
+    }
+
     public TreeSet<Integer> getIndexType() {
         return indexType;
     }
 
     public void setIndexType(TreeSet<Integer> indexType) {
         this.indexType = indexType;
+    }
+
+    @Override
+    public String toString() {
+        return "AOI Filters{"
+                + "year=" + getYear() + ","
+                + "indexType=" + indexType
+                + '}';
     }
 }

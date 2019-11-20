@@ -1,13 +1,23 @@
 package org.devgateway.toolkit.persistence.dto;
 
 import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 public class AgricultureOrientationIndexDTO extends DataDTO {
 
+    @ExcelExport
     private String indexType;
+
+    @ExcelExport
     private Double budgetedExpenditures;
+
+    @ExcelExport
     private Double disbursedExpenditures;
+
+    @ExcelExport
     private Double subsidies;
+
+    @ExcelExport
     private String variableType;
 
     public AgricultureOrientationIndexDTO(AgricultureOrientationIndexIndicator aoi) {

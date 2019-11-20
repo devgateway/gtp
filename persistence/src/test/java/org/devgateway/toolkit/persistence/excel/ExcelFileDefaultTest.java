@@ -47,12 +47,6 @@ public class ExcelFileDefaultTest {
         Assert.assertEquals("buyer classification", "TP-1 - alii aliquam",
                 workbook.getSheet("testbuyer").getRow(2).getCell(8).toString());
 
-        Assert.assertEquals("contract parent", "testbuyer - 1",
-                workbook.getSheet("testcontract").getRow(1).getCell(0).toString());
-        Assert.assertEquals("contract amount", 1000,
-                workbook.getSheet("testcontract").getRow(1).getCell(2).getNumericCellValue(), 0.0);
-
-
         Assert.assertEquals("document number of rows", 2, workbook.getSheet("testdocument").getLastRowNum());
 
         Assert.assertEquals("buyer address flatten", "Street 1 | Street 2",

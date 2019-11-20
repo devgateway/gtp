@@ -58,12 +58,22 @@ public class EditWebContentPage extends AbstractEditPage<WebContent> {
         TextFieldBootstrapFormComponent<String> subtitleField = new TextFieldBootstrapFormComponent<>("subtitle");
         editForm.add(subtitleField);
 
+
+        TextFieldBootstrapFormComponent<String> titleFrField = new TextFieldBootstrapFormComponent<>("titleFr");
+        editForm.add(titleFrField);
+        titleFrField.required();
+
+        TextFieldBootstrapFormComponent<String> subtitleFrField = new TextFieldBootstrapFormComponent<>("subtitleFr");
+        editForm.add(subtitleFrField);
+
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");
         editForm.add(linkField);
 
         SummernoteBootstrapFormComponent summernote = new SummernoteBootstrapFormComponent("summernote");
         editForm.add(summernote);
-        summernote.required().enableRevisionsView();
+
+        SummernoteBootstrapFormComponent summernoteFr = new SummernoteBootstrapFormComponent("summernoteFr");
+        editForm.add(summernoteFr);
     }
 
 }

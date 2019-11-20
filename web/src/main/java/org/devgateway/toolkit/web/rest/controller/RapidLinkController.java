@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
@@ -46,9 +47,8 @@ public class RapidLinkController {
 
     @CrossOrigin
     @ApiOperation(value = "Get rapid link top 5 list.")
-    @RequestMapping(value = "/top5", method = POST)
-    public @ResponseBody
-    Iterable<RapidLink> getTop5() {
+    @RequestMapping(value = "/top5", method = {GET, POST})
+    public @ResponseBody Iterable<RapidLink> getTop5() {
         LOGGER.info("get rapid link top 5 list");
         return service.findByRapidLinkPositionIdNotNull();
     }

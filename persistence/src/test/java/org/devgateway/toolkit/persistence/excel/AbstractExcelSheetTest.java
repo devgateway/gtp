@@ -26,7 +26,22 @@ public class AbstractExcelSheetTest {
         }
 
         @Override
+        public void writeRow(Class clazz, Object object, Row rowTitle, Row rowData) {
+
+        }
+
+        @Override
         public void writeSheet(Class clazz, List<Object> objects) {
+
+        }
+
+        @Override
+        public void writeSheet(Class clazz, List<Object> objects, boolean hasHeader) {
+
+        }
+
+        @Override
+        public void writeIntro(String object) {
 
         }
 

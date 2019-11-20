@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.categories.IndexType;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -24,12 +25,16 @@ public class AgricultureOrientationIndexIndicator extends Data {
     @NotNull
     private IndexType indexType;
 
+    @ExcelExport
     private Double budgetedExpenditures;
 
+    @ExcelExport
     private Double disbursedExpenditures;
 
+    @ExcelExport
     private Double subsidies;
 
+    @ExcelExport
     private String variableType;
 
     public IndexType getIndexType() {

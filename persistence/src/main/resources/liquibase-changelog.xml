@@ -501,5 +501,19 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="CategoryTypeIdsUpdate" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+
+            UPDATE category SET type='3' WHERE dtype = 'IndexType' AND label = 'Administrative costs in DPAA';
+            UPDATE category SET type='3' WHERE dtype = 'IndexType' AND label = 'Specific expenditure in total public budget (DPAA meaning restricted)';
+            UPDATE category SET type='3' WHERE dtype = 'IndexType' AND label = 'Expenditure in favor in total public budget';
+            UPDATE category SET type='3' WHERE dtype = 'IndexType' AND label = 'DPAA (broad sense) in total public budget';
+
+        ]]></sql>
+    </changeSet>
+
 
 </databaseChangeLog>

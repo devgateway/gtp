@@ -35,6 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -149,6 +150,13 @@ public class FilterController {
     @RequestMapping(value = "/lossType", method = {POST, GET})
     public List<LossType> getAllLossType() {
         return lossTypeService.findAll();
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get loss type information")
+    @RequestMapping(value = "/indexType/{typeId}", method = {POST, GET})
+    public List<IndexType> getIndexTypeByCategoryIndexType(@PathVariable final int typeId) {
+        return indexTypeService.findByCategoryTypeId(typeId);
     }
 
     @CrossOrigin

@@ -94,7 +94,7 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
     @CrossOrigin
     @ApiOperation(value = "Get csv data")
     @RequestMapping(value = "/summary/csv", method = POST, produces = "application/json")
-    public void getSummaryIndicatorPovertyCSV(@RequestBody(required = false) @Valid final S req,
+    public void getSummaryIndicatorCSV(@RequestBody(required = false) @Valid final S req,
             final HttpServletResponse response) {
         List<T> indicators = findBySpec(req);
         List<R> dataList = indicators.stream().map(p -> getDTO(p)).collect(Collectors.toList());

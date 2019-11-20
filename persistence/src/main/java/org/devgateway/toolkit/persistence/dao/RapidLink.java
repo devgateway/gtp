@@ -29,6 +29,10 @@ public class RapidLink extends AbstractAuditableEntity implements Serializable {
 
     private String subtitle;
 
+    private String titleFr;
+
+    private String subtitleFr;
+
     private String link;
 
     @JsonIgnore
@@ -55,6 +59,22 @@ public class RapidLink extends AbstractAuditableEntity implements Serializable {
 
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
+    }
+
+    public String getTitleFr() {
+        return titleFr;
+    }
+
+    public void setTitleFr(String titleFr) {
+        this.titleFr = titleFr;
+    }
+
+    public String getSubtitleFr() {
+        return subtitleFr;
+    }
+
+    public void setSubtitleFr(String subtitleFr) {
+        this.subtitleFr = subtitleFr;
     }
 
     public String getLink() {

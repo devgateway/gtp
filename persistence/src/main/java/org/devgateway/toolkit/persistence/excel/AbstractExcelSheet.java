@@ -1,6 +1,5 @@
 package org.devgateway.toolkit.persistence.excel;
 
-import org.apache.poi.common.usermodel.HyperlinkType;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -8,7 +7,6 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.Hyperlink;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
@@ -34,13 +32,15 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
 
     private Font headerFont;
 
+    private Font introFont;
+
     private Font linkFont;
 
     private final CellStyle dataStyleCell;
 
     private final CellStyle headerStyleCell;
 
-    private final CellStyle linkStyleCell;
+    private final CellStyle introStyleCell;
 
     private final CreationHelper createHelper;
 
@@ -54,7 +54,7 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
         if (workbook.getNumCellStyles() > 1) {
             this.dataStyleCell = workbook.getCellStyleAt((short) 1);
             this.headerStyleCell = workbook.getCellStyleAt((short) 2);
-            this.linkStyleCell = workbook.getCellStyleAt((short) 3);
+            this.introStyleCell = workbook.getCellStyleAt((short) 3);
         } else {
             // init the fonts and styles
             this.dataFont = this.workbook.createFont();
@@ -63,17 +63,16 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
             this.dataFont.setColor(HSSFColor.HSSFColorPredefined.BLACK.getIndex());
 
             this.headerFont = this.workbook.createFont();
-            this.headerFont.setFontHeightInPoints((short) 14);
+            this.headerFont.setFontHeightInPoints((short) 12);
             this.headerFont.setFontName("Times New Roman");
             this.headerFont.setColor(HSSFColor.HSSFColorPredefined.BLACK.getIndex());
             this.headerFont.setBold(true);
 
-            this.linkFont = this.workbook.createFont();
-            this.linkFont.setFontHeightInPoints((short) 12);
-            this.linkFont.setFontName("Times New Roman");
-            // by default hyperlinks are blue and underlined
-            this.linkFont.setColor(HSSFColor.HSSFColorPredefined.BLUE.getIndex());
-            this.linkFont.setUnderline(Font.U_SINGLE);
+            this.introFont = this.workbook.createFont();
+            this.introFont.setFontHeightInPoints((short) 14);
+            this.introFont.setFontName("Times New Roman");
+            this.introFont.setColor(HSSFColor.HSSFColorPredefined.BLACK.getIndex());
+            this.introFont.setBold(true);
 
             this.dataStyleCell = this.workbook.createCellStyle();
             this.dataStyleCell.setAlignment(HorizontalAlignment.LEFT);
@@ -87,14 +86,21 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
             this.headerStyleCell.setWrapText(true);
             this.headerStyleCell.setFont(this.headerFont);
 
-            this.linkStyleCell = this.workbook.createCellStyle();
-            this.linkStyleCell.setAlignment(HorizontalAlignment.LEFT);
-            this.linkStyleCell.setVerticalAlignment(VerticalAlignment.CENTER);
-            this.linkStyleCell.setWrapText(true);
-            this.linkStyleCell.setFont(this.linkFont);
+            this.introStyleCell = this.workbook.createCellStyle();
+            this.introStyleCell.setAlignment(HorizontalAlignment.LEFT);
+            this.introStyleCell.setVerticalAlignment(VerticalAlignment.TOP);
+            this.introStyleCell.setWrapText(true);
+            this.introStyleCell.setFont(this.introFont);
         }
 
         this.createHelper = workbook.getCreationHelper();
+    }
+
+    private void writeCell(final String value, final Row row, final int column) {
+        if (value != null) {
+            cell = row.createCell(column, CellType.STRING);
+            cell.setCellValue(value);
+        }
     }
 
     /**
@@ -142,8 +148,11 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
                     }
                 }
             }
-
-            cell.setCellStyle(dataStyleCell);
+            if (row.getRowNum() >= 1) {
+                cell.setCellStyle(dataStyleCell);
+            } else {
+                cell.setCellStyle(introStyleCell);
+            }
         } else {
             // create a CellType.BLANK
             row.createCell(column);
@@ -162,25 +171,6 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
         cell.setCellStyle(headerStyleCell);
     }
 
-    /**
-     * Creates a cell that is a link to another sheet in the document {@link HyperlinkType#DOCUMENT}.
-     *
-     * @param value
-     * @param row
-     * @param column
-     * @param sheetName
-     * @param rowNumber
-     */
-    public void writeCellLink(final Object value, final Row row, final int column,
-                              final String sheetName, final int rowNumber) {
-        this.writeCell(value, row, column);
-        final Hyperlink link = createHelper.createHyperlink(HyperlinkType.DOCUMENT);
-
-        // always point to first column A in excel file
-        link.setAddress("'" + sheetName + "'!A" + rowNumber);
-        cell.setHyperlink(link);
-        cell.setCellStyle(linkStyleCell);
-    }
 
     /**
      * Create a new row and set the default height (different heights for headers and data rows).
@@ -193,9 +183,9 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
         final Row row = sheet.createRow(rowNumber);
 
         if (rowNumber < 1) {
-            row.setHeight((short) 2000);             // 100px (2000 / 10 / 2)
+            row.setHeight((short) 1500);             // 75px (1500 / 10 / 2)
         } else {
-            row.setHeight((short) 600);              // 30px  (600 / 10 / 2)
+            row.setHeight((short) 500);              // 25px  (600 / 10 / 2)
         }
 
         return row;

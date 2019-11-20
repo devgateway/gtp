@@ -14,6 +14,7 @@ import java.util.List;
  * @since 13/11/2017
  */
 public interface ExcelSheet {
+
     /**
      * Write the value into specified {@link Row} and column number.
      *
@@ -30,9 +31,11 @@ public interface ExcelSheet {
      *
      * @param clazz
      * @param object
-     * @param row
+     * @param rowData
      */
-    void writeRow(Class clazz, Object object, Row row);
+    void writeRow(Class clazz, Object object, Row rowData);
+
+    void writeRow(final Class clazz, final Object object, final Row rowTitle, final Row rowData);
 
     /**
      * Write the received list of objects into an excel sheet.
@@ -43,6 +46,10 @@ public interface ExcelSheet {
      * @param objects
      */
     void writeSheet(Class clazz, List<Object> objects);
+
+    void writeSheet(Class clazz, List<Object> objects, boolean hasHeader);
+
+    void writeIntro(String object);
 
     /**
      * Write the objects and return the first row index.

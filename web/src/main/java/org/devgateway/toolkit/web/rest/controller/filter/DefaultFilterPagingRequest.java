@@ -46,6 +46,9 @@ public class DefaultFilterPagingRequest extends GenericPagingRequest {
     @ApiModelProperty(value = "Filter by gender")
     private TreeSet<Integer> gender;
 
+    @ApiModelProperty(value = "Language")
+    private String lang;
+
     public TreeSet<Integer> getId() {
         return id;
     }
@@ -92,5 +95,13 @@ public class DefaultFilterPagingRequest extends GenericPagingRequest {
 
     public void setGender(TreeSet<Integer> gender) {
         this.gender = gender;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

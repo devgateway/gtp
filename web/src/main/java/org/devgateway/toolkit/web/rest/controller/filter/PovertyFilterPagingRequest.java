@@ -33,6 +33,16 @@ public class PovertyFilterPagingRequest extends DefaultFilterPagingRequest imple
         super(req);
     }
 
+    public PovertyFilterPagingRequest(IndicatorFilterPagingRequest req) {
+        super(req);
+        this.minAge = req.getMinAge();
+        this.maxAge = req.getMaxAge();
+        this.minScore = req.getMinScore();
+        this.maxScore = req.getMaxScore();
+        this.povertyLevel = req.getPovertyLevel();
+        this.activity = req.getActivity();
+    }
+
     public Double getMinAge() {
         return minAge;
     }

@@ -1,15 +1,29 @@
 package org.devgateway.toolkit.persistence.dto;
 
 import org.devgateway.toolkit.persistence.dao.Consumption;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 public class ConsumptionDTO extends DataDTO {
 
+    @ExcelExport
     private String region;
+
+    @ExcelExport
     private String department;
+
+    @ExcelExport
     private String cropType;
+
+    @ExcelExport
     private String cropSubType;
+
+    @ExcelExport
     private Integer householdSize;
+
+    @ExcelExport
     private Double dailyConsumption;
+
+    @ExcelExport
     private Double weeklyConsumption;
 
     public ConsumptionDTO(Consumption consumption) {
