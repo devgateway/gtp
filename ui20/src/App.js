@@ -46,10 +46,11 @@ class IntlRoutes extends Component {
     this.props.onLoadFilterData('ageGroup','filter')
     this.props.onLoadFilterData('professionalActivity','filter')
     this.props.onLoadFilterData('gender','filter')
-    this.props.onLoadFilterData('indexType','filter')
+    this.props.onLoadFilterData('indexType/1','filter')
+    this.props.onLoadFilterData('indexType/2','filter')
     this.props.onLoadFilterData('locationType','filter')
     this.props.onLoadFilterData('lossType','filter')
-      this.props.onLoadFilterData('methodOfEnforcement','filter')
+    this.props.onLoadFilterData('methodOfEnforcement','filter')
 
 
   }

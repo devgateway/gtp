@@ -13,6 +13,8 @@ import {
   loadFoodLossData,
 
   loadDefaultAOIFilters,
+  loadAOIsubsidies,
+  loadAOItotalbudget,
 
   refresh
 } from './modules/Indicator'
@@ -43,6 +45,8 @@ const listener = (store) => {
   const methodOfEnforcements=state.getIn(['data', 'items', 'methodOfEnforcement']);
 
   const indexType=state.getIn(['data', 'items', 'indexType']);
+  const indexType1=state.getIn(['data', 'items', 'indexType/1']);
+  const indexType2=state.getIn(['data', 'items', 'indexType/2']);
 
   //Main filters
   const itemsLoaded = (regions && crops && years) != null
@@ -65,7 +69,7 @@ const listener = (store) => {
   const foodFiltersReady = filters.get('food') != null
 
 
-  const aoiFiltersItemReady = (indexType) != null
+  const aoiFiltersItemReady = (indexType1&&indexType2) != null
   const aoiFiltersReady = filters.get('aoi') != null
 
 
@@ -75,6 +79,7 @@ const listener = (store) => {
     flags['loadRangeCalled'] = true //avoid loop if error
     store.dispatch(loadDataItems('range', 'poverty'))
   }
+
 
   //all items were loaded then let's load default selected options
   if (povertyFiltersItemReady && !povertyFiltersReady && !flags['loadDefaultPovertyFiltersCalled']) {
@@ -91,7 +96,7 @@ const listener = (store) => {
 
 
 
-  //Women Filters and Data
+  //Women initial load
   if (womenFiltersItemReady && !womenFiltersReady && !flags['loadDefaultWomenFiltersCalled']) {
 
     flags['loadDefaultWomenFiltersCalled'] = true
@@ -108,7 +113,7 @@ const listener = (store) => {
 
 
 
-  //loadDefaultFoodFilters
+  //food initial load
   if (foodFiltersItemReady && !foodFiltersReady && !flags['loadDefaultFoodFiltersCalled']) {
     flags['loadDefaultFoodFiltersCalled'] = true
     console.log("Listener -> Loading deafult food filter options")
@@ -122,18 +127,24 @@ const listener = (store) => {
   }
 
 
-  //aoi
+
+  //AOI  inital load
   if (aoiFiltersItemReady && !aoiFiltersReady && !flags['loadDefaultAOIFiltersCalled']) {
     flags['loadDefaultAOIFiltersCalled'] = true
     console.log("Listener -> Loading deafult food filter options")
     store.dispatch(loadDefaultAOIFilters())
   }
 
-  if (aoiFiltersReady && !flags['aoidWomenDataCalled']) {
-    flags['aoidWomenDataCalled'] = true;
-    console.log('Listener -> Load AOI Data')
-
+  if (aoiFiltersReady && !flags['aoiDataCalled']) {
+    flags['aoiDataCalled'] = true;
+    console.log('Listener -> Load Food Data')
+    debugger;
+    store.dispatch(loadAOIsubsidies())
+    store.dispatch(loadAOItotalbudget())
   }
+
+
+
 
   //initial data load
   if (filtersReady && !flags['loadGlobalIndicatorsCalled']) {
@@ -210,7 +221,17 @@ const reset = (store) => {
         resetFlags['loadDefaultWomenFiltersCalled'] = true //avoid loop if error
         store.dispatch(loadDefaultWomenFilters())
 
-    } else if (rangeLoading == false && resetFlags['reloadRange'] && !resetFlags['updatingFilters']) {
+    } else if(!resetFlags['loadDefaultFoodFiltersCalled']){
+      console.log('Loading Default loadDefaultFoodFiltersCalled Filters Options ')
+      resetFlags['loadDefaultFoodFiltersCalled'] = true //avoid loop if error
+      store.dispatch(loadDefaultFoodFilters())
+
+    }else if(!resetFlags['loadDefaultAOIFiltersCalled']){
+      console.log('Loading Default loadDefaultAOIFiltersCalled Filters Options ')
+      resetFlags['loadDefaultAOIFiltersCalled'] = true //avoid loop if error
+      store.dispatch(loadDefaultAOIFilters())
+
+    }else if (rangeLoading == false && resetFlags['reloadRange'] && !resetFlags['updatingFilters']) {
       resetFlags['updatingFilters'] = true
       console.log('Reload filter options')
       store.dispatch(loadDefaultPovertyFilters())
