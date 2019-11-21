@@ -1,12 +1,14 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.devgateway.toolkit.persistence.dao.categories.Indicator;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
@@ -18,14 +20,16 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Audited
+@JsonIgnoreProperties(value = { "new" })
 public class IndicatorMetadata extends AbstractAuditableEntity implements Serializable {
 
     private String intro;
 
     private String introFr;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
+    @JsonIgnore
     private Indicator indicator;
 
     private String ansdLink;
@@ -70,6 +74,11 @@ public class IndicatorMetadata extends AbstractAuditableEntity implements Serial
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    @JsonProperty("indicatorName")
+    public String getIndicatorName() {
+        return indicator != null ? indicator.getLabel() : null;
     }
 
     @Override

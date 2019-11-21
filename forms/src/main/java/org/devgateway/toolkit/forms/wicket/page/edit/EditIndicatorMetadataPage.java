@@ -14,21 +14,23 @@
  */
 package org.devgateway.toolkit.forms.wicket.page.edit;
 
+import com.google.common.collect.ImmutableList;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.validator.UrlValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.components.form.TextAreaFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListIndicatorMetadataFormPage;
-import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
+import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.dao.categories.Indicator;
 import org.devgateway.toolkit.persistence.repository.category.IndicatorRepository;
 import org.devgateway.toolkit.persistence.service.IndicatorMetadataService;
-import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.util.List;
 
 /**
  * Created by Daniel Oliva
@@ -67,16 +69,35 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
         editForm.add(introFrField);
         introField.required();
 
+
+        List<Indicator> indicators = indicatorRepo.findAll();
+        Indicator currentIndicator = editForm.getModelObject().getIndicator();
+        service.findAll().stream().forEach(x -> {
+            if (currentIndicator == null || !currentIndicator.getId().equals(x.getIndicator().getId())) {
+                indicators.remove(x.getIndicator());
+            }
+        });
+        ImmutableList<Indicator> indicatorList = ImmutableList.copyOf(indicators);
+
+        GenericChoiceProvider<Indicator> choiceProvider = new GenericChoiceProvider<Indicator>(indicatorList) {
+            @Override
+            public String getDisplayValue(Indicator indicator) {
+                return indicator.getLabel();
+            }
+        };
+
         Select2ChoiceBootstrapFormComponent<Indicator> indicator =
-                new Select2ChoiceBootstrapFormComponent<>("indicator",
-                        new GenericPersistableJpaTextChoiceProvider<>(new TextSearchableAdapter<>(indicatorRepo)));
+                new Select2ChoiceBootstrapFormComponent<>("indicator", choiceProvider);
         editForm.add(indicator);
 
-        TextAreaFieldBootstrapFormComponent<String> linkField = new TextAreaFieldBootstrapFormComponent<>("ansdLink");
+        TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("ansdLink");
+        linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES + UrlValidator.NO_FRAGMENTS));
         editForm.add(linkField);
 
-        TextAreaFieldBootstrapFormComponent<String> sourceField = new TextAreaFieldBootstrapFormComponent<>("source");
+        TextFieldBootstrapFormComponent<String> sourceField = new TextFieldBootstrapFormComponent<>("source");
         editForm.add(sourceField);
+
+        deleteButton.setEnabled(false);
     }
 
 }

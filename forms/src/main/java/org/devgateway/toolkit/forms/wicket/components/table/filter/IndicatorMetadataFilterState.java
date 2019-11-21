@@ -18,25 +18,25 @@ import java.util.List;
 public class IndicatorMetadataFilterState extends JpaFilterState<IndicatorMetadata> {
 
     private static final long serialVersionUID = 8005371716983257722L;
-    private String intro;
+    private String indicator;
 
     @Override
     public Specification<IndicatorMetadata> getSpecification() {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
-            if (StringUtils.isNotBlank(intro)) {
+            if (StringUtils.isNotBlank(indicator)) {
                 Join<IndicatorMetadata, Indicator> join = root.join(IndicatorMetadata_.indicator);
-                predicates.add(cb.like(join.get(Indicator_.label), "%" + intro + "%"));
+                predicates.add(cb.like(join.get(Indicator_.label), "%" + indicator + "%"));
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
 
-    public String getIntro() {
-        return intro;
+    public String getIndicator() {
+        return indicator;
     }
 
-    public void setIntro(String intro) {
-        this.intro = intro;
+    public void setIndicator(String indicator) {
+        this.indicator = indicator;
     }
 }
