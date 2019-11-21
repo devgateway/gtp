@@ -528,5 +528,18 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="IndicatorsType" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE category SET type='1' WHERE dtype = 'Indicator' AND label = 'Proportion of population below the international poverty line';
+            UPDATE category SET type='2' WHERE dtype = 'Indicator' AND label = 'Women in the agricultural sector';
+            UPDATE category SET type='3' WHERE dtype = 'Indicator' AND label = 'Global food loss index';
+            UPDATE category SET type='4' WHERE dtype = 'Indicator' AND label = 'Agriculture orientation index for government expenditures';
+
+        ]]></sql>
+    </changeSet>
+
 
 </databaseChangeLog>

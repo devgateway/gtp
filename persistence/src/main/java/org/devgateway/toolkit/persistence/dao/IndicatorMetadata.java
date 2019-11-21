@@ -81,6 +81,11 @@ public class IndicatorMetadata extends AbstractAuditableEntity implements Serial
         return indicator != null ? indicator.getLabel() : null;
     }
 
+    @JsonProperty("indicatorType")
+    public Integer getIndicatorType() {
+        return indicator != null ? indicator.getType() : null;
+    }
+
     @Override
     public AbstractAuditableEntity getParent() {
         return null;

@@ -60,6 +60,15 @@ public class UIController {
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Get indicator by type id.")
+    @RequestMapping(value = "/indicatorMetadata/type/{id}", method = {GET, POST})
+    public @ResponseBody
+    IndicatorMetadata getIndicatorMetadataById(@PathVariable final int id) {
+        LOGGER.info("get indicator by type id: " + id);
+        return indicatorService.findByIndicatorType(id);
+    }
+
+    @CrossOrigin
     @ApiOperation(value = "Get all web content paginated")
     @RequestMapping(value = "/webContent/all", method = POST)
     public @ResponseBody
