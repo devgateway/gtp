@@ -18,7 +18,7 @@ import {BarChart, LineChart} from './AgricutureIndexCharts'
 const  BudgetFilters=({indexTypes1,filters,onChange, options})=>{
   const indexTypeSelection = filters && filters.getIn(['aoi', 'budget','indexType'])? filters.getIn(['aoi', 'budget','indexType']).toJS(): []
 
-  return (<div className="indicator chart filter  women">
+  return (<div className="indicator chart filter  aoi">
       <div className="filter item">
         <CustomFilterDropDown  options={items2options(indexTypes1)}  onChange={s => {onChange([ 'filters', 'aoi','budget', 'indexType'], s,['BUDGET'])}}
           selected={indexTypeSelection} text={<FormattedMessage id = "indicators.aoi.indexType" defaultMessage = "Index Type"  > </FormattedMessage>} />
@@ -31,7 +31,7 @@ const  BudgetFilters=({indexTypes1,filters,onChange, options})=>{
 const  SubsidiesFilters=({indexTypes2,filters,onChange, options})=>{
   const indexTypeSelection = filters && filters.getIn(['aoi','subsidies', 'indexType',])? filters.getIn(['aoi','subsidies','indexType']).toJS(): []
 
-  return (<div className="indicator chart filter  women">
+  return (<div className="indicator chart filter  aoi">
       <div className="filter item">
         <CustomFilterDropDown  options={items2options(indexTypes2)}  onChange={s => {onChange([ 'filters', 'aoi','subsidies', 'indexType'], s,['SUBSIDIES'])}}
           selected={indexTypeSelection} text={<FormattedMessage id = "indicators.aoi.indexType" defaultMessage = "Index Type"  > </FormattedMessage>} />
@@ -51,14 +51,14 @@ const ChartSection = ( props)=>{
       {
         menuItem:  { key: 'bar', icon: '', content: 'Budget' },
         render: () =>
-           <div className="indicators chart women">
+           <div className="indicators chart aoi">
              <BudgetFilters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></BudgetFilters>
              <div className="chart container"><BarChart  {...getAOItotalBudget(props.budget)}></BarChart></div>
            </div>,
       },
       {
         menuItem:  { key: 'line', icon: '', content: 'Composition of subsidies to agricultural investments' },
-        render: () =><div className="indicators chart women">
+        render: () =><div className="indicators chart aoi">
               <SubsidiesFilters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></SubsidiesFilters>
               <div className="chart container"><BarChart   {...getAOIsubsidies(props.subsidies)}/></div>
             </div>,
@@ -67,7 +67,7 @@ const ChartSection = ( props)=>{
 
 
     return (
-        <div className="indicator.chart.container">
+        <div className="indicator chart container aoi">
 
         <div className="indicator chart aoi title ">
           <p>

@@ -1,9 +1,8 @@
 @import '../base.scss';
 
-.indicator.chart.container {
+.indicator.chart.container.poverty {
   border: 1px solid blue !important;
-}
-@import '../base.scss';
+
 
 .indicator.chart.title.poverty::before {
   content: '';
@@ -16,4 +15,5 @@
   background-image: url("/sdg/1.svg");
   background-repeat: no-repeat;
   background-size: 48px 48px;
+}
 }

@@ -11,26 +11,29 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    .title {
 
-      font-size: 48px;
+
+    .title {
+      margin-top: -78px;
+      font-size: 60px;
       letter-spacing: -2px;
-      line-height: 54px;
+      line-height: 60px;
       color: #ffffff;
-      font-weight: 800;
+      font-weight: normal;
       text-align: center;
+
 
     }
 
     .text {
+      width: 75%;
       padding: 0px;
-      margin-top: 33px;
-
-      font-size: 24px;
+      margin-top: 15px;
+      font-size: 30px;
       letter-spacing: -1px;
-      line-height: 32px;
+      line-height: 35px;
       color: #ffffff;
-      font-weight: 700;
+      font-weight: normal;
       text-align: center;
     }
 
@@ -38,7 +41,7 @@
       width: 330px;
       height: 54px;
       font-size: 16px;
-      margin-top: 63px;
+      margin-top: 62px;
       line-height: 54px;
       color: #373737;
       font-weight: 600;

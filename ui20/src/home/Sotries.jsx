@@ -22,30 +22,45 @@ const Image = (props) => {
 
 const Stories = injectIntl((props) => {
 
+  const {stories_title_1,
+      stories_subtitle_1,stories_title_2,
+      stories_subtitle_2,
+      stories_title_3,
+      stories_subtitle_3,
+      stories_title_4,
+      stories_subtitle_4,
+      stories_title_5,
+      stories_subtitle_5,
+      image_1,
+      image_2,
+      image_3,
+      image_4,
+      image_5,
+    }=props
   return (<div className="home-stories">
     <div className="st-row">
-      <div className="st-column st-column-6"><Image img={'tmp/image6x1.jpg'}
-        title={props.intl.formatMessage(messages.stories_title_1)}
-        subtitle={props.intl.formatMessage(messages.stories_subtitle_1)}/>
+      <div className="st-column st-column-6"><Image img={image_1}
+        title={stories_title_1}
+        subtitle={stories_subtitle_1}/>
     </div>
-      <div className="st-column st-column-4"><Image img={'tmp/image4x1.jpg'}
+      <div className="st-column st-column-4"><Image img={image_2}
 
-        title={props.intl.formatMessage(messages.stories_title_2)}
-        subtitle={props.intl.formatMessage(messages.stories_subtitle_2)}/>
+        title={stories_title_2}
+        subtitle={stories_subtitle_2}/>
   </div>
     </div>
     <div className="st-row">
-      <div className="st-column st-column-3"><Image img={'tmp/image3x1a.jpg'}
-        title={props.intl.formatMessage(messages.stories_title_3)}
-        subtitle={props.intl.formatMessage(messages.stories_subtitle_3)}/>
+      <div className="st-column st-column-3"><Image img={image_3}
+        title={stories_title_3}
+        subtitle={stories_subtitle_3}/>
   </div>
-      <div className="st-column st-column-3"><Image img={'tmp/image3x1b.jpg'}
-        title={props.intl.formatMessage(messages.stories_title_3)}
-        subtitle={props.intl.formatMessage(messages.stories_subtitle_3)}/>
+      <div className="st-column st-column-3"><Image img={image_4}
+        title={stories_title_3}
+        subtitle={stories_subtitle_3}/>
   </div>
-      <div className="st-column st-column-3"><Image img={'tmp/image3x1c.jpg'}
-        title={props.intl.formatMessage(messages.stories_title_3)}
-        subtitle={props.intl.formatMessage(messages.stories_subtitle_3)}/>
+      <div className="st-column st-column-3"><Image img={image_5}
+        title={stories_title_3}
+        subtitle={stories_subtitle_3}/>
    </div>
     </div>
 

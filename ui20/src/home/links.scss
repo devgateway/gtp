@@ -1,27 +1,25 @@
 @import "../base.scss";
 
 .home-links-container {
-  margin: 97px auto auto;
+  margin: 78px auto auto;
   width: $page-width;
   text-align: left;
-
-  .home-links {
+  .home-presented-by {
     width: 1100px;
     height: 400px;
     margin: auto;
-
     .col_1 {
       float: left;
       width: 690px;
 
       .presented-title {
-        font-size: 24px;
+        font-size: 18px;
+        font-weight: bolder;
         letter-spacing: -1px;
         line-height: 54px;
         color: #777777;
-        font-weight: 800;
         float: left;
-        line-height: 69px;
+        line-height: 58px !important;
       }
 
       .logo {
@@ -29,19 +27,17 @@
         background-image: url("/logo-ipar.png");
         width: 163px;
         height: 69px;
+        margin-top: -10px;
         margin-left: 10px;
         background-repeat: no-repeat;
       }
 
       .presented-text {
         padding-top: 35px;
-        font-size: 28px;
-        letter-spacing: -1px;
+        font-size: 32px;
         line-height: 38px;
         color: #497423;
-        font-family: "Open Sans";
-        font-weight: 700;
-        margin-right: 100px;
+        margin-right: 57px;
         clear: both;
       }
     }
@@ -49,7 +45,6 @@
     .col_2 {
       float: left;
       width: 163px;
-
       .presented-image {
         width: 386px;
         height: 380px;
@@ -58,128 +53,133 @@
     }
   }
 
-  .links-nav-bar {
+  .home-links-tabs{
     width: 1173px;
-    margin: auto;
-    border: 2px solid #729156;
-    height: 62px;
+    border-radius: 0px;
 
-    .link {
+    .item.link::before{
+      display: none;
+    }
+    .item.link::after{
+      display: none;
+    }
+    .item.link:hover{
+      background-color: #FFF;
+    }
+    .item.link.active:hover{
+      background-color: #497423;
+    }
+    .item.link.active{
+      background-color: #497423;
+      color: #FFF!important;
+      font-weight: bold;
+    }
+
+    .item.link{
+      border-radius: 0px;
       width: 391px;
       height: 62px;
-      box-sizing: border-box;
-      float: left;
+      line-height: 62px;
+      font-size: 24px;
+      color: $color-ligth-green !important;
+      font-family: "Open Sans";
       border-left: 1px solid #6d8e50;
       border-right: 1px solid #6d8e50;
+      border-top: 1px solid #6d8e50 !important;
+      border-bottom:  1px solid #6d8e50 !important;
       line-height: 62px;
-      margin: auto;
-      box-sizing: border-box;
-
-      .btn {
+      .icon {
+        background-image: none;
+        width: 31px;
+        height: 62px;
+        float: left;
         margin-right: 10px;
-        clear: both;
-        margin: auto;
-        width: 215px;
-
-        .icon {
-          width: 31px;
-          height: 62px;
-          float: left;
-          margin-right: 10px;
-          background-repeat: no-repeat;
-          background-position: left center;
-        }
-
-        .label {
-          line-height: 62px;
-          font-size: 24px;
-          color: $color-green !important;
-          font-family: "Open Sans";
-          font-weight: 700;
-        }
+        background-repeat: no-repeat;
+        background-position: left center;
       }
+
+
+
     }
 
-    .link.active {
-      background-color: #497423;
-
-      .label {
-        color: #ffffff;
-      }
-    }
-    //microdata
-    .link.microdata {
+    .item.link.microdata {
       .icon {
         background-image: url("/icon_microdata_regular.png");
       }
     }
 
-    .link.active.microdata {
+    .active.item.link.microdata {
       .icon {
         background-image: url("/icon_microdata_active.png");
       }
     }
     //indicator
-    .link.indicator {
+    .item.link.indicator {
       .icon {
         background-image: url("/icon_indicators_regular.png");
       }
     }
 
-    .link.active.indicator {
+    .active.item.link.indicator {
       .icon {
         background-image: url("/icon_microdata_active.png");
       }
     }
     //
-    .link.market {
+    .item.link.market {
       .icon {
         background-image: url("/icon_market_regular.png");
       }
     }
 
-    .link.active.market {
+    .active.item.link.market {
       .icon {
-        background-image: url("/icon_market_active.png");
+        background-image: url("/icon_market_active.png") !important;
       }
     }
-  }
 
-  .explanation {
-    padding-top: 50px;
-    margin: auto;
-    width: 1034px;
-    height: 206px;
-    font-size: 18px;
-    line-height: 28px;
-    color: #4c4c4c;
-    font-weight: 600;
-  }
+    .explanation{
+      margin: auto;
+      padding: 20px;
+        height: 206px;
+      font-size: 18px;
+      line-height: 28px;
+      color: #4c4c4c !important;
+      font-size: 18px;
+      font-family: $font;
 
-  .source {
-    padding-left: 40px;
-    padding-top: 40px;
-    font-size: 16px;
-    line-height: 28px;
-    color: #4c4c4c;
-    font-weight: 600;
-    font-style: italic;
+      .source-separator {
+        width: 1366px;
+        margin-top: 60px;
+        margin-bottom: 83px;
+        border-bottom: 2px solid #cbcbcb;
+      }
+      .source {
+        padding-left: 40px;
+        padding-top: 40px;
+        font-size: 16px;
+        line-height: 28px;
+        color: #4c4c4c;
+        font-weight: 600;
+        font-style: italic;
 
-    .source-icon {
-      height: 26px;
-      margin-right: 12px;
-      background-position: center;
-      width: 15px;
-      background-image: url("/icon-source.png");
-      background-repeat: no-repeat;
-      float: left;
+        .source-icon {
+          height: 26px;
+          margin-right: 12px;
+          background-position: center;
+          width: 15px;
+          background-image: url("/icon-source.png");
+          background-repeat: no-repeat;
+          float: left;
+        }
+
     }
   }
 
-  .source-separator {
-    width: 1366px;
-    margin-top: 60px;
-    margin-bottom: 83px;
-    border-bottom: 2px solid #cbcbcb;
+
+
   }
+
+
+
 }

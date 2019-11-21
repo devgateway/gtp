@@ -17,27 +17,27 @@ const Footer = (props) => {
 
       <div className="footer-nav-bar">
         <div className="nav link">
-          <FormattedMessage id="nav.home" defaultMessage={"Home"} values={""}/></div>
+          <FormattedMessage id="footer.lik.home" defaultMessage={"Home"} values={""}/></div>
         <div className="nav link">
-          <FormattedMessage id="nav.dashboard" defaultMessage={"Dashboard"} values={""}/></div>
+          <FormattedMessage id="footer.lik.dashboard" defaultMessage={"Dashboard"} values={""}/></div>
         <div className="nav link">
-          <FormattedMessage id="nav.resources" defaultMessage={"Resources"} values={""}/>
+          <FormattedMessage id="footer.lik.resources" defaultMessage={"Resources"} values={""}/>
         </div>
         <div className="nav link">
-          <FormattedMessage id="nav.about" defaultMessage={"About"} values={""}/>
+          <FormattedMessage id="footer.lik.about" defaultMessage={"About"} values={""}/>
         </div>
       </div>
     </div>
     <div className="st-row">
       <div className="footer-text">
-        <FormattedMessage id="footer-text-left" defaultMessage={`
+        <FormattedMessage id="footer.text.address" defaultMessage={`
             1110 Vermont Ave NW  Suite 500
               Washington, DC, 20005 USA
               (at the Open Gov Hub) `} values={""}/>
       </div>
 
       <div className="footer-text">
-        <FormattedMessage id="footer-text-rigth" defaultMessage={`Copyright 2016. Fundamedios
+        <FormattedMessage id="footer.text.copy.right" defaultMessage={`Copyright 2016. Fundamedios
 All Rights Reserved.
 Designed by Plastic
 Develloped by Plastic.`} values={""}/>

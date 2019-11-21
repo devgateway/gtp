@@ -16,25 +16,16 @@ const HeaderImage = (props) => {
   return <div className="header-main">{props.children}</div>
 }
 
+
 const AnalystDropdown = withRouter(injectIntl((props) => (
-  <Dropdown text={props.intl.formatMessage(messages.nav_analyst)}>
-    <Dropdown.Menu>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/indicators`)} text={<FormattedMessage id="nav.microdata" defaultMessage={"Micro Data"} values={""}/>}/>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/production`)} text={<FormattedMessage id="nav.production" defaultMessage={"Production"} values={""}/>}/>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/consumption`)} text={<FormattedMessage id="nav.consumption" defaultMessage={"Consumption"} values={""}/>} />
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/production`)} text={<FormattedMessage id="nav.marketPrice" defaultMessage={"Market Prices"} values={""}/>} />
-    </Dropdown.Menu>
-  </Dropdown>
-)))
 
-const AgriculturalDropDown = withRouter(injectIntl((props) => (
-
-  <Dropdown text={<FormattedMessage id="nav.agriculutural.initiatives" defaultMessage={"Agricultural Initiatives"} values={""}/>}>
+  <Dropdown text={<FormattedMessage id="home.header.menu.analysis" defaultMessage={"Analysis"} values={""}/>}>
     <Dropdown.Menu>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/indicators`)} text={<FormattedMessage id="nav.microdata" defaultMessage={"Micro Data"} values={""}/>}/>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/production`)} text={<FormattedMessage id="nav.production" defaultMessage={"Production"} values={""}/>}/>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/consumption`)} text={<FormattedMessage id="nav.consumption" defaultMessage={"Consumption"} values={""}/>} />
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/production`)} text={<FormattedMessage id="nav.marketPrice" defaultMessage={"Market Prices"} values={""}/>} />
+      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/indicators`)} text={<FormattedMessage id="home.header.menu.microdata" defaultMessage={"Microdata"} values={""}/>}/>
+      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/production`)} text={<FormattedMessage id="home.header.menu.production" defaultMessage={"Production"} values={""}/>}/>
+      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/consumption`)} text={<FormattedMessage id="home.header.menu.consumption" defaultMessage={"Consumption"} values={""}/>} />
+      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/production`)} text={<FormattedMessage id="home.header.menu.market" defaultMessage={"Market"} values={""}/>} />
+      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/production`)} text={<FormattedMessage id="home.header.menu.gis.map" defaultMessage={"GIS Map"} values={""}/>} />
     </Dropdown.Menu>
   </Dropdown>
 )))
@@ -57,13 +48,12 @@ const LanSwitcher = withRouter((props) => (
 
 const HeaderNavButtons = withRouter((props) => {
   return (<div className="header-nav-bar">
-    <div className="nav link"><Link to={`/${props.match.params.lan}/home`}><FormattedMessage id="nav.home" defaultMessage={"Home"} values={""}/></Link></div>
-    <div className="nav link menu"><AgriculturalDropDown/></div>
+    <div className="nav link"><Link to={`/${props.match.params.lan}/home`}><FormattedMessage id="home.header.menu.home" defaultMessage={"Home"} values={""}/></Link></div>
+    <div className="nav link menu">                                        <FormattedMessage id="home.header.menu.agriculutural.initiatives" defaultMessage={"Agricultural Initiatives"} values={""}/></div>
     <div className="nav link menu"><AnalystDropdown></AnalystDropdown></div>
-    <div className="nav link"><Link to={`/${props.match.params.lan}/home`}><FormattedMessage id="nav.partners" defaultMessage={"Partners"} values={""}/></Link></div>
-      <div className="nav  separator"></div>
-      <div className="nav link"><LanSwitcher/></div>
-      <div className="nav  separator"></div>
+    <div className="nav link"><Link to={`/${props.match.params.lan}/home`}><FormattedMessage id="home.header.menu.partners" defaultMessage={"Partners"} values={""}/></Link></div>
+    <div className="nav  separator"></div>
+    <div className="nav link"><LanSwitcher/></div>
 
 
   </div>)
@@ -72,9 +62,9 @@ const HeaderNavButtons = withRouter((props) => {
 const HeaderTitle = (props) => {
   return (<div className="header-title">
     <div className="title">
-      <FormattedMessage id="header.title" defaultMessage={"Senegal Agridata Platform"} values={""}/>
+      <FormattedMessage id="home.header.title" defaultMessage={"Senegal Agridata Platform"} values={""}/>
     </div>
-    <div className="legend"><FormattedMessage id="header.legend" defaultMessage={"Unleashing the power of agriculture statistics"} values={""}/></div>
+    <div className="legend"><FormattedMessage id="home.header.sub.title" defaultMessage={"Unleashing the power of agricultural statistics"} values={""}/></div>
   </div>)
 }
 
@@ -86,7 +76,7 @@ class Header extends React.Component {
     }
 
   onChangeLanguage(lan) {
-    
+
     const {location, history} = this.props;
     const newPath = '/'+lan + location.pathname.substr(3)
     this.props.history.push(newPath)

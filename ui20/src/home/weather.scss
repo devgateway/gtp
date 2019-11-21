@@ -52,7 +52,7 @@
         letter-spacing: -1px;
         line-height: 29px;
         color: #497423;
-        font-weight: 800;
+
         text-align: center;
         margin-bottom: 19px;
       }
@@ -65,10 +65,12 @@
         color: #505050;
         font-weight: 700;
         text-align: center;
+        font-weight: normal;
       }
 
       .weather-content-subtitle.big {
         width: auto !important;
+        font-weight: 600;
       }
     }
   }

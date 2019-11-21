@@ -1,20 +1,18 @@
 import React, {Component} from 'react';
-import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
+import {FormattedMessage, FormattedHTMLMessage, injectIntl} from 'react-intl';
+import { Tab } from 'semantic-ui-react'
+import messages from '../translations/messages'
 
 import './links.scss'
 
 const PresnetedBy = (props) => {
-  return (<div className="home-links">
+  return (<div className="home-presented-by">
     <div className="col_1">
       <div className="presented-title">
-        <span><FormattedMessage id="home.presented.by" defaultMessage={"Presented by"} values={""}/></span>
+        <span><FormattedMessage id="home.presented.by" defaultMessage={"presented by"} values={""}/></span>
         <div className="logo"/>
       </div>
-      <div className="presented-text"><FormattedMessage id="home.presented.text" defaultMessage={`The AgriData platform tends to
-          provision of actors in the agricultural sector
-          Senegalese, comprehensive and reliable data
-          to be taken into account in the definition of
-          national policies and strategies.`} values={""}/></div>
+      <div className="presented-text"><FormattedMessage id="home.presented.text" defaultMessage={`The AgriData platform aims to bring science to the Senegalese agricultural sector by providing key support decision information to policymakers while empowering farmers and other relevant value chain actors.`} values={""}/></div>
     </div>
     <div className="col_2">
       <div className="presented-image"></div>
@@ -23,52 +21,52 @@ const PresnetedBy = (props) => {
   </div>)
 }
 
-const LinksBlock = (props) => {
+const Source=({type})=>{
+  return   (<div className="links source">
+  <div className="source-icon"></div>
+
+    {type=='microdata'&&<FormattedMessage id="home.tabs.microdata.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
+    {type=='indicator'&&<FormattedMessage id="home.tabs.indicator.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
+    {type=='market'&&<FormattedMessage id="home.tabs.market.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
+
+  </div>)
+
+}
+
+const LinksBlock = injectIntl((props) => {
+  const {intl}=props
+  const panes=  [{
+      menuItem:  {className:'link microdata', key: 'microdata', icon: '', content: intl.formatMessage(messages.home_tabs_microdata_title)},
+      render: () =>(
+        <div className="links explanation">
+            {intl.formatMessage(messages.home_tabs_microdata_text)}
+            <Source type="microdata"/>
+        </div>
+      )
+    },
+    {
+        menuItem:  {className:'link indicator', key: 'indicator', icon: '', content: intl.formatMessage(messages.home_tabs_indicator_title)},
+        render: () =>(
+          <div className="links explanation">
+          {intl.formatMessage(messages.home_tabs_indicator_text)}
+          <Source type="indicator"/>
+            </div>)
+      },
+      {
+          menuItem:  {className:'link market', key: 'market', icon: '', content: intl.formatMessage(messages.home_tabs_market_title)},
+          render: () =>(<div className="links explanation">
+          {intl.formatMessage(messages.home_tabs_market_text)}
+            <Source type="narket"/>
+          </div>)
+        }
+  ]
+
   return (<div className="home-links-container">
+
     <PresnetedBy></PresnetedBy>
-    <div className="links-nav-bar">
-
-      <div className="link active microdata">
-        <div className="btn">
-          <div className="icon"></div>
-          <div className="label"><FormattedMessage id="home.links.microdata" defaultMessage={"Microdonnées"} values={""}/>
-          </div>
-        </div>
-      </div>
-
-      <div className="link indicator">
-        <div className="btn">
-          <div className="icon"></div>
-            <div className="label">
-              <FormattedMessage id="home.links.indicators" defaultMessage={"Indicators"} values={""}/>
-            </div>
-
-        </div>
-
-      </div>
-
-      <div className="link market">
-        <div className="btn">
-          <div className="icon"></div>
-            <div className="label">
-              <FormattedMessage id="home.links.markets" defaultMessage={"Markets"} values={""}/>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div className="links explanation">
-        <FormattedHTMLMessage id="home.links.explanation" defaultMessage={`The objective is to visualize the annual crop production.
-            Different combinations can be achieved by displaying separately or combining production, yield and area seeded.<br><br>
-            Production can be improved with the use of fertilizer or impacted by the use of pesticides.
-            The information provides information on the type of inputs and the type of pesticides used by region and crop.`} values={""}/>
-
-
-          <div className="links source"><div className="source-icon"></div>  <FormattedMessage id="home.links.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"} values={""}/></div>
-    </div>
+    <Tab className="home-links-tabs" key="links" menu={{ pointing: true }} panes={panes} />
     <div className="source-separator "></div>
   </div>);
-}
+})
 
 export default LinksBlock

@@ -3,100 +3,84 @@ import {
 } from 'react-intl'
 
 const messages = defineMessages({
+//LinksBlock
+  home_tabs_microdata_title:{
+    id:"home.tabs.microdata.title",
+    defaultMessage: "Microdata"
+  },
+
+  home_tabs_microdata_text:{
+    id:"home.tabs.microdata.text",
+    defaultMessage: "The Microdata page displays agricultural databases that have been uploaded by each relevant partner organization. Users can use the platform analysis tools to browse and extract needed information from the available datasets that will be regurlaly updated as new information is entered."
+  },
+
+  home_tabs_indicator_title:{
+    id:"home.tabs.indicator.title",
+    defaultMessage: "Indicators"
+  },
+
+  home_tabs_indicator_text:{
+    id:"home.tabs.indicator.text",
+    defaultMessage: "The Indicators page displays the alignment of specific agricultural indicators against the SDGs and the ones managed by the International System for Agricultural Science and Technology (AGRIS). All tables and charts will be automatically updated as new information is entered in the system. Users can use the date and the region filters to refine their search criteria."
+  },
+
+  home_tabs_market_title:{
+    id:"home.tabs.market.title",
+    defaultMessage: "Market"
+  },
+
+  home_tabs_market_text:{
+    id:"home.tabs.market.text",
+    defaultMessage: "The market page displays crop trend market prices collected only in rural collection markets located in agricultural production areas."
+  },
+
+  home_tabs_source:{
+    id:"home.tabs.source",
+    defaultMessage: "Source:"
+  },
 
   nav_analyst:{
     id:"nav.analyst",
     defaultMessage: "Analyst"
   },
 
-  stories_title_1: {
-    id: "stories.title_1",
-    defaultMessage: "Main crops by zone"
-  },
-
-  stories_subtitle_1: {
-    id: "stories.subtitle_1",
-    defaultMessage: "A short descriptive line will go here"
-  },
-
-  stories_title_2: {
-    id: "stories.title_2",
-    defaultMessage: "Main crops by zone"
-  },
-
-  stories_subtitle_2: {
-    id: "stories.subtitle_2",
-    defaultMessage: "A short descriptive line will go here"
-  },
-
-  stories_title_3: {
-    id: "stories.title_3",
-    defaultMessage: "Main crops by zone"
-  },
-
-  stories_subtitle_3: {
-    id: "stories.subtitle_3",
-    defaultMessage: "A short descriptive line will go here"
-  },
-
-  stories_title_4: {
-    id: "stories.title_4",
-    defaultMessage: "Main crops by zone"
-  },
-
-  stories_subtitle_4: {
-    id: "stories.subtitle_4",
-    defaultMessage: "A short descriptive line will go here"
-  },
-
-  stories_title_5: {
-    id: "stories.title_5",
-    defaultMessage: "Main crops by zone"
-  },
-
-  stories_subtitle_5: {
-    id: "stories.subtitle_5",
-    defaultMessage: "A short descriptive line will go here"
-  },
-
-
 
   weather_title_1: {
-    id: "weather.title_1",
+    id: "home.weather.title_1",
     defaultMessage: "Main crops by zone"
   },
   weather_subtitle_1: {
-    id: "weather.subtitle_1",
+    id: "home.weather.subtitle_1",
     defaultMessage: "This is where the short descriptive line will go here to describe the category"
   },
 
   weather_title_2: {
-    id: "weather.title_2",
+    id: "home.weather.title_2",
     defaultMessage: "Meteorological data"
   },
 
   weather_subtitle_2: {
-    id: "weather.subtitle_2",
+    id: "home.weather.subtitle_2",
     defaultMessage: "Weather forecast for next 10 days"
   },
 
   weather_title_3: {
-    id: "weather.title_3",
+    id: "home.weather.title_3",
     defaultMessage: "Main crops by zone"
   },
 
   weather_subtitle_3: {
-    id: "weather.subtitle_3",
+    id: "home.weather.subtitle_3",
     defaultMessage: "This is where the short descriptive line will go here to describe the category"
   },
 
   weather_title_4: {
-    id: "weather.title_4",
+    id: "home.weather.title_4",
     defaultMessage: "Main crops by zone"
   },
 
   weather_subtitle_4: {
-    id: "weather.subtitle_4",
+    id: "home.weather.subtitle_4",
     defaultMessage: "This is where the short descriptive line will go here to describe the category"
   },
 
