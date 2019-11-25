@@ -39,7 +39,7 @@ export const LineChart =injectIntl( ({intl, data }) => (
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Year',
+          legend: intl.formatMessage(messages.year),
           legendOffset: 36,
           legendPosition: 'middle'
         }}
@@ -48,7 +48,7 @@ export const LineChart =injectIntl( ({intl, data }) => (
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Percent',
+          legend:intl.formatMessage(messages.percent),
           legendOffset: -40,
           legendPosition: 'middle'
         }}
