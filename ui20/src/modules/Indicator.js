@@ -227,7 +227,7 @@ export const updateFilter = (path, selection, updates) => dispatch => {
     path,
     selection
   })
-  debugger;
+  
   if (updates && updates.indexOf('POVERTY') > -1) {
     dispatch(loadPovertyChartData())
   }

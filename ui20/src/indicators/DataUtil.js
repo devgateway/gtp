@@ -83,7 +83,7 @@ export const getPovertyTimeLine=(data)=>{
       const record={'id':r, 'data':[]}
 
         years.forEach((y)=>{
-            debugger;
+            
             const value=data.filter(d=>d.region==r && d.povertyLevel!='Not poor' && d.year==y).reduce((a,b)=>a+(b.percentage*100),0)
 
             record.data.push({'x':y,'y':value})
@@ -93,7 +93,7 @@ export const getPovertyTimeLine=(data)=>{
 
         return record
   })
-  debugger;
+  
   return {'data':lineData}
 }
 
@@ -103,7 +103,7 @@ export const getPovertyTimeLine_1=(data)=>{
   const regions=Array.from(new Set(data.map(d=>d.region)))
 
   const lineData=regions.map(r=>{
-      debugger;
+      
     const subData=data.filter(d=>d.region==r).map(f=>{return {x:f.year, y:(f.percentage*100), level:f.povertyLevel}}).filter(f=>f.level!='Not poor')
     const series=Array.from(new Set(subData.map(r=>r.x))).map(year=>{
       let y=0;
@@ -218,7 +218,7 @@ export const getAOItotalBudget=(data)=>{
   let keys=[]
 
     if (data){
-      debugger;
+      
       data.sort((a,b)=>a.year-b.year)
       years= [...new Set(data.map(d=>d.year))]
       keys= [...new Set(data.map(d=>d.indexType))]

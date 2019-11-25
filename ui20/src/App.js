@@ -51,7 +51,7 @@ class IntlRoutes extends Component {
     this.props.onLoadFilterData('locationType','filter')
     this.props.onLoadFilterData('lossType','filter')
     this.props.onLoadFilterData('methodOfEnforcement','filter')
-
+  
 
   }
 

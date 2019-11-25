@@ -56,7 +56,7 @@ const LinksBlock = injectIntl((props) => {
           menuItem:  {className:'link market', key: 'market', icon: '', content: intl.formatMessage(messages.home_tabs_market_title)},
           render: () =>(<div className="links explanation">
           {intl.formatMessage(messages.home_tabs_market_text)}
-            <Source type="narket"/>
+            <Source type="market"/>
           </div>)
         }
   ]

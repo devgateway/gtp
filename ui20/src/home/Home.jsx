@@ -9,15 +9,15 @@ import Stories from './Sotries'
 import Weather from './Weather'
 import Newsletter from './NewsLetter'
 
-import {loadDataItems} from '../modules/Data'
+import {loadRapidLInks} from '../modules/Data'
 
 class Home extends Component {
   componentDidMount() {
-    this.props.loadData('region')
-    this.props.loadData('cropType')
+      this.props.onLoadRapidLinks()
   }
 
   render() {
+  
     return (
       <div>
         <Main {...this.props}></Main>
@@ -31,14 +31,13 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    home: state.getIn(['home'])
+return {
+    links: state.getIn(['data','links','data'])
   }
 }
 
 const mapActionCreators = {
-  loadData:loadDataItems
-
+  onLoadRapidLinks:loadRapidLInks
 };
 
 export default connect(mapStateToProps, mapActionCreators)(Home);

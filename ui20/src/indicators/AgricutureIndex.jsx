@@ -44,10 +44,8 @@ const  SubsidiesFilters=({indexTypes2,filters,onChange, options})=>{
 
 
 const ChartSection = ( props)=>{
-    if (props.budget){
-      debugger
-    }
-    const panes=[
+
+  const panes=[
       {
         menuItem:  { key: 'bar', icon: '', content: 'Budget' },
         render: () =>
