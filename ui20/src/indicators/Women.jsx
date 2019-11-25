@@ -15,6 +15,7 @@ import './women.scss'
 import  {getWomenDistributionByGroup, getWomebHistoricalDistribution} from './DataUtil'
 import {BarChart,LineChart} from './WomenCharts'
 import {injectIntl} from 'react-intl';
+
 const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,onChange, options})=>{
   const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []
   const ageSelection = filters && filters.getIn(['women', 'ageGroup'])? filters.getIn(['women', 'ageGroup']).toJS(): []
@@ -103,13 +104,13 @@ const ChartSection = ( props)=>{
 
         <div className="indicator chart women title ">
           <p>
-            <FormattedMessage id="inidicators.chart.women.title" defaultMessage="Women in the Agricultural sector"></FormattedMessage>
+            <FormattedMessage id="inidicators.women.title" defaultMessage="Women in the Agricultural sector"></FormattedMessage>
           </p>
           <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
         </div>
         <div className="indicator chart women description">
           <p>
-            <FormattedMessage id="inidicators.chart.women.description" defaultMessage="Measuring women's access to land through the percentage of men and women (aged 15-49) who solely own land which is legally registered to their name."></FormattedMessage>
+            <FormattedMessage id="inidicators.women.description" defaultMessage="Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex; and (b) share of women among owners or rights-bearers of agricultural land, by type of tenure."></FormattedMessage>
           </p>
           <div className="indicator chart icon download xls"></div>
           <div className="indicator chart icon download png"></div>
