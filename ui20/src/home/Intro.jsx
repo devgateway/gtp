@@ -11,14 +11,14 @@ const MainIntro = (props) => {
 
 
 const IntroTitle=(props)=>{
-    return (<div className="title"><FormattedMessage id="intro.title" defaultMessage={"Senegal Agridata Platform"} values={""}/> </div>)
+    return (<div className="title"><FormattedMessage id="home.intro.title" defaultMessage={"Senegal Agridata Platform"} values={""}/> </div>)
 }
 const IntroText=(props)=>{
-    return (<div className="text"><FormattedHTMLMessage id="intro.text" defaultMessage={"The Agridata Platform for the agricultural sector in Senegal<br> in collaboration between the Agricultural and Rural Prospective Initiative (IPAR)<br> and the National Agency of Statistics and Demography (ANSD)."} values={""}/> </div>)
+    return (<div className="text"><FormattedHTMLMessage id="home.intro.text" defaultMessage={"Senegal AgriData Platform - a joint initiative between Initiative Prospective Agricole et Rurale (IPAR) and the National Statistical Agency (ANSD) to foster agricultural development in Senegal"} values={""}/> </div>)
 }
 
 const IntroLink=(props)=>{
-    return (<div className="btn-link">  <FormattedMessage id="intro.learn_link" defaultMessage={"Learn more"} values={""}/></div>)
+    return (<div className="btn-link">  <FormattedMessage id="home.intro.link.learn" defaultMessage={"Click here to learn more "} values={""}/></div>)
 }
 
 

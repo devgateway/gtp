@@ -138,7 +138,7 @@ const listener = (store) => {
   if (aoiFiltersReady && !flags['aoiDataCalled']) {
     flags['aoiDataCalled'] = true;
     console.log('Listener -> Load Food Data')
-    debugger;
+    
     store.dispatch(loadAOIsubsidies())
     store.dispatch(loadAOItotalbudget())
   }

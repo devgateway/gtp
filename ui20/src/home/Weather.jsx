@@ -50,7 +50,7 @@ const Weather = injectIntl((props) => {
               <TitleSubtitleBlock showSeparator
                 title={props.intl.formatMessage(messages.weather_title_3)}
                 subtitle={props.intl.formatMessage(messages.weather_subtitle_3)}/>
-              <div className="btn-learn"><FormattedMessage id="weather.learn" defaultMessage="Learn more"></FormattedMessage></div>
+              <div className="btn-learn"><FormattedMessage id="home.weather.learn.more" defaultMessage="Learn more"></FormattedMessage></div>
            </ContentBlock>
         </div>
         <div className="st-column st-column-3">

@@ -4,7 +4,7 @@
   .header-nav {
     margin: auto;
     height: 70px;
-    border-bottom: 2px solid #90b47a;
+    border-bottom: 1px solid #83a46e;
     width: $page-width;
     box-sizing: border-box;
     background-color: #497423;
@@ -18,8 +18,8 @@
       .title {
         margin-left: 74px;
         font-size: 24px;
-        line-height: 30px;
-        font-weight: bold;
+        line-height: 37px;
+        font-weight: 700;
         margin-top: 7px;
         letter-spacing: -1px
       }
@@ -53,6 +53,8 @@
     }
 
     .nav.link.menu {
+      padding-right: 5px;
+
       padding-left: 0;
     }
 
@@ -165,7 +167,7 @@
 .header.fix {
   position: fixed;
   top: 0;
-  z-index: 99999999999999999999999999999 !important; 
+  z-index: 99999999999999999999999999999 !important;
   margin: auto;
   width: 100%;
   z-index: 1000;

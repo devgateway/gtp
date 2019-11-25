@@ -2,7 +2,7 @@ import React, {Component, createRef, useState} from 'react'
 import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveLine } from '@nivo/line'
 import {injectIntl} from 'react-intl';
-
+import messages from '../translations/messages'
 const curveOptions = ['linear', 'monotoneX', 'step', 'stepBefore', 'stepAfter'];
 const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
   <g>
@@ -39,7 +39,7 @@ export const LineChart =injectIntl( ({intl, data }) => (
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Year',
+          legend: intl.formatMessage(messages.year),
           legendOffset: 36,
           legendPosition: 'middle'
         }}
@@ -48,7 +48,7 @@ export const LineChart =injectIntl( ({intl, data }) => (
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Percent',
+          legend:intl.formatMessage(messages.percent),
           legendOffset: -40,
           legendPosition: 'middle'
         }}
@@ -99,28 +99,9 @@ return (
       groupMode={groupMode}
       colors={colors}
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-      padding={0.2}
-      innerPadding={1}
-      defs={[
-        {
-          id: 'dots',
-          type: 'patternDots',
-          background: 'inherit',
-          color: '#38bcb2',
-          size: 4,
-          padding: 1,
-          stagger: true
-        },
-        {
-          id: 'lines',
-          type: 'patternLines',
-          background: 'inherit',
-          color: '#eed312',
-          rotation: -45,
-          lineWidth: 6,
-          spacing: 10
-        }
-      ]}
+      padding={0.1}
+      innerPadding={0.5}
+
       fill={[]}
       borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
       axisTop={null}
@@ -129,7 +110,7 @@ return (
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'Region',
+        legend: intl.formatMessage(messages.region),
         legendPosition: 'middle',
         legendOffset: 32
       }}
@@ -137,7 +118,7 @@ return (
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'Percent',
+        legend:  intl.formatMessage(messages.percent),
         legendPosition: 'middle',
         legendOffset: -40
       }}

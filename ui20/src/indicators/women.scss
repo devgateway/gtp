@@ -1,9 +1,8 @@
 @import '../base.scss';
 
-.indicator.chart.container {
+.indicator.chart.container.women {
   border: 1px solid blue !important;
-}
-@import '../base.scss';
+
 
 .indicator.chart.title.women::before {
   content: '';
@@ -45,4 +44,4 @@
     background-repeat:no-repeat;
     }
 }
-}
+}}

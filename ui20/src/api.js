@@ -11,6 +11,7 @@ const URL_AGRICULTURAL_DISTRIBUTION = API_ROOT + '/data/agriculturalWomen/summar
 const URL_FOOD_LOSS = API_ROOT + '/data/foodLoss/summary'
 const URL_AOI_SUBSIDIES=API_ROOT+'/data/agOrientation/summary/subsidies'
 const URL_AOI_TOTAL_BUDGET=API_ROOT+'/data/agOrientation/summary/totalBudget'
+const URL_RAPID_LINKS=API_ROOT+'/data/rapidLink/top5'
 
 function queryParams(params) {
   return Object.keys(params)
@@ -64,6 +65,9 @@ const get = (url) => {
   })
 }
 
+export const getRapidLinks=()=> {
+  return get(URL_RAPID_LINKS)
+}
 
 export const getDataSet = (name) => {
   return post(API_ROOT + dumpUrlBuilder(name))
