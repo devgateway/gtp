@@ -3,44 +3,44 @@ import {
 } from 'react-intl'
 
 const messages = defineMessages({
-//LinksBlock
-  home_tabs_microdata_title:{
-    id:"home.tabs.microdata.title",
+  //LinksBlock
+  home_tabs_microdata_title: {
+    id: "home.tabs.microdata.title",
     defaultMessage: "Microdata"
   },
 
-  home_tabs_microdata_text:{
-    id:"home.tabs.microdata.text",
+  home_tabs_microdata_text: {
+    id: "home.tabs.microdata.text",
     defaultMessage: "The Microdata page displays agricultural databases that have been uploaded by each relevant partner organization. Users can use the platform analysis tools to browse and extract needed information from the available datasets that will be regurlaly updated as new information is entered."
   },
 
-  home_tabs_indicator_title:{
-    id:"home.tabs.indicator.title",
+  home_tabs_indicator_title: {
+    id: "home.tabs.indicator.title",
     defaultMessage: "Indicators"
   },
 
-  home_tabs_indicator_text:{
-    id:"home.tabs.indicator.text",
+  home_tabs_indicator_text: {
+    id: "home.tabs.indicator.text",
     defaultMessage: "The Indicators page displays the alignment of specific agricultural indicators against the SDGs and the ones managed by the International System for Agricultural Science and Technology (AGRIS). All tables and charts will be automatically updated as new information is entered in the system. Users can use the date and the region filters to refine their search criteria."
   },
 
-  home_tabs_market_title:{
-    id:"home.tabs.market.title",
+  home_tabs_market_title: {
+    id: "home.tabs.market.title",
     defaultMessage: "Market"
   },
 
-  home_tabs_market_text:{
-    id:"home.tabs.market.text",
+  home_tabs_market_text: {
+    id: "home.tabs.market.text",
     defaultMessage: "The market page displays crop trend market prices collected only in rural collection markets located in agricultural production areas."
   },
 
-  home_tabs_source:{
-    id:"home.tabs.source",
+  home_tabs_source: {
+    id: "home.tabs.source",
     defaultMessage: "Source:"
   },
 
-  nav_analyst:{
-    id:"nav.analyst",
+  nav_analyst: {
+    id: "nav.analyst",
     defaultMessage: "Analyst"
   },
 
@@ -84,6 +84,26 @@ const messages = defineMessages({
     defaultMessage: "This is where the short descriptive line will go here to describe the category"
   },
 
+  //analytic
+
+  indicator_poverty_chart_by_region_and_year: {
+    id: 'indicator.poverty.chart.by.region.and.year',
+    defaultMessage: '% of population under poverty level.',
+    description: '% of population under poverty level by region and year chart title'
+  },
+
+  indicator_poverty_chart_by_poor_no_poor_rencet_year: {
+    id: 'indicator.poverty.chart.by.poor.no.poor.rencet.year',
+    defaultMessage: '% of poor vs no poor by region',
+    description: '% of poor vs no poor by region chart title'
+  },
+
+
+  indicator_poverty_chart_historical_by_region: {
+    id: 'indicator.poverty.chart.historical.by.region',
+    defaultMessage: 'Historical % of population  under poverty level',
+    description: 'Historical % of population  under poverty level chart title'
+  },
 
 
   department: {
@@ -148,7 +168,11 @@ const messages = defineMessages({
     defaultMessage: 'Region',
     description: 'Region Data Field'
   },
-
+  percent: {
+    id: 'data.field.percent',
+    defaultMessage: 'Percent',
+    description: 'Percent Label'
+  },
   market: {
     id: 'data.field.market',
     defaultMessage: 'Market',

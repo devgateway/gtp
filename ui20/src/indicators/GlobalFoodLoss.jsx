@@ -12,18 +12,21 @@ import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import { Tab } from 'semantic-ui-react'
 import {items2options} from './DataUtil'
 import './globalFoodLoss.scss'
-
 import {BarChart} from './GlobalFoodLossCharts'
 import {getAverageProductionLossData} from './DataUtil'
+import {injectIntl} from 'react-intl';
 
-const  Filters=({lossTypes,filters,onChange, options})=>{
+
+
+
+const  Filters=injectIntl(({intl,lossTypes,filters,onChange, options})=>{
   const lossTypesSelection = filters && filters.getIn(['food','lossType'])? filters.getIn(['food','lossType']).toJS(): []
   return (<div className="indicator chart filter  women">
     <div className="filter item">
-      <CustomFilterDropDown  options={items2options(lossTypes)}  onChange={s => {onChange([ 'filters', 'food', 'lossType'], s,['FOOD'])}} selected={lossTypesSelection} text={<FormattedMessage id = "indicators.filter.losstype" defaultMessage = "Loss Type"  > </FormattedMessage>} />
+      <CustomFilterDropDown  options={items2options(lossTypes,intl)}  onChange={s => {onChange([ 'filters', 'food', 'lossType'], s,['FOOD'])}} selected={lossTypesSelection} text={<FormattedMessage id = "indicators.filter.losstype" defaultMessage = "Loss Type"  > </FormattedMessage>} />
     </div>
   </div>)
-}
+})
 
 
 

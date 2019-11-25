@@ -36,6 +36,7 @@ class GlobalNumbers extends Component {
 
        const data=this.props.data?this.props.data.toJS():null
         return (
+<div>
           <Grid className="indicator global numbers" columns={4} divided>
             {error?<div className="message error">Can't load data - {error.message}</div>:null}
             <Grid.Row>
@@ -58,13 +59,28 @@ class GlobalNumbers extends Component {
                 <div className="indicator link">
                   <div className="btn">
                     <div className="icon go"/>
-                    <a href=""><FormattedMessage id="indicator.go.chart" defaultMessage="Go to Chart"/></a>
+                    <a onClick={e=>{
+
+                     document.getElementById("anchor."+n.key).scrollIntoView({
+                        behavior:  "smooth",
+                        block:    "end" ,
+                    })
+
+                  }}><FormattedMessage id="indicator.go.chart" defaultMessage="Go to Chart"/></a>
                 </div>
                 </div>
               </Grid.Column>))}
             </Grid.Row>
 
-          </Grid>)
+          </Grid>
+          <Segment className="info-text">
+            <div className="source-icon"></div>
+            <FormattedMessage id="indicators.global.notes" defaultMessage={`  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.`}></FormattedMessage>
+          </Segment>
+
+
+</div>
+        )
       }
 }
 

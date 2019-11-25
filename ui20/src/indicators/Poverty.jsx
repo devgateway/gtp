@@ -3,14 +3,16 @@ import 'rc-slider/assets/index.css'
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import React, {Component, createRef, useState} from 'react'
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage,injectIntl} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown, RangeSlider} from './Components'
 import {BarChart,LineChart} from './PovertyCharts'
 import { Tab } from 'semantic-ui-react'
 import {getPovertyRegionalYearly,getPovertyRegionalStackedByPovertyLevel, getPovertyTimeLine, items2options} from './DataUtil'
+import messages from '../translations/messages'
 
-const PovertyFitlers=(props)=>{
-  const {filters, onChange,range={},genders=[],activities=[],ageGroups=[]} = props
+const PovertyFitlers=injectIntl((props)=>{
+
+  const {intl,filters, onChange,range={},genders=[],activities=[],ageGroups=[]} = props
   const genderSelection = filters && filters.getIn(['poverty', 'gender'])? filters.getIn(['poverty', 'gender']).toJS(): []
   const activitySelection = filters && filters.getIn(['poverty', 'activity'])? filters.getIn(['poverty', 'activity']).toJS() :[]
   const ageGroupsSelection = filters && filters.getIn(['poverty', 'ageGroup'])? filters.getIn(['poverty', 'ageGroup']).toJS() :[]
@@ -29,10 +31,12 @@ const PovertyFitlers=(props)=>{
 
   return (<div className="indicator chart filter  poverty">
     <div className="filter item">
-      <CustomFilterDropDown options={items2options(genders)}  onChange={s => {onChange([ 'filters', 'poverty', 'gender'], s,['POVERTY'])}} selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
+      <CustomFilterDropDown options={items2options(genders,intl)}  onChange={s => {onChange([ 'filters', 'poverty', 'gender'], s,['POVERTY'])}}
+       selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
     </div>
     <div className="filter item">
-      <CustomFilterDropDown options={items2options(activities)} onChange={s => {onChange(['filters', 'poverty', 'activity'], s,['POVERTY'])}} selected={activitySelection} text={<FormattedMessage id = "indicators.filter.activity" defaultMessage = "Profesional Activity" > </FormattedMessage>} />
+      <CustomFilterDropDown options={items2options(activities,intl)} onChange={s => {onChange(['filters', 'poverty', 'activity'], s,['POVERTY'])}}
+       selected={activitySelection} text={<FormattedMessage id = "indicators.filter.activity" defaultMessage = "Profesional Activity" > </FormattedMessage>} />
     </div>
     <div className="filter item">
       {<RangeSlider onChange={s => {
@@ -50,50 +54,58 @@ const PovertyFitlers=(props)=>{
       }} max={maxAge} min={minAge}  selected={age} text={<FormattedMessage id="inidicators.filter.slider.age" defaultMessage="Age Range"/>}></RangeSlider>}
     </div>
   </div>)
-}
+})
+
+
 
 class Pooverty extends Component {
   render() {
-    const {data=[]} = this.props
+
+    const {data=[],intl} = this.props
     const years = Array.from(new Set(data.map(r => r.year)))
     const maxYear=years.pop()
 
     const panes = [
       {
-        menuItem: 'Yearly Regional',
-        render: () =>  (<div> <PovertyFitlers {...this.props}/> <div className="indicators chart poverty"><BarChart {...getPovertyRegionalYearly(data)}/></div></div>),
+        menuItem: intl.formatMessage(messages.indicator_poverty_chart_by_region_and_year),
+        render: () =>  (<div> <PovertyFitlers {...this.props}/> <div className="indicators chart poverty"><BarChart {...getPovertyRegionalYearly(data,intl)}/></div></div>),
       },
       {
-        menuItem: `${maxYear} Stacked`,
-        render: () =>   (<div> <PovertyFitlers {...this.props}/> <div className="indicators chart poverty"><BarChart {...getPovertyRegionalStackedByPovertyLevel(data)}/></div></div>),
+        menuItem: `${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year)} (${maxYear}) . `,
+        render: () =>   (<div> <PovertyFitlers {...this.props}/> <div className="indicators chart poverty"><BarChart {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/></div></div>),
 
       },
       {
-        menuItem: 'Time Line',
-        render: () =>  (<div> <PovertyFitlers {...this.props}/><div className="indicators chart poverty"><LineChart {...getPovertyTimeLine(data)}/></div></div>),
+        menuItem: `${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`,
+
+        render: () =>  (<div> <PovertyFitlers {...this.props}/><div className="indicators chart poverty"><LineChart {...getPovertyTimeLine(data,intl)}/></div></div>),
       }
     ]
 
 
 
-    return (<div className="indicator.chart.container">
+    return (<div className="indicator.chart.container" id="anchor.indicator.global.population.short">
 
       <div className="indicator chart title poverty">
         <p>
-          <FormattedMessage id="inidicators.chart.poverty.title" defaultMessage="Proportion of population below the international poverty line"></FormattedMessage>
+          <FormattedMessage id="inidicators.poverty.title" defaultMessage="Proportion of population below the international poverty line."></FormattedMessage>
         </p>
         <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
       </div>
       <div className="indicator chart description poverty">
         <p>
-          <FormattedMessage id="inidicators.chart.poverty.description" defaultMessage="Proportion of population below the international poverty line is defined as the percentage of the population living on less than $1.90 a day at 2011 international prices. "></FormattedMessage>
+          <FormattedMessage id="inidicators.poverty.description" defaultMessage="Proportion of population below the international poverty line, by sex, age, employment status and geographical location (urban/rural)."></FormattedMessage>
         </p>
         <div className="indicator chart icon download xls"></div>
         <div className="indicator chart icon download png"></div>
         <div className="indicator chart icon download csv"></div>
       </div>
-      <Tab key="poverty" menu={{ pointing: true }} panes={panes} />
 
+        <Tab key="poverty" menu={{ pointing: true }} panes={panes} />
+
+        <div className="source">
+        <span className="source label"> <FormattedMessage id="inidicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.
+       </div>
       </div>)
   }
 
@@ -111,4 +123,4 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {};
 
-export default connect(mapStateToProps, mapActionCreators)(Pooverty);
+export default injectIntl(connect(mapStateToProps, mapActionCreators)(Pooverty));

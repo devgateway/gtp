@@ -12,34 +12,38 @@ import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import { Tab } from 'semantic-ui-react'
 import {items2options,getAOIsubsidies, getAOItotalBudget} from './DataUtil'
 import './agricutureIndex.scss'
+import {injectIntl} from 'react-intl';
+
+
 
 import {BarChart, LineChart} from './AgricutureIndexCharts'
 
-const  BudgetFilters=({indexTypes1,filters,onChange, options})=>{
+
+const  BudgetFilters=injectIntl(({intl,indexTypes1,filters,onChange, options})=>{
   const indexTypeSelection = filters && filters.getIn(['aoi', 'budget','indexType'])? filters.getIn(['aoi', 'budget','indexType']).toJS(): []
 
   return (<div className="indicator chart filter  aoi">
       <div className="filter item">
-        <CustomFilterDropDown  options={items2options(indexTypes1)}  onChange={s => {onChange([ 'filters', 'aoi','budget', 'indexType'], s,['BUDGET'])}}
+        <CustomFilterDropDown  options={items2options(indexTypes1,intl)}  onChange={s => {onChange([ 'filters', 'aoi','budget', 'indexType'], s,['BUDGET'])}}
           selected={indexTypeSelection} text={<FormattedMessage id = "indicators.aoi.indexType" defaultMessage = "Index Type"  > </FormattedMessage>} />
       </div>
 
 
     </div>)
-}
+})
 
-const  SubsidiesFilters=({indexTypes2,filters,onChange, options})=>{
+const  SubsidiesFilters=injectIntl(({intl,indexTypes2,filters,onChange, options})=>{
   const indexTypeSelection = filters && filters.getIn(['aoi','subsidies', 'indexType',])? filters.getIn(['aoi','subsidies','indexType']).toJS(): []
 
   return (<div className="indicator chart filter  aoi">
       <div className="filter item">
-        <CustomFilterDropDown  options={items2options(indexTypes2)}  onChange={s => {onChange([ 'filters', 'aoi','subsidies', 'indexType'], s,['SUBSIDIES'])}}
+        <CustomFilterDropDown  options={items2options(indexTypes2,intl)}  onChange={s => {onChange([ 'filters', 'aoi','subsidies', 'indexType'], s,['SUBSIDIES'])}}
           selected={indexTypeSelection} text={<FormattedMessage id = "indicators.aoi.indexType" defaultMessage = "Index Type"  > </FormattedMessage>} />
       </div>
 
 
     </div>)
-}
+})
 
 
 

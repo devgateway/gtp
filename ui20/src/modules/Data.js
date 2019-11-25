@@ -60,7 +60,7 @@ export default (state = initialState, action) => {
       const {data} = action
       return state.setIn(['links','loading'],true)
     }
-    case LOAD_RAPID_LINKS_DONE: {
+      case LOAD_RAPID_LINKS_DONE: {
       const {data} = action
       debugger;
       return state.setIn(['links','data'],data).deleteIn(['links','error'])
