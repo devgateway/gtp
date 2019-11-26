@@ -1,11 +1,11 @@
 import messages from '../translations/messages'
 
 export const items2options = (items,intl) => {
-  debugger;
+
   return items ?
   items.sort((c1, c2) => c1.id - c2.id).map(r => ({
     'key': r.id,
-    'text': (intl.locale=='fr')?r.labelFr:r.label,
+    'text':(r.label)? ((intl.locale=='fr')?r.labelFr:r.label):(r.name),
     'value': r.id
   })) :
   []}
@@ -53,7 +53,7 @@ export const getPovertyRegionalYearly = (data = [], intl) => {
 
 
 export const getPovertyRegionalStackedByPovertyLevel = (data,intl) => {
-  debugger;
+
   let fields = ['region', 'povertyLevel']
   if (intl.locale == 'fr') {
     fields = ['regionFr', 'povertyLevelFr']
@@ -124,40 +124,6 @@ export const getPovertyTimeLine = (data) => {
 }
 
 
-export const getPovertyTimeLine_1 = (data) => {
-
-  const regions = Array.from(new Set(data.map(d => d.region)))
-
-  const lineData = regions.map(r => {
-
-    const subData = data.filter(d => d.region == r).map(f => {
-      return {
-        x: f.year,
-        y: (f.percentage * 100),
-        level: f.povertyLevel
-      }
-    }).filter(f => f.level != 'Not poor')
-    const series = Array.from(new Set(subData.map(r => r.x))).map(year => {
-      let y = 0;
-      subData.filter(s => s.x == year).forEach(val => y = y + val.y)
-      return {
-        x: year,
-        y: y
-      }
-    })
-
-    return {
-      id: r,
-      "color": "hsl(332, 70%, 50%)",
-      data: series
-    }
-
-  })
-  return Object.keys(lineData).map(k => lineData[k])
-}
-
-
-
 
 
 
@@ -193,11 +159,19 @@ export const getAverageProductionLossData = (data = [], valueField) => {
 
 
 
-export const getWomenDistributionByGroup = (data = []) => {
+export const getWomenDistributionByGroup = (data = [],intl) => {
 
-  const keys = Array.from(new Set(data.map(d => d.groupType)));
-  const groups = Array.from(new Set(data.map(r => r.groupType)))
-  const genders = Array.from(new Set(data.map(r => r.gender)))
+  let fields = ['groupType', 'gender']
+  if (intl.locale == 'fr') {
+    fields = ['groupTypeFr', 'genderFr']
+  }
+
+  const tr_age=intl.formatMessage(messages.age)
+
+
+  const keys = Array.from(new Set(data.map(d => d[fields[0]])));
+  const groups = Array.from(new Set(data.map(r => r[fields[0]])))
+  const genders = Array.from(new Set(data.map(r => r[fields[1]])))
 
   let barData = []
   const years = new Set(data.map(r => r.year))
@@ -206,11 +180,11 @@ export const getWomenDistributionByGroup = (data = []) => {
   const mostRecent = data.filter(d => d.year == maxYear)
 
   groups.forEach(g => {
-    const r = {
-      'Age': g
-    }
-    const value = mostRecent.filter(d => d.groupType == g).forEach(gd => {
-      r[gd.gender] = gd.percentage
+    const r = {}
+    r[tr_age]=g
+
+    const value = mostRecent.filter(d => d[fields[0]] == g).forEach(gd => {
+      r[gd[fields[1]]] = gd.percentage
     });
     barData.push(r)
   })
@@ -226,27 +200,32 @@ export const getWomenDistributionByGroup = (data = []) => {
 }
 
 
-export const getWomebHistoricalDistribution = (data = []) => {
-  const keys = Array.from(new Set(data.map(d => d.groupType)));
-  const groups = Array.from(new Set(data.map(r => r.groupType)))
-  const genders = Array.from(new Set(data.map(r => r.gender)))
+export const getWomebHistoricalDistribution = (data = [],intl) => {
+  let fields = ['groupType', 'gender']
+  if (intl.locale == 'fr') {
+    fields = ['groupTypeFr', 'genderFr']
+  }
+
+
+  const keys = Array.from(new Set(data.map(d => d[fields[0]])));
+  const groups = Array.from(new Set(data.map(r => r[fields[0]])))
+  const genders = Array.from(new Set(data.map(r => r[fields[1]])))
   const years = Array.from(new Set(data.map(r => r.year)))
   const filteredData = data.filter(d => d.gender == 'Female')
-  const colors = {
-    'Male': [],
-    'Female': []
-  }
-  const getColor = (p) => {}
 
   let lineData = []
+
+
   groups.forEach((g) => {
     const r2 = {
       'id': g,
       gender: 'Female',
       data: []
     }
+
+
     years.forEach((year) => {
-      const filtered = filteredData.filter(d => d.year == year && d.groupType == g && d.gender == 'Female');
+    const filtered = filteredData.filter(d => d.year == year && d[fields[0]] == g && d.gender == 'Female');
       if (filtered.length > 0) {
         const value = filtered.reduce((a, b) => {
           return a + b.percentage;

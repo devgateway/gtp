@@ -60,12 +60,13 @@ class GlobalNumbers extends Component {
                   <div className="btn">
                     <div className="icon go"/>
                     <a onClick={e=>{
+                      if(document.getElementById("anchor."+n.key)){
 
-                     document.getElementById("anchor."+n.key).scrollIntoView({
-                        behavior:  "smooth",
-                        block:    "end" ,
-                    })
 
+                    var topOfElement = document.getElementById("anchor."+n.key).offsetTop - 170;
+                    window.scroll({ top: topOfElement, behavior: "smooth" });
+
+                    }
                   }}><FormattedMessage id="indicator.go.chart" defaultMessage="Go to Chart"/></a>
                 </div>
                 </div>
