@@ -10,7 +10,7 @@ export const BarChart = injectIntl(({intl,data,keys,indexBy,groupMode,colors,lab
   return (
   <ResponsiveBar data={data} keys={keys} indexBy={indexBy}
     groupMode={groupMode}
-    margin={{top: 50,right: 130,bottom: 50,left: 60}}
+    margin={{top: 10,right: 50,bottom: 190,left: 50}}
     padding={0.35}
     innerPadding={3}
     axisTop={null}
@@ -40,17 +40,17 @@ export const BarChart = injectIntl(({intl,data,keys,indexBy,groupMode,colors,lab
     labelTextColor={"#FFF"}
     legends={[{
         dataFrom: 'keys',
-        anchor: 'bottom-right',
+        anchor: 'bottom',
         direction: 'column',
         justify: false,
-        translateX: 120,
-        translateY: 0,
+        translateX: -500,
+        translateY: 180,
         itemsSpacing: 2,
         itemWidth: 100,
         itemHeight: 20,
         itemDirection: 'left-to-right',
         itemOpacity: 1,
-        symbolSize: 20,
+        symbolSize: 18,
         effects: [
       {
         on: 'hover',

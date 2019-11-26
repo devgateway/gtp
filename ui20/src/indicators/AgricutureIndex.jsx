@@ -13,7 +13,7 @@ import { Tab } from 'semantic-ui-react'
 import {items2options,getAOIsubsidies, getAOItotalBudget} from './DataUtil'
 import './agricutureIndex.scss'
 import {injectIntl} from 'react-intl';
-
+import messages from '../translations/messages'
 
 
 import {BarChart, LineChart} from './AgricutureIndexCharts'
@@ -25,7 +25,7 @@ const  BudgetFilters=injectIntl(({intl,indexTypes1,filters,onChange, options})=>
   return (<div className="indicator chart filter  aoi">
       <div className="filter item">
         <CustomFilterDropDown  options={items2options(indexTypes1,intl)}  onChange={s => {onChange([ 'filters', 'aoi','budget', 'indexType'], s,['BUDGET'])}}
-          selected={indexTypeSelection} text={<FormattedMessage id = "indicators.aoi.indexType" defaultMessage = "Index Type"  > </FormattedMessage>} />
+          selected={indexTypeSelection} text={<FormattedMessage id = "indicators.filters.indexType" defaultMessage = "Index Type"  > </FormattedMessage>} />
       </div>
 
 
@@ -38,7 +38,7 @@ const  SubsidiesFilters=injectIntl(({intl,indexTypes2,filters,onChange, options}
   return (<div className="indicator chart filter  aoi">
       <div className="filter item">
         <CustomFilterDropDown  options={items2options(indexTypes2,intl)}  onChange={s => {onChange([ 'filters', 'aoi','subsidies', 'indexType'], s,['SUBSIDIES'])}}
-          selected={indexTypeSelection} text={<FormattedMessage id = "indicators.aoi.indexType" defaultMessage = "Index Type"  > </FormattedMessage>} />
+          selected={indexTypeSelection} text={<FormattedMessage id = "indicators.filters.indexType" defaultMessage = "Index Type"  > </FormattedMessage>} />
       </div>
 
 
@@ -47,22 +47,24 @@ const  SubsidiesFilters=injectIntl(({intl,indexTypes2,filters,onChange, options}
 
 
 
-const ChartSection = ( props)=>{
+const ChartSection = injectIntl(( props)=>{
 
   const panes=[
       {
-        menuItem:  { key: 'bar', icon: '', content: 'Budget' },
+
+        menuItem:  { key: 'bar', icon: '', content: `${props.intl.formatMessage(messages.indicator_aoi_total_public_budget)}` },
         render: () =>
            <div className="indicators chart aoi">
              <BudgetFilters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></BudgetFilters>
-             <div className="chart container"><BarChart  {...getAOItotalBudget(props.budget)}></BarChart></div>
+             <div className="chart container"><BarChart  {...getAOItotalBudget(props.budget, props.intl)}></BarChart></div>
            </div>,
       },
+
       {
-        menuItem:  { key: 'line', icon: '', content: 'Composition of subsidies to agricultural investments' },
+        menuItem:  { key: 'line', icon: '', content: `${props.intl.formatMessage(messages.indicator_aoi_composition_of_subsidies)}` },
         render: () =><div className="indicators chart aoi">
               <SubsidiesFilters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></SubsidiesFilters>
-              <div className="chart container"><BarChart   {...getAOIsubsidies(props.subsidies)}/></div>
+              <div className="chart container"><BarChart   {...getAOIsubsidies(props.subsidies,props.intl)}/></div>
             </div>,
 
       }]
@@ -79,7 +81,7 @@ const ChartSection = ( props)=>{
         </div>
         <div className="indicator chart aoi description">
           <p>
-            <FormattedMessage id="inidicators.chart.aoi.description" defaultMessage="Analysis of public expenditure in support of agriculture and food in Senegal, 2010-2015 published by the FAO. The financial capacity of Senegalese farmers and their access to credit."></FormattedMessage>
+            <FormattedMessage id="inidicators.chart.aoi.description" defaultMessage="The agriculture orientation index for government expenditures"></FormattedMessage>
           </p>
           <div className="indicator chart icon download xls"></div>
           <div className="indicator chart icon download png"></div>
@@ -90,10 +92,7 @@ const ChartSection = ( props)=>{
 
         </div>
       )
-
-
-
-  }
+    })
 
 const mapStateToProps = state => {
   const filters = state.getIn(['indicator', 'filters'])

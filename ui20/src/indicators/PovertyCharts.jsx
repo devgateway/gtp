@@ -17,7 +17,7 @@ export const LineChart =injectIntl( ({intl, data }) => (
         enableGridY={true}
         enableGridX={true}
         data={data}
-        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+        margin={{ top: 50, right: 50, bottom: 110, left: 60 }}
         yScale={{ type: 'linear', stacked: false, min: 'auto', max: 'auto' }}
         xScale={{ type: 'point' }}
         colors={{ scheme: 'set1' }}
@@ -63,14 +63,14 @@ export const LineChart =injectIntl( ({intl, data }) => (
         useMesh={true}
         legends={[
           {
-            anchor: 'bottom-right',
-            direction: 'column',
+            anchor: 'bottom-left',
+            direction: 'row',
             justify: false,
-            translateX: 100,
-            translateY: 0,
+            translateX: -11,
+            translateY: 70,
             itemsSpacing: 0,
             itemDirection: 'left-to-right',
-            itemWidth: 80,
+            itemWidth: 120,
             itemHeight: 20,
             itemOpacity: 0.75,
             symbolSize: 12,

@@ -256,7 +256,15 @@ export const getWomebHistoricalDistribution = (data = [],intl) => {
 
 
 
-export const getAOItotalBudget = (data) => {
+export const getAOItotalBudget = (data,intl) => {
+
+  let fields = ['indexType']
+  if (intl.locale == 'fr') {
+    fields = ['indexTypeFr']
+  }
+
+
+
   let barData = []
   let years = []
   let keys = []
@@ -265,14 +273,14 @@ export const getAOItotalBudget = (data) => {
 
     data.sort((a, b) => a.year - b.year)
     years = [...new Set(data.map(d => d.year))]
-    keys = [...new Set(data.map(d => d.indexType))]
+    keys = [...new Set(data.map(d => d[fields[0]]))]
 
     years.map(y => {
       const row = {
         'Year': y
       }
       const yearlyData = data.filter(d => d.year == y).forEach(r => {
-        row[r.indexType] = r.budgetedExpenditures
+        row[r[fields[0]]] = r.budgetedExpenditures
       })
       barData.push(row)
 
@@ -289,7 +297,15 @@ export const getAOItotalBudget = (data) => {
 }
 
 
-export const getAOIsubsidies = (data) => {
+export const getAOIsubsidies = (data,intl) => {
+
+  let fields = ['indexType']
+  if (intl.locale == 'fr') {
+    fields = ['indexTypeFr']
+  }
+
+
+
   let barData = []
   let years = []
   let keys = []
@@ -297,14 +313,14 @@ export const getAOIsubsidies = (data) => {
   if (data) {
     data.sort((a, b) => a.year - b.year)
     years = [...new Set(data.map(d => d.year))]
-    keys = [...new Set(data.map(d => d.indexType))]
+    keys = [...new Set(data.map(d => d[fields[0]]))]
 
     years.map(y => {
       const row = {
         'Year': y
       }
       const yearlyData = data.filter(d => d.year == y).forEach(r => {
-        row[r.indexType] = r.subsidies
+        row[r[fields[0]]] = r.subsidies
       })
       barData.push(row)
 
