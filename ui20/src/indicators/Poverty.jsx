@@ -71,7 +71,7 @@ class Pooverty extends Component {
         render: () =>  (<div> <PovertyFitlers {...this.props}/> <div className="chart container"><BarChart {...getPovertyRegionalYearly(data,intl)}/></div></div>),
       },
       {
-        menuItem: `${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year)} (${maxYear}) . `,
+        menuItem: `${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year,{year:maxYear})}`,
         render: () =>   (<div> <PovertyFitlers {...this.props}/> <div className=" chart container"><BarChart {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/></div></div>),
 
       },

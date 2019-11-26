@@ -94,7 +94,7 @@ const messages = defineMessages({
 
   indicator_poverty_chart_by_poor_no_poor_rencet_year: {
     id: 'indicator.poverty.chart.by.poor.no.poor.rencet.year',
-    defaultMessage: '% of poor vs no poor by region',
+    defaultMessage: '% of poor vs no poor by region ({year}).',
     description: '% of poor vs no poor by region chart title'
   },
 
@@ -106,44 +106,58 @@ const messages = defineMessages({
   },
 
 
-  indicator_women_chart_distribution_by_age_tab_title : {
+  indicator_women_chart_distribution_by_age_tab_title: {
     id: 'indicator.women.chart.distribution.by.age.tab.title',
     defaultMessage: 'Distribution by age.',
     description: 'Distribution by age tab title'
   },
 
-  indicator_women_chart_distribution_by_method_tab_title : {
+  indicator_women_chart_distribution_by_method_tab_title: {
     id: 'indicator.women.chart.distribution.by.method.tab.title',
     defaultMessage: 'Distribution by method of enforcement.',
     description: 'Distribution by method of enforcement tab title'
   },
 
 
-  indicator_women_chart_distribution_by_gender : {
+  indicator_women_chart_distribution_by_gender: {
     id: 'indicator.women.chart.distribution_by_gender',
-    defaultMessage: 'Distribution of the agricultural population by age group and gender ',
+    defaultMessage: 'Distribution of the agricultural population by age group and gender ({year}).',
     description: 'Distribution of the agricultural population gender chart title'
   },
 
-indicator_women_chart_distribution_historical:{
-  id: 'indicator.women.chart.distribution_historical',
-  defaultMessage: 'Historical Female Distribution',
-  description: 'Historical Female Distribution chart title'
-},
+  indicator_women_chart_distribution_historical: {
+    id: 'indicator.women.chart.distribution_historical',
+    defaultMessage: 'Historical Female Distribution.',
+    description: 'Historical Female Distribution chart title'
+  },
 
-  indicator_women_chart_distribution_by_enforcement_method : {
+  indicator_women_chart_distribution_by_enforcement_method: {
     id: 'indicator.women.chart.distribution_by_gender',
-    defaultMessage: 'Distribution of parcels by method of enforcement and gender',
+    defaultMessage: 'Distribution of parcels by method of enforcement and gender ({year}).',
     description: 'Distribution of parcels according to the method of enforcement and the sex of the person responsible chart title'
   },
 
 
-indicator_women_chart_distribution_by_enforcement_historical : {
-  id: 'indicator.women.chart.distribution.by.enforcement.historical',
-  defaultMessage: 'Historical female distribution of parcels by method of enforcement',
-  description: 'Historical female distribution of parcels by method of enforcement chart title'
-},
+  indicator_women_chart_distribution_by_enforcement_historical: {
+    id: 'indicator.women.chart.distribution.by.enforcement.historical',
+    defaultMessage: 'Historical female distribution of parcels by method of enforcement.',
+    description: 'Historical female distribution of parcels by method of enforcement chart title'
+  },
 
+
+  indicator_food_chart_average_production_loss: {
+    id: 'indicator.food.chart.average.production.loss',
+    defaultMessage: 'Average production loss ({year})',
+    description: 'Average production loss chart title'
+
+  },
+
+  indicator_food_chart_average_quantity: {
+    id: 'indicator.food.chart.average.quantity',
+    defaultMessage: 'Average quantity (in kg) per household ({year})',
+    description: 'Average quantity (in kg) per household chart title'
+
+  },
 
   department: {
     id: 'data.field.department',
@@ -163,7 +177,7 @@ indicator_women_chart_distribution_by_enforcement_historical : {
     description: 'Age data field'
   },
 
-  methodOfEnforcement:{
+  methodOfEnforcement: {
     id: 'data.field.methodOfEnforcement',
     defaultMessage: 'Enforcement Method',
     description: 'Age data field'
@@ -193,6 +207,13 @@ indicator_women_chart_distribution_by_enforcement_historical : {
     defaultMessage: 'Crop Type',
     description: 'Crop Type Data Field'
   },
+
+  crop: {
+    id: 'data.field.crop',
+    defaultMessage: 'Crop',
+    description: 'Crop Data Field'
+  },
+
   area: {
     id: 'data.field.area',
     defaultMessage: 'Area',
@@ -224,6 +245,14 @@ indicator_women_chart_distribution_by_enforcement_historical : {
     defaultMessage: 'Percent',
     description: 'Percent Label'
   },
+
+  kg: {
+    id: 'data.field.kg',
+    defaultMessage: 'Kg',
+    description: 'Kg Label'
+  },
+
+
   market: {
     id: 'data.field.market',
     defaultMessage: 'Market',

@@ -53,7 +53,7 @@ const ChartSection = injectIntl((props)=>{
   const maxYear=years.pop()
     const byAgePanes=[
       {
-        menuItem:  { key: 'bar', icon: '', content:`${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_gender)} ${maxYear}`},
+        menuItem:  { key: 'bar', icon: '', content:`${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_gender,{year:maxYear})}`},
         render: () =>
            <div className="indicators chart women">
              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
@@ -71,7 +71,7 @@ const ChartSection = injectIntl((props)=>{
 
       const byMethodPanes=[
         {
-          menuItem:  { key: 'bar', icon: '', content:`${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_enforcement_method)} ${maxYear}` },
+          menuItem:  { key: 'bar', icon: '', content:`${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_enforcement_method,{year:maxYear})}` },
           render: () =><div className="indicators chart women">
                 <Filters {...props} options={{gender:true, age:false,methodOfEnforcement:true}}></Filters>
                 <div className="chart container"><BarChart bottomLegend={props.intl.formatMessage(messages.methodOfEnforcement)}  {...getWomenDistributionByGroup(props.distribution,props.intl)}></BarChart></div>
@@ -118,7 +118,7 @@ const ChartSection = injectIntl((props)=>{
         </div>
           <Tab key="women" menu={{ pointing: true }} panes={panes} />
 
-                  <div className="source"><span className="source label"> <FormattedMessage id="inidicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
+          <div className="source"><span className="source label"> <FormattedMessage id="inidicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
         </div>
       )
 })
