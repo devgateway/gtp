@@ -127,30 +127,38 @@ export const getPovertyTimeLine = (data) => {
 
 
 
-export const getAverageProductionLossData = (data = [], valueField) => {
+export const getAverageProductionLossData = (data = [], valueField, intl) => {
 
-  const crops = Array.from(new Set(data.map(d => d.cropType)));
-  const types = Array.from(new Set(data.map(r => r.lossType)))
+  let fields = ['cropType', 'lossType']
+
+  if (intl.locale == 'fr') {
+    fields = ['cropTypeFr', 'lossTypeFr']
+  }
+
+
+  const crops = Array.from(new Set(data.map(d => d[fields[0]])));
+  const types = Array.from(new Set(data.map(r => r[fields[1]])))
   let barData = []
   const years = new Set(data.map(r => r.year))
   const maxYear = Array.from(years).sort()[years.size - 1]
 
   const mostRecent = data.filter(d => d.year == maxYear)
-
   crops.forEach(g => {
-    const r = {
-      'Crop': g
-    }
-
-    const value = mostRecent.filter(d => d.cropType == g).forEach(gd => {
-      r[gd.lossType] = gd[valueField]
+  const r = {'Crop':g}
+     mostRecent.filter(d => d[fields[0]]== g)
+    .forEach(gd => {
+          const field=fields[1]
+      r[gd[field]] = gd[valueField]
     });
+
     barData.push(r)
   })
+
+
   return {
     data: barData,
     keys: types,
-    indexBy: "Crop",
+    indexBy: 'Crop',
     groupMode: 'stacked'
   }
 }
