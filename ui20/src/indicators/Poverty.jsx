@@ -68,17 +68,17 @@ class Pooverty extends Component {
     const panes = [
       {
         menuItem: intl.formatMessage(messages.indicator_poverty_chart_by_region_and_year),
-        render: () =>  (<div> <PovertyFitlers {...this.props}/> <div className="indicators chart poverty"><BarChart {...getPovertyRegionalYearly(data,intl)}/></div></div>),
+        render: () =>  (<div> <PovertyFitlers {...this.props}/> <div className="chart container"><BarChart {...getPovertyRegionalYearly(data,intl)}/></div></div>),
       },
       {
         menuItem: `${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year)} (${maxYear}) . `,
-        render: () =>   (<div> <PovertyFitlers {...this.props}/> <div className="indicators chart poverty"><BarChart {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/></div></div>),
+        render: () =>   (<div> <PovertyFitlers {...this.props}/> <div className=" chart container"><BarChart {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/></div></div>),
 
       },
       {
         menuItem: `${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`,
 
-        render: () =>  (<div> <PovertyFitlers {...this.props}/><div className="indicators chart poverty"><LineChart {...getPovertyTimeLine(data,intl)}/></div></div>),
+        render: () =>  (<div> <PovertyFitlers {...this.props}/><div className="chart container"><LineChart {...getPovertyTimeLine(data,intl)}/></div></div>),
       }
     ]
 
@@ -103,9 +103,7 @@ class Pooverty extends Component {
 
         <Tab key="poverty" menu={{ pointing: true }} panes={panes} />
 
-        <div className="source">
-        <span className="source label"> <FormattedMessage id="inidicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.
-       </div>
+        <div className="source"><span className="source label"> <FormattedMessage id="inidicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
       </div>)
   }
 

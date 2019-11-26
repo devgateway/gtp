@@ -4,7 +4,7 @@ import 'rc-slider/assets/index.css'
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import React, {Component, createRef, useState} from 'react'
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage,injectIntl} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown,OptionList} from './Components'
 import Plot from 'react-plotly.js';
 import Slider, {Range} from 'rc-slider';
@@ -14,7 +14,7 @@ import {items2options} from './DataUtil'
 import './women.scss'
 import  {getWomenDistributionByGroup, getWomebHistoricalDistribution} from './DataUtil'
 import {BarChart,LineChart} from './WomenCharts'
-import {injectIntl} from 'react-intl';
+import messages from '../translations/messages'
 
 const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,onChange, options})=>{
   const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []
@@ -36,7 +36,7 @@ const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,
     </div>)
 })
 
-const ChartSection = ( props)=>{
+const ChartSection = injectIntl((props)=>{
   const {population=[]} = props
   const years = Array.from(new Set(population.map(r => r.year))).sort()
   const maxYear=years.pop()
@@ -44,63 +44,54 @@ const ChartSection = ( props)=>{
 
     const byAgePanes=[
       {
-        menuItem:  { key: 'bar', icon: '', content: 'Distribution of the agricultural population by age group and gender '+(maxYear?'('+maxYear+')':'') },
+        menuItem:  { key: 'bar', icon: '', content:  `${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_gender)} ${maxYear}`},
         render: () =>
            <div className="indicators chart women">
              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
-             <div className="chart container"><BarChart  {...getWomenDistributionByGroup(props.population)}></BarChart></div>
+             <div className="chart container"><BarChart bottomLegend={props.intl.formatMessage(messages.age)}  {...getWomenDistributionByGroup(props.population,props.intl)}></BarChart></div>
            </div>,
       },
       {
-        menuItem:  { key: 'line', icon: '', content: 'Historical Female Distribution' },
+        menuItem:  { key: 'line', icon: '', content:  `${props.intl.formatMessage(messages.indicator_women_chart_distribution_historical)}` },
         render: () =><div className="indicators chart women">
               <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
-              <div className="chart container"><LineChart   {...getWomebHistoricalDistribution(props.population)}/></div>
+              <div className="chart container"><LineChart   {...getWomebHistoricalDistribution(props.population,props.intl)}/></div>
             </div>,
 
       }]
 
       const byMethodPanes=[
         {
-          menuItem:  { key: 'bar', icon: '', content: 'Distribution of parcels by method of enforcement and gender '+(maxYear?'('+maxYear+')':'') },
+          menuItem:  { key: 'bar', icon: '', content:`${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_enforcement_method)} ${maxYear}` },
           render: () =><div className="indicators chart women">
                 <Filters {...props} options={{gender:true, age:false,methodOfEnforcement:true}}></Filters>
-                <div className="chart container"><BarChart  {...getWomenDistributionByGroup(props.distribution)}></BarChart></div>
+                <div className="chart container"><BarChart bottomLegend={props.intl.formatMessage(messages.methodOfEnforcement)}  {...getWomenDistributionByGroup(props.distribution,props.intl)}></BarChart></div>
               </div>,
 
         },
         {
-          menuItem:  { key: 'line', icon: '', content: 'Historical female distribution of parcels by method of enforcement' },
+          menuItem:  { key: 'line', icon: '', content: `${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_enforcement_historical)}`  },
           render: () =><div className="indicators chart women">
                 <Filters {...props} options={{gender:false, age:false,methodOfEnforcement:true}}></Filters>
-                <div className="chart container"><LineChart  key="ByMethodOfEnforcementLine"  {...getWomebHistoricalDistribution(props.distribution)}></LineChart></div>
+                <div className="chart container"><LineChart  key="ByMethodOfEnforcementLine"  {...getWomebHistoricalDistribution(props.distribution,props.intl)}></LineChart></div>
               </div>,
 
         }]
 
     const panes = [
       {
-        menuItem:  { key: 'bar', icon: '', content: 'By Age '},
+        menuItem:  { key: 'bar', icon: '', content: props.intl.formatMessage(messages.indicator_women_chart_distribution_by_age_tab_title)},
         render: () =><Tab class="sub tab" key="byAge" menu={{ pointing: true }} panes={byAgePanes}/>,
 
       },
       {
-        menuItem:  { key: 'line', icon: '', content: 'By Method' },
+        menuItem:  { key: 'line', icon: '', content: props.intl.formatMessage(messages.indicator_women_chart_distribution_by_method_tab_title) },
         render: () =><Tab class="sub tab" key="byAge" menu={{ pointing: true }} panes={byMethodPanes}/>,
 
       },
-      {
-        menuItem:  { key: 'line', icon: '', content: 'By Other 1' },
-        render: () =><div/>,
-
-      },
-      {
-        menuItem:  { key: 'line', icon: '', content: 'By Other 2' },
-        render: () =><div/>,
-
-      }]
+    ]
     return (
-        <div className="indicator.chart.container">
+        <div className="indicator.chart.container" id="anchor.indicator.global.women.short">
 
         <div className="indicator chart women title ">
           <p>
@@ -117,12 +108,11 @@ const ChartSection = ( props)=>{
           <div className="indicator chart icon download csv"></div>
         </div>
           <Tab key="women" menu={{ pointing: true }} panes={panes} />
+
+                  <div className="source"><span className="source label"> <FormattedMessage id="inidicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
         </div>
       )
-
-
-
-  }
+})
 
 const mapStateToProps = state => {
   const ageGroups = state.getIn(['data', 'items', 'ageGroup']);

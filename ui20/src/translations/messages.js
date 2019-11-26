@@ -106,6 +106,45 @@ const messages = defineMessages({
   },
 
 
+  indicator_women_chart_distribution_by_age_tab_title : {
+    id: 'indicator.women.chart.distribution.by.age.tab.title',
+    defaultMessage: 'Distribution by age.',
+    description: 'Distribution by age tab title'
+  },
+
+  indicator_women_chart_distribution_by_method_tab_title : {
+    id: 'indicator.women.chart.distribution.by.method.tab.title',
+    defaultMessage: 'Distribution by method of enforcement.',
+    description: 'Distribution by method of enforcement tab title'
+  },
+
+
+  indicator_women_chart_distribution_by_gender : {
+    id: 'indicator.women.chart.distribution_by_gender',
+    defaultMessage: 'Distribution of the agricultural population by age group and gender ',
+    description: 'Distribution of the agricultural population gender chart title'
+  },
+
+indicator_women_chart_distribution_historical:{
+  id: 'indicator.women.chart.distribution_historical',
+  defaultMessage: 'Historical Female Distribution',
+  description: 'Historical Female Distribution chart title'
+},
+
+  indicator_women_chart_distribution_by_enforcement_method : {
+    id: 'indicator.women.chart.distribution_by_gender',
+    defaultMessage: 'Distribution of parcels by method of enforcement and gender',
+    description: 'Distribution of parcels according to the method of enforcement and the sex of the person responsible chart title'
+  },
+
+
+indicator_women_chart_distribution_by_enforcement_historical : {
+  id: 'indicator.women.chart.distribution.by.enforcement.historical',
+  defaultMessage: 'Historical female distribution of parcels by method of enforcement',
+  description: 'Historical female distribution of parcels by method of enforcement chart title'
+},
+
+
   department: {
     id: 'data.field.department',
     defaultMessage: 'Department',
@@ -116,6 +155,18 @@ const messages = defineMessages({
     id: 'data.field.year',
     defaultMessage: 'Year',
     description: 'Year Data Field'
+  },
+
+  age: {
+    id: 'data.field.age',
+    defaultMessage: 'Age',
+    description: 'Age data field'
+  },
+
+  methodOfEnforcement:{
+    id: 'data.field.methodOfEnforcement',
+    defaultMessage: 'Enforcement Method',
+    description: 'Age data field'
   },
 
   weekly_consumption: {

@@ -184,7 +184,7 @@ export const getGlobalIndicators = (params) => {
           value: data.agriculturalWomen.data ? data.agriculturalWomen.data.value : null,
           image: '/sdg/5.svg',
           text: 'Women in the Agricultural sector',
-          key: 'indicator.global.agricultrural.short',
+          key: 'indicator.global.women.short',
           year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
           style: "percent"
         }, {

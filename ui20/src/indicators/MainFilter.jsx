@@ -11,7 +11,7 @@ const region2options = (regions) => regions
 
 const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChange,onApply,onReset}) => {
 
-  debugger;
+
 
   return (<div className="core-filters">
     <div className="main filter nav">
@@ -32,7 +32,8 @@ const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChan
       </div>
         <div className="filter nav separator"></div>
       <div className="filter nav item">
-        <CustomFilterDropDown onChange={s=>onChange('crop',s)} selected={globalFilters&&globalFilters.get('crop')?globalFilters.get('crop').toJS():[]} text={<FormattedMessage id = "indicators.main.filter.crops" defaultMessage = "Crop Type" > </FormattedMessage>}
+        <CustomFilterDropDown onChange={s=>onChange('crop',s)} selected={globalFilters&&globalFilters.get('crop')?globalFilters.get('crop').toJS():[]}
+        text={<FormattedMessage id = "indicators.main.filter.crops" defaultMessage = "Crop Type" > </FormattedMessage>}
         options={items2options(crops,intl)}></CustomFilterDropDown>
       </div>
         <div className="filter nav separator"></div>

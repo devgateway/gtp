@@ -18,7 +18,7 @@ export const loadRapidLInks = (category, path, filtered) => (dispatch, getState)
   dispatch({type: LOAD_RAPID_LINKS})
   api.getRapidLinks()
     .then(data => {
-      debugger;
+      
       dispatch({type: LOAD_RAPID_LINKS_DONE,data})
     }).catch(error => {
       dispatch({type: LOAD_RAPID_LINKS_ERROR,category,error})
@@ -62,7 +62,7 @@ export default (state = initialState, action) => {
     }
       case LOAD_RAPID_LINKS_DONE: {
       const {data} = action
-      debugger;
+      
       return state.setIn(['links','data'],data).deleteIn(['links','error'])
     }
     case LOAD_RAPID_LINKS_ERROR: {
