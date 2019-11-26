@@ -21,18 +21,29 @@ const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,
   const ageSelection = filters && filters.getIn(['women', 'ageGroup'])? filters.getIn(['women', 'ageGroup']).toJS(): []
   const methodOfEnforcementsSelection = filters && filters.getIn(['women', 'methodOfEnforcement'])? filters.getIn(['women', 'methodOfEnforcement']).toJS(): []
   return (<div className="indicator chart filter  women">
-      <div className="filter item">
-        <CustomFilterDropDown disabled={!options.gender} options={items2options(genders,intl)}  onChange={s => {onChange([ 'filters', 'women', 'gender'], s,['WOMEN'])}} selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
-      </div>
-
-       <div className="filter item">
-        <CustomFilterDropDown disabled={!options.methodOfEnforcement} options={items2options(methodOfEnforcements,intl)}  onChange={s => {onChange([ 'filters', 'women', 'methodOfEnforcement'], s,['WOMEN'])}} selected={methodOfEnforcementsSelection} text={<FormattedMessage id = "indicators.filter.enforcement.method" defaultMessage = "Enforcement Method"  > </FormattedMessage>} />
-      </div>
-
-      <div className="filter item">
-        <OptionList disabled={!options.age} options={items2options(ageGroups,intl)}  onChange={s => {onChange([ 'filters', 'women', 'ageGroup'], s,['WOMEN'])}} selected={ageSelection} text={<FormattedMessage id = "indicators.filter.ageGroup" defaultMessage = "Age Group"  > </FormattedMessage>} />
-      </div>
-
+            <div className="filter item">
+              <CustomFilterDropDown disabled={!options.gender} options={items2options(genders,intl)}
+              onChange={s => {onChange([ 'filters', 'women', 'gender'], s,['WOMEN'])}}
+              selected={genderSelection}
+              text={<FormattedMessage id = "indicators.filter.gender"
+              defaultMessage = "Gender">
+              </FormattedMessage>} />
+            </div>
+             <div className="filter item">
+              <CustomFilterDropDown disabled={!options.methodOfEnforcement}
+               options={items2options(methodOfEnforcements,intl)}
+               onChange={s => {onChange([ 'filters', 'women', 'methodOfEnforcement'], s,['WOMEN'])}}
+               selected={methodOfEnforcementsSelection}
+               text={<FormattedMessage id = "indicators.filter.enforcement.method" defaultMessage = "Enforcement Method">
+               </FormattedMessage>} />
+            </div>
+            <div className="filter item">
+              <OptionList disabled={!options.age} options={items2options(ageGroups,intl)}
+               onChange={s => {onChange([ 'filters', 'women', 'ageGroup'], s,['WOMEN'])}}
+               selected={ageSelection}
+               text={<FormattedMessage id="indicators.filter.ageGroup" defaultMessage = "Age Group">
+               </FormattedMessage>} />
+            </div>
     </div>)
 })
 
@@ -40,11 +51,9 @@ const ChartSection = injectIntl((props)=>{
   const {population=[]} = props
   const years = Array.from(new Set(population.map(r => r.year))).sort()
   const maxYear=years.pop()
-
-
     const byAgePanes=[
       {
-        menuItem:  { key: 'bar', icon: '', content:  `${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_gender)} ${maxYear}`},
+        menuItem:  { key: 'bar', icon: '', content:`${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_gender)} ${maxYear}`},
         render: () =>
            <div className="indicators chart women">
              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
