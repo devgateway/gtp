@@ -1,48 +1,35 @@
 @import '../base.scss';
 
-.indicator.chart.container.food {
-  border: 1px solid blue !important;
+#anchor\.indicator\.global\.food\.short {
 
+  .indicator.chart.title.food::before {
+    content: '';
+    width: 47px;
+    height: 47px;
+    float: left;
+    margin-right: 17px;
+    margin-left: 0;
+    margin-top: 12px;
+    background-image: url("/sdg/2.svg");
+    background-repeat: no-repeat;
+    background-size: 48px 48px;
+  }
 
-.indicator.chart.title.food::before {
-  content: '';
-  width: 47px;
-  height: 47px;
-  float: left;
-  margin-right: 17px;
-  margin-left: 0;
-  margin-top: 12px;
-  background-image: url("/sdg/2.svg");
-  background-repeat: no-repeat;
-  background-size: 48px 48px;
-}
-
-
-.ui.pointing.menu{
-.item:nth-child(1) {
-  .icon{
-    background-image: url('/icon_bar_chart.png');
-    background-repeat:no-repeat;
+  .ui.pointing.menu {
+    .item:nth-child(1) {
+      .icon {
+        background-image: url("/icon_bar_chart.png");
+        background-repeat: no-repeat;
+      }
     }
-}
-.item:nth-child(2) {
-  .icon{
-    background-image: url('/icon_line_chart.png');
-    background-repeat:no-repeat;
-    }
-}
-.item:nth-child(3) {
-  .icon{
-    background-image: url('/icon_bar_chart.png');
-    background-repeat:no-repeat;
-    }
-}
 
-.item:nth-child(4) {
-  .icon{
-    background-image: url('/icon_line_chart.png');
-    background-repeat:no-repeat;
+    .item:nth-child(2) {
+      .icon {
+        background-image: url("/icon_line_chart.png");
+        background-repeat: no-repeat;
+      }
     }
-}
-}
+
+
+  }
 }

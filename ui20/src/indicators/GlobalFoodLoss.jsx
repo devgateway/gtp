@@ -69,7 +69,7 @@ const ChartSection = injectIntl(( props)=>{
      ]
 
     return (
-        <div className="indicator.chart.container">
+        <div className="indicator.chart.container" id="anchor.indicator.global.food.short">
           <div className="indicator chart food title ">
             <p>
               <FormattedMessage id="inidicators.chart.food.title" defaultMessage="Global Food Loss Ratio"></FormattedMessage>

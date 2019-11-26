@@ -187,7 +187,18 @@ export const getGlobalIndicators = (params) => {
           key: 'indicator.global.women.short',
           year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
           style: "percent"
-        }, {
+        },
+
+        {
+          value: data.foodLoss.data ? data.foodLoss.data.value : null,
+          image: '/sdg/2.svg',
+          text: 'Global Food Loss Index',
+          key: 'indicator.global.food.short',
+          year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
+          style: "percent"
+        }
+
+        , {
           value: data.agOrientation.data ? data.agOrientation.data.value : null,
           image: '/sdg/12.svg',
           text: 'Agriculture orientation index for government expenditures',
@@ -195,14 +206,7 @@ export const getGlobalIndicators = (params) => {
           year: data.agOrientation.data ? data.agOrientation.data.year : null,
           style: "percent"
         },
-        {
-          value: data.foodLoss.data ? data.foodLoss.data.value : null,
-          image: '/sdg/2.svg',
-          text: 'Global Food Loss Index',
-          key: 'indicator.global.global.food.short',
-          year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
-          style: "percent"
-        }
+
       ]
 
 

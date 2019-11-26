@@ -69,7 +69,7 @@ const ChartSection = ( props)=>{
 
 
     return (
-        <div className="indicator chart container aoi">
+        <div className="indicator chart container" id="anchor.indicator.global.aoi.short">
 
         <div className="indicator chart aoi title ">
           <p>
@@ -85,7 +85,9 @@ const ChartSection = ( props)=>{
           <div className="indicator chart icon download png"></div>
           <div className="indicator chart icon download csv"></div>
         </div>
+
           <Tab menu={{ pointing: true }} panes={panes} />
+
         </div>
       )
 

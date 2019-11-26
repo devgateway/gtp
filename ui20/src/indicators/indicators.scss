@@ -361,7 +361,7 @@
 
   .indicator.chart.title {
     background-color: #FFF;
-    border-top: 2px solid $border-color;
+    border-top: 1px solid $border-color;
     height: 74px;
     color: #497423;
     margin-top: 50px;
@@ -541,7 +541,7 @@
 
   .indicator.chart.container{
     height: 800px!important;
-
+    border: 0px;
   }
 
   .chart.container {
@@ -589,6 +589,7 @@
     }
 
     .indicator.name {
+      padding-top: 2px;
       word-wrap: normal;
       font-size: 18px;
     }
