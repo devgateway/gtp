@@ -159,12 +159,29 @@ const messages = defineMessages({
 
   },
 
+
+  indicator_aoi_total_public_budget:{
+    id:"indicator.aoi.total.public.budget",
+    defaultMessage:"Total public budget, expenditure on the agricultural sector.",
+    description: 'Total public budget, expenditure on the agricultural sector. chart title'
+  },
+  indicator_aoi_composition_of_subsidies:{
+    id:"indicator.aoi.total.public.budget",
+    defaultMessage:"Composition of subsidies to agricultural investments.",
+    description: 'Composition of subsidies to agricultural investments chart title'
+  },
+
   department: {
     id: 'data.field.department',
     defaultMessage: 'Department',
     description: 'Department Data Field'
   },
 
+  billions:{
+    id: 'data.field.billions',
+    defaultMessage: 'Billions',
+    description: 'Billions Data Field'
+  },
   year: {
     id: 'data.field.year',
     defaultMessage: 'Year',
