@@ -655,10 +655,12 @@
       border: 0;
       margin-left: 0;
       min-width: 209px;
-
+      max-width: 800px;
+      width:auto !important;
       .item {
         padding-left: 10px !important;
         font-size: 12px;
+        margin-right: 12px;
       }
 
       .header {
