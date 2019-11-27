@@ -214,24 +214,16 @@ export const getWomebHistoricalDistribution = (data = [],intl) => {
   if (intl.locale == 'fr') {
     fields = ['groupTypeFr', 'genderFr']
   }
-
-
   const keys = Array.from(new Set(data.map(d => d[fields[0]])));
   const groups = Array.from(new Set(data.map(r => r[fields[0]])))
   const genders = Array.from(new Set(data.map(r => r[fields[1]])))
   const years = Array.from(new Set(data.map(r => r.year)))
   const filteredData = data.filter(d => d.gender == 'Female')
-
   let lineData = []
 
 
   groups.forEach((g) => {
-    const r2 = {
-      'id': g,
-      gender: 'Female',
-      data: []
-    }
-
+    const r2 = {'id': g,gender: 'Female',data: []}
 
     years.sort(((y1,y2)=>y1-y2)).forEach((year) => {
     const filtered = filteredData.filter(d => d.year == year && d[fields[0]] == g && d.gender == 'Female');
@@ -263,9 +255,6 @@ export const getAOItotalBudget = (data,intl) => {
   if (intl.locale == 'fr') {
     fields = ['indexTypeFr']
   }
-
-
-
   let barData = []
   let years = []
   let keys = []
