@@ -8,7 +8,11 @@ const region2options = (regions) => regions
   ? regions.sort((r1, r2) => r1.name.localeCompare(r2.name)).map(r => ({'key': r.id, 'text': r.name, 'value': r.id}))
   : []
 
+/*
+<div className="icon download csv"></div>
+<div className="icon download json"></div>
 
+*/
 const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChange,onApply,onReset}) => {
 
 
@@ -48,8 +52,6 @@ const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChan
 
         <div className="icon download xls"></div>
         <div className="icon download png"></div>
-        <div className="icon download csv"></div>
-        <div className="icon download json"></div>
 
       </div>
 
