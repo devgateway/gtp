@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.forms.wicket.components.table;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
@@ -35,5 +36,6 @@ public class LinkBootstrapPropertyColumn extends PropertyColumn {
                     new Label(componentId, NOT_AVAILABLE)
             });
         }
+        item.add(new AttributeAppender("style", "cursor: pointer;"));
     }
 }
