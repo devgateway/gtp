@@ -2,7 +2,6 @@ package org.devgateway.toolkit.web.rest.controller.export;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.devgateway.toolkit.persistence.dao.IndicatorMetadata;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
 import org.devgateway.toolkit.persistence.dto.AgriculturalWomenDTO;
 import org.devgateway.toolkit.persistence.dto.AgricultureOrientationIndexDTO;
@@ -29,7 +28,6 @@ import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterPagingRequ
 import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;

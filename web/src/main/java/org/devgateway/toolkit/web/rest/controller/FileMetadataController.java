@@ -51,7 +51,7 @@ public class FileMetadataController {
         return fileMetadataService.findById(id);
     }
 
-    
+
 
     @ApiOperation(value = "Download a file with the provided {id}.")
     @RequestMapping(value = "/download/{id}", method = {POST, GET})

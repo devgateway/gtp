@@ -109,8 +109,8 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 RapidLink rapidLink = editForm.getModelObject();
-                Optional<RapidLink> rl = rapidLink.getRapidLinkPosition() != null ?
-                        service.findByRapidLinkPositionId(rapidLink.getRapidLinkPosition().getId())
+                Optional<RapidLink> rl = rapidLink.getRapidLinkPosition() != null
+                        ? service.findByRapidLinkPositionId(rapidLink.getRapidLinkPosition().getId())
                         : Optional.empty();
                 if (rapidLink.getRapidLinkPosition() != null
                         && !rl.equals(Optional.empty()) && !rl.get().getId().equals(rapidLink.getId())) {
