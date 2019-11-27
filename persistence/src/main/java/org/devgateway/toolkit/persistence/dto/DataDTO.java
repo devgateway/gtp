@@ -8,7 +8,6 @@ public class DataDTO {
 
     private static final String EMPTY = "";
 
-    @ExcelExport
     private Long id;
 
     @ExcelExport

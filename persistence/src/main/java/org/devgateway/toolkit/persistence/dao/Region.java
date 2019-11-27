@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -64,8 +65,12 @@ public class Region extends GenericPersistable implements Serializable, Labelabl
     }
 
     @Override
-    @JsonIgnore
     public String getLabel() {
+        return name;
+    }
+
+    @JsonProperty("labelFr")
+    public String getLabelFr() {
         return name;
     }
 }

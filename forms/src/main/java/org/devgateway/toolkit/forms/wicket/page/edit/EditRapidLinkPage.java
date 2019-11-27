@@ -32,6 +32,7 @@ import org.devgateway.toolkit.persistence.dao.RapidLink;
 import org.devgateway.toolkit.persistence.dao.categories.RapidLinkPosition;
 import org.devgateway.toolkit.persistence.repository.category.RapidLinkPositionRepository;
 import org.devgateway.toolkit.persistence.service.RapidLinkService;
+import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
 import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -51,6 +52,9 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
 
     @SpringBean
     private RapidLinkPositionRepository rlpRepo;
+
+    @SpringBean
+    private ReleaseCacheService cacheService;
 
     /**
      * @param parameters
@@ -105,7 +109,9 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 RapidLink rapidLink = editForm.getModelObject();
-                Optional<RapidLink> rl = service.findByRapidLinkPositionId(rapidLink.getRapidLinkPosition().getId());
+                Optional<RapidLink> rl = rapidLink.getRapidLinkPosition() != null ?
+                        service.findByRapidLinkPositionId(rapidLink.getRapidLinkPosition().getId())
+                        : Optional.empty();
                 if (rapidLink.getRapidLinkPosition() != null
                         && !rl.equals(Optional.empty()) && !rl.get().getId().equals(rapidLink.getId())) {
                     feedbackPanel.error(new StringResourceModel("positionError", this, null).getString());
@@ -113,6 +119,7 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
                     redirectToSelf = true;
                 } else {
                     jpaService.save(rapidLink);
+                    cacheService.releaseCache();
                     setResponsePage(listPageClass);
                 }
             }

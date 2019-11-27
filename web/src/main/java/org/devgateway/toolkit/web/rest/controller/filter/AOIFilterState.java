@@ -2,6 +2,8 @@ package org.devgateway.toolkit.web.rest.controller.filter;
 
 import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
 import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator_;
+import org.devgateway.toolkit.persistence.dao.Data_;
+import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -34,6 +36,7 @@ public class AOIFilterState extends DataFilterState<AgricultureOrientationIndexI
                 addIndexTypePredicates(root, cb, predicates);
                 addApprovedDatasets(root, cb, predicates);
             }
+            query.orderBy(new OrderImpl(root.get(Data_.YEAR), true));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
