@@ -198,6 +198,7 @@ export const getWomenDistributionByGroup = (data = [],intl) => {
   })
 
   console.log(barData)
+
   return {
     data: barData,
     keys: genders,
@@ -232,7 +233,7 @@ export const getWomebHistoricalDistribution = (data = [],intl) => {
     }
 
 
-    years.forEach((year) => {
+    years.sort(((y1,y2)=>y1-y2)).forEach((year) => {
     const filtered = filteredData.filter(d => d.year == year && d[fields[0]] == g && d.gender == 'Female');
       if (filtered.length > 0) {
         const value = filtered.reduce((a, b) => {
