@@ -185,5 +185,15 @@ hr.edit-separator {
     color: slategrey;
 }
 
+label {
+    font-size: 14px;
+}
+.required label:after {
+    color: #e32;
+    content: ' *';
+    display: inline;
+}
+
+
 /*
 -------------------------------------------------- */
