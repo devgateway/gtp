@@ -67,13 +67,62 @@
   }
 
   .analytic.table {
-    padding-bottom: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
-    border: 1px solid red;
     overflow-x: auto;
     overflow-y: visible;
     width: $page-width;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .analytic.table::-webkit-scrollbar-button {
+    width: 96px;
+    height: 96px;
+  }
+
+  .analytic.table::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
+
+  .analytic.table::-webkit-scrollbar {
+    width: 22px;
+    background-color: #FFF;
+    border-radius: 2px;
+  }
+
+  .analytic.table::-webkit-scrollbar-track {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+    border-radius: 2px;
+  }
+
+  .analytic.table::-webkit-scrollbar {
+    width: 23px;
+    height: 23px;
+  }
+
+  .analytic.table::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #76a94a;
+    border-radius: 2px;
+  }
+
+  .analytic.table.description {
+    border: 1px solid #e6e7ec;
+    display: flex;
+    padding: 0px;
+    padding-left: 20px;
+    background-color: #f6faf5;
+    height: 83px;
+    p{
+      line-height: 83px;
+      color: #497423;
+      font-size: 24px;
+
+    }
   }
 
   .pvtUi {
@@ -155,7 +204,8 @@
     font-size: 11px;
   }
 
-  .pvtColLabel,.pvtAxisLabel {
+  .pvtAxisLabel,
+  .pvtColLabel {
     height: 28px;
     padding: 20px;
   }
@@ -174,7 +224,8 @@
     height: 80px;
   }
 
-  .pvtTotal,.pvtTotalLabel{
+  .pvtTotal,
+  .pvtTotalLabel {
     background-color: #ebf7e8;
   }
 }
