@@ -66,7 +66,7 @@ class Table extends Component {
   render() {
     const {config, data} = this.props
 
-    return (<PivotTableUI data={data} {...config.pivottable} onChange={s => this.setState(s)} {...this.state}></PivotTableUI>)
+    return (<PivotTableUI data={data}  renderers={Object.assign({}, TableRenderers, PlotlyRenderers)} {...config.pivottable} onChange={s => this.setState(s)} {...this.state}></PivotTableUI>)
   }
 }
 
@@ -151,6 +151,17 @@ class Analytic extends Component{
         <FormattedMessage id="analytic.description" defaultMessage="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget mauris ut lectus laoreet volutpat. Sed dictum, sapien interdum finibus tristique, ex lectus varius leo, at tempor sapien odio sed dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget mauris ut lectus laoreet volutpat. Sed dictum, sapien interdum finibus tristique, ex lectus varius leo, at tempor sapien odio sed dolor."/>
         </p>
       </div>
+
+      <div className="analytic table description">
+        <p>
+          <FormattedMessage id="analytic table description" defaultMessage="A pivot table is a table of statistics that summarizes the data of a more extensive table"></FormattedMessage>
+        </p>
+        <div className="indicator chart icon download xls"></div>
+        <div className="indicator chart icon download png"></div>
+        <div className="indicator chart icon download csv"></div>
+      </div>
+
+
       <TableWrapper {...this.props}/>
       </div>
     )
