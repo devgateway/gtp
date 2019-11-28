@@ -173,5 +173,17 @@ hr.edit-separator {
     font-weight: bold !important;
 }
 
+.link-column {
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+}
+
+.link-column:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: slategrey;
+}
+
 /*
 -------------------------------------------------- */

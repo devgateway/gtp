@@ -26,6 +26,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.hibernate.annotations.Cache;
@@ -239,7 +240,10 @@ public class Person extends AbstractAuditableEntity implements Serializable, Use
     @Override
     @NonNull
     public String toString() {
-        return String.format("%s %s", firstName, lastName);
+        if (StringUtils.isNotEmpty(firstName) && StringUtils.isNotEmpty(lastName)) {
+            return String.format("%s %s", firstName, lastName);
+        }
+        return String.format("%s %s", username, organization);
     }
 
     @Override

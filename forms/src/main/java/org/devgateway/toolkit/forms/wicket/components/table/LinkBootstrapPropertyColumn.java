@@ -36,6 +36,6 @@ public class LinkBootstrapPropertyColumn extends PropertyColumn {
                     new Label(componentId, NOT_AVAILABLE)
             });
         }
-        item.add(new AttributeAppender("style", "cursor: pointer;"));
+        item.add(new AttributeAppender("class", "link-column"));
     }
 }
