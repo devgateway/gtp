@@ -5,7 +5,7 @@ export const items2options = (items,intl) => {
   return items ?
   items.sort((c1, c2) => c1.id - c2.id).map(r => ({
     'key': r.id,
-    'text':(r.label)? ((intl.locale=='fr')?r.labelFr:r.label):(r.name),
+    'text':(intl.locale=='fr')?r.labelFr:r.label,
     'value': r.id
   })) :
   []}

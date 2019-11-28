@@ -2,7 +2,7 @@
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState, useEffect} from 'react'
 import {FormattedMessage, FormattedNumber, injectIntl} from 'react-intl';
-
+import messages from '../translations/messages'
 import { getGlobalIndicators} from '../modules/Indicator'
 
 import {
@@ -19,6 +19,21 @@ import CountUp from 'react-countup';
 import {connect} from 'react-redux';
 
 
+const getIndicatorName=(intl,key)=>{
+  if(key== 'indicator.global.population.short'){
+    return intl.formatMessage(messages.indicator_global_population_short)
+  }
+  if(key== 'indicator.global.women.short'){
+    return intl.formatMessage(messages.indicator_global_women_short)
+  }
+  if(key== 'indicator.global.food.short'){
+    return intl.formatMessage(messages.indicator_global_food.short)
+  }
+  if(key== 'indicator.global.aoi.short'){
+    return intl.formatMessage(messages.indicator_global_aoi.short)
+  }
+}
+
 
 class GlobalNumbers extends Component {
 
@@ -31,12 +46,14 @@ class GlobalNumbers extends Component {
   }
 
 
+
+
+
    render(){
        const {intl,error}=this.props
-
        const data=this.props.data?this.props.data.toJS():null
         return (
-<div>
+          <div>
           <Grid className="indicator global numbers" columns={4} divided>
             {error?<div className="message error">Can't load data - {error.message}</div>:null}
             <Grid.Row>
@@ -60,7 +77,7 @@ class GlobalNumbers extends Component {
                   <div className="btn">
                     <div className="icon go"/>
                     <a onClick={e=>{
-                      debugger;
+
                       if(document.getElementById("anchor."+n.key)){
                           var topOfElement = document.getElementById("anchor."+n.key).offsetTop - 170;
                           window.scroll({ top: topOfElement, behavior: "smooth" });

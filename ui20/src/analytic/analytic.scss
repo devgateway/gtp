@@ -1,11 +1,78 @@
-.analytic-container {
-  margin: auto;
-  width: 1000px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+@import '../base.scss';
+
+.analytic {
+  font-family: $font;
 }
 
-.pvtFilteredAttribute {
-  display: block;
-  border: 2px solid green !important;
+.analytic.container {
+  margin: auto;
+  width: $page-width;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 40px;
+  padding-right: 20px;
+  padding-left: 20px;
+
+  .pvtFilteredAttribute {
+    display: block;
+    border: 2px solid green !important;
+  }
+
+  .analytic.title {
+    background-color: #FFF;
+    border-bottom: 2px solid $border-color;
+    height: 54px;
+    color: #73a745;
+    margin-top: 50px;
+
+    p {
+      font-size: 36px;
+      line-height: 36px;
+      float: left;
+      margin: 0;
+    }
+  }
+
+  .analytic.title::before {
+    content: '';
+    width: 32px;
+    height: 32px;
+    float: left;
+    margin-right: 17px;
+    margin-left: 0;
+    background-image: url("/icon_analytic.png");
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+  }
+
+  .analytic.subtitle {
+    margin-top: 20px;
+    background-color: #FFF;
+    height: 54px;
+
+    p {
+      font-size: 30px;
+      float: left;
+      margin: 0;
+      color: #73a745;
+    }
+  }
+
+  .analytic.description {
+    background-color: #FFF;
+    display: block;
+    height: 100px;
+    p {
+      font-size: 18px;
+      float: left;
+      margin: 0;
+      color: #646464;
+    }
+  }
+
+
+  .analytic.table{
+    margin-top: 20px;
+    border: 0px solid red;
+  }
 }
