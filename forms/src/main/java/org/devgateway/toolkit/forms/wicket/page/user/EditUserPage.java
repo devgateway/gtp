@@ -17,6 +17,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.extensions.validation.validator.RfcCompliantEmailAddressValidator;
 import org.apache.wicket.markup.html.form.FormComponent;
@@ -189,6 +190,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
         // stop resetting the password fields each time they are rendered
         plainPassword.getField().setResetPassword(false);
         plainPassword.getField().add(new PasswordPatternValidator());
+        plainPassword.add(new AttributeAppender("autocomplete", "new-password"));
 
         plainPasswordCheck = ComponentUtil.addTextPasswordField(editForm, "plainPasswordCheck");
         plainPasswordCheck.required();
