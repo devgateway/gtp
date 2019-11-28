@@ -7,11 +7,6 @@
 .analytic.container {
   margin: auto;
   width: $page-width;
-  overflow-x: auto;
-  overflow-y: visible;
-  padding-bottom: 40px;
-  padding-right: 20px;
-  padding-left: 20px;
 
   .pvtFilteredAttribute {
     display: block;
@@ -72,7 +67,36 @@
 
 
   .analytic.table{
-    margin-top: 20px;
-    border: 0px solid red;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border: 1px solid red;
+    overflow-x: auto;
+    overflow-y: visible;
+    width: $page-width
+
+
+  }
+  .pvtUi{
+    font-size: 10px;
+    font-family: $font;
+  }
+
+  .pvtHorizList{
+    padding: 5px;
+    background-color: #f2f2f2;
+  }
+  .pvtCols{
+    background-color: #fff1f1;
+  }
+
+  .pvtAttr{
+    background-color: #FFF;
+    padding: 1px 5px;;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    display: block;
+    color:#364833;
+    font-weight: bold;
   }
 }

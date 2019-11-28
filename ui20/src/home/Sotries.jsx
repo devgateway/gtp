@@ -8,7 +8,7 @@ import messages from '../translations/messages'
 const Image = (props) => {
 
   const css = {
-    backgroundImage: `url(${props.img})`
+    backgroundImage: `url(data:image/png;base64,${props.img})`
   }
   return (
 
@@ -34,27 +34,27 @@ const Stories = injectIntl((props) => {
 
   const stories_title_1=  props.links[0]['title'+subfix]
   const stories_subtitle_1= props.links[0]['subtitle'+subfix]
-  const image_1= props.links[0].image
+  const image_1= props.links[0].base64
 
 
   const stories_title_2=  props.links[1]['title'+subfix]
   const stories_subtitle_2= props.links[1]['subtitle'+subfix]
-  const image_2= props.links[1].image
+  const image_2= props.links[1].base64
 
 
   const stories_title_3=  props.links[2]['title'+subfix]
   const stories_subtitle_3= props.links[2]['subtitle'+subfix]
-  const image_3= props.links[2].image
+  const image_3= props.links[2].base64
 
 
   const stories_title_4=  props.links[3]['title'+subfix]
   const stories_subtitle_4= props.links[3]['subtitle'+subfix]
-  const image_4= props.links[3].image
+  const image_4= props.links[3].base64
 
 
   const stories_title_5=  props.links[4]['title'+subfix]
   const stories_subtitle_5= props.links[4]['subtitle'+subfix]
-  const image_5= props.links[4].image_1
+  const image_5= props.links[4].base64
 
 
   return (<div className="home-stories">
