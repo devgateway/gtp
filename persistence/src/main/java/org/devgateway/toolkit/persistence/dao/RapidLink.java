@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.categories.RapidLinkPosition;
@@ -113,6 +114,15 @@ public class RapidLink extends AbstractAuditableEntity implements Serializable {
             return fileMetadata.iterator().next().getId();
         }
         return null;
+    }
+
+    @JsonProperty("base64")
+    public byte[] getBase64() {
+        byte[] ret = null;
+        if (fileMetadata != null && !fileMetadata.isEmpty() && fileMetadata.iterator().hasNext()) {
+            ret = fileMetadata.iterator().next().getContent().getBytes();
+        }
+        return ret;
     }
 
     @Override
