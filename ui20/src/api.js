@@ -173,6 +173,8 @@ export const getGlobalIndicators = (params) => {
 
     post(URL_INDICATORS, params.global).then((data) => {
 
+      debugger;
+
       const mockData = [{
           value: data.poverty.data ? data.poverty.data.value : null,
           image: '/sdg/1.svg',
@@ -192,7 +194,7 @@ export const getGlobalIndicators = (params) => {
         {
           value: data.foodLoss.data ? data.foodLoss.data.value : null,
           image: '/sdg/2.svg',
-          text: 'Global Food Loss Index',
+          text: 'Global Food Loss Ratio',
           key: 'indicator.global.food.short',
           year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
           style: "percent"

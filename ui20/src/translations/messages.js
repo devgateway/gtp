@@ -84,6 +84,26 @@ const messages = defineMessages({
     defaultMessage: "This is where the short descriptive line will go here to describe the category"
   },
 
+  indicator_global_population_short: {
+    defaultMessage: 'Proportion of population below the international poverty line',
+    id: 'indicator.global.population.short',
+  },
+
+  indicator_global_women_short: {
+    defaultMessage: 'Women in the Agricultural sector',
+    id: 'indicator.global.women.short',
+  },
+
+  indicator_global_food_short: {
+    defaultMessage: 'Global Food Loss Ratio',
+    id: 'indicator.global.food.short',
+  },
+
+  indicator_global_aoi_short: {
+    defaultMessage: 'Agriculture orientation index for government expenditures',
+    id: 'indicator.global.aoi.short',
+  },
+
   //analytic
 
   indicator_poverty_chart_by_region_and_year: {
@@ -160,14 +180,14 @@ const messages = defineMessages({
   },
 
 
-  indicator_aoi_total_public_budget:{
-    id:"indicator.aoi.total.public.budget",
-    defaultMessage:"Total public budget, expenditure on the agricultural sector.",
+  indicator_aoi_total_public_budget: {
+    id: "indicator.aoi.total.public.budget",
+    defaultMessage: "Total public budget, expenditure on the agricultural sector.",
     description: 'Total public budget, expenditure on the agricultural sector. chart title'
   },
-  indicator_aoi_composition_of_subsidies:{
-    id:"indicator.aoi.total.public.budget",
-    defaultMessage:"Composition of subsidies to agricultural investments.",
+  indicator_aoi_composition_of_subsidies: {
+    id: "indicator.aoi.total.public.budget",
+    defaultMessage: "Composition of subsidies to agricultural investments.",
     description: 'Composition of subsidies to agricultural investments chart title'
   },
 
@@ -177,7 +197,7 @@ const messages = defineMessages({
     description: 'Department Data Field'
   },
 
-  billions:{
+  billions: {
     id: 'data.field.billions',
     defaultMessage: 'Billions',
     description: 'Billions Data Field'

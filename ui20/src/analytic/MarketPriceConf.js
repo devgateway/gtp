@@ -2,7 +2,7 @@ import React from 'react'
 import {
   defineMessages
 } from 'react-intl'
-import messages from '../../translations/messages'
+import messages from '../translations/messages'
 
 export const configurator = (int) => {
 
