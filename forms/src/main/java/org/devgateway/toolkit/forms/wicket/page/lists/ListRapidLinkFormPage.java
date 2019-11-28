@@ -12,6 +12,7 @@
 package org.devgateway.toolkit.forms.wicket.page.lists;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -37,20 +38,16 @@ public class ListRapidLinkFormPage extends AbstractListPage<RapidLink> {
 
 
     public ListRapidLinkFormPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = service;
         this.editPageClass = EditRapidLinkPage.class;
 
-        columns.add(new TextFilteredBootstrapPropertyColumn<>(new Model<>("Title"), "title", "title"));
         columns.add(new TextFilteredBootstrapPropertyColumn<>(new Model<>("Position"), "rapidLinkPosition",
                 "rapidLinkPosition"));
+        columns.add(new TextFilteredBootstrapPropertyColumn<>(new Model<>("Title"), "title", "title"));
+        columns.add(new LambdaColumn<>(new Model<>("Link"), "link", RapidLink::getLink));
     }
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
-
-    }
 
     @Override
     public JpaFilterState<RapidLink> newFilterState() {

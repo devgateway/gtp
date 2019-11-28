@@ -109,6 +109,7 @@ public class FileInputBootstrapFormComponent extends GenericBootstrapFormCompone
     @Override
     public GenericBootstrapFormComponent<Collection<FileMetadata>,
             FileInputBootstrapFormComponentWrapper<Collection<FileMetadata>>> required() {
+        field.setRequired(true);
         field.requireAtLeastOneItem();
         return this;
     }
