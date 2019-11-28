@@ -89,10 +89,16 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
     private ExcelGeneratorService excelGeneratorService;
 
     public AbstractListPage(final PageParameters parameters) {
+        this(parameters, true);
+    }
+
+    public AbstractListPage(final PageParameters parameters, boolean isIdColumnNeeded) {
         super(parameters);
 
         columns = new ArrayList<>();
-        columns.add(new PropertyColumn<>(new Model<>("ID"), "id", "id"));
+        if (isIdColumnNeeded) {
+            columns.add(new PropertyColumn<>(new Model<>("ID"), "id", "id"));
+        }
     }
 
     public ActionPanel getActionPanel(final String id, final IModel<T> model) {
