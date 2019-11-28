@@ -57,6 +57,7 @@
     background-color: #FFF;
     display: block;
     height: 100px;
+
     p {
       font-size: 18px;
       float: left;
@@ -65,38 +66,115 @@
     }
   }
 
-
-  .analytic.table{
+  .analytic.table {
     padding-bottom: 10px;
     padding-right: 10px;
     padding-left: 10px;
     border: 1px solid red;
     overflow-x: auto;
     overflow-y: visible;
-    width: $page-width
-
-
+    width: $page-width;
   }
-  .pvtUi{
+
+  .pvtUi {
     font-size: 10px;
     font-family: $font;
   }
 
-  .pvtHorizList{
-    padding: 5px;
-    background-color: #f2f2f2;
-  }
-  .pvtCols{
-    background-color: #fff1f1;
-  }
-
-  .pvtAttr{
+  .pvtAttr {
     background-color: #FFF;
-    padding: 1px 5px;;
+    padding: 2px 5px;
+    line-height: 18px;
     border: 1px solid $border-color;
     border-radius: 4px;
     display: block;
-    color:#364833;
+    color: #364833;
     font-weight: bold;
+  }
+
+  .pvtDropdown {
+    padding: 0;
+    line-height: 20px;
+    text-transform: none;
+
+    .pvtDropdownCurrent {
+      border: 1px solid $border-color;
+    }
+  }
+
+  .pvtTable {
+    td,
+    th {
+      border: 1px solid $border-color;
+    }
+
+    th {
+      text-transform: none !important;
+    }
+
+    td {
+      vertical-align: middle;
+    }
+
+    tr:nth-child(even) {
+      background: #f7f7f7;
+    }
+
+    tr:nth-child(odd) {
+      background: #FFF;
+    }
+  }
+
+  .pvtTriangle {
+    float: right;
+    margin-left: 10px;
+  }
+
+  .pvtRows,
+  thead th {
+    background-color: #f6fcff;
+  }
+
+  .pvtVal {
+    vertical-align: middle;
+    height: 50px;
+  }
+
+  .pvtAxisLabel,
+  .pvtRowLabel,
+  .pvtTotalLabel,
+  .pvtVal {}
+
+  td,
+  th {
+    font-family: $font !important;
+    color: #354833;
+    text-transform: uppercase;
+    background-color: inherit;
+    padding: 5px;
+    font-size: 11px;
+  }
+
+  .pvtColLabel,.pvtAxisLabel {
+    height: 28px;
+    padding: 20px;
+  }
+
+  .pvtHorizList {
+    padding: 5px;
+    background-color: #f2f2f2;
+  }
+
+  .pvtCols {
+    background-color: #fff1f1;
+  }
+
+  .pvtGrandTotal {
+    background-color: #ebf7e8;
+    height: 80px;
+  }
+
+  .pvtTotal,.pvtTotalLabel{
+    background-color: #ebf7e8;
   }
 }
