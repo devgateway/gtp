@@ -13,6 +13,7 @@ import java.util.List;
 
 public class ExcelFileData implements ExcelFile {
 
+    public static final String NO_DATA = "no data";
     private final List<ExcelInfo> infoList;
 
     private final Workbook workbook;
@@ -31,8 +32,9 @@ public class ExcelFileData implements ExcelFile {
         for (ExcelInfo info:infoList) {
             // don't do anything if the list of objects is empty, just display the error message.
             if (info.getObjects().isEmpty()) {
+                String name = StringUtils.isNotBlank(info.getSheetName()) ? info.getSheetName() : NO_DATA;
                 final ExcelSheet excelSheet = new ExcelSheetDefault(this.workbook,
-                        info.getTranslateService(), "no data");
+                        info.getTranslateService(), name);
                 excelSheet.emptySheet();
             } else {
                 final Class clazz = info.getObjects().get(0).getClass();

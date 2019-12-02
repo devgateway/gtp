@@ -88,9 +88,6 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
     public ExcelFilterHelper(AOIFilterPagingRequest req, Map<Integer, Category> categories) {
         lang = req.getLang();
         year = req.getYear();
-        if (req.getCrop() != null) {
-            crop = req.getCrop().stream().map(x -> categories.get(x)).collect(Collectors.toSet());
-        }
         if (req.getIndexType() != null) {
             indexType = req.getIndexType().stream().map(x -> categories.get(x)).collect(Collectors.toSet());
         }
