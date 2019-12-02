@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.dao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.categories.Indicator;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -23,6 +24,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties(value = { "new" })
 public class IndicatorMetadata extends AbstractAuditableEntity implements Serializable {
 
+    public static final String FRENCH_LANG = "fr";
     private String intro;
 
     private String introFr;
@@ -37,6 +39,13 @@ public class IndicatorMetadata extends AbstractAuditableEntity implements Serial
     private String source;
 
     public String getIntro() {
+        return intro;
+    }
+
+    public String getIntro(String lang) {
+        if (StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(FRENCH_LANG)) {
+            return introFr;
+        }
         return intro;
     }
 

@@ -8,6 +8,7 @@ import org.devgateway.toolkit.persistence.dto.AgricultureOrientationIndexDTO;
 import org.devgateway.toolkit.persistence.dto.ExcelFilterDTO;
 import org.devgateway.toolkit.persistence.dto.ExcelInfo;
 import org.devgateway.toolkit.persistence.dto.FoodLossDTO;
+import org.devgateway.toolkit.persistence.service.IndicatorTranslateService;
 import org.devgateway.toolkit.persistence.dto.PovertyDTO;
 import org.devgateway.toolkit.persistence.excel.ExcelFile;
 import org.devgateway.toolkit.persistence.excel.ExcelFileData;
@@ -105,65 +106,71 @@ public class ExcelGenerator {
         PovertyFilterPagingRequest request = new PovertyFilterPagingRequest(filters);
         PovertyFilterState filterState = new PovertyFilterState(request);
         List<PovertyDTO> aoi = povertyIndicatorService.findAll(filterState.getSpecification())
-                .stream().map(data -> new PovertyDTO(data)).collect(Collectors.toList());
+                .stream().map(data -> new PovertyDTO(data, filters.getLang())).collect(Collectors.toList());
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES);
         IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(POVERTY_TYPE);
 
         String intro = EMPTY_STR;
         if (indicatorMetadata != null) {
-            intro = indicatorMetadata.getIntro();
+            intro = indicatorMetadata.getIntro(filters.getLang());
         }
+        IndicatorTranslateService translator = new IndicatorTranslateService(filters.getLang());
 
-        return (ExcelInfo<PovertyDTO>) new ExcelInfo(POVERTY_INDICATOR, intro, excelFilter, aoi, null);
+        return (ExcelInfo<PovertyDTO>) new ExcelInfo(POVERTY_INDICATOR, intro, excelFilter, aoi, translator);
     }
 
     private ExcelInfo<AgricultureOrientationIndexDTO> getAOIExcelInfo(IndicatorFilterPagingRequest filters) {
         AOIFilterPagingRequest request = new AOIFilterPagingRequest(filters);
         AOIFilterState filterState = new AOIFilterState(request);
         List<AgricultureOrientationIndexDTO> aoi = aoiIndicatorService.findAll(filterState.getSpecification())
-                .stream().map(data -> new AgricultureOrientationIndexDTO(data)).collect(Collectors.toList());
+                .stream().map(data -> new AgricultureOrientationIndexDTO(data, filters.getLang()))
+                .collect(Collectors.toList());
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES);
         IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(AOI_TYPE);
 
         String intro = EMPTY_STR;
         if (indicatorMetadata != null) {
-            intro = indicatorMetadata.getIntro();
+            intro = indicatorMetadata.getIntro(filters.getLang());
         }
+        IndicatorTranslateService translator = new IndicatorTranslateService(filters.getLang());
 
-        return (ExcelInfo<AgricultureOrientationIndexDTO>) new ExcelInfo(AOI_INDICATOR, intro, excelFilter, aoi, null);
+        return (ExcelInfo<AgricultureOrientationIndexDTO>) new ExcelInfo(AOI_INDICATOR, intro, excelFilter, aoi,
+                translator);
     }
 
     private ExcelInfo<AgriculturalWomenDTO> getAgriculturalWomenExcelInfo(IndicatorFilterPagingRequest filters) {
         AgriculturalWomenFilterPagingRequest request = new AgriculturalWomenFilterPagingRequest(filters);
         AgriculturalWomenFilterState filterState = new AgriculturalWomenFilterState(request);
-        List<AgriculturalWomenDTO> aoi = womenIndicatorService.findAll(filterState.getSpecification())
-                .stream().map(data -> new AgriculturalWomenDTO(data)).collect(Collectors.toList());
+        List<AgriculturalWomenDTO> women = womenIndicatorService.findAll(filterState.getSpecification())
+                .stream().map(data -> new AgriculturalWomenDTO(data, filters.getLang())).collect(Collectors.toList());
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES);
         IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(AG_WOMAN_TYPE);
 
         String intro = EMPTY_STR;
         if (indicatorMetadata != null) {
-            intro = indicatorMetadata.getIntro();
+            intro = indicatorMetadata.getIntro(filters.getLang());
         }
+        IndicatorTranslateService translator = new IndicatorTranslateService(filters.getLang());
 
         return (ExcelInfo<AgriculturalWomenDTO>) new ExcelInfo(AGRICULTURAL_WOMEN_INDICATOR,
-                intro, excelFilter, aoi, null);
+                intro, excelFilter, women, translator);
     }
 
     private ExcelInfo<FoodLossDTO> getFoodLossExcelInfo(IndicatorFilterPagingRequest filters) {
         FoodLossFilterPagingRequest request = new FoodLossFilterPagingRequest(filters);
         FoodLossFilterState filterState = new FoodLossFilterState(request);
         List<FoodLossDTO> aoi = foodLossIndicatorService.findAll(filterState.getSpecification())
-                .stream().map(data -> new FoodLossDTO(data)).collect(Collectors.toList());
+                .stream().map(data -> new FoodLossDTO(data, filters.getLang())).collect(Collectors.toList());
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES);
         IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(FOOD_LOSS_TYPE);
 
         String intro = EMPTY_STR;
         if (indicatorMetadata != null) {
-            intro = indicatorMetadata.getIntro();
+            intro = indicatorMetadata.getIntro(filters.getLang());
         }
+        IndicatorTranslateService translator = new IndicatorTranslateService(filters.getLang());
 
-        return (ExcelInfo<FoodLossDTO>) new ExcelInfo(FOOD_LOSS_INDICATOR, intro, excelFilter, aoi, null);
+        return (ExcelInfo<FoodLossDTO>) new ExcelInfo(FOOD_LOSS_INDICATOR, intro, excelFilter, aoi, translator);
     }
 
     enum Indicators {

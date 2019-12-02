@@ -67,8 +67,8 @@ public class AgriculturalWomenIndicatorController extends AbstractDatasetControl
     }
 
     @Override
-    protected AgriculturalWomenDTO getDTO(AgriculturalWomenIndicator indicator) {
-        return new AgriculturalWomenDTO(indicator);
+    protected AgriculturalWomenDTO getDTO(AgriculturalWomenIndicator indicator, String lang) {
+        return new AgriculturalWomenDTO(indicator, lang);
     }
 
     @CrossOrigin

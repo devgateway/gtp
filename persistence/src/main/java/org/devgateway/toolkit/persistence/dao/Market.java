@@ -74,4 +74,9 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
     public String getLabel() {
         return name;
     }
+
+    @Override
+    public String getLabel(String lang) {
+        return name;
+    }
 }

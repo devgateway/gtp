@@ -276,4 +276,9 @@ public class Person extends AbstractAuditableEntity implements Serializable, Use
     public String getLabel() {
         return firstName;
     }
+
+    @Override
+    public String getLabel(String lang) {
+        return firstName;
+    }
 }

@@ -62,4 +62,9 @@ public class Department extends GenericPersistable implements Serializable, Labe
     public String getLabel() {
         return name;
     }
+
+    @Override
+    public String getLabel(String lang) {
+        return name;
+    }
 }

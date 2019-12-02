@@ -73,4 +73,9 @@ public class Role extends GenericPersistable implements Serializable, Comparable
         return getAuthority();
     }
 
+    @Override
+    public String getLabel(String lang) {
+        return getAuthority();
+    }
+
 }

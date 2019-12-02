@@ -15,7 +15,18 @@ import java.util.stream.Collectors;
 public class ExcelFilterHelper extends ExcelFilterDTO {
 
     public static final String EMPTY_STRING = "";
-    public static final String FILTERS_USED = "Filters used: ";
+    public static final String[] EN_LABELS = {"Years", "Regions", "Genders", "Index Types", "Crop Types", "AW Groups",
+            "AW Group Types", "Crop SubTypes", "Loss Types", "Poverty Levels", "Profesional Activities",
+            "Minimum Percentage", "Maximum Percentage", "Minimum Kilograms", "Maximum Percentage", "Minimum Age",
+            "Maximum Age", "Minimum Score", "Maximum Score", "Minimum Avg Percentage", "Maximum Avg Percentage",
+            "Minimum Avg Kilograms", "Maximum Avg Kilograms", "None", "Filters used: "};
+    public static final String[] FR_LABELS = {"Ans", "Régions", "Genre", "Types d'index", "Types de culture",
+            "Groupes de femmes agricoles", "Types de groupes de femmes agricoles", "Sous-types de culture",
+            "Types de perte", "Niveaux de pauvreté", "Activités professionnelles", "Pourcentage minimum",
+            "Pourcentage maximum", "Kilogrammes minimum", "Pourcentage maximum", "Âge minimum", "Âge maximum",
+            "Score minimum", "Score maximum", "Pourcentage moyen minimum", "Pourcentage moyen maximum",
+            "Kilomètres moyens minimum", "Maximum moyen kilogrammes", "Aucun", "Filtres utilisés: "};
+    public static final String FRENCH_LANG = "fr";
 
     private Set<Category> region;
 
@@ -149,63 +160,74 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
 
     public String filtersToString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getLabels(" Years: ", year));
-        sb.append(getLabels(" Regions: ", region));
-        sb.append(getLabels(" Genders: ", gender));
-        sb.append(getLabels(" Index Types: ", indexType));
-        sb.append(getLabels(" Crop Types: ", crop));
-        sb.append(getLabels(" AW Groups: ", awGroup));
-        sb.append(getLabels(" AW Group Types: ", awGroupType));
-        sb.append(getLabels(" Crop SubTypes: ", cropSubType));
-        sb.append(getLabels(" Loss Types: ", lossType));
-        sb.append(getLabels(" Poverty levels: ", povertyLevel));
-        sb.append(getLabels(" Profesional Activities: ", activity));
+        sb.append(getLabels(0, year));
+        sb.append(getLabels(1, region));
+        sb.append(getLabels(2, gender));
+        sb.append(getLabels(3, indexType));
+        sb.append(getLabels(4, crop));
+        sb.append(getLabels(5, awGroup));
+        sb.append(getLabels(6, awGroupType));
+        sb.append(getLabels(7, cropSubType));
+        sb.append(getLabels(8, lossType));
+        sb.append(getLabels(9, povertyLevel));
+        sb.append(getLabels(10, activity));
         if (minPercentage != null) {
-            sb.append(" Minimum Percentage: " + minPercentage.toString());
+            sb.append(getFilterLabel(11) + minPercentage.toString());
         }
         if (maxPercentage != null) {
-            sb.append(" Maximum Percentage: " + maxPercentage.toString());
+            sb.append(getFilterLabel(12) + maxPercentage.toString());
         }
         if (minKg != null) {
-            sb.append(" Minimum Kilograms: " + minKg.toString());
+            sb.append(getFilterLabel(13) + minKg.toString());
         }
         if (maxKg != null) {
-            sb.append(" Maximum Percentage: " + maxKg.toString());
+            sb.append(getFilterLabel(14) + maxKg.toString());
         }
         if (minAge != null) {
-            sb.append(" Minimum Age: " + minAge.toString());
+            sb.append(getFilterLabel(15) + minAge.toString());
         }
         if (maxAge != null) {
-            sb.append(" Maximum Age: " + maxAge.toString());
+            sb.append(getFilterLabel(16) + maxAge.toString());
         }
         if (minScore != null) {
-            sb.append(" Minimum Score: " + minScore.toString());
+            sb.append(getFilterLabel(17) + minScore.toString());
         }
         if (maxScore != null) {
-            sb.append(" Maximum Score: " + maxScore.toString());
+            sb.append(getFilterLabel(18) + maxScore.toString());
         }
         if (minAvgPercentage != null) {
-            sb.append(" Minimum Avg Percentage: " + minAvgPercentage.toString());
+            sb.append(getFilterLabel(19) + minAvgPercentage.toString());
         }
         if (maxAvgPercentage != null) {
-            sb.append(" Maximum Avg Percentage: " + maxAvgPercentage.toString());
+            sb.append(getFilterLabel(20) + maxAvgPercentage.toString());
         }
         if (minAvgKilogram != null) {
-            sb.append(" Minimum Avg Kilograms: " + minAvgKilogram.toString());
+            sb.append(getFilterLabel(21) + minAvgKilogram.toString());
         }
         if (maxAvgKilogram != null) {
-            sb.append(" Maximum Avg Kilograms: " + maxAvgKilogram.toString());
+            sb.append(getFilterLabel(22) + maxAvgKilogram.toString());
         }
         if (StringUtils.isEmpty(sb.toString())) {
-            sb.append(" None");
+            sb.append(getLabel(23));
         }
 
-        return FILTERS_USED + sb.toString();
+        return getLabel(24) + sb.toString();
     }
 
-    private String getLabels(String label, Set t) {
+    private String getLabel(int labelIdx) {
+        if (StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(FRENCH_LANG)) {
+            return FR_LABELS[labelIdx];
+        }
+        return EN_LABELS[labelIdx];
+    }
+
+    private String getFilterLabel(int labelIdx) {
+        return (" " + getLabel(labelIdx) + ": ");
+    }
+
+    private String getLabels(int labelIdx, Set t) {
         if (t != null && !t.isEmpty()) {
-            return (label + t);
+            return (getFilterLabel(labelIdx) + t);
         }
         return EMPTY_STRING;
     }

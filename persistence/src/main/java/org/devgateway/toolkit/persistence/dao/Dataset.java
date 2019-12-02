@@ -49,6 +49,11 @@ public class Dataset extends AbstractAuditableEntity implements Serializable, La
     }
 
     @Override
+    public String getLabel(String lang) {
+        return label;
+    }
+
+    @Override
     public void setLabel(String label) {
         this.label = label;
     }

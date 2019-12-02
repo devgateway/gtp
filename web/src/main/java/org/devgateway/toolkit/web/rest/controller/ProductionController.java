@@ -30,7 +30,7 @@ public class ProductionController extends AbstractDatasetController<Production, 
     }
 
     @Override
-    protected ProductionDTO getDTO(Production indicator) {
-        return new ProductionDTO(indicator);
+    protected ProductionDTO getDTO(Production indicator, String lang) {
+        return new ProductionDTO(indicator, lang);
     }
 }

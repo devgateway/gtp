@@ -6,29 +6,29 @@ import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 public class PovertyDTO extends DataDTO {
 
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private String region;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private String locationType;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private String gender;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private String professionalActivity;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private String povertyLevel;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private Integer age;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private Double povertyScore;
 
-    public PovertyDTO(PovertyIndicator p) {
-        super(p);
+    public PovertyDTO(final PovertyIndicator p, final String lang) {
+        super(p, lang);
         this.region = getStr(p.getRegion());
         this.locationType = getStr(p.getLocationType());
         this.gender = getStr(p.getGender());

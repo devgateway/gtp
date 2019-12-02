@@ -142,8 +142,8 @@ public class AOIIndicatorController extends AbstractDatasetController<Agricultur
     }
 
     @Override
-    protected AgricultureOrientationIndexDTO getDTO(AgricultureOrientationIndexIndicator indicator) {
-        return new AgricultureOrientationIndexDTO(indicator);
+    protected AgricultureOrientationIndexDTO getDTO(AgricultureOrientationIndexIndicator indicator, String lang) {
+        return new AgricultureOrientationIndexDTO(indicator, lang);
     }
 
     private List<AOISummary> getSummaryByIndexType(AOIFilterPagingRequest req,

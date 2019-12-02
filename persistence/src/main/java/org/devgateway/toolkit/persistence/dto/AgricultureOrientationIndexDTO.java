@@ -5,23 +5,23 @@ import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 public class AgricultureOrientationIndexDTO extends DataDTO {
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private String indexType;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private Double budgetedExpenditures;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private Double disbursedExpenditures;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private Double subsidies;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private String variableType;
 
-    public AgricultureOrientationIndexDTO(AgricultureOrientationIndexIndicator aoi) {
-        super(aoi);
+    public AgricultureOrientationIndexDTO(AgricultureOrientationIndexIndicator aoi, final String lang) {
+        super(aoi, lang);
         this.indexType = getStr(aoi.getIndexType());
         this.budgetedExpenditures = aoi.getBudgetedExpenditures();
         this.disbursedExpenditures = aoi.getDisbursedExpenditures();

@@ -6,23 +6,23 @@ import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 public class AgriculturalWomenDTO extends DataDTO {
 
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private String gender;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private String group;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private String groupType;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private Double percentage;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private Double utilizationPercentage;
 
-    public AgriculturalWomenDTO(AgriculturalWomenIndicator women) {
-        super(women);
+    public AgriculturalWomenDTO(AgriculturalWomenIndicator women, final String lang) {
+        super(women, lang);
         this.gender = getStr(women.getGender());
         this.group = getStr(women.getGroup());
         this.groupType = getStr(women.getGroupType());

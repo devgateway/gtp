@@ -20,8 +20,8 @@ public class ProductionDTO extends DataDTO {
     @ExcelExport
     private Double yield;
 
-    public ProductionDTO(Production data) {
-        super(data);
+    public ProductionDTO(Production data, final String lang) {
+        super(data, lang);
         this.region = getStr(data.getRegion());
         this.cropType = getStr(data.getCropType());
         this.surface = data.getSurface();

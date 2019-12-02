@@ -56,8 +56,8 @@ public class FoodLossIndicatorController extends AbstractDatasetController<FoodL
     }
 
     @Override
-    protected FoodLossDTO getDTO(FoodLossIndicator indicator) {
-        return new FoodLossDTO(indicator);
+    protected FoodLossDTO getDTO(FoodLossIndicator indicator, String lang) {
+        return new FoodLossDTO(indicator, lang);
     }
 
     @CrossOrigin

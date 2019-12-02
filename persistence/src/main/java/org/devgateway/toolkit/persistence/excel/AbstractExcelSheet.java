@@ -115,7 +115,7 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
     @Override
     public void writeCell(final Object value, final Row row, final int column) {
         // try to determine the cell type based on the object value
-        // if nothing matches then use 'CellType.STRING' as type and call the object toString() function.
+        // if nothing matches then use 'CellType.EMPTY_STRING' as type and call the object toString() function.
         //      * don't create any cell if the value is null (Cell.CELL_TYPE_BLANK)
         //      * do nothing if we have an empty List/Set instead of display empty brackets like [ ]
         if (value != null && !((value instanceof List || value instanceof Set) && ((Collection) value).isEmpty())) {

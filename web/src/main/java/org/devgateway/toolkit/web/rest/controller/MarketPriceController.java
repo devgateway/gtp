@@ -33,7 +33,7 @@ public class MarketPriceController extends AbstractDatasetController<MarketPrice
     }
 
     @Override
-    protected MarketPriceDTO getDTO(MarketPrice indicator) {
-        return new MarketPriceDTO(indicator);
+    protected MarketPriceDTO getDTO(MarketPrice indicator, String lang) {
+        return new MarketPriceDTO(indicator, lang);
     }
 }
