@@ -95,8 +95,8 @@ public class PovertyIndicatorController extends AbstractDatasetController<Povert
     }
 
     @Override
-    protected PovertyDTO getDTO(PovertyIndicator povertyIndicator) {
-        return new PovertyDTO(povertyIndicator);
+    protected PovertyDTO getDTO(PovertyIndicator povertyIndicator, String lang) {
+        return new PovertyDTO(povertyIndicator, lang);
     }
 
 }

@@ -30,7 +30,7 @@ public class ConsumptionController extends AbstractDatasetController<Consumption
     }
 
     @Override
-    protected ConsumptionDTO getDTO(Consumption indicator) {
-        return new ConsumptionDTO(indicator);
+    protected ConsumptionDTO getDTO(Consumption indicator, String lang) {
+        return new ConsumptionDTO(indicator, lang);
     }
 }

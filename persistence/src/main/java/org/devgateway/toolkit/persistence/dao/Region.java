@@ -68,6 +68,11 @@ public class Region extends GenericPersistable implements Serializable, Labelabl
         return name;
     }
 
+    @Override
+    public String getLabel(String lang) {
+        return name;
+    }
+
     @JsonProperty("labelFr")
     public String getLabelFr() {
         return name;

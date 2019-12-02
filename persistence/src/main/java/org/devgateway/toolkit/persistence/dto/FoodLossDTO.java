@@ -5,24 +5,24 @@ import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 public class FoodLossDTO extends DataDTO {
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private String cropType;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private String lossType;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private Double avgPercentage;
 
-    @ExcelExport
+    @ExcelExport(useTranslation = true)
     private Double avgKilograms;
 
-    public FoodLossDTO(FoodLossIndicator foodLoss) {
-        super(foodLoss);
-        this.cropType = getStr(foodLoss.getCropType());
-        this.lossType = getStr(foodLoss.getLossType());
-        this.avgKilograms = foodLoss.getAvgKilograms();
-        this.avgPercentage = foodLoss.getAvgPercentage();
+    public FoodLossDTO(FoodLossIndicator data, final String lang) {
+        super(data, lang);
+        this.cropType = getStr(data.getCropType());
+        this.lossType = getStr(data.getLossType());
+        this.avgKilograms = data.getAvgKilograms();
+        this.avgPercentage = data.getAvgPercentage();
     }
 
     public String getCropType() {

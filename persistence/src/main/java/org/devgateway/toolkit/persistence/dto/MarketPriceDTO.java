@@ -28,8 +28,8 @@ public class MarketPriceDTO extends DataDTO {
     @ExcelExport
     private Double wholesaleBuyPrice;
 
-    public MarketPriceDTO(MarketPrice data) {
-        super(data);
+    public MarketPriceDTO(MarketPrice data, final String lang) {
+        super(data, lang);
         this.cropType = getStr(data.getCropType());
         this.market = getStr(data.getMarket());
         this.date = data.getDate();

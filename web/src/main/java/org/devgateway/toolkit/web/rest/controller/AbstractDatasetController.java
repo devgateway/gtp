@@ -22,12 +22,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -50,7 +48,7 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
     }
 
     protected abstract Specification<T> getSpecifications(S request);
-    protected abstract R getDTO(T indicator);
+    protected abstract R getDTO(T indicator, String lang);
 
     @CrossOrigin
     @ApiOperation(value = "Get validated data paginated")
@@ -65,14 +63,9 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
     @CrossOrigin
     @ApiOperation(value = "Dump validated data")
     @RequestMapping(value = "/dump", method = POST)
-    public @ResponseBody ResponseEntity<List<T>> getAllValidated(WebRequest webRequest,
-                                          @RequestBody(required = false) @Valid final S pageRequest) {
-        ResponseEntity.BodyBuilder responseBuilder = getBodyBuilder(webRequest);
-        if (responseBuilder == null) {
-            return null;
-        }
+    public @ResponseBody List<T> getAllValidated(@RequestBody(required = false) @Valid final S pageRequest) {
 
-        return responseBuilder.body(findBySpec(pageRequest));
+        return findBySpec(pageRequest);
     }
 
     protected List<T> findBySpec(final S req) {
@@ -82,12 +75,8 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
     @CrossOrigin
     @ApiOperation(value = "Dump all data, even not validated")
     @RequestMapping(value = "/unchecked", method = POST)
-    public @ResponseBody ResponseEntity<List<T>> getAllData(WebRequest webRequest) {
-        ResponseEntity.BodyBuilder responseBuilder = getBodyBuilder(webRequest);
-        if (responseBuilder == null) {
-            return null;
-        }
-        return responseBuilder.body(datasetService.findAll());
+    public @ResponseBody List<T> getAllData() {
+        return datasetService.findAll();
     }
 
 
@@ -97,11 +86,11 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
     public void getSummaryIndicatorCSV(@RequestBody(required = false) @Valid final S req,
             final HttpServletResponse response) {
         List<T> indicators = findBySpec(req);
-        List<R> dataList = indicators.stream().map(p -> getDTO(p)).collect(Collectors.toList());
+        List<R> dataList = indicators.stream().map(p -> getDTO(p, req.getLang())).collect(Collectors.toList());
         createCSVResponse(dataList, response);
     }
 
-    private ResponseEntity.BodyBuilder getBodyBuilder(WebRequest webRequest) {
+    /*private ResponseEntity.BodyBuilder getBodyBuilder(WebRequest webRequest) {
         String eTag = datasetService.getETagForDump();
 
         if (eTag != null && webRequest.checkNotModified(eTag)) {
@@ -114,7 +103,7 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
             responseBuilder.eTag(eTag);
         }
         return responseBuilder;
-    }
+    }*/
 
     protected void createCSVResponse(final List data, final HttpServletResponse response) {
         try {

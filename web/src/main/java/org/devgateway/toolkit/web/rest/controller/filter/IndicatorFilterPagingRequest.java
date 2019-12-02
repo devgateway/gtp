@@ -40,6 +40,8 @@ public class IndicatorFilterPagingRequest extends DefaultFilterPagingRequest {
 
     private TreeSet<Integer> activity;
 
+    private String lang;
+
     public Double getMinPercentage() {
         return minPercentage;
     }
@@ -182,5 +184,15 @@ public class IndicatorFilterPagingRequest extends DefaultFilterPagingRequest {
 
     public void setActivity(TreeSet<Integer> activity) {
         this.activity = activity;
+    }
+
+    @Override
+    public String getLang() {
+        return lang;
+    }
+
+    @Override
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

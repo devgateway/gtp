@@ -20,6 +20,7 @@ public class DefaultFilterPagingRequest extends GenericPagingRequest {
             this.setRegion(req.getRegion());
             this.setYear(req.getYear());
             this.setGender(req.getGender());
+            this.setLang(req.getLang());
             this.setPageNumber(req.getPageNumber());
             this.setPageSize(req.getPageSize());
         } else {

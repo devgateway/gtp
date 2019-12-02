@@ -26,8 +26,8 @@ public class ConsumptionDTO extends DataDTO {
     @ExcelExport
     private Double weeklyConsumption;
 
-    public ConsumptionDTO(Consumption consumption) {
-        super(consumption);
+    public ConsumptionDTO(Consumption consumption, final String lang) {
+        super(consumption, lang);
         this.region = getStr(consumption.getDepartment().getRegion());
         this.department = getStr(consumption.getDepartment());
         this.cropType = getStr(consumption.getCropType());

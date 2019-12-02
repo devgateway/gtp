@@ -10,10 +10,13 @@ public class DataDTO {
 
     private Long id;
 
-    @ExcelExport
+    private String lang;
+
+    @ExcelExport(useTranslation = true)
     private Integer year;
 
-    public DataDTO(Data data) {
+    public DataDTO(Data data, String lang) {
+        this.lang = lang;
         this.id = data.getId();
         this.year = data.getYear();
     }
@@ -21,7 +24,11 @@ public class DataDTO {
     protected String getStr(Labelable labelable) {
         String ret = EMPTY;
         if (labelable != null) {
-            ret = labelable.getLabel().replace(",", " ");
+            if (lang != null) {
+                ret = labelable.getLabel(lang).replace(",", " ");
+            } else {
+                ret = labelable.getLabel().replace(",", " ");
+            }
         }
         return ret;
     }
@@ -40,5 +47,13 @@ public class DataDTO {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

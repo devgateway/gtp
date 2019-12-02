@@ -24,6 +24,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.hibernate.LazyInitializationException;
@@ -93,16 +94,18 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
         return getLabel("fr");
     }
 
-    private String getLabel(String language) {
-        try {
-            for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
-                if (localizedLabel.getLanguage().equals(language)) {
-                    return localizedLabel.getLabel();
+    public String getLabel(String language) {
+        if (StringUtils.isNotBlank(language)) {
+            try {
+                for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
+                    if (localizedLabel.getLanguage().equals(language)) {
+                        return localizedLabel.getLabel();
+                    }
                 }
+            } catch (LazyInitializationException e) {
+                return label;
+                //Dont return null for label, its being used in serialization
             }
-        } catch (LazyInitializationException e) {
-            return label;
-            //Dont return null for label, its being used in serialization
         }
         return label;
     }

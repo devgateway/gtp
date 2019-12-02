@@ -46,8 +46,8 @@ public class TableRepositoryTest {
         dataSourceRepository.save(ds);
 
         Table table = new Table("statistics", ds);
-        table.addColumn(new Column("crop", "STRING"));
-        table.addColumn(new Column("location", "STRING"));
+        table.addColumn(new Column("crop", "EMPTY_STRING"));
+        table.addColumn(new Column("location", "EMPTY_STRING"));
         table.addColumn(new Column("production", "DOUBLE PRECISION"));
         table.addColumn(new Column("yield", "DOUBLE PRECISION"));
         table.addColumn(new Column("area_seeded", "DOUBLE PRECISION"));
