@@ -19,15 +19,17 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
+import org.apache.wicket.validation.ValidationError;
 import org.apache.wicket.validation.validator.UrlValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListRapidLinkFormPage;
-import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
+import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.RapidLink;
 import org.devgateway.toolkit.persistence.dao.categories.RapidLinkPosition;
 import org.devgateway.toolkit.persistence.repository.category.RapidLinkPositionRepository;
@@ -37,6 +39,7 @@ import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Created by Daniel Oliva
@@ -97,7 +100,7 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
         editForm.add(rapidLinkPosition);
 
         FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata").maxFiles(1);
-        fileInput.getField().add((IValidator) new InputFileValidator(getString("fileNotAdded"),
+        fileInput.getField().add((IValidator) new InputImageFileValidator(getString("fileNotAdded"),
                 getString("filenameError")));
         editForm.add(fileInput);
     }
@@ -124,6 +127,36 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
                 }
             }
         };
+    }
+
+    protected class InputImageFileValidator implements IValidator<Set<FileMetadata>> {
+        private static final long serialVersionUID = 972971245491631372L;
+
+        private String errorFileNotAdded;
+
+        private String errorFilenameError;
+
+        public InputImageFileValidator(String errorFileNotAdded, String errorFilenameError) {
+            this.errorFileNotAdded = errorFileNotAdded;
+            this.errorFilenameError = errorFilenameError;
+        }
+
+        @Override
+        public void validate(final IValidatable<Set<FileMetadata>> validatable) {
+            if (validatable.getValue().isEmpty()) {
+                ValidationError error = new ValidationError(errorFileNotAdded);
+                validatable.error(error);
+            } else {
+                validatable.getValue().stream().forEach(file -> {
+                    if (!file.getName().toLowerCase().endsWith(".jpg")
+                            && !file.getName().toLowerCase().endsWith(".png")
+                            && !file.getName().toLowerCase().endsWith(".png")) {
+                        ValidationError error = new ValidationError(errorFilenameError);
+                        validatable.error(error);
+                    }
+                });
+            }
+        }
     }
 
 }

@@ -41,7 +41,7 @@ public final class ImportUtils {
     public static Long getLongFromCell(final Cell cell) {
         Long ret = null;
         try {
-            if (cell != null && cell.getCellType() == CellType.NUMERIC) {
+            if (cell != null && cell.getCellType() == CellType.NUMERIC || cell.getCellType() == CellType.FORMULA) {
                 ret = (long) cell.getNumericCellValue();
             } else if (cell != null && cell.getCellType() == CellType.STRING) {
                 ret = Long.valueOf(cell.getStringCellValue().trim());
@@ -54,7 +54,7 @@ public final class ImportUtils {
 
     public static Double getDoubleFromCell(final Cell cell) {
         Double ret = null;
-        if (cell != null && cell.getCellType() == CellType.NUMERIC) {
+        if (cell != null && cell.getCellType() == CellType.NUMERIC || cell.getCellType() == CellType.FORMULA) {
             ret = cell.getNumericCellValue();
         } else if (cell != null && cell.getCellType() == CellType.STRING) {
             ret = Double.valueOf(cell.getStringCellValue().replace(COMMA_VALUE, DOT_VALUE));
@@ -64,7 +64,7 @@ public final class ImportUtils {
 
     public static String getStringFromCell(final Cell cell) {
         String ret = null;
-        if (cell != null && cell.getCellType() == CellType.NUMERIC) {
+        if (cell != null && cell.getCellType() == CellType.NUMERIC || cell.getCellType() == CellType.FORMULA) {
             String value = String.valueOf(cell.getNumericCellValue());
             ret = value.endsWith(TRAILING_ZERO) ? value.replace(TRAILING_ZERO, "") : value;
         } else if (cell != null && cell.getCellType() == CellType.STRING) {
