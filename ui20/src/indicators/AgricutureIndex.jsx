@@ -25,7 +25,7 @@ const  BudgetFilters=injectIntl(({intl,indexTypes1,filters,onChange, options})=>
   return (<div className="indicator chart filter  aoi">
       <div className="filter item">
         <CustomFilterDropDown  options={items2options(indexTypes1,intl)}  onChange={s => {onChange([ 'filters', 'aoi','budget', 'indexType'], s,['BUDGET'])}}
-          selected={indexTypeSelection} text={<FormattedMessage id = "indicators.filters.indexType" defaultMessage = "Index Type"  > </FormattedMessage>} />
+          selected={indexTypeSelection} text={<FormattedMessage id = "indicators.filter.index_type" defaultMessage = "Index Type"  > </FormattedMessage>} />
       </div>
 
 
@@ -38,7 +38,7 @@ const  SubsidiesFilters=injectIntl(({intl,indexTypes2,filters,onChange, options}
   return (<div className="indicator chart filter  aoi">
       <div className="filter item">
         <CustomFilterDropDown  options={items2options(indexTypes2,intl)}  onChange={s => {onChange([ 'filters', 'aoi','subsidies', 'indexType'], s,['SUBSIDIES'])}}
-          selected={indexTypeSelection} text={<FormattedMessage id = "indicators.filters.indexType" defaultMessage = "Index Type"  > </FormattedMessage>} />
+          selected={indexTypeSelection} text={<FormattedMessage id = "indicators.filter.index_type" defaultMessage = "Index Type"  > </FormattedMessage>} />
       </div>
 
 
@@ -75,13 +75,13 @@ const ChartSection = injectIntl(( props)=>{
 
         <div className="indicator chart aoi title ">
           <p>
-            <FormattedMessage id="inidicators.chart.aoi.title" defaultMessage="The Agriculture Orientation Index for Government Expenditures"></FormattedMessage>
+            <FormattedMessage id="indicators.chart.aoi.title" defaultMessage="The Agriculture Orientation Index for Government Expenditures"></FormattedMessage>
           </p>
           <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
         </div>
         <div className="indicator chart aoi description">
           <p>
-            <FormattedMessage id="inidicators.chart.aoi.description" defaultMessage="The agriculture orientation index for government expenditures"></FormattedMessage>
+            <FormattedMessage id="indicators.chart.aoi.description" defaultMessage="The agriculture orientation index for government expenditures"></FormattedMessage>
           </p>
           <div className="indicator chart icon download xls"></div>
           <div className="indicator chart icon download png"></div>

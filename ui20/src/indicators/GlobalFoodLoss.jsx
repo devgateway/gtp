@@ -72,13 +72,13 @@ const ChartSection = injectIntl(( props)=>{
         <div className="indicator.chart.container" id="anchor.indicator.global.food.short">
           <div className="indicator chart food title ">
             <p>
-              <FormattedMessage id="inidicators.chart.food.title" defaultMessage="Global Food Loss Ratio"></FormattedMessage>
+              <FormattedMessage id="indicators.chart.food.title" defaultMessage="Global Food Loss Ratio"></FormattedMessage>
             </p>
             <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
           </div>
           <div className="indicator chart food description">
             <p>
-              <FormattedMessage id="inidicators.chart.food.description"
+              <FormattedMessage id="indicators.chart.food.description"
                 defaultMessage="By 2030, halve per capita global food waste at the retail and consumer levels and reduce food losses along production and supply chains, includi">
               </FormattedMessage>
             </p>
@@ -89,7 +89,7 @@ const ChartSection = injectIntl(( props)=>{
 
           <Tab menu={{ pointing: true }} panes={panes} />
 
-          <div className="source"><span className="source label"> <FormattedMessage id="inidicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
+          <div className="source"><span className="source label"> <FormattedMessage id="indicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
 
 
         </div>

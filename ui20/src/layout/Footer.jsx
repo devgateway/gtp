@@ -17,14 +17,14 @@ const Footer = (props) => {
 
       <div className="footer-nav-bar">
         <div className="nav link">
-          <FormattedMessage id="footer.lik.home" defaultMessage={"Home"} values={""}/></div>
+          <FormattedMessage id="footer.link.home" defaultMessage={"Home"} values={""}/></div>
         <div className="nav link">
-          <FormattedMessage id="footer.lik.dashboard" defaultMessage={"Dashboard"} values={""}/></div>
+          <FormattedMessage id="footer.link.dashboard" defaultMessage={"Dashboard"} values={""}/></div>
         <div className="nav link">
-          <FormattedMessage id="footer.lik.resources" defaultMessage={"Resources"} values={""}/>
+          <FormattedMessage id="footer.link.resources" defaultMessage={"Resources"} values={""}/>
         </div>
         <div className="nav link">
-          <FormattedMessage id="footer.lik.about" defaultMessage={"About"} values={""}/>
+          <FormattedMessage id="footer.link.about" defaultMessage={"About"} values={""}/>
         </div>
       </div>
     </div>

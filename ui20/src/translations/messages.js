@@ -86,94 +86,94 @@ const messages = defineMessages({
 
   indicator_global_population_short: {
     defaultMessage: 'Proportion of population below the international poverty line',
-    id: 'indicator.global.population.short',
+    id: 'indicators.global.population.short',
   },
 
   indicator_global_women_short: {
     defaultMessage: 'Women in the Agricultural sector',
-    id: 'indicator.global.women.short',
+    id: 'indicators.global.women.short',
   },
 
   indicator_global_food_short: {
     defaultMessage: 'Global Food Loss Ratio',
-    id: 'indicator.global.food.short',
+    id: 'indicators.global.food.short',
   },
 
   indicator_global_aoi_short: {
     defaultMessage: 'Agriculture orientation index for government expenditures',
-    id: 'indicator.global.aoi.short',
+    id: 'indicators.global.aoi.short',
   },
 
   //analytic
 
   indicator_poverty_chart_by_region_and_year: {
-    id: 'indicator.poverty.chart.by.region.and.year',
+    id: 'indicators.chart.poverty.by.region.and.year',
     defaultMessage: '% of population under poverty level.',
     description: '% of population under poverty level by region and year chart title'
   },
 
   indicator_poverty_chart_by_poor_no_poor_rencet_year: {
-    id: 'indicator.poverty.chart.by.poor.no.poor.rencet.year',
+    id: 'indicators.chart.poverty.by.poor.no.poor.rencet.year',
     defaultMessage: '% of poor vs no poor by region ({year}).',
     description: '% of poor vs no poor by region chart title'
   },
 
 
   indicator_poverty_chart_historical_by_region: {
-    id: 'indicator.poverty.chart.historical.by.region',
+    id: 'indicators.chart.poverty.historical.by.region',
     defaultMessage: 'Historical % of population  under poverty level',
     description: 'Historical % of population  under poverty level chart title'
   },
 
 
   indicator_women_chart_distribution_by_age_tab_title: {
-    id: 'indicator.women.chart.distribution.by.age.tab.title',
+    id: 'indicators.chart.women.distribution.by.age.tab.title',
     defaultMessage: 'Distribution by age.',
     description: 'Distribution by age tab title'
   },
 
   indicator_women_chart_distribution_by_method_tab_title: {
-    id: 'indicator.women.chart.distribution.by.method.tab.title',
+    id: 'indicators.chart.women.distribution.by.method.tab.title',
     defaultMessage: 'Distribution by method of enforcement.',
     description: 'Distribution by method of enforcement tab title'
   },
 
 
   indicator_women_chart_distribution_by_gender: {
-    id: 'indicator.women.chart.distribution_by_gender',
+    id: 'indicators.chart.women.distribution.by.gender',
     defaultMessage: 'Distribution of the agricultural population by age group and gender ({year}).',
     description: 'Distribution of the agricultural population gender chart title'
   },
 
   indicator_women_chart_distribution_historical: {
-    id: 'indicator.women.chart.distribution_historical',
+    id: 'indicators.chart.women.distribution_historical',
     defaultMessage: 'Historical Female Distribution.',
     description: 'Historical Female Distribution chart title'
   },
 
   indicator_women_chart_distribution_by_enforcement_method: {
-    id: 'indicator.women.chart.distribution_by_gender',
+    id: 'indicators.chart.women.distribution.by.method',
     defaultMessage: 'Distribution of parcels by method of enforcement and gender ({year}).',
-    description: 'Distribution of parcels according to the method of enforcement and the sex of the person responsible chart title'
+    description: 'Distribution of parcels by method of enforcement and gender ({year}).',
   },
 
 
   indicator_women_chart_distribution_by_enforcement_historical: {
-    id: 'indicator.women.chart.distribution.by.enforcement.historical',
+    id: 'indicators.chart.women.distribution.by.enforcement.historical',
     defaultMessage: 'Historical female distribution of parcels by method of enforcement.',
     description: 'Historical female distribution of parcels by method of enforcement chart title'
   },
 
 
   indicator_food_chart_average_production_loss: {
-    id: 'indicator.food.chart.average.production.loss',
+    id: 'indicators.chart.food.average.production.loss',
     defaultMessage: 'Average production loss ({year})',
     description: 'Average production loss chart title'
 
   },
 
   indicator_food_chart_average_quantity: {
-    id: 'indicator.food.chart.average.quantity',
+    id: 'indicators.chart.food.average.quantity',
     defaultMessage: 'Average quantity (in kg) per household ({year})',
     description: 'Average quantity (in kg) per household chart title'
 
@@ -181,12 +181,12 @@ const messages = defineMessages({
 
 
   indicator_aoi_total_public_budget: {
-    id: "indicator.aoi.total.public.budget",
+    id: "indicators.chart.aoi.total.public.budget",
     defaultMessage: "Total public budget, expenditure on the agricultural sector.",
     description: 'Total public budget, expenditure on the agricultural sector. chart title'
   },
   indicator_aoi_composition_of_subsidies: {
-    id: "indicator.aoi.total.public.budget",
+    id: "indicators.chart.aoi.total.public.subsidies",
     defaultMessage: "Composition of subsidies to agricultural investments.",
     description: 'Composition of subsidies to agricultural investments chart title'
   },
@@ -215,7 +215,7 @@ const messages = defineMessages({
   },
 
   methodOfEnforcement: {
-    id: 'data.field.methodOfEnforcement',
+    id: 'data.field.enforcement_method',
     defaultMessage: 'Enforcement Method',
     description: 'Age data field'
   },

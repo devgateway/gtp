@@ -43,7 +43,7 @@ const PovertyFitlers=injectIntl((props)=>{
         onChange(['filters', 'poverty', 'minScore'],s[0])
         onChange(['filters', 'poverty', 'maxScore'],s[1],['POVERTY'])
 
-      }} max={maxScore} min={minScore}  selected={score} text={<FormattedMessage id="inidicators.filter.slider.score" defaultMessage="Score Range"/>}></RangeSlider>}
+      }} max={maxScore} min={minScore}  selected={score} text={<FormattedMessage id="indicators.filter.slider.score" defaultMessage="Score Range"/>}></RangeSlider>}
     </div>
 
     <div className="filter item">
@@ -51,7 +51,7 @@ const PovertyFitlers=injectIntl((props)=>{
         onChange(['filters', 'poverty', 'minAge'],s[0])
         onChange(['filters', 'poverty', 'maxAge'],s[1],['POVERTY'])
 
-      }} max={maxAge} min={minAge}  selected={age} text={<FormattedMessage id="inidicators.filter.slider.age" defaultMessage="Age Range"/>}></RangeSlider>}
+      }} max={maxAge} min={minAge}  selected={age} text={<FormattedMessage id="indicators.filter.slider.age" defaultMessage="Age Range"/>}></RangeSlider>}
     </div>
   </div>)
 })
@@ -88,13 +88,13 @@ class Pooverty extends Component {
 
       <div className="indicator chart title poverty">
         <p>
-          <FormattedMessage id="inidicators.poverty.title" defaultMessage="Proportion of population below the international poverty line."></FormattedMessage>
+          <FormattedMessage id="indicators.chart.poverty.title" defaultMessage="Proportion of population below the international poverty line."></FormattedMessage>
         </p>
         <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
       </div>
       <div className="indicator chart description poverty">
         <p>
-          <FormattedMessage id="inidicators.poverty.description" defaultMessage="Proportion of population below the international poverty line, by sex, age, employment status and geographical location (urban/rural)."></FormattedMessage>
+          <FormattedMessage id="indicators.chart.poverty.description" defaultMessage="Proportion of population below the international poverty line, by sex, age, employment status and geographical location (urban/rural)."></FormattedMessage>
         </p>
         <div className="indicator chart icon download xls"></div>
         <div className="indicator chart icon download png"></div>
@@ -103,7 +103,7 @@ class Pooverty extends Component {
 
         <Tab key="poverty" menu={{ pointing: true }} panes={panes} />
 
-        <div className="source"><span className="source label"> <FormattedMessage id="inidicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
+        <div className="source"><span className="source label"> <FormattedMessage id="indicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
       </div>)
   }
 

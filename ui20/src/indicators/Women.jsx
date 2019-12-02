@@ -34,14 +34,14 @@ const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,
                options={items2options(methodOfEnforcements,intl)}
                onChange={s => {onChange([ 'filters', 'women', 'methodOfEnforcement'], s,['WOMEN'])}}
                selected={methodOfEnforcementsSelection}
-               text={<FormattedMessage id = "indicators.filter.enforcement.method" defaultMessage = "Enforcement Method">
+               text={<FormattedMessage id = "indicators.filter.enforcement_method" defaultMessage = "Enforcement Method">
                </FormattedMessage>} />
             </div>
             <div className="filter item">
               <OptionList disabled={!options.age} options={items2options(ageGroups,intl)}
                onChange={s => {onChange([ 'filters', 'women', 'ageGroup'], s,['WOMEN'])}}
                selected={ageSelection}
-               text={<FormattedMessage id="indicators.filter.ageGroup" defaultMessage = "Age Group">
+               text={<FormattedMessage id="indicators.filter.age_group" defaultMessage = "Age Group">
                </FormattedMessage>} />
             </div>
     </div>)
@@ -104,13 +104,13 @@ const ChartSection = injectIntl((props)=>{
 
         <div className="indicator chart women title ">
           <p>
-            <FormattedMessage id="inidicators.women.title" defaultMessage="Women in the Agricultural sector"></FormattedMessage>
+            <FormattedMessage id="indicators.chart.women.title" defaultMessage="Women in the Agricultural sector"></FormattedMessage>
           </p>
           <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
         </div>
         <div className="indicator chart women description">
           <p>
-            <FormattedMessage id="inidicators.women.description" defaultMessage="Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex; and (b) share of women among owners or rights-bearers of agricultural land, by type of tenure."></FormattedMessage>
+            <FormattedMessage id="indicators.chart.women.description" defaultMessage="Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex; and (b) share of women among owners or rights-bearers of agricultural land, by type of tenure."></FormattedMessage>
           </p>
           <div className="indicator chart icon download xls"></div>
           <div className="indicator chart icon download png"></div>
@@ -118,7 +118,7 @@ const ChartSection = injectIntl((props)=>{
         </div>
           <Tab key="women" menu={{ pointing: true }} panes={panes} />
 
-          <div className="source"><span className="source label"> <FormattedMessage id="inidicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
+          <div className="source"><span className="source label"> <FormattedMessage id="indicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
         </div>
       )
 })

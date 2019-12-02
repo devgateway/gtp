@@ -80,7 +80,7 @@ class GlobalNumbers extends Component {
                           window.scroll({ top: topOfElement, behavior: "smooth" });
 
                     }
-                  }}><FormattedMessage id="indicator.go.chart" defaultMessage="Go to Chart"/></a>
+                  }}><FormattedMessage id="indicators.go.to.chart" defaultMessage="Go to Chart"/></a>
                 </div>
                 </div>
               </Grid.Column>))}
