@@ -20,6 +20,7 @@ import {connect} from 'react-redux';
 
 
 const getIndicatorName=(intl,key)=>{
+  debugger;
   if(key== 'indicator.global.population.short'){
     return intl.formatMessage(messages.indicator_global_population_short)
   }
@@ -27,10 +28,10 @@ const getIndicatorName=(intl,key)=>{
     return intl.formatMessage(messages.indicator_global_women_short)
   }
   if(key== 'indicator.global.food.short'){
-    return intl.formatMessage(messages.indicator_global_food.short)
+    return intl.formatMessage(messages.indicator_global_food_short)
   }
   if(key== 'indicator.global.aoi.short'){
-    return intl.formatMessage(messages.indicator_global_aoi.short)
+    return intl.formatMessage(messages.indicator_global_aoi_short)
   }
 }
 
@@ -44,10 +45,6 @@ class GlobalNumbers extends Component {
       }
 
   }
-
-
-
-
 
    render(){
        const {intl,error}=this.props
@@ -65,7 +62,7 @@ class GlobalNumbers extends Component {
                 </div>
                 <div className="indicator description">
                   <div className="indicator logo"><Image src={n.image}></Image></div>
-                  <div className="indicator name"><FormattedMessage id={n.key} defaultMessage={n.text}/></div>
+                  <div className="indicator name">{getIndicatorName(intl,n.key)}</div>
                 </div>
               </Grid.Column>))
             }
