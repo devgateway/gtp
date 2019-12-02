@@ -176,19 +176,20 @@ public final class ExcelFieldService {
      */
     public static String getFieldName(final Class clazz, final Field field, final TranslateService translateService) {
         final ExcelExport excelExport = field.getAnnotation(ExcelExport.class);
-        String label = field.getName();
+        String label = null;
         if (excelExport != null) {
             if (excelExport.useTranslation()) {
                 label = translateService.getTranslation(clazz, field);
-            }
+            } else
             if (!excelExport.name().isEmpty()) {
                 if (StringUtils.isEmpty(label)) {
-                    return excelExport.name();
+                    label = excelExport.name();
                 } else {
-                    return excelExport.name() + " - " + label;
+                    label = excelExport.name() + " - " + label;
                 }
-
             }
+        } else {
+            label = field.getName();
         }
 
         return label;

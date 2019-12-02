@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller.export;
 
 import org.apache.commons.lang3.StringUtils;
+import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
 import org.devgateway.toolkit.persistence.dto.ExcelFilterDTO;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterPagingRequest;
@@ -28,7 +29,7 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
             "Kilomètres moyens minimum", "Maximum moyen kilogrammes", "Aucun", "Filtres utilisés: "};
     public static final String FRENCH_LANG = "fr";
 
-    private Set<Category> region;
+    private Set<Region> region;
 
     private Set<Category> crop;
 
@@ -136,7 +137,8 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
         filters = filtersToString();
     }
 
-    public ExcelFilterHelper(PovertyFilterPagingRequest req, Map<Integer, Category> categories) {
+    public ExcelFilterHelper(PovertyFilterPagingRequest req, Map<Integer, Category> categories,
+                             Map<Integer, Region> regions) {
         lang = req.getLang();
         year = req.getYear();
         minAge = req.getMinAge();
@@ -147,7 +149,7 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
             crop = req.getCrop().stream().map(x -> categories.get(x)).collect(Collectors.toSet());
         }
         if (req.getRegion() != null) {
-            crop = req.getRegion().stream().map(x -> categories.get(x)).collect(Collectors.toSet());
+            region = req.getRegion().stream().map(x -> regions.get(x)).collect(Collectors.toSet());
         }
         if (req.getPovertyLevel() != null) {
             povertyLevel = req.getPovertyLevel().stream().map(x -> categories.get(x)).collect(Collectors.toSet());
@@ -232,11 +234,11 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
         return EMPTY_STRING;
     }
 
-    public Set<Category> getRegion() {
+    public Set<Region> getRegion() {
         return region;
     }
 
-    public void setRegion(Set<Category> region) {
+    public void setRegion(Set<Region> region) {
         this.region = region;
     }
 
