@@ -105,9 +105,9 @@ const TableWrapper =(props)=>{
       const configuration=marketPriceConfigurator(intl)
       const preparedData = mapFields(data, configuration.fields,configuration.extraFields, items.toJS())
       return (<div>
-
+  <div className="analytic table">
           <Table data={preparedData} config={configuration}></Table>
-
+  </div>
       </div>)
   }
   return null;
