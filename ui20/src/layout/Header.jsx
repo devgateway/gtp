@@ -21,7 +21,8 @@ const AnalystDropdown = withRouter(injectIntl((props) => (
 
   <Dropdown text={<FormattedMessage id="home.header.menu.analysis" defaultMessage={"Analysis"} values={""}/>}>
     <Dropdown.Menu>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/indicators`)} text={<FormattedMessage id="home.header.menu.microdata" defaultMessage={"Microdata"} values={""}/>}/>
+    <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/indicators`)} text={<FormattedMessage id="home.header.menu.indicators" defaultMessage={"Indicators"} values={""}/>}/>
+      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/microdata`)} text={<FormattedMessage id="home.header.menu.microdata" defaultMessage={"Microdata"} values={""}/>}/>
       <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/production`)} text={<FormattedMessage id="home.header.menu.production" defaultMessage={"Production"} values={""}/>}/>
       <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/consumption`)} text={<FormattedMessage id="home.header.menu.consumption" defaultMessage={"Consumption"} values={""}/>} />
       <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/marketPrice`)} text={<FormattedMessage id="home.header.menu.market" defaultMessage={"Market"} values={""}/>} />

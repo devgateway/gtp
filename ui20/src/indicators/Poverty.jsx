@@ -36,7 +36,7 @@ const PovertyFitlers=injectIntl((props)=>{
     </div>
     <div className="filter item">
       <CustomFilterDropDown options={items2options(activities,intl)} onChange={s => {onChange(['filters', 'poverty', 'activity'], s,['POVERTY'])}}
-       selected={activitySelection} text={<FormattedMessage id = "indicators.filter.activity" defaultMessage = "Profesional Activity" > </FormattedMessage>} />
+       selected={activitySelection} text={<FormattedMessage id = "indicators.filter.activity" defaultMessage = "Professional Activity" > </FormattedMessage>} />
     </div>
     <div className="filter item">
       {<RangeSlider onChange={s => {

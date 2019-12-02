@@ -25,7 +25,7 @@ const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChan
       <div className="filter nav separator"></div>
       <div className="filter nav item">
         <CustomFilterDropDown onChange={s=>onChange('year',s)}  selected={globalFilters&&globalFilters.get('year')?globalFilters.get('year').toJS():[]}
-        text={<FormattedMessage id = "indicators.filter.year" defaultMessage = "Campain/Years" > </FormattedMessage>}
+        text={<FormattedMessage id = "indicators.filter.year" defaultMessage = "Campaign/Years" > </FormattedMessage>}
         options={items2options(years,intl)}></CustomFilterDropDown>
       </div>
         <div className="filter nav separator"></div>
