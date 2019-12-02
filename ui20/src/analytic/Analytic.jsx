@@ -137,7 +137,7 @@ class Analytic extends Component{
     <div className="analytic container">
       <div className="analytic title">
         <p>
-          <FormattedMessage id=" analytic.title" defaultMessage="Analysis and Visual Tools."></FormattedMessage>
+          <FormattedMessage id="analytic.title.page" defaultMessage="Analysis and Visual Tools."></FormattedMessage>
         </p>
       </div>
 
@@ -154,7 +154,7 @@ class Analytic extends Component{
 
       <div className="analytic table description">
         <p>
-          <FormattedMessage id="analytic table description" defaultMessage="A pivot table is a table of statistics that summarizes the data of a more extensive table"></FormattedMessage>
+          <FormattedMessage id="analytic.table.description" defaultMessage="A pivot table is a table of statistics that summarizes the data of a more extensive table"></FormattedMessage>
         </p>
         <div className="indicator chart icon download xls"></div>
         <div className="indicator chart icon download png"></div>
