@@ -3,8 +3,8 @@
 #anchor\.indicator\.global\.population\.short {
   .indicator.chart.title.poverty::before {
     content: '';
-    width: 47px;
-    height: 47px;
+    width: 48px;
+    height: 48px;
     float: left;
     margin-right: 17px;
     margin-left: 0;
@@ -17,28 +17,28 @@
   .ui.pointing.menu {
     .item:nth-child(1) {
       .icon {
-        background-image: url("/icon_bar_chart.png");
+        background-image: url("/icon_bar_char.svg");
         background-repeat: no-repeat;
       }
     }
 
     .item:nth-child(2) {
       .icon {
-        background-image: url("/icon_bar_chart.png");
+        background-image: url("/icon_bar_char.svg");
         background-repeat: no-repeat;
       }
     }
 
     .item:nth-child(3) {
       .icon {
-        background-image: url("/icon_line_chart.png");
+        background-image: url("/icon_line_char.svg");
         background-repeat: no-repeat;
       }
     }
 
     .item:nth-child(4) {
       .icon {
-        background-image: url("/icon_line_chart.png");
+        background-image: url("/icon_line_char.svg");
         background-repeat: no-repeat;
       }
     }

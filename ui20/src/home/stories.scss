@@ -16,7 +16,10 @@
     height: 440px;
     display: flex;
     flex-direction: column;
-
+    a{
+      text-decoration: none;
+      color: #FFF;
+    }
     .image-text {
       text-align: center;
       display: block;

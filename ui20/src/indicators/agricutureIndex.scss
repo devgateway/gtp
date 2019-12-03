@@ -4,8 +4,8 @@
 
       .indicator.chart.title.aoi::before {
       content: '';
-      width: 47px;
-      height: 47px;
+      width: 48px;
+      height: 48px;
       float: left;
       margin-right: 17px;
       margin-left: 5px;
@@ -18,14 +18,14 @@
     .ui.pointing.menu {
       .item:nth-child(1) {
         .icon {
-          background-image: url("/icon_bar_chart.png");
+          background-image: url("/icon_bar_char.svg");
           background-repeat: no-repeat;
         }
       }
 
       .item:nth-child(2) {
         .icon {
-          background-image: url("/icon_bar_chart.png");
+          background-image: url("/icon_bar_char.svg");
           background-repeat: no-repeat;
         }
       }

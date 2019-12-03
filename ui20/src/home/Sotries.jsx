@@ -14,8 +14,8 @@ const Image = (props) => {
 
     <div className="image" style={css}>
       <div className="image-text">
-        <div className="image-title">{props.title}</div>
-        <div className="image-sub-title">{props.subtitle}</div>
+        <div className="image-title"><a href={props.link} target="_blank"> {props.title}</a></div>
+        <div className="image-sub-title"><a href={props.link} target="_blank">{props.subtitle}</a></div>
       </div>
       <div className="mask"/>
 
@@ -61,21 +61,25 @@ const Stories = injectIntl((props) => {
     <div className="st-row">
       <div className="st-column st-column-6"><Image img={image_1}
         title={stories_title_1}
+        link={props.links[0].link}
         subtitle={stories_subtitle_1}/>
     </div>
       <div className="st-column st-column-4"><Image img={image_2}
 
         title={stories_title_2}
+        link={props.links[1].link}
         subtitle={stories_subtitle_2}/>
   </div>
     </div>
     <div className="st-row">
       <div className="st-column st-column-3"><Image img={image_3}
         title={stories_title_3}
+        link={props.links[2].link}
         subtitle={stories_subtitle_3}/>
   </div>
       <div className="st-column st-column-3"><Image img={image_4}
         title={stories_title_3}
+        link={props.links[3].link}
         subtitle={stories_subtitle_3}/>
   </div>
       <div className="st-column st-column-3"><Image img={image_5}

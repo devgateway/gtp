@@ -4,13 +4,13 @@
 
   .indicator.chart.title.food::before {
     content: '';
-    width: 47px;
-    height: 47px;
+    width: 48px;
+    height: 48px;
     float: left;
     margin-right: 17px;
     margin-left: 0;
     margin-top: 12px;
-    background-image: url("/sdg/2.svg");
+    background-image: url("/sdg/food_loss.svg");
     background-repeat: no-repeat;
     background-size: 48px 48px;
   }
@@ -18,14 +18,14 @@
   .ui.pointing.menu {
     .item:nth-child(1) {
       .icon {
-        background-image: url("/icon_bar_chart.png");
+        background-image: url("/icon_bar_char.svg");
         background-repeat: no-repeat;
       }
     }
 
     .item:nth-child(2) {
       .icon {
-        background-image: url("/icon_line_chart.png");
+        background-image: url("/icon_bar_char.svg");
         background-repeat: no-repeat;
       }
     }
