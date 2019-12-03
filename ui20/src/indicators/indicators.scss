@@ -169,8 +169,7 @@
 }
 
 .indicators.content.fixed {
-
-.no.data {
+  .no.data {
     margin: auto;
     width: 100%;
     text-align: center;
@@ -497,9 +496,10 @@
   .ui.pointing.menu {
     margin: 0;
     width: 100%;
-    border-radius: 0px;
+    border-radius: 0;
     border: 1px solid $border-color;
-    border-bottom: 0px;
+    border-bottom: 0;
+
     .item {
       line-height: 75px;
       text-align: center;
@@ -508,16 +508,15 @@
       font-size: 16px;
       color: #818181;
       text-align: center;
-      border-radius: 0px !important;
-
+      border-radius: 0 !important;
       height: 75px;
       cursor: pointer;
 
       .icon {
-        margin-left: -30px;
         display: block;
-        width: 20px;
-        height: 20PX;
+        width: 25px;
+        height: 25PX;
+        margin: 0 8px 0 -25px;
       }
     }
 
@@ -535,19 +534,19 @@
       .item {
         line-height: 40px;
         height: 40px;
-        border-bottom: 0px;
+        border-bottom: 0;
       }
     }
   }
 
-  .indicator.chart.container{
+  .indicator.chart.container {
     height: 880px!important;
-    border: 0px;
+    border: 0;
   }
 
   .chart.container {
     border: 1px solid $border-color;
-    border-top: 0px;
+    border-top: 0;
     width: 100%;
     height: 500px;
     font-size: 12px;
@@ -565,8 +564,7 @@
     font-size: 15px;
     display: flex;
     background-color: #f6faf5;
-
-      font-size: 18px;
+    font-size: 18px;
     color: #646464;
 
     p {
@@ -579,9 +577,10 @@
       float: left;
       padding-left: 0;
       margin-right: 10px;
-      margin-top: 5px;
       min-width: 40px;
       min-height: 80px;
+      display: flex;
+      align-items: center;
 
       img {
         width: 40px !important;
@@ -590,9 +589,29 @@
     }
 
     .indicator.name {
-      padding-top: 2px;
+      padding-top: 0;
       word-wrap: normal;
       font-size: 18px;
+      min-height: 80px;
+      display: flex;
+      height: auto !important;
+      align-items: center;
+    }
+  }
+
+  .indicator.global.numbers {
+    .indicator.description {
+      padding: 0;
+      background-color: #FFF!important;
+      border: 0px;
+      border-bottom: 1px solid $border-color;
+      border-top: 1px solid $border-color;
+      .logo {
+        margin-left: 19px;
+      }
+      .name{
+        font-size: 16px;
+      }
     }
   }
 
@@ -618,7 +637,7 @@
 
   .indicator.chart.filter {
     border: 1px solid $border-color;
-    border-top: 0px ;
+    border-top: 0;
     height: 80px;
     margin: 0;
     padding-top: 20px;
@@ -657,7 +676,8 @@
       margin-left: 0;
       min-width: 209px;
       max-width: 800px;
-      width:auto !important;
+      width: auto !important;
+
       .item {
         padding-left: 10px !important;
         font-size: 12px;

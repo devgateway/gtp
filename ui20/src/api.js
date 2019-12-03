@@ -193,7 +193,7 @@ export const getGlobalIndicators = (params) => {
 
         {
           value: data.foodLoss.data ? data.foodLoss.data.value : null,
-          image: '/sdg/2.svg',
+          image: '/sdg/food_loss.svg',
           text: 'Global Food Loss Ratio',
           key: 'indicator.global.food.short',
           year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
