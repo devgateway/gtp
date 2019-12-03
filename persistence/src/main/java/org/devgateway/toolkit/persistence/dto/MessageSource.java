@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dto;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 import java.nio.charset.StandardCharsets;
@@ -39,7 +40,7 @@ public final class MessageSource {
     }
 
     public String getMessage(String key, String locale) {
-        if (locale.equalsIgnoreCase(FR_LOCALE)) {
+        if (StringUtils.isNotBlank(locale) && locale.equalsIgnoreCase(FR_LOCALE)) {
             return messageSource.getMessage(key, null, Locale.FRANCE);
         }
         return messageSource.getMessage(key, null, null);

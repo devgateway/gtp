@@ -8,6 +8,18 @@ public class IndicatorFilterPagingRequest extends DefaultFilterPagingRequest {
 
     private Double maxPercentage;
 
+    private TreeSet<Integer> id;
+
+    private TreeSet<Integer> datasetId;
+
+    private TreeSet<Integer> region;
+
+    private TreeSet<Integer> year;
+
+    private TreeSet<Integer> gender;
+
+    private TreeSet<Integer> crop;
+
     private TreeSet<Integer> awGroup;
 
     private TreeSet<Integer> awGroupType;
@@ -41,6 +53,66 @@ public class IndicatorFilterPagingRequest extends DefaultFilterPagingRequest {
     private TreeSet<Integer> activity;
 
     private String lang;
+
+    @Override
+    public TreeSet<Integer> getRegion() {
+        return region;
+    }
+
+    @Override
+    public void setRegion(TreeSet<Integer> region) {
+        this.region = region;
+    }
+
+    @Override
+    public TreeSet<Integer> getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(TreeSet<Integer> id) {
+        this.id = id;
+    }
+
+    @Override
+    public TreeSet<Integer> getDatasetId() {
+        return datasetId;
+    }
+
+    @Override
+    public void setDatasetId(TreeSet<Integer> datasetId) {
+        this.datasetId = datasetId;
+    }
+
+    @Override
+    public TreeSet<Integer> getYear() {
+        return year;
+    }
+
+    @Override
+    public void setYear(TreeSet<Integer> year) {
+        this.year = year;
+    }
+
+    @Override
+    public TreeSet<Integer> getGender() {
+        return gender;
+    }
+
+    @Override
+    public void setGender(TreeSet<Integer> gender) {
+        this.gender = gender;
+    }
+
+    @Override
+    public TreeSet<Integer> getCrop() {
+        return crop;
+    }
+
+    @Override
+    public void setCrop(TreeSet<Integer> crop) {
+        this.crop = crop;
+    }
 
     public Double getMinPercentage() {
         return minPercentage;

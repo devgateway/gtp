@@ -2,12 +2,14 @@ package org.devgateway.toolkit.web.rest.controller.export;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.devgateway.toolkit.persistence.dao.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
 import org.devgateway.toolkit.persistence.dto.AgriculturalWomenDTO;
 import org.devgateway.toolkit.persistence.dto.AgricultureOrientationIndexDTO;
 import org.devgateway.toolkit.persistence.dto.ExcelFilterDTO;
 import org.devgateway.toolkit.persistence.dto.ExcelInfo;
 import org.devgateway.toolkit.persistence.dto.FoodLossDTO;
+import org.devgateway.toolkit.persistence.repository.RegionRepository;
 import org.devgateway.toolkit.persistence.service.IndicatorTranslateService;
 import org.devgateway.toolkit.persistence.dto.PovertyDTO;
 import org.devgateway.toolkit.persistence.excel.ExcelFile;
@@ -49,6 +51,7 @@ public class ExcelGenerator {
     public static final String POVERTY_INDICATOR = "Poverty Indicator";
 
     private static final Map<Integer, Category> CATEGORIES = new HashMap<>();
+    private static final Map<Integer, Region> REGIONS = new HashMap<>();
     public static final String EMPTY_STR = "";
     public static final int POVERTY_TYPE = 1;
     public static final int AG_WOMAN_TYPE = 2;
@@ -70,10 +73,13 @@ public class ExcelGenerator {
     @Autowired
     private IndicatorMetadataService indicatorMetadataService;
 
-    public ExcelGenerator(CategoryRepository categoryRepository) {
+    public ExcelGenerator(CategoryRepository categoryRepository, RegionRepository regionRepository) {
         categoryRepository.findAll().stream().forEach(cat -> {
             Category c = (Category) cat;
             CATEGORIES.put(c.getId().intValue(), c);
+        });
+        regionRepository.findAll().stream().forEach(reg -> {
+            REGIONS.put(reg.getId().intValue(), reg);
         });
     }
 
@@ -107,7 +113,7 @@ public class ExcelGenerator {
         PovertyFilterState filterState = new PovertyFilterState(request);
         List<PovertyDTO> aoi = povertyIndicatorService.findAll(filterState.getSpecification())
                 .stream().map(data -> new PovertyDTO(data, filters.getLang())).collect(Collectors.toList());
-        ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES);
+        ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES, REGIONS);
         IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(POVERTY_TYPE);
 
         String intro = EMPTY_STR;
