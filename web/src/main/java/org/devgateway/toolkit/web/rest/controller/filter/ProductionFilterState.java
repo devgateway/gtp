@@ -30,8 +30,8 @@ public class ProductionFilterState extends DataFilterState<Production> {
                 addRegionPredicates(root, cb, predicates);
                 addYearPredicates(root, cb, predicates);
                 addCropTypePredicates(root, cb, predicates);
-                addApprovedDatasets(root, cb, predicates);
             }
+            addApprovedDatasets(root, cb, predicates);
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }

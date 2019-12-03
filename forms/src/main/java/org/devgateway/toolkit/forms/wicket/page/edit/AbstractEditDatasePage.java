@@ -15,6 +15,7 @@ import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.persistence.dao.Data;
 import org.devgateway.toolkit.persistence.dao.Dataset;
 import org.devgateway.toolkit.persistence.service.ImportService;
+import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,9 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
 
     @SpringBean
     protected MarkupCacheService markupCacheService;
+
+    @SpringBean
+    private ReleaseCacheService cacheService;
 
     protected transient ImportService importer;
 
@@ -90,7 +94,7 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
                 } else {
                     markupCacheService.clearAllCaches();
                 }
-
+                cacheService.releaseCache();
                 redirect(target);
             }
 

@@ -41,8 +41,8 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
                 addMaxScorePredicate(root, cb, predicates);
                 addPovLevelPredicates(root, cb, predicates);
                 addProfActivityPredicates(root, cb, predicates);
-                addApprovedDatasets(root, cb, predicates);
             }
+            addApprovedDatasets(root, cb, predicates);
             query.orderBy(new OrderImpl(root.get(Data_.YEAR), true));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };

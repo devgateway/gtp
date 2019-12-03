@@ -39,8 +39,8 @@ public class FoodLossFilterState extends DataFilterState<FoodLossIndicator> {
                 addMaxPercentagePredicate(root, cb, predicates);
                 addMinKgPredicate(root, cb, predicates);
                 addMaxKgPredicate(root, cb, predicates);
-                addApprovedDatasets(root, cb, predicates);
             }
+            addApprovedDatasets(root, cb, predicates);
             query.orderBy(new OrderImpl(root.get(Data_.YEAR), true));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
