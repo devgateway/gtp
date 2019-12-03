@@ -1,14 +1,43 @@
 import messages from '../translations/messages'
 
-export const items2options = (items,intl) => {
 
-  return items ?
-  items.sort((c1, c2) => c1.id - c2.id).map(r => ({
-    'key': r.id,
-    'text':(intl.locale=='fr')?r.labelFr:r.label,
-    'value': r.id
-  })) :
-  []}
+const localeSort = (a, b, lan) => {
+
+  if (typeof(a.label) == 'number') {
+    return a.label - b.label
+  }
+
+  if (lan == 'en') {
+    debugger;
+    return a.label.localeCompare(b.label, 'en', {
+      sensitivity: 'base'
+    })
+  }
+  if (lan == 'fr') {
+    return a.labelFr.localeCompare(b.labelFr, 'en', {
+      sensitivity: 'base'
+    })
+  }
+
+}
+
+export const items2options = (items, intl) => {
+
+  return items ? items.sort((c1, c2) => localeSort(c1, c2, intl.locale)).map(r => {
+
+      let text = (intl.locale == 'fr') ? r.labelFr : r.label;
+
+      if (typeof(r.label) == 'number') {
+        text = r.label
+      }
+
+      return {
+        'key': r.id,
+        'text': text,
+        'value': r.id
+      }
+    }) : []
+}
 
 
 
@@ -18,7 +47,7 @@ export const getPovertyRegionalYearly = (data = [], intl) => {
     fields = ['regionFr', 'povertyLevelFr']
   }
 
-  const tr_region=intl.formatMessage(messages.region)
+  const tr_region = intl.formatMessage(messages.region)
 
   const keys = Array.from(new Set(data.map(d => d.year)))
   const years = new Set(data.map(r => r.year))
@@ -28,7 +57,7 @@ export const getPovertyRegionalYearly = (data = [], intl) => {
   regions.forEach(r => {
     const record = {}
 
-    record[tr_region]=r
+    record[tr_region] = r
 
     years.forEach(y => {
       const toReduce = data.filter(d => d.year == y && d[fields[0]] == r && d.povertyLevel != 'Not poor')
@@ -52,14 +81,14 @@ export const getPovertyRegionalYearly = (data = [], intl) => {
 
 
 
-export const getPovertyRegionalStackedByPovertyLevel = (data,intl) => {
+export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
 
   let fields = ['region', 'povertyLevel']
   if (intl.locale == 'fr') {
     fields = ['regionFr', 'povertyLevelFr']
   }
 
-  const tr_region=intl.formatMessage(messages.region)
+  const tr_region = intl.formatMessage(messages.region)
 
 
 
@@ -73,7 +102,7 @@ export const getPovertyRegionalStackedByPovertyLevel = (data,intl) => {
 
   regions.forEach(r => {
     const record = {}
-    record[tr_region]=r
+    record[tr_region] = r
 
     mostRecent.filter(m => m[fields[0]] == r).forEach(p => {
       record[p[fields[1]]] = p.percentage * 100
@@ -144,12 +173,14 @@ export const getAverageProductionLossData = (data = [], valueField, intl) => {
 
   const mostRecent = data.filter(d => d.year == maxYear)
   crops.forEach(g => {
-  const r = {'Crop':g}
-     mostRecent.filter(d => d[fields[0]]== g)
-    .forEach(gd => {
-          const field=fields[1]
-      r[gd[field]] = gd[valueField]
-    });
+    const r = {
+      'Crop': g
+    }
+    mostRecent.filter(d => d[fields[0]] == g)
+      .forEach(gd => {
+        const field = fields[1]
+        r[gd[field]] = gd[valueField]
+      });
 
     barData.push(r)
   })
@@ -167,14 +198,14 @@ export const getAverageProductionLossData = (data = [], valueField, intl) => {
 
 
 
-export const getWomenDistributionByGroup = (data = [],intl) => {
+export const getWomenDistributionByGroup = (data = [], intl) => {
 
   let fields = ['groupType', 'gender']
   if (intl.locale == 'fr') {
     fields = ['groupTypeFr', 'genderFr']
   }
 
-  const tr_age=intl.formatMessage(messages.age)
+  const tr_age = intl.formatMessage(messages.age)
 
 
   const keys = Array.from(new Set(data.map(d => d[fields[0]])));
@@ -189,7 +220,7 @@ export const getWomenDistributionByGroup = (data = [],intl) => {
 
   groups.forEach(g => {
     const r = {}
-    r[tr_age]=g
+    r[tr_age] = g
 
     const value = mostRecent.filter(d => d[fields[0]] == g).forEach(gd => {
       r[gd[fields[1]]] = gd.percentage
@@ -209,7 +240,7 @@ export const getWomenDistributionByGroup = (data = [],intl) => {
 }
 
 
-export const getWomebHistoricalDistribution = (data = [],intl) => {
+export const getWomebHistoricalDistribution = (data = [], intl) => {
   let fields = ['groupType', 'gender']
   if (intl.locale == 'fr') {
     fields = ['groupTypeFr', 'genderFr']
@@ -223,10 +254,14 @@ export const getWomebHistoricalDistribution = (data = [],intl) => {
 
 
   groups.forEach((g) => {
-    const r2 = {'id': g,gender: 'Female',data: []}
+    const r2 = {
+      'id': g,
+      gender: 'Female',
+      data: []
+    }
 
-    years.sort(((y1,y2)=>y1-y2)).forEach((year) => {
-    const filtered = filteredData.filter(d => d.year == year && d[fields[0]] == g && d.gender == 'Female');
+    years.sort(((y1, y2) => y1 - y2)).forEach((year) => {
+      const filtered = filteredData.filter(d => d.year == year && d[fields[0]] == g && d.gender == 'Female');
       if (filtered.length > 0) {
         const value = filtered.reduce((a, b) => {
           return a + b.percentage;
@@ -249,7 +284,7 @@ export const getWomebHistoricalDistribution = (data = [],intl) => {
 
 
 
-export const getAOItotalBudget = (data,intl) => {
+export const getAOItotalBudget = (data, intl) => {
 
   let fields = ['indexType']
   if (intl.locale == 'fr') {
@@ -287,7 +322,7 @@ export const getAOItotalBudget = (data,intl) => {
 }
 
 
-export const getAOIsubsidies = (data,intl) => {
+export const getAOIsubsidies = (data, intl) => {
 
   let fields = ['indexType']
   if (intl.locale == 'fr') {
