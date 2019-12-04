@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
-import {updateGlobalFilter,updateFilter,reset,apply} from '../modules/Indicator'
+import {updateGlobalFilter,updateFilter,reset,apply, exportData} from '../modules/Indicator'
 import {Grid,Segment} from 'semantic-ui-react'
 
 import MainFilter from './MainFilter'
@@ -87,7 +87,8 @@ const mapActionCreators = {
   onChangeGlobalFilter: updateGlobalFilter,
   onChangeFilter:updateFilter,
   onReset:reset,
-  onApply:apply
+  onApply:apply,
+  onExport:exportData,
 };
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(Indicators));

@@ -3,11 +3,9 @@ package org.devgateway.toolkit.web.rest.controller.export;
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.web.rest.controller.filter.IndicatorFilterPagingRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -15,6 +13,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/data/indicator")
+@CrossOrigin
 public class ExcelExportController {
 
     @Autowired
@@ -89,11 +88,12 @@ public class ExcelExportController {
                                     final HttpServletResponse response) throws IOException {
         getResponse(filter, response, ExcelGenerator.Indicators.FOODLOSS);
     }
-
     private void getResponse(@Valid @RequestBody IndicatorFilterPagingRequest filter, HttpServletResponse response,
                              ExcelGenerator.Indicators sheet) throws IOException {
-        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment; filename=" + "excel-export.xlsx");
+         HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+        headers.setContentDispositionFormData("xcel-export.xlsx", "xcel-export.xlsx");
         response.getOutputStream().write(excelGenerator.getExcelDownload(filter, sheet));
+
     }
 }

@@ -13,7 +13,7 @@ const region2options = (regions) => regions
 <div className="icon download json"></div>
 
 */
-const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChange,onApply,onReset}) => {
+const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChange,onApply,onReset, onExport}) => {
 
 
 
@@ -50,8 +50,8 @@ const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChan
       </div>
       <div className="filter nav item download" >
 
-        <div className="icon download xls"></div>
-        <div className="icon download png"></div>
+        <div className="icon download xls" onClick={e=>onExport('ALL', 'XLS',intl.locale)}></div>
+        <div className="icon download png" onClick={e=>onExport('ALL', 'PNG',intl.locale)}></div>
 
       </div>
 

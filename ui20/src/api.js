@@ -9,9 +9,19 @@ const URL_POVERTY = API_ROOT + '/data/poverty/summary'
 const URL_AGRICULTURAL_POPULATION = API_ROOT + '/data/agriculturalWomen/summary/byAgeGroup'
 const URL_AGRICULTURAL_DISTRIBUTION = API_ROOT + '/data/agriculturalWomen/summary/byMethodOfEnforcement'
 const URL_FOOD_LOSS = API_ROOT + '/data/foodLoss/summary'
-const URL_AOI_SUBSIDIES=API_ROOT+'/data/agOrientation/summary/subsidies'
-const URL_AOI_TOTAL_BUDGET=API_ROOT+'/data/agOrientation/summary/totalBudget'
-const URL_RAPID_LINKS=API_ROOT+'/data/rapidLink/top5'
+const URL_AOI_SUBSIDIES = API_ROOT + '/data/agOrientation/summary/subsidies'
+const URL_AOI_TOTAL_BUDGET = API_ROOT + '/data/agOrientation/summary/totalBudget'
+const URL_RAPID_LINKS = API_ROOT + '/data/rapidLink/top5'
+
+const URL_EXPORT_XLS_ = API_ROOT + '/data/indicator/excelExport'
+
+/*
+  http://localhost:8080/data/indicator/excelExport
+  http://localhost:8080/data/indicator/excelExport/poverty
+  http://localhost:8080/data/indicator/excelExport/women
+  http://localhost:8080/data/indicator/excelExport/aoi
+  http://localhost:8080/data/indicator/excelExport/foodLoss
+*/
 
 function queryParams(params) {
   return Object.keys(params)
@@ -65,7 +75,7 @@ const get = (url) => {
   })
 }
 
-export const getRapidLinks=()=> {
+export const getRapidLinks = () => {
   return get(URL_RAPID_LINKS)
 }
 
@@ -74,7 +84,7 @@ export const getDataSet = (name) => {
 }
 
 export const getItems = (category, path, params) => {
-  return post(API_ROOT + itemsURLBuilder(category, path,), params.global)
+  return post(API_ROOT + itemsURLBuilder(category, path, ), params.global)
 }
 
 export const loadPovertyChartData = (params) => {
@@ -90,10 +100,41 @@ export const loadPovertyChartData = (params) => {
   })
 }
 
+
+export const exportIndicators = (what, format, lang, params) => {
+  debugger;
+  return new Promise((resolve, reject) => {
+    if (format == 'XLS') {
+      debugger;
+      post(URL_EXPORT_XLS_, {
+        ...params.global,
+        ...params.poverty,
+        ...params.women,
+        ...params.food,
+        ...params.aoi,
+        lang
+      }).then(response => response.blob()).then(blob => {
+        debugger;
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = "filename.xlsx";
+        document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
+        a.click();
+        a.remove(); //afterwards we remove the element again
+      }).catch(error => {
+        reject(error)
+      })
+    }
+
+  })
+}
+
+
 export const getAgricuturalDistribution = (params) => {
   return new Promise((resolve, reject) => {
-    const specificFilters=params.women;
-    specificFilters.ageGroup=[]
+    const specificFilters = params.women;
+    specificFilters.ageGroup = []
 
     post(URL_AGRICULTURAL_DISTRIBUTION, {
       ...params.global,
@@ -112,8 +153,8 @@ export const getAgricuturalDistribution = (params) => {
 
 export const getAgricuturalPopulation = (params) => {
   return new Promise((resolve, reject) => {
-    const specificFilters=params.women;
-    specificFilters.methodOfEnforcement=[]
+    const specificFilters = params.women;
+    specificFilters.methodOfEnforcement = []
     post(URL_AGRICULTURAL_POPULATION, {
       ...params.global,
       ...specificFilters
@@ -125,7 +166,7 @@ export const getAgricuturalPopulation = (params) => {
   })
 }
 
-export const getFoodLoss=(params)=>{
+export const getFoodLoss = (params) => {
   return new Promise((resolve, reject) => {
 
     post(URL_FOOD_LOSS, {
@@ -139,12 +180,12 @@ export const getFoodLoss=(params)=>{
   })
 }
 
-export const getAOIsubsidies=(params)=>{
+export const getAOIsubsidies = (params) => {
   return new Promise((resolve, reject) => {
 
     post(URL_AOI_SUBSIDIES, {
       ...params.global,
-      ...(params.aoi?params.aoi.subsidies:{})
+      ...(params.aoi ? params.aoi.subsidies : {})
     }).then((data) => {
       resolve(data)
     }).catch(error => {
@@ -154,12 +195,12 @@ export const getAOIsubsidies=(params)=>{
 }
 
 
-export const getAOItotalBudget=(params)=>{
+export const getAOItotalBudget = (params) => {
   return new Promise((resolve, reject) => {
 
     post(URL_AOI_TOTAL_BUDGET, {
       ...params.global,
-      ...(params.aoi?params.aoi.budget:{})
+      ...(params.aoi ? params.aoi.budget : {})
     }).then((data) => {
       resolve(data)
     }).catch(error => {
@@ -173,7 +214,7 @@ export const getGlobalIndicators = (params) => {
 
     post(URL_INDICATORS, params.global).then((data) => {
 
-      
+
 
       const mockData = [{
           value: data.poverty.data ? data.poverty.data.value : null,

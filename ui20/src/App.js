@@ -118,7 +118,7 @@ const MainRoutes = (props) => {
   <Switch>
 
       <Route path="/:lan/" component={IntlRoutesRouted}></Route>
-      <Redirect to="/en/home"></Redirect>
+      <Redirect to="/fr/home"></Redirect>
 
     </Switch>
 

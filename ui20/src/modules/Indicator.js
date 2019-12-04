@@ -1,38 +1,38 @@
 import * as api from '../api'
 import Immutable from 'immutable'
 
-const	LOAD_DEFAULT_FILTERS_DONE	=	'LOAD_DEFAULT_FILTERS_DONE'
-const	LOAD_DEFAULT_FILTERS_ERROR	=	'LOAD_DEFAULT_FILTERS_ERROR'
-const	LOAD_DEFAULT_POVERTY_FILTERS_DONE	=	'LOAD_DEFAULT_POVERTY_FILTERS_DONE'
-const	LOAD_DEFAULT_WOMEN_FILTERS_DONE	=	'LOAD_DEFAULT_WOMEN_FILTERS_DONE'
-const	LOAD_DEFAULT_FOOD_FILTERS_DONE	=	'LOAD_DEFAULT_FOOD_FILTERS_DONE'
-const	LOAD_DEFAULT_AOI_FILTERS_DONE	=	'LOAD_DEFAULT_AOI_FILTERS_DONE'
-const	APPLY_FILTER_FLAG_ON	=	'APPLY_FILTER_FLAG_ON'
-const	RESET_FILTER_FLAG_ON	=	'RESET_FILTER_FLAG_ON'
-const	LOAD_AGRICUTURAL_POPULATION_DATA_DONE	=	'LOAD_AGRICUTURAL_POPULATION_DATA_DONE'
-const	LOAD_AGRICUTURAL_POPULATION_DATA_ERROR	=	'LOAD_AGRICUTURAL_POPULATION_DATA_ERROR'
+const LOAD_DEFAULT_FILTERS_DONE = 'LOAD_DEFAULT_FILTERS_DONE'
+const LOAD_DEFAULT_FILTERS_ERROR = 'LOAD_DEFAULT_FILTERS_ERROR'
+const LOAD_DEFAULT_POVERTY_FILTERS_DONE = 'LOAD_DEFAULT_POVERTY_FILTERS_DONE'
+const LOAD_DEFAULT_WOMEN_FILTERS_DONE = 'LOAD_DEFAULT_WOMEN_FILTERS_DONE'
+const LOAD_DEFAULT_FOOD_FILTERS_DONE = 'LOAD_DEFAULT_FOOD_FILTERS_DONE'
+const LOAD_DEFAULT_AOI_FILTERS_DONE = 'LOAD_DEFAULT_AOI_FILTERS_DONE'
+const APPLY_FILTER_FLAG_ON = 'APPLY_FILTER_FLAG_ON'
+const RESET_FILTER_FLAG_ON = 'RESET_FILTER_FLAG_ON'
+const LOAD_AGRICUTURAL_POPULATION_DATA_DONE = 'LOAD_AGRICUTURAL_POPULATION_DATA_DONE'
+const LOAD_AGRICUTURAL_POPULATION_DATA_ERROR = 'LOAD_AGRICUTURAL_POPULATION_DATA_ERROR'
 
-const	LOAD_AGRICUTURAL_DISTRIBUTION_DATA_DONE	=	'LOAD_AGRICUTURAL_DISTRIBUTION_DATA_DONE'
-const	LOAD_AGRICUTURAL_DISTRIBUTION_DATA_ERROR	=	'LOAD_AGRICUTURAL_DISTRIBUTION_DATA_ERROR'
+const LOAD_AGRICUTURAL_DISTRIBUTION_DATA_DONE = 'LOAD_AGRICUTURAL_DISTRIBUTION_DATA_DONE'
+const LOAD_AGRICUTURAL_DISTRIBUTION_DATA_ERROR = 'LOAD_AGRICUTURAL_DISTRIBUTION_DATA_ERROR'
 
-const	LOAD_POVERTY_CHART_DATA_DONE	=	'LOAD_POVERTY_CHART_DATA_DONE'
-const	POVERTY_CHART_DATA_ERROR	=	'POVERTY_CHART_DATA_ERROR'
+const LOAD_POVERTY_CHART_DATA_DONE = 'LOAD_POVERTY_CHART_DATA_DONE'
+const POVERTY_CHART_DATA_ERROR = 'POVERTY_CHART_DATA_ERROR'
 
-const	LOAD_FOOD_LOSS_DATA_DONE	=	'LOAD_FOOD_LOSS_DATA_DONE'
-const	LOAD_FOOD_LOSS_ERROR	=	'LOAD_FOOD_LOSS_ERROR'
+const LOAD_FOOD_LOSS_DATA_DONE = 'LOAD_FOOD_LOSS_DATA_DONE'
+const LOAD_FOOD_LOSS_ERROR = 'LOAD_FOOD_LOSS_ERROR'
 
-const	CHANGE_GLOBAL_FILTER	=	'CHANGE_GLOBAL_FILTER'
-const	CHANGE_CHART_FILTER	=	'CHANGE_CHART_FILTER'
+const CHANGE_GLOBAL_FILTER = 'CHANGE_GLOBAL_FILTER'
+const CHANGE_CHART_FILTER = 'CHANGE_CHART_FILTER'
 
-const	LOAD_GLOBAL_INDICATORS_DONE	=	'LOAD_GLOBAL_INDICATORS_DONE'
-const	LOAD_GLOBAL_INDICATORS_ERROR	=	'LOAD_GLOBAL_INDICATORS_ERROR'
+const LOAD_GLOBAL_INDICATORS_DONE = 'LOAD_GLOBAL_INDICATORS_DONE'
+const LOAD_GLOBAL_INDICATORS_ERROR = 'LOAD_GLOBAL_INDICATORS_ERROR'
 
 
-const	LOAD_AOI_SUBSIDIES_DONE	=	'LOAD_AOI_SUBSIDIES_DONE'
-const	LOAD_AOI_SUBSIDIES_ERROR	=	'LOAD_AOI_SUBSIDIES_ERROR'
+const LOAD_AOI_SUBSIDIES_DONE = 'LOAD_AOI_SUBSIDIES_DONE'
+const LOAD_AOI_SUBSIDIES_ERROR = 'LOAD_AOI_SUBSIDIES_ERROR'
 
-const	LOAD_AOI_TOTAL_BUDGET_DONE	=	'LOAD_AOI_TOTAL_BUDGET_DONE'
-const	LOAD_AOI_TOTAL_BUDGET_ERROR	=	'LOAD_AOI_TOTAL_BUDGET_ERROR'
+const LOAD_AOI_TOTAL_BUDGET_DONE = 'LOAD_AOI_TOTAL_BUDGET_DONE'
+const LOAD_AOI_TOTAL_BUDGET_ERROR = 'LOAD_AOI_TOTAL_BUDGET_ERROR'
 
 
 const initialState = Immutable.fromJS({
@@ -43,10 +43,22 @@ const initialState = Immutable.fromJS({
 Get default selected filters
 */
 
+export const exportData = (what, format,language) => (dispatch, getState)  => {
+  const filters = getState().getIn(['indicator', 'filters']).toJS()
+  debugger
+  api.exportIndicators(what, format, language, filters)
+}
+
 export const loadDefaultFilters = () => dispatch => {
   api.getDefaultIndicatorFilters().then(data => {
-    dispatch({type: LOAD_DEFAULT_FILTERS_DONE,data})
-  }).catch(error => dispatch({type: LOAD_DEFAULT_FILTERS_ERROR,error}))
+    dispatch({
+      type: LOAD_DEFAULT_FILTERS_DONE,
+      data
+    })
+  }).catch(error => dispatch({
+    type: LOAD_DEFAULT_FILTERS_ERROR,
+    error
+  }))
 }
 
 //Set here initial selected poverty filters if needed
@@ -102,7 +114,10 @@ export const loadDefaultFoodFilters = () => (dispatch, getState) => {
   console.log("loadDefaultFoodFilters")
   const lossType = getState().getIn(['data', 'items', 'lossType']).map(a => a.id);
   const foodFilters = Immutable.Map().setIn(['lossType'], Immutable.List())
-  dispatch({type: LOAD_DEFAULT_FOOD_FILTERS_DONE,foodFilters})
+  dispatch({
+    type: LOAD_DEFAULT_FOOD_FILTERS_DONE,
+    foodFilters
+  })
 }
 
 //Set here initial selected AOI  filters if needed
@@ -110,7 +125,7 @@ export const loadDefaultAOIFilters = () => (dispatch, getState) => {
   console.log("loadDefaultAOIFilters")
   const indexType1 = getState().getIn(['data', 'items', 'indexType/1']).map(a => a.id);
   const indexType2 = getState().getIn(['data', 'items', 'indexType/2']).map(a => a.id);
-  const aoiFilters = Immutable.Map().setIn(['budget','indexType'], Immutable.List()).setIn(['subsidies','indexType'], Immutable.List())
+  const aoiFilters = Immutable.Map().setIn(['budget', 'indexType'], Immutable.List()).setIn(['subsidies', 'indexType'], Immutable.List())
 
   dispatch({
     type: LOAD_DEFAULT_AOI_FILTERS_DONE,
@@ -147,9 +162,15 @@ export const loadAgricuturalPopulationData = () => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
   api.getAgricuturalPopulation(filters).then(data => {
 
-    dispatch({type: LOAD_AGRICUTURAL_POPULATION_DATA_DONE,data})
+    dispatch({
+      type: LOAD_AGRICUTURAL_POPULATION_DATA_DONE,
+      data
+    })
 
-  }).catch(error => dispatch({type: LOAD_AGRICUTURAL_POPULATION_DATA_ERROR,error}))
+  }).catch(error => dispatch({
+    type: LOAD_AGRICUTURAL_POPULATION_DATA_ERROR,
+    error
+  }))
 }
 
 //Agricutural Population Distribution by method and age
@@ -160,7 +181,10 @@ export const loadAgricuturalDistribution = () => (dispatch, getState) => {
       type: LOAD_AGRICUTURAL_DISTRIBUTION_DATA_DONE,
       data
     })
-  }).catch(error => dispatch({type: LOAD_AGRICUTURAL_DISTRIBUTION_DATA_ERROR,error}))
+  }).catch(error => dispatch({
+    type: LOAD_AGRICUTURAL_DISTRIBUTION_DATA_ERROR,
+    error
+  }))
 }
 
 //Proportion of population under poverty line
@@ -181,31 +205,47 @@ export const loadPovertyChartData = () => (dispatch, getState) => {
 export const loadFoodLossData = () => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
   api.getFoodLoss(filters).then(data => {
-    dispatch({type: LOAD_FOOD_LOSS_DATA_DONE,data})
+    dispatch({
+      type: LOAD_FOOD_LOSS_DATA_DONE,
+      data
+    })
 
-  }).catch(error => dispatch({type: LOAD_FOOD_LOSS_ERROR,error}))
+  }).catch(error => dispatch({
+    type: LOAD_FOOD_LOSS_ERROR,
+    error
+  }))
 }
 
 
-export const loadAOIsubsidies=()=>(dispatch, getState)=>{
+export const loadAOIsubsidies = () => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
   api.getAOIsubsidies(filters).then(data => {
 
-    dispatch({type: LOAD_AOI_SUBSIDIES_DONE,data})
+    dispatch({
+      type: LOAD_AOI_SUBSIDIES_DONE,
+      data
+    })
 
-  }).catch(error => dispatch({type: LOAD_AOI_SUBSIDIES_ERROR,error}))
+  }).catch(error => dispatch({
+    type: LOAD_AOI_SUBSIDIES_ERROR,
+    error
+  }))
 }
 
 
-export const loadAOItotalbudget=()=>(dispatch, getState)=>{
+export const loadAOItotalbudget = () => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
   api.getAOItotalBudget(filters).then(data => {
-    dispatch({type: LOAD_AOI_TOTAL_BUDGET_DONE,data})
+    dispatch({
+      type: LOAD_AOI_TOTAL_BUDGET_DONE,
+      data
+    })
 
-  }).catch(error => dispatch({type: LOAD_AOI_TOTAL_BUDGET_ERROR,error}))
+  }).catch(error => dispatch({
+    type: LOAD_AOI_TOTAL_BUDGET_ERROR,
+    error
+  }))
 }
-
-
 /*
 Update values at global filter level
 */
@@ -272,121 +312,172 @@ export const loadGlobalIndicators = () => (dispatch, getState) => {
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOAD_DEFAULT_FILTERS_DONE: {
-      const {category,data} = action
+      const {
+        category,
+        data
+      } = action
       return state.setIn(['filters', 'global'], Immutable.fromJS(data))
     }
 
     case CHANGE_GLOBAL_FILTER: {
-      const {name,selection} = action
+      const {
+        name,
+        selection
+      } = action
       return state.setIn(['filters', 'global', name], Immutable.fromJS(selection))
     }
 
     case LOAD_GLOBAL_INDICATORS_DONE: {
-      const {data} = action
+      const {
+        data
+      } = action
       return state.setIn(['globalNumbers', 'data'], Immutable.fromJS(data))
         .deleteIn(['globalNumbers', 'error'])
     }
 
     case LOAD_GLOBAL_INDICATORS_ERROR: {
-      const {error} = action
+      const {
+        error
+      } = action
       return state.setIn(['globalNumbers', 'data'], Immutable.fromJS([])).setIn(['globalNumbers', 'error'], error)
     }
 
     case CHANGE_CHART_FILTER: {
-      const {path,selection} = action
+      const {
+        path,
+        selection
+      } = action
       return state.setIn(path, Immutable.fromJS(selection))
     }
 
     case LOAD_DEFAULT_POVERTY_FILTERS_DONE: {
-      const {povertyFilters} = action
+      const {
+        povertyFilters
+      } = action
       return state.setIn(['filters', 'poverty'], povertyFilters)
     }
 
     case LOAD_DEFAULT_WOMEN_FILTERS_DONE: {
-      const {womenFilters} = action
+      const {
+        womenFilters
+      } = action
       return state.setIn(['filters', 'women'], womenFilters)
     }
 
     case LOAD_DEFAULT_FOOD_FILTERS_DONE: {
-      const {foodFilters} = action
+      const {
+        foodFilters
+      } = action
       return state.setIn(['filters', 'food'], foodFilters)
     }
     case LOAD_DEFAULT_AOI_FILTERS_DONE: {
-      const {aoiFilters} = action
+      const {
+        aoiFilters
+      } = action
       return state.setIn(['filters', 'aoi'], aoiFilters)
     }
 
     case LOAD_POVERTY_CHART_DATA_DONE: {
-      const {data} = action
+      const {
+        data
+      } = action
       return state.setIn(['poverty', 'data'], data)
     }
 
     case LOAD_AGRICUTURAL_POPULATION_DATA_DONE: {
-      const {data} = action
+      const {
+        data
+      } = action
       return state.setIn(['women', 'population', 'data'], data)
     }
     case LOAD_AGRICUTURAL_POPULATION_DATA_ERROR: {
-      const {error} = action
+      const {
+        error
+      } = action
       return state.setIn(['women', 'population', 'error'], error).setIn(['women', 'population', 'data'], null)
     }
 
     case LOAD_AGRICUTURAL_DISTRIBUTION_DATA_DONE: {
-      const {data} = action
+      const {
+        data
+      } = action
       return state.setIn(['women', 'distribution', 'data'], data)
     }
     case LOAD_AGRICUTURAL_DISTRIBUTION_DATA_ERROR: {
-      const {error} = action
+      const {
+        error
+      } = action
       return state.setIn(['women', 'distribution', 'error'], error).setIn(['women', 'distribution', 'data'], null)
     }
 
     case LOAD_FOOD_LOSS_DATA_DONE: {
-      const {data} = action
+      const {
+        data
+      } = action
       return state.setIn(['food', 'data'], data)
     }
 
     case LOAD_FOOD_LOSS_ERROR: {
-      const {error} = action
+      const {
+        error
+      } = action
       return state.setIn(['food', 'data', 'error'], error)
-      .setIn(['food', 'data'], null)
+        .setIn(['food', 'data'], null)
     }
     case LOAD_AOI_SUBSIDIES_DONE: {
-      const {data} = action
+      const {
+        data
+      } = action
 
-      return state.setIn(['aoi', 'data','subsidies'], data)
+      return state.setIn(['aoi', 'data', 'subsidies'], data)
     }
 
     case LOAD_AOI_SUBSIDIES_ERROR: {
-      const {error} = action
-      return state.setIn(['aoi', 'data','subsidies', 'error'], error)
-      .setIn(['food', 'data'], null)
+      const {
+        error
+      } = action
+      return state.setIn(['aoi', 'data', 'subsidies', 'error'], error)
+        .setIn(['food', 'data'], null)
     }
 
     case LOAD_AOI_TOTAL_BUDGET_DONE: {
-      const {data} = action
-      return state.setIn(['aoi', 'data','budget'], data)
+      const {
+        data
+      } = action
+      return state.setIn(['aoi', 'data', 'budget'], data)
     }
 
     case LOAD_AOI_TOTAL_BUDGET_ERROR: {
-      const {error} = action
-      return state.setIn(['aoi', 'data','budget', 'error'], error)
-      .setIn(['food', 'data'], null)
+      const {
+        error
+      } = action
+      return state.setIn(['aoi', 'data', 'budget', 'error'], error)
+        .setIn(['food', 'data'], null)
     }
 
     case APPLY_FILTER_FLAG_ON: {
-      const {data} = action
+      const {
+        data
+      } = action
       return state.setIn(['applyFlag'], true)
     }
     case 'APPLY_FILTER_FLAG_OFF': {
-      const {data} = action
+      const {
+        data
+      } = action
       return state.deleteIn(['applyFlag'])
     }
 
     case RESET_FILTER_FLAG_ON: {
-      const {data} = action
+      const {
+        data
+      } = action
       return state.setIn(['resetFlag'], true)
     }
     case 'RESET_FILTER_FLAG_OFF': {
-      const {data} = action
+      const {
+        data
+      } = action
       return state.deleteIn(['resetFlag'])
     }
 
