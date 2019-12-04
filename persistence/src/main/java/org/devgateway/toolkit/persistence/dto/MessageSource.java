@@ -40,9 +40,13 @@ public final class MessageSource {
     }
 
     public String getMessage(String key, String locale) {
-        if (StringUtils.isNotBlank(locale) && locale.equalsIgnoreCase(FR_LOCALE)) {
-            return messageSource.getMessage(key, null, Locale.FRANCE);
+        try {
+            if (StringUtils.isNotBlank(locale) && locale.equalsIgnoreCase(FR_LOCALE)) {
+                return messageSource.getMessage(key, null, Locale.FRANCE);
+            }
+            return messageSource.getMessage(key, null, null);
+        } catch (Exception noMessage) {
+            return key;
         }
-        return messageSource.getMessage(key, null, null);
     }
 }

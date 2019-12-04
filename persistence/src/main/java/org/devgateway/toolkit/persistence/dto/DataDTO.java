@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.Data;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
@@ -10,6 +11,7 @@ public class DataDTO {
 
     private Long id;
 
+    @JsonIgnore
     private String lang;
 
     @ExcelExport(useTranslation = true)

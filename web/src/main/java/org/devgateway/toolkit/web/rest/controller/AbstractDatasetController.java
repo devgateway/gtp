@@ -1,17 +1,22 @@
 package org.devgateway.toolkit.web.rest.controller;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.google.gson.FieldNamingStrategy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dto.DataDTO;
+import org.devgateway.toolkit.persistence.dto.MessageSource;
 import org.devgateway.toolkit.persistence.service.AbstractDatasetService;
 import org.devgateway.toolkit.web.rest.controller.filter.DefaultFilterPagingRequest;
 import org.devgateway.toolkit.web.util.JSONUtil;
@@ -23,6 +28,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -83,11 +89,25 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
     @CrossOrigin
     @ApiOperation(value = "Get csv data")
     @RequestMapping(value = "/summary/csv", method = POST, produces = "application/json")
-    public void getSummaryIndicatorCSV(@RequestBody(required = false) @Valid final S req,
+    public void getSummaryIndicatorCSVPost(@ModelAttribute @Valid final S req,
             final HttpServletResponse response) {
+        getSummaryWrapper(req, response);
+    }
+
+
+    @CrossOrigin
+    @ApiOperation(value = "Get csv data")
+    @RequestMapping(value = "/summary/csv", method = GET, produces = "application/json")
+    public void getSummaryIndicatorCSVGet(@ModelAttribute @Valid final S req,
+                                          final HttpServletResponse response) {
+        getSummaryWrapper(req, response);
+    }
+
+    private void getSummaryWrapper(S req, HttpServletResponse response) {
+        String lang = req != null ? req.getLang() : null;
         List<T> indicators = findBySpec(req);
-        List<R> dataList = indicators.stream().map(p -> getDTO(p, req.getLang())).collect(Collectors.toList());
-        createCSVResponse(dataList, response);
+        List<R> dataList = indicators.stream().map(p -> getDTO(p, lang)).collect(Collectors.toList());
+        createCSVResponse(dataList, lang, response);
     }
 
     /*private ResponseEntity.BodyBuilder getBodyBuilder(WebRequest webRequest) {
@@ -105,16 +125,30 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
         return responseBuilder;
     }*/
 
-    protected void createCSVResponse(final List data, final HttpServletResponse response) {
+    protected void createCSVResponse(final List data, final String lang, final HttpServletResponse response) {
         try {
-            Gson gson = new Gson();
+            Gson gson;
+            if (data != null && data.size() > 0) {
+                gson = new GsonBuilder()
+                        .setFieldNamingStrategy(new FieldNamingStrategy() {
+                            @Override
+                            public String translateName(Field field) {
+                                MessageSource source = MessageSource.forClass(data.get(0).getClass());
+                                return source.getMessage(field.getName(), lang);
+                            }
+                        })
+                        .create();
+            } else {
+                gson = new Gson();
+            }
             List<Map<String, String>> csvObj = JSONUtil.parseJson(gson.toJson(data));
 
             response.setContentType("text/csv");
             response.setHeader("Content-Disposition", "attachment; filename=\"data.csv\"");
+            response.setCharacterEncoding("Cp1252");
 
             OutputStream outputStream = response.getOutputStream();
-            outputStream.write(JSONUtil.getCSV(csvObj).getBytes());
+            outputStream.write(JSONUtil.getCSV(csvObj).getBytes("Cp1252"));
             outputStream.flush();
             outputStream.close();
         } catch (Exception e) {
