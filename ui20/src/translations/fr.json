@@ -103,7 +103,7 @@
 	"indicators.filter.index_type": "Type d'Indice",
 	"indicators.filter.losstype": "Type de Pertes",
 	"indicators.filter.regions": "Régions",
-	"indicators.filter.reset": "Tout Réinitialiser",
+	"indicators.filter.reset": "Réinitialiser",
 	"indicators.filter.slider.age": "Tranche d'âge",
 	"indicators.filter.slider.score": "Plage d'indices",
 	"indicators.filter.title": "Filtre Indicateur",

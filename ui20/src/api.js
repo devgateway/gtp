@@ -30,7 +30,7 @@ const xlsExportURLBuilder = (what) => {
       break;
   }
 
-  return `/data/indicator/excelExport/${subfix}`
+  return `${API_ROOT}/data/indicator/excelExport/${subfix}`
 }
 
 
@@ -51,7 +51,7 @@ const csvExportURLBuilder = (what) => {
       break;
   }
 
-  return `/data/${subfix}/summary/csv`
+  return `${API_ROOT}/data/${subfix}/summary/csv`
 }
 
 function queryParams(params) {
@@ -76,6 +76,7 @@ const post = (url, params, isBlob) => {
             reject(response)
           }
           if (isBlob) {
+
             resolve(response.blob())
           }
           response.json().then(function(data) {
@@ -134,11 +135,11 @@ export const loadPovertyChartData = (params) => {
 
 
 export const exportIndicators = (what, format, lang, params) => {
-
+debugger;
   return new Promise((resolve, reject) => {
 
     let url=''
-
+    let fileName=(what=='ALL'?'indicator':what)+(format=='XLS'?'.xls':'.csv')
 
     if (format == 'XLS') {
       url=xlsExportURLBuilder(what)
@@ -154,10 +155,12 @@ export const exportIndicators = (what, format, lang, params) => {
         ...params.aoi,
         lang
       }, true).then(blob => {
+
+        debugger;
         var url = window.URL.createObjectURL(blob);
         var a = document.createElement('a');
         a.href = url;
-        a.download = "filename.xlsx";
+        a.download = fileName.toLowerCase();
         document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
         a.click();
         a.remove(); //afterwards we remove the element again
