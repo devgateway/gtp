@@ -32,7 +32,7 @@ const  Filters=injectIntl(({intl,lossTypes,filters,onChange, options})=>{
 
 
 const ChartSection = injectIntl(( props)=>{
-  const {data=[]} = props
+  const {data=[], onExport, intl} = props
   const years = Array.from(new Set(data.map(r => r.year)))
   const maxYear=years.pop()
 
@@ -82,9 +82,10 @@ const ChartSection = injectIntl(( props)=>{
                 defaultMessage="By 2030, halve per capita global food waste at the retail and consumer levels and reduce food losses along production and supply chains, includi">
               </FormattedMessage>
             </p>
-            <div className="indicator chart icon download xls"></div>
+            <div className="indicator chart icon download xls" onClick={e=>onExport('FOOD', 'XLS',intl.locale)}></div>
             <div className="indicator chart icon download png"></div>
-            <div className="indicator chart icon download csv"></div>
+            <div className="indicator chart icon download csv" onClick={e=>onExport('FOOD', 'CSV',intl.locale)}></div>
+
           </div>
 
           <Tab menu={{ pointing: true }} panes={panes} />

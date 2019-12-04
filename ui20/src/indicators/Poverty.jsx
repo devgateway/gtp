@@ -61,7 +61,7 @@ const PovertyFitlers=injectIntl((props)=>{
 class Pooverty extends Component {
   render() {
 
-    const {data=[],intl} = this.props
+    const {data=[],intl, onExport} = this.props
     const years = Array.from(new Set(data.map(r => r.year)))
     const maxYear=years.pop()
 
@@ -96,9 +96,9 @@ class Pooverty extends Component {
         <p>
           <FormattedMessage id="indicators.chart.poverty.description" defaultMessage="Proportion of population below the international poverty line, by sex, age, employment status and geographical location (urban/rural)."></FormattedMessage>
         </p>
-        <div className="indicator chart icon download xls"></div>
+        <div className="indicator chart icon download xls" onClick={e=>onExport('POVERTY', 'XLS',intl.locale)}></div>
         <div className="indicator chart icon download png"></div>
-        <div className="indicator chart icon download csv"></div>
+        <div className="indicator chart icon download csv" onClick={e=>onExport('POVERTY', 'CSV',intl.locale)}></div>
       </div>
 
         <Tab key="poverty" menu={{ pointing: true }} panes={panes} />

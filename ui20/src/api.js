@@ -13,15 +13,46 @@ const URL_AOI_SUBSIDIES = API_ROOT + '/data/agOrientation/summary/subsidies'
 const URL_AOI_TOTAL_BUDGET = API_ROOT + '/data/agOrientation/summary/totalBudget'
 const URL_RAPID_LINKS = API_ROOT + '/data/rapidLink/top5'
 
-const URL_EXPORT_XLS_ = API_ROOT + '/data/indicator/excelExport'
+const xlsExportURLBuilder = (what) => {
+  let subfix = ''
+  switch (what) {
+    case 'POVERTY':
+      subfix = 'poverty'
+      break;
+    case 'WOMEN':
+      subfix = 'women'
+      break;
+    case 'FOOD':
+      subfix = 'foodLoss'
+      break;
+    case 'AOI':
+      subfix = 'aoi'
+      break;
+  }
 
-/*
-  http://localhost:8080/data/indicator/excelExport
-  http://localhost:8080/data/indicator/excelExport/poverty
-  http://localhost:8080/data/indicator/excelExport/women
-  http://localhost:8080/data/indicator/excelExport/aoi
-  http://localhost:8080/data/indicator/excelExport/foodLoss
-*/
+  return `/data/indicator/excelExport/${subfix}`
+}
+
+
+const csvExportURLBuilder = (what) => {
+  let subfix = ''
+  switch (what) {
+    case 'POVERTY':
+      subfix = 'poverty'
+      break;
+    case 'WOMEN':
+      subfix = 'women'
+      break;
+    case 'FOOD':
+      subfix = 'foodLoss'
+      break;
+    case 'AOI':
+      subfix = 'aoi'
+      break;
+  }
+
+  return `/data/${subfix}/summary/csv`
+}
 
 function queryParams(params) {
   return Object.keys(params)
@@ -29,7 +60,7 @@ function queryParams(params) {
     .join('&');
 }
 
-const post = (url, params) => {
+const post = (url, params, isBlob) => {
   return new Promise((resolve, reject) => {
     fetch(url, {
         headers: {
@@ -44,9 +75,10 @@ const post = (url, params) => {
           if (response.status !== 200) {
             reject(response)
           }
-
+          if (isBlob) {
+            resolve(response.blob())
+          }
           response.json().then(function(data) {
-
             resolve(data);
           }).catch(() => resolve(response.status));
         }
@@ -102,19 +134,26 @@ export const loadPovertyChartData = (params) => {
 
 
 export const exportIndicators = (what, format, lang, params) => {
-  debugger;
+
   return new Promise((resolve, reject) => {
+
+    let url=''
+
+
     if (format == 'XLS') {
-      debugger;
-      post(URL_EXPORT_XLS_, {
+      url=xlsExportURLBuilder(what)
+    } else if (format == 'CSV') {
+      url=csvExportURLBuilder(what)
+    }
+
+      post(url, {
         ...params.global,
         ...params.poverty,
         ...params.women,
         ...params.food,
         ...params.aoi,
         lang
-      }).then(response => response.blob()).then(blob => {
-        debugger;
+      }, true).then(blob => {
         var url = window.URL.createObjectURL(blob);
         var a = document.createElement('a');
         a.href = url;
@@ -125,7 +164,7 @@ export const exportIndicators = (what, format, lang, params) => {
       }).catch(error => {
         reject(error)
       })
-    }
+
 
   })
 }

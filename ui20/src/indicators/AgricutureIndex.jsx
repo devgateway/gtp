@@ -48,7 +48,7 @@ const  SubsidiesFilters=injectIntl(({intl,indexTypes2,filters,onChange, options}
 
 
 const ChartSection = injectIntl(( props)=>{
-
+  const {onExport, intl}=props
   const panes=[
       {
 
@@ -83,9 +83,10 @@ const ChartSection = injectIntl(( props)=>{
           <p>
             <FormattedMessage id="indicators.chart.aoi.description" defaultMessage="The agriculture orientation index for government expenditures"></FormattedMessage>
           </p>
-          <div className="indicator chart icon download xls"></div>
+          <div className="indicator chart icon download xls" onClick={e=>onExport('AOI', 'XLS',intl.locale)}></div>
           <div className="indicator chart icon download png"></div>
-          <div className="indicator chart icon download csv"></div>
+          <div className="indicator chart icon download csv" onClick={e=>onExport('AOI', 'CSV',intl.locale)}></div>
+
         </div>
 
           <Tab menu={{ pointing: true }} panes={panes} />

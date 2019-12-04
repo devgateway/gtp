@@ -48,7 +48,7 @@ const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,
 })
 
 const ChartSection = injectIntl((props)=>{
-  const {population=[]} = props
+  const {population=[], onExport, intl} = props
   const years = Array.from(new Set(population.map(r => r.year))).sort()
   const maxYear=years.pop()
     const byAgePanes=[
@@ -112,9 +112,9 @@ const ChartSection = injectIntl((props)=>{
           <p>
             <FormattedMessage id="indicators.chart.women.description" defaultMessage="Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex; and (b) share of women among owners or rights-bearers of agricultural land, by type of tenure."></FormattedMessage>
           </p>
-          <div className="indicator chart icon download xls"></div>
+          <div className="indicator chart icon download xls" onClick={e=>onExport('WOMEN', 'XLS',intl.locale)}></div>
           <div className="indicator chart icon download png"></div>
-          <div className="indicator chart icon download csv"></div>
+          <div className="indicator chart icon download csv" onClick={e=>onExport('WOMEN', 'CSV',intl.locale)}></div>
         </div>
           <Tab key="women" menu={{ pointing: true }} panes={panes} />
 
