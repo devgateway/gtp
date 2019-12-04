@@ -34,8 +34,8 @@ public class AOIFilterState extends DataFilterState<AgricultureOrientationIndexI
                 addDatasetIdPredicates(root, cb, predicates);
                 addYearPredicates(root, cb, predicates);
                 addIndexTypePredicates(root, cb, predicates);
-                addApprovedDatasets(root, cb, predicates);
             }
+            addApprovedDatasets(root, cb, predicates);
             query.orderBy(new OrderImpl(root.get(Data_.YEAR), true));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };

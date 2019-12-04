@@ -38,8 +38,8 @@ public class AgriculturalWomenFilterState extends DataFilterState<AgriculturalWo
                 addAwGroupTypePredicates(root, cb, predicates);
                 addMinPercentagePredicate(root, cb, predicates);
                 addMaxPercentagePredicate(root, cb, predicates);
-                addApprovedDatasets(root, cb, predicates);
             }
+            addApprovedDatasets(root, cb, predicates);
             query.orderBy(new OrderImpl(root.get(Data_.YEAR), true));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
