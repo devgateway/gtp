@@ -139,7 +139,7 @@ debugger;
   return new Promise((resolve, reject) => {
 
     let url=''
-    let fileName=(what=='ALL'?'indicator':what)+(format=='XLS'?'.xls':'.csv')
+    let fileName=(what=='ALL'?'indicator':what)+(format=='XLS'?'.xlsx':'.csv')
 
     if (format == 'XLS') {
       url=xlsExportURLBuilder(what)
