@@ -3,8 +3,6 @@ package org.devgateway.toolkit.web.rest.controller.export;
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.web.rest.controller.filter.IndicatorFilterPagingRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -88,12 +86,11 @@ public class ExcelExportController {
                                     final HttpServletResponse response) throws IOException {
         getResponse(filter, response, ExcelGenerator.Indicators.FOODLOSS);
     }
+
     private void getResponse(@Valid @RequestBody IndicatorFilterPagingRequest filter, HttpServletResponse response,
                              ExcelGenerator.Indicators sheet) throws IOException {
-         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        headers.setContentDispositionFormData("xcel-export.xlsx", "xcel-export.xlsx");
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=" + "excel-export.xlsx");
         response.getOutputStream().write(excelGenerator.getExcelDownload(filter, sheet));
-
     }
 }
