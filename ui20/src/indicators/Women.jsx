@@ -38,7 +38,7 @@ const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,
                </FormattedMessage>} />
             </div>
             <div className="filter item">
-              <OptionList disabled={!options.age} options={items2options(ageGroups,intl)}
+              <OptionList disabled={!options.age} options={items2options(ageGroups,intl).sort((a,b)=>a.key -b.key)}
                onChange={s => {onChange([ 'filters', 'women', 'ageGroup'], s,['WOMEN'])}}
                selected={ageSelection}
                text={<FormattedMessage id="indicators.filter.age_group" defaultMessage = "Age Group">

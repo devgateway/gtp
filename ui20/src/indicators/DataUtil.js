@@ -8,7 +8,7 @@ const localeSort = (a, b, lan) => {
   }
 
   if (lan == 'en') {
-    debugger;
+    
     return a.label.localeCompare(b.label, 'en', {
       sensitivity: 'base'
     })

@@ -23,7 +23,7 @@ const listener = (store) => {
   const isDataReady = (region && cropType && department && market)
 
   if (isDataReady) {
-    debugger;
+    
   }
   //this.props.onLoadData(this.props.dataset)
 

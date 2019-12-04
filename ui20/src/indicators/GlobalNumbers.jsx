@@ -20,7 +20,7 @@ import {connect} from 'react-redux';
 
 
 const getIndicatorName=(intl,key)=>{
-  debugger;
+  
   if(key== 'indicator.global.population.short'){
     return intl.formatMessage(messages.indicator_global_population_short)
   }

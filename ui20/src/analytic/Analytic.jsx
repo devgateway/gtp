@@ -57,7 +57,7 @@ const mapFields = (data, fields, extraFields, dataItems) => {
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
 class Table extends Component {
-  debugger;
+  
   constructor(props) {
     super(props);
     this.state = {}
@@ -89,7 +89,7 @@ const TableWrapper =(props)=>{
       </div>)
   }
   if(isDataReady && name=='consumption' && data){
-      debugger;
+      
       const configuration=consumptionConfigurator(intl)
       const preparedData = mapFields(data, configuration.fields,configuration.extraFields, items.toJS())
       return (<div>
@@ -101,7 +101,7 @@ const TableWrapper =(props)=>{
   }
 
   if(isDataReady && name=='marketPrice' && data){
-      debugger;
+      
       const configuration=marketPriceConfigurator(intl)
       const preparedData = mapFields(data, configuration.fields,configuration.extraFields, items.toJS())
       return (<div>

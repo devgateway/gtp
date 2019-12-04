@@ -173,7 +173,7 @@ export const getGlobalIndicators = (params) => {
 
     post(URL_INDICATORS, params.global).then((data) => {
 
-      debugger;
+      
 
       const mockData = [{
           value: data.poverty.data ? data.poverty.data.value : null,
