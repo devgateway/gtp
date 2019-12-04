@@ -78,13 +78,15 @@ const Stories = injectIntl((props) => {
         subtitle={stories_subtitle_3}/>
   </div>
       <div className="st-column st-column-3"><Image img={image_4}
-        title={stories_title_3}
+        title={stories_title_4}
         link={props.links[3].link}
-        subtitle={stories_subtitle_3}/>
+        subtitle={stories_subtitle_4}/>
   </div>
-      <div className="st-column st-column-3"><Image img={image_5}
-        title={stories_title_3}
-        subtitle={stories_subtitle_3}/>
+      <div className="st-column st-column-3">
+       <Image img={image_5}
+         link={props.links[4].link}
+        title={stories_title_5}
+        subtitle={stories_subtitle_5}/>
    </div>
     </div>
 
