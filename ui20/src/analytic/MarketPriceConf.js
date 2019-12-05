@@ -20,14 +20,14 @@ export const configurator = (int) => {
 
   return {
     "pivottable": {
-      "rows": [],
-      "cols": [crop_type],
+      "rows": [market],
+      "cols": [year],
       "vals": [whole_sale_buy_price],
       "hiddenAttributes": ["_market", "_cropType"],
-      "hiddenFromAggregators": [],
+      "hiddenFromAggregators": [date,year,market,crop_type],
       "hiddenFromDragDrop": [quantity, selling_price,retail_buying_price, whole_sale_buy_price],
       "aggregatorName": int.formatMessage(messages.average),
-      "rendererName": "Table Heatmap"
+      "rendererName": "Table"
     },
 
     "fields": {
