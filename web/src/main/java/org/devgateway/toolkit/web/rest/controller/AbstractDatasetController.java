@@ -89,6 +89,22 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
         return datasetService.findAll();
     }
 
+    @CrossOrigin
+    @ApiOperation(value = "Get csv data")
+    @RequestMapping(value = "/summary/json", method = POST, produces = "application/json")
+    public List<R> getSummaryIndicatorJsonPost(@ModelAttribute @Valid final S req,
+                                           final HttpServletResponse response) {
+        return getJsonWrapper(req, response);
+    }
+
+
+    @CrossOrigin
+    @ApiOperation(value = "Get csv data")
+    @RequestMapping(value = "/summary/json", method = GET, produces = "application/json")
+    public List<R> getSummaryIndicatorJsonGet(@ModelAttribute @Valid final S req,
+                                          final HttpServletResponse response) {
+        return getJsonWrapper(req, response);
+    }
 
     @CrossOrigin
     @ApiOperation(value = "Get csv data")
@@ -105,6 +121,12 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
     public void getSummaryIndicatorCSVGet(@ModelAttribute @Valid final S req,
                                           final HttpServletResponse response) {
         getSummaryWrapper(req, response);
+    }
+
+    private List<R> getJsonWrapper(S req, HttpServletResponse response) {
+        String lang = req != null ? req.getLang() : null;
+        List<T> indicators = findBySpec(req);
+        return indicators.stream().map(p -> getDTO(p, lang)).collect(Collectors.toList());
     }
 
     private void getSummaryWrapper(S req, HttpServletResponse response) {
