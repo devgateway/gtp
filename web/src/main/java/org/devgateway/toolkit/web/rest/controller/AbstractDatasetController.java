@@ -99,7 +99,7 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
 
 
     @CrossOrigin
-    @ApiOperation(value = "Get csv data")
+    @ApiOperation(value = "Get Json data")
     @RequestMapping(value = "/summary/json", method = GET, produces = "application/json")
     public List<R> getSummaryIndicatorJsonGet(@ModelAttribute @Valid final S req,
                                           final HttpServletResponse response) {
@@ -107,7 +107,7 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
     }
 
     @CrossOrigin
-    @ApiOperation(value = "Get csv data")
+    @ApiOperation(value = "Get Json data")
     @RequestMapping(value = "/summary/csv", method = POST, produces = "application/json")
     public void getSummaryIndicatorCSVPost(@ModelAttribute @Valid final S req,
             final HttpServletResponse response) {

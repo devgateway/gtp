@@ -73,9 +73,11 @@ public class ExcelGenerator {
     @Autowired
     private IndicatorMetadataService indicatorMetadataService;
 
+
     public ExcelGenerator(CategoryRepository categoryRepository, RegionRepository regionRepository) {
-        categoryRepository.findAll().stream().forEach(cat -> {
+        categoryRepository.findAllFetchingLocalizedLabels().stream().forEach(cat -> {
             Category c = (Category) cat;
+            c.getLocalizedLabels().size();
             CATEGORIES.put(c.getId().intValue(), c);
         });
         regionRepository.findAll().stream().forEach(reg -> {
