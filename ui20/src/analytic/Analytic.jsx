@@ -57,16 +57,17 @@ const mapFields = (data, fields, extraFields, dataItems) => {
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
 class Table extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {}
   }
 
   render() {
-    const {config, data} = this.props
-
-    return (<PivotTableUI data={data}  renderers={Object.assign({}, TableRenderers, PlotlyRenderers)} {...config.pivottable} onChange={s => this.setState(s)} {...this.state}></PivotTableUI>)
+    const {config, data,intl} = this.props
+    return (<PivotTableUI data={data}
+        aggregators={aggregators(intl)}
+        renderers={Object.assign({}, TableRenderers, PlotlyRenderers)} {...config.pivottable} onChange={s => this.setState(s)} {...this.state}></PivotTableUI>)
   }
 }
 
@@ -78,39 +79,33 @@ const TableWrapper =(props)=>{
 
 
   if(isDataReady && name=='production' && data){
-
       const configuration=productionConfigurator(intl)
       const preparedData = mapFields(data, configuration.fields,configuration.extraFields, items.toJS())
       return (<div>
         <div className="analytic table">
 
-          <Table data={preparedData} config={configuration}></Table>
+          <Table intl={intl} data={preparedData} config={configuration}></Table>
         </div>
       </div>)
   }
+
   if(isDataReady && name=='consumption' && data){
-      
+
       const configuration=consumptionConfigurator(intl)
       const preparedData = mapFields(data, configuration.fields,configuration.extraFields, items.toJS())
       return (<div>
         <div className="analytic table">
-
-          <Table data={preparedData} config={configuration}></Table>
+          <Table intl={intl} data={preparedData} config={configuration}></Table>
         </div>
       </div>)
   }
 
   if(isDataReady && name=='marketPrice' && data){
-      
-      const configuration=marketPriceConfigurator(intl)
+    const configuration=marketPriceConfigurator(intl)
       const preparedData = mapFields(data, configuration.fields,configuration.extraFields, items.toJS())
-      return (<div>
-  <div className="analytic table">
-          <Table data={preparedData} config={configuration}></Table>
-  </div>
-      </div>)
-  }
-  return null;
+      return (<div><div className="analytic table"><Table intl={intl} data={preparedData} config={configuration}></Table></div></div>)
+    }
+    return null;
 }
 
 

@@ -44,10 +44,10 @@ var frFmtPct = numberFormat({
 
 // default aggregators & renderers use US naming and number formatting
 export const aggregators = (int) => {
-
+  console.log(messages.count)
 
   let aggregators = {}
-
+  
   aggregators[int.formatMessage(messages.count)] = aggregatorTemplates.count(usFmtInt)
   aggregators[int.formatMessage(messages.count_unique_values)] = aggregatorTemplates.countUnique(usFmtInt)
   aggregators[int.formatMessage(messages.list_unique_values)] = aggregatorTemplates.listUnique(', ')
