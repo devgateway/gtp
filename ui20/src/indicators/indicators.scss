@@ -641,12 +641,20 @@
     }
   }
 
+
+
+
   .indicator.chart.icon.download {
     width: 30px;
     margin-left: 7px;
     height: 40px;
     background-repeat: no-repeat;
     float: right;
+  }
+
+
+  .download{
+    cursor: pointer;
   }
 
   .indicator.chart.icon.download.xls {
