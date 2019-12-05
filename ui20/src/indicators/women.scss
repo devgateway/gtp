@@ -2,6 +2,8 @@
 
 #anchor\.indicator\.global\.women\.short {
 
+  border: 1px solid red;
+
   .indicator.chart.title.women::before {
     content: '';
     width: 48px;
@@ -43,5 +45,13 @@
         background-repeat: no-repeat;
       }
     }
+  }
+
+  .dropdown.icon{
+    background-image: none !important;
+
+  }
+  .menu{
+    min-width: 100%;
   }
 }
