@@ -9,6 +9,7 @@ public class DataDTO {
 
     private static final String EMPTY = "";
 
+    @JsonIgnore
     private Long id;
 
     @JsonIgnore
