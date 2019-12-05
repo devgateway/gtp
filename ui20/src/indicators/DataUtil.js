@@ -8,7 +8,7 @@ const localeSort = (a, b, lan) => {
   }
 
   if (lan == 'en') {
-    
+
     return a.label.localeCompare(b.label, 'en', {
       sensitivity: 'base'
     })
@@ -67,12 +67,12 @@ export const getPovertyRegionalYearly = (data = [], intl) => {
 
     barData.push(record)
   })
-
+  debugger;
   return {
     'data': barData,
     'keys': keys,
     'groupMode': "grouped",
-    'indexBy': "Region",
+    'indexBy': tr_region,
     'colors': {
       scheme: 'red_yellow_blue'
     }
