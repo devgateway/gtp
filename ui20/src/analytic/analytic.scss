@@ -113,15 +113,14 @@
   .analytic.table.description {
     border: 1px solid #e6e7ec;
     display: flex;
-    padding: 0px;
-    padding-left: 20px;
+    padding: 0 0 0 20px;
     background-color: #f6faf5;
     height: 83px;
-    p{
+
+    p {
       line-height: 83px;
       color: #497423;
       font-size: 24px;
-
     }
   }
 
@@ -227,5 +226,35 @@
   .pvtTotal,
   .pvtTotalLabel {
     background-color: #ebf7e8;
+  }
+
+  .pvtFilterBox {
+    padding: 10px;
+    font-family: $font;
+    font-size: 18px;
+    input {
+      height: 30px;
+      border-radius: 0;
+      margin-bottom: 10px;
+    }
+
+    .pvtButton {
+      font-size: 11px;
+      background-color: #FFF;
+      border: 1px solid #e6e7ec;
+      border-radius: 4px;
+      color: #364833;
+      font-weight: bold;
+    }
+    a{
+      color:#000;
+    }
+    .pvtCheckContainer {
+      a {
+        background-color: inherit;
+        text-decoration: none;
+        text-transform: none;
+      }
+    }
   }
 }
