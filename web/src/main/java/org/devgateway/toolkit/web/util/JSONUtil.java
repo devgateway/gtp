@@ -13,12 +13,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author dbianco
@@ -202,7 +203,20 @@ public final class JSONUtil {
     }
 
     private static Set<String> collectHeaders(List<Map<String, String>> flatJson) {
-        Set<String> headers = new LinkedHashSet<String>();
+        Set<String> headers = new TreeSet<>(new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                if (!s1.equals(s2)) {
+                    if (s1.equalsIgnoreCase("year") || s1.equalsIgnoreCase("année")) {
+                        return -1;
+                    }
+                    if (s2.equalsIgnoreCase("year") || s2.equalsIgnoreCase("année")) {
+                        return 1;
+                    }
+                }
+                return s1.compareToIgnoreCase(s2);
+            }
+        });
 
         for (Map<String, String> map : flatJson) {
             headers.addAll(map.keySet());

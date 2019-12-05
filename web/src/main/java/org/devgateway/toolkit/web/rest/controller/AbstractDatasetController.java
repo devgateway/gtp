@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.FieldNamingStrategy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -55,6 +58,7 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
 
     protected abstract Specification<T> getSpecifications(S request);
     protected abstract R getDTO(T indicator, String lang);
+
 
     @CrossOrigin
     @ApiOperation(value = "Get validated data paginated")
@@ -137,6 +141,7 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
                                 return source.getMessage(field.getName(), lang);
                             }
                         })
+                        .setExclusionStrategies(new AnnotationExclusionStrategy())
                         .create();
             } else {
                 gson = new Gson();
@@ -153,6 +158,16 @@ public abstract class AbstractDatasetController<T extends AbstractAuditableEntit
             outputStream.close();
         } catch (Exception e) {
             LOGGER.error("Exception: " + e);
+        }
+    }
+
+    class AnnotationExclusionStrategy implements ExclusionStrategy {
+        public boolean shouldSkipClass(Class<?> clazz) {
+            return clazz.getAnnotation(JsonIgnore.class) != null;
+        }
+
+        public boolean shouldSkipField(FieldAttributes f) {
+            return f.getAnnotation(JsonIgnore.class) != null;
         }
     }
 }
