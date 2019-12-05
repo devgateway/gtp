@@ -6,16 +6,16 @@ import messages from '../translations/messages'
 import './links.scss'
 
 const PresnetedBy = (props) => {
-  return (<div className="home-presented-by">
+  return (<div className="home presented by">
     <div className="col_1">
-      <div className="presented-title">
+      <div className="presented title">
         <span><FormattedMessage id="home.presented.by" defaultMessage={"presented by"} values={""}/></span>
-        <div className="logo"/>
+        <div className="presented logo"/>
       </div>
-      <div className="presented-text"><FormattedMessage id="home.presented.text" defaultMessage={`The AgriData platform aims to bring science to the Senegalese agricultural sector by providing key support decision information to policymakers while empowering farmers and other relevant value chain actors.`} values={""}/></div>
+      <div className="presented text"><FormattedMessage id="home.presented.text" defaultMessage={`The AgriData platform aims to bring science to the Senegalese agricultural sector by providing key support decision information to policymakers while empowering farmers and other relevant value chain actors.`} values={""}/></div>
     </div>
     <div className="col_2">
-      <div className="presented-image"></div>
+      <div className="presented image"></div>
     </div>
 
   </div>)

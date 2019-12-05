@@ -4,15 +4,17 @@
   margin: 78px auto auto;
   width: $page-width;
   text-align: left;
-  .home-presented-by {
+
+  .home.presented.by {
     width: 1100px;
-    height: 400px;
+    height: 450px;
     margin: auto;
+
     .col_1 {
       float: left;
       width: 690px;
 
-      .presented-title {
+      .presented.title {
         font-size: 18px;
         font-weight: bolder;
         letter-spacing: -1px;
@@ -22,7 +24,7 @@
         line-height: 58px !important;
       }
 
-      .logo {
+      .presented.logo {
         float: right;
         background-image: url("/logo-ipar.png");
         width: 163px;
@@ -32,9 +34,9 @@
         background-repeat: no-repeat;
       }
 
-      .presented-text {
+      .presented.text {
         padding-top: 35px;
-        font-size: 32px;
+        font-size: 30px;
         line-height: 38px;
         color: #497423;
         margin-right: 57px;
@@ -45,7 +47,8 @@
     .col_2 {
       float: left;
       width: 163px;
-      .presented-image {
+
+      .presented.image {
         width: 386px;
         height: 380px;
         background-image: url("/image-screen.png");
@@ -53,33 +56,37 @@
     }
   }
 
-  .home-links-tabs{
+  .home-links-tabs {
     width: 1173px;
-    border-radius: 0px;
+    border-radius: 0;
     margin: auto;
-    .item.link::before{
+
+    .item.link::before {
       display: none;
     }
-    .item.link::after{
+
+    .item.link::after {
       display: none;
     }
-    .item.link:hover{
+
+    .item.link:hover {
       background-color: #FFF;
     }
-    .item.link.active:hover{
+
+    .item.link.active:hover {
       background-color: #497423;
     }
-    .item.link.active{
+
+    .item.link.active {
       background-color: #497423;
       color: #FFF!important;
       font-weight: bold;
     }
 
-    .item.link{
+    .item.link {
       align-items: center;
       justify-content: center;
-
-      border-radius: 0px;
+      border-radius: 0;
       width: 391px;
       height: 62px;
       line-height: 62px;
@@ -89,8 +96,9 @@
       border-left: 1px solid #6d8e50;
       border-right: 1px solid #6d8e50;
       border-top: 1px solid #6d8e50 !important;
-      border-bottom:  1px solid #6d8e50 !important;
+      border-bottom: 1px solid #6d8e50 !important;
       line-height: 62px;
+
       .icon {
         background-image: none;
         width: 31px;
@@ -100,9 +108,6 @@
         background-repeat: no-repeat;
         background-position: left center;
       }
-
-
-
     }
 
     .item.link.microdata {
@@ -141,10 +146,10 @@
       }
     }
 
-    .explanation{
+    .explanation {
       margin: auto;
       padding: 20px;
-        height: 206px;
+      height: 206px;
       font-size: 18px;
       line-height: 28px;
       color: #4c4c4c !important;
@@ -157,6 +162,7 @@
         margin-bottom: 83px;
         border-bottom: 2px solid #cbcbcb;
       }
+
       .source {
         padding-left: 40px;
         padding-top: 40px;
@@ -175,14 +181,7 @@
           background-repeat: no-repeat;
           float: left;
         }
-
+      }
     }
   }
-
-
-
-  }
-
-
-
 }
