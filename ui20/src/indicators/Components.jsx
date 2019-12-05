@@ -43,7 +43,7 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
 
 
   return (<Dropdown className={disabled?"disabled":""} fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
-      const keepOpen = !e || e.currentTarget.getAttribute("role") != 'listbox'
+      const keepOpen = !e || !e.currentTarget || e.currentTarget.getAttribute("role") != 'listbox'
       setOpen(!keepOpen)
     }}>
     <Dropdown.Menu>

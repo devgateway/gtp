@@ -22,24 +22,28 @@
   .filter.nav.item.title {
     font-size: 24px;
     padding-left: 75px;
+    margin-right: 10px;
     min-width: 240px;
   }
 
   .filter.nav.separator {
-    width: 12px;
+    width: 5px;
     margin-top: 8px;
   }
 
   .filter.nav.separator:before {
-    margin-left: 6px;
+    margin-left: 0;
   }
 
   .filter.nav.item {
+    height: 78px;
     font-size: 16px;
     font-weight: normal;
     float: left;
-    min-width: 210px;
+    margin-right: 10px;
+    margin-left: 8px;
     cursor: pointer;
+    min-width: 210px;
   }
 
   .filter.nav.btn {
@@ -48,6 +52,15 @@
     float: left;
     min-width: 90px!important;
     font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .filter.nav.item.download {
+    min-width: 100px;
+    cursor: pointer;
+    height: 79px;
+    float: right;
+    margin-right: 20px;
   }
 
   .filter.nav.download {
@@ -115,6 +128,7 @@
     .ui.fluid.dropdown {
       display: block;
       height: 79px;
+      margin-right: 10px;
     }
 
     .dropdown.icon {
@@ -128,15 +142,25 @@
     .visible {
       color: $color-green;
       background-color: #f6f6f6;
-      border: 1px solid $border-color;
+      border: 0 solid $border-color;
     }
   }
 
   .filter.options {
-    width: 300px;
     columns: 3;
-    color: #848484;
-    font-size: 12px;
+    max-height: 500px;
+    padding: 4px 20px;
+
+    .item {
+      height: 40px;
+      line-height: 40px;
+      padding: 0 0 0 0 !important;
+    }
+
+    .checkbox {
+      margin-top: 13px;
+    }
+    clear: both;
   }
 
   div.checkbox {
@@ -603,13 +627,15 @@
     .indicator.description {
       padding: 0;
       background-color: #FFF!important;
-      border: 0px;
+      border: 0;
       border-bottom: 1px solid $border-color;
       border-top: 1px solid $border-color;
+
       .logo {
         margin-left: 19px;
       }
-      .name{
+
+      .name {
         font-size: 16px;
       }
     }
