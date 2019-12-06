@@ -159,8 +159,8 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
 
     public String filtersToString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getLabels(0, year));
-        sb.append(getLabels(1, region));
+        sb.append(getNonCategoryLabels(0, year));
+        sb.append(getNonCategoryLabels(1, region));
         sb.append(getLabels(2, gender));
         sb.append(getLabels(3, indexType));
         sb.append(getLabels(4, crop));
@@ -224,9 +224,28 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
         return (" " + getLabel(labelIdx) + ": ");
     }
 
-    private String getLabels(int labelIdx, Set t) {
+    private String getNonCategoryLabels(int labelIdx, Set t) {
         if (t != null && !t.isEmpty()) {
             return (getFilterLabel(labelIdx) + t);
+        }
+        return EMPTY_STRING;
+    }
+
+    private String getLabels(int labelIdx, Set<Category> categories) {
+        if (categories != null && !categories.isEmpty()) {
+            StringBuffer sb = new StringBuffer("[");
+            for (Category c : categories) {
+                if (sb.length() > 1) {
+                    sb.append(", ");
+                }
+                if (FRENCH_LANG.equals(lang)) {
+                    sb.append(c.getLabel(lang));
+                } else {
+                    sb.append(c.getLabel());
+                }
+            }
+            sb.append("]");
+            return (getFilterLabel(labelIdx) + sb);
         }
         return EMPTY_STRING;
     }
