@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage,FormattedHTMLMessage} from 'react-intl';
 
 import './footer.scss';
 
@@ -30,14 +30,14 @@ const Footer = (props) => {
     </div>
     <div className="st-row">
       <div className="footer-text">
-        <FormattedMessage id="footer.text.address" defaultMessage={`
+        <FormattedHTMLMessage id="footer.text.address" defaultMessage={`
             1110 Vermont Ave NW  Suite 500
               Washington, DC, 20005 USA
               (at the Open Gov Hub) `} values={""}/>
       </div>
 
       <div className="footer-text">
-        <FormattedMessage id="footer.text.copy.right" defaultMessage={`Copyright 2016. Fundamedios
+        <FormattedHTMLMessage id="footer.text.copy.right" defaultMessage={`Copyright 2016. Fundamedios
 All Rights Reserved.
 Designed by Plastic
 Develloped by Plastic.`} values={""}/>
