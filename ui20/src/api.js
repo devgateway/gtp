@@ -135,7 +135,7 @@ export const loadPovertyChartData = (params) => {
 
 
 export const exportIndicators = (what, format, lang, params) => {
-debugger;
+
   return new Promise((resolve, reject) => {
 
     let url=''
@@ -156,7 +156,7 @@ debugger;
         lang
       }, true).then(blob => {
 
-        debugger;
+        
         var url = window.URL.createObjectURL(blob);
         var a = document.createElement('a');
         a.href = url;

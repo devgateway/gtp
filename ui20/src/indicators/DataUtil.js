@@ -67,7 +67,7 @@ export const getPovertyRegionalYearly = (data = [], intl) => {
 
     barData.push(record)
   })
-  debugger;
+
   return {
     'data': barData,
     'keys': keys,
@@ -312,6 +312,10 @@ export const getAOItotalBudget = (data, intl) => {
     })
   }
 
+  if (barData.length > 0 ){
+
+
+  }
 
   return {
     data: barData,

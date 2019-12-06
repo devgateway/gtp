@@ -50,17 +50,15 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
       <Dropdown.Header>
         <div>
 
-          <span className="all" onClick={e=>allNone(true)}>Select All</span>
+          <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicator.filters.select_all' defaultMessage="Select All"/></span>
           <span> | </span>
-          <span className="none" onClick={e=>allNone(false)}>Select None</span>
+          <span className="none" onClick={e=>allNone(false)}><FormattedMessage id='indicator.filters.select_none' defaultMessage="Select None"/></span>
         </div>
       </Dropdown.Header>
       <Dropdown.Divider/>
       <Dropdown.Menu scrolling="scrolling" className="filter options">
         {
-          options.map(o =>< Dropdown.Item onClick = {
-            e => updateSelection(o.key)
-          } > <div className={"checkbox " + (
+          options.map(o =>< Dropdown.Item onClick = {e => updateSelection(o.key)} > <div className={"checkbox " + (
               getChecked(o.key)
               ? "checked"
               : "")}/>

@@ -113,7 +113,7 @@ const messages = defineMessages({
   },
 
   indicator_poverty_chart_by_poor_no_poor_rencet_year: {
-    id: 'indicators.chart.poverty.by.poor.no.poor.rencet.year',
+    id: 'indicators.chart.poverty.by.poor.no.poor',
     defaultMessage: '% of poor vs no poor by region ({year}).',
     description: '% of poor vs no poor by region chart title'
   },
@@ -216,7 +216,7 @@ const messages = defineMessages({
 
   methodOfEnforcement: {
     id: 'data.field.enforcement_method',
-    defaultMessage: 'Enforcement Method',
+    defaultMessage: 'Method of Enforcement',
     description: 'Age data field'
   },
 

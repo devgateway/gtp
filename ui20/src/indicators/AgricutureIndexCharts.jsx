@@ -3,7 +3,11 @@ import {ResponsiveBar} from '@nivo/bar'
 import {ResponsiveLine} from '@nivo/line'
 import {injectIntl} from 'react-intl';
 import messages from '../translations/messages'
+
+
+
 export const BarChart = injectIntl(({data, intl,keys,indexBy,groupMode,colors}) => {
+
   return (
   <ResponsiveBar data={data} keys={keys} indexBy={indexBy}
     groupMode={groupMode}
