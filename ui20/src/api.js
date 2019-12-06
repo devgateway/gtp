@@ -41,13 +41,13 @@ const csvExportURLBuilder = (what) => {
       subfix = 'poverty'
       break;
     case 'WOMEN':
-      subfix = 'women'
+      subfix = 'agriculturalWomen'
       break;
     case 'FOOD':
       subfix = 'foodLoss'
       break;
     case 'AOI':
-      subfix = 'aoi'
+      subfix = 'agOrientation'
       break;
   }
 
