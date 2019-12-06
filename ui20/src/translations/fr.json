@@ -139,5 +139,9 @@
 	"table.aggregators.sum_as_fraction_of_total": "",
 	"table.aggregators.sum_over_sum": "",
 	"indicator.filters.select_all":"Tous",
-  "indicator.filters.select_none":"Aucun"
+  "indicator.filters.select_none":"Aucun",
+	"analytic.description.production":"Visualiser les statistiques de production annuelle. Différentes combinaisons peuvent être faites en affichant séparément ou en combinant les chiffres de la production avec ceux du rendement et/ou de la superficie ensemencée.",
+	"analytic.description.consumption":"L’objectif est de visualiser le niveau national de consommation de céréales. Qui peut être désagrégé au niveau régional et départemental.",
+	"analytic.description.market":"La page Marché présente l’évolution du prix des céréales. Les prix sont collectés dans les marchés ruraux situés dans les zones de production agricole."
+
 }

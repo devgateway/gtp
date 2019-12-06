@@ -136,26 +136,18 @@ class Analytic extends Component{
         </p>
       </div>
 
+
       <div className="analytic subtitle">
-          <p>{this.props.name=='production' && (<FormattedMessage id="analytic.title.production" defaultMessage="Production"/>)}</p>
+        <p>{this.props.name=='production' && (<FormattedMessage id="analytic.title.production" defaultMessage="Production"/>)}</p>
         <p>{this.props.name=='consumption' && (<FormattedMessage id="analytic.title.consumption" defaultMessage="Consumption"/>)}</p>
         <p>{this.props.name=='marketPrice' && (<FormattedMessage id="analytic.title.market" defaultMessage="Market"/>)}</p>
       </div>
       <div className="analytic description">
-        <p>
-        <FormattedMessage id="analytic.description" defaultMessage="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget mauris ut lectus laoreet volutpat. Sed dictum, sapien interdum finibus tristique, ex lectus varius leo, at tempor sapien odio sed dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget mauris ut lectus laoreet volutpat. Sed dictum, sapien interdum finibus tristique, ex lectus varius leo, at tempor sapien odio sed dolor."/>
-        </p>
-      </div>
+      <p>{this.props.name=='production' && (<FormattedMessage id="analytic.description.production" defaultMessage="Visualize the annual production statistics. Different combinations can be made by displaying separately or combining the production figures with the yield and / or seeded area."/>)}</p>
+      <p>{this.props.name=='consumption' && (<FormattedMessage id="analytic.description.consumption" defaultMessage="The objective is to visualize the national level of cereal consumption. Which can be disaggregated at regional and departmental level."/>)}</p>
+      <p>{this.props.name=='marketPrice' && (<FormattedMessage id="analytic.description.market" defaultMessage="The Market page shows the price evolution of cereals. Prices are collected in rural markets located in agricultural production areas."/>)}</p>
 
-      <div className="analytic table description">
-        <p>
-          <FormattedMessage id="analytic.table.description" defaultMessage="A pivot table is a table of statistics that summarizes the data of a more extensive table"></FormattedMessage>
-        </p>
-        <div className="indicator chart icon download xls"></div>
-        <div className="indicator chart icon download png"></div>
-        <div className="indicator chart icon download csv"></div>
       </div>
-
 
       <TableWrapper {...this.props}/>
       </div>
