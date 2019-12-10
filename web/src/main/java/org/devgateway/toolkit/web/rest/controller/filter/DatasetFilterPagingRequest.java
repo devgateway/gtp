@@ -1,12 +1,16 @@
 package org.devgateway.toolkit.web.rest.controller.filter;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.TreeSet;
 
 public class DatasetFilterPagingRequest extends GenericPagingRequest implements Serializable {
 
@@ -14,12 +18,13 @@ public class DatasetFilterPagingRequest extends GenericPagingRequest implements 
     private String text;
 
     @ApiModelProperty(value = "Filter by min date")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    private ZonedDateTime minDate;
+    private String minDate;
 
     @ApiModelProperty(value = "Filter by max date")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    private ZonedDateTime maxDate;
+    private String maxDate;
+
+    @ApiModelProperty(value = "Filter by organization")
+    private TreeSet<Integer> organization;
 
     public DatasetFilterPagingRequest() {
     }
@@ -32,19 +37,49 @@ public class DatasetFilterPagingRequest extends GenericPagingRequest implements 
         this.text = text;
     }
 
-    public ZonedDateTime getMinDate() {
+    public String getMinDate() {
         return minDate;
     }
 
-    public void setMinDate(ZonedDateTime minDate) {
+    public void setMinDate(String minDate) {
         this.minDate = minDate;
     }
 
-    public ZonedDateTime getMaxDate() {
+    public String getMaxDate() {
         return maxDate;
     }
 
-    public void setMaxDate(ZonedDateTime maxDate) {
+    public void setMaxDate(String maxDate) {
         this.maxDate = maxDate;
+    }
+
+    public ZonedDateTime getRealMinDate() {
+        return getRealDate(minDate);
+    }
+
+    public ZonedDateTime getRealMaxDate() {
+        return getRealDate(maxDate);
+    }
+
+    public TreeSet<Integer> getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(TreeSet<Integer> organization) {
+        this.organization = organization;
+    }
+
+    public ZonedDateTime getRealDate(String dateStr) {
+        //yyyy-MM-dd
+        if (StringUtils.isNotBlank(dateStr)) {
+            try {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = formatter.parse(dateStr);
+                return ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+            } catch (ParseException e) {
+                return null;
+            }
+        }
+        return null;
     }
 }

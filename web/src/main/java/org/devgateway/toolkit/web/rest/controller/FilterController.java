@@ -14,6 +14,7 @@ import org.devgateway.toolkit.persistence.dao.categories.IndexType;
 import org.devgateway.toolkit.persistence.dao.categories.LocationType;
 import org.devgateway.toolkit.persistence.dao.categories.LossType;
 import org.devgateway.toolkit.persistence.dao.categories.MethodOfEnforcement;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.dao.categories.PovertyLevel;
 import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
@@ -28,6 +29,7 @@ import org.devgateway.toolkit.persistence.service.category.LocationTypeService;
 import org.devgateway.toolkit.persistence.service.category.LossTypeService;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.service.category.MethodOfEnforcementService;
+import org.devgateway.toolkit.persistence.service.category.OrganizationService;
 import org.devgateway.toolkit.persistence.service.category.PovertyLevelService;
 import org.devgateway.toolkit.persistence.service.category.ProfessionalActivityService;
 import org.devgateway.toolkit.persistence.service.category.RegionService;
@@ -102,6 +104,16 @@ public class FilterController {
 
     @Autowired
     private PovertyLevelService povertyLevelService;
+
+    @Autowired
+    private OrganizationService organizationService;
+
+    @CrossOrigin
+    @ApiOperation(value = "Get organization information")
+    @RequestMapping(value = "/organization", method = {POST, GET})
+    public List<Organization> getAllOrganizations() {
+        return organizationService.findAll();
+    }
 
     @CrossOrigin
     @ApiOperation(value = "Get regions information")
