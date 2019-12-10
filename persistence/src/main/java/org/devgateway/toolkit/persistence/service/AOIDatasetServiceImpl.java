@@ -1,10 +1,15 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexDataset;
+import org.devgateway.toolkit.persistence.dao.Dataset;
+import org.devgateway.toolkit.persistence.dto.DatasetDTO;
 import org.devgateway.toolkit.persistence.repository.AOIDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,5 +33,10 @@ public class AOIDatasetServiceImpl extends BaseJpaServiceImpl<AgricultureOrienta
     @Override
     public AgricultureOrientationIndexDataset newInstance() {
         return new AgricultureOrientationIndexDataset();
+    }
+
+    @Override
+    public Page<DatasetDTO> findAllDTO(Specification<Dataset> spec, Pageable pageable) {
+        return null;
     }
 }

@@ -5,11 +5,13 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -42,6 +44,10 @@ public class Dataset extends AbstractAuditableEntity implements Serializable, La
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Person approvedBy;
+
+    @JsonIgnore
+    @Column(insertable = false, updatable = false)
+    private String dtype;
 
     @Override
     public String getLabel() {
@@ -131,5 +137,13 @@ public class Dataset extends AbstractAuditableEntity implements Serializable, La
     @Override
     public void setFiles(final Set<FileMetadata> fileMetadata) {
         this.fileMetadata = fileMetadata;
+    }
+
+    public String getDtype() {
+        return dtype;
+    }
+
+    public void setDtype(String dtype) {
+        this.dtype = dtype;
     }
 }

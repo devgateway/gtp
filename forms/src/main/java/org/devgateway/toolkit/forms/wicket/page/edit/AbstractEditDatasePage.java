@@ -47,6 +47,10 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
         name.required();
         editForm.add(name);
 
+        final TextFieldBootstrapFormComponent<String> source = new TextFieldBootstrapFormComponent<>("source");
+        source.required();
+        editForm.add(source);
+
         final CheckBoxPickerBootstrapFormComponent approved = new CheckBoxPickerBootstrapFormComponent("approved");
         if (!SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
                 .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {

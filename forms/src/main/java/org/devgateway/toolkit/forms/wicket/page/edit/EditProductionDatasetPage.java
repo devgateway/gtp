@@ -16,7 +16,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
-import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListProductionDatasetPage;
 import org.devgateway.toolkit.persistence.dao.ProductionDataset;
 import org.devgateway.toolkit.persistence.dao.Production;
@@ -52,15 +51,6 @@ public class EditProductionDatasetPage extends AbstractEditDatasePage<Production
         this.jpaService = service;
         this.listPageClass = ListProductionDatasetPage.class;
         this.importer = importService;
-    }
-
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
-
-        final TextFieldBootstrapFormComponent<String> source = new TextFieldBootstrapFormComponent<>("source");
-        source.required();
-        editForm.add(source);
     }
 
 }
