@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 public class AOIIndicatorImporter extends AbstractImportService<AgricultureOrientationIndexIndicator> {
 
     private static final Logger logger = LoggerFactory.getLogger(AOIIndicatorImporter.class);
+    public static final String INDEX_NAME = "Index Name";
 
     @Autowired
     private AOIIndicatorRepository repository;
@@ -59,8 +60,12 @@ public class AOIIndicatorImporter extends AbstractImportService<AgricultureOrien
                 if (row.getCell(0) != null) {
                     //Extract data
                     AgricultureOrientationIndexIndicator data = new AgricultureOrientationIndexIndicator();
-                    data.setIndexType((IndexType) getCategory(row.getCell(0), indexTypeMap, "Index Name"));
-                    data.setYear(ImportUtils.getDoubleFromCell(row.getCell(1)).intValue());
+                    data.setIndexType((IndexType) getCategory(row.getCell(0), indexTypeMap, INDEX_NAME));
+                    Double yearD = ImportUtils.getDoubleFromCell(row.getCell(1));
+                    if (yearD == null) {
+                        throw new Exception(YEAR_IS_MISSING);
+                    }
+                    data.setYear(yearD.intValue());
                     data.setBudgetedExpenditures(ImportUtils.getDoubleFromCell(row.getCell(2)));
                     data.setDisbursedExpenditures(ImportUtils.getDoubleFromCell(row.getCell(3)));
                     data.setSubsidies(ImportUtils.getDoubleFromCell(row.getCell(4)));

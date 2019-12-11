@@ -54,7 +54,8 @@ public final class ImportUtils {
 
     public static Double getDoubleFromCell(final Cell cell) {
         Double ret = null;
-        if (cell != null && cell.getCellType() == CellType.NUMERIC || cell.getCellType() == CellType.FORMULA) {
+        if ((cell != null && cell.getCellType() == CellType.NUMERIC)
+                || (cell != null && cell.getCellType() == CellType.FORMULA)) {
             ret = cell.getNumericCellValue();
         } else if (cell != null && cell.getCellType() == CellType.STRING) {
             ret = Double.valueOf(cell.getStringCellValue().replace(COMMA_VALUE, DOT_VALUE));
@@ -66,11 +67,11 @@ public final class ImportUtils {
         String ret = null;
         if (cell != null && cell.getCellType() == CellType.NUMERIC || cell.getCellType() == CellType.FORMULA) {
             String value = String.valueOf(cell.getNumericCellValue());
-            ret = value.endsWith(TRAILING_ZERO) ? value.replace(TRAILING_ZERO, "") : value;
+            ret = value.endsWith(TRAILING_ZERO) ? value.replace(TRAILING_ZERO, "").trim() : value.trim();
         } else if (cell != null && cell.getCellType() == CellType.STRING) {
-            ret = cell.getStringCellValue();
+            ret = cell.getStringCellValue().trim();
         }
-        return ret.trim();
+        return ret;
     }
 
     public static boolean getBooleanFromCell(final Cell cell) {

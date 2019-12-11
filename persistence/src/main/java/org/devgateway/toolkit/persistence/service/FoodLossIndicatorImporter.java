@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 public class FoodLossIndicatorImporter extends AbstractImportService<FoodLossIndicator> {
 
     private static final Logger logger = LoggerFactory.getLogger(FoodLossIndicatorImporter.class);
+    public static final String LOSS_TYPE = "Loss type";
 
     @Autowired
     private FoodLossIndicatorRepository repository;
@@ -71,9 +72,13 @@ public class FoodLossIndicatorImporter extends AbstractImportService<FoodLossInd
                 Row row = rowIterator.next();
                 //Extract data
                 FoodLossIndicator data = new FoodLossIndicator();
-                data.setYear(ImportUtils.getDoubleFromCell(row.getCell(0)).intValue());
-                data.setCropType((CropType) getCategory(row.getCell(1), cropTypes, "Crop"));
-                data.setLossType((LossType) getCategory(row.getCell(2), lossTypes, "Loss type"));
+                Double yearD = ImportUtils.getDoubleFromCell(row.getCell(0));
+                if (yearD == null) {
+                    throw new Exception(YEAR_IS_MISSING);
+                }
+                data.setYear(yearD.intValue());
+                data.setCropType((CropType) getCategory(row.getCell(1), cropTypes, CROP_TYPE));
+                data.setLossType((LossType) getCategory(row.getCell(2), lossTypes, LOSS_TYPE));
                 data.setAvgPercentage(ImportUtils.getDoubleFromCell(row.getCell(3)));
                 data.setAvgKilograms(ImportUtils.getDoubleFromCell(row.getCell(4)));
                 importResults.addDataInstance(data);

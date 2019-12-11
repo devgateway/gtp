@@ -71,6 +71,9 @@ public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
                     String marketName = ImportUtils.getStringFromCell(row.getCell(2));
                     data.setMarket(getMarket(departmentName, marketName));
                     LocalDate localDate = ImportUtils.getLocalDateFromCell(row.getCell(3));
+                    if (localDate == null) {
+                        throw new Exception(DATE_IS_MISSING);
+                    }
                     data.setDate(localDate);
                     data.setYear(localDate.getYear());
                     data.setCropType(getCropType(row.getCell(4)));

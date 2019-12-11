@@ -85,7 +85,11 @@ public class ConsumptionImporter extends AbstractImportService<Consumption> {
                 rowNumber++;
                 Row row = rowIterator.next();
                 //Extract data
-                Integer year = ImportUtils.getDoubleFromCell(row.getCell(0)).intValue();
+                Double yearD = ImportUtils.getDoubleFromCell(row.getCell(1));
+                if (yearD == null) {
+                    throw new Exception(YEAR_IS_MISSING);
+                }
+                Integer year = yearD.intValue();
                 String departmentName = ImportUtils.getStringFromCell(row.getCell(2));
                 Department department = getDepartment(departmentName);
                 int householdSize = ImportUtils.getDoubleFromCell(row.getCell(5)).intValue();
@@ -107,11 +111,11 @@ public class ConsumptionImporter extends AbstractImportService<Consumption> {
     }
 
     private void addData(Row row, Consumption data, String crop, Integer cropSubTypePos, int dailyPos, int weeklyPos) {
-        data.setCropType((CropType) getCategory(crop, cropTypes, "Crop type"));
+        data.setCropType((CropType) getCategory(crop, cropTypes, CROP_TYPE));
         if (cropSubTypePos != null) {
             String subType = ImportUtils.getStringFromCell(row.getCell(cropSubTypePos));
             if (StringUtils.isNotEmpty(subType)) {
-                data.setCropSubType((CropSubType) getCategory(subType, cropSubTypes, "Crop subtype"));
+                data.setCropSubType((CropSubType) getCategory(subType, cropSubTypes, CROP_SUBTYPE));
             }
         }
         data.setDailyConsumption(ImportUtils.getDoubleFromCell(row.getCell(dailyPos)));

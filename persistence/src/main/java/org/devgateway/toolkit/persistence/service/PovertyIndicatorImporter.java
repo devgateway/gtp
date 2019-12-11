@@ -101,7 +101,11 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
                     String regionName = ImportUtils.getStringFromCell(row.getCell(1));
                     Region region = getRegion(regionName);
                     PovertyIndicator data = new PovertyIndicator();
-                    data.setYear(ImportUtils.getDoubleFromCell(row.getCell(0)).intValue());
+                    Double yearD = ImportUtils.getDoubleFromCell(row.getCell(0));
+                    if (yearD == null) {
+                        throw new Exception(YEAR_IS_MISSING);
+                    }
+                    data.setYear(yearD.intValue());
                     data.setRegion(region);
                     data.setLocationType((LocationType) getCategory(row.getCell(2), locTypeMap, "Location Type"));
                     data.setGender((Gender) getCategory(row.getCell(3), genderMap, "Gender"));

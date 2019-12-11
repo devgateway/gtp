@@ -33,6 +33,9 @@ import org.springframework.stereotype.Service;
 public class AgriculturalWomenIndicatorImporter extends AbstractImportService<AgriculturalWomenIndicator> {
 
     private static final Logger logger = LoggerFactory.getLogger(AgriculturalWomenIndicatorImporter.class);
+    public static final String GENDER = "Gender";
+    public static final String GROUP_TYPE = "Group type";
+    public static final String GROUP_SUBTYPE = "Group subtype";
 
     @Autowired
     private AgriculturalWomenIndicatorRepository repository;
@@ -98,10 +101,14 @@ public class AgriculturalWomenIndicatorImporter extends AbstractImportService<Ag
                 Row row = rowIterator.next();
                 //Extract data
                 AgriculturalWomenIndicator data = new AgriculturalWomenIndicator();
-                data.setYear(ImportUtils.getDoubleFromCell(row.getCell(0)).intValue());
-                data.setGender((Gender) getCategory(row.getCell(1), genderMap, "Gender"));
-                data.setGroup((AgriculturalWomenGroup) getCategory(row.getCell(2), groupMap, "Group type"));
-                data.setGroupType(getCategory(row.getCell(3), groupTypeMap, "Group subtype"));
+                Double yearD = ImportUtils.getDoubleFromCell(row.getCell(0));
+                if (yearD == null) {
+                    throw new Exception(YEAR_IS_MISSING);
+                }
+                data.setYear(yearD.intValue());
+                data.setGender((Gender) getCategory(row.getCell(1), genderMap, GENDER));
+                data.setGroup((AgriculturalWomenGroup) getCategory(row.getCell(2), groupMap, GROUP_TYPE));
+                data.setGroupType(getCategory(row.getCell(3), groupTypeMap, GROUP_SUBTYPE));
                 data.setPercentage(ImportUtils.getDoubleFromCell(row.getCell(4)));
                 data.setUtilizationPercentage(ImportUtils.getDoubleFromCell(row.getCell(5)));
                 importResults.addDataInstance(data);

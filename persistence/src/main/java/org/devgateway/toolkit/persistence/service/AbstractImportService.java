@@ -23,6 +23,11 @@ import java.util.Map;
  */
 public abstract class AbstractImportService<T extends Data> implements ImportService {
 
+    public static final String YEAR_IS_MISSING = "Unknown Year";
+    public static final String DATE_IS_MISSING = "Unknown Date";
+    public static final String CROP_TYPE = "Crop type";
+    public static final String CROP_SUBTYPE = "Crop subtype";
+
     private static final Logger logger = LoggerFactory.getLogger(AbstractImportService.class);
 
     protected ImportResults<T> importResults;
