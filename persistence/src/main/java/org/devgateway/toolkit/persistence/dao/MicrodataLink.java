@@ -1,22 +1,20 @@
 package org.devgateway.toolkit.persistence.dao;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-public class MicrodataFileLink extends AbstractAuditableEntity implements Serializable {
+public class MicrodataLink extends AbstractAuditableEntity implements Serializable {
 
     private String title;
 
@@ -28,10 +26,9 @@ public class MicrodataFileLink extends AbstractAuditableEntity implements Serial
 
     private String link;
 
-    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<FileMetadata> fileMetadata;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Organization organization;
 
     public String getTitle() {
         return title;
@@ -73,12 +70,12 @@ public class MicrodataFileLink extends AbstractAuditableEntity implements Serial
         this.link = link;
     }
 
-    public Set<FileMetadata> getFileMetadata() {
-        return fileMetadata;
+    public Organization getOrganization() {
+        return organization;
     }
 
-    public void setFileMetadata(Set<FileMetadata> fileMetadata) {
-        this.fileMetadata = fileMetadata;
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 
     @Override
