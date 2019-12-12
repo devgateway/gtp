@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller.filter;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,10 +19,12 @@ public class DatasetFilterPagingRequest extends GenericPagingRequest implements 
     private String text;
 
     @ApiModelProperty(value = "Filter by min date")
-    private String minDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private Date minDate;
 
     @ApiModelProperty(value = "Filter by max date")
-    private String maxDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private Date maxDate;
 
     @ApiModelProperty(value = "Filter by organization")
     private TreeSet<Integer> organization;
@@ -40,19 +43,19 @@ public class DatasetFilterPagingRequest extends GenericPagingRequest implements 
         this.text = text;
     }
 
-    public String getMinDate() {
+    public Date getMinDate() {
         return minDate;
     }
 
-    public void setMinDate(String minDate) {
+    public void setMinDate(Date minDate) {
         this.minDate = minDate;
     }
 
-    public String getMaxDate() {
+    public Date getMaxDate() {
         return maxDate;
     }
 
-    public void setMaxDate(String maxDate) {
+    public void setMaxDate(Date maxDate) {
         this.maxDate = maxDate;
     }
 
@@ -72,16 +75,9 @@ public class DatasetFilterPagingRequest extends GenericPagingRequest implements 
         this.organization = organization;
     }
 
-    public ZonedDateTime getRealDate(String dateStr) {
-        //yyyy-MM-dd
-        if (StringUtils.isNotBlank(dateStr)) {
-            try {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = formatter.parse(dateStr);
-                return ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-            } catch (ParseException e) {
-                return null;
-            }
+    public ZonedDateTime getRealDate(Date date) {
+        if (date != null) {
+            return ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
         }
         return null;
     }
