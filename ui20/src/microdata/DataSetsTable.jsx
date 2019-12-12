@@ -47,7 +47,7 @@ class TableComponent extends Component {
     }
 
     componentDidMount(){
-      this.props.onLoadDatasets()
+      this.props.onLoadDatasets(this.props.intl.locale)
     }
 
     componentDidUpdate(prevProps) {
@@ -71,6 +71,7 @@ class TableComponent extends Component {
   render() {
 
     const {onChangeFilter, keyword, startDate, endDate, organizations=[], selectedOrganizations=[], intl, datasets={}, onPageChange  } = this.props
+    const locale=intl.locale
     let column = null
     let direction = null
     debugger;
@@ -79,15 +80,15 @@ class TableComponent extends Component {
             <div className="table filters">
                   <div className="title">Filters</div>
                   <div className="item"><TextInput text={intl.formatMessage({id:'filters.keyword.label', defaultMessage:"Keyword Search"}) }
-                  onChange={val=>onChangeFilter(['filters','datasets','text'],val)} name="keyword" value={keyword}/></div>
-                  <div className="item"><DateInput locale={intl.locale}  text={intl.formatMessage({ id:'filters.start_date.label', defaultMessage:"Start Date"})}
-                  onChange={val=>onChangeFilter(['filters','datasets','realMinDate'],val)} name="startDate" value={startDate}/></div>
+                  onChange={val=>onChangeFilter(['filters','datasets','text'],val,locale)} name="keyword" value={keyword}/></div>
+                  <div className="item"><DateInput locale={locale}  text={intl.formatMessage({ id:'filters.start_date.label', defaultMessage:"Start Date"})}
+                  onChange={val=>onChangeFilter(['filters','datasets','realMinDate'],val,locale)} name="startDate" value={startDate}/></div>
                   <div className="item">
-                  <DateInput locale={intl.locale}
+                  <DateInput locale={locale}
                   text={intl.formatMessage({ id:'filters.end_date.label', defaultMessage:"End Date"})}
-                  onChange={val=>onChangeFilter(['filters','datasets','realMaxDate'],val)} name="endDate" value={endDate}/></div>
+                  onChange={val=>onChangeFilter(['filters','datasets','realMaxDate'],val,locale)} name="endDate" value={endDate}/></div>
                   <div className="item"><CustomFilterDropDown  text={intl.formatMessage({id:'filters.organization.label', defaultMessage:"Organizations"})}  options={items2options(organizations,intl)}
-                  selected={selectedOrganizations} onChange={value => {onChangeFilter(['filters','datasets','organization'],value)}}/></div>
+                  selected={selectedOrganizations} onChange={value => {onChangeFilter(['filters','datasets','organization'],value,locale)}}/></div>
 
             </div>
           <Table sortable celled fixed>
@@ -129,7 +130,7 @@ class TableComponent extends Component {
                   activePage={this.state.activePage}
                   boundaryRange={this.state.boundaryRange}
                   onPageChange={(e, { activePage })=>{
-                    onChangeFilter(['filters','datasets','pageNumber'],activePage -1)
+                    onChangeFilter(['filters','datasets','pageNumber'],activePage -1,locale)
                   }}
                   size='mini'
                   siblingRange={this.state.siblingRange}

@@ -9,22 +9,23 @@ const LOAD_DATASET_ERROR = 'LOAD_DATASET_ERROR'
 
 const initialState = Immutable.Map()
 
-export const loadDatasets = () => (dispatch, getState) => {
+export const loadDatasets = (locale) => (dispatch, getState) => {
 
-  const filters= getState().getIn(['microdata','filters','datasets'])
+
+  const filters= getState().getIn(['microdata','filters','datasets']) || new Immutable.Map()
 
   dispatch({type: LOAD_DATASET})
-
-  api.getDatasets(filters?filters.toJS():{}).then((data) => {
+  debugger;
+  api.getDatasets(filters.set('lang',locale)).then((data) => {
     dispatch({type: LOAD_DATASET_DONE, data})
   }).catch(error => {
     dispatch({type: LOAD_DATASET_ERROR})
   })
 }
 
-export const changeFilter = (path, value) => (dispatch, getState) => {
+export const changeFilter = (path, value,locale) => (dispatch, getState) => {
   dispatch({type: CHANGE_TABLE_FILTER, path, value})
-  dispatch(loadDatasets());
+  dispatch(loadDatasets(locale));
 }
 
 export default(state = initialState, action) => {
