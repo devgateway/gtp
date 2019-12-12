@@ -9,12 +9,14 @@ import {
 import data from '../modules/Data';
 import analytic from '../modules/Analytic';
 import indicator from '../modules/Indicator'
+import microdata from '../modules/Microdata'
 
 const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
   data,
   analytic,
-  indicator
+  indicator,
+  microdata
 })
 
 

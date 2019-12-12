@@ -14,6 +14,7 @@ public class DatasetDTO {
 
     public static final String NOT_AVAILABLE = "N/A";
     public static final String LANG_FR = "fr";
+    private Long id;
     private String organization;
     private String title;
     private String description;
@@ -25,6 +26,7 @@ public class DatasetDTO {
     private String type;
 
     public DatasetDTO(final Dataset dataset) {
+        this.id = dataset.getId();
         this.title = dataset.getLabel();
         this.source = dataset.getSource();
         this.organization = dataset.getOrganization() != null ? dataset.getOrganization().getLabel() : NOT_AVAILABLE;
@@ -112,5 +114,13 @@ public class DatasetDTO {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

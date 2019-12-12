@@ -18,6 +18,8 @@ import Header from './layout/Header'
 import Footer from './layout/Footer'
 import Indicators from './indicators/Indicators'
 
+import Microdata from './microdata/Microdata'
+
 
 var areIntlLocalesSupported = require('intl-locales-supported');
 
@@ -51,7 +53,7 @@ class IntlRoutes extends Component {
     this.props.onLoadFilterData('locationType','filter')
     this.props.onLoadFilterData('lossType','filter')
     this.props.onLoadFilterData('methodOfEnforcement','filter')
-
+    this.props.onLoadFilterData('organization','filter')
 
   }
 
@@ -66,24 +68,30 @@ class IntlRoutes extends Component {
 
             <Route exact={true} path="/:lan/home" render={() => (<div>
                     <Header ></Header>
-                  <Home language={props.match.params.lan}></Home>
+                  <Home></Home>
               </div>)}/>
+
             <Route exact={true} path="/:lan/analytic/production" render={() => (<div>
                   <Header ></Header>
-                  <Analytic language={props.match.params.lan}></Analytic>
+                  <Analytic></Analytic>
               </div>)}/>
+
             <Route exact={true} path="/:lan/analytic/marketPrice" render={() => (<div>
                 <Header ></Header>
-                  <Analytic language={props.match.params.lan}></Analytic>
+                  <Analytic></Analytic>
               </div>)}/>
             <Route exact={true} path="/:lan/analytic/consumption" render={() => (<div>
                 <Header ></Header>
-                  <Analytic language={props.match.params.lan}></Analytic>
+                  <Analytic></Analytic>
               </div>)}/>
             <Route exact={true} path="/:lan/indicators" render={() => (<div>
                 <Header className="fix" ></Header>
                   <Indicators header={e=>this.divRef} language={props.match.params.lan}></Indicators>
               </div>)}/>
+              <Route exact={true} path="/:lan/microdata" render={() => (<div>
+                  <Header></Header>
+                  <Microdata></Microdata>
+                </div>)}/>
             <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
           </Switch>
 
