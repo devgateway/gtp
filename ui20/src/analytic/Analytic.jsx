@@ -132,7 +132,7 @@ class Analytic extends Component{
     <div className="analytic container">
       <div className="analytic title">
         <p>
-          <FormattedMessage id="analytic.title.page" defaultMessage="Analysis and Visual Tools."></FormattedMessage>
+          <FormattedMessage id="analytic.page.title" defaultMessage="Analysis and Visual Tools."></FormattedMessage>
         </p>
       </div>
 

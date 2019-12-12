@@ -2,6 +2,7 @@ import React, {Component, createRef, useState} from 'react'
 
 import {FormattedMessage} from 'react-intl';
 import Slider, {Range} from 'rc-slider';
+import DatePicker from "react-datepicker";
 
 import {
   Dropdown,
@@ -14,7 +15,26 @@ import {
 } from 'semantic-ui-react'
 
 
+import "react-datepicker/dist/react-datepicker.css";
+
+export const TextInput=({onChange, value, text})=>{
+    return (<input type="text" placeholder={text} onChange={e=>onChange(e.target.value)} value={value}/>)
+}
+
+
+export const DateInput=({onChange, value, text, locale})=>{
+  debugger;
+    return (<DatePicker
+            locale={locale}
+            placeholderText={text}
+            selected={value}
+            onChange={onChange}/>)
+}
+
+
+
 export const CustomFilterDropDown = ({options, selected, onChange, text, disabled}) => {
+
   const [open, setOpen] = useState(false);
   const breadcrum=(<div className="breadcrums">{text} {true?<span>({selected.length} of {options.length})</span>:null}</div>)
   const updateSelection = (key) => {

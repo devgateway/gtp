@@ -23,7 +23,7 @@ const localeSort = (a, b, lan) => {
 
 export const items2options = (items, intl) => {
 
-  return items ? items.sort((c1, c2) => localeSort(c1, c2, intl.locale)).map(r => {
+  return items && items.length > 0 ? items.sort((c1, c2) => localeSort(c1, c2, intl.locale)).map(r => {
 
       let text = (intl.locale == 'fr') ? r.labelFr : r.label;
 

@@ -12,6 +12,7 @@ const URL_FOOD_LOSS = API_ROOT + '/data/foodLoss/summary'
 const URL_AOI_SUBSIDIES = API_ROOT + '/data/agOrientation/summary/subsidies'
 const URL_AOI_TOTAL_BUDGET = API_ROOT + '/data/agOrientation/summary/totalBudget'
 const URL_RAPID_LINKS = API_ROOT + '/data/rapidLink/top5'
+const URL_DATA_SETS = API_ROOT + '/data/dataset/all'
 
 const xlsExportURLBuilder = (what) => {
   let subfix = ''
@@ -133,45 +134,43 @@ export const loadPovertyChartData = (params) => {
   })
 }
 
-
 export const exportIndicators = (what, format, lang, params) => {
 
   return new Promise((resolve, reject) => {
 
-    let url=''
-    let fileName=(what=='ALL'?'indicator':what)+(format=='XLS'?'.xlsx':'.csv')
+    let url = ''
+    let fileName = (what == 'ALL' ? 'indicator' : what) + (format == 'XLS' ? '.xlsx' : '.csv')
 
     if (format == 'XLS') {
-      url=xlsExportURLBuilder(what)
+      url = xlsExportURLBuilder(what)
     } else if (format == 'CSV') {
-      url=csvExportURLBuilder(what)
+      url = csvExportURLBuilder(what)
     }
 
-      post(url, {
-        ...params.global,
-        ...params.poverty,
-        ...params.women,
-        ...params.food,
-        ...params.aoi,
-        lang
-      }, true).then(blob => {
+    post(url, {
+      ...params.global,
+      ...params.poverty,
+      ...params.women,
+      ...params.food,
+      ...params.aoi,
+      lang
+    }, true).then(blob => {
 
-        
-        var url = window.URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = fileName.toLowerCase();
-        document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
-        a.click();
-        a.remove(); //afterwards we remove the element again
-      }).catch(error => {
-        reject(error)
-      })
+
+      var url = window.URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = fileName.toLowerCase();
+      document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
+      a.click();
+      a.remove(); //afterwards we remove the element again
+    }).catch(error => {
+      reject(error)
+    })
 
 
   })
 }
-
 
 export const getAgricuturalDistribution = (params) => {
   return new Promise((resolve, reject) => {
@@ -236,7 +235,6 @@ export const getAOIsubsidies = (params) => {
   })
 }
 
-
 export const getAOItotalBudget = (params) => {
   return new Promise((resolve, reject) => {
 
@@ -255,9 +253,6 @@ export const getGlobalIndicators = (params) => {
   return new Promise((resolve, reject) => {
 
     post(URL_INDICATORS, params.global).then((data) => {
-
-
-
       const mockData = [{
           value: data.poverty.data ? data.poverty.data.value : null,
           image: '/sdg/1.svg',
@@ -310,6 +305,18 @@ export const getDefaultIndicatorFilters = () => {
       year: [],
       region: [],
       crop: []
+    })
+  })
+}
+
+
+
+export const getDatasets = (params) => {
+  return new Promise((resolve, reject) => {
+    post(URL_DATA_SETS, params).then((data) => {
+      resolve(data)
+    }).catch(error => {
+      reject(error)
     })
   })
 }
