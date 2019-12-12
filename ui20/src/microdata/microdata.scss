@@ -1,0 +1,270 @@
+@import '../base.scss';
+
+.microdata {
+  font-family: $font;
+}
+
+.microdata.container {
+  margin: auto;
+  width: $page-width;
+
+  .microdata.title {
+    background-color: #FFF;
+    border-bottom: 2px solid $border-color;
+    height: 54px;
+    color: #73a745;
+    margin-top: 50px;
+    margin-bottom: 20px;
+
+    p {
+      font-size: 36px;
+      line-height: 36px;
+      float: left;
+      margin: 0;
+    }
+  }
+
+  .microdata.title::before {
+    content: '';
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-right: 17px;
+    margin-left: 0;
+    background-image: url("/icon_microdata.png");
+    background-repeat: no-repeat;
+    background-size: 32px 35px;
+  }
+
+  .microdata.focal.point.title::before {
+    display: none;
+  }
+
+  .microdata.subtitle {
+    margin-top: 20px;
+    background-color: #FFF;
+    height: 54px;
+
+    p {
+      font-size: 30px;
+      float: left;
+      margin: 0;
+      color: #73a745;
+    }
+  }
+
+  .microdata.description {
+    background-color: #FFF;
+    display: block;
+    height: 100px;
+
+    p {
+      font-size: 18px;
+      float: left;
+      margin: 0;
+      color: #646464;
+    }
+  }
+
+  div.table.filters {
+    padding-left: 17px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 0;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    height: 60px;
+    line-height: 60px;
+    background-color: #f5fcff !important;
+    color: #000;
+
+  }
+
+  .react-datepicker__month-container {
+    line-height: 20px !important;
+  }
+
+  .table.filters {
+    .title {
+      float: left;
+    }
+
+    .item {
+      float: left;
+
+      input {
+        background-color: #f9fafc;
+        line-height: 20px;
+        height: 32px;
+        border: 1px solid $border-color;
+        border-radius: 3px;
+        padding-left: 10px;
+        width: 200px;
+      }
+
+      .react-datepicker-ignore-onclickoutside {
+        border: 1px solid red;
+      }
+      margin-left: 20px;
+    }
+
+    .ui.fluid.dropdown {
+      margin-top: 10px;
+      line-height: 20px;
+      min-width: 210px !important;
+      float: left;
+      font-size: 12px;
+      border: 1px solid #ced0da;
+      float: left;
+      border-radius: 4px;
+      background-color: #f9fafc;
+      margin-left: 22px;
+    }
+    cursor: pointer;
+
+    .text {
+      font-weight: normal;
+      line-height: 36px;
+      padding-left: 16px;
+      font-size: 14px;
+      color: #000;
+
+      .breadcrums {
+        span {
+          font-size: 11px;
+        }
+      }
+    }
+
+    .menu {
+      border-radius: 0;
+      border: 1px solid $border-color;
+      background-color: #FFF !important;
+      border: 0;
+      margin-left: 0;
+      min-width: 209px;
+      max-width: 800px;
+      width: auto !important;
+
+      .item {
+        padding-left: 10px !important;
+        font-size: 12px;
+        margin-right: 12px;
+      }
+
+      .header {
+        line-height: 22px;
+        padding: 10px 10px 0;
+        text-align: left;
+        margin: 0;
+        font-size: 14px;
+        color: $color-green;
+        text-transform: none;
+
+        span {
+          cursor: pointer;
+          font-size: 11px;
+          color: #000;
+        }
+      }
+    }
+
+    .ui.fluid.dropdown {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      height: 36px;
+    }
+
+    .dropdown.icon {
+      float: right;
+      margin-right: 7px;
+      margin-top: 12px;
+    }
+
+    .visible {
+      color: $color-green;
+      background-color: #f6f6f6;
+      border: 1px solid $border-color;
+    }
+
+    div.checkbox {
+      margin-left: 0;
+      margin-right: 5px;
+      width: 15px;
+      height: 15px;
+      float: left;
+      margin-top: -2px;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+    }
+
+    div.checkbox.checked {}
+
+    div.checkbox.checked::before {
+      content: '';
+      background-color: #8dc63f;
+      margin-left: -1px;
+      margin-right: 5px;
+      width: 15px;
+      height: 15px;
+      float: left;
+      margin-top: -1px;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      position: absolute;
+      padding-left: 2px;
+    }
+
+    .filter.item {
+      float: left;
+      margin-left: 30px;
+    }
+  }
+
+.ui.celled.fixed.sortable.table{
+  margin-top: 10px;
+  border-radius: 0px;
+  border: 0px;
+  font-family: $font;
+  font-size: 12px;
+  tr:nth-child(even) {background: #f7f7f7}
+
+  tr:nth-child(odd) {
+    background: #FFF;
+    border: 0px
+  }
+  td{
+    height: 25px;
+    font-weight: bold;
+  }
+  th{
+    background-color: #FFF;
+    color: #909090;
+  }
+}
+
+  .pagination.wrapper {
+    height: 60px;
+    display: flex;
+  }
+
+  .ui.mini.pagination {
+    border: 0px;
+    box-shadow: none;
+    -webkit-box-shadow:none;
+    font-family: $font;
+    font-size: 12px;
+    .item{
+      border: 0px;
+    }
+    .item.active{
+      color:$color-green
+    }
+    .item:before{
+      display: none;
+    }
+    margin: auto auto auto;
+  }
+}
