@@ -24,6 +24,7 @@ public class WebContent extends AbstractAuditableEntity implements Serializable 
 
     private String subtitleFr;
 
+    @Column(length = 1024)
     private String link;
 
     @Column(length = DBConstants.MAX_DEFAULT_TEXT_LENGTH)

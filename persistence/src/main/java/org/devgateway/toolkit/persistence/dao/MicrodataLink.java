@@ -4,6 +4,7 @@ import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -24,6 +25,7 @@ public class MicrodataLink extends AbstractAuditableEntity implements Serializab
 
     private String descriptionFr;
 
+    @Column(length = 1024)
     private String link;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

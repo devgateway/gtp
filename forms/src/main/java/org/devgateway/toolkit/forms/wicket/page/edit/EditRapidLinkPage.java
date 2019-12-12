@@ -22,6 +22,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
+import org.apache.wicket.validation.validator.StringValidator;
 import org.apache.wicket.validation.validator.UrlValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
@@ -74,23 +75,28 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
         super.onInitialize();
 
         TextFieldBootstrapFormComponent<String> titleField = new TextFieldBootstrapFormComponent<>("title");
+        titleField.add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(titleField);
         titleField.required();
 
         TextFieldBootstrapFormComponent<String> titleFrField = new TextFieldBootstrapFormComponent<>("titleFr");
+        titleFrField.add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(titleFrField);
         titleFrField.required();
 
         TextFieldBootstrapFormComponent<String> subtitleField = new TextFieldBootstrapFormComponent<>("subtitle");
+        subtitleField.add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(subtitleField);
         subtitleField.required();
 
         TextFieldBootstrapFormComponent<String> subtitleFrField = new TextFieldBootstrapFormComponent<>("subtitleFr");
+        subtitleFrField.add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(subtitleFrField);
         subtitleFrField.required();
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");
         linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES + UrlValidator.NO_FRAGMENTS));
+        linkField.add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         editForm.add(linkField);
         linkField.required();
 

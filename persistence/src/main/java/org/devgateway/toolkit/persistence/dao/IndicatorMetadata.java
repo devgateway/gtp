@@ -10,6 +10,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
@@ -34,6 +35,7 @@ public class IndicatorMetadata extends AbstractAuditableEntity implements Serial
     @JsonIgnore
     private Indicator indicator;
 
+    @Column(length = 1024)
     private String ansdLink;
 
     private String source;

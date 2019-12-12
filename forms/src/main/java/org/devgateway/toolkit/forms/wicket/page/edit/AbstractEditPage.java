@@ -54,6 +54,9 @@ import java.io.Serializable;
 public abstract class AbstractEditPage<T extends GenericPersistable & Serializable> extends BasePage {
     private static final long serialVersionUID = -5928614890244382103L;
 
+    public static final int DEFA_MAX_LENGTH = 254;
+    public static final int LINK_MAX_LENGTH = 1024;
+
     private static final Logger logger = LoggerFactory.getLogger(AbstractEditPage.class);
 
     /**

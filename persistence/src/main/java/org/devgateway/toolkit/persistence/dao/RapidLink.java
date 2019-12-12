@@ -11,6 +11,7 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -34,6 +35,7 @@ public class RapidLink extends AbstractAuditableEntity implements Serializable {
 
     private String subtitleFr;
 
+    @Column(length = 1024)
     private String link;
 
     @JsonIgnore
