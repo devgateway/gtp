@@ -3,6 +3,8 @@ package org.devgateway.toolkit.web.rest.controller.filter;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.Dataset;
 import org.devgateway.toolkit.persistence.dao.Dataset_;
+import org.devgateway.toolkit.persistence.dao.Person;
+import org.devgateway.toolkit.persistence.dao.Person_;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
@@ -60,10 +62,13 @@ public class DatasetFilterState {
     protected void addTextPredicates(Root<Dataset> root, CriteriaBuilder cb, List<Predicate> predicates) {
         if (StringUtils.isNotBlank(filter.getText())) {
             String txt = filter.getText().toLowerCase();
+            Join<Dataset, Person> join = root.join(Dataset_.UPLOADED_BY, JoinType.LEFT);
             predicates.add(cb.and(cb.or(
                     cb.like(cb.lower(root.get(Dataset_.LABEL)), "%" + txt + "%"),
                     cb.like(cb.lower(root.get(Dataset_.SOURCE)), "%" + txt + "%"),
-                    cb.like(cb.lower(root.get(Dataset_.CREATED_BY)), "%" + txt + "%")
+                    cb.like(cb.lower(root.get(Dataset_.CREATED_BY)), "%" + txt + "%"),
+                    cb.like(cb.lower(join.get(Person_.FIRST_NAME)), "%" + txt + "%"),
+                    cb.like(cb.lower(join.get(Person_.LAST_NAME)), "%" + txt + "%")
             )));
         }
     }

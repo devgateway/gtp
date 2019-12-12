@@ -28,7 +28,8 @@ public class DatasetDTO {
         this.title = dataset.getLabel();
         this.source = dataset.getSource();
         this.organization = dataset.getOrganization() != null ? dataset.getOrganization().getLabel() : NOT_AVAILABLE;
-        this.creator = dataset.getCreatedBy() != null ? dataset.getCreatedBy().get() : NOT_AVAILABLE;
+        this.creator = dataset.getUploadedBy() != null ? dataset.getUploadedBy().getFirstName() + " "
+                + dataset.getUploadedBy().getLastName() : NOT_AVAILABLE;
         this.createdDate = dataset.getCreatedDate() != null ? dataset.getCreatedDate().get().toLocalDateTime() : null;
         this.fileId = dataset.getFileMetadata() != null ? dataset.getFileMetadata().iterator().next().getId() : null;
         this.type = dataset.getDtype();
