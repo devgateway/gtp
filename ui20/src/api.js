@@ -13,7 +13,7 @@ const URL_AOI_SUBSIDIES = API_ROOT + '/data/agOrientation/summary/subsidies'
 const URL_AOI_TOTAL_BUDGET = API_ROOT + '/data/agOrientation/summary/totalBudget'
 const URL_RAPID_LINKS = API_ROOT + '/data/rapidLink/top5'
 const URL_DATA_SETS = API_ROOT + '/data/dataset/all'
-
+const URL_SOURCES = API_ROOT + '/data/datasources/all'
 const xlsExportURLBuilder = (what) => {
   let subfix = ''
   switch (what) {
@@ -314,6 +314,16 @@ export const getDefaultIndicatorFilters = () => {
 export const getDatasets = (params) => {
   return new Promise((resolve, reject) => {
     post(URL_DATA_SETS, params).then((data) => {
+      resolve(data)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
+
+export const getSources  = (params) => {
+  return new Promise((resolve, reject) => {
+    post(URL_SOURCES, params).then((data) => {
       resolve(data)
     }).catch(error => {
       reject(error)

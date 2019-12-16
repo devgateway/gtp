@@ -53,13 +53,13 @@ class TableComponent extends Component {
     componentDidUpdate(prevProps) {
     // Uso tipico (no olvides de comparar los props):
 
-      debugger;
+
     if (this.props.datasets !== prevProps.datasets && this.props.datasets) {
-      debugger;
+
 
         const newState=Object.assign({},this.state,
           {
-          data:this.props.datasets?this.props.datasets.getIn(['content']).toJS():[],
+          data:this.props.datasets&&this.props.datasets.get('content')?this.props.datasets.get('content').toJS():[],
           totalPages:this.props.datasets.getIn(['totalPages']),
           activePage:this.props.datasets.getIn(['pageable','page'])+1,
         })
@@ -74,7 +74,7 @@ class TableComponent extends Component {
     const locale=intl.locale
     let column = null
     let direction = null
-    debugger;
+
     return  (
       <div>
             <div className="table filters">

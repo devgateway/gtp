@@ -23,7 +23,7 @@ export const TextInput=({onChange, value, text})=>{
 
 
 export const DateInput=({onChange, value, text, locale})=>{
-  debugger;
+
     return (<DatePicker
             locale={locale}
             placeholderText={text}
