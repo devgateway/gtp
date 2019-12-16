@@ -5,14 +5,13 @@ import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
 import DataSetsTable from './DataSetsTable'
+import Sources from './SourcesList'
 
 class Microdata extends Component {
 
   constructor(props) {
     super(props);
   }
-
-
 
 
   render() {
@@ -45,7 +44,7 @@ class Microdata extends Component {
       </div>
 
         <DataSetsTable {...this.props}/>
-
+        <Sources {...this.props}/>
       </div>)
   }
 }
