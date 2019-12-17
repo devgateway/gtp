@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Table,Pagination } from 'semantic-ui-react'
 import {items2options} from '../indicators/DataUtil'
 import {injectIntl,FormattedDate, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
-import {changeFilter,loadSources } from '../modules/Microdata'
+import {changeFilter,changePage,loadSources } from '../modules/Microdata'
 import {connect} from 'react-redux';
 
 
@@ -23,38 +23,42 @@ class Sources extends Component {
 
   render() {
 
-    const {onChangeFilter, intl:{locale},totalPages, pageable={}} = this.props
+    const {onChangeFilter, intl:{locale},totalPages, pageable={},content,onChangePage} = this.props
     const { page,pageNumber,pageSize}=pageable
     const paginationProps={
-      data:[],
-      totalPages:totalPages,
-      activePage:pageNumber+1,
-      boundaryRange: 1,
-      siblingRange: 2,
-      onPageChange:(e, { activePage })=>{
-        onChangeFilter(['filters','datasets','pageNumber'],activePage -1,locale)
+
+       activePage: page+1,
+       boundaryRange: 1,
+       siblingRange: 2,
+       showEllipsis: true,
+       showFirstAndLastNav: false,
+       showPreviousAndNextNav: true,
+       totalPages: totalPages,
+       size:'mini',
+       firstItem:false,
+       lastItem:false,
+       onPageChange:(e, { activePage })=>{
+        onChangePage(['filters','sources','pageNumber'],activePage -1,locale,['SOURCES'])
       },
-      ellipsisItem: true,
-      firstItem: false,
-      lastItem: true,
-      totalPages: null,
-      size:'mini',
-      prevItem:false,
-      nextItem:true
+
     }
 
     return  (
-      <div>
+      <div className="microdata sources">
       <div className="microdata sources title">
         <p>
-          <FormattedMessage id="microdata.sources.title" defaultMessage="Other Sources"></FormattedMessage>
+          <FormattedMessage id="microdata.sources.title" defaultMessage="Other data sources"></FormattedMessage>
         </p>
       </div>
+        <ul>
+          {content&&content.map(c=>
+            <li>
+              <a href={c.link}> {c.title}</a> <span className="microdata sources description">{c.description}</span></li>)}
+      </ul>
+      <div className="pagination wrapper">
 
-
-      <Pagination {...paginationProps}/>
-
-
+        <Pagination {...paginationProps}/>
+        </div>
       </div>
     )
   }
@@ -64,13 +68,14 @@ class Sources extends Component {
 
 const mapStateToProps = state => {
     const sources=state.getIn(['microdata','data','sources'])?state.getIn(['microdata','data','sources']).toJS():{}
-    debugger;
+
     return {...sources}
 }
 
 const mapActionCreators = {
   onLoadSources:loadSources,
-  onChangeFilter:changeFilter
+  onChangeFilter:changeFilter,
+  onChangePage:changePage
 };
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(Sources));

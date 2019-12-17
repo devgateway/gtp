@@ -27,19 +27,19 @@ class Microdata extends Component {
 
 
       <div className="microdata description">
-        <p>  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <p>  <FormattedMessage id='microdata.page.description' defaultMessage="The Microdata page will display agricultural datasets that have been preloaded by each responsible partner organization. The site will also display, non-official data sources that users can access by clicking on the links provided. Where available, a given dataset will be displaying a link that will connect the ANSD data repository when users can consult reports, studies and other metadata related to a specific dataset."/></p>
       </div>
 
 
       <div className="microdata focal point title ">
         <p>
-          <FormattedMessage id="microdata.table.table1.title" defaultMessage="Focal Point Datasets"></FormattedMessage>
+          <FormattedMessage id="microdata.table.datasets.title" defaultMessage="Organization Dataset"></FormattedMessage>
         </p>
       </div>
 
       <div className="microdata table1 description">
           <p>
-            <FormattedMessage id="microdata.table.table1.description" defaultMessage="  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."></FormattedMessage>
+            <FormattedMessage id="microdata.table.datasets.description" defaultMessage="The organization datasets will display data groupes by a respective organization. The table will be updated as new information is downloaded and will only show the 10 most recent datasets. Users can use the Search function to retrieve hidden dataset that have been previouly made available."></FormattedMessage>
           </p>
       </div>
 

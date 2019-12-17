@@ -3,6 +3,7 @@ import * as api from '../api'
 import Immutable from 'immutable'
 
 const CHANGE_TABLE_FILTER = 'CHANGE_TABLE_FILTER'
+const CHANGE_PAGE = 'CHANGE_PAGE'
 const LOAD_DATASET = 'LOAD_DATASET'
 const LOAD_DATASET_DONE = 'LOAD_DATASET_DONE'
 const LOAD_DATASET_ERROR = 'LOAD_DATASET_ERROR'
@@ -27,6 +28,7 @@ export const loadDatasets = (locale) => (dispatch, getState) => {
 
 
 export const loadSources = (locale) => (dispatch, getState) => {
+  debugger;
   const filters= getState().getIn(['microdata','filters','sources']) || new Immutable.Map()
   dispatch({type: LOAD_SOURCES})
   api.getSources(filters.set('lang',locale)).then((data) => {
@@ -37,17 +39,48 @@ export const loadSources = (locale) => (dispatch, getState) => {
 }
 
 
-export const changeFilter = (path, value,locale) => (dispatch, getState) => {
+
+export const changePage = (path, value,locale, updates=[]) => (dispatch, getState) => {
+
+  dispatch({type: CHANGE_PAGE, path, value})
+
+  if(updates.indexOf('DATASETS') > -1){
+    dispatch(loadDatasets(locale));
+  }
+  if(updates.indexOf('SOURCES') > -1){
+    dispatch(loadSources(locale));
+  }
+
+}
+
+
+
+
+export const changeFilter = (path, value,locale, updates=[]) => (dispatch, getState) => {
+
   dispatch({type: CHANGE_TABLE_FILTER, path, value})
-  dispatch(loadDatasets(locale));
+
+  if(updates.indexOf('DATASETS') > -1){
+    dispatch(loadDatasets(locale));
+  }
+  if(updates.indexOf('SOURCES') > -1){
+    dispatch(loadSources(locale));
+  }
+
 }
 
 export default(state = initialState, action) => {
   switch (action.type) {
     case CHANGE_TABLE_FILTER:{
         const {path, value} = action
-        return state.setIn(path, value)
+        const pagePath=path.slice(0,2)
+              pagePath.push('pageNumber')
+        return state.setIn(path, value).setIn(pagePath,0);
       }
+      case CHANGE_PAGE:{
+          const {path, value} = action
+          return state.setIn(path, value)
+        }
 
     case LOAD_DATASET:{
         return state.setIn(['status', 'datasets', 'loading'], true)

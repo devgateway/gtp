@@ -45,7 +45,7 @@ Get default selected filters
 
 export const exportData = (what, format,language) => (dispatch, getState)  => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
-  debugger
+
   api.exportIndicators(what, format, language, filters)
 }
 

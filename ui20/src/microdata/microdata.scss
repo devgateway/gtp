@@ -78,7 +78,6 @@
     line-height: 60px;
     background-color: #f5fcff !important;
     color: #000;
-
   }
 
   .react-datepicker__month-container {
@@ -223,48 +222,92 @@
     }
   }
 
-.ui.celled.fixed.sortable.table{
-  margin-top: 10px;
-  border-radius: 0px;
-  border: 0px;
-  font-family: $font;
-  font-size: 12px;
-  tr:nth-child(even) {background: #f7f7f7}
+  .ui.celled.fixed.sortable.table {
+    margin-top: 10px;
+    border-radius: 0;
+    border: 0;
+    font-family: $font;
+    font-size: 12px;
 
-  tr:nth-child(odd) {
-    background: #FFF;
-    border: 0px
+    tr:nth-child(even) {
+      background: #f7f7f7;
+    }
+
+    tr:nth-child(odd) {
+      background: #FFF;
+      border: 0;
+    }
+
+    td {
+      height: 25px;
+      font-weight: bold;
+    }
+
+    th {
+      background-color: #FFF;
+      color: #909090;
+    }
   }
-  td{
-    height: 25px;
-    font-weight: bold;
-  }
-  th{
-    background-color: #FFF;
-    color: #909090;
+
+
+
+
+  .microdata.sources {
+    .title::before{
+      display: none;
+    }
+
+    font-family: $font;
+    font-size: 12px;
+    a{
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    ul {
+      color: #000;
+
+      column-count: 2;
+      list-style: circle;
+
+      li {
+        margin: 7px;
+        padding: 5px;
+        .description {
+          font-size: 11px;
+          font-weight: bold;
+          color: #000;
+          height: auto;
+        }
+      }
+    }
   }
 }
 
-  .pagination.wrapper {
-    height: 60px;
-    display: flex;
-  }
+.pagination.wrapper {
+  margin-bottom: 12px;
+    .ui.mini.pagination {
 
-  .ui.mini.pagination {
-    border: 0px;
-    box-shadow: none;
-    -webkit-box-shadow:none;
-    font-family: $font;
-    font-size: 12px;
-    .item{
-      border: 0px;
+      border: 0;
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      font-family: $font;
+      font-size: 12px;
+        a{
+            font-weight: normal !important;
+        }
+      .item {
+        border: 0;
+      }
+
+      .item.active {
+        color: $color-green;
+      }
+
+      .item:before {
+        display: none;
+      }
+      margin: auto;
     }
-    .item.active{
-      color:$color-green
-    }
-    .item:before{
-      display: none;
-    }
-    margin: auto auto auto;
-  }
+  height: 60px;
+  display: flex;
 }

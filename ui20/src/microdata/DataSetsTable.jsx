@@ -5,7 +5,7 @@ import { Table,Pagination } from 'semantic-ui-react'
 import {CustomFilterDropDown,TextInput,DateInput} from '../indicators/Components'
 import {items2options} from '../indicators/DataUtil'
 import {injectIntl,FormattedDate, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
-import {changeFilter,loadDatasets } from '../modules/Microdata'
+import {changeFilter,loadDatasets,changePage } from '../modules/Microdata'
 import {connect} from 'react-redux';
 
 
@@ -69,8 +69,9 @@ class TableComponent extends Component {
   }
 
   render() {
-
-    const {onChangeFilter, keyword, startDate, endDate, organizations=[], selectedOrganizations=[], intl, datasets={}, onPageChange  } = this.props
+    //TODO: remove state use props
+    
+    const {onChangeFilter, keyword, startDate, endDate, organizations=[], selectedOrganizations=[], intl, datasets={}, onChangePage } = this.props
     const locale=intl.locale
     let column = null
     let direction = null
@@ -80,15 +81,15 @@ class TableComponent extends Component {
             <div className="table filters">
                   <div className="title">Filters</div>
                   <div className="item"><TextInput text={intl.formatMessage({id:'filters.keyword.label', defaultMessage:"Keyword Search"}) }
-                  onChange={val=>onChangeFilter(['filters','datasets','text'],val,locale)} name="keyword" value={keyword}/></div>
+                  onChange={val=>onChangeFilter(['filters','datasets','text'],val,locale,'DATASETS')} name="keyword" value={keyword}/></div>
                   <div className="item"><DateInput locale={locale}  text={intl.formatMessage({ id:'filters.start_date.label', defaultMessage:"Start Date"})}
-                  onChange={val=>onChangeFilter(['filters','datasets','realMinDate'],val,locale)} name="startDate" value={startDate}/></div>
+                  onChange={val=>onChangeFilter(['filters','datasets','realMinDate'],val,locale,'DATASETS')} name="startDate" value={startDate}/></div>
                   <div className="item">
                   <DateInput locale={locale}
                   text={intl.formatMessage({ id:'filters.end_date.label', defaultMessage:"End Date"})}
-                  onChange={val=>onChangeFilter(['filters','datasets','realMaxDate'],val,locale)} name="endDate" value={endDate}/></div>
+                  onChange={val=>onChangeFilter(['filters','datasets','realMaxDate'],val,locale,'DATASETS')} name="endDate" value={endDate}/></div>
                   <div className="item"><CustomFilterDropDown  text={intl.formatMessage({id:'filters.organization.label', defaultMessage:"Organizations"})}  options={items2options(organizations,intl)}
-                  selected={selectedOrganizations} onChange={value => {onChangeFilter(['filters','datasets','organization'],value,locale)}}/></div>
+                  selected={selectedOrganizations} onChange={value => {onChangeFilter(['filters','datasets','organization'],value,locale,'DATASETS')}}/></div>
 
             </div>
           <Table sortable celled fixed>
@@ -108,7 +109,7 @@ class TableComponent extends Component {
                       <FormattedMessage id="microdata.table.heder.creator" defaultMessage="Creator"/>
                     </Table.HeaderCell>
                     <Table.HeaderCell sorted={column === 'createdDate' ? direction : null} onClick={this.handleSort('createdDate')}>
-                      <FormattedMessage id="microdata.table.heder.createdDate" defaultMessage="createdDate"/>
+                      <FormattedMessage id="microdata.table.heder.createdDate" defaultMessage="Created"/>
                     </Table.HeaderCell>
 
                   </Table.Row>
@@ -130,7 +131,7 @@ class TableComponent extends Component {
                   activePage={this.state.activePage}
                   boundaryRange={this.state.boundaryRange}
                   onPageChange={(e, { activePage })=>{
-                    onChangeFilter(['filters','datasets','pageNumber'],activePage -1,locale)
+                    onChangePage(['filters','datasets','pageNumber'],activePage -1,locale,'DATASETS')
                   }}
                   size='mini'
                   siblingRange={this.state.siblingRange}
@@ -173,7 +174,8 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   onLoadDatasets:loadDatasets,
-  onChangeFilter:changeFilter
+  onChangeFilter:changeFilter,
+  onChangePage:changePage
 };
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(TableComponent));
