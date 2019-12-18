@@ -4,18 +4,21 @@ import {
 } from 'react-intl'
 import messages from '../translations/messages'
 
-export const configurator = (int) => {
+export const configurator = (intl) => {
 
-  const market = int.formatMessage(messages.market);
+  const labelField = (intl.locale == 'fr')?'labelFr':'label'
 
-  const whole_sale_buy_price = int.formatMessage(messages.whole_sale_buy_price);
 
-  const quantity = int.formatMessage(messages.quantity);
-  const selling_price = int.formatMessage(messages.selling_price);
-  const retail_buying_price = int.formatMessage(messages.retail_buying_price);
-  const date = int.formatMessage(messages.date);
-  const year = int.formatMessage(messages.year);
-  const crop_type = int.formatMessage(messages.crop_type);
+  const market = intl.formatMessage(messages.market);
+
+  const whole_sale_buy_price = intl.formatMessage(messages.whole_sale_buy_price);
+
+  const quantity = intl.formatMessage(messages.quantity);
+  const selling_price = intl.formatMessage(messages.selling_price);
+  const retail_buying_price = intl.formatMessage(messages.retail_buying_price);
+  const date = intl.formatMessage(messages.date);
+  const year = intl.formatMessage(messages.year);
+  const crop_type = intl.formatMessage(messages.crop_type);
 
 
   return {
@@ -26,7 +29,7 @@ export const configurator = (int) => {
       "hiddenAttributes": ["_market", "_cropType"],
       "hiddenFromAggregators": [date,year,market,crop_type],
       "hiddenFromDragDrop": [quantity, selling_price,retail_buying_price, whole_sale_buy_price],
-      "aggregatorName": int.formatMessage(messages.average),
+      "aggregatorName": intl.formatMessage(messages.average),
       "rendererName": "Table"
     },
 
@@ -49,7 +52,7 @@ export const configurator = (int) => {
       },
       "crop_type": {
         label:crop_type,
-        extractor: row => items => items['cropType'].filter(it => it.id == row._cropType)[0].label
+        extractor: row => items => items['cropType'].filter(it => it.id == row._cropType)[0][labelField]
       },
     },
   }
