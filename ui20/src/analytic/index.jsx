@@ -65,9 +65,33 @@ class Table extends Component {
 
   render() {
     const {config, data,intl} = this.props
+    const renders={};
+
+
+    console.log(PlotlyRenderers)
+    debugger;
+      renders[intl.formatMessage({id:'pivot.renders.table', defaultMessage:'Table'})]=TableRenderers['Table']
+      renders[intl.formatMessage({id:'pivot.renders.table_heatmap', defaultMessage:'Table Heatmap'})]=TableRenderers['Table Heatmap']
+      renders[intl.formatMessage({id:'pivot.renders.table_col_heatmap', defaultMessage:'Table Col Heatmap'})]=TableRenderers['Table Col Heatmap']
+      renders[intl.formatMessage({id:'pivot.renders.table_row_heatmap', defaultMessage:'Table Row Heatmap'})]=TableRenderers['Table Row Heatmap']
+      renders[intl.formatMessage({id:'pivot.renders.exportable_tsv', defaultMessage:'Exportable TSV'})]=TableRenderers['Exportable TSV']
+
+      renders[intl.formatMessage({id:'pivot.renders.grouped_column_chart', defaultMessage:'Grouped Column Chart'})]=PlotlyRenderers['Grouped Column Chart']
+      renders[intl.formatMessage({id:'pivot.renders.stacked_column_chart', defaultMessage:'Stacked Column Chart'})]=PlotlyRenderers['Stacked Column Chart']
+      renders[intl.formatMessage({id:'pivot.renders.grouped_bar_chart', defaultMessage:'Grouped Bar Chart'})]=PlotlyRenderers['Grouped Bar Chart']
+      renders[intl.formatMessage({id:'pivot.renders.stacked_bar_chart', defaultMessage:'Stacked Bar Chart'})]=PlotlyRenderers['Stacked Bar Chart']
+      renders[intl.formatMessage({id:'pivot.renders.line_chart', defaultMessage:'Line Chart'})]=PlotlyRenderers['Line Chart']
+      renders[intl.formatMessage({id:'pivot.renders.dot_chart', defaultMessage:'Dot Chart'})]=PlotlyRenderers['Dot Chart']
+      renders[intl.formatMessage({id:'pivot.renders.area_chart', defaultMessage:'Area Chart'})]=PlotlyRenderers['Area Chart']
+      renders[intl.formatMessage({id:'pivot.renders.scatter_chart', defaultMessage:'Scatter Chart'})]=PlotlyRenderers['Scatter Chart']
+      renders[intl.formatMessage({id:'pivot.renders.multiple_pie_chart', defaultMessage:'Multiple Pie Chart'})]=PlotlyRenderers['Multiple Pie Chart']
+
+
+
     return (<PivotTableUI data={data}
         aggregators={aggregators(intl)}
-        renderers={Object.assign({}, TableRenderers, PlotlyRenderers)} {...config.pivottable} onChange={s => this.setState(s)} {...this.state}></PivotTableUI>)
+        locale={intl.locale}
+        renderers={renders} {...config.pivottable} onChange={s => this.setState(s)} {...this.state}></PivotTableUI>)
   }
 }
 
