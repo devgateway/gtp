@@ -39,12 +39,20 @@
 
     .in {
       background-position: -69px 0;
+      display: none;
     }
 
     .inst {
+      display: none;
       background-position: -104px 0;
     }
   }
+
+
+    .footer-share-bar.right {
+      float: right;
+      margin-right: 248px;
+    }
 
   .footer-nav-bar {
     float: right;
@@ -60,6 +68,7 @@
     }
 
     .link {
+      display: none;
       font-family: "Montserrat";
       font-size: 14px;
       color: #fefefe;
@@ -75,7 +84,12 @@
     font-family: "Montserrat";
     font-weight: 400;
     width: 300px;
-    text-align: center;
+    text-align: left;
+    b{
+      font-weight: bolder;
+    font-size: 13px;
+    color: #FFF;
+    }
   }
 
   .footer-text:nth-child(1n) {

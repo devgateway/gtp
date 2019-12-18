@@ -32,8 +32,8 @@
 	"footer.link.dashboard": "Tableau de Bord",
 	"footer.link.home": "Accueil",
 	"footer.link.resources": "Ressources",
-	"footer.text.address": "Initiative Prospective Agricole et Rurale - IPAR<br> Kër Jacques Faye, Immeuble Bilguiss, 67, Rond-Point VDN - Ouest Foire BP 16788 Dakar-Fann<br> Tél : (221) 33 869 00 79 <br>Fax : (221) 33 868 05 38 <br> Site Web : <a href='https://www.ipar.sn'>https://www.ipar.sn</a>",
-	"footer.text.copy.right": "Agence Nationale de la Statistique et de la Démographie - ANSD<br>Rocade Fann Bel-air Cerf-volant Dakar<br>BP 116 Dakar RP-Sénégal<br>Tél : (221) 33 869 21 39<br>Site Web : <a href='http://www.ansd.sn'>http://www.ansd.sn</a><br>",
+	"footer.text.address": "<b>Initiative Prospective Agricole et Rurale - IPAR</b><br> Kër Jacques Faye, Immeuble Bilguiss, 67, Rond-Point VDN - Ouest Foire BP 16788 Dakar-Fann<br> Tél : (221) 33 869 00 79 <br>Fax : (221) 33 868 05 38 <br> Site Web : <a href='https://www.ipar.sn'>https://www.ipar.sn</a>",
+	"footer.text.copy.right": "<b>Agence Nationale de la Statistique et de la Démographie - ANSD</b><br>Rocade Fann Bel-air Cerf-volant Dakar<br>BP 116 Dakar RP-Sénégal<br>Tél : (221) 33 869 21 39<br>Site Web : <a href='http://www.ansd.sn'>http://www.ansd.sn</a><br>",
 	"home.header.menu.agriculutural.initiatives": "Initiatives Agricoles",
 	"home.header.menu.analysis": "Analyse",
 	"home.header.menu.consumption": "Consommation",
@@ -142,6 +142,23 @@
   "indicator.filters.select_none":"Aucun",
 	"analytic.description.production":"Visualiser les statistiques de production annuelle. Différentes combinaisons peuvent être faites en affichant séparément ou en combinant les chiffres de la production avec ceux du rendement et/ou de la superficie ensemencée.",
 	"analytic.description.consumption":"L’objectif est de visualiser le niveau national de consommation de céréales. Qui peut être désagrégé au niveau régional et départemental.",
-	"analytic.description.market":"La page Marché présente l’évolution du prix des céréales. Les prix sont collectés dans les marchés ruraux situés dans les zones de production agricole."
+	"analytic.description.market":"La page Marché présente l’évolution du prix des céréales. Les prix sont collectés dans les marchés ruraux situés dans les zones de production agricole.",
+	"pivot.renders.table":"Tableau",
+	"pivot.renders.table_heatmap":"Carte de chaleur",
+	"pivot.renders.table_col_heatmap":"Tableau colonne - Carte de chaleur",
+	"pivot.renders.table_row_heatmap":"Tableau Ligne - Carte de chaleur",
+	"pivot.renders.exportable_tsv":"TSV exportable",
+	"pivot.renders.grouped_column_chart":"Tableau des colonnes groupées",
+  "pivot.renders.stacked_column_chart":"Diagramme des colonnes empilées",
+  "pivot.renders.grouped_bar_chart":"Histogramme groupé",
+  "pivot.renders.stacked_bar_chart":"Histogramme empilé",
+  "pivot.renders.line_chart":"Graphique linéaire",
+  "pivot.renders.dot_chart":"Graphique en pointillés",
+  "pivot.renders.area_chart":"Carte des régions",
+  "pivot.renders.scatter_chart":"Diagramme de dispersion",
+  "pivot.renders.multiple_pie_chart":"Graphique multiple"
+
+
+
 
 }

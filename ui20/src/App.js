@@ -11,15 +11,20 @@ import messages_fr from "./translations/fr.json";
 import messages_en from "./translations/en.json";
 import {IntlProvider} from "react-intl";
 import {loadDataItems} from './modules/Data'
-import Home from './home/Home'
-import Analytic from "./analytic/Analytic"
+import Home from './home/'
+import Analytic from "./analytic/"
 import {Container} from 'semantic-ui-react'
 import Header from './layout/Header'
 import Footer from './layout/Footer'
-import Indicators from './indicators/Indicators'
+import Indicators from './indicators'
+import Microdata from './microdata'
 
-import Microdata from './microdata/Microdata'
+import Maps from './maps/'
 
+import smoothscroll from 'smoothscroll-polyfill';
+
+// kick off the polyfill!
+smoothscroll.polyfill();
 
 var areIntlLocalesSupported = require('intl-locales-supported');
 
@@ -92,6 +97,11 @@ class IntlRoutes extends Component {
                   <Header></Header>
                   <Microdata></Microdata>
                 </div>)}/>
+
+                <Route exact={true} path="/:lan/gis" render={() => (<div>
+                    <Header></Header>
+                    <Maps></Maps>
+                  </div>)}/>
             <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
           </Switch>
 
