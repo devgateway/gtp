@@ -7,7 +7,8 @@ import {FormattedMessage,injectIntl} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown, RangeSlider} from './Components'
 import {BarChart,LineChart} from './PovertyCharts'
 import { Tab } from 'semantic-ui-react'
-import {getPovertyRegionalYearly,getPovertyRegionalStackedByPovertyLevel, getPovertyTimeLine, items2options} from './DataUtil'
+import {items2options} from './DataUtil'
+import * as utils from './MapDataUtil'
 import messages from '../translations/messages'
 import './poverty.scss'
 
@@ -78,23 +79,10 @@ class Pooverty extends Component {
       {
         menuItem:{ key: 'poverty_chart_1', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_region_and_year)}`},
         render: () =>  (<div> <PovertyFitlers {...this.props}/> <div className="chart container">
-          <AD3Map json={regions} color="Reds" onClick={e=>null}/>
+          <AD3Map json={utils.getPovertyMapData(regions,data,intl)} color="Reds" onClick={e=>null}/>
         </div></div>),
       },
-      {
 
-        menuItem:{ key: 'poverty_chart_2', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year,{year:maxYear})}`},
-        render: () =>   (<div> <PovertyFitlers {...this.props}/> <div className=" chart container">
-          <BarChart {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>
-        </div></div>),
-
-      },
-      {
-        menuItem:{ key: 'poverty_chart_3', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`},
-        render: () =>  (<div> <PovertyFitlers {...this.props}/><div className="chart container">
-        <LineChart {...getPovertyTimeLine(data,intl)}/>
-        </div></div>),
-      }
     ]
 
 

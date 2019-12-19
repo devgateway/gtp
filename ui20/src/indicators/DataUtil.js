@@ -83,6 +83,9 @@ export const getPovertyRegionalYearly = (data = [], intl) => {
 
 export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
 
+
+  debugger;
+
   let fields = ['region', 'povertyLevel']
   if (intl.locale == 'fr') {
     fields = ['regionFr', 'povertyLevelFr']
@@ -115,7 +118,7 @@ export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
     data: barData,
     keys: keys,
     groupMode: "grouped",
-    indexBy: "Region",
+    indexBy: tr_region,
     groupMode: 'stacked',
     colors: ["#228E58", "#C25E7F", "#C15E50"]
   }
