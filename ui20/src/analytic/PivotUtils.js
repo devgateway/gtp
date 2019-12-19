@@ -43,7 +43,7 @@ var usFmtInt = numberFormat({digitsAfterDecimal: 0});
 
 var usFmtPct = numberFormat({digitsAfterDecimal: 1, scaler: 100, suffix: '%'});
 
-var frFmt = numberFormat({decimalSep:',',thousandsSep:'.'});
+var frFmt = numberFormat({decimalSep:',',thousandsSep:' '});
 
 var frFmtInt = numberFormat({digitsAfterDecimal: 0});
 
