@@ -43,6 +43,7 @@
 	"home.header.menu.microdata": "Microdonnées",
 	"home.header.menu.partners": "Partenaires",
 	"home.header.menu.production": "Production",
+	"home.header.menu.indicators":"Indicateurs",
 	"home.header.sub.title": "Exploiter le pouvoir des statitistiques agricoles",
 	"home.header.title": "Plateforme AgriData du Sénégal",
 	"home.intro.link.learn": "Cliquer ici pour plus d'informations",
@@ -154,11 +155,9 @@
   "pivot.renders.stacked_bar_chart":"Histogramme empilé",
   "pivot.renders.line_chart":"Graphique linéaire",
   "pivot.renders.dot_chart":"Graphique en pointillés",
-  "pivot.renders.area_chart":"Carte des régions",
+  "pivot.renders.area_chart":"Graphique en aires",
   "pivot.renders.scatter_chart":"Diagramme de dispersion",
   "pivot.renders.multiple_pie_chart":"Graphique multiple"
-
-
 
 
 }

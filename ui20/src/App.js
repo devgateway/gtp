@@ -19,7 +19,7 @@ import Footer from './layout/Footer'
 import Indicators from './indicators'
 import Microdata from './microdata'
 
-import Maps from './maps/'
+import Maps from './indicators/Maps'
 
 import smoothscroll from 'smoothscroll-polyfill';
 
@@ -99,7 +99,7 @@ class IntlRoutes extends Component {
                 </div>)}/>
 
                 <Route exact={true} path="/:lan/gis" render={() => (<div>
-                    <Header></Header>
+                      <Header className="fix" ></Header>
                     <Maps></Maps>
                   </div>)}/>
             <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
