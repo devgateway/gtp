@@ -1,0 +1,54 @@
+[
+  {
+    "id": "microdata.page.title",
+    "defaultMessage": "Microdata",
+    "file": "src/microdata/index.jsx",
+    "start": {
+      "line": 24,
+      "column": 10
+    },
+    "end": {
+      "line": 24,
+      "column": 81
+    }
+  },
+  {
+    "id": "microdata.page.description",
+    "defaultMessage": "The Microdata page will display agricultural datasets that have been preloaded by each responsible partner organization. The site will also display, non-official data sources that users can access by clicking on the links provided. Where available, a given dataset will be displaying a link that will connect the ANSD data repository when users can consult reports, studies and other metadata related to a specific dataset.",
+    "file": "src/microdata/index.jsx",
+    "start": {
+      "line": 30,
+      "column": 13
+    },
+    "end": {
+      "line": 30,
+      "column": 505
+    }
+  },
+  {
+    "id": "microdata.table.datasets.title",
+    "defaultMessage": "Organization Dataset",
+    "file": "src/microdata/index.jsx",
+    "start": {
+      "line": 36,
+      "column": 10
+    },
+    "end": {
+      "line": 36,
+      "column": 102
+    }
+  },
+  {
+    "id": "microdata.table.datasets.description",
+    "defaultMessage": "The organization datasets will display data groupes by a respective organization. The table will be updated as new information is downloaded and will only show the 10 most recent datasets. Users can use the Search function to retrieve hidden dataset that have been previouly made available.",
+    "file": "src/microdata/index.jsx",
+    "start": {
+      "line": 42,
+      "column": 12
+    },
+    "end": {
+      "line": 42,
+      "column": 380
+    }
+  }
+]

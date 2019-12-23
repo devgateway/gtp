@@ -1,0 +1,41 @@
+[
+  {
+    "id": "indicators.filter.index_type",
+    "defaultMessage": "Index Type",
+    "file": "src/indicators/AgricutureIndex.jsx",
+    "start": {
+      "line": 41,
+      "column": 46
+    },
+    "end": {
+      "line": 41,
+      "column": 132
+    }
+  },
+  {
+    "id": "indicators.chart.aoi.title",
+    "defaultMessage": "The Agriculture Orientation Index for Government Expenditures",
+    "file": "src/indicators/AgricutureIndex.jsx",
+    "start": {
+      "line": 78,
+      "column": 12
+    },
+    "end": {
+      "line": 78,
+      "column": 141
+    }
+  },
+  {
+    "id": "indicators.chart.aoi.description",
+    "defaultMessage": "The agriculture orientation index for government expenditures",
+    "file": "src/indicators/AgricutureIndex.jsx",
+    "start": {
+      "line": 84,
+      "column": 12
+    },
+    "end": {
+      "line": 84,
+      "column": 147
+    }
+  }
+]

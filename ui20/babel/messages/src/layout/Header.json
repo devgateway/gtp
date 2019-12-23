@@ -1,0 +1,158 @@
+[
+  {
+    "id": "home.header.menu.analysis",
+    "defaultMessage": "Analysis",
+    "file": "src/layout/Header.jsx",
+    "start": {
+      "line": 22,
+      "column": 18
+    },
+    "end": {
+      "line": 22,
+      "column": 108
+    }
+  },
+  {
+    "id": "home.header.menu.indicators",
+    "defaultMessage": "Indicators",
+    "file": "src/layout/Header.jsx",
+    "start": {
+      "line": 24,
+      "column": 98
+    },
+    "end": {
+      "line": 24,
+      "column": 192
+    }
+  },
+  {
+    "id": "home.header.menu.microdata",
+    "defaultMessage": "Microdata",
+    "file": "src/layout/Header.jsx",
+    "start": {
+      "line": 25,
+      "column": 99
+    },
+    "end": {
+      "line": 25,
+      "column": 191
+    }
+  },
+  {
+    "id": "home.header.menu.production",
+    "defaultMessage": "Production",
+    "file": "src/layout/Header.jsx",
+    "start": {
+      "line": 26,
+      "column": 109
+    },
+    "end": {
+      "line": 26,
+      "column": 203
+    }
+  },
+  {
+    "id": "home.header.menu.consumption",
+    "defaultMessage": "Consumption",
+    "file": "src/layout/Header.jsx",
+    "start": {
+      "line": 27,
+      "column": 110
+    },
+    "end": {
+      "line": 27,
+      "column": 206
+    }
+  },
+  {
+    "id": "home.header.menu.market",
+    "defaultMessage": "Market",
+    "file": "src/layout/Header.jsx",
+    "start": {
+      "line": 28,
+      "column": 110
+    },
+    "end": {
+      "line": 28,
+      "column": 196
+    }
+  },
+  {
+    "id": "home.header.menu.gis.map",
+    "defaultMessage": "GIS Map",
+    "file": "src/layout/Header.jsx",
+    "start": {
+      "line": 29,
+      "column": 93
+    },
+    "end": {
+      "line": 29,
+      "column": 181
+    }
+  },
+  {
+    "id": "home.header.menu.home",
+    "defaultMessage": "Home",
+    "file": "src/layout/Header.jsx",
+    "start": {
+      "line": 52,
+      "column": 75
+    },
+    "end": {
+      "line": 52,
+      "column": 157
+    }
+  },
+  {
+    "id": "home.header.menu.agriculutural.initiatives",
+    "defaultMessage": "Agricultural Initiatives",
+    "file": "src/layout/Header.jsx",
+    "start": {
+      "line": 53,
+      "column": 70
+    },
+    "end": {
+      "line": 53,
+      "column": 193
+    }
+  },
+  {
+    "id": "home.header.menu.partners",
+    "defaultMessage": "Partners",
+    "file": "src/layout/Header.jsx",
+    "start": {
+      "line": 55,
+      "column": 75
+    },
+    "end": {
+      "line": 55,
+      "column": 165
+    }
+  },
+  {
+    "id": "home.header.title",
+    "defaultMessage": "Senegal Agridata Platform",
+    "file": "src/layout/Header.jsx",
+    "start": {
+      "line": 66,
+      "column": 6
+    },
+    "end": {
+      "line": 66,
+      "column": 105
+    }
+  },
+  {
+    "id": "home.header.sub.title",
+    "defaultMessage": "Unleashing the power of agricultural statistics",
+    "file": "src/layout/Header.jsx",
+    "start": {
+      "line": 68,
+      "column": 28
+    },
+    "end": {
+      "line": 68,
+      "column": 153
+    }
+  }
+]

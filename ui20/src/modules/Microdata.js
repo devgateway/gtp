@@ -28,7 +28,7 @@ export const loadDatasets = (locale) => (dispatch, getState) => {
 
 
 export const loadSources = (locale) => (dispatch, getState) => {
-  debugger;
+  
   const filters= getState().getIn(['microdata','filters','sources']) || new Immutable.Map()
   dispatch({type: LOAD_SOURCES})
   api.getSources(filters.set('lang',locale)).then((data) => {

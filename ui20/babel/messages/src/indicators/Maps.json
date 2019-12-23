@@ -1,0 +1,28 @@
+[
+  {
+    "id": "indicators.title",
+    "defaultMessage": "Indicators",
+    "file": "src/indicators/Maps.jsx",
+    "start": {
+      "line": 52,
+      "column": 12
+    },
+    "end": {
+      "line": 52,
+      "column": 80
+    }
+  },
+  {
+    "id": "indicators.global.intro",
+    "defaultMessage": "This page displays the alignment of specific agricultural indicators against the SDGs and the ones managed by the International System for Agricultural Science and Technology (AGRIS). All tables and charts will be automatically updated as new information is entered in the system. Users can use the date and the region filters to refine their search criteria.",
+    "file": "src/indicators/Maps.jsx",
+    "start": {
+      "line": 56,
+      "column": 10
+    },
+    "end": {
+      "line": 56,
+      "column": 436
+    }
+  }
+]

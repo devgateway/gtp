@@ -3,38 +3,34 @@ import messages from '../translations/messages'
 
 
 export const getPovertyMapData = (json, data = [], intl) => {
-  if (data.length > 0){
-
-    let fields = ['region', 'povertyLevel']
-    if (intl.locale == 'fr') {
-      fields = ['regionFr', 'povertyLevelFr']
-    }
+  if (data.length > 0) {
 
     const tr_region = intl.formatMessage(messages.region)
-
-
-
-    const keys = Array.from(new Set(data.map(d => d[fields[1]])))
+    const keys = Array.from(new Set(data.map(d => d.region)))
     const years = Array.from(new Set(data.map(r => r.year)))
     const maxYear = years.pop()
-    const regions = new Set(data.map(r => r[fields[0]]))
-    const mostRecent = data.filter(d => d.year == maxYear)
-    let mapData = []
 
+    const regions = new Set(data.map(r => r.region))
+    const mostRecent = data.filter(d => d.year == maxYear)
 
     regions.forEach(r => {
-      const record = {}
-      record[tr_region] = r
+      let feature = null
+      const rFiltered = json.features.filter(f => f.properties.NAME_1 == r)
 
-      mostRecent.filter(m => m[fields[0]] == r).forEach(p => {
-        record[p[fields[1]]] = p.percentage * 100
-      })
-      mapData.push(record)
+      if (rFiltered.length > 0) {
+        feature = rFiltered[0]
+      }
+
+      if (!feature) {
+        console.log('No feature with region name ->' + r)
+      } else {
+        mostRecent.filter(m => m.region == r).forEach(p => {
+          feature.properties[p.povertyLevel] = p.percentage * 100
+        })
+      }
     })
-
-    debugger;
-
   }
+
 
   return json;
 }

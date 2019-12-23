@@ -18,6 +18,8 @@ import productionConfigurator from './ProductionConf'
 import marketPriceConfigurator from './MarketPriceConf'
 import consumptionConfigurator from './ConsumptionConf'
 
+import  messages from '../translations/messages'
+
 const mapFields = (data, fields, extraFields, dataItems) => {
 
   return data.map(r => {
@@ -54,6 +56,7 @@ const mapFields = (data, fields, extraFields, dataItems) => {
 
 
 
+
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
 class Table extends Component {
@@ -66,26 +69,21 @@ class Table extends Component {
   render() {
     const {config, data,intl} = this.props
     const renders={};
+      renders[intl.formatMessage(messages.pivot_renders_table)]=TableRenderers['Table']
+      renders[intl.formatMessage(messages.pivot_renders_table_heatmap)]=TableRenderers['Table Heatmap']
+      renders[intl.formatMessage(messages.pivot_renders_table_col_heatmap)]=TableRenderers['Table Col Heatmap']
+      renders[intl.formatMessage(messages.pivot_renders_table_row_heatmap)]=TableRenderers['Table Row Heatmap']
 
-
-    console.log(PlotlyRenderers)
-    debugger;
-      renders[intl.formatMessage({id:'pivot.renders.table', defaultMessage:'Table'})]=TableRenderers['Table']
-      renders[intl.formatMessage({id:'pivot.renders.table_heatmap', defaultMessage:'Table Heatmap'})]=TableRenderers['Table Heatmap']
-      renders[intl.formatMessage({id:'pivot.renders.table_col_heatmap', defaultMessage:'Table Col Heatmap'})]=TableRenderers['Table Col Heatmap']
-      renders[intl.formatMessage({id:'pivot.renders.table_row_heatmap', defaultMessage:'Table Row Heatmap'})]=TableRenderers['Table Row Heatmap']
-      renders[intl.formatMessage({id:'pivot.renders.exportable_tsv', defaultMessage:'Exportable TSV'})]=TableRenderers['Exportable TSV']
-
-      renders[intl.formatMessage({id:'pivot.renders.grouped_column_chart', defaultMessage:'Grouped Column Chart'})]=PlotlyRenderers['Grouped Column Chart']
-      renders[intl.formatMessage({id:'pivot.renders.stacked_column_chart', defaultMessage:'Stacked Column Chart'})]=PlotlyRenderers['Stacked Column Chart']
-      renders[intl.formatMessage({id:'pivot.renders.grouped_bar_chart', defaultMessage:'Grouped Bar Chart'})]=PlotlyRenderers['Grouped Bar Chart']
-      renders[intl.formatMessage({id:'pivot.renders.stacked_bar_chart', defaultMessage:'Stacked Bar Chart'})]=PlotlyRenderers['Stacked Bar Chart']
-      renders[intl.formatMessage({id:'pivot.renders.line_chart', defaultMessage:'Line Chart'})]=PlotlyRenderers['Line Chart']
-      renders[intl.formatMessage({id:'pivot.renders.dot_chart', defaultMessage:'Dot Chart'})]=PlotlyRenderers['Dot Chart']
-      renders[intl.formatMessage({id:'pivot.renders.area_chart', defaultMessage:'Area Chart'})]=PlotlyRenderers['Area Chart']
-      renders[intl.formatMessage({id:'pivot.renders.scatter_chart', defaultMessage:'Scatter Chart'})]=PlotlyRenderers['Scatter Chart']
-      renders[intl.formatMessage({id:'pivot.renders.multiple_pie_chart', defaultMessage:'Multiple Pie Chart'})]=PlotlyRenderers['Multiple Pie Chart']
-
+      renders[intl.formatMessage(messages.pivot_renders_exportable_tsv)]=TableRenderers['Exportable TSV']
+      renders[intl.formatMessage(messages.pivot_renders_stacked_column_chart)]=PlotlyRenderers['Stacked Column Chart']
+      renders[intl.formatMessage(messages.pivot_renders_grouped_column_chart)]=PlotlyRenderers['Grouped Column Chart']
+      renders[intl.formatMessage(messages.pivot_renders_grouped_bar_chart)]=PlotlyRenderers['Grouped Bar Chart']
+      renders[intl.formatMessage(messages.pivot_renders_stacked_bar_chart)]=PlotlyRenderers['Stacked Bar Chart']
+      renders[intl.formatMessage(messages.pivot_renders_line_chart)]=PlotlyRenderers['Line Chart']
+      renders[intl.formatMessage(messages.pivot_renders_dot_chart)]=PlotlyRenderers['Dot Chart']
+      renders[intl.formatMessage(messages.pivot_renders_area_chart)]=PlotlyRenderers['Area Chart']
+      renders[intl.formatMessage(messages.pivot_renders_scatter_chart)]=PlotlyRenderers['Scatter Chart']
+      renders[intl.formatMessage(messages.pivot_renders_multiple_pie_chart)]=PlotlyRenderers['Multiple Pie Chart']
 
 
     return (<PivotTableUI data={data}

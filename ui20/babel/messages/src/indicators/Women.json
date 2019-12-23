@@ -1,0 +1,80 @@
+[
+  {
+    "id": "indicators.filter.gender",
+    "defaultMessage": "Gender",
+    "file": "src/indicators/Women.jsx",
+    "start": {
+      "line": 28,
+      "column": 20
+    },
+    "end": {
+      "line": 29,
+      "column": 40
+    }
+  },
+  {
+    "id": "indicators.filter.enforcement_method",
+    "defaultMessage": "Enforcement Method",
+    "file": "src/indicators/Women.jsx",
+    "start": {
+      "line": 37,
+      "column": 21
+    },
+    "end": {
+      "line": 37,
+      "column": 121
+    }
+  },
+  {
+    "id": "indicators.filter.age_group",
+    "defaultMessage": "Age Group",
+    "file": "src/indicators/Women.jsx",
+    "start": {
+      "line": 44,
+      "column": 21
+    },
+    "end": {
+      "line": 44,
+      "column": 101
+    }
+  },
+  {
+    "id": "indicators.chart.women.title",
+    "defaultMessage": "Women in the Agricultural sector",
+    "file": "src/indicators/Women.jsx",
+    "start": {
+      "line": 107,
+      "column": 12
+    },
+    "end": {
+      "line": 107,
+      "column": 114
+    }
+  },
+  {
+    "id": "indicators.chart.women.description",
+    "defaultMessage": "Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex; and (b) share of women among owners or rights-bearers of agricultural land, by type of tenure.",
+    "file": "src/indicators/Women.jsx",
+    "start": {
+      "line": 113,
+      "column": 12
+    },
+    "end": {
+      "line": 113,
+      "column": 290
+    }
+  },
+  {
+    "id": "indicators.source.label",
+    "defaultMessage": "Source :",
+    "file": "src/indicators/Women.jsx",
+    "start": {
+      "line": 121,
+      "column": 66
+    },
+    "end": {
+      "line": 121,
+      "column": 139
+    }
+  }
+]

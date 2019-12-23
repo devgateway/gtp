@@ -1,0 +1,67 @@
+[
+  {
+    "id": "microdata.table.heder.type",
+    "defaultMessage": "Type",
+    "file": "src/microdata/DataSetsTable.jsx",
+    "start": {
+      "line": 100,
+      "column": 22
+    },
+    "end": {
+      "line": 100,
+      "column": 95
+    }
+  },
+  {
+    "id": "microdata.table.heder.title",
+    "defaultMessage": "Title",
+    "file": "src/microdata/DataSetsTable.jsx",
+    "start": {
+      "line": 103,
+      "column": 24
+    },
+    "end": {
+      "line": 103,
+      "column": 99
+    }
+  },
+  {
+    "id": "microdata.table.heder.organization",
+    "defaultMessage": "Organization",
+    "file": "src/microdata/DataSetsTable.jsx",
+    "start": {
+      "line": 106,
+      "column": 22
+    },
+    "end": {
+      "line": 106,
+      "column": 111
+    }
+  },
+  {
+    "id": "microdata.table.heder.creator",
+    "defaultMessage": "Creator",
+    "file": "src/microdata/DataSetsTable.jsx",
+    "start": {
+      "line": 109,
+      "column": 22
+    },
+    "end": {
+      "line": 109,
+      "column": 101
+    }
+  },
+  {
+    "id": "microdata.table.heder.createdDate",
+    "defaultMessage": "Created",
+    "file": "src/microdata/DataSetsTable.jsx",
+    "start": {
+      "line": 112,
+      "column": 22
+    },
+    "end": {
+      "line": 112,
+      "column": 105
+    }
+  }
+]

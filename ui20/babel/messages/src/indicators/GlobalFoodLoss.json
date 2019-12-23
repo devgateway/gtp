@@ -1,0 +1,54 @@
+[
+  {
+    "id": "indicators.filter.losstype",
+    "defaultMessage": "Loss Type",
+    "file": "src/indicators/GlobalFoodLoss.jsx",
+    "start": {
+      "line": 26,
+      "column": 179
+    },
+    "end": {
+      "line": 26,
+      "column": 262
+    }
+  },
+  {
+    "id": "indicators.chart.food.title",
+    "defaultMessage": "Global Food Loss Ratio",
+    "file": "src/indicators/GlobalFoodLoss.jsx",
+    "start": {
+      "line": 75,
+      "column": 14
+    },
+    "end": {
+      "line": 75,
+      "column": 105
+    }
+  },
+  {
+    "id": "indicators.chart.food.description",
+    "defaultMessage": "By 2030, halve per capita global food waste at the retail and consumer levels and reduce food losses along production and supply chains, includi",
+    "file": "src/indicators/GlobalFoodLoss.jsx",
+    "start": {
+      "line": 81,
+      "column": 14
+    },
+    "end": {
+      "line": 82,
+      "column": 178
+    }
+  },
+  {
+    "id": "indicators.source.label",
+    "defaultMessage": "Source :",
+    "file": "src/indicators/GlobalFoodLoss.jsx",
+    "start": {
+      "line": 93,
+      "column": 66
+    },
+    "end": {
+      "line": 93,
+      "column": 139
+    }
+  }
+]

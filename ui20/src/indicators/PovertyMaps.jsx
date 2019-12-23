@@ -6,7 +6,9 @@ import React, {Component, createRef, useState} from 'react'
 import {FormattedMessage,injectIntl} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown, RangeSlider} from './Components'
 import {BarChart,LineChart} from './PovertyCharts'
-import { Tab } from 'semantic-ui-react'
+import {Grid, Tab } from 'semantic-ui-react'
+
+
 import {items2options} from './DataUtil'
 import * as utils from './MapDataUtil'
 import messages from '../translations/messages'
@@ -69,18 +71,47 @@ const PovertyFitlers=injectIntl((props)=>{
 
 
 class Pooverty extends Component {
+
+
+
+  constructor(props) {
+    super(props);
+    this.state = { counter: 0 };
+      this.onMapClick = this.onMapClick.bind(this);
+    }
+
+
+    onMapClick(props){
+      this.setState({selection:props})
+    }
+
   render() {
 
-    const {data=[],intl, onExport} = this.props
-    const years = Array.from(new Set(data.map(r => r.year)))
+    const {data,intl, onExport} = this.props
+    const years = data?Array.from(new Set(data.map(r => r.year))):[]
     const maxYear=years.pop()
-
+    const json=data?utils.getPovertyMapData(regions,data.toJS(),intl):null;
+    
     const panes = [
       {
         menuItem:{ key: 'poverty_chart_1', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_region_and_year)}`},
-        render: () =>  (<div> <PovertyFitlers {...this.props}/> <div className="chart container">
-          <AD3Map json={utils.getPovertyMapData(regions,data,intl)} color="Reds" onClick={e=>null}/>
-        </div></div>),
+        render: () =>  (
+          <div>
+          <PovertyFitlers {...this.props}/> <div className="chart container">
+          <Grid columns={2}>
+            <Grid.Column>
+              {
+                data&&  <AD3Map {...this.state} intl={intl} data={data}  json={json} measure='Poor'  color="Reds"
+                onClick={this.onMapClick}/>
+              }
+            </Grid.Column>
+            <Grid.Column>
+              {data&&  <AD3Map {...this.state} intl={intl}  data={data}   json={json} measure='Not poor'  color="Blues"   onClick={this.onMapClick}/>}
+            </Grid.Column>
+          </Grid>
+
+        </div>
+        </div>),
       },
 
     ]
@@ -119,6 +150,7 @@ const mapStateToProps = state => {
   const ageGroups = state.getIn(['data', 'items', 'ageGroup']);
   const range = state.getIn(['data', 'items', 'range']);
   const data=state.getIn(['indicator','poverty','data'])
+
   return {filters,activities, genders, ageGroups, range,data}
 }
 

@@ -1,0 +1,54 @@
+[
+  {
+    "id": "indicator.filters.select_all",
+    "defaultMessage": "Select All",
+    "file": "src/indicators/Components.jsx",
+    "start": {
+      "line": 73,
+      "column": 59
+    },
+    "end": {
+      "line": 73,
+      "column": 140
+    }
+  },
+  {
+    "id": "indicator.filters.select_none",
+    "defaultMessage": "Select None",
+    "file": "src/indicators/Components.jsx",
+    "start": {
+      "line": 75,
+      "column": 61
+    },
+    "end": {
+      "line": 75,
+      "column": 144
+    }
+  },
+  {
+    "id": "indicators.chart.toggler.chart",
+    "defaultMessage": "chart",
+    "file": "src/indicators/Components.jsx",
+    "start": {
+      "line": 97,
+      "column": 8
+    },
+    "end": {
+      "line": 97,
+      "column": 85
+    }
+  },
+  {
+    "id": "indicators.chart.toggler.table",
+    "defaultMessage": "table",
+    "file": "src/indicators/Components.jsx",
+    "start": {
+      "line": 102,
+      "column": 8
+    },
+    "end": {
+      "line": 102,
+      "column": 85
+    }
+  }
+]

@@ -84,7 +84,7 @@ export const getPovertyRegionalYearly = (data = [], intl) => {
 export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
 
 
-  debugger;
+  
 
   let fields = ['region', 'povertyLevel']
   if (intl.locale == 'fr') {

@@ -70,7 +70,7 @@ const getFmtPct = (locale) => (locale == 'fr')
 // default aggregators & renderers use US naming and number formatting
 export const aggregators = (intl) => {
 
-  debugger;
+  
   let aggregators = {}
   const locale = intl.locale
 

@@ -1,6 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Josefin+Slab|Arvo|Lato|Vollkorn|Abril+Fatface|Old+Standard+TT|Droid+Sans|Lobster|Inconsolata|Montserrat|Playfair+Display|Karla|Alegreya|Libre+Baskerville|Merriweather|Lora|Archivo+Narrow|Neuton|Signika|Questrial|Fjalla+One|Bitter|Varela+Round);
 @import "../base.scss";
 
+.ui.grid{
+  margin: 0px !important;
+}
 
 .ui.celled.grid {
   width: $content-width !important;
@@ -19,7 +22,7 @@ div.tooltip {
     position: absolute;
     text-align: center;
     width: 120px;
-  
+
     padding: 2px;
     font: 12px $font;
     background: $color-green;
@@ -30,11 +33,25 @@ div.tooltip {
 
 
 svg{
+
   g{
     border: 1px solid blue;
   }
+
+  rect{
+    fill:#497423;
+    fill-opacity:.9
+  }
+
   text{
-    font-size: 24px;
-    font-family: $font;
+    text-transform: uppercase;
+    font-size: 13px !important;
+    font-family: $font !important;
+    fill:#FFF !important
+  }
+  text.label{
+    pointer-events: all;
+    fill:#000 !important;
+    font-size: 10px !important;
   }
 }

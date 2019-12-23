@@ -11,21 +11,21 @@ var regions = require('../json/regions.json'); //with path
 var departments = require('../json/departments.json'); //with path
 
 const regionClick=(e)=>{
-    debugger;
+
 }
 
 const TheGrid = () => (
   <Grid celled='internally' className="gis grid table">
     <Grid.Row>
         <Grid.Column width={16}>
-          <AD3Map json={regions} color="Reds" onClick={regionClick}/>
+          <AD3Map linkedMap={this.props.refs.rigthMap} json={regions} color="Reds" onClick={regionClick}/>
         </Grid.Column>
 
 
         </Grid.Row>
 <Grid.Row>
         <Grid.Column width={16} >
-          <AD3Map json={departments} color="Blues"/>
+          <AD3Map refs="rigthMap" json={departments} color="Blues"/>
         </Grid.Column>
 
 </Grid.Row>
@@ -52,7 +52,7 @@ class GIS extends Component {
 const mapStateToProps = state => {
 
   return {
-    
+
   }
 }
 

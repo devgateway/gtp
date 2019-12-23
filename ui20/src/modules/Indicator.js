@@ -381,7 +381,7 @@ export default (state = initialState, action) => {
       const {
         data
       } = action
-      return state.setIn(['poverty', 'data'], data)
+      return state.setIn(['poverty', 'data'], Immutable.fromJS(data))
     }
 
     case LOAD_AGRICUTURAL_POPULATION_DATA_DONE: {

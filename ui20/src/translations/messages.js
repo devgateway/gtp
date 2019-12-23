@@ -437,6 +437,76 @@ const messages = defineMessages({
     id: 'table.aggregators.count_as_fraction_of_columns',
     defaultMessage: 'Count as Fraction of Columns',
     description: 'Count as Fraction of Columns'
+  },
+
+
+  pivot_renders_table: {
+    id: 'pivot.renders.table',
+    defaultMessage: 'Table'
+  },
+
+  pivot_renders_table_heatmap: {
+    id: 'pivot.renders.table_heatmap',
+    defaultMessage: 'Table Heatmap'
+  },
+
+  pivot_renders_table_col_heatmap: {
+    id: 'pivot.renders.table_col_heatmap',
+    defaultMessage: 'Table Col Heatmap'
+  },
+
+  pivot_renders_table_row_heatmap: {
+    id: 'pivot.renders.table_row_heatmap',
+    defaultMessage: 'Table Row Heatmap'
+  },
+
+  pivot_renders_exportable_tsv: {
+    id: 'pivot.renders.exportable_tsv',
+    defaultMessage: 'Exportable TSV'
+  },
+
+  pivot_renders_grouped_column_chart: {
+    id: 'pivot.renders.grouped_column_chart',
+    defaultMessage: 'Grouped Column Chart'
+  },
+
+  pivot_renders_stacked_column_chart: {
+    id: 'pivot.renders.stacked_column_chart',
+    defaultMessage: 'Stacked Column Chart'
+  },
+
+  pivot_renders_grouped_bar_chart: {
+    id: 'pivot.renders.grouped_bar_chart',
+    defaultMessage: 'Grouped Bar Chart'
+  },
+
+  pivot_renders_stacked_bar_chart: {
+    id: 'pivot.renders.stacked_bar_chart',
+    defaultMessage: 'Stacked Bar Chart'
+  },
+
+  pivot_renders_line_chart: {
+    id: 'pivot.renders.line_chart',
+    defaultMessage: 'Line Chart'
+  },
+
+  pivot_renders_dot_chart: {
+    id: 'pivot.renders.dot_chart',
+    defaultMessage: 'Dot Chart'
+  },
+
+  pivot_renders_area_chart: {
+    id: 'pivot.renders.area_chart',
+    defaultMessage: 'Area Chart'
+  },
+
+  pivot_renders_scatter_chart: {
+    id: 'pivot.renders.scatter_chart',
+    defaultMessage: 'Scatter Chart'
+  },
+  pivot_renders_multiple_pie_chart: {
+    id: 'pivot.renders.multiple_pie_chart',
+    defaultMessage: 'Multiple Pie Chart'
   }
 
 });
