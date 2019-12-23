@@ -9,6 +9,8 @@ public class PovertyDTO extends DataDTO {
     @ExcelExport(useTranslation = true)
     private String region;
 
+    private String regionCode;
+
     @ExcelExport(useTranslation = true)
     private String locationType;
 
@@ -30,6 +32,7 @@ public class PovertyDTO extends DataDTO {
     public PovertyDTO(final PovertyIndicator p, final String lang) {
         super(p, lang);
         this.region = getStr(p.getRegion());
+        this.regionCode = p.getRegion().getCode();
         this.locationType = getStr(p.getLocationType());
         this.gender = getStr(p.getGender());
         this.professionalActivity = getStr(p.getProfessionalActivity());
@@ -44,6 +47,14 @@ public class PovertyDTO extends DataDTO {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public String getRegionCode() {
+        return regionCode;
+    }
+
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
     }
 
     public String getLocationType() {

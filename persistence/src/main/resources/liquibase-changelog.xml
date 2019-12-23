@@ -541,5 +541,32 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="Population" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="region_stat" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label) VALUES ('Statistic', nextval('hibernate_sequence'), 'Population');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Dakar'), 2013, '3137196');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Diourbel'), 2013, '1497455');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Fatick'), 2013, '835352');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Kaolack'), 2013, '960875');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Kolda'), 2013, '714392');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Louga'), 2013, '874193');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Matam'), 2013, '562539');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Saint-Louis'), 2013, '908942');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Tambacounda'), 2013, '681310');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Thiès'), 2013, '1788864');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Ziguinchor'), 2013, '549151');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Kaffrine'), 2013, '566992');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Kédougou'), 2013, '152357');
+            INSERT INTO region_stat (id, statistic_id, region_id, year, value) VALUES (nextval('hibernate_sequence'), (select id from category where label = 'Population'), (select id from region where name = 'Sédhiou'), 2013, '452944');
+
+        ]]></sql>
+    </changeSet>
+
+
+
 
 </databaseChangeLog>
