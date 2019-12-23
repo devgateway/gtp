@@ -22,6 +22,8 @@ public class PovertySummary {
 
     private String regionFr;
 
+    private String regionCode;
+
     private int year;
 
     private double percentage;
@@ -38,6 +40,7 @@ public class PovertySummary {
             this.regionId = region.getId();
             this.region = region.getName();
             this.regionFr = region.getName();
+            this.regionCode = region.getCode();
         }
     }
 
@@ -71,6 +74,14 @@ public class PovertySummary {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public String getRegionCode() {
+        return regionCode;
+    }
+
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
     }
 
     public int getYear() {
