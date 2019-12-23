@@ -1,10 +1,8 @@
 package org.devgateway.toolkit.persistence.dao;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.categories.Statistic;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -31,7 +29,7 @@ public class RegionStat extends GenericPersistable implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIgnore
     private Region region;
 
     private String value;
@@ -42,14 +40,6 @@ public class RegionStat extends GenericPersistable implements Serializable {
 
     public void setYear(Integer year) {
         this.year = year;
-    }
-
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
     }
 
     public Statistic getStatistic() {
@@ -66,6 +56,21 @@ public class RegionStat extends GenericPersistable implements Serializable {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @JsonProperty
+    public Long getRegionId() {
+        return region.getId();
+    }
+
+    @JsonProperty
+    public String getRegion() {
+        return region.getLabel();
+    }
+
+    @JsonProperty
+    public String getRegionFr() {
+        return region.getLabel("fr");
     }
 
     @JsonProperty
