@@ -17,7 +17,6 @@ package org.devgateway.toolkit.forms.wicket.page.edit;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.validation.validator.RangeValidator;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.apache.wicket.validation.validator.UrlValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
@@ -64,7 +63,7 @@ public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
         super.onInitialize();
 
         TextFieldBootstrapFormComponent<String> titleField = new TextFieldBootstrapFormComponent<>("title");
-        titleField.getField().add(RangeValidator.maximum(DEFA_MAX_LENGTH));
+        titleField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(titleField);
         titleField.required();
 
@@ -89,7 +88,7 @@ public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
         organization.required();
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");
-        linkField.add(StringValidator.maximumLength(LINK_MAX_LENGTH));
+        linkField.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES + UrlValidator.NO_FRAGMENTS));
         editForm.add(linkField);
         linkField.required();

@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -66,6 +67,17 @@ public class MicrodataLink extends AbstractAuditableEntity implements Serializab
 
     public String getLink() {
         return link;
+    }
+
+    @JsonIgnore
+    public String getReducedLink() {
+        String ret;
+        if (link != null && link.length() > 30) {
+            ret = link.substring(0, 29) + "...";
+        } else {
+            ret = link;
+        }
+        return ret;
     }
 
     public void setLink(String link) {
