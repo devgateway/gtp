@@ -26,6 +26,9 @@ public class Dataset extends AbstractAuditableEntity implements Serializable, La
 
     private String source;
 
+    @Column(length = 1024)
+    private String metadata;
+
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "dataset", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Collection<Data> data;
@@ -70,6 +73,14 @@ public class Dataset extends AbstractAuditableEntity implements Serializable, La
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
     }
 
     public Collection<Data> getData() {
