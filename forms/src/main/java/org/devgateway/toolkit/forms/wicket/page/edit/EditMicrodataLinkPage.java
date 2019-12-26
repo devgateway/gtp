@@ -17,6 +17,7 @@ package org.devgateway.toolkit.forms.wicket.page.edit;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.validator.RangeValidator;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.apache.wicket.validation.validator.UrlValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
@@ -63,22 +64,22 @@ public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
         super.onInitialize();
 
         TextFieldBootstrapFormComponent<String> titleField = new TextFieldBootstrapFormComponent<>("title");
-        titleField.add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
+        titleField.getField().add(RangeValidator.maximum(DEFA_MAX_LENGTH));
         editForm.add(titleField);
         titleField.required();
 
         TextFieldBootstrapFormComponent<String> titleFrField = new TextFieldBootstrapFormComponent<>("titleFr");
-        titleFrField.add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
+        titleFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(titleFrField);
         titleFrField.required();
 
         TextFieldBootstrapFormComponent<String> descField = new TextFieldBootstrapFormComponent<>("description");
-        descField.add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
+        descField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(descField);
         descField.required();
 
         TextFieldBootstrapFormComponent<String> descFrField = new TextFieldBootstrapFormComponent<>("descriptionFr");
-        descFrField.add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
+        descFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(descFrField);
         descFrField.required();
 

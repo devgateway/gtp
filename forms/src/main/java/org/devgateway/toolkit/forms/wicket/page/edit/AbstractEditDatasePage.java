@@ -5,6 +5,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IValidator;
+import org.apache.wicket.validation.validator.StringValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
@@ -44,14 +45,17 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
         super.onInitialize();
 
         final TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("label");
+        name.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
         name.required();
         editForm.add(name);
 
         final TextFieldBootstrapFormComponent<String> source = new TextFieldBootstrapFormComponent<>("source");
+        source.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
         source.required();
         editForm.add(source);
 
         final TextFieldBootstrapFormComponent<String> metadata = new TextFieldBootstrapFormComponent<>("metadata");
+        metadata.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         editForm.add(metadata);
 
         final CheckBoxPickerBootstrapFormComponent approved = new CheckBoxPickerBootstrapFormComponent("approved");

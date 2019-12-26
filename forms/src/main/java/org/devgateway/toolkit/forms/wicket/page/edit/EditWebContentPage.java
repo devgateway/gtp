@@ -17,6 +17,7 @@ package org.devgateway.toolkit.forms.wicket.page.edit;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.validator.StringValidator;
 import org.apache.wicket.validation.validator.UrlValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.SummernoteBootstrapFormComponent;
@@ -53,18 +54,22 @@ public class EditWebContentPage extends AbstractEditPage<WebContent> {
         super.onInitialize();
 
         TextFieldBootstrapFormComponent<String> titleField = new TextFieldBootstrapFormComponent<>("title");
+        titleField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(titleField);
         titleField.required();
 
         TextFieldBootstrapFormComponent<String> subtitleField = new TextFieldBootstrapFormComponent<>("subtitle");
+        subtitleField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(subtitleField);
 
 
         TextFieldBootstrapFormComponent<String> titleFrField = new TextFieldBootstrapFormComponent<>("titleFr");
+        titleFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(titleFrField);
         titleFrField.required();
 
         TextFieldBootstrapFormComponent<String> subtitleFrField = new TextFieldBootstrapFormComponent<>("subtitleFr");
+        subtitleFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(subtitleFrField);
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");
