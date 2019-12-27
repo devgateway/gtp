@@ -42,13 +42,17 @@ const ChartSection = injectIntl(( props)=>{
          render: () =>
             <div className="indicators chart food">
               <Filters {...props} options={ { gender:true, age:true,methodOfEnforcement:false } }></Filters>
-              <div className="chart container"><BarChart
-                  yLegend={props.intl.formatMessage(messages.percent)}
-                  xLegend={props.intl.formatMessage(messages.crop_type)}
+              <div className="chart container">
 
-                label={(s)=>props.intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}
+  {data.length == 0?<div className="no data">No Data Available</div>:  <BarChart
+        yLegend={props.intl.formatMessage(messages.percent)}
+        xLegend={props.intl.formatMessage(messages.crop_type)}
 
-               {...getAverageProductionLossData(props.data,'avgPercentage', props.intl)}></BarChart></div>
+      label={(s)=>props.intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}
+
+     {...getAverageProductionLossData(props.data,'avgPercentage', props.intl)}></BarChart>}
+
+            </div>
             </div>,
        },
        {
@@ -57,12 +61,15 @@ const ChartSection = injectIntl(( props)=>{
             <div className="indicators chart food">
               <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
               <div className="chart container">
+
+
               <BarChart
                 yLegend={props.intl.formatMessage(messages.kg)}
                 xLegend={props.intl.formatMessage(messages.crop_type)}
                 label={(s)=>props.intl.formatNumber(s.value, {notation:'compact', minimumFractionDigits: 0,maximumFractionDigits: 0})}
 
-              {...getAverageProductionLossData(props.data,'avgKilograms',props.intl)}></BarChart></div>
+              {...getAverageProductionLossData(props.data,'avgKilograms',props.intl)}></BarChart>}
+              </div>
             </div>,
        }
 

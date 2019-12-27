@@ -56,7 +56,10 @@ const ChartSection = injectIntl(( props)=>{
         render: () =>
            <div className="indicators chart aoi">
              <BudgetFilters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></BudgetFilters>
-             <div className="chart container"><BarChart  {...getAOItotalBudget(props.budget, props.intl)}></BarChart></div>
+             <div className="chart container">
+                  {props.budget == 0?<div className="no data">No Data Available</div>: <BarChart  {...getAOItotalBudget(props.budget, props.intl)}></BarChart>}
+
+            </div>
            </div>,
       },
 
@@ -64,7 +67,11 @@ const ChartSection = injectIntl(( props)=>{
         menuItem:  { key: 'line', icon: '', content: `${props.intl.formatMessage(messages.indicator_aoi_composition_of_subsidies)}` },
         render: () =><div className="indicators chart aoi">
               <SubsidiesFilters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></SubsidiesFilters>
-              <div className="chart container"><BarChart   {...getAOIsubsidies(props.subsidies,props.intl)}/></div>
+              <div className="chart container">
+
+                {props.budget == 0?<div className="no data">No Data Available</div>: <BarChart   {...getAOIsubsidies(props.subsidies,props.intl)}/>}
+
+              </div>
             </div>,
 
       }]

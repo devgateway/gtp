@@ -91,7 +91,7 @@ class Pooverty extends Component {
     const years = data?Array.from(new Set(data.map(r => r.year))):[]
     const maxYear=years.pop()
     const json=data?utils.getPovertyMapData(regions,data.toJS(),intl):null;
-    
+
     const panes = [
       {
         menuItem:{ key: 'poverty_chart_1', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_region_and_year)}`},
