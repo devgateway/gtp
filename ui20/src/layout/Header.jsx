@@ -75,11 +75,9 @@ class Header extends React.Component {
 
     constructor(props) {
       super(props);
-
     }
 
   onChangeLanguage(lan) {
-
     const {location, history} = this.props;
     const newPath = '/'+lan + location.pathname.substr(3)
     this.props.history.push(newPath)
