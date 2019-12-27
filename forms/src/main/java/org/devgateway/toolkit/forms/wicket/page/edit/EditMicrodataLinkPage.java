@@ -63,22 +63,22 @@ public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
         super.onInitialize();
 
         TextFieldBootstrapFormComponent<String> titleField = new TextFieldBootstrapFormComponent<>("title");
-        titleField.add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
+        titleField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(titleField);
         titleField.required();
 
         TextFieldBootstrapFormComponent<String> titleFrField = new TextFieldBootstrapFormComponent<>("titleFr");
-        titleFrField.add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
+        titleFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(titleFrField);
         titleFrField.required();
 
         TextFieldBootstrapFormComponent<String> descField = new TextFieldBootstrapFormComponent<>("description");
-        descField.add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
+        descField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(descField);
         descField.required();
 
         TextFieldBootstrapFormComponent<String> descFrField = new TextFieldBootstrapFormComponent<>("descriptionFr");
-        descFrField.add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
+        descFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(descFrField);
         descFrField.required();
 
@@ -88,7 +88,7 @@ public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
         organization.required();
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");
-        linkField.add(StringValidator.maximumLength(LINK_MAX_LENGTH));
+        linkField.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES + UrlValidator.NO_FRAGMENTS));
         editForm.add(linkField);
         linkField.required();

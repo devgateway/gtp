@@ -45,7 +45,7 @@ public class ListRapidLinkFormPage extends AbstractListPage<RapidLink> {
         columns.add(new TextFilteredBootstrapPropertyColumn<>(new Model<>("Position"), "rapidLinkPosition",
                 "rapidLinkPosition"));
         columns.add(new TextFilteredBootstrapPropertyColumn<>(new Model<>("Title"), "title", "title"));
-        columns.add(new LambdaColumn<>(new Model<>("Link"), "link", RapidLink::getLink));
+        columns.add(new LambdaColumn<>(new Model<>("Link"), "link", RapidLink::getReducedLink));
     }
 
 

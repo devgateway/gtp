@@ -84,6 +84,17 @@ public class RapidLink extends AbstractAuditableEntity implements Serializable {
         return link;
     }
 
+    @JsonIgnore
+    public String getReducedLink() {
+        String ret;
+        if (link != null && link.length() > 30) {
+            ret = link.substring(0, 29) + "...";
+        } else {
+            ret = link;
+        }
+        return ret;
+    }
+
     public void setLink(String link) {
         this.link = link;
     }

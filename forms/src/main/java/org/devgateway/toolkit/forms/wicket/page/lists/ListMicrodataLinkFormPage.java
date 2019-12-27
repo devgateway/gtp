@@ -45,7 +45,7 @@ public class ListMicrodataLinkFormPage extends AbstractListPage<MicrodataLink> {
         columns.add(new TextFilteredBootstrapPropertyColumn<>(new Model<>("Title"), "title", "title"));
         columns.add(new TextFilteredBootstrapPropertyColumn<>(
                 new Model<>("Organization"), "organization", "organization"));
-        columns.add(new LambdaColumn<>(new Model<>("Link"), "link", MicrodataLink::getLink));
+        columns.add(new LambdaColumn<>(new Model<>("Link"), "link", MicrodataLink::getReducedLink));
     }
 
 

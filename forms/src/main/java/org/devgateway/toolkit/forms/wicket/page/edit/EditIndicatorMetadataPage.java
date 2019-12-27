@@ -18,6 +18,7 @@ import com.google.common.collect.ImmutableList;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.validator.StringValidator;
 import org.apache.wicket.validation.validator.UrlValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
@@ -62,10 +63,12 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
         super.onInitialize();
 
         TextFieldBootstrapFormComponent<String> introField = new TextFieldBootstrapFormComponent<>("intro");
+        introField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(introField);
         introField.required();
 
         TextFieldBootstrapFormComponent<String> introFrField = new TextFieldBootstrapFormComponent<>("introFr");
+        introFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(introFrField);
         introField.required();
 
@@ -91,10 +94,12 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
         editForm.add(indicator);
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("ansdLink");
+        linkField.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES + UrlValidator.NO_FRAGMENTS));
         editForm.add(linkField);
 
         TextFieldBootstrapFormComponent<String> sourceField = new TextFieldBootstrapFormComponent<>("source");
+        sourceField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(sourceField);
 
         deleteButton.setEnabled(false);
