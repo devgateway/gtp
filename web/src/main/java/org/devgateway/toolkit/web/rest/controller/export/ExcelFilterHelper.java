@@ -142,6 +142,9 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
         maxAge = req.getMaxAge();
         minScore = req.getMinScore();
         maxScore = req.getMaxScore();
+        if (req.getGender() != null) {
+            gender = req.getGender().stream().map(x -> categories.get(x)).collect(Collectors.toSet());
+        }
         if (req.getCrop() != null) {
             crop = req.getCrop().stream().map(x -> categories.get(x)).collect(Collectors.toSet());
         }
