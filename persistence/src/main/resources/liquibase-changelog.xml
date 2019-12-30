@@ -566,6 +566,44 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="PartnerGroup" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label, type) VALUES ('PartnerGroup', nextval('hibernate_sequence'), 'Government Agencies', 1);
+            INSERT INTO category (dtype, id, label, type) VALUES ('PartnerGroup', nextval('hibernate_sequence'), 'Civil Society Organizations', 2);
+            INSERT INTO category (dtype, id, label, type) VALUES ('PartnerGroup', nextval('hibernate_sequence'), 'Development Partners', 3);
+            INSERT INTO category (dtype, id, label, type) VALUES ('PartnerGroup', nextval('hibernate_sequence'), 'Research Institutes', 4);
+            INSERT INTO category (dtype, id, label, type) VALUES ('PartnerGroup', nextval('hibernate_sequence'), 'Private Sector', 5);
+            INSERT INTO category (dtype, id, label, type) VALUES ('PartnerGroup', nextval('hibernate_sequence'), 'Other', 6);
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="DatasetType" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label, description) VALUES ('DatasetType', nextval('hibernate_sequence'), 'Market dataset', 'MarketDataset');
+            INSERT INTO category (dtype, id, label, description) VALUES ('DatasetType', nextval('hibernate_sequence'), 'Consumption dataset', 'ConsumptionDataset');
+            INSERT INTO category (dtype, id, label, description) VALUES ('DatasetType', nextval('hibernate_sequence'), 'Production dataset', 'ProductionDataset');
+            INSERT INTO category (dtype, id, label, description) VALUES ('DatasetType', nextval('hibernate_sequence'), 'Proportion of population below the international poverty line dataset', 'PovertyDataset');
+            INSERT INTO category (dtype, id, label, description) VALUES ('DatasetType', nextval('hibernate_sequence'), 'Average distribution of production dataset', 'FoodLossDataset');
+            INSERT INTO category (dtype, id, label, description) VALUES ('DatasetType', nextval('hibernate_sequence'), 'Women in the Agricultural sector dataset', 'AgriculturalWomenDataset');
+            INSERT INTO category (dtype, id, label, description) VALUES ('DatasetType', nextval('hibernate_sequence'), 'Agriculture Orientation Index for Government Expenditures dataset', 'AgricultureOrientationIndexDataset');
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Production base de données','fr', id FROM category WHERE description='ProductionDataset' AND dtype='DatasetType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Marché base de données','fr', id FROM category WHERE description='MarketDataset' AND dtype='DatasetType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Consommation base de données','fr', id FROM category WHERE description='ConsumptionDataset' AND dtype='DatasetType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Proportion de la population en-deça du seuil international de pauvreté base de données','fr', id FROM category WHERE description='PovertyDataset' AND dtype='DatasetType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Répartition moyenne de la production base de données','fr', id FROM category WHERE description='FoodLossDataset' AND dtype='DatasetType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Les femmes dans le secteur agricole base de données','fr', id FROM category WHERE description='AgriculturalWomenDataset' AND dtype='DatasetType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Indice de l''orientation des dépenses du gouvernement en faveur de l''agriculture base de données','fr', id FROM category WHERE description='AgricultureOrientationIndexDataset' AND dtype='DatasetType';
+
+        ]]></sql>
+    </changeSet>
+
 
 
 

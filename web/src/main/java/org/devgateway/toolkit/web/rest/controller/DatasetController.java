@@ -51,7 +51,7 @@ public class DatasetController {
                 ? request.getPageSize() : DATASET_PAGE_SIZE;
         Pageable pageable = PageRequest.of(request.getPageNumber(), pageSize);
         DatasetFilterState filter = new DatasetFilterState(request);
-        return datasetService.findAllDTO(filter.getSpecification(), pageable);
+        return datasetService.findAllDTO(filter.getSpecification(), pageable, request.getLang());
     }
 
     @CrossOrigin

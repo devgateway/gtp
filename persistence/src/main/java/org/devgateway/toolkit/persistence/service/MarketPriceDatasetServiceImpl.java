@@ -36,7 +36,7 @@ public class MarketPriceDatasetServiceImpl extends BaseJpaServiceImpl<MarketData
     }
 
     @Override
-    public Page<DatasetDTO> findAllDTO(Specification<Dataset> spec, Pageable pageable) {
+    public Page<DatasetDTO> findAllDTO(Specification<Dataset> spec, Pageable pageable, String lang) {
         return null;
     }
 }

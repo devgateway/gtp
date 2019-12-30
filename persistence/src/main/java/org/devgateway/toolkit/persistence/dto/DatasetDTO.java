@@ -25,16 +25,16 @@ public class DatasetDTO {
     private Long fileId;
     private String type;
 
-    public DatasetDTO(final Dataset dataset) {
+    public DatasetDTO(final Dataset dataset, final String typeLabel) {
         this.id = dataset.getId();
         this.title = dataset.getLabel();
-        this.source = dataset.getSource();
+        this.source = dataset.getSource() != null ? dataset.getSource() : "";
         this.organization = dataset.getOrganization() != null ? dataset.getOrganization().getLabel() : NOT_AVAILABLE;
         this.creator = dataset.getUploadedBy() != null ? dataset.getUploadedBy().getFirstName() + " "
                 + dataset.getUploadedBy().getLastName() : NOT_AVAILABLE;
         this.createdDate = dataset.getCreatedDate() != null ? dataset.getCreatedDate().get().toLocalDateTime() : null;
         this.fileId = dataset.getFileMetadata() != null ? dataset.getFileMetadata().iterator().next().getId() : null;
-        this.type = dataset.getDtype();
+        this.type = typeLabel;
     }
 
     public DatasetDTO(final MicrodataLink data, String lang) {
