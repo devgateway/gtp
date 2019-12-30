@@ -7,6 +7,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -19,12 +20,26 @@ import java.io.Serializable;
 @JsonIgnoreProperties({"id", "new"})
 public class RegionStat extends GenericPersistable implements Serializable {
 
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @NotNull
+    protected RegionIndicator regionIndicator;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnore
     private Region region;
 
     private Double value;
+
+    public RegionIndicator getRegionIndicator() {
+        return regionIndicator;
+    }
+
+    public void setRegionIndicator(RegionIndicator regionIndicator) {
+        this.regionIndicator = regionIndicator;
+    }
 
     public Double getValue() {
         return value;

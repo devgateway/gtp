@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -7,36 +8,56 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * Created by Daniel Oliva
  */
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @JsonIgnoreProperties({"id", "new"})
 public class RegionIndicator extends GenericPersistable implements Serializable {
 
-    private String indicatorName;
+    private String name;
+
+    private String description;
 
     private Integer year;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<RegionStat> stats;
+    @OneToMany(mappedBy = "regionIndicator", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Collection<RegionStat> stats;
 
     private Double minValue;
 
     private Double maxValue;
 
-    public String getIndicatorName() {
-        return indicatorName;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Person uploadedBy;
+
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<FileMetadata> fileMetadata;
+
+    public String getName() {
+        return name;
     }
 
-    public void setIndicatorName(String indicatorName) {
-        this.indicatorName = indicatorName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getYear() {
@@ -47,11 +68,11 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
         this.year = year;
     }
 
-    public List<RegionStat> getStats() {
+    public Collection<RegionStat> getStats() {
         return stats;
     }
 
-    public void setStats(List<RegionStat> stats) {
+    public void setStats(Collection<RegionStat> stats) {
         this.stats = stats;
     }
 
@@ -69,5 +90,21 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     public void setMaxValue(Double maxValue) {
         this.maxValue = maxValue;
+    }
+
+    public Set<FileMetadata> getFileMetadata() {
+        return fileMetadata;
+    }
+
+    public void setFileMetadata(Set<FileMetadata> fileMetadata) {
+        this.fileMetadata = fileMetadata;
+    }
+
+    public Person getUploadedBy() {
+        return uploadedBy;
+    }
+
+    public void setUploadedBy(Person uploadedBy) {
+        this.uploadedBy = uploadedBy;
     }
 }

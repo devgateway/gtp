@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @CacheConfig(cacheNames = "servicesCache")
-@Transactional(readOnly = true)
+@Transactional
 public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicator> implements RegionIndicatorService {
     @Autowired
     private RegionIndicatorRepository repository;

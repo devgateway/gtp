@@ -1,9 +1,11 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
+import org.devgateway.toolkit.persistence.dao.RegionIndicator;
 import org.devgateway.toolkit.persistence.dto.DatasetDTO;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.devgateway.toolkit.persistence.service.MicrodataLinkService;
+import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.DatasetFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.DatasetFilterState;
 import org.devgateway.toolkit.web.rest.controller.filter.GenericPagingRequest;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
@@ -40,6 +44,9 @@ public class DatasetController {
 
     @Autowired
     private MicrodataLinkService microdataLinkService;
+
+    @Autowired
+    private RegionIndicatorService regionIndicatorService;
 
     @CrossOrigin
     @ApiOperation(value = "Get all datasets metadata")
@@ -65,5 +72,13 @@ public class DatasetController {
         Pageable pageable = PageRequest.of(request.getPageNumber(), pageSize);
         MicrodataLinkFilterState filter = new MicrodataLinkFilterState(request);
         return microdataLinkService.findAllDTO(filter.getSpecification(), pageable, request.getLang());
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get all GIS indicators metadata")
+    @RequestMapping(value = "/gisIndicator/all", method = POST)
+    public @ResponseBody List<RegionIndicator> getAllGisIndicator() {
+        LOGGER.info("get all GIS indicators");
+        return regionIndicatorService.findAll();
     }
 }
