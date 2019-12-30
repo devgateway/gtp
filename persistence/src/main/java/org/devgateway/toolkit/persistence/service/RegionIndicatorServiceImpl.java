@@ -1,14 +1,12 @@
 package org.devgateway.toolkit.persistence.service;
 
-import org.devgateway.toolkit.persistence.dao.RegionStat;
-import org.devgateway.toolkit.persistence.repository.RegionStatRepository;
+import org.devgateway.toolkit.persistence.dao.RegionIndicator;
+import org.devgateway.toolkit.persistence.repository.RegionIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * @author dbianco
@@ -16,22 +14,17 @@ import java.util.List;
 @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
-public class RegionStatServiceImpl extends BaseJpaServiceImpl<RegionStat> implements RegionStatService {
+public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicator> implements RegionIndicatorService {
     @Autowired
-    private RegionStatRepository repository;
+    private RegionIndicatorRepository repository;
 
     @Override
-    protected BaseJpaRepository<RegionStat, Long> repository() {
+    protected BaseJpaRepository<RegionIndicator, Long> repository() {
         return repository;
     }
 
     @Override
-    public RegionStat newInstance() {
-        return new RegionStat();
-    }
-
-    @Override
-    public List<RegionStat> findPopulation() {
-        return repository.findPopulation();
+    public RegionIndicator newInstance() {
+        return new RegionIndicator();
     }
 }

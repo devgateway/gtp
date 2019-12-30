@@ -8,5 +8,5 @@ import org.springframework.data.jpa.domain.Specification;
 
 public interface DatasetService<T extends Dataset> extends BaseJpaService<T>  {
 
-    Page<DatasetDTO> findAllDTO(Specification<Dataset> spec, Pageable pageable);
+    Page<DatasetDTO> findAllDTO(Specification<Dataset> spec, Pageable pageable, String lang);
 }

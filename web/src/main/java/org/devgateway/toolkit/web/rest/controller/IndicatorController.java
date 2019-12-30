@@ -5,13 +5,11 @@ import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
 import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
 import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
-import org.devgateway.toolkit.persistence.dao.RegionStat;
 import org.devgateway.toolkit.persistence.dto.IndicatorData;
 import org.devgateway.toolkit.persistence.service.AOIIndicatorService;
 import org.devgateway.toolkit.persistence.service.AgriculturalWomenIndicatorService;
 import org.devgateway.toolkit.persistence.service.FoodLossIndicatorService;
 import org.devgateway.toolkit.persistence.service.PovertyIndicatorService;
-import org.devgateway.toolkit.persistence.service.RegionStatService;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterState;
 import org.devgateway.toolkit.web.rest.controller.filter.AgriculturalWomenFilterPagingRequest;
@@ -75,9 +73,6 @@ public class IndicatorController {
 
     @Autowired
     private AOIIndicatorService aoiService;
-
-    @Autowired
-    private RegionStatService regionStatService;
 
     @CrossOrigin
     @ApiOperation(value = "Get summary data")
@@ -222,14 +217,6 @@ public class IndicatorController {
         });
         IndicatorData ret = new IndicatorData(counterMap.get(maxYear.toString()), counterMap.values());
         return ret;
-    }
-
-    @CrossOrigin
-    @ApiOperation(value = "Get 'region population' data")
-    @RequestMapping(value = "/population", method = POST)
-    public @ResponseBody List<RegionStat> getPopulation(
-            @RequestBody(required = false) @Valid final AOIFilterPagingRequest req) {
-        return regionStatService.findPopulation();
     }
 
 }

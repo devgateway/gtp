@@ -1,8 +1,10 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.Dataset;
+import org.devgateway.toolkit.persistence.dao.categories.DatasetType;
 import org.devgateway.toolkit.persistence.dto.DatasetDTO;
 import org.devgateway.toolkit.persistence.repository.DatasetRepository;
+import org.devgateway.toolkit.persistence.repository.category.DatasetTypeRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -28,14 +31,24 @@ public class DatasetServiceImpl extends BaseJpaServiceImpl<Dataset>
     @Autowired
     private DatasetRepository datasetRepository;
 
+    @Autowired
+    private DatasetTypeRepository datasetTypeRepository;
+
     @Override
     protected BaseJpaRepository<Dataset, Long> repository() {
         return datasetRepository;
     }
 
-    public Page<DatasetDTO> findAllDTO(Specification<Dataset> spec, Pageable pageable) {
+    public Page<DatasetDTO> findAllDTO(Specification<Dataset> spec, Pageable pageable, String lang) {
         Page<Dataset> datasetPage =  datasetRepository.findAll(spec, pageable);
-        List<DatasetDTO> dtoList = datasetPage.get().map(d -> new DatasetDTO(d)).collect(Collectors.toList());
+
+        Map<String, String> datasetTypeMap = datasetTypeRepository.findAllPopulatedLang()
+                .stream().collect(Collectors.toMap(DatasetType::getDescription, d -> d.getLabel(lang)));
+
+        List<DatasetDTO> dtoList = datasetPage.get().map(d -> {
+            String typeLabel = datasetTypeMap.get(d.getDtype());
+            return new DatasetDTO(d, typeLabel);
+        }).collect(Collectors.toList());
         return new PageImpl(dtoList, datasetPage.getPageable(), datasetPage.getTotalElements());
     }
 
