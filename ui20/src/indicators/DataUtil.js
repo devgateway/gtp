@@ -120,7 +120,7 @@ export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
     groupMode: "grouped",
     indexBy: tr_region,
     groupMode: 'stacked',
-    colors: ["#228E58", "#C25E7F", "#C15E50"]
+    colors: [ "#6E9960", "#B34F67","#7C3D5A"]
   }
 }
 

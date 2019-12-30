@@ -13,9 +13,7 @@ import {connect} from 'react-redux';
 class TableComponent extends Component {
 
   state = {
-
       data: [],
-
       activePage: null,
       boundaryRange: 1,
       siblingRange: 2,
@@ -70,7 +68,7 @@ class TableComponent extends Component {
 
   render() {
     //TODO: remove state use props
-    
+
     const {onChangeFilter, keyword, startDate, endDate, organizations=[], selectedOrganizations=[], intl, datasets={}, onChangePage } = this.props
     const locale=intl.locale
     let column = null
@@ -118,10 +116,14 @@ class TableComponent extends Component {
                   {this.state.data &&_.map(this.state.data, ({id, organization, title, creator, createdDate, fileId, type}) => (
                     <Table.Row key={id}>
                      <Table.Cell>{type}</Table.Cell>
-                     <Table.Cell>{title}</Table.Cell>
+                     <Table.Cell><a href={`/files/download/${fileId}`}>{title}</a></Table.Cell>
                      <Table.Cell>{organization}</Table.Cell>
                       <Table.Cell>{creator}</Table.Cell>
-                      <Table.Cell>  <FormattedDate value={createdDate} /></Table.Cell>
+                      <Table.Cell>
+
+                      <FormattedDate value={createdDate} />
+
+                      </Table.Cell>
                     </Table.Row>
                   ))}
                 </Table.Body>

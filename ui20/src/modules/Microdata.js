@@ -28,10 +28,10 @@ export const loadDatasets = (locale) => (dispatch, getState) => {
 
 
 export const loadSources = (locale) => (dispatch, getState) => {
-  
-  const filters= getState().getIn(['microdata','filters','sources']) || new Immutable.Map()
+
+  const filters= getState().getIn(['microdata','filters','sources'])|| new Immutable.Map({"pageSize":5})
   dispatch({type: LOAD_SOURCES})
-  api.getSources(filters.set('lang',locale)).then((data) => {
+  api.getSources(filters.set('lang',locale).set("pageSize",5) ).then((data) => {
     dispatch({type: LOAD_SOURCES_DONE, data})
   }).catch(error => {
     dispatch({type: LOAD_SOURCES_ERROR})

@@ -30,9 +30,7 @@ class Sources extends Component {
        activePage: page+1,
        boundaryRange: 1,
        siblingRange: 2,
-       showEllipsis: true,
-       showFirstAndLastNav: false,
-       showPreviousAndNextNav: true,
+       ellipsisItem: false,
        totalPages: totalPages,
        size:'mini',
        firstItem:false,
@@ -53,7 +51,7 @@ class Sources extends Component {
         <ul>
           {content&&content.map(c=>
             <li>
-              <a href={c.link}> {c.title}</a> <span className="microdata sources description">{c.description}</span></li>)}
+              <a href={c.link}> {c.title}</a> {c.description}</li>)}
       </ul>
       <div className="pagination wrapper">
 

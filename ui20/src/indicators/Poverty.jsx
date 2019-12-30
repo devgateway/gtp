@@ -1,4 +1,4 @@
-import './poverty.scss'
+import  './poverty.scss'
 import 'rc-slider/assets/index.css'
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
@@ -68,24 +68,28 @@ class Pooverty extends Component {
     const panes = [
       {
         menuItem:{ key: 'poverty_chart_1', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_region_and_year)}`},
-        render: () =>  (<div> <PovertyFitlers {...this.props}/> <div className="chart container">
-        {data.length == 0?<div className="no data">No Data Available</div>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
-        </div></div>),
+        render: () =>  (
+        <div>
+          <PovertyFitlers {...this.props}/>
+          <div className="chart container">
+              {data.length == 0?<div className="no data">No Data Available</div>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
+              </div>
+        </div>),
       },
       {
 
         menuItem:{ key: 'poverty_chart_2', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year,{year:maxYear})}`},
-        render: () =>   (<div className="no data">  <PovertyFitlers {...this.props}/> <div className=" chart container">
-          {data.length == 0?<div>No Data Available</div>:<BarChart {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
+        render: () =>   (<div>  <PovertyFitlers {...this.props}/> <div className=" chart container">
+          {data.length == 0?<div className="no data">No Data Available</div>:<BarChart colors="reds"   {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
 
         </div></div>),
 
       },
       {
         menuItem:{ key: 'poverty_chart_3', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`},
-        render: () =>  (<div className="no data"> <PovertyFitlers {...this.props}/><div className="chart container">
+        render: () =>  (<div > <PovertyFitlers {...this.props}/><div className="chart container">
 
-          {data.length == 0?<div>No Data Available</div>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
+          {data.length == 0?<div className="no data">No Data Available</div>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
 
         </div></div>),
       }

@@ -119,6 +119,10 @@
       border-radius: 4px;
       background-color: #f9fafc;
       margin-left: 22px;
+
+      .breadcrums {
+        color: #757575!important;
+      }
     }
     cursor: pointer;
 
@@ -249,30 +253,46 @@
     }
   }
 
-
-
-
   .microdata.sources {
-    .title::before{
+    .title::before {
       display: none;
     }
 
+    .title {
+      margin-top: 3px;
+      margin-bottom: 3px;
+      padding: 0;
+      height: 40px;
+      border-bottom: 0;
+
+      p {
+        font-size: 24px !important;
+      }
+    }
     font-family: $font;
     font-size: 12px;
-    a{
+
+    a {
       text-transform: uppercase;
       font-weight: bold;
     }
-    ul {
-      color: #000;
 
+    ul {
+      margin: 0;
+      color: #000;
       column-count: 2;
       list-style: circle;
 
       li {
-        margin: 7px;
-        padding: 5px;
+        clear: both;
+        margin-bottom: 15px;
+        padding-right: 80px;
+
+        a {}
+
         .description {
+          display: block;
+          float: right;
           font-size: 11px;
           font-weight: bold;
           color: #000;
@@ -285,29 +305,35 @@
 
 .pagination.wrapper {
   margin-bottom: 12px;
-    .ui.mini.pagination {
 
-      border: 0;
-      box-shadow: none;
-      -webkit-box-shadow: none;
-      font-family: $font;
-      font-size: 12px;
-        a{
-            font-weight: normal !important;
-        }
-      .item {
-        border: 0;
-      }
+  .ui.mini.pagination {
+    border: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    font-family: $font;
+    font-size: 12px;
 
-      .item.active {
-        color: $color-green;
-      }
-
-      .item:before {
-        display: none;
-      }
-      margin: auto;
+    a {
+      font-weight: normal !important;
     }
+
+    .item {
+      min-width: 23px;
+      border: 0;
+      font-size: 11px !important;
+      margin: 3 !important;
+      padding: 3 !important;
+    }
+
+    .item.active {
+      color: $color-green;
+    }
+
+    .item:before {
+      display: none;
+    }
+    margin: auto;
+  }
   height: 60px;
   display: flex;
 }
