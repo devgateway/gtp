@@ -123,6 +123,14 @@
       .breadcrums {
         color: #757575!important;
       }
+
+      .options {
+        padding: 2px;
+        .item {
+          margin: 0px;
+          width: 50%;
+        }
+      }
     }
     cursor: pointer;
 
