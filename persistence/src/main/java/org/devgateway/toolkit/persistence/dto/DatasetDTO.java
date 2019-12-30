@@ -28,7 +28,7 @@ public class DatasetDTO {
     public DatasetDTO(final Dataset dataset, final String typeLabel) {
         this.id = dataset.getId();
         this.title = dataset.getLabel();
-        this.source = "" + dataset.getSource();
+        this.source = dataset.getSource() != null ? dataset.getSource() : "";
         this.organization = dataset.getOrganization() != null ? dataset.getOrganization().getLabel() : NOT_AVAILABLE;
         this.creator = dataset.getUploadedBy() != null ? dataset.getUploadedBy().getFirstName() + " "
                 + dataset.getUploadedBy().getLastName() : NOT_AVAILABLE;
