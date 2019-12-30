@@ -2,9 +2,11 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.dao.Partner;
 import org.devgateway.toolkit.persistence.dao.RapidLink;
 import org.devgateway.toolkit.persistence.dao.WebContent;
 import org.devgateway.toolkit.persistence.service.IndicatorMetadataService;
+import org.devgateway.toolkit.persistence.service.PartnerService;
 import org.devgateway.toolkit.persistence.service.RapidLinkService;
 import org.devgateway.toolkit.persistence.service.WebContentService;
 import org.devgateway.toolkit.web.rest.controller.filter.GenericPagingRequest;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -47,6 +50,9 @@ public class UIController {
 
     @Autowired
     private IndicatorMetadataService indicatorService;
+
+    @Autowired
+    private PartnerService partnerService;
 
     @CrossOrigin
     @ApiOperation(value = "Get all indicator metadata")
@@ -105,5 +111,14 @@ public class UIController {
     public @ResponseBody Iterable<RapidLink> getTop5() {
         LOGGER.info("get rapid link top 5 list");
         return rapidLinkService.findByRapidLinkPositionIdNotNull();
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get partner list.")
+    @RequestMapping(value = "/partner/all", method = POST)
+    public @ResponseBody
+    List<Partner> getAllPartners(@RequestBody @Valid final GenericPagingRequest request) {
+        LOGGER.info("get partner list");
+        return partnerService.findPartnerOrdered();
     }
 }

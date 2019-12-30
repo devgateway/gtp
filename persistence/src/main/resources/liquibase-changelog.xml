@@ -566,6 +566,20 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="PartnerGroup" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label, type) VALUES ('PartnerGroup', nextval('hibernate_sequence'), 'Government Agencies', 1);
+            INSERT INTO category (dtype, id, label, type) VALUES ('PartnerGroup', nextval('hibernate_sequence'), 'Civil Society Organizations', 2);
+            INSERT INTO category (dtype, id, label, type) VALUES ('PartnerGroup', nextval('hibernate_sequence'), 'Development Partners', 3);
+            INSERT INTO category (dtype, id, label, type) VALUES ('PartnerGroup', nextval('hibernate_sequence'), 'Research Institutes', 4);
+            INSERT INTO category (dtype, id, label, type) VALUES ('PartnerGroup', nextval('hibernate_sequence'), 'Private Sector', 5);
+            INSERT INTO category (dtype, id, label, type) VALUES ('PartnerGroup', nextval('hibernate_sequence'), 'Other', 6);
+        ]]></sql>
+    </changeSet>
+
 
 
 

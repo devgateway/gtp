@@ -8,6 +8,8 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author Octavian Ciubotaru
  */
@@ -27,5 +29,10 @@ public class PartnerServiceImpl extends BaseJpaServiceImpl<Partner> implements P
     @Override
     public Partner newInstance() {
         return new Partner();
+    }
+
+    @Override
+    public List<Partner> findPartnerOrdered() {
+        return partnerRepository.findPartnerOrdered();
     }
 }

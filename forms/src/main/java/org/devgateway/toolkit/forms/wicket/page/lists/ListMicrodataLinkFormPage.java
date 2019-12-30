@@ -13,7 +13,7 @@ package org.devgateway.toolkit.forms.wicket.page.lists;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
@@ -42,10 +42,12 @@ public class ListMicrodataLinkFormPage extends AbstractListPage<MicrodataLink> {
         this.jpaService = service;
         this.editPageClass = EditMicrodataLinkPage.class;
 
-        columns.add(new TextFilteredBootstrapPropertyColumn<>(new Model<>("Title"), "title", "title"));
-        columns.add(new TextFilteredBootstrapPropertyColumn<>(
-                new Model<>("Organization"), "organization", "organization"));
-        columns.add(new LambdaColumn<>(new Model<>("Link"), "link", MicrodataLink::getReducedLink));
+        columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("title",
+                ListMicrodataLinkFormPage.this), "title", "title"));
+        columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("organization",
+                ListMicrodataLinkFormPage.this), "organization", "organization"));
+        columns.add(new LambdaColumn<>(new StringResourceModel("link",
+                ListMicrodataLinkFormPage.this), "link", MicrodataLink::getReducedLink));
     }
 
 

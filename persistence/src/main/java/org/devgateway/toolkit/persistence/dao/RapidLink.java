@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +26,7 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @JsonPropertyOrder({"title", "subtitle", "link", "position", "fileId"})
+@JsonIgnoreProperties({"id", "new"})
 public class RapidLink extends AbstractAuditableEntity implements Serializable {
 
     private String title;

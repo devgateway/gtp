@@ -13,7 +13,7 @@ package org.devgateway.toolkit.forms.wicket.page.lists;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
@@ -27,18 +27,20 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class ListPartnerPage extends AbstractListPage<Partner> {
 
     @SpringBean
-    private PartnerService personService;
+    private PartnerService partnerService;
 
     public ListPartnerPage(final PageParameters pageParameters) {
         super(pageParameters);
 
-        this.jpaService = personService;
+        this.jpaService = partnerService;
 
         this.editPageClass = EditPartnerPage.class;
-        columns.add(new LambdaColumn<>(new Model<>("Name"), "name", Partner::getName));
-        columns.add(new LambdaColumn<>(new Model<>("Sector"), "sector", Partner::getSector));
-        columns.add(new LambdaColumn<>(new Model<>("Focal Point"),
-                "focalPoint.firstName;focalPoint.lastName", Partner::getFocalPoint));
+        columns.add(new LambdaColumn<>(new StringResourceModel("name", ListPartnerPage.this),
+                "name", Partner::getName));
+        columns.add(new LambdaColumn<>(new StringResourceModel("groupType", ListPartnerPage.this),
+                "groupType", Partner::getGroupType));
+        columns.add(new LambdaColumn<>(new StringResourceModel("url", ListPartnerPage.this),
+                "url", Partner::getReducedUrl));
     }
 
     @Override

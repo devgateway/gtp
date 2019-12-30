@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Audited
+@JsonIgnoreProperties({"id", "new"})
 public class WebContent extends AbstractAuditableEntity implements Serializable {
 
     private String title;

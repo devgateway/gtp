@@ -5,6 +5,8 @@ import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaReposit
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author Octavian Ciubotaru
  */
@@ -18,4 +20,7 @@ public interface PartnerRepository extends BaseJpaRepository<Partner, Long> {
             + "where p.name=:name "
             + "and id<>:exceptId")
     int countByName(Long exceptId, String name);
+
+    @Query("select p from Partner p join p.groupType as g order by g.type asc, p.name asc")
+    List<Partner> findPartnerOrdered();
 }

@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -16,6 +17,7 @@ import java.io.Serializable;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
+@JsonIgnoreProperties({"id", "new"})
 public class MicrodataLink extends AbstractAuditableEntity implements Serializable {
 
     private String title;
