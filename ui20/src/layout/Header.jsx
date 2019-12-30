@@ -55,6 +55,8 @@ const HeaderNavButtons = withRouter((props) => {
     <div className="nav link"><Link to={`/${props.match.params.lan}/home`}><FormattedMessage id="home.header.menu.partners" defaultMessage={"Partners"} values={""}/></Link></div>
     <div className="nav  separator"></div>
     <div className="nav link"><LanSwitcher/></div>
+    <div className="nav  separator"></div>
+    <div className="nav link">  <a href="/admin">  <img className="logo admin" src="/header_admin_logo.png"/></a></div>
 
 
   </div>)
@@ -73,11 +75,9 @@ class Header extends React.Component {
 
     constructor(props) {
       super(props);
-
     }
 
   onChangeLanguage(lan) {
-
     const {location, history} = this.props;
     const newPath = '/'+lan + location.pathname.substr(3)
     this.props.history.push(newPath)

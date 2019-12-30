@@ -137,3 +137,15 @@ html {
    background-color: #FFD2D2;
    font-size: 12px;
   }
+
+.no.data{
+  margin: 30px;
+  text-transform: uppercase;
+  color: red;
+  background-color:#FFFF00;
+  padding: 20px;
+  font-size: 44px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid blue !important;
+}

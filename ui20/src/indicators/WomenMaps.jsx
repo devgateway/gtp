@@ -57,20 +57,14 @@ const ChartSection = injectIntl((props)=>{
         render: () =>
            <div className="indicators chart women">
              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
-             <div className="chart container">
-              {population.length == 0?<div className="no data">No Data Available</div>:<BarChart bottomLegend={props.intl.formatMessage(messages.age)}  {...getWomenDistributionByGroup(props.population,props.intl)}></BarChart>}
-             </div>
+             <div className="chart container"><BarChart bottomLegend={props.intl.formatMessage(messages.age)}  {...getWomenDistributionByGroup(props.population,props.intl)}></BarChart></div>
            </div>,
       },
       {
         menuItem:  { key: 'line', icon: '', content:  `${props.intl.formatMessage(messages.indicator_women_chart_distribution_historical)}` },
         render: () =><div className="indicators chart women">
               <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
-              <div className="chart container">
-              {population.length == 0?<div className="no data">No Data Available</div>:<LineChart   {...getWomebHistoricalDistribution(props.population,props.intl)}/>}
-
-              </div>
-
+              <div className="chart container"><LineChart   {...getWomebHistoricalDistribution(props.population,props.intl)}/></div>
             </div>,
 
       }]
@@ -80,11 +74,7 @@ const ChartSection = injectIntl((props)=>{
           menuItem:  { key: 'bar', icon: '', content:`${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_enforcement_method,{year:maxYear})}` },
           render: () =><div className="indicators chart women">
                 <Filters {...props} options={{gender:true, age:false,methodOfEnforcement:true}}></Filters>
-                <div className="chart container">
-
-                {population.length == 0?<div className="no data">No Data Available</div>:<BarChart bottomLegend={props.intl.formatMessage(messages.methodOfEnforcement)}  {...getWomenDistributionByGroup(props.distribution,props.intl)}></BarChart>}
-
-                </div>
+                <div className="chart container"><BarChart bottomLegend={props.intl.formatMessage(messages.methodOfEnforcement)}  {...getWomenDistributionByGroup(props.distribution,props.intl)}></BarChart></div>
               </div>,
 
         },
@@ -92,11 +82,7 @@ const ChartSection = injectIntl((props)=>{
           menuItem:  { key: 'line', icon: '', content: `${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_enforcement_historical)}`  },
           render: () =><div className="indicators chart women">
                 <Filters {...props} options={{gender:false, age:false,methodOfEnforcement:true}}></Filters>
-                <div className="chart container">
-
-                {population.length == 0?<div className="no data">No Data Available</div>:<LineChart  key="ByMethodOfEnforcementLine"  {...getWomebHistoricalDistribution(props.distribution,props.intl)}></LineChart>}
-
-                </div>
+                <div className="chart container"><LineChart  key="ByMethodOfEnforcementLine"  {...getWomebHistoricalDistribution(props.distribution,props.intl)}></LineChart></div>
               </div>,
 
         }]

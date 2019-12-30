@@ -23,11 +23,11 @@ const Image = (props) => {
 }
 
 const Stories = injectIntl((props) => {
-
+  debugger;
 
   if (props.links){
   let subfix=''
-  const lan=props.language;
+  const lan=props.intl.locale;
   if (lan=='fr'){
     subfix='Fr'
   }

@@ -84,7 +84,7 @@ export const getPovertyRegionalYearly = (data = [], intl) => {
 export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
 
 
-  
+
 
   let fields = ['region', 'povertyLevel']
   if (intl.locale == 'fr') {
@@ -202,7 +202,9 @@ export const getAverageProductionLossData = (data = [], valueField, intl) => {
 
 
 export const getWomenDistributionByGroup = (data = [], intl) => {
-
+  if(data.length > 0){
+      debugger;
+  }
   let fields = ['groupType', 'gender']
   if (intl.locale == 'fr') {
     fields = ['groupTypeFr', 'genderFr']

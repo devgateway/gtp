@@ -69,21 +69,24 @@ class Pooverty extends Component {
       {
         menuItem:{ key: 'poverty_chart_1', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_region_and_year)}`},
         render: () =>  (<div> <PovertyFitlers {...this.props}/> <div className="chart container">
-          <BarChart {...getPovertyRegionalYearly(data,intl)}/>
+        {data.length == 0?<div className="no data">No Data Available</div>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
         </div></div>),
       },
       {
 
         menuItem:{ key: 'poverty_chart_2', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year,{year:maxYear})}`},
-        render: () =>   (<div> <PovertyFitlers {...this.props}/> <div className=" chart container">
-          <BarChart {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>
+        render: () =>   (<div className="no data">  <PovertyFitlers {...this.props}/> <div className=" chart container">
+          {data.length == 0?<div>No Data Available</div>:<BarChart {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
+
         </div></div>),
 
       },
       {
         menuItem:{ key: 'poverty_chart_3', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`},
-        render: () =>  (<div> <PovertyFitlers {...this.props}/><div className="chart container">
-        <LineChart {...getPovertyTimeLine(data,intl)}/>
+        render: () =>  (<div className="no data"> <PovertyFitlers {...this.props}/><div className="chart container">
+
+          {data.length == 0?<div>No Data Available</div>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
+
         </div></div>),
       }
     ]
@@ -121,7 +124,7 @@ const mapStateToProps = state => {
   const genders = state.getIn(['data', 'items', 'gender']);
   const ageGroups = state.getIn(['data', 'items', 'ageGroup']);
   const range = state.getIn(['data', 'items', 'range']);
-  const data=state.getIn(['indicator','poverty','data'])
+  const data=state.getIn(['indicator','poverty','data'])?state.getIn(['indicator','poverty','data']).toJS():[]
   return {filters,activities, genders, ageGroups, range,data}
 }
 
