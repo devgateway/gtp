@@ -2,10 +2,12 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.dao.MicrodataLink;
 import org.devgateway.toolkit.persistence.dao.Partner;
 import org.devgateway.toolkit.persistence.dao.RapidLink;
 import org.devgateway.toolkit.persistence.dao.WebContent;
 import org.devgateway.toolkit.persistence.service.IndicatorMetadataService;
+import org.devgateway.toolkit.persistence.service.MicrodataLinkService;
 import org.devgateway.toolkit.persistence.service.PartnerService;
 import org.devgateway.toolkit.persistence.service.RapidLinkService;
 import org.devgateway.toolkit.persistence.service.WebContentService;
@@ -50,6 +52,9 @@ public class UIController {
 
     @Autowired
     private IndicatorMetadataService indicatorService;
+
+    @Autowired
+    private MicrodataLinkService microdataService;
 
     @Autowired
     private PartnerService partnerService;
@@ -97,8 +102,8 @@ public class UIController {
     @CrossOrigin
     @ApiOperation(value = "Get rapid link paginated list.")
     @RequestMapping(value = "/rapidLink/all", method = POST)
-    public @ResponseBody
-    Page<RapidLink> getRapidLinkPaginated(@RequestBody @Valid final GenericPagingRequest request) {
+    public @ResponseBody Page<RapidLink> getRapidLinkPaginated(
+            @RequestBody @Valid final GenericPagingRequest request) {
         LOGGER.info("get rapid link paginated list");
         Pageable pageable = PageRequest.of(request.getPageNumber(), request.getPageSize(),
                 Sort.Direction.DESC, "id");
@@ -114,8 +119,19 @@ public class UIController {
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Get microdata paginated list.")
+    @RequestMapping(value = "/microdata/all", method = {GET, POST})
+    public @ResponseBody Page<MicrodataLink> getMicrodataPaginated(
+            @RequestBody @Valid final GenericPagingRequest request) {
+        LOGGER.info("get microdata paginated list");
+        Pageable pageable = PageRequest.of(request.getPageNumber(), request.getPageSize(),
+                Sort.Direction.DESC, "id");
+        return microdataService.findAll(pageable);
+    }
+
+    @CrossOrigin
     @ApiOperation(value = "Get partner list.")
-    @RequestMapping(value = "/partner/all", method = POST)
+    @RequestMapping(value = "/partner/all", method = {GET, POST})
     public @ResponseBody
     List<Partner> getAllPartners(@RequestBody @Valid final GenericPagingRequest request) {
         LOGGER.info("get partner list");
