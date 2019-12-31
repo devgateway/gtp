@@ -40,11 +40,11 @@ public class ListRegionIndicatorPage extends AbstractListPage<RegionIndicator> {
         this.jpaService = service;
         this.editPageClass = EditRegionIndicatorPage.class;
         columns.add(new PropertyColumn<>(
-                new StringResourceModel("name", ListRegionIndicatorPage.this), "name",
-                "name"));
+                new StringResourceModel("name", ListRegionIndicatorPage.this), "reducedName",
+                "reducedName"));
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("description", ListRegionIndicatorPage.this),
-                "description", "description"));
+                "reducedDesc", "reducedDesc"));
     }
 
     @Override

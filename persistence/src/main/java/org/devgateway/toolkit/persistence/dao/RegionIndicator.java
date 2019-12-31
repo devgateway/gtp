@@ -107,4 +107,27 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
     public void setUploadedBy(Person uploadedBy) {
         this.uploadedBy = uploadedBy;
     }
+
+    @JsonIgnore
+    public String getReducedName() {
+        String ret;
+        if (name != null && name.length() > 40) {
+            ret = name.substring(0, 39) + "...";
+        } else {
+            ret = name;
+        }
+        return ret;
+    }
+
+
+    @JsonIgnore
+    public String getReducedDesc() {
+        String ret;
+        if (description != null && description.length() > 60) {
+            ret = description.substring(0, 59) + "...";
+        } else {
+            ret = description;
+        }
+        return ret;
+    }
 }
