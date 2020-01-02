@@ -18,7 +18,7 @@ import java.util.Set;
  * Created by Daniel Oliva
  */
 @Entity
-@JsonIgnoreProperties({"id", "new"})
+@JsonIgnoreProperties({"new"})
 public class RegionIndicator extends GenericPersistable implements Serializable {
 
     private String name;
