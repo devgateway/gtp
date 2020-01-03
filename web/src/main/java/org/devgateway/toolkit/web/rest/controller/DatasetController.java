@@ -1,8 +1,8 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.devgateway.toolkit.persistence.dao.RegionIndicator;
 import org.devgateway.toolkit.persistence.dto.DatasetDTO;
+import org.devgateway.toolkit.persistence.dto.RegionIndicatorDTO;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.devgateway.toolkit.persistence.service.MicrodataLinkService;
 import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
@@ -77,8 +77,9 @@ public class DatasetController {
     @CrossOrigin
     @ApiOperation(value = "Get all GIS indicators metadata")
     @RequestMapping(value = "/gisIndicator/all", method = POST)
-    public @ResponseBody List<RegionIndicator> getAllGisIndicator() {
+    public @ResponseBody List<RegionIndicatorDTO> getAllGisIndicator(
+            @RequestBody @Valid final DatasetFilterPagingRequest request) {
         LOGGER.info("get all GIS indicators");
-        return regionIndicatorService.findAll();
+        return regionIndicatorService.findGisIndicatorAndPovertyIndicator(request.getLang());
     }
 }
