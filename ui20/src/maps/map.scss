@@ -1,6 +1,113 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Josefin+Slab|Arvo|Lato|Vollkorn|Abril+Fatface|Old+Standard+TT|Droid+Sans|Lobster|Inconsolata|Montserrat|Playfair+Display|Karla|Alegreya|Libre+Baskerville|Merriweather|Lora|Archivo+Narrow|Neuton|Signika|Questrial|Fjalla+One|Bitter|Varela+Round);
 @import "../base.scss";
 
+.gis.container {
+  margin: auto;
+  width: $page-width;
+
+  .gis.title {
+    background-color: #FFF;
+    border-bottom: 2px solid $border-color;
+    height: 54px;
+    color: #73a745;
+    margin-top: 50px;
+    margin-bottom: 20px;
+
+    p {
+      font-size: 36px;
+      line-height: 36px;
+      float: left;
+      margin: 0;
+    }
+  }
+
+  .microdata.title::before {
+    content: '';
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-right: 17px;
+    margin-left: 0;
+    background-image: url("/icon_microdata.png");
+    background-repeat: no-repeat;
+    background-size: 32px 35px;
+  }
+
+  .gis.subtitle {
+    margin-top: 20px;
+    background-color: #FFF;
+    height: 54px;
+
+    p {
+      font-size: 30px;
+      float: left;
+      margin: 0;
+      color: #73a745;
+    }
+  }
+
+  .gis.description {
+    background-color: #FFF;
+    display: block;
+    height: 100px;
+
+    p {
+      font-size: 18px;
+      float: left;
+      margin: 0;
+      color: #646464;
+    }
+  }
+
+  .ui.fluid.dropdown {
+    display: block;
+    color: #646464;
+    background-color: #f6faf5;
+    height: 45px;
+    padding-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    padding-right: 10px;
+    padding-left: 5px;
+    border: 1px solid $border-color;
+    .divider{
+      display: none;
+    }
+  }
+
+  .dropdown.icon {
+    float: none;
+  }
+
+  .item {
+    cursor: pointer !important;
+  }
+
+  .visible {
+    color: $color-green;
+    background-color: #f6f6f6;
+    border: 0 solid $border-color;
+  }
+
+  .filter.container{
+    width: 100%
+  }
+
+  .filter.item {
+    cursor: pointer;
+
+    .text {
+      padding-left: 4px;
+
+      .breadcrums {
+        span {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
 .ui.grid {
   margin: 0 !important;
 }
@@ -29,6 +136,36 @@ div.tooltip {
   pointer-events: none;
 }
 
+
+
+div.checkbox {
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  float: left;
+  margin-top: -2px;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+}
+
+div.checkbox.checked {}
+
+div.checkbox.checked::before {
+  content: '';
+  background-color: #8dc63f;
+  margin-left: -1px;
+  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  float: left;
+  margin-top: -1px;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  position: absolute;
+  padding-left: 2px;
+}
+
 .map {
   svg {
     g {
@@ -53,4 +190,5 @@ div.tooltip {
       font-size: 10px !important;
     }
   }
+}
 }

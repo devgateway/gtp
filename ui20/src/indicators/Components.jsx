@@ -33,21 +33,34 @@ export const DateInput=({onChange, value, text, locale})=>{
 
 
 
-export const CustomFilterDropDown = ({options, selected, onChange, text, disabled}) => {
+export const CustomFilterDropDown = ({options, selected, onChange, text, disabled, single}) => {
 
   const [open, setOpen] = useState(false);
-  const breadcrum=(<div className="breadcrums">{text} {true?<span>({selected.length} of {options.length})</span>:null}</div>)
+
+
+
+
+  const breadcrum=single?(<div className="breadcrums">{selected && selected.length > 0? options[  options.map(a=>a.key).indexOf(selected[0])].text:text}</div>):(<div className="breadcrums">{text} {true?<span>({selected.length} of {options.length})</span>:null}</div>)
+
+
   const updateSelection = (key) => {
-    const newSelection = selected.slice(0)
+
+    var newSelection = selected.slice(0)
     if (newSelection.indexOf(key) > -1) {
       newSelection.splice(newSelection.indexOf(key), 1);
     } else {
+      if(single){
+        newSelection=[key]
+
+      }else{
       newSelection.push(key)
+      }
     }
     onChange(newSelection)
   }
 
   const getChecked = (key) => {
+
     return selected.indexOf(key) > -1
   }
 
@@ -67,14 +80,16 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
       setOpen(!keepOpen)
     }}>
     <Dropdown.Menu>
-      <Dropdown.Header>
+    {(single==null || single==false)&&    <Dropdown.Header>
         <div>
 
           <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicator.filters.select_all' defaultMessage="Select All"/></span>
           <span> | </span>
           <span className="none" onClick={e=>allNone(false)}><FormattedMessage id='indicator.filters.select_none' defaultMessage="Select None"/></span>
         </div>
+
       </Dropdown.Header>
+        }
       <Dropdown.Divider/>
       <Dropdown.Menu scrolling="scrolling" className="filter options">
         {
@@ -110,18 +125,22 @@ export const ChartTableSwitcher = (props) =>(
 
 export const OptionList = ({options, selected, onChange, text, disabled}) => {
   const updateSelection = (key) => {
+
     const newSelection = selected.slice(0)
+
     if (newSelection.indexOf(key) > -1) {
       newSelection.splice(newSelection.indexOf(key), 1);
     } else {
       newSelection.push(key)
     }
+
     onChange(newSelection)
   }
 
   const getChecked = (key) => {
     return selected.indexOf(key) > -1
   }
+
   return (<div className={`indicator filter ${disabled?'disabled':''} options  age`}>
     <p>{text}</p>
     {

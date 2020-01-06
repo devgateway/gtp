@@ -80,7 +80,7 @@ class Pooverty extends Component {
 
         menuItem:{ key: 'poverty_chart_2', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year,{year:maxYear})}`},
         render: () =>   (<div>  <PovertyFitlers {...this.props}/> <div className=" chart container">
-          {data.length == 0?<div className="no data">No Data Available</div>:<BarChart colors="reds"   {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
+          {data.length == 0?<div className="no data">No Data Available</div>:<BarChart    {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
 
         </div></div>),
 

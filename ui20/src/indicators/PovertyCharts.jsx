@@ -92,8 +92,8 @@ export const LineChart =injectIntl( ({intl, data }) => (
 
 export const BarChart =injectIntl(({ data , intl/* see data tab */, keys,indexBy , groupMode, colors}) => {
 
-  debugger;
-  
+
+
 return (
     <ResponsiveBar
       data={data}

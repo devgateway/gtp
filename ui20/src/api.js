@@ -14,6 +14,9 @@ const URL_AOI_TOTAL_BUDGET = API_ROOT + '/data/agOrientation/summary/totalBudget
 const URL_RAPID_LINKS = API_ROOT + '/data/rapidLink/top5'
 const URL_DATA_SETS = API_ROOT + '/data/dataset/all'
 const URL_SOURCES = API_ROOT + '/data/datasources/all'
+const API_GIS_URL = API_ROOT + '/data/gisIndicator/all'
+
+
 const xlsExportURLBuilder = (what) => {
   let subfix = ''
   switch (what) {
@@ -119,6 +122,10 @@ export const getDataSet = (name) => {
 
 export const getItems = (category, path, params) => {
   return post(API_ROOT + itemsURLBuilder(category, path, ), params.global)
+}
+
+export const getGISData=()=>{
+    return post(API_GIS_URL,{})
 }
 
 export const loadPovertyChartData = (params) => {

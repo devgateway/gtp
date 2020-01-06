@@ -203,7 +203,7 @@ export const getAverageProductionLossData = (data = [], valueField, intl) => {
 
 export const getWomenDistributionByGroup = (data = [], intl) => {
   if(data.length > 0){
-      debugger;
+
   }
   let fields = ['groupType', 'gender']
   if (intl.locale == 'fr') {
