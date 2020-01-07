@@ -80,6 +80,11 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
         description.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
         editForm.add(description);
 
+        final TextFieldBootstrapFormComponent<String> measure =
+                new TextFieldBootstrapFormComponent<>("measure");
+        measure.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
+        editForm.add(measure);
+
         final TextFieldBootstrapFormComponent<Integer> year = new TextFieldBootstrapFormComponent<>("year");
         year.getField().add(new RangeValidator<>("2010", "2030"));
         editForm.add(year);

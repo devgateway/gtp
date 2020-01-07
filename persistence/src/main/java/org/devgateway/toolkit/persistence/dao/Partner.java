@@ -25,7 +25,7 @@ import org.hibernate.envers.Audited;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Audited
-@JsonIgnoreProperties({"id", "new"})
+@JsonIgnoreProperties({"new", "groupType", "logo"})
 public class Partner extends AbstractAuditableEntity implements Serializable {
 
     @NotNull
@@ -44,11 +44,9 @@ public class Partner extends AbstractAuditableEntity implements Serializable {
     @Column(length = DBConstants.MAX_DEFAULT_TEXT_LENGTH)
     private String descriptionFr;
 
-    @JsonIgnore
     @ManyToOne(optional = false)
     private PartnerGroup groupType;
 
-    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<FileMetadata> logo;

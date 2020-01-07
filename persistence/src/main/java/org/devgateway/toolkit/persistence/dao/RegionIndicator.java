@@ -25,6 +25,8 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     private String description;
 
+    private String measure;
+
     private Integer year;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -58,6 +60,14 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getMeasure() {
+        return measure;
+    }
+
+    public void setMeasure(String measure) {
+        this.measure = measure;
     }
 
     public Integer getYear() {

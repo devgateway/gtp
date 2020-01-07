@@ -15,6 +15,7 @@ import org.devgateway.toolkit.persistence.dao.categories.LocationType;
 import org.devgateway.toolkit.persistence.dao.categories.LossType;
 import org.devgateway.toolkit.persistence.dao.categories.MethodOfEnforcement;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
+import org.devgateway.toolkit.persistence.dao.categories.PartnerGroup;
 import org.devgateway.toolkit.persistence.dao.categories.PovertyLevel;
 import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
@@ -30,6 +31,7 @@ import org.devgateway.toolkit.persistence.service.category.LossTypeService;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.service.category.MethodOfEnforcementService;
 import org.devgateway.toolkit.persistence.service.category.OrganizationService;
+import org.devgateway.toolkit.persistence.service.category.PartnerGroupService;
 import org.devgateway.toolkit.persistence.service.category.PovertyLevelService;
 import org.devgateway.toolkit.persistence.service.category.ProfessionalActivityService;
 import org.devgateway.toolkit.persistence.service.category.RegionService;
@@ -107,6 +109,9 @@ public class FilterController {
 
     @Autowired
     private OrganizationService organizationService;
+
+    @Autowired
+    private PartnerGroupService partnerGroupService;
 
     @CrossOrigin
     @ApiOperation(value = "Get organization information")
@@ -213,6 +218,14 @@ public class FilterController {
     @RequestMapping(value = "/professionalActivity", method = {POST, GET})
     public List<ProfessionalActivity> getAllProfActivity() {
         return profService.findAll();
+    }
+
+
+    @CrossOrigin
+    @ApiOperation(value = "Get partner group information")
+    @RequestMapping(value = "/partnerGroup", method = {POST, GET})
+    public List<PartnerGroup> getAllPartnerGroup() {
+        return partnerGroupService.findAll();
     }
 
 
