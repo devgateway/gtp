@@ -7,6 +7,7 @@ import org.devgateway.toolkit.persistence.dao.Market;
 import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.dao.categories.AgeGroup;
 import org.devgateway.toolkit.persistence.dao.categories.AgriculturalWomenGroup;
+import org.devgateway.toolkit.persistence.dao.categories.ContentType;
 import org.devgateway.toolkit.persistence.dao.categories.CropSubType;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.persistence.dao.categories.Gender;
@@ -21,6 +22,7 @@ import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.category.AgeGroupService;
 import org.devgateway.toolkit.persistence.service.category.AgriculturalWomenGroupService;
+import org.devgateway.toolkit.persistence.service.category.ContentTypeService;
 import org.devgateway.toolkit.persistence.service.category.CropSubTypeService;
 import org.devgateway.toolkit.persistence.service.category.CropTypeService;
 import org.devgateway.toolkit.persistence.service.category.DepartmentService;
@@ -112,6 +114,9 @@ public class FilterController {
 
     @Autowired
     private PartnerGroupService partnerGroupService;
+
+    @Autowired
+    private ContentTypeService contentTypeService;
 
     @CrossOrigin
     @ApiOperation(value = "Get organization information")
@@ -226,6 +231,13 @@ public class FilterController {
     @RequestMapping(value = "/partnerGroup", method = {POST, GET})
     public List<PartnerGroup> getAllPartnerGroup() {
         return partnerGroupService.findAll();
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get agricultural content type information")
+    @RequestMapping(value = "/contentType", method = {POST, GET})
+    public List<ContentType> getAllContentType() {
+        return contentTypeService.findAll();
     }
 
 

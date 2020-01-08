@@ -1,8 +1,10 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
+import org.devgateway.toolkit.persistence.dto.AgriculturalContentDTO;
 import org.devgateway.toolkit.persistence.dto.DatasetDTO;
 import org.devgateway.toolkit.persistence.dto.RegionIndicatorDTO;
+import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.devgateway.toolkit.persistence.service.MicrodataLinkService;
 import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
@@ -48,6 +50,9 @@ public class DatasetController {
     @Autowired
     private RegionIndicatorService regionIndicatorService;
 
+    @Autowired
+    private AgriculturalContentService agriculturalContentService;
+
     @CrossOrigin
     @ApiOperation(value = "Get all datasets metadata")
     @RequestMapping(value = "/dataset/all", method = POST)
@@ -81,5 +86,14 @@ public class DatasetController {
             @RequestBody @Valid final DatasetFilterPagingRequest request) {
         LOGGER.info("get all GIS indicators");
         return regionIndicatorService.findGisIndicatorAndPovertyIndicator(request.getLang());
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get all agricultural content metadata")
+    @RequestMapping(value = "/agriculturalContent/all", method = POST)
+    public @ResponseBody List<AgriculturalContentDTO> getAllAgriculturalContent(
+            @RequestBody @Valid final DatasetFilterPagingRequest request) {
+        LOGGER.info("get all agricultural content");
+        return agriculturalContentService.findPublishedContent(request.getLang());
     }
 }

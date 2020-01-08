@@ -59,6 +59,7 @@ import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListAOIIndicatorDatasetPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListAgriculturalContentFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListAgriculturalWomenDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListConsumptionDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListFoodLossDatasetPage;
@@ -376,6 +377,11 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 list.add(new MenuBookmarkablePageLink<ListMicrodataLinkFormPage>(ListMicrodataLinkFormPage.class, null,
                         new StringResourceModel("navbar.microdata", this, null))
                         .setIconType(FontAwesomeIconType.external_link));
+
+                list.add(new MenuBookmarkablePageLink<ListAgriculturalContentFormPage>(
+                        ListAgriculturalContentFormPage.class, null,
+                        new StringResourceModel("navbar.agriculturalContent", this, null))
+                        .setIconType(FontAwesomeIconType.list_ul));
 
                 list.add(new MenuDivider());
 

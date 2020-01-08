@@ -604,6 +604,30 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="ContentTypeAndLocalizedLabels" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            INSERT INTO category (dtype, id, label, type) VALUES ('ContentType', nextval('hibernate_sequence'), 'Regulatory and legislative framework', 1);
+            INSERT INTO category (dtype, id, label, type) VALUES ('ContentType', nextval('hibernate_sequence'), 'Projects and programs', 2);
+            INSERT INTO category (dtype, id, label, type) VALUES ('ContentType', nextval('hibernate_sequence'), 'Studies and research', 3);
+            INSERT INTO category (dtype, id, label, type) VALUES ('ContentType', nextval('hibernate_sequence'), 'Agricultural sector budget', 4);
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Cadre réglementaire et législatif','fr', id FROM category WHERE label='Regulatory and legislative framework' AND dtype='ContentType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Projets et programmes','fr', id FROM category WHERE label='Projects and programs' AND dtype='ContentType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Études et recherches','fr', id FROM category WHERE label='Studies and research' AND dtype='ContentType';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Budget du secteur agricole','fr', id FROM category WHERE label='Agricultural sector budget' AND dtype='ContentType';
+
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Organismes gouvernementaux','fr', id FROM category WHERE label='Government Agencies' AND dtype='PartnerGroup';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Organisations de la société civile','fr', id FROM category WHERE label='Civil Society Organizations' AND dtype='PartnerGroup';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Partenaires au développement','fr', id FROM category WHERE label='Development Partners' AND dtype='PartnerGroup';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Instituts de recherche','fr', id FROM category WHERE label='Research Institutes' AND dtype='PartnerGroup';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'Secteur privé','fr', id FROM category WHERE label='Private Sector' AND dtype='PartnerGroup';
+            INSERT INTO localized_category_label(id, label, language, category_id) SELECT nextval('hibernate_sequence'),'','fr', id FROM category WHERE label='Other' AND dtype='PartnerGroup';
+
+        ]]></sql>
+    </changeSet>
 
 
 
