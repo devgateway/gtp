@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,9 @@ public class AgriculturalContentServiceImpl extends BaseJpaServiceImpl<Agricultu
 
     public Page<AgriculturalContentDTO> findByContentType(final String lang, final int type, final Pageable pageable) {
         List<AgriculturalContentDTO> list = repository.findByContentTypeTypeOrderByPublicationDate(type)
-                .stream().map(a -> new AgriculturalContentDTO(a, lang)).collect(Collectors.toList());
+                .stream()
+                .filter(a -> a.getPublicationDate().before(new Date()))
+                .map(a -> new AgriculturalContentDTO(a, lang)).collect(Collectors.toList());
         return new PageImpl<>(list, pageable, list.size());
     }
 }
