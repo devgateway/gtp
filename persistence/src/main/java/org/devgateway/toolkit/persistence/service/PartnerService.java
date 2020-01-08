@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.Partner;
+import org.devgateway.toolkit.persistence.dto.PartnerDTO;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ import java.util.List;
  */
 public interface PartnerService extends BaseJpaService<Partner> {
 
-    List<Partner> findPartnerOrdered();
+    List<PartnerDTO> findPartnerOrdered(String lang);
 }

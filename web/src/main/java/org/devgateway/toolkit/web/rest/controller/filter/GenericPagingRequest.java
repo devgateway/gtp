@@ -35,6 +35,9 @@ public class GenericPagingRequest {
             + "Larger values are not allowed because they can crash your browser.")
     protected Integer pageSize;
 
+    @ApiModelProperty(value = "Languaje")
+    private String lang;
+
     public GenericPagingRequest() {
         pageNumber = 0;
         pageSize = DEFAULT_PAGE_SIZE;
@@ -58,5 +61,13 @@ public class GenericPagingRequest {
 
     public Long getSkip() {
         return (long) (pageNumber * pageSize);
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

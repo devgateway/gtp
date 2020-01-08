@@ -26,9 +26,6 @@ public class DatasetFilterPagingRequest extends GenericPagingRequest implements 
     @ApiModelProperty(value = "Filter by organization")
     private TreeSet<Integer> organization;
 
-    @ApiModelProperty(value = "Languaje")
-    private String lang;
-
     public DatasetFilterPagingRequest() {
     }
 
@@ -77,13 +74,5 @@ public class DatasetFilterPagingRequest extends GenericPagingRequest implements 
             return ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
         }
         return null;
-    }
-
-    public String getLang() {
-        return lang;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
     }
 }

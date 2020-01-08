@@ -6,6 +6,9 @@ import org.devgateway.toolkit.persistence.repository.AgriculturalContentReposito
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,5 +43,11 @@ public class AgriculturalContentServiceImpl extends BaseJpaServiceImpl<Agricultu
     public List<AgriculturalContentDTO> findPublishedContent(final String lang) {
         return repository.findPublishedContent().stream()
                 .map(a -> new AgriculturalContentDTO(a, lang)).collect(Collectors.toList());
+    }
+
+    public Page<AgriculturalContentDTO> findByContentType(final String lang, final int type, final Pageable pageable) {
+        List<AgriculturalContentDTO> list = repository.findByContentTypeTypeOrderByPublicationDate(type)
+                .stream().map(a -> new AgriculturalContentDTO(a, lang)).collect(Collectors.toList());
+        return new PageImpl<>(list, pageable, list.size());
     }
 }

@@ -14,7 +14,10 @@ import java.util.List;
 @Transactional
 public interface AgriculturalContentRepository extends BaseJpaRepository<AgriculturalContent, Long> {
 
-    @Query("select p from AgriculturalContent p join p.contentType as g where p.publicationDate <= current_date()")
+    @Query("select p from AgriculturalContent p join p.contentType as g where p.publicationDate <= current_date()"
+            + "order by p.publicationDate desc")
     List<AgriculturalContent> findPublishedContent();
 
+
+    List<AgriculturalContent> findByContentTypeTypeOrderByPublicationDate(int type);
 }

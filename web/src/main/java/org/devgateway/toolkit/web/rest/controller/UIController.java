@@ -2,9 +2,9 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.IndicatorMetadata;
-import org.devgateway.toolkit.persistence.dao.Partner;
 import org.devgateway.toolkit.persistence.dao.RapidLink;
 import org.devgateway.toolkit.persistence.dao.WebContent;
+import org.devgateway.toolkit.persistence.dto.PartnerDTO;
 import org.devgateway.toolkit.persistence.service.IndicatorMetadataService;
 import org.devgateway.toolkit.persistence.service.PartnerService;
 import org.devgateway.toolkit.persistence.service.RapidLinkService;
@@ -117,8 +117,8 @@ public class UIController {
     @ApiOperation(value = "Get partner list.")
     @RequestMapping(value = "/partner/all", method = {GET, POST})
     public @ResponseBody
-    List<Partner> getAllPartners(@RequestBody @Valid final GenericPagingRequest request) {
+    List<PartnerDTO> getAllPartners(@RequestBody @Valid final GenericPagingRequest request) {
         LOGGER.info("get partner list");
-        return partnerService.findPartnerOrdered();
+        return partnerService.findPartnerOrdered(request.getLang());
     }
 }

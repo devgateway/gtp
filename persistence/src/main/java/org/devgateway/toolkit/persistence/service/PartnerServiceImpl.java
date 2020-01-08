@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.Partner;
+import org.devgateway.toolkit.persistence.dto.PartnerDTO;
 import org.devgateway.toolkit.persistence.repository.PartnerRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Octavian Ciubotaru
@@ -32,7 +34,8 @@ public class PartnerServiceImpl extends BaseJpaServiceImpl<Partner> implements P
     }
 
     @Override
-    public List<Partner> findPartnerOrdered() {
-        return partnerRepository.findPartnerOrdered();
+    public List<PartnerDTO> findPartnerOrdered(String lang) {
+        return partnerRepository.findPartnerOrdered().stream()
+                .map(p -> new PartnerDTO(p, lang)).collect(Collectors.toList());
     }
 }
