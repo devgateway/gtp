@@ -4,14 +4,17 @@ import org.devgateway.toolkit.persistence.dao.AgriculturalContent;
 
 import java.util.Date;
 
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
+
 public class AgriculturalContentDTO {
 
-    public static final String LANG_FR = "fr";
     private String title;
 
     private String description;
 
     private Date publicationDate;
+
+    private long contentTypeId;
 
     private String contentType;
 
@@ -29,7 +32,7 @@ public class AgriculturalContentDTO {
             this.description = ac.getDescription();
             this.contentType = ac.getContentType().getLabel();
         }
-
+        this.contentTypeId = ac.getContentType().getId();
         this.publicationDate = ac.getPublicationDate();
         this.link = ac.getLink();
         if (!ac.getFileMetadata().isEmpty()) {
@@ -75,6 +78,14 @@ public class AgriculturalContentDTO {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public long getContentTypeId() {
+        return contentTypeId;
+    }
+
+    public void setContentTypeId(long contentTypeId) {
+        this.contentTypeId = contentTypeId;
     }
 
     public Long getFileId() {

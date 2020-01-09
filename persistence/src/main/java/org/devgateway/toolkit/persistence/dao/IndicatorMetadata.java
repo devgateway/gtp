@@ -16,6 +16,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
 
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
+
 /**
  * Created by Daniel Oliva
  */
@@ -25,7 +27,6 @@ import java.io.Serializable;
 @JsonIgnoreProperties(value = { "new" })
 public class IndicatorMetadata extends AbstractAuditableEntity implements Serializable {
 
-    public static final String FRENCH_LANG = "fr";
     private String intro;
 
     private String introFr;
@@ -45,7 +46,7 @@ public class IndicatorMetadata extends AbstractAuditableEntity implements Serial
     }
 
     public String getIntro(String lang) {
-        if (StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(FRENCH_LANG)) {
+        if (StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(LANG_FR)) {
             return introFr;
         }
         return intro;

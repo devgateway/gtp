@@ -6,20 +6,23 @@ import org.devgateway.toolkit.persistence.dao.MicrodataLink;
 
 import java.time.LocalDateTime;
 
+import static org.devgateway.toolkit.persistence.util.Constants.EMPTY_STRING;
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
+import static org.devgateway.toolkit.persistence.util.Constants.NOT_AVAILABLE;
+
 
 /**
  * @author Daniel Oliva
  */
 public class DatasetDTO {
 
-    public static final String NOT_AVAILABLE = "N/A";
-    public static final String LANG_FR = "fr";
     private Long id;
     private String organization;
     private String title;
     private String description;
     private String link;
     private String source;
+    private String metadata;
     private String creator;
     private LocalDateTime createdDate;
     private Long fileId;
@@ -28,13 +31,14 @@ public class DatasetDTO {
     public DatasetDTO(final Dataset dataset, final String typeLabel) {
         this.id = dataset.getId();
         this.title = dataset.getLabel();
-        this.source = dataset.getSource() != null ? dataset.getSource() : "";
+        this.source = dataset.getSource() != null ? dataset.getSource() : EMPTY_STRING;
         this.organization = dataset.getOrganization() != null ? dataset.getOrganization().getLabel() : NOT_AVAILABLE;
         this.creator = dataset.getUploadedBy() != null ? dataset.getUploadedBy().getFirstName() + " "
                 + dataset.getUploadedBy().getLastName() : NOT_AVAILABLE;
         this.createdDate = dataset.getCreatedDate() != null ? dataset.getCreatedDate().get().toLocalDateTime() : null;
         this.fileId = dataset.getFileMetadata() != null ? dataset.getFileMetadata().iterator().next().getId() : null;
         this.type = typeLabel;
+        this.metadata = dataset.getMetadata();
     }
 
     public DatasetDTO(final MicrodataLink data, String lang) {
@@ -55,6 +59,14 @@ public class DatasetDTO {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
     }
 
     public void setTitle(String title) {

@@ -15,6 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
+import static org.devgateway.toolkit.persistence.util.Constants.POVERTY_EN_STR;
+import static org.devgateway.toolkit.persistence.util.Constants.POVERTY_FR_STR;
+
 /**
  * @author dbianco
  */
@@ -22,9 +26,6 @@ import java.util.List;
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional
 public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicator> implements RegionIndicatorService {
-
-    public static final String POVERTY_FR_STR = "Pauvreté";
-    public static final String POVERTY_EN_STR = "Poverty";
 
     @Autowired
     private RegionIndicatorRepository repository;
@@ -47,7 +48,7 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
         List<RegionIndicatorDTO> ret = new ArrayList<>();
         String povertyStr = POVERTY_EN_STR;
 
-        if (lang != null && lang.equalsIgnoreCase("fr")) {
+        if (lang != null && lang.equalsIgnoreCase(LANG_FR)) {
             povertyStr = POVERTY_FR_STR;
         }
 

@@ -16,12 +16,13 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
+
 /**
  * Created by Daniel Oliva
  */
 public class MicrodataLinkFilterState {
     private static final long serialVersionUID = 8005371716983257722L;
-    public static final String LANG_FR = "fr";
 
     private DatasetFilterPagingRequest filter;
 

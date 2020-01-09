@@ -13,9 +13,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
+import static org.devgateway.toolkit.persistence.util.Constants.EMPTY_STRING;
+
 public class ExcelFilterHelper extends ExcelFilterDTO {
 
-    public static final String EMPTY_STRING = "";
+
     public static final String[] EN_LABELS = {"Years", "Regions", "Genders", "Index Types", "Crop Types", "AW Groups",
             "AW Group Types", "Crop SubTypes", "Loss Types", "Poverty Levels", "Profesional Activities",
             "Minimum Percentage", "Maximum Percentage", "Minimum Kilograms", "Maximum Percentage", "Minimum Age",
@@ -27,7 +30,6 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
             "Pourcentage maximum", "Kilogrammes minimum", "Pourcentage maximum", "Âge minimum", "Âge maximum",
             "Score minimum", "Score maximum", "Pourcentage moyen minimum", "Pourcentage moyen maximum",
             "Kilomètres moyens minimum", "Maximum moyen kilogrammes", "Aucun", "Filtres utilisés: "};
-    public static final String FRENCH_LANG = "fr";
 
     private Set<Region> region;
 
@@ -217,7 +219,7 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
     }
 
     private String getLabel(int labelIdx) {
-        if (StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(FRENCH_LANG)) {
+        if (StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(LANG_FR)) {
             return FR_LABELS[labelIdx];
         }
         return EN_LABELS[labelIdx];
@@ -241,7 +243,7 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
                 if (sb.length() > 1) {
                     sb.append(", ");
                 }
-                if (FRENCH_LANG.equals(lang)) {
+                if (LANG_FR.equals(lang)) {
                     sb.append(c.getLabel(lang));
                 } else {
                     sb.append(c.getLabel());

@@ -5,9 +5,9 @@ import org.devgateway.toolkit.persistence.dao.Data;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
-public class DataDTO {
+import static org.devgateway.toolkit.persistence.util.Constants.EMPTY_STRING;
 
-    private static final String EMPTY = "";
+public class DataDTO {
 
     @JsonIgnore
     private Long id;
@@ -25,7 +25,7 @@ public class DataDTO {
     }
 
     protected String getStr(Labelable labelable) {
-        String ret = EMPTY;
+        String ret = EMPTY_STRING;
         if (labelable != null) {
             if (lang != null) {
                 ret = labelable.getLabel(lang).replace(",", " ");

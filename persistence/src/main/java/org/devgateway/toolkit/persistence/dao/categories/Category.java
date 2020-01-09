@@ -33,6 +33,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
+
 /**
  * @author idobre
  * @since 11/18/14
@@ -91,7 +93,7 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
      * Retrieve french label. If not found returns null.
      */
     public String getLabelFr() {
-        return getLabel("fr");
+        return getLabel(LANG_FR);
     }
 
     public String getLabel(String language) {
@@ -114,7 +116,7 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
      * Set label for french language.
      */
     public void setLabelFr(String label) {
-        setLabel("fr", label);
+        setLabel(LANG_FR, label);
     }
 
     private void setLabel(String language, String label) {

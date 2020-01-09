@@ -1,11 +1,12 @@
 package org.devgateway.toolkit.persistence.dto;
 
-
 import org.devgateway.toolkit.persistence.dao.Partner;
+
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
+
 
 public class PartnerDTO {
 
-    public static final String LANG_FR = "fr";
     private String name;
 
     private String url;
@@ -13,6 +14,8 @@ public class PartnerDTO {
     private String contactInfo;
 
     private String description;
+
+    private long groupId;
 
     private String groupType;
 
@@ -22,6 +25,7 @@ public class PartnerDTO {
         this.name = partner.getName();
         this.url = partner.getUrl();
         this.contactInfo = partner.getContactInfo();
+        this.groupId = partner.getGroupType().getId();
         if (LANG_FR.equalsIgnoreCase(lang)) {
             this.description = partner.getDescriptionFr();
             this.groupType = partner.getGroupType().getLabelFr();
@@ -55,6 +59,14 @@ public class PartnerDTO {
 
     public void setContactInfo(String contactInfo) {
         this.contactInfo = contactInfo;
+    }
+
+    public long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
     }
 
     public String getDescription() {

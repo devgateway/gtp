@@ -41,6 +41,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.devgateway.toolkit.persistence.util.Constants.EMPTY_STRING;
+
 @Service
 @CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "excelExportCache")
 public class ExcelGenerator {
@@ -52,7 +54,6 @@ public class ExcelGenerator {
 
     private static final Map<Integer, Category> CATEGORIES = new HashMap<>();
     private static final Map<Integer, Region> REGIONS = new HashMap<>();
-    public static final String EMPTY_STR = "";
     public static final int POVERTY_TYPE = 1;
     public static final int AG_WOMAN_TYPE = 2;
     public static final int FOOD_LOSS_TYPE = 3;
@@ -118,7 +119,7 @@ public class ExcelGenerator {
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES, REGIONS);
         IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(POVERTY_TYPE);
 
-        String intro = EMPTY_STR;
+        String intro = EMPTY_STRING;
         if (indicatorMetadata != null) {
             intro = indicatorMetadata.getIntro(filters.getLang());
         }
@@ -136,7 +137,7 @@ public class ExcelGenerator {
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES);
         IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(AOI_TYPE);
 
-        String intro = EMPTY_STR;
+        String intro = EMPTY_STRING;
         if (indicatorMetadata != null) {
             intro = indicatorMetadata.getIntro(filters.getLang());
         }
@@ -154,7 +155,7 @@ public class ExcelGenerator {
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES);
         IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(AG_WOMAN_TYPE);
 
-        String intro = EMPTY_STR;
+        String intro = EMPTY_STRING;
         if (indicatorMetadata != null) {
             intro = indicatorMetadata.getIntro(filters.getLang());
         }
@@ -172,7 +173,7 @@ public class ExcelGenerator {
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES);
         IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(FOOD_LOSS_TYPE);
 
-        String intro = EMPTY_STR;
+        String intro = EMPTY_STRING;
         if (indicatorMetadata != null) {
             intro = indicatorMetadata.getIntro(filters.getLang());
         }

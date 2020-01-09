@@ -8,12 +8,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
+
 /**
  * @author Octavian Ciubotaru
  */
 public final class MessageSource {
 
-    public static final String FR_LOCALE = "fr";
     private static Map<Class, MessageSource> forClass = new HashMap<>();
 
     private static Map<String, MessageSource> withBasename = new HashMap<>();
@@ -41,7 +42,7 @@ public final class MessageSource {
 
     public String getMessage(String key, String locale) {
         try {
-            if (StringUtils.isNotBlank(locale) && locale.equalsIgnoreCase(FR_LOCALE)) {
+            if (StringUtils.isNotBlank(locale) && locale.equalsIgnoreCase(LANG_FR)) {
                 return messageSource.getMessage(key, null, Locale.FRANCE);
             }
             return messageSource.getMessage(key, null, null);
