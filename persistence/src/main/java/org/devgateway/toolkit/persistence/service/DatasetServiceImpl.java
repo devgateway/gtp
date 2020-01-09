@@ -42,12 +42,12 @@ public class DatasetServiceImpl extends BaseJpaServiceImpl<Dataset>
     public Page<DatasetDTO> findAllDTO(Specification<Dataset> spec, Pageable pageable, String lang) {
         Page<Dataset> datasetPage =  datasetRepository.findAll(spec, pageable);
 
-        Map<String, String> datasetTypeMap = datasetTypeRepository.findAllPopulatedLang()
-                .stream().collect(Collectors.toMap(DatasetType::getDescription, d -> d.getLabel(lang)));
+        Map<String, DatasetType> datasetTypeMap = datasetTypeRepository.findAllPopulatedLang()
+                .stream().collect(Collectors.toMap(DatasetType::getDescription, d -> d));
 
         List<DatasetDTO> dtoList = datasetPage.get().map(d -> {
-            String typeLabel = datasetTypeMap.get(d.getDtype());
-            return new DatasetDTO(d, typeLabel);
+            DatasetType type = datasetTypeMap.get(d.getDtype());
+            return new DatasetDTO(d, type, lang);
         }).collect(Collectors.toList());
         return new PageImpl(dtoList, datasetPage.getPageable(), datasetPage.getTotalElements());
     }
