@@ -9,7 +9,7 @@ import java.util.TreeSet;
 public class AOIFilterPagingRequest extends DefaultFilterPagingRequest implements Serializable {
 
     @ApiModelProperty(value = "Filter by index type")
-    private TreeSet<Integer> indexType;
+    private TreeSet<Integer> indexType = new TreeSet<>();
 
     public AOIFilterPagingRequest() {
     }
@@ -20,7 +20,15 @@ public class AOIFilterPagingRequest extends DefaultFilterPagingRequest implement
 
     public AOIFilterPagingRequest(IndicatorFilterPagingRequest req) {
         super(req);
-        this.indexType = req.getIndexType();
+        if (req.getIndexType() != null) {
+            this.indexType.addAll(req.getIndexType());
+        }
+        if (req.getSubsidies().getIndexType() != null) {
+            this.indexType.addAll(req.getSubsidies().getIndexType());
+        }
+        if (req.getBudget().getIndexType() != null) {
+            this.indexType.addAll(req.getBudget().getIndexType());
+        }
     }
 
     public TreeSet<Integer> getIndexType() {

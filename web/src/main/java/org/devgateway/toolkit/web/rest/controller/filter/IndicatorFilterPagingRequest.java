@@ -30,6 +30,10 @@ public class IndicatorFilterPagingRequest extends DefaultFilterPagingRequest {
 
     private TreeSet<Integer> indexType;
 
+    private AOIWrapper subsidies;
+
+    private AOIWrapper budget;
+
     private Double minAvgPercentage;
 
     private Double maxAvgPercentage;
@@ -258,6 +262,22 @@ public class IndicatorFilterPagingRequest extends DefaultFilterPagingRequest {
         this.activity = activity;
     }
 
+    public AOIWrapper getSubsidies() {
+        return subsidies;
+    }
+
+    public void setSubsidies(AOIWrapper subsidies) {
+        this.subsidies = subsidies;
+    }
+
+    public AOIWrapper getBudget() {
+        return budget;
+    }
+
+    public void setBudget(AOIWrapper budget) {
+        this.budget = budget;
+    }
+
     @Override
     public String getLang() {
         return lang;
@@ -267,4 +287,6 @@ public class IndicatorFilterPagingRequest extends DefaultFilterPagingRequest {
     public void setLang(String lang) {
         this.lang = lang;
     }
+
+
 }
