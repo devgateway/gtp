@@ -12,13 +12,35 @@ const LOAD_RAPID_LINKS='LOAD_RAPID_LINKS'
 const LOAD_RAPID_LINKS_DONE='LOAD_RAPID_LINKS_DONE'
 const LOAD_RAPID_LINKS_ERROR='LOAD_RAPID_LINKS_ERROR'
 
+
+const LOAD_PARTNERS_DATA='LOAD_PARTNERS_DATA'
+const LOAD_PARTNERS_DATA_DONE='LOAD_PARTNERS_DATA_DONE'
+const LOAD_PARTNERS_DATA_ERROR='LOAD_PARTNERS_DATA_ERROR'
+
+
 const initialState = Immutable.Map()
+
+
+
+export const loadPartners = (category, path, filtered) => (dispatch, getState) => {
+
+  dispatch({type: LOAD_PARTNERS_DATA})
+  api.getPartners()
+    .then(data => {
+
+      dispatch({type: LOAD_PARTNERS_DATA_DONE, ...data})
+    }).catch(error => {
+      dispatch({type: LOAD_PARTNERS_DATA_ERROR,category,error})
+    })
+}
+
+
 
 export const loadRapidLInks = (category, path, filtered) => (dispatch, getState) => {
   dispatch({type: LOAD_RAPID_LINKS})
   api.getRapidLinks()
     .then(data => {
-      
+
       dispatch({type: LOAD_RAPID_LINKS_DONE,data})
     }).catch(error => {
       dispatch({type: LOAD_RAPID_LINKS_ERROR,category,error})
@@ -47,7 +69,6 @@ export default (state = initialState, action) => {
     }
     case LOAD_DATA_ITEM_DONE: {
       const {category,data} = action
-      console.log(category +' set to state' )
       return state.setIn(["items", category], data)
       .setIn(['items','status',category,'loading'],false)
     }
@@ -62,13 +83,34 @@ export default (state = initialState, action) => {
     }
       case LOAD_RAPID_LINKS_DONE: {
       const {data} = action
-      
+
       return state.setIn(['links','data'],data).deleteIn(['links','error'])
     }
     case LOAD_RAPID_LINKS_ERROR: {
       const {error} = action
       return state.setIn(['links','error'],error)
     }
+
+    case  LOAD_PARTNERS_DATA: {
+      const {data} = action
+      return state.setIn(['partners','loading'],true)
+    }
+
+    case LOAD_PARTNERS_DATA_DONE: {
+      const {partners , groups} = action
+
+      return state
+      .setIn(['partners','data'],partners)
+      .setIn(['partners','groups'],groups)
+      .deleteIn(['partners','error'])
+    }
+
+    case  LOAD_PARTNERS_DATA_ERROR: {
+      const {error} = action
+      return state.setIn(['partners','error'],error)
+    }
+
+
     default:
       return state
   }

@@ -52,7 +52,7 @@ const HeaderNavButtons = withRouter((props) => {
     <div className="nav link"><Link to={`/${props.match.params.lan}/home`}><FormattedMessage id="home.header.menu.home" defaultMessage={"Home"} values={""}/></Link></div>
     <div className="nav link">                                        <FormattedMessage id="home.header.menu.agriculutural.initiatives" defaultMessage={"Agricultural Initiatives"} values={""}/></div>
     <div className="nav link menu"><AnalystDropdown></AnalystDropdown></div>
-    <div className="nav link"><Link to={`/${props.match.params.lan}/home`}><FormattedMessage id="home.header.menu.partners" defaultMessage={"Partners"} values={""}/></Link></div>
+    <div className="nav link"><Link to={`/${props.match.params.lan}/partners`}><FormattedMessage id="home.header.menu.partners" defaultMessage={"Partners"} values={""}/></Link></div>
     <div className="nav  separator"></div>
     <div className="nav link"><LanSwitcher/></div>
     <div className="nav  separator"></div>

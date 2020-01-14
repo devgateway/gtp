@@ -19,7 +19,7 @@ import Footer from './layout/Footer'
 import Indicators from './indicators'
 import Microdata from './microdata'
 import Maps from './maps/index.jsx'
-
+import Partners from './partners'
 import smoothscroll from 'smoothscroll-polyfill';
 
 // kick off the polyfill!
@@ -101,6 +101,11 @@ class IntlRoutes extends Component {
                     <Header></Header>
                     <Maps></Maps>
                   </div>)}/>
+
+                  <Route exact={true} path="/:lan/partners" render={() => (<div>
+                      <Header></Header>
+                      <Partners></Partners>
+                    </div>)}/>
             <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
           </Switch>
 

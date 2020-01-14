@@ -35,7 +35,7 @@ const formatOptions = {
     showDetails(fid) {
 
       const data = this.g.selectAll("path").filter(d => d.properties.fid == fid).data()[0]
-      debugger;
+      
       var bounds = this.path.bounds(data),
       dx = bounds[1][0] - bounds[0][0],
       dy = bounds[1][1] - bounds[0][1],
@@ -106,7 +106,7 @@ const formatOptions = {
     }
 
     componentDidUpdate(prevProps) {
-      debugger;
+      
       if (prevProps.data != this.props.data) {
         this.generate()
       }
