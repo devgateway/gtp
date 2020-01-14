@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.dto;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.Dataset;
 import org.devgateway.toolkit.persistence.dao.MicrodataLink;
+import org.devgateway.toolkit.persistence.dao.categories.DatasetType;
 
 import java.time.LocalDateTime;
 
@@ -27,8 +28,10 @@ public class DatasetDTO {
     private LocalDateTime createdDate;
     private Long fileId;
     private String type;
+    private Long typeId;
 
-    public DatasetDTO(final Dataset dataset, final String typeLabel) {
+    public DatasetDTO(final Dataset dataset, final DatasetType type, String lang) {
+        boolean isFr = StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(LANG_FR);
         this.id = dataset.getId();
         this.title = dataset.getLabel();
         this.source = dataset.getSource() != null ? dataset.getSource() : EMPTY_STRING;
@@ -37,7 +40,8 @@ public class DatasetDTO {
                 + dataset.getUploadedBy().getLastName() : NOT_AVAILABLE;
         this.createdDate = dataset.getCreatedDate() != null ? dataset.getCreatedDate().get().toLocalDateTime() : null;
         this.fileId = dataset.getFileMetadata() != null ? dataset.getFileMetadata().iterator().next().getId() : null;
-        this.type = typeLabel;
+        this.type = isFr ? type.getLabelFr() : type.getLabel();
+        this.typeId = type.getId();
         this.metadata = dataset.getMetadata();
     }
 
