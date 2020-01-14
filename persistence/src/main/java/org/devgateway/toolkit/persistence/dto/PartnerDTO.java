@@ -7,6 +7,8 @@ import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 
 public class PartnerDTO {
 
+    private Long id;
+
     private String name;
 
     private String url;
@@ -22,6 +24,7 @@ public class PartnerDTO {
     private byte[] base64;
 
     public PartnerDTO(final Partner partner, final String lang) {
+        this.id = partner.getId();
         this.name = partner.getName();
         this.url = partner.getUrl();
         this.contactInfo = partner.getContactInfo();
@@ -35,6 +38,14 @@ public class PartnerDTO {
         }
 
         this.base64 = partner.getBase64();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
