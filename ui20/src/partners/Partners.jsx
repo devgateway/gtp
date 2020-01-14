@@ -1,16 +1,15 @@
-import React, { useEffect ,Component,useState} from 'react'
+import React, { useEffect ,Component,useState, createRef} from 'react'
 import {loadPartners} from '../modules/Data'
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
-
+import Sticky from './Sticky'
 import {
   Dropdown,
   Grid,
   Image,
-  Rail,
   Ref,
+  Rail,
   Segment,
-  Sticky,
   Container,
   Label,
   Menu,
@@ -19,8 +18,10 @@ import {
 
 import './partners.scss'
 
+const contextRef = createRef()
 
 const Partners = ({onLoad , groups , partners}) => {
+
   useEffect(() => {
     if (onLoad){
     }
@@ -57,18 +58,27 @@ return (<div className="partners container">
       </p>
     </div>
     <Container fluid>
+    <Ref innerRef={contextRef}>
+
     <Grid columns={2} divided padded fluid>
-        <Grid.Column floated='left' width={5}>
+
+        <Grid.Column floated='left' width={5} ref={contextRef}>
+
+          <Sticky context={contextRef}>
           {groups && <ListMenu className="ui sidebar" groups={groups} onChangeSelection={e=>null}/>}
+          </Sticky>
         </Grid.Column>
 
         <Grid.Column floated='right' width={11}>
           <Container className=''>
+
             {groups && <ListItems groups={groups} onChangeSelection={e=>null}/>}
+
           </Container>
         </Grid.Column>
 
       </Grid>
+      </Ref>
 </Container>
 
 <br/>
@@ -92,10 +102,10 @@ const ListItems=({groups,onChangeSelection})=>{
 
                     {g.partners.map(p=>{
                         return (
-                          <Container fluid className="partners details">
+                          <Container  fluid className="partners details">
                             <Grid padded fluid size={2}>
 
-                                    <Grid.Row>
+                                    <Grid.Row id={"_partner_"+p.id}>
                                         <Grid.Column  width={11}>
                                           <a href="https://google.com" className="ui image medium padding5">
                                             <img src={`data:image/png;base64,${p.base64}`}/>
@@ -105,7 +115,7 @@ const ListItems=({groups,onChangeSelection})=>{
                                           <a href={p.url}>{p.url}</a>
                                         </Grid.Column>
                                     </Grid.Row>
-
+¡
                                       <Grid.Row>
                                         <Grid.Column >
                                             <Label basic className="name">{p.name}</Label>
@@ -161,6 +171,9 @@ const ListMenu=({groups,onChangeSelection})=>{
           { g.partners.map(p=>(
 
             <Menu.Item fluid active={selected === p.name} onClick={(e)=>{
+              document.getElementById("_partner_"+p.id)
+              .scrollIntoView({behavior:  "smooth",block:    "end"});
+
               e.stopPropagation()
               setSelected(p.name)
               onChangeSelection(p.id)
