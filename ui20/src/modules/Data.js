@@ -20,17 +20,14 @@ const LOAD_PARTNERS_DATA_ERROR='LOAD_PARTNERS_DATA_ERROR'
 
 const initialState = Immutable.Map()
 
-
-
-export const loadPartners = (category, path, filtered) => (dispatch, getState) => {
+export const loadPartners = (locale) => (dispatch, getState) => {
 
   dispatch({type: LOAD_PARTNERS_DATA})
-  api.getPartners()
+  api.getPartners(locale)
     .then(data => {
-
       dispatch({type: LOAD_PARTNERS_DATA_DONE, ...data})
     }).catch(error => {
-      dispatch({type: LOAD_PARTNERS_DATA_ERROR,category,error})
+      dispatch({type: LOAD_PARTNERS_DATA_ERROR,error})
     })
 }
 

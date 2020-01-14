@@ -20,12 +20,13 @@ import './partners.scss'
 
 const contextRef = createRef()
 
-const Partners = ({onLoad , groups , partners}) => {
+const Partners = ({intl, onLoad , groups , partners}) => {
 
   useEffect(() => {
     if (onLoad){
+        onLoad(intl.locale)
     }
-      onLoad()
+
   }, [])
 return (<div className="partners container">
     <div className="partners title">
@@ -81,9 +82,6 @@ return (<div className="partners container">
       </Ref>
 </Container>
 
-<br/>
-<br/>
-<br/>
     </div>)
 }
 
@@ -152,8 +150,11 @@ const ListMenu=({groups,onChangeSelection})=>{
  const [active, setActive] = useState(groups[0].id);
  const [selected, setSelected] = useState(groups?groups[0].partners[0].name:null);
 
+ const goTo=(id)=>{
+   document.getElementById("_partner_"+id)
+   .scrollIntoView({behavior:  "smooth",block:    "start"});
+ }
 
- debugger;
   return (
     <Menu vertical fixed fluid className="menu level1">
     {groups && groups.map(g=>{
@@ -162,6 +163,7 @@ const ListMenu=({groups,onChangeSelection})=>{
         setActive(g.id)
         setSelected(g.partners[0].name)
         onChangeSelection(g.partners[0].id)
+        goTo(g.partners[0].id)
 
       }}>
         <Label color='teal'>{g.partners.length}</Label>
@@ -171,13 +173,10 @@ const ListMenu=({groups,onChangeSelection})=>{
           { g.partners.map(p=>(
 
             <Menu.Item fluid active={selected === p.name} onClick={(e)=>{
-              document.getElementById("_partner_"+p.id)
-              .scrollIntoView({behavior:  "smooth",block:    "end"});
-
-              e.stopPropagation()
+              goTo(p.id)
               setSelected(p.name)
               onChangeSelection(p.id)
-
+              e.stopPropagation()
             }}>
             <p>{p.name}</p>
             </Menu.Item>

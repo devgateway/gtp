@@ -129,10 +129,10 @@ export const getGISData = () => {
 }
 
 
-export const getPartners = () => {
+export const getPartners = (locale) => {
     return new Promise((resolve, reject) => {
 
-        return post(API_PARTNERS_URL, {}).then((partners) => {
+        return post(API_PARTNERS_URL, {lang:locale}).then((partners) => {
           debugger
           const groups = Array.from(new Set(partners.map(p => p.groupType ))).map(g => {
           const pps=partners.filter(p => p.groupType == g)
