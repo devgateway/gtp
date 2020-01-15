@@ -16,6 +16,10 @@ const URL_DATA_SETS = API_ROOT + '/data/dataset/all'
 const URL_SOURCES = API_ROOT + '/data/datasources/all'
 const API_GIS_URL = API_ROOT + '/data/gisIndicator/all'
 const API_PARTNERS_URL = API_ROOT + '/data/partner/all'
+const URL_API_INITIATIVE_TYPES = API_ROOT + '/data/filter/contentType'
+const URL_API_INITIATIVE_ITEMS = API_ROOT + '/data/agriculturalContent/type'
+
+
 
 const xlsExportURLBuilder = (what) => {
   let subfix = ''
@@ -36,7 +40,6 @@ const xlsExportURLBuilder = (what) => {
 
   return `${API_ROOT}/data/indicator/excelExport/${subfix}`
 }
-
 
 const csvExportURLBuilder = (what) => {
   let subfix = ''
@@ -133,7 +136,7 @@ export const getPartners = (locale) => {
     return new Promise((resolve, reject) => {
 
         return post(API_PARTNERS_URL, {lang:locale}).then((partners) => {
-          debugger
+
           const groups = Array.from(new Set(partners.map(p => p.groupType ))).map(g => {
           const pps=partners.filter(p => p.groupType == g)
             return {
@@ -359,4 +362,21 @@ export const getPartners = (locale) => {
           reject(error)
         })
       })
+    }
+
+
+    export const getInitiativeTypes = () => {
+      return get(URL_API_INITIATIVE_TYPES)
+    }
+
+
+    export const getInitiativeItems = (id, locale) => {
+      return new Promise((resolve, reject) => {
+          return post(`${URL_API_INITIATIVE_ITEMS}/${id}`, {lang:locale}).then((data) => {
+            debugger;
+            resolve({data,id})
+          }).catch (error => {
+            reject(error)
+          })
+        })
     }

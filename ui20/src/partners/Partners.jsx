@@ -94,7 +94,7 @@ const ListItems=({groups,onChangeSelection})=>{
 
   return (<Container fluid>
           {groups && groups.map(g=>{
-              debugger;
+
               return (
                 <Container fluid>
 

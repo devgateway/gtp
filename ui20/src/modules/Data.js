@@ -18,7 +18,44 @@ const LOAD_PARTNERS_DATA_DONE='LOAD_PARTNERS_DATA_DONE'
 const LOAD_PARTNERS_DATA_ERROR='LOAD_PARTNERS_DATA_ERROR'
 
 
+
+const LOAD_INITIATIVE_TYPES='LOAD_INITIATIVE_TYPES'
+const LOAD_INITIATIVE_TYPES_DONE='LOAD_INITIATIVE_TYPES_DONE'
+const LOAD_INITIATIVE_TYPES_ERROR='LOAD_INITIATIVE_TYPES_ERROR'
+
+
+
+
+const LOAD_INITIATIVE_ITEMS='LOAD_INITIATIVE_ITEMS'
+const LOAD_INITIATIVE_ITEMS_DONE='LOAD_INITIATIVE_ITEMS_DONE'
+const LOAD_INITIATIVE_ITEMS_ERROR='LOAD_INITIATIVE_ITEMS_ERROR'
+
+
 const initialState = Immutable.Map()
+
+
+export const loadInitiativesTypes=()=> (dispatch, getState) => {
+
+  dispatch({type: LOAD_INITIATIVE_TYPES})
+  api.getInitiativeTypes()
+    .then(data => {
+      dispatch({type: LOAD_INITIATIVE_TYPES_DONE, data})
+    }).catch(error => {
+      dispatch({type: LOAD_INITIATIVE_TYPES_ERROR,error})
+    })
+}
+
+
+
+export const loadInitiativesItems=(id,locale)=> (dispatch, getState) => {
+  dispatch({type: LOAD_INITIATIVE_ITEMS, id,locale})
+  api.getInitiativeItems(id,locale)
+    .then(data => {
+      dispatch({type: LOAD_INITIATIVE_ITEMS_DONE, id, data})
+    }).catch(error => {
+      dispatch({type: LOAD_INITIATIVE_ITEMS_ERROR,error, id,locale})
+    })
+}
 
 export const loadPartners = (locale) => (dispatch, getState) => {
 
@@ -107,6 +144,41 @@ export default (state = initialState, action) => {
       return state.setIn(['partners','error'],error)
     }
 
+    case  LOAD_INITIATIVE_TYPES: {
+      const {data} = action
+      return state.setIn(['initiatives','types','loading'],true)
+    }
+
+    case LOAD_INITIATIVE_TYPES_DONE: {
+      const {data} = action
+      debugger;
+      return state.setIn(['initiatives','types','data'],data)
+      .deleteIn(['initiatives','types','loading'])
+      .deleteIn(['initiatives','types','error'])
+    }
+
+    case  LOAD_INITIATIVE_TYPES_ERROR: {
+      const {error} = action
+      return state.setIn(['initiatives','types','error'],error)
+    }
+
+    case  LOAD_INITIATIVE_ITEMS: {
+      const {data,id} = action
+      return state.setIn(['initiatives','items','loading',id],true)
+    }
+
+    case LOAD_INITIATIVE_ITEMS_DONE: {
+      const {data,id} = action
+      debugger;
+      return state.setIn(['initiatives','items','data',id],data)
+      .deleteIn(['initiatives','items','loading'])
+      .deleteIn(['initiatives','items','error'])
+    }
+
+    case  LOAD_INITIATIVE_ITEMS_ERROR: {
+      const {error,id} = action
+      return state.setIn(['initiatives','items','error',id],error)
+    }
 
     default:
       return state

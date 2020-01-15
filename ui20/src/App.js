@@ -20,6 +20,7 @@ import Indicators from './indicators'
 import Microdata from './microdata'
 import Maps from './maps/index.jsx'
 import Partners from './partners'
+import Initiatives from './initiatives'
 import smoothscroll from 'smoothscroll-polyfill';
 
 // kick off the polyfill!
@@ -106,6 +107,11 @@ class IntlRoutes extends Component {
                       <Header></Header>
                       <Partners></Partners>
                     </div>)}/>
+
+                    <Route exact={true} path="/:lan/initiatives" render={() => (<div>
+                        <Header></Header>
+                        <Initiatives></Initiatives>
+                      </div>)}/>
             <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
           </Switch>
 
