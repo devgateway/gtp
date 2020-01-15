@@ -51,6 +51,9 @@ public class AgriculturalContentServiceImpl extends BaseJpaServiceImpl<Agricultu
                 .stream()
                 .filter(a -> a.getPublicationDate().before(new Date()))
                 .map(a -> new AgriculturalContentDTO(a, lang)).collect(Collectors.toList());
-        return new PageImpl<>(list, pageable, list.size());
+        int start = Long.valueOf(pageable.getOffset()).intValue();
+        int end = pageable.getOffset() + pageable.getPageSize() > list.size() ? Long.valueOf(pageable.getOffset()
+                + pageable.getPageSize()).intValue() : list.size();
+        return new PageImpl<>(list.subList(start, end), pageable, list.size());
     }
 }
