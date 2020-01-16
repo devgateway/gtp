@@ -374,7 +374,7 @@ export const getPartners = (locale) => {
 
       debugger;
       return new Promise((resolve, reject) => {
-          return post(`${URL_API_INITIATIVE_ITEMS}/${id}`, {lang:locale}).then((data) => {
+          return post(`${URL_API_INITIATIVE_ITEMS}/${id}`, {lang:locale,pageNumber:page}).then((data) => {
 
             resolve({data,id})
           }).catch (error => {
