@@ -1,7 +1,7 @@
 import React, { useEffect ,Component,useState, createRef} from 'react'
 import {loadInitiativesTypes,loadInitiativesItems} from '../modules/Data'
 import {connect} from 'react-redux';
-import {FormattedMessage, injectIntl} from 'react-intl';
+import {FormattedMessage,FormattedDate, injectIntl} from 'react-intl';
 import Sticky from './Sticky'
 import {
   Dropdown,
@@ -13,7 +13,8 @@ import {
   Container,
   Label,
   Menu,
-  Input
+  Input,
+  Pagination
 } from 'semantic-ui-react'
 
 import './initiatives.scss'
@@ -31,61 +32,108 @@ const Initiatives = ({intl, onLoad, onLoadItems , types, items}) => {
 return (<div className="initiatives container">
     <div className="initiatives title">
       <p>
-        <FormattedMessage id="initiatives.page.title" defaultMessage="initiatives"></FormattedMessage>
+        <FormattedMessage id="initiatives.page.title" defaultMessage="Agricultural Initiatives, Policies, Strategies, Programs"></FormattedMessage>
       </p>
     </div>
 
 
     <div className="initiatives description">
-      <p>  <FormattedMessage id='initiatives.page.description' defaultMessage="The Microdata page will display agricultural datasets that have been preloaded by each responsible partner organization. The site will also display, non-official data sources that users can access by clicking on the links provided. Where available, a given dataset will be displaying a link that will connect the ANSD data repository when users can consult reports, studies and other metadata related to a specific dataset."/></p>
+      <p>  <FormattedMessage id='initiatives.page.description' defaultMessage="orem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac nibh aliquet, placerat erat vel, iaculis urna. Maecenas sagittis eu ante et consectetur. Proin ac vulputate odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."/></p>
     </div>
 
 
-    <div className="initiatives type  title ">
-      <p>
-        <FormattedMessage id="initiatives.type.title" defaultMessage="Partner Type(s)"></FormattedMessage>
-      </p>
-    </div>
+    <Container fluid>
+    <Grid>
+        <Grid.Row>
+          <Grid.Column >
+            <img src="/back_initiatives.png" className="ui image  fluid"/>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={8} className="initiatives description">
+          <p>
+            <FormattedMessage id="initiatives.left.description" defaultMessage="The organization datasets will display data groupes by a respective organization. The table will be updated as new information is downloaded and will only show the 10 most recent datasets. Users can use the Search function to retrieve hidden dataset that have been previouly made available."></FormattedMessage>
+          </p>
+          </Grid.Column>
+          <Grid.Column width={8} className="initiatives description">
+          <p>
+            <FormattedMessage id="initiatives.rigth.description" defaultMessage="The organization datasets will display data groupes by a respective organization. The table will be updated as new information is downloaded and will only show the 10 most recent datasets. Users can use the Search function to retrieve hidden dataset that have been previouly made available."></FormattedMessage>
+          </p>
+          </Grid.Column>
+        </Grid.Row>
+    </Grid>
+    </Container>
 
-    <div className="initiatives type description">
-        <p>
-          <FormattedMessage id="initiatives.type.description" defaultMessage="The organization datasets will display data groupes by a respective organization. The table will be updated as new information is downloaded and will only show the 10 most recent datasets. Users can use the Search function to retrieve hidden dataset that have been previouly made available."></FormattedMessage>
-        </p>
-    </div>
-
-    <div className="initiatives list title ">
-      <p>
-        <FormattedMessage id="initiatives.list.title" defaultMessage="initiatives"></FormattedMessage>
-      </p>
-    </div>
     {types &&  types.map(d=>(<Items onLoadItems={onLoadItems} {...d} items={items}></Items>))}
     </div>)
 }
 
 
-
-
-const Items = injectIntl(({intl,id,label,labelFr, onLoadItems , items}) => {
-
-  const elements=items&&items.get(id)?items.get(id).data:[]
-
-  debugger;
-
+const Items = injectIntl(({intl,id,type,label,labelFr, onLoadItems , items}) => {
   useEffect(() => {
     if (onLoadItems){
-        onLoadItems(id,intl.locale)
+        onLoadItems(type,intl.locale)
     }
-
   }, [])
+
+  const elements=(items&&items.get(type))?items.get(type):{data:{pageable:{}}}
+
+
+  const {pageable:{page,pageNumber,pageSize}, totalPages, content=[]} = elements.data
+
+  const paginationProps={
+     activePage: page+1,
+     boundaryRange: 1,
+     siblingRange: 2,
+     ellipsisItem: false,
+     totalPages: totalPages,
+     size:'mini',
+     firstItem:false,
+     lastItem:false,
+     onPageChange:(e, { activePage })=>{
+         onLoadItems(type,intl.locale, activePage -1)
+
+    },
+  }
+
+  if(items&&items.get(type)){
+    debugger;
+  }
+
 return (<div className="initiatives container">
-    <div className="initiatives title">
-      <p>
-        {label} {elements.total}
-      </p>
-    </div>
-    {elements.total > 0 && elements.map(e=>{
-        return <h1>{e.title}</h1>
-      })}
+        <div className="initiatives list title">
+          <p>
+            {label}
+          </p>
+        </div>
+          <Container fluid className="initiatives list container">
+              <Grid fluid width={2} stackable>
+              {content.map(e=>{
+                  return(
+
+                      <Grid.Column width={8}>
+
+                      <div className="icon file"><img src="/icon_file.png"/></div>
+
+                      <div className="date"><FormattedDate value={e.publicationDate} year="numeric" month="long" day="2-digit" /></div>
+
+                      <div className="title">  <a href={e.link}>{e.title}</a></div>
+
+                      <div className="description"> <a href={e.link}>{e.description}</a> </div>
+
+
+                      </Grid.Column>
+              )
+
+                })}
+
+                {content== 0 &&<Grid.Column width={16}><Label   ribbon={true} className="centered" basic color="olive" inverted>This section has no data</Label></Grid.Column>}
+              </Grid>
+
+                {content.length > 0 &&<Pagination   {...paginationProps}/>}
+
+
+            </Container>
 
 
     </div>)
@@ -106,7 +154,7 @@ const mapStateToProps = (state, ownProps) => {
   const items=state.getIn(['data','initiatives','items','data'])
 
   if(items){
-    debugger;
+
   }
   return {types,items}
 }

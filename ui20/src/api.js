@@ -370,10 +370,12 @@ export const getPartners = (locale) => {
     }
 
 
-    export const getInitiativeItems = (id, locale) => {
+    export const getInitiativeItems = (id, locale, page) => {
+
+      debugger;
       return new Promise((resolve, reject) => {
           return post(`${URL_API_INITIATIVE_ITEMS}/${id}`, {lang:locale}).then((data) => {
-            debugger;
+
             resolve({data,id})
           }).catch (error => {
             reject(error)

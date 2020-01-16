@@ -47,9 +47,9 @@ export const loadInitiativesTypes=()=> (dispatch, getState) => {
 
 
 
-export const loadInitiativesItems=(id,locale)=> (dispatch, getState) => {
+export const loadInitiativesItems=(id,locale, page)=> (dispatch, getState) => {
   dispatch({type: LOAD_INITIATIVE_ITEMS, id,locale})
-  api.getInitiativeItems(id,locale)
+  api.getInitiativeItems(id,locale, page)
     .then(data => {
       dispatch({type: LOAD_INITIATIVE_ITEMS_DONE, id, data})
     }).catch(error => {
@@ -151,7 +151,7 @@ export default (state = initialState, action) => {
 
     case LOAD_INITIATIVE_TYPES_DONE: {
       const {data} = action
-      debugger;
+
       return state.setIn(['initiatives','types','data'],data)
       .deleteIn(['initiatives','types','loading'])
       .deleteIn(['initiatives','types','error'])
@@ -169,7 +169,7 @@ export default (state = initialState, action) => {
 
     case LOAD_INITIATIVE_ITEMS_DONE: {
       const {data,id} = action
-      debugger;
+
       return state.setIn(['initiatives','items','data',id],data)
       .deleteIn(['initiatives','items','loading'])
       .deleteIn(['initiatives','items','error'])
