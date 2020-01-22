@@ -14,6 +14,7 @@ package org.devgateway.toolkit.forms.wicket.page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.validator.StringValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
@@ -43,6 +44,7 @@ public class EditOrganizationPage extends AbstractEditPage<Organization> {
 
         final TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("label");
         name.required();
+        name.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(name);
     }
 }
