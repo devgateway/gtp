@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReleaseCacheService {
 
-    protected static Logger logger = LoggerFactory.getLogger(ReleaseCacheService.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ReleaseCacheService.class);
 
     @Autowired
     private CacheManager cacheManager;
 
     public void releaseCache() {
-        logger.info("Releasing Cache");
+        LOGGER.info("Releasing Cache");
         cacheManager.getCacheNames().forEach(c -> cacheManager.getCache(c).clear());
     }
 }

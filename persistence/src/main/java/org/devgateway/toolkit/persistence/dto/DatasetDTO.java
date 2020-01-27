@@ -140,4 +140,12 @@ public class DatasetDTO {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Long getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
+    }
 }
