@@ -20,6 +20,10 @@ public class MicrodataLinkFilterState extends JpaFilterState<MicrodataLink> {
     private static final long serialVersionUID = 8005371716983257722L;
     private String title;
     private String organization;
+    private String description;
+    private String descriptionFr;
+    private String reducedDesc;
+    private String reducedDescFr;
 
     @Override
     public Specification<MicrodataLink> getSpecification() {
@@ -27,6 +31,22 @@ public class MicrodataLinkFilterState extends JpaFilterState<MicrodataLink> {
             List<Predicate> predicates = new ArrayList<>();
             if (StringUtils.isNotBlank(title)) {
                 predicates.add(cb.like(cb.lower(root.get(MicrodataLink_.title)), "%" + title.toLowerCase() + "%"));
+            }
+            if (StringUtils.isNotBlank(description)) {
+                predicates.add(cb.like(cb.lower(root.get(MicrodataLink_.description)), "%"
+                        + description.toLowerCase() + "%"));
+            }
+            if (StringUtils.isNotBlank(descriptionFr)) {
+                predicates.add(cb.like(cb.lower(root.get(MicrodataLink_.descriptionFr)), "%"
+                        + descriptionFr.toLowerCase() + "%"));
+            }
+            if (StringUtils.isNotBlank(reducedDesc)) {
+                predicates.add(cb.like(cb.lower(root.get(MicrodataLink_.description)), "%"
+                        + reducedDesc.toLowerCase() + "%"));
+            }
+            if (StringUtils.isNotBlank(reducedDescFr)) {
+                predicates.add(cb.like(cb.lower(root.get(MicrodataLink_.descriptionFr)), "%"
+                        + reducedDescFr.toLowerCase() + "%"));
             }
             if (StringUtils.isNotBlank(organization)) {
                 Join<MicrodataLink, Organization> join = root.join(MicrodataLink_.organization);
@@ -43,6 +63,38 @@ public class MicrodataLinkFilterState extends JpaFilterState<MicrodataLink> {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescriptionFr() {
+        return descriptionFr;
+    }
+
+    public void setDescriptionFr(String descriptionFr) {
+        this.descriptionFr = descriptionFr;
+    }
+
+    public String getReducedDesc() {
+        return reducedDesc;
+    }
+
+    public void setReducedDesc(String reducedDesc) {
+        this.reducedDesc = reducedDesc;
+    }
+
+    public String getReducedDescFr() {
+        return reducedDescFr;
+    }
+
+    public void setReducedDescFr(String reducedDescFr) {
+        this.reducedDescFr = reducedDescFr;
     }
 
     public String getOrganization() {

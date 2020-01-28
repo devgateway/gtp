@@ -17,6 +17,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.wicket.components.table.DirectLinkBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.TextFilteredBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.MicrodataLinkFilterState;
@@ -42,12 +43,16 @@ public class ListMicrodataLinkFormPage extends AbstractListPage<MicrodataLink> {
         this.jpaService = service;
         this.editPageClass = EditMicrodataLinkPage.class;
 
-        columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("title",
-                ListMicrodataLinkFormPage.this), "title", "title"));
-        columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("organization",
-                ListMicrodataLinkFormPage.this), "organization", "organization"));
-        columns.add(new LambdaColumn<>(new StringResourceModel("link",
-                ListMicrodataLinkFormPage.this), "link", MicrodataLink::getReducedLink));
+        columns.add(new LambdaColumn<>(new StringResourceModel("creationDate",
+                ListMicrodataLinkFormPage.this), "createdDate", MicrodataLink::getCreationDate));
+        columns.add(new LambdaColumn<>(new StringResourceModel("organization",
+                ListMicrodataLinkFormPage.this), MicrodataLink::getOrgUser));
+        columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("description",
+                ListMicrodataLinkFormPage.this), "description", "reducedDesc"));
+        columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("descriptionFr",
+                ListMicrodataLinkFormPage.this), "descriptionFr", "reducedDescFr"));
+        columns.add(new DirectLinkBootstrapPropertyColumn(new StringResourceModel("link",
+                ListMicrodataLinkFormPage.this), "link"));
     }
 
 

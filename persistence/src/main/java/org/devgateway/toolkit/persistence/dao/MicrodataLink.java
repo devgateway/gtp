@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Created by Daniel Oliva
@@ -18,7 +19,7 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @JsonIgnoreProperties({"id", "new"})
-public class MicrodataLink extends AbstractAuditableEntity implements Serializable {
+public class MicrodataLink extends AbstractAuditableEntity implements Serializable, Linkable {
 
     private String title;
 
@@ -73,11 +74,25 @@ public class MicrodataLink extends AbstractAuditableEntity implements Serializab
 
     @JsonIgnore
     public String getReducedLink() {
+        return getReducedProp(link);
+    }
+
+    @JsonIgnore
+    public String getReducedDesc() {
+        return getReducedProp(description);
+    }
+
+    @JsonIgnore
+    public String getReducedDescFr() {
+        return getReducedProp(descriptionFr);
+    }
+
+    private String getReducedProp(String prop) {
         String ret;
-        if (link != null && link.length() > 30) {
-            ret = link.substring(0, 29) + "...";
+        if (prop != null && prop.length() > 20) {
+            ret = prop.substring(0, 19) + "...";
         } else {
-            ret = link;
+            ret = prop;
         }
         return ret;
     }
@@ -92,6 +107,22 @@ public class MicrodataLink extends AbstractAuditableEntity implements Serializab
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    @JsonIgnore
+    public String getOrgUser() {
+        StringBuilder ret = new StringBuilder();
+        if (organization != null) {
+            ret.append(organization.getLabel() + "/");
+        }
+        ret.append(getCreatedBy().get());
+        return ret.toString();
+    }
+
+    @JsonIgnore
+    public String getCreationDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return getCreatedDate().get().format(formatter);
     }
 
     @Override
