@@ -20,10 +20,18 @@ public class MicrodataLinkFilterState extends JpaFilterState<MicrodataLink> {
     private static final long serialVersionUID = 8005371716983257722L;
     private String title;
     private String organization;
+    private String orgUser;
     private String description;
     private String descriptionFr;
     private String reducedDesc;
     private String reducedDescFr;
+
+    public MicrodataLinkFilterState() {
+    }
+
+    public MicrodataLinkFilterState(String organization) {
+        this.organization = organization;
+    }
 
     @Override
     public Specification<MicrodataLink> getSpecification() {
@@ -52,6 +60,10 @@ public class MicrodataLinkFilterState extends JpaFilterState<MicrodataLink> {
                 Join<MicrodataLink, Organization> join = root.join(MicrodataLink_.organization);
                 predicates.add(cb.like(cb.lower(join.get(Organization_.label)),
                         "%" + organization.toLowerCase() + "%"));
+            }
+            if (StringUtils.isNotBlank(orgUser)) {
+                predicates.add(cb.like(cb.lower(root.get(MicrodataLink_.createdBy)), "%"
+                        + descriptionFr.toLowerCase() + "%"));
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
@@ -103,5 +115,13 @@ public class MicrodataLinkFilterState extends JpaFilterState<MicrodataLink> {
 
     public void setOrganization(String organization) {
         this.organization = organization;
+    }
+
+    public String getOrgUser() {
+        return orgUser;
+    }
+
+    public void setOrgUser(String orgUser) {
+        this.orgUser = orgUser;
     }
 }

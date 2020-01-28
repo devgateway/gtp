@@ -75,6 +75,12 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
             fileInput.setVisible(false);
         }
         editForm.add(fileInput);
+
+        if (entityId != null && ((Dataset) this.editForm.getModelObject()).isApproved()
+            && !SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
+                .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {
+            deleteButton.setVisibilityAllowed(false);
+        }
     }
 
     @Override

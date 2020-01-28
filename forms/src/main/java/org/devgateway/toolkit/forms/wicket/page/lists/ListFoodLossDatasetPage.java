@@ -23,6 +23,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.DatasetFilter
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditFoodLossDatasetPage;
 import org.devgateway.toolkit.persistence.dao.FoodLossDataset;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -56,6 +57,9 @@ public class ListFoodLossDatasetPage extends AbstractListPage<FoodLossDataset> {
 
     @Override
     public JpaFilterState<FoodLossDataset> newFilterState() {
-        return new DatasetFilterState<>(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
-    }
+        Organization organization = SecurityUtil.getCurrentAuthenticatedPerson().getOrganization();
+        if (organization != null) {
+            return new DatasetFilterState(organization.getLabel());
+        }
+        return new DatasetFilterState();    }
 }

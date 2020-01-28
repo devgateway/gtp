@@ -17,12 +17,14 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.components.table.DirectLinkBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.TextFilteredBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.MicrodataLinkFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditMicrodataLinkPage;
 import org.devgateway.toolkit.persistence.dao.MicrodataLink;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.service.MicrodataLinkService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -41,11 +43,12 @@ public class ListMicrodataLinkFormPage extends AbstractListPage<MicrodataLink> {
     public ListMicrodataLinkFormPage(final PageParameters pageParameters) {
         super(pageParameters, false);
         this.jpaService = service;
+
         this.editPageClass = EditMicrodataLinkPage.class;
 
         columns.add(new LambdaColumn<>(new StringResourceModel("creationDate",
                 ListMicrodataLinkFormPage.this), "createdDate", MicrodataLink::getCreationDate));
-        columns.add(new LambdaColumn<>(new StringResourceModel("organization",
+        columns.add(new LambdaColumn<>(new StringResourceModel("orgUser",
                 ListMicrodataLinkFormPage.this), MicrodataLink::getOrgUser));
         columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("description",
                 ListMicrodataLinkFormPage.this), "description", "reducedDesc"));
@@ -58,6 +61,10 @@ public class ListMicrodataLinkFormPage extends AbstractListPage<MicrodataLink> {
 
     @Override
     public JpaFilterState<MicrodataLink> newFilterState() {
+        Organization organization = SecurityUtil.getCurrentAuthenticatedPerson().getOrganization();
+        if (organization != null) {
+            return new MicrodataLinkFilterState(organization.getLabel());
+        }
         return new MicrodataLinkFilterState();
     }
 }

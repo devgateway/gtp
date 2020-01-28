@@ -23,6 +23,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.DatasetFilter
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditAOIDatasetPage;
 import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexDataset;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -56,6 +57,9 @@ public class ListAOIIndicatorDatasetPage extends AbstractListPage<AgricultureOri
 
     @Override
     public JpaFilterState<AgricultureOrientationIndexDataset> newFilterState() {
-        return new DatasetFilterState<>(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
-    }
+        Organization organization = SecurityUtil.getCurrentAuthenticatedPerson().getOrganization();
+        if (organization != null) {
+            return new DatasetFilterState(organization.getLabel());
+        }
+        return new DatasetFilterState();    }
 }

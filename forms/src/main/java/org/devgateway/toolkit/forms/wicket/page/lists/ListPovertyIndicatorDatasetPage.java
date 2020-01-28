@@ -23,6 +23,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.DatasetFilter
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditPovertyIndicatorDatasetPage;
 import org.devgateway.toolkit.persistence.dao.PovertyDataset;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -56,6 +57,9 @@ public class ListPovertyIndicatorDatasetPage extends AbstractListPage<PovertyDat
 
     @Override
     public JpaFilterState<PovertyDataset> newFilterState() {
-        return new DatasetFilterState<>(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
-    }
+        Organization organization = SecurityUtil.getCurrentAuthenticatedPerson().getOrganization();
+        if (organization != null) {
+            return new DatasetFilterState(organization.getLabel());
+        }
+        return new DatasetFilterState();    }
 }

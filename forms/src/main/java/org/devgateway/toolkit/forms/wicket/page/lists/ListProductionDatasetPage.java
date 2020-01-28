@@ -12,6 +12,7 @@
 package org.devgateway.toolkit.forms.wicket.page.lists;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -19,10 +20,14 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.components.table.LinkBootstrapPropertyColumn;
+import org.devgateway.toolkit.forms.wicket.components.table.TextFilteredBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DatasetFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.MicrodataLinkFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditProductionDatasetPage;
+import org.devgateway.toolkit.persistence.dao.MicrodataLink;
 import org.devgateway.toolkit.persistence.dao.ProductionDataset;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -42,11 +47,10 @@ public class ListProductionDatasetPage extends AbstractListPage<ProductionDatase
         this.jpaService = service;
         this.editPageClass = EditProductionDatasetPage.class;
         columns.add(new PropertyColumn<>(
-                new StringResourceModel("name", ListProductionDatasetPage.this), "label",
-                "label"));
-        columns.add(new PropertyColumn<>(
-                new StringResourceModel("organization", ListProductionDatasetPage.this),
-                "organization", "organization"));
+                new StringResourceModel("name", ListProductionDatasetPage.this),
+                "label", "label"));
+        columns.add(new LambdaColumn<>(new StringResourceModel("org",
+                ListProductionDatasetPage.this), ProductionDataset::getOrganization));
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("approved", ListProductionDatasetPage.this),
                 "approved", "approved"));
@@ -56,6 +60,10 @@ public class ListProductionDatasetPage extends AbstractListPage<ProductionDatase
 
     @Override
     public JpaFilterState<ProductionDataset> newFilterState() {
-        return new DatasetFilterState<>(SecurityUtil.getCurrentAuthenticatedPerson().getOrganization());
+        Organization organization = SecurityUtil.getCurrentAuthenticatedPerson().getOrganization();
+        if (organization != null) {
+            return new DatasetFilterState(organization.getLabel());
+        }
+        return new DatasetFilterState();
     }
 }
