@@ -56,8 +56,12 @@ public abstract class AbstractImportService<T extends Data> implements ImportSer
     protected abstract void processResults(final Dataset dataset);
 
     protected Category getCategory(Cell cell, Map<String, Category> map, String categoryName) {
-        String label = ImportUtils.getStringFromCell(cell);
-        return getCategory(label, map, categoryName);
+        if (cell != null) {
+            String label = ImportUtils.getStringFromCell(cell);
+            return getCategory(label, map, categoryName);
+        } else {
+            throw new RuntimeException(categoryName + " is not specified");
+        }
     }
 
     protected Category getCategory(String label, Map<String, Category> map, String categoryName) {
@@ -69,6 +73,20 @@ public abstract class AbstractImportService<T extends Data> implements ImportSer
             throw new RuntimeException("Unknown " + categoryName.toLowerCase() + " " + label);
         }
         return cat;
+    }
+
+    protected Integer getIntegerValue(Cell cell, String categoryName) {
+        if (cell != null) {
+            Long val = ImportUtils.getLongFromCell(cell);
+            if (val != null) {
+                return val.intValue();
+            } else {
+                throw new RuntimeException(categoryName + " couldn't be read");
+            }
+        } else {
+            throw new RuntimeException(categoryName + " is not specified");
+        }
+
     }
 
 }

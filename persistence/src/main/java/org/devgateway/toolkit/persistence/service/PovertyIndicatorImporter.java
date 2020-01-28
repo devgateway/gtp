@@ -109,7 +109,7 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
                     data.setRegion(region);
                     data.setLocationType((LocationType) getCategory(row.getCell(2), locTypeMap, "Location Type"));
                     data.setGender((Gender) getCategory(row.getCell(3), genderMap, "Gender"));
-                    data.setAge(ImportUtils.getLongFromCell(row.getCell(4)).intValue());
+                    data.setAge(getIntegerValue(row.getCell(4), "Age"));
                     data.setProfessionalActivity((ProfessionalActivity) getCategory(row.getCell(5), profActMap,
                             "Professional activity"));
                     data.setPovertyScore(ImportUtils.getDoubleFromCell(row.getCell(6)));
@@ -119,7 +119,7 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
                     importResults.addDataInstance(data);
                 }
             } catch (Exception e) { //Improve exception handling
-                logger.error("Error: " + e);
+                    logger.error("Error: " + e);
                 importResults.setImportOkFlag(false);
                 importResults.addError("At row " + rowNumber + " there was an error: " + e.getMessage());
             }
@@ -145,7 +145,7 @@ public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndic
             region = regionService.findByName(regionName.toLowerCase());
         }
         if (region == null) {
-            throw new RuntimeException("Could not find region named " + region);
+            throw new RuntimeException("Could not find region named " + regionName);
         }
         return region;
     }
