@@ -2,13 +2,13 @@
 <html xmlns:wicket="http://wicket.apache.org">
 <head>
     <meta charset="utf-8">
-    <title>Homepage</title>
 </head>
 <body>
 <wicket:extend>
+    <title wicket:id="homepage">[[homepage]]</title>
     <div class="row">
-        <div class="col-xs-12 col-md-6 col-md-offset-1">
-            <h2>Welcome to DG-Toolkit!</h2>
+        <div class="col-xs-12 col-md-12">
+            <h2 wicket:id="title" style="text-align: center;">[[title]]</h2>
         </div>
     </div>
 </wicket:extend>
