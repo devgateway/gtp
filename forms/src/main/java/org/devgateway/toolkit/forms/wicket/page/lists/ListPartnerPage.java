@@ -48,6 +48,6 @@ public class ListPartnerPage extends AbstractListPage<Partner> {
         super.onInitialize();
 
         // enable excel download
-        excelForm.setVisibilityAllowed(true);
+        //excelForm.setVisibilityAllowed(true);
     }
 }

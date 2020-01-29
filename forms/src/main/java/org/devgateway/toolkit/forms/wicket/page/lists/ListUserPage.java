@@ -47,6 +47,6 @@ public class ListUserPage extends AbstractListPage<Person> {
         super.onInitialize();
 
         // enable excel download
-        excelForm.setVisibilityAllowed(true);
+        //excelForm.setVisibilityAllowed(true);
     }
 }
