@@ -74,6 +74,8 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
 
     private final NotificationPanel fileUploadFeedback = new NotificationPanel("fileUploadFeedback");
 
+    private NotificationPanel feedbackPanel;
+
     private static final TooltipConfig TOOLTIP_CONFIG =
             new TooltipConfig().withPlacement(TooltipConfig.Placement.bottom);
 
@@ -325,6 +327,10 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
                     @Override
                     public void onClick(final AjaxRequestTarget target) {
                         filesModel.remove(item.getModelObject());
+                        if (feedbackPanel != null) {
+                            feedbackPanel.detach();
+                            target.add(feedbackPanel);
+                        }
                         FileInputBootstrapFormComponentWrapper.this.getModel().setObject((T) filesModel);
 
                         target.add(pendingFiles);
@@ -512,5 +518,13 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
     @Override
     public boolean checkRequired() {
         return !requireAtLeastOneItem || !ObjectUtils.isEmpty(getModelObject());
+    }
+
+    public NotificationPanel getFeedbackPanel() {
+        return feedbackPanel;
+    }
+
+    public void setFeedbackPanel(NotificationPanel feedbackPanel) {
+        this.feedbackPanel = feedbackPanel;
     }
 }

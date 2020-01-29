@@ -67,6 +67,7 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
         editForm.add(approved);
 
         FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata").maxFiles(1);
+        fileInput.getFileInputBootstrapFormComponentWrapper().setFeedbackPanel(feedbackPanel);
         fileInput.required();
         fileInput.getField().add((IValidator) new InputFileValidator(getString("fileNotAdded"),
                 getString("filenameError")));

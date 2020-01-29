@@ -19,5 +19,5 @@ public interface AgriculturalContentRepository extends BaseJpaRepository<Agricul
     List<AgriculturalContent> findPublishedContent();
 
 
-    List<AgriculturalContent> findByContentTypeTypeOrderByPublicationDate(int type);
+    List<AgriculturalContent> findByContentTypeTypeOrderByPublicationDateDesc(int type);
 }

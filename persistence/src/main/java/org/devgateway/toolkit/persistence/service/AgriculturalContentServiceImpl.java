@@ -47,7 +47,7 @@ public class AgriculturalContentServiceImpl extends BaseJpaServiceImpl<Agricultu
     }
 
     public Page<AgriculturalContentDTO> findByContentType(final String lang, final int type, final Pageable pageable) {
-        List<AgriculturalContentDTO> list = repository.findByContentTypeTypeOrderByPublicationDate(type)
+        List<AgriculturalContentDTO> list = repository.findByContentTypeTypeOrderByPublicationDateDesc(type)
                 .stream()
                 .filter(a -> a.getPublicationDate().before(new Date()))
                 .map(a -> new AgriculturalContentDTO(a, lang)).collect(Collectors.toList());
