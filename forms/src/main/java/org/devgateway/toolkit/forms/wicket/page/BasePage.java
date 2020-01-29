@@ -17,7 +17,6 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.ButtonList;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
@@ -72,7 +71,6 @@ import org.devgateway.toolkit.forms.wicket.page.lists.ListPovertyIndicatorDatase
 import org.devgateway.toolkit.forms.wicket.page.lists.ListProductionDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListRapidLinkFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListRegionIndicatorPage;
-import org.devgateway.toolkit.forms.wicket.page.lists.ListTestFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListWebContentFormPage;
 import org.devgateway.toolkit.forms.wicket.page.user.EditUserPage;
@@ -295,13 +293,13 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 list.add(new MenuBookmarkablePageLink<>(ListOrganizationPage.class, null,
                         new StringResourceModel("navbar.orgs", this, null)).setIconType(FontAwesomeIconType.tags));
 
-                list.add(new MenuBookmarkablePageLink<>(ListTestFormPage.class, null,
+                /*list.add(new MenuBookmarkablePageLink<>(ListTestFormPage.class, null,
                         new StringResourceModel("navbar.testcomponents", this, null))
-                        .setIconType(FontAwesomeIconType.android));
+                        .setIconType(FontAwesomeIconType.android));*/
 
                 list.add(new MenuDivider());
 
-                final BootstrapBookmarkablePageLink swagger = new MenuBookmarkablePageLink<>(SwaggerPage.class,
+                /*final BootstrapBookmarkablePageLink swagger = new MenuBookmarkablePageLink<>(SwaggerPage.class,
                         new StringResourceModel("navbar.swagger", BasePage.this, null))
                         .setIconType(FontAwesomeIconType.code);
                 MetaDataRoleAuthorizationStrategy.authorize(swagger, Component.RENDER,
@@ -329,6 +327,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 halBrowserLink.setIconType(FontAwesomeIconType.rss).setEnabled(true);
 
                 list.add(halBrowserLink);
+
+                 */
 
                 final MenuBookmarkablePageLink<UIRedirectPage> uiBrowserLink =
                         new MenuBookmarkablePageLink<UIRedirectPage>(
