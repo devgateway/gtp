@@ -629,6 +629,17 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="ContentTypeAndLocalizedLabelsUpdate" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE localized_category_label SET label='Structures gouvernementales' WHERE label = 'Organismes gouvernementaux';
+            UPDATE localized_category_label SET label='Autres' WHERE label = '';
+
+        ]]></sql>
+    </changeSet>
+
 
 
 </databaseChangeLog>
