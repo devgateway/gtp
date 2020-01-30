@@ -5,6 +5,7 @@ import org.devgateway.toolkit.persistence.dao.MicrodataLink;
 import org.devgateway.toolkit.persistence.dao.MicrodataLink_;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.dao.categories.Organization_;
+import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Join;
@@ -65,6 +66,7 @@ public class MicrodataLinkFilterState extends JpaFilterState<MicrodataLink> {
                 predicates.add(cb.like(cb.lower(root.get(MicrodataLink_.createdBy)), "%"
                         + descriptionFr.toLowerCase() + "%"));
             }
+            query.orderBy(new OrderImpl(root.get(MicrodataLink_.createdDate), false));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
