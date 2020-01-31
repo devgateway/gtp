@@ -5,6 +5,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IValidator;
+import org.apache.wicket.validation.validator.RangeValidator;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
@@ -57,6 +58,10 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
         final TextFieldBootstrapFormComponent<String> metadata = new TextFieldBootstrapFormComponent<>("metadata");
         metadata.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         editForm.add(metadata);
+
+        final TextFieldBootstrapFormComponent<Integer> year = new TextFieldBootstrapFormComponent<>("year");
+        year.getField().add(new RangeValidator<>("2000", "2030"));
+        editForm.add(year);
 
         final CheckBoxPickerBootstrapFormComponent approved = new CheckBoxPickerBootstrapFormComponent("approved");
         if (!SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()

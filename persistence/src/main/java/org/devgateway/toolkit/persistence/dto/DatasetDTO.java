@@ -29,6 +29,7 @@ public class DatasetDTO {
     private Long fileId;
     private String type;
     private Long typeId;
+    private Integer year;
 
     public DatasetDTO(final Dataset dataset, final DatasetType type, String lang) {
         boolean isFr = StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(LANG_FR);
@@ -39,6 +40,7 @@ public class DatasetDTO {
         this.creator = dataset.getUploadedBy() != null ? dataset.getUploadedBy().getFirstName() + " "
                 + dataset.getUploadedBy().getLastName() : NOT_AVAILABLE;
         this.createdDate = dataset.getCreatedDate() != null ? dataset.getCreatedDate().get().toLocalDateTime() : null;
+        this.year = dataset.getYear();
         this.fileId = dataset.getFileMetadata() != null ? dataset.getFileMetadata().iterator().next().getId() : null;
         this.type = isFr ? type.getLabelFr() : type.getLabel();
         this.typeId = type.getId();
@@ -147,5 +149,13 @@ public class DatasetDTO {
 
     public void setTypeId(Long typeId) {
         this.typeId = typeId;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
     }
 }

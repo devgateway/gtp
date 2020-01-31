@@ -18,6 +18,10 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIc
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.util.lang.Args;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListRegionIndicatorPage;
 
 /**
  * @author mpostelnicu
@@ -53,7 +57,7 @@ public class CheckBoxPickerBootstrapFormComponent
                 .withOnIcon(FontAwesomeIconType.thumbs_up).withOffIcon(FontAwesomeIconType.thumbs_down)
                 .withReverse(true).withStyle(ButtonGroup.Size.Small);
 
-        final BootstrapCheckBoxPicker checkBoxPicker = new BootstrapCheckBoxPicker("field", initFieldModel(), config);
+        final CheckBoxPicker checkBoxPicker = new CheckBoxPicker("field", initFieldModel(), config);
         checkBoxPicker.add(new AjaxFormComponentUpdatingBehavior("change") {
             private static final long serialVersionUID = 1L;
 
@@ -79,4 +83,22 @@ public class CheckBoxPickerBootstrapFormComponent
     public BootstrapCheckBoxPickerConfig getConfig() {
         return config;
     }
+
+    class CheckBoxPicker extends BootstrapCheckBoxPicker {
+        public CheckBoxPicker(String id, IModel<Boolean> model, BootstrapCheckBoxPickerConfig config) {
+            super(id, model, config);
+        }
+
+        @Override
+        protected IModel<String> getOnLabel() {
+            return new StringResourceModel("onLabel", CheckBoxPickerBootstrapFormComponent.this);
+        }
+
+        @Override
+        protected IModel<String> getOffLabel() {
+            return new StringResourceModel("offLabel", CheckBoxPickerBootstrapFormComponent.this);
+        }
+    }
+
+
 }

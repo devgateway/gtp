@@ -29,6 +29,8 @@ public class Dataset extends AbstractAuditableEntity implements Serializable, La
     @Column(length = 1024)
     private String metadata;
 
+    private Integer year;
+
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "dataset", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Collection<Data> data;
@@ -156,5 +158,13 @@ public class Dataset extends AbstractAuditableEntity implements Serializable, La
 
     public void setDtype(String dtype) {
         this.dtype = dtype;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
     }
 }
