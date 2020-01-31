@@ -18,10 +18,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIc
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.util.lang.Args;
-import org.devgateway.toolkit.forms.wicket.page.lists.ListRegionIndicatorPage;
 
 /**
  * @author mpostelnicu
@@ -85,7 +82,7 @@ public class CheckBoxPickerBootstrapFormComponent
     }
 
     class CheckBoxPicker extends BootstrapCheckBoxPicker {
-        public CheckBoxPicker(String id, IModel<Boolean> model, BootstrapCheckBoxPickerConfig config) {
+        CheckBoxPicker(String id, IModel<Boolean> model, BootstrapCheckBoxPickerConfig config) {
             super(id, model, config);
         }
 
