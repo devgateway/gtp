@@ -6,10 +6,13 @@ import org.devgateway.toolkit.persistence.dao.Dataset_;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.dao.Person_;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
+import org.devgateway.toolkit.persistence.dao.categories.Organization_;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
+
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
@@ -39,9 +42,41 @@ public class DatasetFilterState {
                 addOrganizationPredicates(root, cb, predicates);
             }
             addApprovedDatasets(root, cb, predicates);
-            query.orderBy(new OrderImpl(root.get(Dataset_.CREATED_DATE), false));
+            applyOrderByQuery(root, query);
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
+    }
+
+    private void applyOrderByQuery(Root<Dataset> root, CriteriaQuery<?> query) {
+        String column = "";
+        if (StringUtils.isNotBlank(filter.getSortBy())) {
+            column = filter.getSortBy().toLowerCase().trim();
+        }
+        boolean isAsc = false;
+        if (filter.getSortDir() != null && filter.getSortDir().equalsIgnoreCase("asc")) {
+            isAsc = true;
+        }
+        switch (column) {
+            case "type" :
+                query.orderBy(new OrderImpl(root.get(Dataset_.DTYPE), isAsc));
+                break;
+            case "title" :
+                query.orderBy(new OrderImpl(root.get(Dataset_.LABEL), isAsc));
+                break;
+            case "organization" :
+            case "org" :
+                Join<Dataset, Organization> joinOrg = root.join(Dataset_.ORGANIZATION, JoinType.LEFT);
+                query.orderBy(new OrderImpl(joinOrg.get(Organization_.LABEL), isAsc));
+                break;
+            case "creator" :
+            case "createdby" :
+                Join<Dataset, Person> joinPerson = root.join(Dataset_.CREATED_BY, JoinType.LEFT);
+                query.orderBy(new OrderImpl(joinPerson.get(Person_.FIRST_NAME), isAsc));
+                break;
+            default :
+                query.orderBy(new OrderImpl(root.get(Dataset_.CREATED_DATE), isAsc));
+        }
+
     }
 
     protected void addOrganizationPredicates(Root<Dataset> root, CriteriaBuilder cb, List<Predicate> predicates) {

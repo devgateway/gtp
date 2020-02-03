@@ -26,6 +26,12 @@ public class DatasetFilterPagingRequest extends GenericPagingRequest implements 
     @ApiModelProperty(value = "Filter by organization")
     private TreeSet<Integer> organization;
 
+    @ApiModelProperty(value = "Sort by column")
+    private String sortBy;
+
+    @ApiModelProperty(value = "Sort direction")
+    private String sortDir;
+
     public DatasetFilterPagingRequest() {
     }
 
@@ -74,5 +80,21 @@ public class DatasetFilterPagingRequest extends GenericPagingRequest implements 
             return ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
         }
         return null;
+    }
+
+    public String getSortBy() {
+        return sortBy;
+    }
+
+    public void setSortBy(String sortBy) {
+        this.sortBy = sortBy;
+    }
+
+    public String getSortDir() {
+        return sortDir;
+    }
+
+    public void setSortDir(String sortDir) {
+        this.sortDir = sortDir;
     }
 }
