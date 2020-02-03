@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
@@ -111,11 +112,27 @@ public class AgriculturalContent extends AbstractAuditableEntity implements Seri
 
     @JsonIgnore
     public String getReducedTitle() {
+        return getReduced(title);
+    }
+
+    @JsonIgnore
+    public String getReducedTitleFr() {
+        return getReduced(titleFr);
+    }
+
+    @JsonIgnore
+    public String getPublicationDateFormatted() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(publicationDate);
+    }
+
+    @JsonIgnore
+    public String getReduced(String prop) {
         String ret;
-        if (description != null && description.length() > 30) {
-            ret = description.substring(0, 29) + "...";
+        if (prop != null && prop.length() > 30) {
+            ret = prop.substring(0, 29) + "...";
         } else {
-            ret = description;
+            ret = prop;
         }
         return ret;
     }
