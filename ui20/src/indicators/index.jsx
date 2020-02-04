@@ -59,8 +59,11 @@ class Indicators extends Component {
           <GlobalNumbers  {...this.props}></GlobalNumbers>
           <Poverty onChange={this.onChangeChartFilter} {...this.props}></Poverty>
           <Women onChange={this.onChangeChartFilter} {...this.props}></Women>
+
+          
           <Food onChange={this.onChangeChartFilter} {...this.props}></Food>
           <AgriculturalIndex onChange={this.onChangeChartFilter} {...this.props}></AgriculturalIndex>
+
       </div>
     </div>)
   }

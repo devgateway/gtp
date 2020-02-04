@@ -58,7 +58,11 @@ const ChartSection = injectIntl((props)=>{
            <div className="indicators chart women">
              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
              <div className="chart container">
-              {population.length == 0?<div className="no data">No Data Available</div>:<BarChart bottomLegend={props.intl.formatMessage(messages.age)}  {...getWomenDistributionByGroup(props.population,props.intl)}></BarChart>}
+              {population.length == 0?<div className="no data">No Data Available</div>:<BarChart
+              yLegend={props.intl.formatMessage(messages.age)}
+              xLegend={props.intl.formatMessage(messages.percent)}
+
+              {...getWomenDistributionByGroup(props.population,props.intl)}></BarChart>}
              </div>
            </div>,
       },
@@ -82,7 +86,12 @@ const ChartSection = injectIntl((props)=>{
                 <Filters {...props} options={{gender:true, age:false,methodOfEnforcement:true}}></Filters>
                 <div className="chart container">
 
-                {population.length == 0?<div className="no data">No Data Available</div>:<BarChart bottomLegend={props.intl.formatMessage(messages.methodOfEnforcement)}  {...getWomenDistributionByGroup(props.distribution,props.intl)}></BarChart>}
+                {population.length == 0?<div className="no data">No Data Available</div>:<BarChart
+                yLegend={props.intl.formatMessage(messages.methodOfEnforcement)}
+                xLegend={props.intl.formatMessage(messages.percent)}
+
+
+                {...getWomenDistributionByGroup(props.distribution,props.intl)}></BarChart>}
 
                 </div>
               </div>,

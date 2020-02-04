@@ -64,7 +64,7 @@ export const BarChart = injectIntl(({data, intl,keys,indexBy,groupMode,colors}) 
       legendOffset: -40
     }}
 
-    label={d=>intl.formatNumber(d.value)+intl.formatMessage(messages.billions).substr(0,1).toUpperCase()}
+    label={d=>intl.formatNumber(d.value)+intl.formatMessage(messages.billions_short).toUpperCase()}
     labelSkipWidth={12}
     labelSkipHeight={12}
     labelTextColor={"#FFF"}

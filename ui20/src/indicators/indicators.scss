@@ -570,9 +570,28 @@
     font-size: 12px;
 
     .tooltip {
-      border: 1px solid #000;
+      padding: 5px !important;
+      height: 30px;
       padding: 10px;
+      margin: 0px;
       border-radius: 3px;
+      background-color: #EEE;
+      .x{
+        float: left;
+        margin: 0px;
+        padding: 0px;
+      }
+      .y::before{
+        content: ':';
+        margin: 2px;
+
+      }
+      .y{
+        font-weight: bold;
+        float: left;
+        margin: 0px;
+        padding: 0px;
+      }
     }
   }
 

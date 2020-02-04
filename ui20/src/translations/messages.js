@@ -202,6 +202,12 @@ const messages = defineMessages({
     defaultMessage: 'Billions',
     description: 'Billions Data Field'
   },
+
+  billions_short: {
+    id: 'data.field.billions_short',
+    defaultMessage: 'B',
+    description: 'Billions Data Field'
+  },
   year: {
     id: 'data.field.year',
     defaultMessage: 'Year',
@@ -510,19 +516,19 @@ const messages = defineMessages({
   },
 
   microdata_filters_keyword: {
-    id: 'microdoata.filters.keyword.label',
+    id: 'microdata.filters.keyword.label',
     defaultMessage: "Keyword Search"
   },
   microdata_filters_start_date: {
-    id: 'microdoata.filters.start_date.label',
+    id: 'microdata.filters.start_date.label',
     defaultMessage: "Start Date"
   },
   microdata_filters_end_date: {
-    id: 'microdoata.filters.end_date.label',
+    id: 'microdata.filters.end_date.label',
     defaultMessage: "End Date"
   },
   microdata_filters_organization: {
-    id: 'microdoata.filters.organization.label',
+    id: 'microdata.filters.organization.label',
     defaultMessage: "Organizations"
   },
 

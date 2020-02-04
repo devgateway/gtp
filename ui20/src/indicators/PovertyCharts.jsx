@@ -23,12 +23,19 @@ export const LineChart =injectIntl( ({intl, data }) => (
         colors={{ scheme: 'set1' }}
         useMesh={true}
         pointSymbol={CustomSymbol}
-        pointSize={16}
-        pointBorderWidth={1}
-        pointBorderColor={{
-            from: 'color',
-            modifiers: [['darker', 0.3]],
-        }}
+        pointSize={10}
+        pointColor={{ theme: 'background' }}
+
+         pointBorderWidth={2}
+         pointBorderColor={{ from: 'serieColor' }}
+         enablePointLabel={false}
+         pointLabel={(s)=>intl.formatNumber(s.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0}) }
+         pointLabelYOffset={-10}
+         pointLabelXOffset={20}
+         tooltip={(s)=><div className="tooltip"><div className='x'>{s.point.data.x}</div> <div className=' y'>{intl.formatNumber(s.point.data.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}</div></div>}
+         onMouseEnter={s=>{
+         }}
+
 
         enableSlices={false}
         curve="monotoneX"
@@ -53,14 +60,7 @@ export const LineChart =injectIntl( ({intl, data }) => (
           legendPosition: 'middle'
         }}
 
-        pointSize={10}
-        pointColor={{ theme: 'background' }}
-        pointBorderWidth={2}
-        pointBorderColor={{ from: 'serieColor' }}
-        enablePointLabel={true}
-        pointLabel={(s)=>intl.formatNumber(s.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0}) }
-        pointLabelYOffset={-12}
-        useMesh={true}
+
         legends={[
           {
             anchor: 'bottom-left',
