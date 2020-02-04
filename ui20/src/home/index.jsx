@@ -17,7 +17,7 @@ class Home extends Component {
   }
 
   render() {
-  
+
     return (
       <div>
         <Main {...this.props}></Main>

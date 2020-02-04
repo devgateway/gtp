@@ -24,7 +24,7 @@
         line-height: 58px !important;
       }
 
-      .presented.logo {
+      .presented.logo, .presented.logo1 {
         float: right;
         background-image: url("/logo-ipar.png");
         width: 163px;
@@ -32,6 +32,14 @@
         margin-top: -10px;
         margin-left: 10px;
         background-repeat: no-repeat;
+      }
+
+      .presented.logo1 {
+        width: 113px;
+        height: 91px;
+        background-size: 113px 91px;
+        background-image: url("/logo-ansd.png");
+
       }
 
       .presented.text {
