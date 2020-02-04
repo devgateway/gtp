@@ -24,14 +24,20 @@ return (
 
 const Stories = injectIntl((props) => {
 
-  if (props.links){
+  if (props.links && props.links.length > 4){
+
+
+
     let subfix=''
     const lan=props.intl.locale;
     if (lan=='fr'){
       subfix='Fr'
     }
 
-    const stories_title_1=  props.links[0]['title'+subfix]
+    const size=props.links.length;
+
+
+    const stories_title_1=   props.links[0]['title'+subfix]
     const stories_subtitle_1= props.links[0]['subtitle'+subfix]
     const image_1= props.links[0].base64
 
@@ -40,7 +46,7 @@ const Stories = injectIntl((props) => {
     const stories_subtitle_2= props.links[1]['subtitle'+subfix]
     const image_2= props.links[1].base64
 
-
+  debugger;
     const stories_title_3=  props.links[2]['title'+subfix]
     const stories_subtitle_3= props.links[2]['subtitle'+subfix]
     const image_3= props.links[2].base64
