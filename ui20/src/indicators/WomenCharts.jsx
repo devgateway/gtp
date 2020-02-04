@@ -38,16 +38,36 @@ export const LineChart =injectIntl( ({intl, data }) => (
         xScale={{ type: 'point' }}
         colors={{ scheme: 'set1' }}
         useMesh={true}
+        enablePoints={true}
+
         pointSymbol={CustomSymbol}
-        pointSize={16}
+        pointSize={10}
+
         pointBorderWidth={1}
+
         pointBorderColor={{
             from: 'color',
             modifiers: [['darker', 0.3]],
         }}
 
+
+        pointColor={{ theme: 'background' }}
+        pointBorderWidth={2}
+        pointBorderColor={{ from: 'serieColor' }}
+        enablePointLabel={false}
+        pointLabel={(s)=>intl.formatNumber(s.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0}) }
+        pointLabelYOffset={-10}
+        pointLabelXOffset={20}
+        tooltip={(s)=><div className="tooltip"><div className='x'>{s.point.data.x}</div> <div className=' y'>{intl.formatNumber(s.point.data.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}</div></div>}
+        onMouseEnter={s=>{
+        }}
+        useMesh={true}
+
+
         enableSlices={false}
         curve="monotoneX"
+
+
         axisTop={null}
         axisRight={null}
         axisBottom={{
@@ -69,14 +89,7 @@ export const LineChart =injectIntl( ({intl, data }) => (
           legendPosition: 'middle'
         }}
 
-        pointSize={10}
-        pointColor={{ theme: 'background' }}
-        pointBorderWidth={2}
-        pointBorderColor={{ from: 'serieColor' }}
-        enablePointLabel={true}
-        pointLabel={(s)=>intl.formatNumber(s.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0}) }
-        pointLabelYOffset={-12}
-        useMesh={true}
+
         legends={[
           {
             anchor: 'bottom',
@@ -107,7 +120,7 @@ export const LineChart =injectIntl( ({intl, data }) => (
   ))
 
 
-export const BarChart =injectIntl(({ data , intl/* see data tab */, keys,indexBy , groupMode, colors, bottomLegend}) => {
+export const BarChart =injectIntl(({ data , intl/* see data tab */, keys,indexBy , groupMode, colors, yLegend, xLegend}) => {
 return (
     <ResponsiveBar
       data={data}
@@ -118,7 +131,6 @@ return (
       margin={{ top: 50, right: 50, bottom: 130, left: 60 }}
       padding={0.1}
       innerPadding={0.5}
-
       fill={[]}
       borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
       axisTop={null}
@@ -127,7 +139,7 @@ return (
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: bottomLegend,
+        legend: yLegend,
         legendPosition: 'middle',
         legendOffset: 32
       }}
@@ -135,7 +147,7 @@ return (
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend:  bottomLegend,
+        legend:  xLegend,
         legendPosition: 'middle',
         legendOffset: -40
       }}

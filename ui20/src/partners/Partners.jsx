@@ -105,7 +105,7 @@ const ListItems=({groups,onChangeSelection})=>{
 
                                     <Grid.Row id={"_partner_"+p.id}>
                                         <Grid.Column  width={11}>
-                                          <a href="https://google.com" className="ui image medium padding5">
+                                          <a href={p.url} className="ui image medium padding5">
                                             <img src={`data:image/png;base64,${p.base64}`}/>
                                           </a>
                                         </Grid.Column>

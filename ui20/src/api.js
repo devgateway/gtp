@@ -180,14 +180,30 @@ export const getPartners = (locale) => {
           url = csvExportURLBuilder(what)
         }
 
-        post(url, {
-          ...params.global,
-          ...params.poverty,
-          ...params.women,
-          ...params.food,
-          ...params.aoi,
-          lang
-        }, true).then(blob => {
+          const filters={...params.global}
+          debugger;
+          switch (what) {
+
+            case "POVERTY":
+              Object.assign(filters,params.poverty)
+              break;
+
+            case "WOMEN":
+              Object.assign(filters,params.women)
+              break;
+
+            case "FOOD":
+              Object.assign(filters,params.food)
+              break;
+
+            case "AOI":
+              Object.assign(filters,params.aoi)
+              break;
+            default:
+
+          }
+
+        post(url, {...filters,lang}, true).then(blob => {
 
 
           var url = window.URL.createObjectURL(blob);
@@ -305,7 +321,7 @@ export const getPartners = (locale) => {
             {
               value: data.foodLoss.data ? data.foodLoss.data.value : null,
               image: '/sdg/food_loss.svg',
-              text: 'Global Food Loss Ratio',
+              text: 'Post-Harvest Loss',
               key: 'indicator.global.food.short',
               year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
               style: "percent"
