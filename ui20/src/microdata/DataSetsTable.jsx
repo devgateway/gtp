@@ -7,7 +7,7 @@ import {items2options} from '../indicators/DataUtil'
 import {injectIntl,FormattedDate, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 import {changeFilter,loadDatasets,changePage } from '../modules/Microdata'
 import {connect} from 'react-redux';
-
+import messages from '../translations/messages'
 
 
 class TableComponent extends Component {
@@ -26,8 +26,9 @@ class TableComponent extends Component {
 
 
     handleSort = (clickedColumn) => () => {
+      return
       const { column, data, direction } = this.state
-
+      debugger;
       if (column !== clickedColumn) {
         this.setState({
           column: clickedColumn,
@@ -71,22 +72,22 @@ class TableComponent extends Component {
 
     const {onChangeFilter, keyword, startDate, endDate, organizations=[], selectedOrganizations=[], intl, datasets={}, onChangePage } = this.props
     const locale=intl.locale
-    let column = null
+    let column = this.state.column
     let direction = null
 
     return  (
       <div>
             <div className="table filters">
-                  <div className="title">Filters</div>
-                  <div className="item"><TextInput text={intl.formatMessage({id:'filters.keyword.label', defaultMessage:"Keyword Search"}) }
+                  <div className="title">  <FormattedMessage id="microdata.filters.title" defaultMessage="Filters"/></div>
+                  <div className="item"><TextInput text={intl.formatMessage(messages.microdata_filters_keyword)}
                   onChange={val=>onChangeFilter(['filters','datasets','text'],val,locale,'DATASETS')} name="keyword" value={keyword}/></div>
-                  <div className="item"><DateInput locale={locale}  text={intl.formatMessage({ id:'filters.start_date.label', defaultMessage:"Start Date"})}
+                  <div className="item"><DateInput locale={locale}  text={intl.formatMessage(messages.microdata_filters_start_date)}
                   onChange={val=>onChangeFilter(['filters','datasets','realMinDate'],val,locale,'DATASETS')} name="startDate" value={startDate}/></div>
                   <div className="item">
                   <DateInput locale={locale}
-                  text={intl.formatMessage({ id:'filters.end_date.label', defaultMessage:"End Date"})}
+                  text={intl.formatMessage(messages.microdata_filters_end_date)}
                   onChange={val=>onChangeFilter(['filters','datasets','realMaxDate'],val,locale,'DATASETS')} name="endDate" value={endDate}/></div>
-                  <div className="item"><CustomFilterDropDown  text={intl.formatMessage({id:'filters.organization.label', defaultMessage:"Organizations"})}  options={items2options(organizations,intl)}
+                  <div className="item"><CustomFilterDropDown  text={intl.formatMessage(messages.microdata_filters_organization)}  options={items2options(organizations,intl)}
                   selected={selectedOrganizations} onChange={value => {onChangeFilter(['filters','datasets','organization'],value,locale,'DATASETS')}}/></div>
 
             </div>
@@ -94,30 +95,39 @@ class TableComponent extends Component {
 
                 <Table.Header>
                   <Table.Row>
-                    <Table.HeaderCell sorted={column === 'type' ? direction : null} onClick={this.handleSort('type')}>
-                      <FormattedMessage id="microdata.table.heder.type" defaultMessage="Type"/>
+                    <Table.HeaderCell sorted={column === 'type' ? direction : null}
+
+                     sorted={column === 'name' ? direction : null}
+                    onClick={this.handleSort('type')}>
+
+                      <FormattedMessage id="microdata.table.type" defaultMessage="Type"/>
                     </Table.HeaderCell>
                     <Table.HeaderCell sorted={column === 'title' ? direction : null} onClick={this.handleSort('title')}>
-                        <FormattedMessage id="microdata.table.heder.title" defaultMessage="Title"/>
+                        <FormattedMessage id="microdata.table.title" defaultMessage="Title"/>
                     </Table.HeaderCell>
                     <Table.HeaderCell sorted={column === 'organization' ? direction : null} onClick={this.handleSort('organization')}>
-                      <FormattedMessage id="microdata.table.heder.organization" defaultMessage="Organization"/>
+                      <FormattedMessage id="microdata.table.organization" defaultMessage="Organization"/>
+                    </Table.HeaderCell>
+                    <Table.HeaderCell sorted={column === 'source' ? direction : null} onClick={this.handleSort('source')}>
+                      <FormattedMessage id="microdata.table.source" defaultMessage="Source"/>
                     </Table.HeaderCell>
                     <Table.HeaderCell sorted={column === 'creator' ? direction : null} onClick={this.handleSort('creator')}>
-                      <FormattedMessage id="microdata.table.heder.creator" defaultMessage="Creator"/>
+                      <FormattedMessage id="microdata.table.creator" defaultMessage="Creator"/>
                     </Table.HeaderCell>
                     <Table.HeaderCell sorted={column === 'createdDate' ? direction : null} onClick={this.handleSort('createdDate')}>
-                      <FormattedMessage id="microdata.table.heder.createdDate" defaultMessage="Created"/>
+                      <FormattedMessage id="microdata.table.created" defaultMessage="Created"/>
                     </Table.HeaderCell>
 
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  {this.state.data &&_.map(this.state.data, ({id, organization, title, creator, createdDate, fileId, type}) => (
+                  {this.state.data &&_.map(this.state.data, ({id, organization, title, source,creator, createdDate, fileId, type}) => (
                     <Table.Row key={id}>
                      <Table.Cell>{type}</Table.Cell>
                      <Table.Cell><a href={`/files/download/${fileId}`}>{title}</a></Table.Cell>
                      <Table.Cell>{organization}</Table.Cell>
+                     <Table.Cell>{source}</Table.Cell>
+
                       <Table.Cell>{creator}</Table.Cell>
                       <Table.Cell>
 

@@ -26,6 +26,7 @@ export const DateInput=({onChange, value, text, locale})=>{
 
     return (<DatePicker
             locale={locale}
+          
             placeholderText={text}
             selected={value}
             onChange={onChange}/>)

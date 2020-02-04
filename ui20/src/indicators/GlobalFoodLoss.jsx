@@ -79,14 +79,14 @@ const ChartSection = injectIntl(( props)=>{
         <div className="indicator.chart.container" id="anchor.indicator.global.food.short">
           <div className="indicator chart food title ">
             <p>
-              <FormattedMessage id="indicators.chart.food.title" defaultMessage="Global Food Loss Ratio"></FormattedMessage>
+              <FormattedMessage id="indicators.chart.food.title" defaultMessage="Post-Harvest Loss"></FormattedMessage>
             </p>
             <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
           </div>
           <div className="indicator chart food description">
             <p>
               <FormattedMessage id="indicators.chart.food.description"
-                defaultMessage="By 2030, halve per capita global food waste at the retail and consumer levels and reduce food losses along production and supply chains, includi">
+                defaultMessage="The destinations of agricultural production presents the different uses of the agricultural production included the losses.">
               </FormattedMessage>
             </p>
             <div className="indicator chart icon download xls" onClick={e=>onExport('FOOD', 'XLS',intl.locale)}></div>

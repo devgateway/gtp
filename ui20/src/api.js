@@ -305,7 +305,7 @@ export const getPartners = (locale) => {
             {
               value: data.foodLoss.data ? data.foodLoss.data.value : null,
               image: '/sdg/food_loss.svg',
-              text: 'Global Food Loss Ratio',
+              text: 'Post-Harvest Loss',
               key: 'indicator.global.food.short',
               year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
               style: "percent"

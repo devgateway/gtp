@@ -95,7 +95,7 @@ const messages = defineMessages({
   },
 
   indicator_global_food_short: {
-    defaultMessage: 'Global Food Loss Ratio',
+    defaultMessage: 'Post-Harvest Loss',
     id: 'indicators.global.food.short',
   },
 
@@ -167,8 +167,8 @@ const messages = defineMessages({
 
   indicator_food_chart_average_production_loss: {
     id: 'indicators.chart.food.average.production.loss',
-    defaultMessage: 'Average production loss ({year})',
-    description: 'Average production loss chart title'
+    defaultMessage: 'Destinations of agricultural production ({year})',
+    description: 'Destinations of agricultural production chart title'
 
   },
 
@@ -507,7 +507,24 @@ const messages = defineMessages({
   pivot_renders_multiple_pie_chart: {
     id: 'pivot.renders.multiple_pie_chart',
     defaultMessage: 'Multiple Pie Chart'
-  }
+  },
+
+  microdata_filters_keyword: {
+    id: 'microdoata.filters.keyword.label',
+    defaultMessage: "Keyword Search"
+  },
+  microdata_filters_start_date: {
+    id: 'microdoata.filters.start_date.label',
+    defaultMessage: "Start Date"
+  },
+  microdata_filters_end_date: {
+    id: 'microdoata.filters.end_date.label',
+    defaultMessage: "End Date"
+  },
+  microdata_filters_organization: {
+    id: 'microdoata.filters.organization.label',
+    defaultMessage: "Organizations"
+  },
 
 });
 
