@@ -1,6 +1,9 @@
 @import '../base.scss';
 
 #anchor\.indicator\.global\.population\.short {
+
+
+
   .indicator.chart.title.poverty::before {
     content: '';
     width: 48px;
@@ -15,34 +18,68 @@
   }
 
   .ui.pointing.menu {
+
+
+
+    .active.item{
+      font-weight: 800;
+    
+    }
+
     .item:nth-child(1) {
       .icon {
-        background-image: url("/icon_bar_char.svg");
+        background-image: url("/icons/icon_bar_char.svg");
+        background-repeat: no-repeat;
+      }
+    }
+
+    .active.item:nth-child(1) {
+      .icon {
+        background-image: url("/icons/icon_bar_char_active.svg") ;
         background-repeat: no-repeat;
       }
     }
 
     .item:nth-child(2) {
       .icon {
-        background-image: url("/icon_bar_char.svg");
+        background-image: url("/icons/icon_bar_char.svg");
+        background-repeat: no-repeat;
+      }
+    }
+
+    .active.item:nth-child(2) {
+      .icon {
+        background-image: url("/icons/icon_bar_char_active.svg");
         background-repeat: no-repeat;
       }
     }
 
     .item:nth-child(3) {
       .icon {
-        background-image: url("/icon_line_char.svg");
+        background-image: url("/icons/icon_line_char.svg");
+        background-repeat: no-repeat;
+      }
+    }
+
+    .active.item:nth-child(3) {
+      .icon {
+        background-image: url("/icons/icon_line_char_active.svg");
         background-repeat: no-repeat;
       }
     }
 
     .item:nth-child(4) {
       .icon {
-        background-image: url("/icon_line_char.svg");
+        background-image: url("/icons/icon_line_char.svg");
+        background-repeat: no-repeat;
+      }
+    }
+
+   .active.item:nth-child(4) {
+      .icon {
+        background-image: url("/icons/icon_line_char_active.svg");
         background-repeat: no-repeat;
       }
     }
   }
-
-  
 }
