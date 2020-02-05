@@ -67,9 +67,10 @@
   }
 
   div.table.filters {
+    font-family: $font !important;
     padding-left: 17px;
-    font-size: 15px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 400;
     margin-top: 20px;
     margin-bottom: 0;
     border-top: 1px solid $border-color;
@@ -78,6 +79,20 @@
     line-height: 60px;
     background-color: #f5fcff !important;
     color: #000;
+
+    ::-webkit-input-placeholder {
+      /* Edge */
+      color: #000;
+    }
+
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: #000;
+    }
+
+    ::placeholder {
+      color: #000;
+    }
   }
 
   .react-datepicker__month-container {
@@ -121,13 +136,14 @@
       margin-left: 22px;
 
       .breadcrums {
-        color: #757575!important;
+        color: #000 !important;
       }
 
       .options {
         padding: 2px;
+
         .item {
-          margin: 0px;
+          margin: 0;
           width: 50%;
         }
       }
