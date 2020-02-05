@@ -1,0 +1,69 @@
+package org.devgateway.toolkit.persistence.dto;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public class ProductionGisDTO {
+
+    private Integer year;
+
+    private String code;
+
+    private Double value;
+
+    @JsonIgnore
+    private String crop;
+
+    @JsonIgnore
+    private String cropFr;
+
+    public ProductionGisDTO() {
+    }
+
+    public ProductionGisDTO(Integer year, String code, Double value, String crop, String cropFr) {
+        this.year = year;
+        this.code = code;
+        this.value = value;
+        this.crop = crop;
+        this.cropFr = cropFr;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public String getCrop() {
+        return crop;
+    }
+
+    public void setCrop(String crop) {
+        this.crop = crop;
+    }
+
+    public String getCropFr() {
+        return cropFr;
+    }
+
+    public void setCropFr(String cropFr) {
+        this.cropFr = cropFr;
+    }
+}
