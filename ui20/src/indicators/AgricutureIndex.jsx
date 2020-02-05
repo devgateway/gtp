@@ -57,7 +57,7 @@ const ChartSection = injectIntl(( props)=>{
            <div className="indicators chart aoi">
              <BudgetFilters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></BudgetFilters>
              <div className="chart container">
-                  {props.budget == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>: <BarChart  {...getAOItotalBudget(props.budget, props.intl)}></BarChart>}
+                  {props.budget == 0?<Label    className="no data centered" basic color="olive" inverted>No data available</Label>: <BarChart  {...getAOItotalBudget(props.budget, props.intl)}></BarChart>}
 
             </div>
            </div>,

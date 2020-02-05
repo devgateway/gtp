@@ -139,8 +139,15 @@ html {
   }
 
 .no.data{
+  margin: auto;
+  min-height: 100px;
+  line-height: 100px;
+  width: 100%;
+  color: #525252;
+  text-transform: uppercase;
+  background-color:  #fff2cc !important;
   margin-top: 30px !important;
-  font-size: 18px;
+  font-size: 28px;
 }
 
 .align.right{
