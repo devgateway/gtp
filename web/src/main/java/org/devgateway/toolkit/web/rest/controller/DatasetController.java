@@ -1,9 +1,11 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
+import org.devgateway.toolkit.persistence.dao.categories.DatasetType;
 import org.devgateway.toolkit.persistence.dto.AgriculturalContentDTO;
 import org.devgateway.toolkit.persistence.dto.DatasetDTO;
 import org.devgateway.toolkit.persistence.dto.RegionIndicatorDTO;
+import org.devgateway.toolkit.persistence.repository.category.DatasetTypeRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.devgateway.toolkit.persistence.service.MicrodataLinkService;
@@ -55,6 +57,9 @@ public class DatasetController {
     @Autowired
     private AgriculturalContentService agriculturalContentService;
 
+    @Autowired
+    private DatasetTypeRepository datasetTypeRepository;
+
     @CrossOrigin
     @ApiOperation(value = "Get all datasets metadata")
     @RequestMapping(value = "/dataset/all", method = POST)
@@ -64,7 +69,8 @@ public class DatasetController {
         int pageSize = request.getPageSize() != GenericPagingRequest.DEFAULT_PAGE_SIZE
                 ? request.getPageSize() : DATASET_PAGE_SIZE;
         Pageable pageable = PageRequest.of(request.getPageNumber(), pageSize);
-        DatasetFilterState filter = new DatasetFilterState(request);
+        List<DatasetType> datasetTypes = datasetTypeRepository.findAll();
+        DatasetFilterState filter = new DatasetFilterState(request, datasetTypes);
         return datasetService.findAllDTO(filter.getSpecification(), pageable, request.getLang());
     }
 

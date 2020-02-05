@@ -5,6 +5,7 @@ import org.devgateway.toolkit.persistence.dao.Dataset;
 import org.devgateway.toolkit.persistence.dao.Dataset_;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.dao.Person_;
+import org.devgateway.toolkit.persistence.dao.categories.DatasetType;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.dao.categories.Organization_;
 import org.hibernate.query.criteria.internal.OrderImpl;
@@ -13,6 +14,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
@@ -20,6 +22,7 @@ import javax.persistence.criteria.Root;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Daniel Oliva
@@ -28,9 +31,11 @@ public class DatasetFilterState {
     private static final long serialVersionUID = 8005371716983257722L;
 
     private DatasetFilterPagingRequest filter;
+    private List<DatasetType> datasetTypes;
 
-    public DatasetFilterState(DatasetFilterPagingRequest filter) {
+    public DatasetFilterState(DatasetFilterPagingRequest filter, List<DatasetType> datasetTypes) {
         this.filter = filter;
+        this.datasetTypes = datasetTypes;
     }
 
     public Specification<Dataset> getSpecification() {
@@ -98,13 +103,29 @@ public class DatasetFilterState {
         if (StringUtils.isNotBlank(filter.getText())) {
             String txt = filter.getText().toLowerCase();
             Join<Dataset, Person> join = root.join(Dataset_.UPLOADED_BY, JoinType.LEFT);
-            predicates.add(cb.and(cb.or(
-                    cb.like(cb.lower(root.get(Dataset_.LABEL)), "%" + txt + "%"),
-                    cb.like(cb.lower(root.get(Dataset_.SOURCE)), "%" + txt + "%"),
-                    cb.like(cb.lower(root.get(Dataset_.CREATED_BY)), "%" + txt + "%"),
-                    cb.like(cb.lower(join.get(Person_.FIRST_NAME)), "%" + txt + "%"),
-                    cb.like(cb.lower(join.get(Person_.LAST_NAME)), "%" + txt + "%")
-            )));
+            List<String> types = datasetTypes.stream().filter(x -> x.getLabel().toLowerCase().contains(txt)
+                    || x.getLabelFr().toLowerCase().contains(txt))
+                    .map(m -> m.getDescription())
+                    .collect(Collectors.toList());
+            if (types.size() > 0) {
+                Expression<String> parentExpression = root.get(Dataset_.DTYPE);
+                predicates.add(cb.and(cb.or(
+                        cb.like(cb.lower(root.get(Dataset_.LABEL)), "%" + txt + "%"),
+                        cb.like(cb.lower(root.get(Dataset_.SOURCE)), "%" + txt + "%"),
+                        cb.like(cb.lower(root.get(Dataset_.CREATED_BY)), "%" + txt + "%"),
+                        cb.like(cb.lower(join.get(Person_.FIRST_NAME)), "%" + txt + "%"),
+                        cb.like(cb.lower(join.get(Person_.LAST_NAME)), "%" + txt + "%"),
+                        parentExpression.in(types)
+                )));
+            } else {
+                predicates.add(cb.and(cb.or(
+                        cb.like(cb.lower(root.get(Dataset_.LABEL)), "%" + txt + "%"),
+                        cb.like(cb.lower(root.get(Dataset_.SOURCE)), "%" + txt + "%"),
+                        cb.like(cb.lower(root.get(Dataset_.CREATED_BY)), "%" + txt + "%"),
+                        cb.like(cb.lower(join.get(Person_.FIRST_NAME)), "%" + txt + "%"),
+                        cb.like(cb.lower(join.get(Person_.LAST_NAME)), "%" + txt + "%")
+                )));
+            }
         }
     }
 
