@@ -9,7 +9,7 @@ import {ChartTableSwitcher, CustomFilterDropDown,OptionList} from './Components'
 import Plot from 'react-plotly.js';
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
-import { Tab } from 'semantic-ui-react'
+import { Tab, Label } from 'semantic-ui-react'
 import {items2options} from './DataUtil'
 import './globalFoodLoss.scss'
 import {BarChart} from './GlobalFoodLossCharts'
@@ -44,7 +44,7 @@ const ChartSection = injectIntl(( props)=>{
               <Filters {...props} options={ { gender:true, age:true,methodOfEnforcement:false } }></Filters>
               <div className="chart container">
 
-  {data.length == 0?<div className="no data">No Data Available</div>:  <BarChart
+  {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:  <BarChart
         yLegend={props.intl.formatMessage(messages.percent)}
         xLegend={props.intl.formatMessage(messages.crop_type)}
 

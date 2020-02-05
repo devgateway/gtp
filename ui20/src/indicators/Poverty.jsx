@@ -6,7 +6,7 @@ import React, {Component, createRef, useState} from 'react'
 import {FormattedMessage,injectIntl} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown, RangeSlider} from './Components'
 import {BarChart,LineChart} from './PovertyCharts'
-import { Tab } from 'semantic-ui-react'
+import { Tab , Label} from 'semantic-ui-react'
 import {getPovertyRegionalYearly,getPovertyRegionalStackedByPovertyLevel, getPovertyTimeLine, items2options} from './DataUtil'
 import messages from '../translations/messages'
 import './poverty.scss'
@@ -72,7 +72,7 @@ class Pooverty extends Component {
         <div>
           <PovertyFitlers {...this.props}/>
           <div className="chart container">
-              {data.length == 0?<div className="no data">No Data Available</div>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
+              {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
               </div>
         </div>),
       },
@@ -80,7 +80,7 @@ class Pooverty extends Component {
 
         menuItem:{ key: 'poverty_chart_2', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year,{year:maxYear})}`},
         render: () =>   (<div>  <PovertyFitlers {...this.props}/> <div className=" chart container">
-          {data.length == 0?<div className="no data">No Data Available</div>:<BarChart    {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
+          {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<BarChart    {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
 
         </div></div>),
 
@@ -89,7 +89,7 @@ class Pooverty extends Component {
         menuItem:{ key: 'poverty_chart_3', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`},
         render: () =>  (<div > <PovertyFitlers {...this.props}/><div className="chart container">
 
-          {data.length == 0?<div className="no data">No Data Available</div>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
+          {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
 
         </div></div>),
       }

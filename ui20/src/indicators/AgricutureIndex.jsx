@@ -9,7 +9,7 @@ import {ChartTableSwitcher, CustomFilterDropDown,OptionList} from './Components'
 import Plot from 'react-plotly.js';
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
-import { Tab } from 'semantic-ui-react'
+import { Tab , Label} from 'semantic-ui-react'
 import {items2options,getAOIsubsidies, getAOItotalBudget} from './DataUtil'
 import './agricutureIndex.scss'
 import {injectIntl} from 'react-intl';
@@ -57,7 +57,7 @@ const ChartSection = injectIntl(( props)=>{
            <div className="indicators chart aoi">
              <BudgetFilters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></BudgetFilters>
              <div className="chart container">
-                  {props.budget == 0?<div className="no data">No Data Available</div>: <BarChart  {...getAOItotalBudget(props.budget, props.intl)}></BarChart>}
+                  {props.budget == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>: <BarChart  {...getAOItotalBudget(props.budget, props.intl)}></BarChart>}
 
             </div>
            </div>,
@@ -69,7 +69,7 @@ const ChartSection = injectIntl(( props)=>{
               <SubsidiesFilters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></SubsidiesFilters>
               <div className="chart container">
 
-                {props.budget == 0?<div className="no data">No Data Available</div>: <BarChart   {...getAOIsubsidies(props.subsidies,props.intl)}/>}
+                {props.budget == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>: <BarChart   {...getAOIsubsidies(props.subsidies,props.intl)}/>}
 
               </div>
             </div>,
