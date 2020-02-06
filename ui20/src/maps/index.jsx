@@ -3,11 +3,14 @@ import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
-import AD3Map from './Map'
 import './map.scss'
 import {loadGISData} from '../modules/Gis'
 import { Grid, Image } from 'semantic-ui-react'
+
 import Map from './Map.jsx'
+import PairOfMaps from './Map.jsx'
+
+
 import Immutable from 'immutable'
 import messages from '../translations/messages'
 import {CustomFilterDropDown,items2options} from '../indicators/Components'
@@ -63,11 +66,22 @@ class GIS extends Component {
 
   render() {
     const {data,intl, onExport} = this.props
-    const { selection1, selection2 }=this.state;
+    const { selection1, selection2,selection }=this.state;
     const indicator1=data && selection1.length ? getMapData(data,selection1[0]):null
     const indicator2=data && selection2.length ? getMapData(data,selection2[0]):null
     const json1=joinData(Immutable.fromJS(regions).toJS(), indicator1)
     const json2=joinData(Immutable.fromJS(regions).toJS(), indicator2)
+
+    const pairOptions={
+      indicator1,
+      indicator2,
+      selection1,
+      selection2,
+      selection,
+      data,
+      json1,
+      json2
+    }
 
     return (
       <div className="gis container">
@@ -82,57 +96,7 @@ class GIS extends Component {
             The site will also display, non-official data sources that users can access by clicking on the links provided. Where available, a given dataset will be displaying a link that will connect the ANSD data repository when users can consult reports, studies and other metadata related to a specific dataset."/></p>
           </div>
 
-        <Grid columns={2}>
-
-        <Grid.Column>
-        <div className="gis filter container  ">
-            <div className="gis filter item">
-            {data&&<CustomFilterDropDown single
-            options={data.map(d=>{return {key:d.id ,text:d.name}})}
-            onChange={s => this.onChangeSelection('selection1',s)}
-            selected={selection1} text={<FormattedMessage id = "gis.indicator.name" defaultMessage = "Indicator"  > </FormattedMessage>} />}
-            </div>
-
-          </div>
-
-             { indicator1 &&
-             <Map
-             key="map1"
-             name={indicator1.name}
-             selection={this.state.selection}
-             key={indicator1.id}
-             max={indicator1.maxValue}
-             min={indicator1.minValue}
-             intl={intl}
-             json={json1}
-             color="Reds"
-             onClick={this.onMapClick}/>}
-
-           </Grid.Column>
-           <Grid.Column>
-           <div className="gis filter container  ">
-               <div className="gis filter item">
-               {data&&<CustomFilterDropDown single
-                options={data.map(d=>{return {text:d.name, key:d.id}})}
-               onChange={s => this.onChangeSelection('selection2',s)}
-               selected={selection2} text={<FormattedMessage id = "gis.indicator.name" defaultMessage = "Indicator"  > </FormattedMessage>} />}
-               </div>
-             </div>
-
-             { indicator2 &&
-               <Map key="map2"
-               name={indicator2.name}
-               selection={this.state.selection}
-               key={indicator2.id}
-               max={indicator2.maxValue}
-               min={indicator2.minValue}
-               intl={intl}
-              json={json2}
-              color="Blues"
-              onClick={this.onMapClick}/>}
-           </Grid.Column>
-
-         </Grid>
+            <PairOfMaps {...pairOptions}/>
          <br/>
          <br/>
          </div>
