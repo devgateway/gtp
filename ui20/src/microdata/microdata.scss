@@ -66,6 +66,12 @@
     }
   }
 
+  .microdata.sources.description{
+    height: auto!important;
+    min-height: 50px;
+    clear: both;
+  }
+
   div.table.filters {
     font-family: $font !important;
     padding-left: 17px;

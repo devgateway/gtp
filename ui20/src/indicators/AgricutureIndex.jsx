@@ -14,7 +14,7 @@ import {items2options,getAOIsubsidies, getAOItotalBudget} from './DataUtil'
 import './agricutureIndex.scss'
 import {injectIntl} from 'react-intl';
 import messages from '../translations/messages'
-
+import {PngExport} from './Components'
 
 import {BarChart, LineChart} from './AgricutureIndexCharts'
 
@@ -91,7 +91,7 @@ const ChartSection = injectIntl(( props)=>{
             <FormattedMessage id="indicators.chart.aoi.description" defaultMessage="The agriculture orientation index for government expenditures"></FormattedMessage>
           </p>
           <div className="indicator chart icon download xls" onClick={e=>onExport('AOI', 'XLS',intl.locale)}></div>
-          <div className="indicator chart icon download png"></div>
+        <PngExport id="anchor.indicator.global.aoi.short"/>
           <div className="indicator chart icon download csv" onClick={e=>onExport('AOI', 'CSV',intl.locale)}></div>
 
         </div>

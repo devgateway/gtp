@@ -16,7 +16,7 @@ import {BarChart} from './GlobalFoodLossCharts'
 import {getAverageProductionLossData} from './DataUtil'
 import {injectIntl} from 'react-intl';
 import messages from '../translations/messages'
-
+import {PngExport} from './Components'
 
 
 const  Filters=injectIntl(({intl,lossTypes,filters,onChange, options})=>{
@@ -90,7 +90,7 @@ const ChartSection = injectIntl(( props)=>{
               </FormattedMessage>
             </p>
             <div className="indicator chart icon download xls" onClick={e=>onExport('FOOD', 'XLS',intl.locale)}></div>
-            <div className="indicator chart icon download png"></div>
+            <PngExport id="anchor.indicator.global.food.short"/>
             <div className="indicator chart icon download csv" onClick={e=>onExport('FOOD', 'CSV',intl.locale)}></div>
 
           </div>

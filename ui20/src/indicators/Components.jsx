@@ -3,6 +3,8 @@ import React, {Component, createRef, useState} from 'react'
 import {FormattedMessage} from 'react-intl';
 import Slider, {Range} from 'rc-slider';
 import DatePicker from "react-datepicker";
+import { toPng, toJpeg, toBlob, toPixelData, toSvgDataURL } from 'html-to-image';
+import download from 'downloadjs'
 
 import {
   Dropdown,
@@ -17,6 +19,26 @@ import {
 
 import "react-datepicker/dist/react-datepicker.css";
 
+
+
+
+export const PngExport=({id})=>{
+      return (<div className="indicator chart icon download png" onClick={e=>{
+        var node = document.getElementById(id);
+
+                toPng(node.getElementsByClassName("chart container")[0])
+                  .then(function (dataUrl) {
+                    download(dataUrl, 'chart.png');
+                  })
+                  .catch(function (error) {
+                    console.error('oops, something went wrong!', error);
+                  });
+
+      }}></div>)
+}
+
+
+
 export const TextInput=({onChange, value, text})=>{
     return (<input type="text" placeholder={text} onChange={e=>onChange(e.target.value)} value={value}/>)
 }
@@ -26,7 +48,7 @@ export const DateInput=({onChange, value, text, locale})=>{
 
     return (<DatePicker
             locale={locale}
-          
+
             placeholderText={text}
             selected={value}
             onChange={onChange}/>)
