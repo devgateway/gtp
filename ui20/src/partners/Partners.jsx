@@ -39,11 +39,7 @@ return (<div className="partners container">
       <p>  <FormattedMessage id='partners.page.description' defaultMessage="This page displays the list of partners that collaborated to this initiative. Partner organizations have been grouped by type to ease up the search functionality."/></p>
     </div>
 
-    <div className="partners list title ">
-      <p>
-        <FormattedMessage id="partners.list.title" defaultMessage="Partners"></FormattedMessage>
-      </p>
-    </div>
+    
     <Container fluid>
     <Ref innerRef={contextRef}>
 
