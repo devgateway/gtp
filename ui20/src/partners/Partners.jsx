@@ -35,22 +35,8 @@ return (<div className="partners container">
       </p>
     </div>
 
-
     <div className="partners description">
-      <p>  <FormattedMessage id='partners.page.description' defaultMessage="The Microdata page will display agricultural datasets that have been preloaded by each responsible partner organization. The site will also display, non-official data sources that users can access by clicking on the links provided. Where available, a given dataset will be displaying a link that will connect the ANSD data repository when users can consult reports, studies and other metadata related to a specific dataset."/></p>
-    </div>
-
-
-    <div className="partners type  title ">
-      <p>
-        <FormattedMessage id="partners.type.title" defaultMessage="Partner Type(s)"></FormattedMessage>
-      </p>
-    </div>
-
-    <div className="partners type description">
-        <p>
-          <FormattedMessage id="partners.type.description" defaultMessage="The organization datasets will display data groupes by a respective organization. The table will be updated as new information is downloaded and will only show the 10 most recent datasets. Users can use the Search function to retrieve hidden dataset that have been previouly made available."></FormattedMessage>
-        </p>
+      <p>  <FormattedMessage id='partners.page.description' defaultMessage="This page displays the list of partners that collaborated to this initiative. Partner organizations have been grouped by type to ease up the search functionality."/></p>
     </div>
 
     <div className="partners list title ">
@@ -105,9 +91,9 @@ const ListItems=({groups,onChangeSelection})=>{
 
                                     <Grid.Row id={"_partner_"+p.id}>
                                         <Grid.Column  width={11}>
-                                          <a href={p.url} className="ui image medium padding5">
+                                        {p.base64&&  <a href={p.url} className="ui image medium padding5">
                                             <img src={`data:image/png;base64,${p.base64}`}/>
-                                          </a>
+                                          </a>}
                                         </Grid.Column>
                                         <Grid.Column  width={5} className="align right link">
                                           <a href={p.url}>{p.url}</a>
