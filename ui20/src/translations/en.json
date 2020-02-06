@@ -127,7 +127,7 @@
 	"indicators.source.label": "Source :",
 	"indicators.title": "Indicators",
 	"initiatives.left.description": "The organization datasets will display data groupes by a respective organization. The table will be updated as new information is downloaded and will only show the 10 most recent datasets. Users can use the Search function to retrieve hidden dataset that have been previouly made available.",
-	"initiatives.page.description": "orem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac nibh aliquet, placerat erat vel, iaculis urna. Maecenas sagittis eu ante et consectetur. Proin ac vulputate odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+	"initiatives.page.description": "",
 	"initiatives.page.title": "Agricultural Initiatives, Policies, Strategies, Programs",
 	"initiatives.rigth.description": "The organization datasets will display data groupes by a respective organization. The table will be updated as new information is downloaded and will only show the 10 most recent datasets. Users can use the Search function to retrieve hidden dataset that have been previouly made available.",
 	"microdata.filters.end_date.label": "End Date",

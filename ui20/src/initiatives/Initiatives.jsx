@@ -38,7 +38,7 @@ return (<div className="initiatives container">
 
 
     <div className="initiatives description">
-      <p>  <FormattedMessage id='initiatives.page.description' defaultMessage="orem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac nibh aliquet, placerat erat vel, iaculis urna. Maecenas sagittis eu ante et consectetur. Proin ac vulputate odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."/></p>
+      <p>  <FormattedMessage id='initiatives.page.description' defaultMessage="The Agricultural Initiatives page presents the national policies and strategies that govern and promote the sustainable development of the agricultural sector including projects and programs, studies and research documents as well as information in the agricultural sector budget. The page will be updated with studies that are conducted and as more projects are implemented in the agricultural sector."/></p>
     </div>
 
 
@@ -49,22 +49,12 @@ return (<div className="initiatives container">
             <img src="/back_initiatives.png" className="ui image  fluid"/>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={8} className="initiatives description">
-          <p>
-            <FormattedMessage id="initiatives.left.description" defaultMessage="The organization datasets will display data groupes by a respective organization. The table will be updated as new information is downloaded and will only show the 10 most recent datasets. Users can use the Search function to retrieve hidden dataset that have been previouly made available."></FormattedMessage>
-          </p>
-          </Grid.Column>
-          <Grid.Column width={8} className="initiatives description">
-          <p>
-            <FormattedMessage id="initiatives.rigth.description" defaultMessage="The organization datasets will display data groupes by a respective organization. The table will be updated as new information is downloaded and will only show the 10 most recent datasets. Users can use the Search function to retrieve hidden dataset that have been previouly made available."></FormattedMessage>
-          </p>
-          </Grid.Column>
-        </Grid.Row>
     </Grid>
     </Container>
 
     {types &&  types.map(d=>(<Items onLoadItems={onLoadItems} {...d} items={items}></Items>))}
+
+
     </div>)
 }
 
@@ -96,21 +86,19 @@ const Items = injectIntl(({intl,id,type,label,labelFr, onLoadItems , items}) => 
     },
   }
 
-  if(items&&items.get(type)){
-
-  }
+  debugger;
 
 return (<div className="initiatives container">
         <div className="initiatives list title">
           <p>
-            {label}
+            {intl.locale=='en'?label:''}
+            {intl.locale=='fr'?labelFr:''}
+
           </p>
         </div>
           <Container fluid className="initiatives list container">
               <Grid fluid width={2} stackable>
               {content.map(e=>{
-                  debugger;
-
                   return(
 
                       <Grid.Column width={8}>
