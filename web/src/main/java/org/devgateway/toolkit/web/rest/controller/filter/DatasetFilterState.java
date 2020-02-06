@@ -44,12 +44,23 @@ public class DatasetFilterState {
             if (filter != null) {
                 addDatePredicates(root, cb, predicates);
                 addTextPredicates(root, cb, predicates);
+                addYearPredicates(root, cb, predicates);
                 addOrganizationPredicates(root, cb, predicates);
             }
             addApprovedDatasets(root, cb, predicates);
             applyOrderByQuery(root, query);
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
+    }
+
+    private void addYearPredicates(Root<Dataset> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        if (filter.getYear() != null && filter.getYear().size() > 0) {
+            List<Predicate> intPred = new ArrayList<>();
+            for (Integer value:filter.getYear()) {
+                intPred.add(cb.equal(root.get(Dataset_.YEAR), value));
+            }
+            predicates.add(cb.or(intPred.toArray(new Predicate[intPred.size()])));
+        }
     }
 
     private void applyOrderByQuery(Root<Dataset> root, CriteriaQuery<?> query) {

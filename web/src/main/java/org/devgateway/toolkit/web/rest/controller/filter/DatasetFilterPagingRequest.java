@@ -26,6 +26,9 @@ public class DatasetFilterPagingRequest extends GenericPagingRequest implements 
     @ApiModelProperty(value = "Filter by organization")
     private TreeSet<Integer> organization;
 
+    @ApiModelProperty(value = "Filter by year")
+    private TreeSet<Integer> year;
+
     @ApiModelProperty(value = "Sort by column")
     private String sortBy;
 
@@ -96,5 +99,13 @@ public class DatasetFilterPagingRequest extends GenericPagingRequest implements 
 
     public void setSortDir(String sortDir) {
         this.sortDir = sortDir;
+    }
+
+    public TreeSet<Integer> getYear() {
+        return year;
+    }
+
+    public void setYear(TreeSet<Integer> year) {
+        this.year = year;
     }
 }
