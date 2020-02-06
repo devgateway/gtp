@@ -28,7 +28,7 @@ class TableComponent extends Component {
     handleSort = (clickedColumn) => () => {
       return
       const { column, data, direction } = this.state
-      debugger;
+      
       if (column !== clickedColumn) {
         this.setState({
           column: clickedColumn,
