@@ -152,10 +152,20 @@ return (
         legendOffset: -40
       }}
       label={(s)=>intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0}) }
-      tooltip={(s)=>{
-        debugger;
-        return (<div className="tooltip"><div className="color" style={{'background-color':s.color}}></div><div className='x'>{s.id}</div> <div className=' y'>{intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}</div></div>)
-      }}
+
+
+
+            tooltip={(s)=>{
+                debugger;
+                return (<div className="tooltip white">
+                      <div className="color" style={{'background-color':s.color}}></div>
+                      <div className="label">{s.indexValue}</div>
+                      <div className='x'>{s.id}</div>
+                      <div className='y' style={{'color':s.color}}>{intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>
+              </div>)
+            }}
+
+
       labelSkipWidth={25}
       labelSkipHeight={22}
       labelTextColor={"#FFF"}

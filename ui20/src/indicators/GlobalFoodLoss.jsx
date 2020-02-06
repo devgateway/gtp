@@ -48,7 +48,7 @@ const ChartSection = injectIntl(( props)=>{
         yLegend={props.intl.formatMessage(messages.percent)}
         xLegend={props.intl.formatMessage(messages.crop_type)}
 
-      label={(s)=>props.intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}
+        label={(s)=>props.intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}
 
      {...getAverageProductionLossData(props.data,'avgPercentage', props.intl)}></BarChart>}
 
@@ -66,7 +66,7 @@ const ChartSection = injectIntl(( props)=>{
               <BarChart
                 yLegend={props.intl.formatMessage(messages.kg)}
                 xLegend={props.intl.formatMessage(messages.crop_type)}
-                label={(s)=>props.intl.formatNumber(s.value, {notation:'compact', minimumFractionDigits: 0,maximumFractionDigits: 0})}
+                label={(s)=>props.intl.formatNumber(s.value, {notation:'compact', minimumFractionDigits: 0,maximumFractionDigits: 0})+'Kg'}
 
               {...getAverageProductionLossData(props.data,'avgKilograms',props.intl)}></BarChart>}
               </div>
