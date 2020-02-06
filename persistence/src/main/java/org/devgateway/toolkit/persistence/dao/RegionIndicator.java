@@ -46,6 +46,10 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
     @JsonIgnore
     private Set<FileMetadata> fileMetadata;
 
+    private boolean leftMap;
+
+    private boolean rightMap;
+
     public String getName() {
         return name;
     }
@@ -139,5 +143,21 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
             ret = description;
         }
         return ret;
+    }
+
+    public boolean isLeftMap() {
+        return leftMap;
+    }
+
+    public void setLeftMap(boolean leftMap) {
+        this.leftMap = leftMap;
+    }
+
+    public boolean isRightMap() {
+        return rightMap;
+    }
+
+    public void setRightMap(boolean rightMap) {
+        this.rightMap = rightMap;
     }
 }

@@ -650,6 +650,19 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="RegionIndicatorFlags" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="region_indicator" />
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE region_indicator
+                ADD COLUMN "left_map" BOOLEAN DEFAULT FALSE;
+            ALTER TABLE region_indicator
+                ADD COLUMN "right_map" BOOLEAN DEFAULT FALSE;
+
+        ]]></sql>
+    </changeSet>
+
 
 
 </databaseChangeLog>

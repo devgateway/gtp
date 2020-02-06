@@ -14,6 +14,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,9 @@ import static org.devgateway.toolkit.persistence.util.Constants.SPACE_STRING;
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional
 public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicator> implements RegionIndicatorService {
+
+    @Autowired
+    private EntityManager entityManager;
 
     @Autowired
     private RegionIndicatorRepository repository;
@@ -65,6 +69,18 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
         return ret;
     }
 
+    @Override
+    public void restoreLeftFlagToFalse() {
+        entityManager.createQuery("update RegionIndicator set leftMap = false")
+                .executeUpdate();
+    }
+
+    @Override
+    public void restoreRightFlagToFalse() {
+        entityManager.createQuery("update RegionIndicator set rightMap = false")
+                .executeUpdate();
+    }
+
     private void fillProductionIndicator(String lang, List<RegionIndicatorDTO> ret) {
         String prodStr = PROD_EN_STR;
 
@@ -90,6 +106,8 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
                     dto.setMaxValue(0D);
                     dto.setMinValue(0D);
                 }
+                dto.setRightMap(false);
+                dto.setLeftMap(false);
                 dto.setStats(new ArrayList<>());
                 dto.setYear(year);
                 ret.add(dto);
@@ -116,6 +134,8 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
                 dto.setName(povertyStr + SPACE_STRING + year);
                 dto.setMaxValue(p.getValue());
                 dto.setMinValue(p.getValue());
+                dto.setRightMap(false);
+                dto.setLeftMap(false);
                 dto.setStats(new ArrayList<>());
                 dto.setYear(year);
                 ret.add(dto);

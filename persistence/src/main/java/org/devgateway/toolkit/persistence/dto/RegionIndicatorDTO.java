@@ -21,6 +21,10 @@ public class RegionIndicatorDTO {
 
     private Double maxValue;
 
+    private Boolean leftMap;
+
+    private Boolean rightMap;
+
     public RegionIndicatorDTO() {
 
     }
@@ -33,6 +37,8 @@ public class RegionIndicatorDTO {
         this.stats = ri.getStats().stream().map(rs -> new RegionStatDTO(rs)).collect(Collectors.toList());
         this.minValue = ri.getMinValue();
         this.maxValue = ri.getMaxValue();
+        this.leftMap = ri.isLeftMap();
+        this.rightMap = ri.isRightMap();
     }
 
     public Long getId() {
@@ -89,5 +95,21 @@ public class RegionIndicatorDTO {
 
     public void setMaxValue(Double maxValue) {
         this.maxValue = maxValue;
+    }
+
+    public Boolean getLeftMap() {
+        return leftMap;
+    }
+
+    public void setLeftMap(Boolean leftMap) {
+        this.leftMap = leftMap;
+    }
+
+    public Boolean getRightMap() {
+        return rightMap;
+    }
+
+    public void setRightMap(Boolean rightMap) {
+        this.rightMap = rightMap;
     }
 }

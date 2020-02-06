@@ -22,6 +22,7 @@ import org.apache.wicket.validation.validator.StringValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
+import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListRegionIndicatorPage;
@@ -89,6 +90,14 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
         year.getField().add(new RangeValidator<>("2010", "2030"));
         editForm.add(year);
 
+        final CheckBoxPickerBootstrapFormComponent leftMap =
+                new CheckBoxPickerBootstrapFormComponent("leftMap");
+        editForm.add(leftMap);
+
+        final CheckBoxPickerBootstrapFormComponent rightMap =
+                new CheckBoxPickerBootstrapFormComponent("rightMap");
+        editForm.add(rightMap);
+
         FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata").maxFiles(1);
         fileInput.required();
         fileInput.getField().add((IValidator) new InputFileValidator(getString("fileNotAdded"),
@@ -110,26 +119,39 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
             protected void onSubmit(final AjaxRequestTarget target) {
                 logger.info("Check the file and process it");
                 RegionIndicator model = editForm.getModelObject();
-                ImportResults<RegionStat> results = null;
-                if (model.getId() != null) {
-                    SecurityUtil.getCurrentAuthenticatedPerson();
-                    jpaService.saveAndFlush(model);
-                } else {
-                    model.setUploadedBy(SecurityUtil.getCurrentAuthenticatedPerson());
-                    redirectToSelf = false;
-                    results = importService.processFile(model);
-                }
-
-                //process results
-                if (results != null && !results.isImportOkFlag()) {
-                    feedbackPanel.error(new StringResourceModel("uploadError", this, null).getString());
-                    results.getErrorList().forEach(error -> feedbackPanel.error(error));
+                if (model.isLeftMap() && model.isRightMap()) {
+                    feedbackPanel.error(new StringResourceModel("mapFlagsError", this, null).getString());
                     target.add(feedbackPanel);
                     redirectToSelf = true;
                 } else {
-                    markupCacheService.clearAllCaches();
+                    redirectToSelf = false;
+                    ImportResults<RegionStat> results = null;
+                    if (model.isLeftMap()) {
+                        service.restoreLeftFlagToFalse();
+                    }
+                    if (model.isRightMap()) {
+                        service.restoreRightFlagToFalse();
+                    }
+                    if (model.getId() != null) {
+                        SecurityUtil.getCurrentAuthenticatedPerson();
+                        jpaService.saveAndFlush(model);
+                    } else {
+                        model.setUploadedBy(SecurityUtil.getCurrentAuthenticatedPerson());
+                        redirectToSelf = false;
+                        results = importService.processFile(model);
+                    }
+
+                    //process results
+                    if (results != null && !results.isImportOkFlag()) {
+                        feedbackPanel.error(new StringResourceModel("uploadError", this, null).getString());
+                        results.getErrorList().forEach(error -> feedbackPanel.error(error));
+                        target.add(feedbackPanel);
+                        redirectToSelf = true;
+                    } else {
+                        markupCacheService.clearAllCaches();
+                    }
+                    cacheService.releaseCache();
                 }
-                cacheService.releaseCache();
                 redirect(target);
             }
 

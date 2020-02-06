@@ -9,4 +9,8 @@ import java.util.List;
 public interface RegionIndicatorService extends BaseJpaService<RegionIndicator> {
 
     List<RegionIndicatorDTO> findGisIndicatorAndPovertyIndicator(String lang);
+
+    void restoreLeftFlagToFalse();
+
+    void restoreRightFlagToFalse();
 }
