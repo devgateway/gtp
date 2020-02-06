@@ -19,6 +19,7 @@ import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.dao.categories.PartnerGroup;
 import org.devgateway.toolkit.persistence.dao.categories.PovertyLevel;
 import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
+import org.devgateway.toolkit.persistence.repository.DatasetRepository;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.category.AgeGroupService;
 import org.devgateway.toolkit.persistence.service.category.AgriculturalWomenGroupService;
@@ -117,6 +118,16 @@ public class FilterController {
 
     @Autowired
     private ContentTypeService contentTypeService;
+
+    @Autowired
+    private DatasetRepository datasetRepository;
+
+    @CrossOrigin
+    @ApiOperation(value = "Get dataset years")
+    @RequestMapping(value = "/dataset/years", method = {POST, GET})
+    public List<Integer> getAllDatasetYears() {
+        return datasetRepository.findDistinctYears();
+    }
 
     @CrossOrigin
     @ApiOperation(value = "Get organization information")
