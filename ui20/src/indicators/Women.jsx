@@ -15,6 +15,7 @@ import './women.scss'
 import  {getWomenDistributionByGroup, getWomebHistoricalDistribution} from './DataUtil'
 import {BarChart,LineChart} from './WomenCharts'
 import messages from '../translations/messages'
+import {PngExport} from './Components'
 
 const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,onChange, options})=>{
   const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []
@@ -136,7 +137,7 @@ const ChartSection = injectIntl((props)=>{
             <FormattedMessage id="indicators.chart.women.description" defaultMessage="Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex; and (b) share of women among owners or rights-bearers of agricultural land, by type of tenure."></FormattedMessage>
           </p>
           <div className="indicator chart icon download xls" onClick={e=>onExport('WOMEN', 'XLS',intl.locale)}></div>
-          <div className="indicator chart icon download png"></div>
+          <PngExport id="anchor.indicator.global.women.short"/>
           <div className="indicator chart icon download csv" onClick={e=>onExport('WOMEN', 'CSV',intl.locale)}></div>
         </div>
           <Tab key="women" menu={{ pointing: true }} panes={panes} />

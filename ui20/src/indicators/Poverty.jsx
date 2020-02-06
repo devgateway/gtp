@@ -10,9 +10,7 @@ import { Tab , Label} from 'semantic-ui-react'
 import {getPovertyRegionalYearly,getPovertyRegionalStackedByPovertyLevel, getPovertyTimeLine, items2options} from './DataUtil'
 import messages from '../translations/messages'
 import './poverty.scss'
-import { toPng, toJpeg, toBlob, toPixelData, toSvgDataURL } from 'html-to-image';
-import download from 'downloadjs'
-
+import {PngExport} from './Components'
 const PovertyFitlers=injectIntl((props)=>{
 
   const {intl,filters, onChange,range={},genders=[],activities=[],ageGroups=[]} = props
@@ -113,18 +111,7 @@ class Pooverty extends Component {
           <FormattedMessage id="indicators.chart.poverty.description" defaultMessage="Proportion of population below the international poverty line, by sex, age, employment status and geographical location (urban/rural)."></FormattedMessage>
         </p>
         <div className="indicator chart icon download xls" onClick={e=>onExport('POVERTY', 'XLS',intl.locale)}></div>
-        <div className="indicator chart icon download png" onClick={e=>{
-          var node = document.getElementById('anchor.indicator.global.population.short');
-              debugger;
-                  toPng(node)
-                    .then(function (dataUrl) {
-                      download(dataUrl, 'chart.png');
-                    })
-                    .catch(function (error) {
-                      console.error('oops, something went wrong!', error);
-                    });
-
-        }}></div>
+        <PngExport id="anchor.indicator.global.population.short"/>
         <div className="indicator chart icon download csv" onClick={e=>onExport('POVERTY', 'CSV',intl.locale)}></div>
       </div>
 
