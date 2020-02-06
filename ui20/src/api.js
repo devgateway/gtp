@@ -181,7 +181,7 @@ export const getPartners = (locale) => {
         }
 
           const filters={...params.global}
-          debugger;
+          
           switch (what) {
 
             case "POVERTY":
@@ -388,7 +388,7 @@ export const getPartners = (locale) => {
 
     export const getInitiativeItems = (id, locale, page) => {
 
-      debugger;
+      
       return new Promise((resolve, reject) => {
           return post(`${URL_API_INITIATIVE_ITEMS}/${id}`, {lang:locale,pageNumber:page}).then((data) => {
 

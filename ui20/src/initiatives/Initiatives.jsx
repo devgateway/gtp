@@ -97,7 +97,7 @@ const Items = injectIntl(({intl,id,type,label,labelFr, onLoadItems , items}) => 
   }
 
   if(items&&items.get(type)){
-    debugger;
+
   }
 
 return (<div className="initiatives container">
@@ -109,6 +109,8 @@ return (<div className="initiatives container">
           <Container fluid className="initiatives list container">
               <Grid fluid width={2} stackable>
               {content.map(e=>{
+                  debugger;
+
                   return(
 
                       <Grid.Column width={8}>
@@ -117,11 +119,11 @@ return (<div className="initiatives container">
 
                       <div className="date"><FormattedDate value={e.publicationDate} year="numeric" month="long" day="2-digit" /></div>
 
-                      <div className="title">  <a href={e.link}>{e.title}</a></div>
+                      <div className="title">  {e.link?<a href={e.link}>{e.title}</a>:<a href={`/files/download/${e.fileId}`}>{e.title}</a>}</div>
 
                       <div className="description"> <a href={e.link}>{e.description}</a> </div>
 
-
+                        {e.fileId &&   <div className="download">  <a href={`/files/download/${e.fileId}`}>Download File</a></div>}
                       </Grid.Column>
               )
 

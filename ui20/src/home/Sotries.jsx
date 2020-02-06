@@ -46,7 +46,7 @@ const Stories = injectIntl((props) => {
     const stories_subtitle_2= props.links[1]['subtitle'+subfix]
     const image_2= props.links[1].base64
 
-  debugger;
+  
     const stories_title_3=  props.links[2]['title'+subfix]
     const stories_subtitle_3= props.links[2]['subtitle'+subfix]
     const image_3= props.links[2].base64

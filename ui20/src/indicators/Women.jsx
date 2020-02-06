@@ -9,7 +9,7 @@ import {ChartTableSwitcher, CustomFilterDropDown,OptionList} from './Components'
 import Plot from 'react-plotly.js';
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
-import { Tab } from 'semantic-ui-react'
+import { Tab, Label } from 'semantic-ui-react'
 import {items2options} from './DataUtil'
 import './women.scss'
 import  {getWomenDistributionByGroup, getWomebHistoricalDistribution} from './DataUtil'
@@ -58,7 +58,7 @@ const ChartSection = injectIntl((props)=>{
            <div className="indicators chart women">
              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
              <div className="chart container">
-              {population.length == 0?<div className="no data">No Data Available</div>:<BarChart
+              {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<BarChart
               yLegend={props.intl.formatMessage(messages.age)}
               xLegend={props.intl.formatMessage(messages.percent)}
 
@@ -71,7 +71,7 @@ const ChartSection = injectIntl((props)=>{
         render: () =><div className="indicators chart women">
               <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
               <div className="chart container">
-              {population.length == 0?<div className="no data">No Data Available</div>:<LineChart   {...getWomebHistoricalDistribution(props.population,props.intl)}/>}
+              {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<LineChart   {...getWomebHistoricalDistribution(props.population,props.intl)}/>}
 
               </div>
 
@@ -86,7 +86,7 @@ const ChartSection = injectIntl((props)=>{
                 <Filters {...props} options={{gender:true, age:false,methodOfEnforcement:true}}></Filters>
                 <div className="chart container">
 
-                {population.length == 0?<div className="no data">No Data Available</div>:<BarChart
+                {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<BarChart
                 yLegend={props.intl.formatMessage(messages.methodOfEnforcement)}
                 xLegend={props.intl.formatMessage(messages.percent)}
 
@@ -103,7 +103,7 @@ const ChartSection = injectIntl((props)=>{
                 <Filters {...props} options={{gender:false, age:false,methodOfEnforcement:true}}></Filters>
                 <div className="chart container">
 
-                {population.length == 0?<div className="no data">No Data Available</div>:<LineChart  key="ByMethodOfEnforcementLine"  {...getWomebHistoricalDistribution(props.distribution,props.intl)}></LineChart>}
+                {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<LineChart  key="ByMethodOfEnforcementLine"  {...getWomebHistoricalDistribution(props.distribution,props.intl)}></LineChart>}
 
                 </div>
               </div>,

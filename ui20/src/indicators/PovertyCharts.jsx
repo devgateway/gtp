@@ -129,6 +129,12 @@ return (
       labelSkipWidth={25}
       labelSkipHeight={22}
       labelTextColor={"#FFF"}
+
+      tooltip={(s)=>{
+
+        return (<div className="tooltip"><div className="color" style={{'background-color':s.color}}></div><div className='x'>{s.id}</div> <div className=' y'>{intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}</div></div>)
+      }}
+
       legends={[
         {
           dataFrom: 'keys',
