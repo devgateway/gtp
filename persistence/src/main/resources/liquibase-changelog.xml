@@ -640,6 +640,16 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="ChangeMilletCropTranslation" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE localized_category_label SET label='Mil' WHERE label = 'Millet';
+
+        ]]></sql>
+    </changeSet>
+
 
 
 </databaseChangeLog>
