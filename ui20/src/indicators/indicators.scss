@@ -193,7 +193,6 @@
 }
 
 .indicators.content.fixed {
-
   color: #818181;
   font-size: 21px;
   padding-top: 150px;
@@ -571,13 +570,23 @@
     font-size: 12px;
 
     .tooltip {
-      line-height: 30px;
-      height: 30px;
-      margin: 0px;
+      overflow: auto;
+      line-height: 28px;
+      margin: 0;
       border-radius: 3px;
       background-color: #EEE;
+      padding: 0 10px;
 
-      .color{
+      .label{
+        float: left;
+    
+      }
+      .label::after{
+        content: '-';
+        margin-left: 3px;
+        margin-right: 3px;
+      }
+      .color {
         width: 4px;
         float: left;
         height: 28px;
@@ -585,23 +594,27 @@
         margin-left: -6px;
       }
 
-      .x{
+      .x {
         float: left;
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
       }
-      .y::before{
-        content: ':';
-        margin: 2px;
 
+      .y::before {
+        content: ' : ';
+        margin: 2px;
       }
-      .y{
-        font-weight: bold;
+
+      .y {
+
         float: left;
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
       }
     }
+  }
+
+  .tooltip.white {
+    background-color:: #FFF !important;
   }
 
   .indicator.description {
@@ -663,9 +676,6 @@
     }
   }
 
-
-
-
   .indicator.chart.icon.download {
     width: 30px;
     margin-left: 12px;
@@ -674,8 +684,7 @@
     float: right;
   }
 
-
-  .download{
+  .download {
     cursor: pointer;
   }
 
@@ -735,7 +744,6 @@
       width: auto !important;
 
       .item {
-
         padding-left: 10px !important;
         font-size: 12px;
         margin-right: 12px;
