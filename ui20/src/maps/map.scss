@@ -188,6 +188,10 @@
 
   .map {
     svg {
+
+      path{
+        cursor: pointer;
+      }
       rect {
         fill: #73a745;
         fill-opacity: 1;
@@ -203,6 +207,7 @@
       }
 
       text.label {
+        cursor: pointer;
         pointer-events: all;
         fill: #000 !important;
         font-size: 8px !important;
