@@ -9,7 +9,7 @@ const formatOptions = {
     maximumFractionDigits: 2
   }
   const width = 655,
-    height = 500;
+    height = 360;
 
   export default class D3Map extends Component < {},
   State > {
@@ -24,6 +24,8 @@ const formatOptions = {
     }
 
     getFillColor(d) {
+
+
       const colorInterpolator = d3.scaleSequential().domain([this.props.min,this.props.max]).interpolator(d3['interpolate' + this.props.color]);
       if (d.properties.value) {
         return colorInterpolator(d.properties.value)
@@ -32,38 +34,66 @@ const formatOptions = {
       }
     }
 
-    showDetails(fid) {
 
-      const data = this.g.selectAll("path").filter(d => d.properties.fid == fid).data()[0]
-      
+    scaleTo(data,fid){
       var bounds = this.path.bounds(data),
+
       dx = bounds[1][0] - bounds[0][0],
       dy = bounds[1][1] - bounds[0][1],
       x = (bounds[0][0] + bounds[1][0]) / 2,
       y = (bounds[0][1] + bounds[1][1]) / 2,
+
       scale = 1 / Math.max(dx / width, dy / height),
+
       translate = [
         width / 2 - scale * x,
         height / 2 - scale * y
       ];
+        const getFillColor = this.getFillColor
+
+      this.g.selectAll('path')
+      .style('fill', (d) => fid && d.properties.fid === fid ? getFillColor(d) : getFillColor(d)).style('stroke', (d) => fid && d.properties.fid === fid? 'red': '#EEE');
+      this.g.transition().duration(400)
+      .style("stroke-width", 1.5 / scale + "px")
+      .attr("transform", "translate(" + translate + ") scale(" + scale + ")");
+
+    }
+
+    showDetails(fid,prevFid) {
+
+      let action;
+      let data;
+      debugger;
+      if (fid ==null || (fid==prevFid && this.view=='zoomedIn')){
+        data=this.props.json
+        action='out'
+        this.view='zoomedOut'
+      }
+
+      else{
+        action='in'
+        data =this.g.selectAll("path").filter(d => d.properties.fid == fid).data()[0]
+        this.view='zoomedIn'
+      }
+
+
+
+      this.scaleTo(data,fid)
 
       const measure = this.props.measure
-      const getFillColor = this.getFillColor
+
         var text1, text2;
 
-        if (fid != null) {
+        if (action=='in') {
           text1 = `${data.properties.indicator}`
           text2 = `value: ${this.props.intl.formatNumber(data.properties.value)}`
         }
-
-        this.g.selectAll('path').style('fill', (d) => fid && d.properties.fid === fid ? getFillColor(d) : getFillColor(d)).style('stroke', (d) => fid && d.properties.fid === fid? 'red': '#EEE');
-        this.g.transition().duration(400).style("stroke-width", 1.5 / scale + "px").attr("transform", "translate(" + translate + ")scale(" + scale + ")");
 
         this.svg.selectAll('text').remove()
         this.svg.selectAll('circle').remove()
         this.svg.selectAll('rect').remove()
 
-        if (fid != null) {
+      if (action=='in') {
           this.createLabels({features: [data]})
           this.svg.append('rect')
           .attr("rx", 0)
@@ -87,34 +117,37 @@ const formatOptions = {
         } else {
           this.createLabels(this.props.json)
         }
+
+
+
+
     }
 
 
     clicked(d) {
-  
+
       let {fid} = d.properties
       let fid1 = this.props.selection? this.props.selection.fid: null;
 
-      if (fid == fid1) {
-        this.props.onClick({fid: null})
-      }
-
-      if (this.props.onClick) {
+    if (this.props.onClick) {
         this.props.onClick({fid})
       }
 
     }
 
     componentDidUpdate(prevProps) {
-      
-      if (prevProps.data != this.props.data) {
-        this.generate()
+
+      const newFid=this.props.selection?this.props.selection.fid:null
+      const prevFid=prevProps.selection?prevProps.selection.fid:null
+
+      if (newFid) {
+          this.showDetails(newFid,prevFid);
+      }else{
+          this.showDetails(null);
       }
 
-      if (this.props.selection) {
-        if ((prevProps.selection == null && this.props.selection != null) || (prevProps.selection.fid != this.props.selection.fid1)) {
-          this.showDetails(this.props.selection.fid);
-        }
+      if (prevProps.json != this.props.json) {
+          this.generate();
       }
     }
 
@@ -140,6 +173,7 @@ const formatOptions = {
 
 
       generate() {
+        this.view='zoomedOut'
         d3.select(this.refs.container).selectAll('svg').remove()
         const json = this.props.json
         const color = this.props.color
@@ -167,8 +201,11 @@ const formatOptions = {
         this.g = this.svg.append('g');
         this.g.attr('width', width).attr('height', height)
 
+
         this.createPaths(json)
         this.createLabels(json)
+
+        this.scaleTo(json)
       }
 
       componentDidMount() {

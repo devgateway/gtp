@@ -63,7 +63,7 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
 
 
 
-  const breadcrum=single?(<div className="breadcrums">{selected && selected.length > 0? options[  options.map(a=>a.key).indexOf(selected[0])].text:text}</div>):(<div className="breadcrums">{text} {true?<span>({selected.length} of {options.length})</span>:null}</div>)
+  const breadcrum=single?(<div className="breadcrums">{selected && selected.length > 0? options[  options.map(a=>a.key).indexOf(selected[0]) ].text:text}</div>):(<div className="breadcrums">{text} {true?<span>({selected.length} of {options.length})</span>:null}</div>)
 
 
   const updateSelection = (key) => {

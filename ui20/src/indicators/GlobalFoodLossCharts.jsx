@@ -63,7 +63,7 @@ export const BarChart = injectIntl(({intl,data,keys,indexBy,groupMode,colors,lab
     ]}
           tooltip={(s)=>{
               console.log(label)
-              debugger;
+              
               return (<div className="tooltip white">
                     <div className="color" style={{'background-color':s.color}}></div>
                     <div className="label">{s.indexValue}</div>
