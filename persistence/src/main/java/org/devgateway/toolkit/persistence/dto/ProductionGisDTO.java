@@ -16,15 +16,18 @@ public class ProductionGisDTO {
     @JsonIgnore
     private String cropFr;
 
+    private String source;
+
     public ProductionGisDTO() {
     }
 
-    public ProductionGisDTO(Integer year, String code, Double value, String crop, String cropFr) {
+    public ProductionGisDTO(Integer year, String code, Double value, String crop, String cropFr, String source) {
         this.year = year;
         this.code = code;
         this.value = value;
         this.crop = crop;
         this.cropFr = cropFr;
+        this.source = source;
     }
 
     public Integer getYear() {
@@ -65,5 +68,13 @@ public class ProductionGisDTO {
 
     public void setCropFr(String cropFr) {
         this.cropFr = cropFr;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 }

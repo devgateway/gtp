@@ -1,8 +1,11 @@
 package org.devgateway.toolkit.persistence.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.RegionIndicator;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class RegionIndicatorDTO {
@@ -25,6 +28,9 @@ public class RegionIndicatorDTO {
 
     private Boolean rightMap;
 
+    @JsonIgnore
+    private Set<String> sources = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+
     public RegionIndicatorDTO() {
 
     }
@@ -39,6 +45,9 @@ public class RegionIndicatorDTO {
         this.maxValue = ri.getMaxValue();
         this.leftMap = ri.isLeftMap();
         this.rightMap = ri.isRightMap();
+        if (ri.getSource() != null) {
+            this.sources.add(ri.getSource());
+        }
     }
 
     public Long getId() {
@@ -111,5 +120,20 @@ public class RegionIndicatorDTO {
 
     public void setRightMap(Boolean rightMap) {
         this.rightMap = rightMap;
+    }
+
+    public Set<String> getSources() {
+        return sources;
+    }
+
+    public void setSources(Set<String> sources) {
+        this.sources = sources;
+    }
+
+    public String getSource() {
+        if (!sources.isEmpty()) {
+            return String.join(", ", sources);
+        }
+        return "";
     }
 }
