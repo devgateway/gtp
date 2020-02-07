@@ -60,8 +60,8 @@ class GIS extends Component {
             })}
 
             <div className="aling rigth">
-         <Label  color="olive" onClick={this.addnewOne}>Add new pairs of maps</Label>
-          {nMaps > 1&&<Label color="black" onClick={this.removeLast}>Remove last one</Label>}
+         <Label  color="olive" onClick={this.addnewOne}><FormattedMessage id='gis.page.add' defaultMessage="Add new pairs of maps"/></Label>
+          {nMaps > 1&&<Label color="black" onClick={this.removeLast}><FormattedMessage id='gis.page.remove' defaultMessage="Remove last one"/></Label>}
          </div>
 
          </div>
