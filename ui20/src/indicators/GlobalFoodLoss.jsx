@@ -42,7 +42,7 @@ const ChartSection = injectIntl(( props)=>{
          render: () =>
             <div className="indicators chart food">
               <Filters {...props} options={ { gender:true, age:true,methodOfEnforcement:false } }></Filters>
-              <div className="chart container">
+              <div className="chart container png exportable">
 
   {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:  <BarChart
         yLegend={props.intl.formatMessage(messages.percent)}
@@ -60,7 +60,7 @@ const ChartSection = injectIntl(( props)=>{
          render: () =>
             <div className="indicators chart food">
               <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
-              <div className="chart container">
+              <div className="chart container png exportable">
 
 
               <BarChart

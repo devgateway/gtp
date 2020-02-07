@@ -22,13 +22,14 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 
-export const PngExport=({id})=>{
-      return (<div className="indicator chart icon download png" onClick={e=>{
-        var node = document.getElementById(id);
+export const PngExport=({id, name="chart"})=>{
 
-                toPng(node.getElementsByClassName("chart container")[0])
+      return (<div className="icon download png" onClick={e=>{
+        var node = document.getElementById(id);
+        debugger;
+                toPng(node.getElementsByClassName("png exportable")[0])
                   .then(function (dataUrl) {
-                    download(dataUrl, 'chart.png');
+                    download(dataUrl, name+'.png');
                   })
                   .catch(function (error) {
                     console.error('oops, something went wrong!', error);

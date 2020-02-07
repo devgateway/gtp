@@ -159,3 +159,28 @@ html {
 .centered{
   text-align: center;
 }
+
+
+.icon.download {
+  width: 30px;
+  margin-left: 12px;
+  height: 40px;
+  background-repeat: no-repeat;
+  float: right;
+}
+
+.download {
+  cursor: pointer;
+}
+
+.icon.download.xls {
+  background-image: url("/icon_xls_gray.png");
+}
+
+.icon.download.png {
+  background-image: url("/icon_png_gray.png");
+}
+
+.icon.download.csv {
+  background-image: url("/icon_csv_gray.png");
+}

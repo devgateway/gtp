@@ -97,7 +97,7 @@ class Pooverty extends Component {
         menuItem:{ key: 'poverty_chart_1', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_region_and_year)}`},
         render: () =>  (
           <div>
-          <PovertyFitlers {...this.props}/> <div className="chart container">
+          <PovertyFitlers {...this.props}/> <div className="chart container png exportable">
           <Grid columns={2}>
             <Grid.Column>
               {

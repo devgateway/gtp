@@ -72,7 +72,7 @@ class Pooverty extends Component {
         render: () =>  (
         <div>
           <PovertyFitlers {...this.props}/>
-          <div className="chart container">
+          <div className="chart container png exportable">
               {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
               </div>
         </div>),
@@ -88,7 +88,7 @@ class Pooverty extends Component {
       },
       {
         menuItem:{ key: 'poverty_chart_3', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`},
-        render: () =>  (<div > <PovertyFitlers {...this.props}/><div className="chart container">
+        render: () =>  (<div > <PovertyFitlers {...this.props}/><div className="chart container png exportable">
 
           {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
 

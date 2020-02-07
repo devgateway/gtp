@@ -333,6 +333,59 @@ const messages = defineMessages({
     description: 'Quantity Data Field'
   },
 
+
+
+  age: {
+    id: 'data.field.age',
+    defaultMessage: 'Age',
+    description: 'Age data field'
+  },
+
+
+  blues: {
+    id: 'data.field.blues',
+    defaultMessage: 'Blues',
+  },
+
+  greens: {
+    id: 'data.field.greens',
+    defaultMessage: 'Greens',
+  },
+
+  greys: {
+    id: 'data.field.greys',
+    defaultMessage: 'Greys',
+  },
+
+  oranges: {
+    id: 'data.field.oranges',
+    defaultMessage: 'Oranges',
+  },
+
+  purples: {
+    id: 'data.field.purples',
+    defaultMessage: 'Purples',
+  },
+
+  reds: {
+    id: 'data.field.reds',
+    defaultMessage: 'Reds',
+  },
+  blue_to_green: {
+    id: 'data.field.blue_to_green',
+    defaultMessage: 'Blue to Green',
+  },
+  blue_to_purple: {
+    id: 'data.field.blue_to_purple',
+    defaultMessage: 'Blue To Purple',
+  },
+  orange_to_red: {
+    id: 'data.field.orange_to_red',
+    defaultMessage: 'Orange To Red',
+  },
+
+
+
   count: {
     id: 'table.aggregators.count',
     defaultMessage: 'Count',

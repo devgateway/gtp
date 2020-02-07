@@ -29,18 +29,17 @@ class GIS extends Component {
   }
 
   addnewOne(){
-
     this.setState({nMaps :this.state.nMaps +1})
   }
 
   removeLast(){
-
     this.setState({nMaps :this.state.nMaps -1})
   }
 
 
   render() {
     const {data, intl, onExport} = this.props
+
     const {nMaps}=this.state
 
     const range = Array.from({length: nMaps}, (value, key) => key)
@@ -57,15 +56,14 @@ class GIS extends Component {
             The site will also display, non-official data sources that users can access by clicking on the links provided. Where available, a given dataset will be displaying a link that will connect the ANSD data repository when users can consult reports, studies and other metadata related to a specific dataset."/></p>
           </div>
             {range.map(n=>{
-                return <PairOfMaps key={n} data={data}/>
+                return <PairOfMaps key={n} id={`map.pairs${n}`} data={data}/>
             })}
 
+            <div className="aling rigth">
+         <Label  color="olive" onClick={this.addnewOne}>Add new pairs of maps</Label>
+          {nMaps > 1&&<Label color="black" onClick={this.removeLast}>Remove last one</Label>}
+         </div>
 
-         <Label color="olive" onClick={this.addnewOne}>Add new pairs of maps</Label>
-         {nMaps > 1&&<Label color="black" onClick={this.removeLast}>Remove last one</Label>}
-         <br/>
-
-          <br/> <br/> <br/> <br/> <br/> <br/> <br/>
          </div>
       )
   }

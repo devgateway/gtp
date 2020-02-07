@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
     }
     case LOAD_GIS_DATA_DONE: {
       const {data} = action
-      return state.setIn(["data"], data).setIn(['status', 'loading'], false)
+      return state.setIn(["data"], Immutable.fromJS(data)).setIn(['status', 'loading'], false)
     }
     case LOAD_GIS_DATA_ERROR: {
       return state.setIn(['status', 'loading'], false).setIn(['status', 'error'], action.error)

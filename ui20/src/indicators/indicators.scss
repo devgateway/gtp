@@ -579,7 +579,7 @@
 
       .label{
         float: left;
-    
+
       }
       .label::after{
         content: '-';
@@ -676,29 +676,7 @@
     }
   }
 
-  .indicator.chart.icon.download {
-    width: 30px;
-    margin-left: 12px;
-    height: 40px;
-    background-repeat: no-repeat;
-    float: right;
-  }
-
-  .download {
-    cursor: pointer;
-  }
-
-  .indicator.chart.icon.download.xls {
-    background-image: url("/icon_xls_gray.png");
-  }
-
-  .indicator.chart.icon.download.png {
-    background-image: url("/icon_png_gray.png");
-  }
-
-  .indicator.chart.icon.download.csv {
-    background-image: url("/icon_csv_gray.png");
-  }
+  
 
   .indicator.chart.filter {
     border: 1px solid $border-color;
