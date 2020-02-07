@@ -59,9 +59,9 @@ class GIS extends Component {
                 return <PairOfMaps key={n} id={`map.pairs${n}`} data={data}/>
             })}
 
-            <div className="aling rigth">
-         <Label  color="olive" onClick={this.addnewOne}><FormattedMessage id='gis.page.add' defaultMessage="Add new pairs of maps"/></Label>
-          {nMaps > 1&&<Label color="black" onClick={this.removeLast}><FormattedMessage id='gis.page.remove' defaultMessage="Remove last one"/></Label>}
+            <div className="aling rigth buttons">
+         <Label className="add"  color="olive" onClick={this.addnewOne}><FormattedMessage id='gis.page.add' defaultMessage="Add new pair of maps"/></Label>
+          {nMaps > 1&&<Label className="remove" color="black" onClick={this.removeLast}><FormattedMessage id='gis.page.remove' defaultMessage="Remove last one"/></Label>}
          </div>
 
          </div>

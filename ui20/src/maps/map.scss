@@ -211,11 +211,19 @@
     }
   }
 
+  .buttons{
+    div{
+      cursor: pointer;
+    }
+  }
   .add {
     margin-right: auto 0;
     cursor: pointer;
   }
 
+  .remove {
+    cursor: pointer;
+  }
   .aling.rigth {
     text-align: right;
     padding-right: 10px;
