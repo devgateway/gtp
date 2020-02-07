@@ -8,13 +8,16 @@ public class PovertyGisDTO {
 
     private Double value;
 
+    private String source;
+
     public PovertyGisDTO() {
     }
 
-    public PovertyGisDTO(Integer year, String code, Double value) {
+    public PovertyGisDTO(Integer year, String code, Double value, String source) {
         this.year = year;
         this.code = code;
         this.value = value;
+        this.source = source;
     }
 
     public Integer getYear() {
@@ -39,5 +42,13 @@ public class PovertyGisDTO {
 
     public void setValue(Double value) {
         this.value = value;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 }

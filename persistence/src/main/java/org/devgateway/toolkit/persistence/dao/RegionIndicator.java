@@ -50,6 +50,8 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     private boolean rightMap;
 
+    private String source;
+
     public String getName() {
         return name;
     }
@@ -120,6 +122,14 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     public void setUploadedBy(Person uploadedBy) {
         this.uploadedBy = uploadedBy;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     @JsonIgnore

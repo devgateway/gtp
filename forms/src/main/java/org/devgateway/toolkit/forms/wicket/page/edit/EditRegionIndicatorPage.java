@@ -90,6 +90,9 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
         year.getField().add(new RangeValidator<>("2010", "2030"));
         editForm.add(year);
 
+        final TextFieldBootstrapFormComponent<String> source = new TextFieldBootstrapFormComponent<>("source");
+        editForm.add(source);
+
         final CheckBoxPickerBootstrapFormComponent leftMap =
                 new CheckBoxPickerBootstrapFormComponent("leftMap");
         editForm.add(leftMap);

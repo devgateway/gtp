@@ -16,10 +16,11 @@ import java.util.List;
 public interface PovertyIndicatorRepository extends AuditedEntityRepository<PovertyIndicator> {
 
     @Query("select new org.devgateway.toolkit.persistence.dto.PovertyGisDTO(p.year, r.code, "
-            + "avg(p.povertyScore) as value) from PovertyIndicator p "
+            + "avg(p.povertyScore) as value, d.source) from PovertyIndicator p "
             + "join p.region as r "
-            + "group by p.year, r.code "
-            + "order by p.year, r.code")
+            + "join p.dataset as d "
+            + "group by p.year, r.code, d.source "
+            + "order by p.year, r.code, d.source")
     List<PovertyGisDTO> findAllPovertyGis();
 
 }

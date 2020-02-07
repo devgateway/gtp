@@ -110,6 +110,9 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
                 dto.setLeftMap(false);
                 dto.setStats(new ArrayList<>());
                 dto.setYear(year);
+                if (p.getSource() != null) {
+                    dto.getSources().add(p.getSource());
+                }
                 ret.add(dto);
             }
             fillRegionStat(dto, p.getCode(), p.getValue());
@@ -138,6 +141,9 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
                 dto.setLeftMap(false);
                 dto.setStats(new ArrayList<>());
                 dto.setYear(year);
+                if (p.getSource() != null) {
+                    dto.getSources().add(p.getSource());
+                }
                 ret.add(dto);
             }
             fillRegionStat(dto, p.getCode(), p.getValue());
