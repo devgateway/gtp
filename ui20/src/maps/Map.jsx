@@ -62,8 +62,8 @@ export default class D3Map extends Component < {},
       const measure = this.props.measure
       var text1, text2;
       if (action == 'in') {
-
-        text1 = `${data.properties.indicator} - ${this.props.intl.formatNumber(data.properties.value)}`
+        debugger;
+        text1 = data.properties.indicator?`${data.properties.indicator} - ${this.props.intl.formatNumber(data.properties.value)}`:'-'
 
       }
 
