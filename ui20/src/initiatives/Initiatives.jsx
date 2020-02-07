@@ -86,7 +86,7 @@ const Items = injectIntl(({intl,id,type,label,labelFr, onLoadItems , items}) => 
     },
   }
 
-  debugger;
+  
 
 return (<div className="initiatives container">
         <div className="initiatives list title">

@@ -156,7 +156,7 @@ return (
 
 
             tooltip={(s)=>{
-                debugger;
+                
                 return (<div className="tooltip white">
                       <div className="color" style={{'background-color':s.color}}></div>
                       <div className="label">{s.indexValue}</div>
