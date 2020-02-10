@@ -162,6 +162,7 @@ const PairOfMaps=({intl,id, data, selection})=>{
              intl={intl}
              json={leftGeoJson}
              color={leftColor}
+            indicator={leftIndicator}
              sideColor={rightColor}
              onClick={e=>setSelection(selection&&selection.fid==e.fid?null:e)}/>
 
@@ -196,6 +197,8 @@ const PairOfMaps=({intl,id, data, selection})=>{
                   max={rightData.maxValue}
                   min={rightData.minValue}
                   intl={intl}
+
+                 indicator={rightIndicator}
                   json={rightGeojson}
                   color={rightColor}
                    sideColor={leftColor}

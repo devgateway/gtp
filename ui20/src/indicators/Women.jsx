@@ -59,7 +59,7 @@ const ChartSection = injectIntl((props)=>{
            <div className="indicators chart women">
              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
              <div className="chart container png exportable">
-              {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<BarChart
+              {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<BarChart
               yLegend={props.intl.formatMessage(messages.age)}
               xLegend={props.intl.formatMessage(messages.percent)}
 
@@ -72,7 +72,7 @@ const ChartSection = injectIntl((props)=>{
         render: () =><div className="indicators chart women">
               <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
               <div className="chart container png exportable">
-              {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<LineChart   {...getWomebHistoricalDistribution(props.population,props.intl)}/>}
+              {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<LineChart   {...getWomebHistoricalDistribution(props.population,props.intl)}/>}
 
               </div>
 
@@ -87,7 +87,7 @@ const ChartSection = injectIntl((props)=>{
                 <Filters {...props} options={{gender:true, age:false,methodOfEnforcement:true}}></Filters>
                 <div className="chart container png exportable">
 
-                {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<BarChart
+                {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<BarChart
                 yLegend={props.intl.formatMessage(messages.methodOfEnforcement)}
                 xLegend={props.intl.formatMessage(messages.percent)}
 
@@ -104,7 +104,7 @@ const ChartSection = injectIntl((props)=>{
                 <Filters {...props} options={{gender:false, age:false,methodOfEnforcement:true}}></Filters>
                 <div className="chart container png exportable">
 
-                {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<LineChart  key="ByMethodOfEnforcementLine"  {...getWomebHistoricalDistribution(props.distribution,props.intl)}></LineChart>}
+                {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<LineChart  key="ByMethodOfEnforcementLine"  {...getWomebHistoricalDistribution(props.distribution,props.intl)}></LineChart>}
 
                 </div>
               </div>,

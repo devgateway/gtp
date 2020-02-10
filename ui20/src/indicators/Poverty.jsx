@@ -73,7 +73,7 @@ class Pooverty extends Component {
         <div>
           <PovertyFitlers {...this.props}/>
           <div className="chart container png exportable">
-              {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
+              {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
               </div>
         </div>),
       },
@@ -81,7 +81,7 @@ class Pooverty extends Component {
 
         menuItem:{ key: 'poverty_chart_2', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year,{year:maxYear})}`},
         render: () =>   (<div>  <PovertyFitlers {...this.props}/> <div className=" chart container">
-          {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<BarChart    {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
+          {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<BarChart    {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
 
         </div></div>),
 
@@ -90,7 +90,7 @@ class Pooverty extends Component {
         menuItem:{ key: 'poverty_chart_3', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`},
         render: () =>  (<div > <PovertyFitlers {...this.props}/><div className="chart container png exportable">
 
-          {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>No data available</Label>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
+          {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
 
         </div></div>),
       }

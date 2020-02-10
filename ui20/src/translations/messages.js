@@ -584,7 +584,10 @@ const messages = defineMessages({
     id: 'microdata.filters.organization.label',
     defaultMessage: "Organizations"
   },
-
+  data_no_data_available: {
+    id: 'data.no.available',
+    defaultMessage: "No data available"
+  }
 });
 
 

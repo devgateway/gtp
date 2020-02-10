@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react'
 import * as d3 from 'd3'
-
+import  messages from '../translations/messages'
 import './map.scss'
 
 const formatOptions = {
@@ -63,7 +63,7 @@ export default class D3Map extends Component < {},
       var text1, text2;
       if (action == 'in') {
         debugger;
-        text1 = data.properties.indicator?`${data.properties.indicator} - ${this.props.intl.formatNumber(data.properties.value)}`:'-'
+        text1 = `${this.props.indicator.text} - ${data.properties.value? this.props.intl.formatNumber(data.properties.value):this.props.intl.formatMessage(messages.data_no_data_available)}`
 
       }
 
