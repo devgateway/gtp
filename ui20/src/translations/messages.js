@@ -220,6 +220,13 @@ const messages = defineMessages({
     description: 'Age data field'
   },
 
+
+    totals: {
+      id: 'data.field.totals',
+      defaultMessage: 'Totals',
+      description: 'Totals table label'
+    },
+
   methodOfEnforcement: {
     id: 'data.field.enforcement_method',
     defaultMessage: 'Method of Enforcement',
@@ -385,6 +392,22 @@ const messages = defineMessages({
   },
 
 
+
+  table_help_unused_cols:{
+    id: 'table.unsed.cols',
+    defaultMessage: 'Drag and drop elements as rows or columns',
+
+  },
+  table_help_used_cols:{
+    id: 'table.unsed.cols',
+    defaultMessage: 'Element used as columns',
+
+  },
+  table_help_used_rows:{
+    id: 'table.unsed.cols',
+    defaultMessage: 'Element used as Rows',
+
+  },
 
   count: {
     id: 'table.aggregators.count',

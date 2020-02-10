@@ -7,9 +7,9 @@ import {loadDataSet} from '../modules/Analytic';
 import {loadDataItems} from '../modules/Data';
 import ReactDOM from 'react-dom';
 import PivotTable from 'react-pivottable/PivotTable'
-import PivotTableUI from 'react-pivottable/PivotTableUI';
+import PivotTableUI from './PivotTableUI.js';
 import Plot from 'react-plotly.js';
-import TableRenderers from 'react-pivottable/TableRenderers';
+import {TableRenderers, TableRenderersWithIntl} from './TableRenders';
 import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
 import {aggregatorTemplates} from 'react-pivottable/Utilities'
 import {aggregators} from './PivotUtils'
@@ -69,12 +69,12 @@ class Table extends Component {
   render() {
     const {config, data,intl} = this.props
     const renders={};
-      renders[intl.formatMessage(messages.pivot_renders_table)]=TableRenderers['Table']
-      renders[intl.formatMessage(messages.pivot_renders_table_heatmap)]=TableRenderers['Table Heatmap']
-      renders[intl.formatMessage(messages.pivot_renders_table_col_heatmap)]=TableRenderers['Table Col Heatmap']
-      renders[intl.formatMessage(messages.pivot_renders_table_row_heatmap)]=TableRenderers['Table Row Heatmap']
+      renders[intl.formatMessage(messages.pivot_renders_table)]=TableRenderersWithIntl(this.props.intl)['Table'].bind({intl:this.props.intl})
+      renders[intl.formatMessage(messages.pivot_renders_table_heatmap)]=TableRenderersWithIntl(this.props.intl)['Table Heatmap']
+      renders[intl.formatMessage(messages.pivot_renders_table_col_heatmap)]=TableRenderersWithIntl(this.props.intl)['Table Col Heatmap']
+      renders[intl.formatMessage(messages.pivot_renders_table_row_heatmap)]=TableRenderersWithIntl(this.props.intl)['Table Row Heatmap']
 
-      renders[intl.formatMessage(messages.pivot_renders_exportable_tsv)]=TableRenderers['Exportable TSV']
+      renders[intl.formatMessage(messages.pivot_renders_exportable_tsv)]=TableRenderersWithIntl(this.props.intl)['Exportable TSV']
       renders[intl.formatMessage(messages.pivot_renders_stacked_column_chart)]=PlotlyRenderers['Stacked Column Chart']
       renders[intl.formatMessage(messages.pivot_renders_grouped_column_chart)]=PlotlyRenderers['Grouped Column Chart']
       renders[intl.formatMessage(messages.pivot_renders_grouped_bar_chart)]=PlotlyRenderers['Grouped Bar Chart']
