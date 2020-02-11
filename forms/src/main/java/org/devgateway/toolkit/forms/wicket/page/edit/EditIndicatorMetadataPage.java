@@ -95,7 +95,7 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("ansdLink");
         linkField.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
-        linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES + UrlValidator.NO_FRAGMENTS));
+        linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES));
         editForm.add(linkField);
 
         TextFieldBootstrapFormComponent<String> sourceField = new TextFieldBootstrapFormComponent<>("source");

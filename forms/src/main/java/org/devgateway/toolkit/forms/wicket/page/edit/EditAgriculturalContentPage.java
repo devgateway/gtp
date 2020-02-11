@@ -103,7 +103,7 @@ public class EditAgriculturalContentPage extends AbstractEditPage<AgriculturalCo
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");
         linkField.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
-        linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES + UrlValidator.NO_FRAGMENTS));
+        linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES));
         editForm.add(linkField);
 
         FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata").maxFiles(1);

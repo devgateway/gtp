@@ -89,7 +89,7 @@ public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");
         linkField.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
-        linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES + UrlValidator.NO_FRAGMENTS));
+        linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES));
         linkField.required();
         editForm.add(linkField);
     }
