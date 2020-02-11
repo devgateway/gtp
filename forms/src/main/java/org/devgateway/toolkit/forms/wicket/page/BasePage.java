@@ -274,12 +274,19 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 list.add(new MenuBookmarkablePageLink<ListIndicatorMetadataFormPage>(
                         ListIndicatorMetadataFormPage.class, null, new StringResourceModel("navbar.indicatorMetadata",
                         this, null)).setIconType(FontAwesomeIconType.bolt));
+
+                list.add(new MenuBookmarkablePageLink<ListMicrodataLinkFormPage>(ListMicrodataLinkFormPage.class, null,
+                        new StringResourceModel("navbar.microdata", this, null))
+                        .setIconType(FontAwesomeIconType.external_link));
+
                 list.add(new MenuBookmarkablePageLink<ListRapidLinkFormPage>(ListRapidLinkFormPage.class, null,
                         new StringResourceModel("navbar.rapidLink", this, null))
                         .setIconType(FontAwesomeIconType.link));
                 /*list.add(new MenuBookmarkablePageLink<ListWebContentFormPage>(ListWebContentFormPage.class, null,
                         new StringResourceModel("navbar.webContent", this, null))
                         .setIconType(FontAwesomeIconType.html5));*/
+
+                list.add(new MenuDivider());
 
                 list.add(new MenuBookmarkablePageLink<>(ListUserPage.class, null,
                         new StringResourceModel("navbar.users", this, null))
@@ -372,10 +379,6 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 list.add(new MenuBookmarkablePageLink<ListRegionIndicatorPage>(ListRegionIndicatorPage.class, null,
                         new StringResourceModel("navbar.regionIndicator", this, null))
                         .setIconType(FontAwesomeIconType.map_marker));
-
-                list.add(new MenuBookmarkablePageLink<ListMicrodataLinkFormPage>(ListMicrodataLinkFormPage.class, null,
-                        new StringResourceModel("navbar.microdata", this, null))
-                        .setIconType(FontAwesomeIconType.external_link));
 
                 list.add(new MenuBookmarkablePageLink<ListAgriculturalContentFormPage>(
                         ListAgriculturalContentFormPage.class, null,

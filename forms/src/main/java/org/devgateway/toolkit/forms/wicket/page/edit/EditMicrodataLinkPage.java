@@ -36,7 +36,7 @@ import org.wicketstuff.annotation.mount.MountPath;
  * Created by Daniel Oliva
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
-@MountPath("/editMicrodataLink")
+@MountPath("/editOtherDatasources")
 public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
 
     private static final long serialVersionUID = 1L;
