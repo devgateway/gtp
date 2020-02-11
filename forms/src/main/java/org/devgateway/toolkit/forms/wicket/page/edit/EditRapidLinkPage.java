@@ -95,7 +95,7 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
         subtitleFrField.required();
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");
-        linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES + UrlValidator.NO_FRAGMENTS));
+        linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES));
         linkField.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         editForm.add(linkField);
         linkField.required();

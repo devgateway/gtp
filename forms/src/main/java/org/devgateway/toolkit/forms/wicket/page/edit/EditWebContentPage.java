@@ -73,7 +73,7 @@ public class EditWebContentPage extends AbstractEditPage<WebContent> {
         editForm.add(subtitleFrField);
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");
-        linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES + UrlValidator.NO_FRAGMENTS));
+        linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES));
         editForm.add(linkField);
 
         SummernoteBootstrapFormComponent summernote = new SummernoteBootstrapFormComponent("summernote");

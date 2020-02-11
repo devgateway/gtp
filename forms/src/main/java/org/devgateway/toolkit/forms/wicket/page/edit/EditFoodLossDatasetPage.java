@@ -29,7 +29,7 @@ import org.wicketstuff.annotation.mount.MountPath;
  * Created by Daniel Oliva
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
-@MountPath("/editFoodLoss")
+@MountPath("/editPostHarvestLoss")
 public class EditFoodLossDatasetPage extends AbstractEditDatasePage<FoodLossDataset, FoodLossIndicator> {
 
     private static final long serialVersionUID = -6069250112046118104L;

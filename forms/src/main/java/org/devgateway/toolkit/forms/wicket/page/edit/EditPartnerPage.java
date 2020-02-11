@@ -86,7 +86,7 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
 
         TextFieldBootstrapFormComponent<String> url = ComponentUtil.addTextField(editForm, "url");
         url.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
-        url.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES + UrlValidator.NO_FRAGMENTS));
+        url.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES));
         editForm.add(url);
 
     }
