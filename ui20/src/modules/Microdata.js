@@ -18,10 +18,9 @@ export const loadDatasets = (locale) => (dispatch, getState) => {
   const filters= getState().getIn(['microdata','filters','datasets']) || new Immutable.Map()
 
   api.getDatasetsYears().then((years)=>{
-    debugger;
     dispatch({type: LOAD_DATASET})
     api.getDatasets(filters.set('lang',locale)).then((data) => {
-      dispatch({type: LOAD_DATASET_DONE, data})
+      dispatch({type: LOAD_DATASET_DONE, data, years:years.map(y=>{return {label:y, id:y}})})
     }).catch(error => {
       dispatch({type: LOAD_DATASET_ERROR})
     })
@@ -92,9 +91,9 @@ export default(state = initialState, action) => {
       }
 
     case LOAD_DATASET_DONE:{
-        const {data} = action
+        const {data,years} = action
         return state.setIn(['data', 'datasets'], Immutable.fromJS(data))
-              .setIn(['status', 'datasets', 'loading'], false)
+              .setIn(['data', 'years'],years).setIn(['status', 'datasets', 'loading'], false)
       }
 
     case LOAD_DATASET_ERROR:{

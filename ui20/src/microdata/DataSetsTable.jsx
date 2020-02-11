@@ -28,7 +28,7 @@ class TableComponent extends Component {
     handleSort = (clickedColumn) => () => {
       return
       const { column, data, direction } = this.state
-      
+
       if (column !== clickedColumn) {
         this.setState({
           column: clickedColumn,
@@ -70,10 +70,10 @@ class TableComponent extends Component {
   render() {
     //TODO: remove state use props
 
-    const {onChangeFilter, keyword, startDate, endDate, organizations=[], selectedOrganizations=[], intl, datasets={}, onChangePage } = this.props
+    const {onChangeFilter, keyword, startDate, endDate, organizations=[], selectedOrganizations=[], intl, datasets={}, onChangePage ,selectedYear=[],  years} = this.props
     const locale=intl.locale
-    let column = this.state.column
-    let direction = null
+    let column = 'type'
+    let direction = 'asc'
 
     return  (
       <div>
@@ -81,25 +81,17 @@ class TableComponent extends Component {
                   <div className="title">  <FormattedMessage id="microdata.filters.title" defaultMessage="Filters"/></div>
                   <div className="item"><TextInput text={intl.formatMessage(messages.microdata_filters_keyword)}
                   onChange={val=>onChangeFilter(['filters','datasets','text'],val,locale,'DATASETS')} name="keyword" value={keyword}/></div>
-                  <div className="item"><DateInput locale={locale}  text={intl.formatMessage(messages.microdata_filters_start_date)}
-                  onChange={val=>onChangeFilter(['filters','datasets','realMinDate'],val,locale,'DATASETS')} name="startDate" value={startDate}/></div>
                   <div className="item">
-                  <DateInput locale={locale}
-                  text={intl.formatMessage(messages.microdata_filters_end_date)}
-                  onChange={val=>onChangeFilter(['filters','datasets','realMaxDate'],val,locale,'DATASETS')} name="endDate" value={endDate}/></div>
-                  <div className="item"><CustomFilterDropDown  text={intl.formatMessage(messages.microdata_filters_organization)}  options={items2options(organizations,intl)}
-                  selected={selectedOrganizations} onChange={value => {onChangeFilter(['filters','datasets','organization'],value,locale,'DATASETS')}}/></div>
+                    <CustomFilterDropDown  text={intl.formatMessage(messages.year)}  options={items2options(years,intl)} selected={selectedYear} onChange={value => {onChangeFilter(['filters','datasets','year'],value,locale,'DATASETS')}}/> </div>
+                  <div className="item">
+                  <CustomFilterDropDown  text={intl.formatMessage(messages.microdata_filters_organization)}  options={items2options(organizations,intl)} selected={selectedOrganizations} onChange={value => {onChangeFilter(['filters','datasets','organization'],value,locale,'DATASETS')}}/></div>
 
             </div>
           <Table sortable celled fixed>
 
                 <Table.Header>
                   <Table.Row>
-                    <Table.HeaderCell sorted={column === 'type' ? direction : null}
-
-                     sorted={column === 'name' ? direction : null}
-                    onClick={this.handleSort('type')}>
-
+                    <Table.HeaderCell sorted={column === 'type' ? direction : null}  onClick={this.handleSort('type')}>
                       <FormattedMessage id="microdata.table.type" defaultMessage="Type"/>
                     </Table.HeaderCell>
                     <Table.HeaderCell sorted={column === 'title' ? direction : null} onClick={this.handleSort('title')}>
@@ -170,8 +162,10 @@ const mapStateToProps = state => {
   const endDate=state.getIn(['microdata','filters','datasets','realMaxDate'])
   const keyword=state.getIn(['microdata','filters','datasets','text'])
   const selectedOrganizations=state.getIn(['microdata','filters','datasets','organization'])
+  const selectedYear=state.getIn(['microdata','filters','datasets','year'])
   const organizations=state.getIn(['data','items','organization'])
   const datasets=state.getIn(['microdata','data','datasets'])
+  const years=state.getIn(['microdata','data','years'])
 
 
   return {
@@ -180,7 +174,9 @@ const mapStateToProps = state => {
     keyword,
     organizations,
     selectedOrganizations,
-    datasets
+    datasets,
+    years,
+    selectedYear
   }
 }
 
