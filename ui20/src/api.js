@@ -18,7 +18,7 @@ const API_GIS_URL = API_ROOT + '/data/gisIndicator/all'
 const API_PARTNERS_URL = API_ROOT + '/data/partner/all'
 const URL_API_INITIATIVE_TYPES = API_ROOT + '/data/filter/contentType'
 const URL_API_INITIATIVE_ITEMS = API_ROOT + '/data/agriculturalContent/type'
-
+const URL_DATA_SETS_YEARS = API_ROOT + '/data/filter/dataset/years'
 
 
 const xlsExportURLBuilder = (what) => {
@@ -363,6 +363,16 @@ export const getPartners = (locale) => {
     export const getDatasets = (params) => {
       return new Promise((resolve, reject) => {
         post(URL_DATA_SETS, params).then((data) => {
+          resolve(data)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    }
+
+    export const getDatasetsYears = () => {
+      return new Promise((resolve, reject) => {
+        get(URL_DATA_SETS_YEARS).then((data) => {
           resolve(data)
         }).catch(error => {
           reject(error)

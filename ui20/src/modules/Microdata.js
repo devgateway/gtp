@@ -17,13 +17,18 @@ const initialState = Immutable.Map()
 export const loadDatasets = (locale) => (dispatch, getState) => {
   const filters= getState().getIn(['microdata','filters','datasets']) || new Immutable.Map()
 
-  dispatch({type: LOAD_DATASET})
+  api.getDatasetsYears().then((years)=>{
+    debugger;
+    dispatch({type: LOAD_DATASET})
+    api.getDatasets(filters.set('lang',locale)).then((data) => {
+      dispatch({type: LOAD_DATASET_DONE, data})
+    }).catch(error => {
+      dispatch({type: LOAD_DATASET_ERROR})
+    })
 
-  api.getDatasets(filters.set('lang',locale)).then((data) => {
-    dispatch({type: LOAD_DATASET_DONE, data})
-  }).catch(error => {
-    dispatch({type: LOAD_DATASET_ERROR})
   })
+
+
 }
 
 
