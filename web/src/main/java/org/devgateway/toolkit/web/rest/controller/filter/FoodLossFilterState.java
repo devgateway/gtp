@@ -3,10 +3,15 @@ package org.devgateway.toolkit.web.rest.controller.filter;
 import org.devgateway.toolkit.persistence.dao.Data_;
 import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.dao.FoodLossIndicator_;
+import org.devgateway.toolkit.persistence.dao.categories.CropType;
+import org.devgateway.toolkit.persistence.dao.categories.CropType_;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
@@ -41,7 +46,11 @@ public class FoodLossFilterState extends DataFilterState<FoodLossIndicator> {
                 addMaxKgPredicate(root, cb, predicates);
             }
             addApprovedDatasets(root, cb, predicates);
-            query.orderBy(new OrderImpl(root.get(Data_.YEAR), true));
+            List<Order> orders = new ArrayList<>();
+            orders.add(new OrderImpl(root.get(Data_.YEAR), true));
+            Join<FoodLossIndicator, CropType> join = root.join(FoodLossIndicator_.CROP_TYPE, JoinType.LEFT);
+            orders.add(new OrderImpl(join.get(CropType_.LABEL), true));
+            query.orderBy(orders);
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
