@@ -42,6 +42,7 @@ class Indicators extends Component {
 
   render() {
     return (<div className="png exportable">
+
       <MainFilter onChange={this.onChangeGlobalFilter} {...this.props } onApply={this.onAppllyFilters} onReset={this.onResetFilters}></MainFilter>
 
 
