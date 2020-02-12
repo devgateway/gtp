@@ -58,7 +58,7 @@ class TableComponent extends Component {
     let direction=sortDir
     let column=sortBy
     //descending
-    
+
     const directionLong=(sortDir=='ASC')?'ascending':'descending'
 
     const handleSort = (clickedColumn) => () => {
@@ -104,17 +104,21 @@ class TableComponent extends Component {
                     <Table.HeaderCell sorted={column === 'source' ? directionLong : null} onClick={handleSort('source')}>
                       <FormattedMessage id="microdata.table.source" defaultMessage="Source"/>
                     </Table.HeaderCell>
+                    <Table.HeaderCell sorted={column === 'source' ? directionLong : null} onClick={handleSort('source')}>
+                      <FormattedMessage id="microdata.table.survey_year" defaultMessage="Survey Year"/>
+                    </Table.HeaderCell>
 
 
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  {this.state.data &&_.map(this.state.data, ({id, organization, title, source,creator, createdDate, fileId, type}) => (
+                  {this.state.data &&_.map(this.state.data, ({id, organization, title, source,creator, createdDate, fileId, type,year}) => (
                     <Table.Row key={id}>
                      <Table.Cell>{type}</Table.Cell>
                      <Table.Cell><a href={`/files/download/${fileId}`}>{title}</a></Table.Cell>
                      <Table.Cell>{organization}</Table.Cell>
                      <Table.Cell>{source}</Table.Cell>
+                     <Table.Cell>{year}</Table.Cell>
 
                     </Table.Row>
                   ))}
