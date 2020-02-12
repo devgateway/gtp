@@ -7,6 +7,7 @@ import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator_;
 import org.devgateway.toolkit.persistence.dao.Region;
+import org.devgateway.toolkit.persistence.dao.Region_;
 import org.devgateway.toolkit.persistence.dto.AOISummary;
 import org.devgateway.toolkit.persistence.dto.AgriculturalWomenSummary;
 import org.devgateway.toolkit.persistence.dto.FoodLossSummary;
@@ -59,6 +60,7 @@ public class SummaryIndicatorRepositoryImpl implements SummaryIndicatorRepositor
         CriteriaQuery query = cb.createQuery();
         Root<PovertyIndicator> root = query.from(PovertyIndicator.class);
         Path<Integer> region = root.join(PovertyIndicator_.REGION);
+        Path<String> regionName = region.get(Region_.NAME);
         Path<Integer> povertyLevel = root.join(PovertyIndicator_.POVERTY_LEVEL);
 
         query.multiselect(
@@ -67,17 +69,24 @@ public class SummaryIndicatorRepositoryImpl implements SummaryIndicatorRepositor
                 root.get(PovertyIndicator_.YEAR),
                 region
         );
-        query.groupBy(
-                povertyLevel,
-                root.get(PovertyIndicator_.YEAR),
-                region
-        );
-        query.orderBy(cb.asc(root.get(PovertyIndicator_.YEAR)), cb.asc(region), cb.asc(povertyLevel));
 
         Predicate predicate = spec.toPredicate(root, query, cb);
         if (predicate != null) {
             query.where(predicate);
         }
+
+        query.groupBy(
+                povertyLevel,
+                root.get(PovertyIndicator_.YEAR),
+                regionName,
+                region
+        );
+        query.orderBy(
+                cb.asc(regionName),
+                cb.asc(root.get(PovertyIndicator_.YEAR)),
+                cb.asc(region),
+                cb.asc(povertyLevel));
+
         TypedQuery q = em.createQuery(query);
         List<Object[]> allItems = q.getResultList();
         List<PovertySummary> summary = allItems.stream().map(s -> new PovertySummary(s)).collect(Collectors.toList());
