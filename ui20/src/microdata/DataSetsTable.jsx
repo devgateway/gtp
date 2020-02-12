@@ -58,6 +58,7 @@ class TableComponent extends Component {
     let direction=sortDir
     let column=sortBy
     //descending
+    
     const directionLong=(sortDir=='ASC')?'ascending':'descending'
 
     const handleSort = (clickedColumn) => () => {
