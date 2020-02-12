@@ -10,12 +10,25 @@ const LOAD_DATASET_ERROR = 'LOAD_DATASET_ERROR'
 const LOAD_SOURCES = 'LOAD_SOURCES'
 const LOAD_SOURCES_DONE = 'LOAD_SOURCES_DONE'
 const LOAD_SOURCES_ERROR = 'LOAD_SOURCES_ERROR'
+const CLEAN_TABLE_FILTER = 'CLEAN_TABLE_FILTER'
 
 
-const initialState = Immutable.Map()
+
+const initialState = Immutable.fromJS(
+  {
+    filters:{
+      datasets:{
+          "sortBy":'type',
+          "sortDir":'ASC'
+        }
+    }
+
+}
+
+)
 
 export const loadDatasets = (locale) => (dispatch, getState) => {
-  const filters= getState().getIn(['microdata','filters','datasets']) || new Immutable.Map()
+  const filters= getState().getIn(['microdata','filters','datasets'])
 
   api.getDatasetsYears().then((years)=>{
     dispatch({type: LOAD_DATASET})
@@ -60,14 +73,21 @@ export const changePage = (path, value,locale, updates=[]) => (dispatch, getStat
 
 
 
-export const changeFilter = (path, value,locale, updates=[]) => (dispatch, getState) => {
+export const cleanFilter = (path) => (dispatch, getState) => {
+
+  dispatch({type: CLEAN_TABLE_FILTER, path})
+
+
+}
+
+export const changeFilter = (path, value,locale, updates=[], doNotUpdate) => (dispatch, getState) => {
 
   dispatch({type: CHANGE_TABLE_FILTER, path, value})
-
-  if(updates.indexOf('DATASETS') > -1){
+  debugger;
+  if(updates.indexOf('DATASETS') > -1 && !doNotUpdate){
     dispatch(loadDatasets(locale));
   }
-  if(updates.indexOf('SOURCES') > -1){
+  if(updates.indexOf('SOURCES') > -1 && !doNotUpdate){
     dispatch(loadSources(locale));
   }
 
@@ -117,6 +137,11 @@ export default(state = initialState, action) => {
           const {error} = action
           return state.setIn(['status', 'sources','error'], error)
                 .setIn(['status', 'sources', 'loading'], false)
+        }
+
+      case CLEAN_TABLE_FILTER:{
+          const {path} = action
+          return state.deleteIn(path)
         }
 
 
