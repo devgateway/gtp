@@ -34,6 +34,7 @@ public class EditConsumptionDatasetPage extends AbstractEditDatasePage<Consumpti
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditConsumptionDatasetPage.class);
+    public static final String TEMPLATE_XLSX = "consumptionDataset-Template.xlsx";
 
     @SpringBean(name = "consumptionImporter")
     private transient ImportService importService;
@@ -42,7 +43,7 @@ public class EditConsumptionDatasetPage extends AbstractEditDatasePage<Consumpti
     protected DatasetService service;
 
     public EditConsumptionDatasetPage(final PageParameters parameters) {
-        super(parameters);
+        super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
         this.listPageClass = ListConsumptionDatasetPage.class;
         this.importer = importService;

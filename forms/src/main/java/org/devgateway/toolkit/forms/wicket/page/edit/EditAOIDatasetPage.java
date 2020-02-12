@@ -36,6 +36,7 @@ public class EditAOIDatasetPage extends AbstractEditDatasePage<AgricultureOrient
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditAOIDatasetPage.class);
+    public static final String TEMPLATE_XLSX = "orientationIndexDataset-Template.xlsx";
 
     @SpringBean(name = "aoiIndicatorImporter")
     private transient ImportService importService;
@@ -47,7 +48,7 @@ public class EditAOIDatasetPage extends AbstractEditDatasePage<AgricultureOrient
     protected MarkupCacheService markupCacheService;
 
     public EditAOIDatasetPage(final PageParameters parameters) {
-        super(parameters);
+        super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
         this.listPageClass = ListAOIIndicatorDatasetPage.class;
         this.importer = importService;

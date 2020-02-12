@@ -1,6 +1,8 @@
 package org.devgateway.toolkit.forms.wicket.page.edit;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -29,8 +31,11 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractEditDatasePage.class);
 
-    public AbstractEditDatasePage(PageParameters parameters) {
+    private String fileName;
+
+    public AbstractEditDatasePage(PageParameters parameters, String fileName) {
         super(parameters);
+        this.fileName = fileName;
     }
 
     @SpringBean
@@ -86,6 +91,17 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
             && !SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
                 .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {
             deleteButton.setVisibilityAllowed(false);
+        }
+
+        TemplateLink link = new TemplateLink("fileId", fileName);
+        editForm.add(link);
+
+        Label linkInfo = new Label("linkInfo", new ResourceModel("linkInfo.label"));
+        link.add(linkInfo);
+
+        if (entityId != null) {
+            linkInfo.setVisible(false);
+            link.setVisible(false);
         }
     }
 
