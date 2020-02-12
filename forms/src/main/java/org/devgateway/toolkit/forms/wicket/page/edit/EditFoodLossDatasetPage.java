@@ -34,6 +34,7 @@ public class EditFoodLossDatasetPage extends AbstractEditDatasePage<FoodLossData
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditFoodLossDatasetPage.class);
+    public static final String TEMPLATE_XLSX = "foodLossDataset-Template.xlsx";
 
     @SpringBean(name = "foodLossIndicatorImporter")
     private transient ImportService importService;
@@ -43,7 +44,7 @@ public class EditFoodLossDatasetPage extends AbstractEditDatasePage<FoodLossData
 
 
     public EditFoodLossDatasetPage(final PageParameters parameters) {
-        super(parameters);
+        super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
         this.listPageClass = ListFoodLossDatasetPage.class;
         this.importer = importService;

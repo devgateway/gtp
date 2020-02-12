@@ -35,6 +35,7 @@ public class EditAgriculturalWomenDatasetPage extends AbstractEditDatasePage<Agr
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditAgriculturalWomenDatasetPage.class);
+    public static final String TEMPLATE_XLSX = "agricWomenDataset-Template.xlsx";
 
     @SpringBean(name = "agriculturalWomenIndicatorImporter")
     private transient ImportService importService;
@@ -43,7 +44,7 @@ public class EditAgriculturalWomenDatasetPage extends AbstractEditDatasePage<Agr
     protected DatasetService service;
 
     public EditAgriculturalWomenDatasetPage(final PageParameters parameters) {
-        super(parameters);
+        super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
         this.listPageClass = ListAgriculturalWomenDatasetPage.class;
         this.importer = importService;

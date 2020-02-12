@@ -13,6 +13,8 @@ package org.devgateway.toolkit.forms.wicket.page.edit;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -47,6 +49,7 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditRegionIndicatorPage.class);
+    public static final String TEMPLATE_XLSX = "gisDataset-Template.xlsx";
 
     @SpringBean
     private transient ImportRegionIndicatorService importService;
@@ -110,7 +113,16 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
             fileInput.setVisible(false);
         }
         editForm.add(fileInput);
+        TemplateLink link = new TemplateLink("fileId", TEMPLATE_XLSX);
+        editForm.add(link);
 
+        Label linkInfo = new Label("linkInfo", new ResourceModel("linkInfo.label"));
+        link.add(linkInfo);
+
+        if (entityId != null) {
+            linkInfo.setVisible(false);
+            link.setVisible(false);
+        }
     }
 
     @Override

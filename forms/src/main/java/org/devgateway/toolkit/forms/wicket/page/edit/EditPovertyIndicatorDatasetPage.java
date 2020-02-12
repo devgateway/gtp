@@ -35,6 +35,7 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<Pove
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditPovertyIndicatorDatasetPage.class);
+    public static final String TEMPLATE_XLSX = "povertyDataset-Template.xlsx";
 
     @SpringBean(name = "povertyIndicatorImporter")
     private transient ImportService importService;
@@ -46,7 +47,7 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<Pove
     protected MarkupCacheService markupCacheService;
 
     public EditPovertyIndicatorDatasetPage(final PageParameters parameters) {
-        super(parameters);
+        super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
         this.listPageClass = ListPovertyIndicatorDatasetPage.class;
         this.importer = importService;

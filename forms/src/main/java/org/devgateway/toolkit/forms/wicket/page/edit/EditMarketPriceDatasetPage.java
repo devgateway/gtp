@@ -34,6 +34,7 @@ public class EditMarketPriceDatasetPage extends AbstractEditDatasePage<MarketDat
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditMarketPriceDatasetPage.class);
+    public static final String TEMPLATE_XLSX = "marketDataset-Template.xlsx";
 
     @SpringBean(name = "marketPriceImporter")
     private transient ImportService importService;
@@ -42,7 +43,7 @@ public class EditMarketPriceDatasetPage extends AbstractEditDatasePage<MarketDat
     protected DatasetService service;
 
     public EditMarketPriceDatasetPage(final PageParameters parameters) {
-        super(parameters);
+        super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
         this.listPageClass = ListMarketPriceDatasetPage.class;
         this.importer = importService;

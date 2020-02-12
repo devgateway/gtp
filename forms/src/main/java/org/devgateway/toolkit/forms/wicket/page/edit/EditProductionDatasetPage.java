@@ -36,6 +36,7 @@ public class EditProductionDatasetPage extends AbstractEditDatasePage<Production
 
     private static final long serialVersionUID = -6069250112046118104L;
     private static final Logger logger = LoggerFactory.getLogger(EditProductionDatasetPage.class);
+    public static final String TEMPLATE_XLSX = "productionDataset-Template.xlsx";
 
     @SpringBean(name = "productionImporter")
     private transient ImportService importService;
@@ -47,7 +48,7 @@ public class EditProductionDatasetPage extends AbstractEditDatasePage<Production
     protected MarkupCacheService markupCacheService;
 
     public EditProductionDatasetPage(final PageParameters parameters) {
-        super(parameters);
+        super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
         this.listPageClass = ListProductionDatasetPage.class;
         this.importer = importService;
