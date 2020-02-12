@@ -41,11 +41,11 @@ class Indicators extends Component {
   }
 
   render() {
-    return (<div>
+    return (<div className="png exportable">
       <MainFilter onChange={this.onChangeGlobalFilter} {...this.props } onApply={this.onAppllyFilters} onReset={this.onResetFilters}></MainFilter>
 
 
-      <div className="indicators content fixed ">
+      <div className="indicators content fixed " >
 
         <div className="indicators title">
           <span>
@@ -60,7 +60,7 @@ class Indicators extends Component {
           <Poverty onChange={this.onChangeChartFilter} {...this.props}></Poverty>
           <Women onChange={this.onChangeChartFilter} {...this.props}></Women>
 
-          
+
           <Food onChange={this.onChangeChartFilter} {...this.props}></Food>
           <AgriculturalIndex onChange={this.onChangeChartFilter} {...this.props}></AgriculturalIndex>
 

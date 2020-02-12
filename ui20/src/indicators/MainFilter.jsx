@@ -2,6 +2,7 @@ import "./indicators.scss"
 import ReactDOM from 'react-dom';
 import React from 'react'
 import {CustomFilterDropDown} from './Components'
+import {PngExport} from './Components'
 import {FormattedMessage,injectIntl} from 'react-intl';
 import {items2options} from './DataUtil'
 const region2options = (regions) => regions
@@ -51,7 +52,7 @@ const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChan
       <div className="filter nav item download" >
 
         <div className="icon download xls" onClick={e=>onExport('ALL', 'XLS',intl.locale)}></div>
-        <div className="icon download png" onClick={e=>onExport('ALL', 'PNG',intl.locale)}></div>
+        <PngExport id="root" name="map_image"/>
 
       </div>
 

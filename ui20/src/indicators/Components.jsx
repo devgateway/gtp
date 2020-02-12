@@ -22,12 +22,14 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 
-export const PngExport=({id, name="chart"})=>{
+export const PngExport=({id, element, name="chart"})=>{
 
       return (<div className="icon download png" onClick={e=>{
-        var node = document.getElementById(id);
-        debugger;
-                toPng(node.getElementsByClassName("png exportable")[0])
+
+        var node =id? document.getElementById(id):document[element];
+        var exportable=id?node.getElementsByClassName("png exportable")[0]:node
+
+                toPng(exportable, {backgroundColor:"#FFF"})
                   .then(function (dataUrl) {
                     download(dataUrl, name+'.png');
                   })
@@ -37,7 +39,6 @@ export const PngExport=({id, name="chart"})=>{
 
       }}></div>)
 }
-
 
 
 export const TextInput=({onChange, value, text})=>{
