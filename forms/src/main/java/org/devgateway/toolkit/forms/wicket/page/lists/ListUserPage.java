@@ -30,7 +30,7 @@ public class ListUserPage extends AbstractListPage<Person> {
     private PersonService personService;
 
     public ListUserPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
 
         this.jpaService = personService;
 

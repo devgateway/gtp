@@ -37,7 +37,7 @@ public class ListWebContentFormPage extends AbstractListPage<WebContent> {
 
 
     public ListWebContentFormPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = service;
         this.editPageClass = EditWebContentPage.class;
 

@@ -30,7 +30,7 @@ public class ListCropTypePage extends AbstractListPage<CropType> {
     protected CropTypeService cropTypeService;
 
     public ListCropTypePage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = cropTypeService;
         this.editPageClass = EditCropTypePage.class;
         columns.add(new PropertyColumn<>(

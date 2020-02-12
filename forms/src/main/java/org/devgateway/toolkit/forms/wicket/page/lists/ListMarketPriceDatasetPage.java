@@ -39,7 +39,7 @@ public class ListMarketPriceDatasetPage extends AbstractListPage<MarketDataset> 
     protected DatasetService service;
 
     public ListMarketPriceDatasetPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = service;
         this.editPageClass = EditMarketPriceDatasetPage.class;
         columns.add(new PropertyColumn<>(

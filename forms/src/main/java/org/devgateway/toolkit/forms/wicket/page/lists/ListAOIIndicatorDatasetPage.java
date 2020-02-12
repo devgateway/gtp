@@ -39,7 +39,7 @@ public class ListAOIIndicatorDatasetPage extends AbstractListPage<AgricultureOri
     protected DatasetService service;
 
     public ListAOIIndicatorDatasetPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = service;
         this.editPageClass = EditAOIDatasetPage.class;
         columns.add(new PropertyColumn<>(

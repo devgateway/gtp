@@ -39,7 +39,7 @@ public class ListConsumptionDatasetPage extends AbstractListPage<ConsumptionData
     protected DatasetService service;
 
     public ListConsumptionDatasetPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = service;
         this.editPageClass = EditConsumptionDatasetPage.class;
         columns.add(new PropertyColumn<>(

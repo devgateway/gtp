@@ -37,7 +37,7 @@ public class ListIndicatorMetadataFormPage extends AbstractListPage<IndicatorMet
 
 
     public ListIndicatorMetadataFormPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = service;
         this.editPageClass = EditIndicatorMetadataPage.class;
         columns.add(new PropertyColumn<>(

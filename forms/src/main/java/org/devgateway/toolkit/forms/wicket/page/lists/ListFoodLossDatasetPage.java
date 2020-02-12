@@ -39,7 +39,7 @@ public class ListFoodLossDatasetPage extends AbstractListPage<FoodLossDataset> {
     protected DatasetService service;
 
     public ListFoodLossDatasetPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = service;
         this.editPageClass = EditFoodLossDatasetPage.class;
         columns.add(new PropertyColumn<>(

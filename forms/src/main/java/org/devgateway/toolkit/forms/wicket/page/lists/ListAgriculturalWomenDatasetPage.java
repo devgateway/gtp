@@ -39,7 +39,7 @@ public class ListAgriculturalWomenDatasetPage extends AbstractListPage<Agricultu
     protected DatasetService service;
 
     public ListAgriculturalWomenDatasetPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = service;
         this.editPageClass = EditAgriculturalWomenDatasetPage.class;
         columns.add(new PropertyColumn<>(

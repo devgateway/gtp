@@ -36,7 +36,7 @@ public class ListRegionIndicatorPage extends AbstractListPage<RegionIndicator> {
     protected RegionIndicatorService service;
 
     public ListRegionIndicatorPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = service;
         this.editPageClass = EditRegionIndicatorPage.class;
         columns.add(new PropertyColumn<>(

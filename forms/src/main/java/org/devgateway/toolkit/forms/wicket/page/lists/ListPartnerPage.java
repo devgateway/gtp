@@ -30,7 +30,7 @@ public class ListPartnerPage extends AbstractListPage<Partner> {
     private PartnerService partnerService;
 
     public ListPartnerPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
 
         this.jpaService = partnerService;
 

@@ -40,14 +40,15 @@ public class ListProductionDatasetPage extends AbstractListPage<ProductionDatase
     protected DatasetService service;
 
     public ListProductionDatasetPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = service;
         this.editPageClass = EditProductionDatasetPage.class;
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("name", ListProductionDatasetPage.this),
                 "label", "label"));
-        columns.add(new LambdaColumn<>(new StringResourceModel("org",
-                ListProductionDatasetPage.this), ProductionDataset::getOrganization));
+        columns.add(new PropertyColumn<>(
+                new StringResourceModel("org", ListProductionDatasetPage.this),
+                "organization", "organization"));
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("approved", ListProductionDatasetPage.this),
                 "approved", "approved"));

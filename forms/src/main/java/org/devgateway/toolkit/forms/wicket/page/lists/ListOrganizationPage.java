@@ -31,7 +31,7 @@ public class ListOrganizationPage extends AbstractListPage<Organization> {
     protected OrganizationService organizationService;
 
     public ListOrganizationPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = organizationService;
         this.editPageClass = EditOrganizationPage.class;
         columns.add(new PropertyColumn<>(

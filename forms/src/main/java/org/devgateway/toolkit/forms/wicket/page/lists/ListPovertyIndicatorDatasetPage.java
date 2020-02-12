@@ -39,7 +39,7 @@ public class ListPovertyIndicatorDatasetPage extends AbstractListPage<PovertyDat
     protected DatasetService service;
 
     public ListPovertyIndicatorDatasetPage(final PageParameters pageParameters) {
-        super(pageParameters);
+        super(pageParameters, false);
         this.jpaService = service;
         this.editPageClass = EditPovertyIndicatorDatasetPage.class;
         columns.add(new PropertyColumn<>(
