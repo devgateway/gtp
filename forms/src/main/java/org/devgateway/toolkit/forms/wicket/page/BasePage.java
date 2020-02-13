@@ -65,6 +65,7 @@ import org.devgateway.toolkit.forms.wicket.page.lists.ListFoodLossDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListIndicatorMetadataFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListMarketPriceDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListMicrodataLinkFormPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListNationalIndicatorFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPartnerPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPovertyIndicatorDatasetPage;
@@ -376,6 +377,10 @@ public abstract class BasePage extends GenericWebPage<Void> {
             @Override
             protected List<AbstractLink> newSubMenuButtons(final String arg0) {
                 final List<AbstractLink> list = new ArrayList<>();
+                list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
+                        ListNationalIndicatorFormPage.class, null,
+                        new StringResourceModel("navbar.nationalIndicator", this, null))
+                        .setIconType(FontAwesomeIconType.area_chart));
                 list.add(new MenuBookmarkablePageLink<ListRegionIndicatorPage>(ListRegionIndicatorPage.class, null,
                         new StringResourceModel("navbar.regionIndicator", this, null))
                         .setIconType(FontAwesomeIconType.map_marker));

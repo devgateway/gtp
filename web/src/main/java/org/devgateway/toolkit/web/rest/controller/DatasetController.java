@@ -4,11 +4,13 @@ import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.categories.DatasetType;
 import org.devgateway.toolkit.persistence.dto.AgriculturalContentDTO;
 import org.devgateway.toolkit.persistence.dto.DatasetDTO;
+import org.devgateway.toolkit.persistence.dto.NationalIndicatorDTO;
 import org.devgateway.toolkit.persistence.dto.RegionIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.category.DatasetTypeRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.devgateway.toolkit.persistence.service.MicrodataLinkService;
+import org.devgateway.toolkit.persistence.service.NationalIndicatorService;
 import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.DatasetFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.DatasetFilterState;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -60,6 +63,9 @@ public class DatasetController {
     @Autowired
     private DatasetTypeRepository datasetTypeRepository;
 
+    @Autowired
+    private NationalIndicatorService nationalIndicatorService;
+
     @CrossOrigin
     @ApiOperation(value = "Get all datasets metadata")
     @RequestMapping(value = "/dataset/all", method = POST)
@@ -85,6 +91,17 @@ public class DatasetController {
         Pageable pageable = PageRequest.of(request.getPageNumber(), pageSize);
         MicrodataLinkFilterState filter = new MicrodataLinkFilterState(request);
         return microdataLinkService.findAllDTO(filter.getSpecification(), pageable, request.getLang());
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get all national indicators metadata")
+    @RequestMapping(value = "/nationalIndicator/all", method = POST)
+    public @ResponseBody
+    List<NationalIndicatorDTO> getAllNationalIndicator(@RequestBody @Valid final DatasetFilterPagingRequest request) {
+        LOGGER.info("get all national indicators");
+        return nationalIndicatorService.findAll().stream()
+                .map(n -> new NationalIndicatorDTO(n, request.getLang()))
+                .collect(Collectors.toList());
     }
 
     @CrossOrigin

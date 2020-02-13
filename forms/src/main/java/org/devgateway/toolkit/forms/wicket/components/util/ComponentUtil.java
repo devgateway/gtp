@@ -155,10 +155,10 @@ public final class ComponentUtil {
         return textField;
     }
 
-    public static TextFieldBootstrapFormComponent<String> addDoubleField(
+    public static TextFieldBootstrapFormComponent<Double> addDoubleField(
             final WebMarkupContainer parent,
             final String id) {
-        final TextFieldBootstrapFormComponent<String> textField = new TextFieldBootstrapFormComponent<>(id);
+        final TextFieldBootstrapFormComponent<Double> textField = new TextFieldBootstrapFormComponent<>(id);
         textField.asDouble();
         parent.add(textField);
 

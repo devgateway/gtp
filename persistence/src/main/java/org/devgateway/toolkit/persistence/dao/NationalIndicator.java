@@ -1,0 +1,144 @@
+package org.devgateway.toolkit.persistence.dao;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Daniel Oliva
+ */
+@Entity
+@JsonIgnoreProperties({"new"})
+public class NationalIndicator extends AbstractAuditableEntity implements Serializable, Linkable {
+
+    private String name;
+
+    private String nameFr;
+
+    @Column(length = 1024)
+    private String description;
+
+    @Column(length = 1024)
+    private String descriptionFr;
+
+    private String source;
+
+    @Column(length = 1024)
+    private String link;
+
+    private Integer referenceYear;
+
+    private Double referenceValue;
+
+    private Double targetValue;
+
+    private String measure;
+
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @OneToMany(mappedBy = "nationalIndicator", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OrderColumn(name = "index")
+    private List<NationalIndicatorYearValue> yearValue = new ArrayList<>();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNameFr() {
+        return nameFr;
+    }
+
+    public void setNameFr(String nameFr) {
+        this.nameFr = nameFr;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescriptionFr() {
+        return descriptionFr;
+    }
+
+    public void setDescriptionFr(String descriptionFr) {
+        this.descriptionFr = descriptionFr;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public Integer getReferenceYear() {
+        return referenceYear;
+    }
+
+    public void setReferenceYear(Integer referenceYear) {
+        this.referenceYear = referenceYear;
+    }
+
+    public Double getReferenceValue() {
+        return referenceValue;
+    }
+
+    public void setReferenceValue(Double referenceValue) {
+        this.referenceValue = referenceValue;
+    }
+
+    public Double getTargetValue() {
+        return targetValue;
+    }
+
+    public void setTargetValue(Double targetValue) {
+        this.targetValue = targetValue;
+    }
+
+    public String getMeasure() {
+        return measure;
+    }
+
+    public void setMeasure(String measure) {
+        this.measure = measure;
+    }
+
+    public List<NationalIndicatorYearValue> getYearValue() {
+        return yearValue;
+    }
+
+    public void setYearValue(List<NationalIndicatorYearValue> yearValue) {
+        this.yearValue = yearValue;
+    }
+
+    @Override
+    public AbstractAuditableEntity getParent() {
+        return null;
+    }
+}

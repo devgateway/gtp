@@ -663,6 +663,32 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="NationalIndicators1" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="national_indicator" />
+            <tableExists tableName="national_indicator_year_value" />
+        </preConditions>
+        <sql><![CDATA[
+            insert into national_indicator (created_by, last_modified_by, description, description_fr, measure, name, name_fr, reference_value, reference_year, source, target_value, id) values ('admin', 'admin', 'By 2030, ensure that all men and women, especially the poor and vulnerable, have equal rights to economic resources and have access to basic services, to land ownership , control of land and other forms of property, inheritance, natural resources and new technologies and financial services tailored to their needs, including microfinance', 'D’ici à 2030, faire en sorte que tous les hommes et les femmes, en particulier les  pauvres et les personnes vulnérables, aient les mêmes droits aux ressources économiques et qu’ils aient accès aux services de base, à la propriété foncière, au contrôle des terres et à d’autres formes de propriété, à l’héritage, aux ressources naturelles et à des nouvelles technologies et des services financiers adaptés à leurs besoins, y compris la microfinance', '%', 'Average access index to the 5 main basic social services', 'Indice d''accès moyen aux 5 principaux services sociaux de base', null, null, 'ANSD', null, 1000);
+            insert into national_indicator_year_value (created_by, last_modified_by, national_indicator_id, value, year, id, index) values ('admin', 'admin', 1000, 50.08, 2015, 1000, 1);
+            insert into national_indicator_year_value (created_by, last_modified_by, national_indicator_id, value, year, id, index) values ('admin', 'admin', 1000, 50.78, 2016, 1001, 2);
+            insert into national_indicator_year_value (created_by, last_modified_by, national_indicator_id, value, year, id, index) values ('admin', 'admin', 1000, 51.47, 2017, 1002, 3);
+
+
+            insert into national_indicator (created_by, last_modified_by, description, description_fr, measure, name, name_fr, reference_value, reference_year, source, target_value, id) values ('admin', 'admin', 'By 2030, eliminate hunger and ensure that everyone, especially the poor and vulnerable, including infants, has access to healthy, nutritious and sufficient food all year round', 'D’ici à 2030, éliminer la faim et faire en sorte que chacun, en particulier les pauvres et les personnes en situation vulnérable, y compris les nourrissons, ait accès toute l’année à une  alimentation saine, nutritive et suffisante', '%', 'Prevalence of undernourishment', 'Prévalence de la sous-alimentation', 29.4, 2001, 'ANSD/DGPPE', 3, 1001);
+            insert into national_indicator_year_value (created_by, last_modified_by, national_indicator_id, value, year, id, index) values ('admin', 'admin', 1001, 10.6, 2015, 1004, 1);
+            insert into national_indicator_year_value (created_by, last_modified_by, national_indicator_id, value, year, id, index) values ('admin', 'admin', 1001, 10, 2016, 1005, 2);
+            insert into national_indicator_year_value (created_by, last_modified_by, national_indicator_id, value, year, id, index) values ('admin', 'admin', 1001, 10.6, 2017, 1006, 3);
+
+
+            insert into national_indicator (created_by, last_modified_by, description, description_fr, measure, name, name_fr, reference_value, reference_year, source, target_value, id) values ('admin', 'admin', 'Prevalence of stunting (height/age index less than -2 standard deviations from the median of child growth norms defined by the WHO) in children under 5 years of age', 'Prévalence du retard de croissance (indice taille/âge inférieur à -2 écarts types par rapport à la médiane des normes de croissance de l’enfant définies par l’OMS) chez les enfants de moins de 5 ans', '%', 'Prevalence of stunting in children 0-59 months', 'Prévalence du retard de croissance chez les enfants de 0-59 mois ', null, null, 'DPRS/CLM ', 0.05, 1002);
+            insert into national_indicator_year_value (created_by, last_modified_by, national_indicator_id, value, year, id, index) values ('admin', 'admin', 1002, 0.15, 2015, 1007, 1);
+            insert into national_indicator_year_value (created_by, last_modified_by, national_indicator_id, value, year, id, index) values ('admin', 'admin', 1002, 0.17, 2016, 1008, 2);
+            insert into national_indicator_year_value (created_by, last_modified_by, national_indicator_id, value, year, id, index) values ('admin', 'admin', 1002, 0.165, 2017, 1009, 3);
+
+        ]]></sql>
+    </changeSet>
+
 
 
 </databaseChangeLog>
