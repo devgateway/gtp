@@ -45,9 +45,13 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
     private String measure;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @OneToMany(mappedBy = "nationalIndicator", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "nationalIndicator", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @OrderColumn(name = "index")
-    private List<NationalIndicatorYearValue> yearValue = new ArrayList<>();
+    private List<NationalIndicatorYearValue> yearValue;
+
+    public NationalIndicator() {
+        yearValue = new ArrayList<>();
+    }
 
     public String getName() {
         return name;

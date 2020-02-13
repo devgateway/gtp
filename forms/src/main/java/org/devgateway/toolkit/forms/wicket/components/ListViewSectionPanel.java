@@ -177,7 +177,7 @@ public abstract class ListViewSectionPanel<T extends AbstractAuditableEntity, PA
         hideableContainer.add(removeButton);
 
         // if we display a new element that was just added then we make the accordion enabled
-        if (item.getModelObject().isNew()
+        if (item.getModelObject() != null && item.getModelObject().isNew()
                 && item.getIndex() == getModel().getObject().size() - 1) {
             hideableContainer.add(new AttributeModifier("class", new Model<>("panel-body panel-collapse collapse in")));
             showDetailsLink.setDefaultModel(new ResourceModel("hideDetailsLink"));

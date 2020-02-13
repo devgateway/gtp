@@ -33,11 +33,11 @@ public class DirectLinkBootstrapPropertyColumn extends PropertyColumn {
             item.add(new Component[] {
                     new ExternalLink(componentId, link, linkToDisplay)
             });
+            item.add(new AttributeAppender("class", "link-column"));
         } else {
-            item.add(new Component[] {
+            item.add(new Component[]{
                     new Label(componentId, NOT_AVAILABLE)
             });
         }
-        item.add(new AttributeAppender("class", "link-column"));
     }
 }
