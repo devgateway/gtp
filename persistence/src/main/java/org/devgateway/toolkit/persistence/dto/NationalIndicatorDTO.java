@@ -11,6 +11,8 @@ import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 
 public class NationalIndicatorDTO {
 
+    private Long id;
+
     private String name;
 
     private String description;
@@ -30,6 +32,7 @@ public class NationalIndicatorDTO {
     private List<YearValueDTO> yearValues = new ArrayList<>();
 
     public NationalIndicatorDTO(NationalIndicator indicator, String lang) {
+        this.id = indicator.getId();
         boolean isFr = lang != null && lang.equalsIgnoreCase(LANG_FR);
         this.name = isFr ? indicator.getNameFr() : indicator.getName();
         this.description = isFr ? indicator.getDescriptionFr() : indicator.getDescription();
@@ -46,6 +49,14 @@ public class NationalIndicatorDTO {
         if (yearValues != null) {
             this.yearValues = yearValues;
         }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

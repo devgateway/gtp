@@ -241,10 +241,18 @@ public abstract class ListViewSectionPanel<T extends AbstractAuditableEntity, PA
      */
     final BootstrapAddButton getAddNewChildButton() {
         final BootstrapAddButton newButton = new BootstrapAddButton("newButton", new ResourceModel("newButton")) {
+
+            @Override
+            protected String getOnClickScript() {
+                return "setTimeout(function () {document.querySelectorAll('*').forEach(function(node) "
+                        + "{ node.blur();});}, 2000);";
+            }
+
             @Override
             protected void onSubmit(final AjaxRequestTarget target) {
                 final T newChild = createNewChild(
                         (IModel<PARENT>) ListViewSectionPanel.this.getParent().getDefaultModel());
+                ListViewSectionPanel.this.getModel().getObject().size();
                 ListViewSectionPanel.this.getModel().getObject().add(newChild);
 
                 listView.removeAll();
