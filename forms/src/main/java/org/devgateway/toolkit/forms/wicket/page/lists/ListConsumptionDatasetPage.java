@@ -57,7 +57,7 @@ public class ListConsumptionDatasetPage extends AbstractListPage<ConsumptionData
     @Override
     public JpaFilterState<ConsumptionDataset> newFilterState() {
         Organization organization = SecurityUtil.getCurrentAuthenticatedPerson().getOrganization();
-        if (organization != null) {
+        if (organization != null && !isAdmin()) {
             return new DatasetFilterState(organization.getLabel());
         }
         return new DatasetFilterState();    }

@@ -1,17 +1,26 @@
 package org.devgateway.toolkit.forms.wicket.page.edit;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.apache.wicket.validation.validator.UrlValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.security.SecurityUtil;
+import org.devgateway.toolkit.forms.util.MarkupCacheService;
+import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.panel.YearValuePanel;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListNationalIndicatorFormPage;
 import org.devgateway.toolkit.persistence.dao.NationalIndicator;
 import org.devgateway.toolkit.persistence.service.NationalIndicatorService;
+import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Daniel Oliva
@@ -23,6 +32,12 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
 
     @SpringBean
     private NationalIndicatorService service;
+
+    @SpringBean
+    protected MarkupCacheService markupCacheService;
+
+    @SpringBean
+    private ReleaseCacheService cacheService;
 
     public EditNationalIndicatorPage(PageParameters parameters) {
         super(parameters);
@@ -77,5 +92,63 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
         measure.required();
 
         editForm.add(new YearValuePanel("yearValue"));
+
+        final CheckBoxPickerBootstrapFormComponent approved = new CheckBoxPickerBootstrapFormComponent("approved");
+        if (!isAdmin()) {
+            approved.setOutputMarkupPlaceholderTag(true);
+            approved.setVisible(false);
+        }
+        editForm.add(approved);
+
+        if (entityId != null && ((NationalIndicator) this.editForm.getModelObject()).isApproved()
+                && !isAdmin()) {
+            deleteButton.setVisibilityAllowed(false);
+        }
+    }
+
+    @Override
+    public SaveEditPageButton getSaveEditPageButton() {
+        return new SaveEditPageButton("save", new StringResourceModel("save", this, null)) {
+            private static final long serialVersionUID = 5214537995514151323L;
+
+            @Override
+            protected void onSubmit(final AjaxRequestTarget target) {
+                NationalIndicator model = editForm.getModelObject();
+                boolean isOk = true;
+                redirectToSelf = false;
+                if (model.getYearValue().size() > 1) {
+                    Set<Integer> years = new HashSet<>();
+                    for (int i = 0; i < model.getYearValue().size(); i++) {
+                        if (!years.add(model.getYearValue().get(i).getYear())) {
+                            isOk = false;
+                        }
+                    }
+                }
+                if (!isOk) {
+                    feedbackPanel.error(new StringResourceModel("yearError", this, null).getString());
+                    target.add(feedbackPanel);
+                    redirectToSelf = true;
+                } else {
+                    if (model.getId() == null) {
+                        model.setUploadedBy(SecurityUtil.getCurrentAuthenticatedPerson());
+                    }
+                    jpaService.saveAndFlush(model);
+                    markupCacheService.clearAllCaches();
+                    cacheService.releaseCache();
+                }
+                redirect(target);
+            }
+
+
+            private void redirect(final AjaxRequestTarget target) {
+                if (redirectToSelf) {
+                    // we need to close the blockUI if it's opened and enable all
+                    // the buttons
+                    target.appendJavaScript("$.unblockUI();");
+                } else if (redirect) {
+                    setResponsePage(getResponsePage(), getParameterPage());
+                }
+            }
+        };
     }
 }

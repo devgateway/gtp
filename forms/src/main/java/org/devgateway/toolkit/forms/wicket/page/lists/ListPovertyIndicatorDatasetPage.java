@@ -58,7 +58,7 @@ public class ListPovertyIndicatorDatasetPage extends AbstractListPage<PovertyDat
     @Override
     public JpaFilterState<PovertyDataset> newFilterState() {
         Organization organization = SecurityUtil.getCurrentAuthenticatedPerson().getOrganization();
-        if (organization != null) {
+        if (organization != null && !isAdmin()) {
             return new DatasetFilterState(organization.getLabel());
         }
         return new DatasetFilterState();    }

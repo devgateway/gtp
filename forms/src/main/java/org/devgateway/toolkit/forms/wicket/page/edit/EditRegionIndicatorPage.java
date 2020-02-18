@@ -123,6 +123,20 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
             linkInfo.setVisible(false);
             link.setVisible(false);
         }
+
+        final CheckBoxPickerBootstrapFormComponent approved = new CheckBoxPickerBootstrapFormComponent("approved");
+        if (!SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
+                .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {
+            approved.setOutputMarkupPlaceholderTag(true);
+            approved.setVisible(false);
+        }
+        editForm.add(approved);
+
+        if (entityId != null && ((RegionIndicator) this.editForm.getModelObject()).isApproved()
+                && !SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
+                .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {
+            deleteButton.setVisibilityAllowed(false);
+        }
     }
 
     @Override
@@ -148,7 +162,6 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
                         service.restoreRightFlagToFalse();
                     }
                     if (model.getId() != null) {
-                        SecurityUtil.getCurrentAuthenticatedPerson();
                         jpaService.saveAndFlush(model);
                     } else {
                         model.setUploadedBy(SecurityUtil.getCurrentAuthenticatedPerson());

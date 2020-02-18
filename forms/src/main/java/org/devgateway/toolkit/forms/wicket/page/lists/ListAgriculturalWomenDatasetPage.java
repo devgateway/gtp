@@ -58,7 +58,7 @@ public class ListAgriculturalWomenDatasetPage extends AbstractListPage<Agricultu
     @Override
     public JpaFilterState<AgriculturalWomenDataset> newFilterState() {
         Organization organization = SecurityUtil.getCurrentAuthenticatedPerson().getOrganization();
-        if (organization != null) {
+        if (organization != null && !isAdmin()) {
             return new DatasetFilterState(organization.getLabel());
         }
         return new DatasetFilterState();    }

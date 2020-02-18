@@ -745,5 +745,19 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="IndicatorApprovedFlag" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="national_indicator" />
+            <tableExists tableName="region_indicator" />
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE national_indicator
+                ADD COLUMN "approved" BOOLEAN DEFAULT FALSE;
+            ALTER TABLE region_indicator
+                ADD COLUMN "approved" BOOLEAN DEFAULT FALSE;
+
+        ]]></sql>
+    </changeSet>
+
 
 </databaseChangeLog>

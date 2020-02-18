@@ -58,7 +58,7 @@ public class ListProductionDatasetPage extends AbstractListPage<ProductionDatase
     @Override
     public JpaFilterState<ProductionDataset> newFilterState() {
         Organization organization = SecurityUtil.getCurrentAuthenticatedPerson().getOrganization();
-        if (organization != null) {
+        if (organization != null && !isAdmin()) {
             return new DatasetFilterState(organization.getLabel());
         }
         return new DatasetFilterState();

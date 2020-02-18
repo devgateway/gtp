@@ -58,7 +58,7 @@ public class ListMarketPriceDatasetPage extends AbstractListPage<MarketDataset> 
     @Override
     public JpaFilterState<MarketDataset> newFilterState() {
         Organization organization = SecurityUtil.getCurrentAuthenticatedPerson().getOrganization();
-        if (organization != null) {
+        if (organization != null && !isAdmin()) {
             return new DatasetFilterState(organization.getLabel());
         }
         return new DatasetFilterState();    }

@@ -483,4 +483,9 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 "assets/js/fileupload.js")));
 
     }
+
+    public boolean isAdmin() {
+        return SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
+                .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN));
+    }
 }

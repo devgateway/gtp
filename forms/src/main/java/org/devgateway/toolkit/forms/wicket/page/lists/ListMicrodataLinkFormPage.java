@@ -62,7 +62,7 @@ public class ListMicrodataLinkFormPage extends AbstractListPage<MicrodataLink> {
     @Override
     public JpaFilterState<MicrodataLink> newFilterState() {
         Organization organization = SecurityUtil.getCurrentAuthenticatedPerson().getOrganization();
-        if (organization != null) {
+        if (organization != null && !isAdmin()) {
             return new MicrodataLinkFilterState(organization.getLabel());
         }
         return new MicrodataLinkFilterState();

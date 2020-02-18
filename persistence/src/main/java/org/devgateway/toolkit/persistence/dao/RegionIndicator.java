@@ -52,6 +52,8 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     private String source;
 
+    private boolean approved;
+
     public String getName() {
         return name;
     }
@@ -130,6 +132,14 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     @JsonIgnore

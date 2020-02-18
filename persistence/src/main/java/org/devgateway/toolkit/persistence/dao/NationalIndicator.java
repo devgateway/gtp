@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -8,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import java.io.Serializable;
@@ -43,6 +45,12 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
     private Double targetValue;
 
     private String measure;
+
+    private boolean approved;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Person uploadedBy;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "nationalIndicator", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -139,6 +147,22 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
 
     public void setYearValue(List<NationalIndicatorYearValue> yearValue) {
         this.yearValue = yearValue;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
+
+    public Person getUploadedBy() {
+        return uploadedBy;
+    }
+
+    public void setUploadedBy(Person uploadedBy) {
+        this.uploadedBy = uploadedBy;
     }
 
     @Override

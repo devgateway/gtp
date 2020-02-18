@@ -58,8 +58,9 @@ public class ListAOIIndicatorDatasetPage extends AbstractListPage<AgricultureOri
     @Override
     public JpaFilterState<AgricultureOrientationIndexDataset> newFilterState() {
         Organization organization = SecurityUtil.getCurrentAuthenticatedPerson().getOrganization();
-        if (organization != null) {
+        if (organization != null && !isAdmin()) {
             return new DatasetFilterState(organization.getLabel());
         }
-        return new DatasetFilterState();    }
+        return new DatasetFilterState();
+    }
 }
