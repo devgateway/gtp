@@ -64,7 +64,7 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
         fillProductionIndicator(lang, ret);
 
         List<RegionIndicator> indicatorList = repository.findAll();
-        indicatorList.stream().forEach(i -> ret.add(new RegionIndicatorDTO(i)));
+        indicatorList.stream().filter(n -> n.isApproved()).forEach(i -> ret.add(new RegionIndicatorDTO(i)));
 
         return ret;
     }

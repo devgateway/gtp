@@ -21,6 +21,7 @@ public interface ProductionIndicatorRepository extends AuditedEntityRepository<P
             + "join p.dataset as d "
             + "join p.cropType as c "
             + "join c.localizedLabels as l "
+            + "where d.approved = true "
             + "group by p.year, c.label, l.label, r.code, d.source "
             + "order by p.year, c.label, l.label, r.code, d.source")
     List<ProductionGisDTO> findAllProductionGis();

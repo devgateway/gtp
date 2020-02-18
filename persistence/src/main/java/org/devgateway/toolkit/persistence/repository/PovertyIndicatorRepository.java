@@ -19,6 +19,7 @@ public interface PovertyIndicatorRepository extends AuditedEntityRepository<Pove
             + "avg(p.povertyScore) as value, d.source) from PovertyIndicator p "
             + "join p.region as r "
             + "join p.dataset as d "
+            + "where d.approved = true "
             + "group by p.year, r.code, d.source "
             + "order by p.year, r.code, d.source")
     List<PovertyGisDTO> findAllPovertyGis();

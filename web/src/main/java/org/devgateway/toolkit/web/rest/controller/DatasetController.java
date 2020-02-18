@@ -100,6 +100,7 @@ public class DatasetController {
     List<NationalIndicatorDTO> getAllNationalIndicator(@RequestBody @Valid final DatasetFilterPagingRequest request) {
         LOGGER.info("get all national indicators");
         return nationalIndicatorService.findAll().stream()
+                .filter(n -> n.isApproved())
                 .map(n -> new NationalIndicatorDTO(n, request.getLang()))
                 .collect(Collectors.toList());
     }

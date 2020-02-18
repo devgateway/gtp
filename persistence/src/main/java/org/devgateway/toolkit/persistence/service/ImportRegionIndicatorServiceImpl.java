@@ -72,7 +72,7 @@ public class ImportRegionIndicatorServiceImpl implements ImportRegionIndicatorSe
             rowNumber++;
         }
         regionMap = regionRepository.findAll().stream()
-                .collect(Collectors.toMap(c -> c.getCode().toLowerCase(), z -> z));
+                .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
 
         Double maxValue = Double.MIN_VALUE;
         Double minValue = Double.MAX_VALUE;
@@ -84,11 +84,11 @@ public class ImportRegionIndicatorServiceImpl implements ImportRegionIndicatorSe
                 if (row.getCell(0) != null) {
                     //Extract data
                     RegionStat data = new RegionStat();
-                    String regionCode = ImportUtils.getStringFromCell(row.getCell(0));
-                    if (regionCode != null && regionMap.get(regionCode.toLowerCase()) != null) {
-                        data.setRegion(regionMap.get(regionCode.toLowerCase()));
+                    String regionName = ImportUtils.getStringFromCell(row.getCell(0));
+                    if (regionName != null && regionMap.get(regionName.toLowerCase()) != null) {
+                        data.setRegion(regionMap.get(regionName.toLowerCase()));
                     } else {
-                        throw new RuntimeException("Region code is not specified or not valid");
+                        throw new RuntimeException("Region name is not specified or not valid");
                     }
                     Double value = ImportUtils.getDoubleFromCell(row.getCell(1));
                     data.setValue(value);
