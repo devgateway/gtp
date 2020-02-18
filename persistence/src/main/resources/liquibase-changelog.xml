@@ -759,5 +759,15 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="NationalIndicatorApprovedFlag" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="national_indicator" />
+        </preConditions>
+        <sql><![CDATA[
+            update national_indicator set approved=true;
+
+        ]]></sql>
+    </changeSet>
+
 
 </databaseChangeLog>
