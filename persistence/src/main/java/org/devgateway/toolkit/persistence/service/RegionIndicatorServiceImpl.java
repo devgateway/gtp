@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.service;
 
+import org.devgateway.toolkit.persistence.dao.GisSettings;
 import org.devgateway.toolkit.persistence.dao.RegionIndicator;
 import org.devgateway.toolkit.persistence.dto.PovertyGisDTO;
 import org.devgateway.toolkit.persistence.dto.ProductionGisDTO;
@@ -47,6 +48,9 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
     @Autowired
     private ProductionIndicatorRepository prodRepo;
 
+    @Autowired
+    private GisSettingsService gisSettingsService;
+
     @Override
     protected BaseJpaRepository<RegionIndicator, Long> repository() {
         return repository;
@@ -66,6 +70,17 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
         List<RegionIndicator> indicatorList = repository.findAll();
         indicatorList.stream().filter(n -> n.isApproved()).forEach(i -> ret.add(new RegionIndicatorDTO(i)));
 
+        List<GisSettings> gisSettings = gisSettingsService.findAll();
+        if (gisSettings.size() > 0) {
+            ret.stream().forEach(n -> {
+                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getLeftGisName())) {
+                    n.setLeftMap(true);
+                }
+                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getRightGisName())) {
+                    n.setRightMap(true);
+                }
+            });
+        }
         return ret;
     }
 
@@ -99,6 +114,8 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
                 dto.setId(Long.valueOf(year) + p.getCrop().hashCode());
                 String cropLabel = lang != null && lang.equalsIgnoreCase(LANG_FR) ? p.getCropFr() : p.getCrop();
                 dto.setName(prodStr + MINUS_STRING + cropLabel + MINUS_STRING + year);
+                dto.setNameEnFr(PROD_EN_STR + SPACE_STRING + p.getCrop() + "/" + PROD_FR_STR + SPACE_STRING
+                        + p.getCropFr() + MINUS_STRING + year);
                 if (p.getValue() != null) {
                     dto.setMaxValue(p.getValue());
                     dto.setMinValue(p.getValue());
@@ -135,6 +152,7 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
                 year = p.getYear();
                 dto.setId(Long.valueOf(year));
                 dto.setName(povertyStr + SPACE_STRING + year);
+                dto.setNameEnFr(POVERTY_EN_STR + "/" + POVERTY_FR_STR + MINUS_STRING + year);
                 dto.setMaxValue(p.getValue());
                 dto.setMinValue(p.getValue());
                 dto.setRightMap(false);

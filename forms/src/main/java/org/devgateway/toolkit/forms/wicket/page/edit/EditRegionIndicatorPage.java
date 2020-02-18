@@ -96,14 +96,6 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
         final TextFieldBootstrapFormComponent<String> source = new TextFieldBootstrapFormComponent<>("source");
         editForm.add(source);
 
-        final CheckBoxPickerBootstrapFormComponent leftMap =
-                new CheckBoxPickerBootstrapFormComponent("leftMap");
-        editForm.add(leftMap);
-
-        final CheckBoxPickerBootstrapFormComponent rightMap =
-                new CheckBoxPickerBootstrapFormComponent("rightMap");
-        editForm.add(rightMap);
-
         FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata").maxFiles(1);
         fileInput.required();
         fileInput.getField().add((IValidator) new InputFileValidator(getString("fileNotAdded"),
@@ -148,38 +140,28 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
             protected void onSubmit(final AjaxRequestTarget target) {
                 logger.info("Check the file and process it");
                 RegionIndicator model = editForm.getModelObject();
-                if (model.isLeftMap() && model.isRightMap()) {
-                    feedbackPanel.error(new StringResourceModel("mapFlagsError", this, null).getString());
+
+                ImportResults<RegionStat> results = null;
+
+                if (model.getId() != null) {
+                    jpaService.saveAndFlush(model);
+                } else {
+                    model.setUploadedBy(SecurityUtil.getCurrentAuthenticatedPerson());
+                    redirectToSelf = false;
+                    results = importService.processFile(model);
+                }
+
+                //process results
+                if (results != null && !results.isImportOkFlag()) {
+                    feedbackPanel.error(new StringResourceModel("uploadError", this, null).getString());
+                    results.getErrorList().forEach(error -> feedbackPanel.error(error));
                     target.add(feedbackPanel);
                     redirectToSelf = true;
                 } else {
-                    redirectToSelf = false;
-                    ImportResults<RegionStat> results = null;
-                    if (model.isLeftMap()) {
-                        service.restoreLeftFlagToFalse();
-                    }
-                    if (model.isRightMap()) {
-                        service.restoreRightFlagToFalse();
-                    }
-                    if (model.getId() != null) {
-                        jpaService.saveAndFlush(model);
-                    } else {
-                        model.setUploadedBy(SecurityUtil.getCurrentAuthenticatedPerson());
-                        redirectToSelf = false;
-                        results = importService.processFile(model);
-                    }
-
-                    //process results
-                    if (results != null && !results.isImportOkFlag()) {
-                        feedbackPanel.error(new StringResourceModel("uploadError", this, null).getString());
-                        results.getErrorList().forEach(error -> feedbackPanel.error(error));
-                        target.add(feedbackPanel);
-                        redirectToSelf = true;
-                    } else {
-                        markupCacheService.clearAllCaches();
-                    }
-                    cacheService.releaseCache();
+                    markupCacheService.clearAllCaches();
                 }
+                cacheService.releaseCache();
+
                 redirect(target);
             }
 

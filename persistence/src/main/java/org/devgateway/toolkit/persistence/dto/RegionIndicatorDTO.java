@@ -8,11 +8,16 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import static org.devgateway.toolkit.persistence.util.Constants.MINUS_STRING;
+
 public class RegionIndicatorDTO {
 
     private Long id;
 
     private String name;
+
+    @JsonIgnore
+    private String nameEnFr;
 
     private String description;
 
@@ -38,6 +43,7 @@ public class RegionIndicatorDTO {
     public RegionIndicatorDTO(RegionIndicator ri) {
         this.id = ri.getId();
         this.name = ri.getName();
+        this.nameEnFr = ri.getName() + MINUS_STRING + ri.getYear();
         this.description = ri.getDescription();
         this.year = ri.getYear();
         this.stats = ri.getStats().stream().map(rs -> new RegionStatDTO(rs)).collect(Collectors.toList());
@@ -48,6 +54,14 @@ public class RegionIndicatorDTO {
         if (ri.getSource() != null) {
             this.sources.add(ri.getSource());
         }
+    }
+
+    public String getNameEnFr() {
+        return nameEnFr;
+    }
+
+    public void setNameEnFr(String nameEnFr) {
+        this.nameEnFr = nameEnFr;
     }
 
     public Long getId() {

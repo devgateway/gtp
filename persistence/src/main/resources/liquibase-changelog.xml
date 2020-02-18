@@ -770,4 +770,14 @@
     </changeSet>
 
 
+    <changeSet id="RegionIndicatorMapFlags" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="region_indicator" />
+        </preConditions>
+        <sql><![CDATA[
+            update region_indicator set left_map=false, right_map=false;
+
+        ]]></sql>
+    </changeSet>
+
 </databaseChangeLog>

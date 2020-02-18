@@ -57,6 +57,7 @@ import org.apache.wicket.resource.JQueryResourceReference;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
+import org.devgateway.toolkit.forms.wicket.page.edit.EditGisSettingsPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListAOIIndicatorDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListAgriculturalContentFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListAgriculturalWomenDatasetPage;
@@ -306,6 +307,10 @@ public abstract class BasePage extends GenericWebPage<Void> {
 
                 list.add(new MenuBookmarkablePageLink<>(ListOrganizationPage.class, null,
                         new StringResourceModel("navbar.orgs", this, null)).setIconType(FontAwesomeIconType.tags));
+
+                list.add(new MenuBookmarkablePageLink<>(EditGisSettingsPage.class,
+                        new StringResourceModel("navbar.gisSettings", BasePage.this, null))
+                        .setIconType(FontAwesomeIconType.map));
 
                 /*list.add(new MenuBookmarkablePageLink<>(ListTestFormPage.class, null,
                         new StringResourceModel("navbar.testcomponents", this, null))
