@@ -28,30 +28,29 @@
 
 
     <div class="row">
-        <div wicket:id="source" class="col-md-12"></div>
+        <div wicket:id="source" class="col-md-6"></div>
+
+        <div wicket:id="link" class="col-md-6"></div>
     </div>
 
     <div class="row">
-        <div wicket:id="link" class="col-md-12"></div>
+        <div wicket:id="referenceYear" class="col-md-6"></div>
+
+        <div wicket:id="referenceValue" class="col-md-6"></div>
     </div>
 
     <div class="row">
-        <div wicket:id="referenceYear" class="col-md-12"></div>
-    </div>
+        <div wicket:id="targetValue" class="col-md-6"></div>
 
+        <div wicket:id="measure" class="col-md-6"></div>
+    </div>
+    <div class="row col-md-12">
+        <span wicket:id="yearValueText" style="font-style: italic;">[[Add values]]</span>
+    </div>
     <div class="row">
-        <div wicket:id="referenceValue" class="col-md-12"></div>
+        <div wicket:id="yearValue" class="col-md-12"></div>
     </div>
 
-    <div class="row">
-        <div wicket:id="targetValue" class="col-md-12"></div>
-    </div>
-
-    <div class="row">
-        <div wicket:id="measure" class="col-md-12"></div>
-    </div>
-
-    <div wicket:id="yearValue"></div>
 
     <div class="row"><br/></div>
 </wicket:extend>

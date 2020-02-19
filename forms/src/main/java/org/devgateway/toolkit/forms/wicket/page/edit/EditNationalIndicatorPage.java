@@ -2,6 +2,7 @@ package org.devgateway.toolkit.forms.wicket.page.edit;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -92,6 +93,7 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
         measure.required();
 
         editForm.add(new YearValuePanel("yearValue"));
+        editForm.add(new Label("yearValueText", new StringResourceModel("yearValueText", this, null)));
 
         final CheckBoxPickerBootstrapFormComponent approved = new CheckBoxPickerBootstrapFormComponent("approved");
         if (!isAdmin()) {
