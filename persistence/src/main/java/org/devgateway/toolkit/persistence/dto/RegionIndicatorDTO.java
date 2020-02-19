@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.RegionIndicator;
 
 import java.util.Collection;
@@ -8,6 +9,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 import static org.devgateway.toolkit.persistence.util.Constants.MINUS_STRING;
 
 public class RegionIndicatorDTO {
@@ -40,11 +42,12 @@ public class RegionIndicatorDTO {
 
     }
 
-    public RegionIndicatorDTO(RegionIndicator ri) {
+    public RegionIndicatorDTO(final RegionIndicator ri, final String lang) {
+        boolean isFr = StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(LANG_FR);
         this.id = ri.getId();
-        this.name = ri.getName();
-        this.nameEnFr = ri.getName() + MINUS_STRING + ri.getYear();
-        this.description = ri.getDescription();
+        this.name = isFr ? ri.getNameFr() : ri.getName();
+        this.nameEnFr = ri.getName() + "/" + ri.getNameFr() + MINUS_STRING + ri.getYear();
+        this.description = isFr ? ri.getDescriptionFr() : ri.getDescription();
         this.year = ri.getYear();
         this.stats = ri.getStats().stream().map(rs -> new RegionStatDTO(rs)).collect(Collectors.toList());
         this.minValue = ri.getMinValue();

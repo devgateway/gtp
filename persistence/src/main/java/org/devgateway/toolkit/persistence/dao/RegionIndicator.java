@@ -23,7 +23,11 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     private String name;
 
+    private String nameFr;
+
     private String description;
+
+    private String descriptionFr;
 
     private String measure;
 
@@ -62,12 +66,28 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
         this.name = name;
     }
 
+    public String getNameFr() {
+        return nameFr;
+    }
+
+    public void setNameFr(String nameFr) {
+        this.nameFr = nameFr;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDescriptionFr() {
+        return descriptionFr;
+    }
+
+    public void setDescriptionFr(String descriptionFr) {
+        this.descriptionFr = descriptionFr;
     }
 
     public String getMeasure() {
