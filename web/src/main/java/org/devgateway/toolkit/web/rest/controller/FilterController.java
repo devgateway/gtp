@@ -130,6 +130,13 @@ public class FilterController {
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Get dataset organizations")
+    @RequestMapping(value = "/dataset/organizations", method = {POST, GET})
+    public List<Organization> getAllDatasetOrganizations() {
+        return datasetRepository.findDistinctOrganizations();
+    }
+
+    @CrossOrigin
     @ApiOperation(value = "Get organization information")
     @RequestMapping(value = "/organization", method = {POST, GET})
     public List<Organization> getAllOrganizations() {
