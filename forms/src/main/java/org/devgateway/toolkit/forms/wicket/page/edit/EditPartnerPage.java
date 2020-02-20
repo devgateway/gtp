@@ -69,6 +69,7 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
 
         FileInputBootstrapFormComponent logo = new FileInputBootstrapFormComponent("logo").maxFiles(1);
         editForm.add(logo);
+        logo.required();
 
         TextAreaFieldBootstrapFormComponent<String> contactInfo =
                 new TextAreaFieldBootstrapFormComponent<>("contactInfo");

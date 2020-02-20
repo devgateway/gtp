@@ -164,23 +164,29 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     @JsonIgnore
     public String getReducedName() {
-        String ret;
-        if (name != null && name.length() > 40) {
-            ret = name.substring(0, 39) + "...";
-        } else {
-            ret = name;
-        }
-        return ret;
+        return getReducedStr(name, 25);
     }
 
+    @JsonIgnore
+    public String getReducedNameFr() {
+        return getReducedStr(nameFr, 25);
+    }
 
     @JsonIgnore
     public String getReducedDesc() {
-        String ret;
-        if (description != null && description.length() > 60) {
-            ret = description.substring(0, 59) + "...";
-        } else {
-            ret = description;
+        return getReducedStr(description, 40);
+    }
+
+    @JsonIgnore
+    public String getReducedDescFr() {
+        return getReducedStr(descriptionFr, 40);
+    }
+
+    @JsonIgnore
+    public String getReducedStr(String label, int length) {
+        String ret = label;
+        if (label != null && label.length() > length) {
+            ret = label.substring(0, length - 1) + "...";
         }
         return ret;
     }
