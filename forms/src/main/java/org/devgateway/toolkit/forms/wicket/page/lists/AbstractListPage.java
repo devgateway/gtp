@@ -307,4 +307,8 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
             add(excelButton);
         }
     }
+
+    public BootstrapBookmarkablePageLink<T> getEditPageLink() {
+        return editPageLink;
+    }
 }

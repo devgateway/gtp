@@ -92,6 +92,7 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
         Select2ChoiceBootstrapFormComponent<Indicator> indicator =
                 new Select2ChoiceBootstrapFormComponent<>("indicator", choiceProvider);
         editForm.add(indicator);
+        indicator.setEnabled(false);
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("ansdLink");
         linkField.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));

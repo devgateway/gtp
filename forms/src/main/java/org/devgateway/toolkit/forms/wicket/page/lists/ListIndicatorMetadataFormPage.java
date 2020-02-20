@@ -49,6 +49,7 @@ public class ListIndicatorMetadataFormPage extends AbstractListPage<IndicatorMet
     protected void onInitialize() {
         super.onInitialize();
 
+        getEditPageLink().setEnabled(false);
     }
 
     @Override
