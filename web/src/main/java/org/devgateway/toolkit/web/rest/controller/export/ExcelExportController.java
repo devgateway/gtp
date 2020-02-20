@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller.export;
 
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.web.rest.controller.filter.IndicatorFilterPagingRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,10 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
+
 @RestController
 @RequestMapping(value = "/data/indicator")
 @CrossOrigin
 public class ExcelExportController {
+
+    public static final String EXCEL_EXPORT_XLSX_EN = "data-export.xlsx";
+    public static final String EXCEL_EXPORT_XLSX_FR = "exportation-de-donnees.xlsx";
 
     @Autowired
     private ExcelGenerator excelGenerator;
@@ -94,8 +100,10 @@ public class ExcelExportController {
 
     private void getResponse(@Valid @RequestBody IndicatorFilterPagingRequest filter, HttpServletResponse response,
                              ExcelGenerator.Indicators sheet) throws IOException {
+        String filename = StringUtils.isNotEmpty(filter.getLang()) && filter.getLang().equalsIgnoreCase(LANG_FR)
+                ? EXCEL_EXPORT_XLSX_FR : EXCEL_EXPORT_XLSX_EN;
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment; filename=" + "excel-export.xlsx");
+        response.setHeader("Content-Disposition", "attachment; filename=" + filename);
         response.getOutputStream().write(excelGenerator.getExcelDownload(filter, sheet));
     }
 }

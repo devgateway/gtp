@@ -23,10 +23,10 @@ public class AOIFilterPagingRequest extends DefaultFilterPagingRequest implement
         if (req.getIndexType() != null) {
             this.indexType.addAll(req.getIndexType());
         }
-        if (req.getSubsidies().getIndexType() != null) {
+        if (req.getSubsidies() != null && req.getSubsidies().getIndexType() != null) {
             this.indexType.addAll(req.getSubsidies().getIndexType());
         }
-        if (req.getBudget().getIndexType() != null) {
+        if (req.getBudget() != null && req.getBudget().getIndexType() != null) {
             this.indexType.addAll(req.getBudget().getIndexType());
         }
     }
