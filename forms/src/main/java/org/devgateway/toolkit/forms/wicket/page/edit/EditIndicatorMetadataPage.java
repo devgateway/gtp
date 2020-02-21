@@ -62,16 +62,14 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
     protected void onInitialize() {
         super.onInitialize();
 
-        TextFieldBootstrapFormComponent<String> introField = new TextFieldBootstrapFormComponent<>("intro");
-        introField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
-        editForm.add(introField);
-        introField.required();
-
         TextFieldBootstrapFormComponent<String> introFrField = new TextFieldBootstrapFormComponent<>("introFr");
         introFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(introFrField);
-        introField.required();
+        introFrField.required();
 
+        TextFieldBootstrapFormComponent<String> introField = new TextFieldBootstrapFormComponent<>("intro");
+        introField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
+        editForm.add(introField);
 
         List<Indicator> indicators = indicatorRepo.findAll();
         Indicator currentIndicator = editForm.getModelObject().getIndicator();
@@ -98,12 +96,14 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
         linkField.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES));
         editForm.add(linkField);
+        linkField.setVisibilityAllowed(false);
 
         TextFieldBootstrapFormComponent<String> sourceField = new TextFieldBootstrapFormComponent<>("source");
         sourceField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(sourceField);
 
         deleteButton.setEnabled(false);
+        deleteButton.setVisibilityAllowed(false);
     }
 
 }

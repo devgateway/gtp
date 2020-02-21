@@ -50,6 +50,7 @@ public class ListIndicatorMetadataFormPage extends AbstractListPage<IndicatorMet
         super.onInitialize();
 
         getEditPageLink().setEnabled(false);
+        getEditPageLink().setVisibilityAllowed(false);
     }
 
     @Override
