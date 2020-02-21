@@ -10,7 +10,6 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
-import static org.devgateway.toolkit.persistence.util.Constants.MINUS_STRING;
 
 public class RegionIndicatorDTO {
 
@@ -45,8 +44,8 @@ public class RegionIndicatorDTO {
     public RegionIndicatorDTO(final RegionIndicator ri, final String lang) {
         boolean isFr = StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(LANG_FR);
         this.id = ri.getId();
-        this.name = isFr ? ri.getNameFr() : ri.getName();
-        this.nameEnFr = ri.getName() + "/" + ri.getNameFr() + MINUS_STRING + ri.getYear();
+        this.name = isFr || StringUtils.isBlank(ri.getName()) ? ri.getNameFr() : ri.getName();
+        this.nameEnFr = ri.getFullNameYear();
         this.description = isFr ? ri.getDescriptionFr() : ri.getDescription();
         this.year = ri.getYear();
         this.stats = ri.getStats().stream().map(rs -> new RegionStatDTO(rs)).collect(Collectors.toList());

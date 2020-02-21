@@ -45,10 +45,10 @@ public class ListNationalIndicatorFormPage extends AbstractListPage<NationalIndi
         this.jpaService = service;
 
         this.editPageClass = EditNationalIndicatorPage.class;
-        columns.add(new LambdaColumn<>(new StringResourceModel("name", ListNationalIndicatorFormPage.this),
-                "name", NationalIndicator::getName));
         columns.add(new LambdaColumn<>(new StringResourceModel("nameFr", ListNationalIndicatorFormPage.this),
                 "nameFr", NationalIndicator::getNameFr));
+        columns.add(new LambdaColumn<>(new StringResourceModel("name", ListNationalIndicatorFormPage.this),
+                "name", NationalIndicator::getName));
         columns.add(new LambdaColumn<>(new StringResourceModel("source", ListNationalIndicatorFormPage.this),
                 "source", NationalIndicator::getSource));
         columns.add(new DirectLinkBootstrapPropertyColumn(new StringResourceModel("link",

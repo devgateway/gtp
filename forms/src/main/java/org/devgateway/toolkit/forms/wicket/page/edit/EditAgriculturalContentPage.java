@@ -74,7 +74,6 @@ public class EditAgriculturalContentPage extends AbstractEditPage<AgriculturalCo
         TextFieldBootstrapFormComponent<String> titleField = new TextFieldBootstrapFormComponent<>("title");
         titleField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(titleField);
-        titleField.required();
 
         TextFieldBootstrapFormComponent<String> titleFrField = new TextFieldBootstrapFormComponent<>("titleFr");
         titleFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
@@ -84,7 +83,6 @@ public class EditAgriculturalContentPage extends AbstractEditPage<AgriculturalCo
         TextFieldBootstrapFormComponent<String> descField = new TextFieldBootstrapFormComponent<>("description");
         descField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(descField);
-        descField.required();
 
         TextFieldBootstrapFormComponent<String> descFrField = new TextFieldBootstrapFormComponent<>("descriptionFr");
         descFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));

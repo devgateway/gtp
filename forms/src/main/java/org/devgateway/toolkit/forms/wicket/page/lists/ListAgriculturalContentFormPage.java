@@ -42,16 +42,16 @@ public class ListAgriculturalContentFormPage extends AbstractListPage<Agricultur
         this.jpaService = service;
         this.editPageClass = EditAgriculturalContentPage.class;
 
-        columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("title",
-                ListAgriculturalContentFormPage.this), "title", "reducedTitle"));
         columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("titleFr",
                 ListAgriculturalContentFormPage.this), "titleFr", "reducedTitleFr"));
+        columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("title",
+                ListAgriculturalContentFormPage.this), "title", "reducedTitle"));
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("publicationDateFormatted", ListAgriculturalContentFormPage.this),
                 "publicationDate", "publicationDateFormatted"));
         columns.add(new PropertyColumn<>(
-                new StringResourceModel("contentType", ListAgriculturalContentFormPage.this), "contentType",
-                "contentType"));
+                new StringResourceModel("contentType", ListAgriculturalContentFormPage.this), "contentTypeFr",
+                "contentTypeFr"));
 
     }
 

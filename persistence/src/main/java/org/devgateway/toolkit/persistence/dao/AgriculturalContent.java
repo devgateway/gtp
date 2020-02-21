@@ -121,6 +121,11 @@ public class AgriculturalContent extends AbstractAuditableEntity implements Seri
     }
 
     @JsonIgnore
+    public String getContentTypeFr() {
+        return contentType.getLabelFr();
+    }
+
+    @JsonIgnore
     public String getPublicationDateFormatted() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(publicationDate);

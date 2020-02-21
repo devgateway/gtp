@@ -44,10 +44,10 @@ public class ListRapidLinkFormPage extends AbstractListPage<RapidLink> {
 
         columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("rapidLinkPosition",
                 ListRapidLinkFormPage.this), "rapidLinkPosition", "rapidLinkPosition"));
-        columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("title",
-                ListRapidLinkFormPage.this), "title", "title"));
         columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("titleFr",
                 ListRapidLinkFormPage.this), "titleFr", "titleFr"));
+        columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("title",
+                ListRapidLinkFormPage.this), "title", "title"));
         columns.add(new LambdaColumn<>(new StringResourceModel("link",
                 ListRapidLinkFormPage.this), "link", RapidLink::getReducedLink));
     }

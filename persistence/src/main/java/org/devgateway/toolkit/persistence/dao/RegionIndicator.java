@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -205,5 +206,24 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     public void setRightMap(boolean rightMap) {
         this.rightMap = rightMap;
+    }
+
+    @JsonIgnore
+    public String getFullNameYear() {
+        StringBuilder sb = new StringBuilder();
+        if (StringUtils.isNotBlank(name)) {
+            sb.append(name);
+            if (StringUtils.isNotBlank(nameFr)) {
+                sb.append("/");
+            }
+        }
+        if (StringUtils.isNotBlank(nameFr)) {
+            sb.append(nameFr);
+        }
+        if (StringUtils.isNotBlank(year.toString())) {
+            sb.append(" - ");
+            sb.append(year);
+        }
+        return sb.toString();
     }
 }

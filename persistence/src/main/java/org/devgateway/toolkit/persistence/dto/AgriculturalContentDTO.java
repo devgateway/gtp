@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dto;
 
+import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.AgriculturalContent;
 
 import java.util.Date;
@@ -28,7 +29,7 @@ public class AgriculturalContentDTO {
             this.description = ac.getDescriptionFr();
             this.contentType = ac.getContentType().getLabel(LANG_FR);
         } else {
-            this.title = ac.getTitle();
+            this.title = StringUtils.isNotBlank(ac.getTitle()) ? ac.getTitle() : ac.getTitleFr();
             this.description = ac.getDescription();
             this.contentType = ac.getContentType().getLabel();
         }

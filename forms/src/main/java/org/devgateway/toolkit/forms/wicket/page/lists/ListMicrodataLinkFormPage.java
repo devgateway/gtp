@@ -50,10 +50,10 @@ public class ListMicrodataLinkFormPage extends AbstractListPage<MicrodataLink> {
                 ListMicrodataLinkFormPage.this), "createdDate", MicrodataLink::getCreationDate));
         columns.add(new LambdaColumn<>(new StringResourceModel("orgUser",
                 ListMicrodataLinkFormPage.this), MicrodataLink::getOrgUser));
-        columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("description",
-                ListMicrodataLinkFormPage.this), "description", "reducedDesc"));
         columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("descriptionFr",
                 ListMicrodataLinkFormPage.this), "descriptionFr", "reducedDescFr"));
+        columns.add(new TextFilteredBootstrapPropertyColumn<>(new StringResourceModel("description",
+                ListMicrodataLinkFormPage.this), "description", "reducedDesc"));
         columns.add(new DirectLinkBootstrapPropertyColumn(new StringResourceModel("link",
                 ListMicrodataLinkFormPage.this), "link"));
     }

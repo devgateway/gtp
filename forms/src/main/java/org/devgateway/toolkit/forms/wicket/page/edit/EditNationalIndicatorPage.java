@@ -53,7 +53,6 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
         TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("name");
         name.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(name);
-        name.required();
 
         TextFieldBootstrapFormComponent<String> description = new TextFieldBootstrapFormComponent<>("description");
         description.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));

@@ -74,25 +74,24 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
     protected void onInitialize() {
         super.onInitialize();
 
-        final TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("name");
-        name.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
-        name.required();
-        editForm.add(name);
-
         final TextFieldBootstrapFormComponent<String> nameFr = new TextFieldBootstrapFormComponent<>("nameFr");
         nameFr.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
         nameFr.required();
         editForm.add(nameFr);
 
-        final TextFieldBootstrapFormComponent<String> description =
-                new TextFieldBootstrapFormComponent<>("description");
-        description.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
-        editForm.add(description);
-
         final TextFieldBootstrapFormComponent<String> descriptionFr =
                 new TextFieldBootstrapFormComponent<>("descriptionFr");
         descriptionFr.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
         editForm.add(descriptionFr);
+
+        final TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("name");
+        name.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
+        editForm.add(name);
+
+        final TextFieldBootstrapFormComponent<String> description =
+                new TextFieldBootstrapFormComponent<>("description");
+        description.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
+        editForm.add(description);
 
         final TextFieldBootstrapFormComponent<String> measure =
                 new TextFieldBootstrapFormComponent<>("measure");

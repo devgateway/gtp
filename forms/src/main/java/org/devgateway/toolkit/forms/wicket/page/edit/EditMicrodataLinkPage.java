@@ -62,25 +62,23 @@ public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
     protected void onInitialize() {
         super.onInitialize();
 
-        TextFieldBootstrapFormComponent<String> titleField = new TextFieldBootstrapFormComponent<>("title");
-        titleField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
-        editForm.add(titleField);
-        titleField.required();
-
         TextFieldBootstrapFormComponent<String> titleFrField = new TextFieldBootstrapFormComponent<>("titleFr");
         titleFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(titleFrField);
         titleFrField.required();
 
-        TextFieldBootstrapFormComponent<String> descField = new TextFieldBootstrapFormComponent<>("description");
-        descField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
-        editForm.add(descField);
-        descField.required();
-
         TextFieldBootstrapFormComponent<String> descFrField = new TextFieldBootstrapFormComponent<>("descriptionFr");
         descFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(descFrField);
         descFrField.required();
+
+        TextFieldBootstrapFormComponent<String> titleField = new TextFieldBootstrapFormComponent<>("title");
+        titleField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
+        editForm.add(titleField);
+
+        TextFieldBootstrapFormComponent<String> descField = new TextFieldBootstrapFormComponent<>("description");
+        descField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
+        editForm.add(descField);
 
         Select2ChoiceBootstrapFormComponent<Organization> organization = ComponentUtil.addSelect2ChoiceField(editForm,
                 "organization", new TextSearchableAdapter<>(orgRepo));

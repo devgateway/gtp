@@ -78,7 +78,6 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
         TextFieldBootstrapFormComponent<String> titleField = new TextFieldBootstrapFormComponent<>("title");
         titleField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(titleField);
-        titleField.required();
 
         TextFieldBootstrapFormComponent<String> titleFrField = new TextFieldBootstrapFormComponent<>("titleFr");
         titleFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
@@ -88,7 +87,6 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
         TextFieldBootstrapFormComponent<String> subtitleField = new TextFieldBootstrapFormComponent<>("subtitle");
         subtitleField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(subtitleField);
-        subtitleField.required();
 
         TextFieldBootstrapFormComponent<String> subtitleFrField = new TextFieldBootstrapFormComponent<>("subtitleFr");
         subtitleFrField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));

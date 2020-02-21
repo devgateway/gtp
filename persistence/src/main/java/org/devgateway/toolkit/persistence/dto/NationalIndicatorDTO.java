@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.dto;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.NationalIndicator;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class NationalIndicatorDTO {
     public NationalIndicatorDTO(NationalIndicator indicator, String lang) {
         this.id = indicator.getId();
         boolean isFr = lang != null && lang.equalsIgnoreCase(LANG_FR);
-        this.name = isFr ? indicator.getNameFr() : indicator.getName();
+        this.name = isFr || StringUtils.isBlank(indicator.getName()) ? indicator.getNameFr() : indicator.getName();
         this.description = isFr ? indicator.getDescriptionFr() : indicator.getDescription();
         this.source = indicator.getSource();
         this.link = indicator.getLink();
