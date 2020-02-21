@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.web.rest.controller.export;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.devgateway.toolkit.persistence.dao.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.dao.Region;
@@ -42,6 +43,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.devgateway.toolkit.persistence.util.Constants.EMPTY_STRING;
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 
 @Service
 @CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "excelExportCache")
@@ -51,6 +53,11 @@ public class ExcelGenerator {
     public static final String AGRICULTURAL_WOMEN_INDICATOR = "Agricultural Women Indicator";
     public static final String FOOD_LOSS_INDICATOR = "Food Loss Indicator";
     public static final String POVERTY_INDICATOR = "Poverty Indicator";
+
+    public static final String AOI_INDICATOR_FR = "Indice d'Orientation Agricole";
+    public static final String AGRICULTURAL_WOMEN_INDICATOR_FR = "Femmes dans le Secteur Agricole";
+    public static final String FOOD_LOSS_INDICATOR_FR = "Pertes Alimentaires";
+    public static final String POVERTY_INDICATOR_FR = "Pauvreté";
 
     private static final Map<Integer, Category> CATEGORIES = new HashMap<>();
     private static final Map<Integer, Region> REGIONS = new HashMap<>();
@@ -111,7 +118,7 @@ public class ExcelGenerator {
         return bytes;
     }
 
-    private ExcelInfo<PovertyDTO> getPovertyDTOExcelInfo(IndicatorFilterPagingRequest filters) {
+    private ExcelInfo<PovertyDTO> getPovertyDTOExcelInfo(final IndicatorFilterPagingRequest filters) {
         PovertyFilterPagingRequest request = new PovertyFilterPagingRequest(filters);
         PovertyFilterState filterState = new PovertyFilterState(request);
         List<PovertyDTO> aoi = povertyIndicatorService.findAll(filterState.getSpecification())
@@ -124,11 +131,20 @@ public class ExcelGenerator {
             intro = indicatorMetadata.getIntro(filters.getLang());
         }
         IndicatorTranslateService translator = new IndicatorTranslateService(filters.getLang());
+        String sheetName = getLabel(filters.getLang(), POVERTY_INDICATOR, POVERTY_INDICATOR_FR);
 
-        return (ExcelInfo<PovertyDTO>) new ExcelInfo(POVERTY_INDICATOR, intro, excelFilter, aoi, translator);
+        return (ExcelInfo<PovertyDTO>) new ExcelInfo(sheetName, intro, excelFilter, aoi, translator);
     }
 
-    private ExcelInfo<AgricultureOrientationIndexDTO> getAOIExcelInfo(IndicatorFilterPagingRequest filters) {
+    private String getLabel(String lang, String engLabel, String frLabel) {
+        String ret = engLabel;
+        if (StringUtils.isNotEmpty(lang) && lang.equalsIgnoreCase(LANG_FR)) {
+            ret = frLabel;
+        }
+        return ret;
+    }
+
+    private ExcelInfo<AgricultureOrientationIndexDTO> getAOIExcelInfo(final IndicatorFilterPagingRequest filters) {
         AOIFilterPagingRequest request = new AOIFilterPagingRequest(filters);
         AOIFilterState filterState = new AOIFilterState(request);
         List<AgricultureOrientationIndexDTO> aoi = aoiIndicatorService.findAll(filterState.getSpecification())
@@ -143,11 +159,13 @@ public class ExcelGenerator {
         }
         IndicatorTranslateService translator = new IndicatorTranslateService(filters.getLang());
 
-        return (ExcelInfo<AgricultureOrientationIndexDTO>) new ExcelInfo(AOI_INDICATOR, intro, excelFilter, aoi,
+        String sheetName = getLabel(filters.getLang(), AOI_INDICATOR, AOI_INDICATOR_FR);
+
+        return (ExcelInfo<AgricultureOrientationIndexDTO>) new ExcelInfo(sheetName, intro, excelFilter, aoi,
                 translator);
     }
 
-    private ExcelInfo<AgriculturalWomenDTO> getAgriculturalWomenExcelInfo(IndicatorFilterPagingRequest filters) {
+    private ExcelInfo<AgriculturalWomenDTO> getAgriculturalWomenExcelInfo(final IndicatorFilterPagingRequest filters) {
         AgriculturalWomenFilterPagingRequest request = new AgriculturalWomenFilterPagingRequest(filters);
         AgriculturalWomenFilterState filterState = new AgriculturalWomenFilterState(request);
         List<AgriculturalWomenDTO> women = womenIndicatorService.findAll(filterState.getSpecification())
@@ -161,11 +179,12 @@ public class ExcelGenerator {
         }
         IndicatorTranslateService translator = new IndicatorTranslateService(filters.getLang());
 
-        return (ExcelInfo<AgriculturalWomenDTO>) new ExcelInfo(AGRICULTURAL_WOMEN_INDICATOR,
-                intro, excelFilter, women, translator);
+        String sheetName = getLabel(filters.getLang(), AGRICULTURAL_WOMEN_INDICATOR, AGRICULTURAL_WOMEN_INDICATOR_FR);
+
+        return (ExcelInfo<AgriculturalWomenDTO>) new ExcelInfo(sheetName, intro, excelFilter, women, translator);
     }
 
-    private ExcelInfo<FoodLossDTO> getFoodLossExcelInfo(IndicatorFilterPagingRequest filters) {
+    private ExcelInfo<FoodLossDTO> getFoodLossExcelInfo(final IndicatorFilterPagingRequest filters) {
         FoodLossFilterPagingRequest request = new FoodLossFilterPagingRequest(filters);
         FoodLossFilterState filterState = new FoodLossFilterState(request);
         List<FoodLossDTO> aoi = foodLossIndicatorService.findAll(filterState.getSpecification())
@@ -179,7 +198,9 @@ public class ExcelGenerator {
         }
         IndicatorTranslateService translator = new IndicatorTranslateService(filters.getLang());
 
-        return (ExcelInfo<FoodLossDTO>) new ExcelInfo(FOOD_LOSS_INDICATOR, intro, excelFilter, aoi, translator);
+        String sheetName = getLabel(filters.getLang(), FOOD_LOSS_INDICATOR, FOOD_LOSS_INDICATOR_FR);
+
+        return (ExcelInfo<FoodLossDTO>) new ExcelInfo(sheetName, intro, excelFilter, aoi, translator);
     }
 
     enum Indicators {
