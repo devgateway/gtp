@@ -28,14 +28,15 @@ import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFor
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListAgriculturalContentFormPage;
-import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
+import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.AgriculturalContent;
 import org.devgateway.toolkit.persistence.dao.categories.ContentType;
 import org.devgateway.toolkit.persistence.repository.category.ContentTypeRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
-import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.util.List;
 
 
 /**
@@ -93,10 +94,16 @@ public class EditAgriculturalContentPage extends AbstractEditPage<AgriculturalCo
         publicationDate.required();
         editForm.add(publicationDate);
 
-        Select2ChoiceBootstrapFormComponent<ContentType> contentType = new Select2ChoiceBootstrapFormComponent<>(
-                "contentType", new GenericPersistableJpaTextChoiceProvider<>(
-                new TextSearchableAdapter<>(repo)));
-        contentType.required();
+        List<ContentType> contentTypes = repo.findAllPopulatedLang();
+        GenericChoiceProvider<ContentType> choiceProvider = new GenericChoiceProvider<ContentType>(contentTypes) {
+            @Override
+            public String getDisplayValue(ContentType contentType) {
+                return contentType.getLabelFr() + " / " + contentType.getLabel();
+            }
+        };
+
+        Select2ChoiceBootstrapFormComponent<ContentType> contentType =
+                new Select2ChoiceBootstrapFormComponent<>("contentType", choiceProvider);
         editForm.add(contentType);
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");

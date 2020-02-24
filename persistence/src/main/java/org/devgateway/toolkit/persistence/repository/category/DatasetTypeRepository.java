@@ -14,6 +14,6 @@ public interface DatasetTypeRepository extends CategoryRepository<DatasetType> {
 
     @Query("select r "
             + "from DatasetType r "
-            + "join r.localizedLabels as s ")
+            + "join fetch r.localizedLabels as s ")
     List<DatasetType> findAllPopulatedLang();
 }
