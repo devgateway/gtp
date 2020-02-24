@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.repository;
 import org.devgateway.toolkit.persistence.dao.Partner;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -13,7 +14,10 @@ import java.util.List;
 @Transactional
 public interface PartnerRepository extends BaseJpaRepository<Partner, Long> {
 
-    int countByName(String name);
+    @Query("select count(p) "
+            + "from Partner p "
+            + "where lower(p.name)=lower(:name) ")
+    int countByName(@Param("name") String name);
 
     @Query("select count(p) "
             + "from Partner p "

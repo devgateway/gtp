@@ -106,7 +106,7 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 Partner partner = editForm.getModelObject();
-                if (entityId == null && partnerService.countByName(partner.getName()) > 0) {
+                if (entityId == null && partnerService.countByName(partner.getName().trim()) > 0) {
                     feedbackPanel.error(new StringResourceModel("partnerNameError", this, null).getString());
                     target.add(feedbackPanel);
                     redirectToSelf = true;
