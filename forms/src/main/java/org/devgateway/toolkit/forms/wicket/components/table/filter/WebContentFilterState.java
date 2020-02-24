@@ -22,7 +22,7 @@ public class WebContentFilterState extends JpaFilterState<WebContent> {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (StringUtils.isNotBlank(title)) {
-                predicates.add(cb.like(root.get(WebContent_.title), "%" + title + "%"));
+                predicates.add(cb.like(cb.lower(root.get(WebContent_.title)), "%" + title.toLowerCase() + "%"));
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };

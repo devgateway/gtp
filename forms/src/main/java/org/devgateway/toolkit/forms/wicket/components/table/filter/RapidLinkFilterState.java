@@ -27,10 +27,10 @@ public class RapidLinkFilterState extends JpaFilterState<RapidLink> {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (StringUtils.isNotBlank(title)) {
-                predicates.add(cb.like(root.get(RapidLink_.TITLE), "%" + title + "%"));
+                predicates.add(cb.like(cb.lower(root.get(RapidLink_.TITLE)), "%" + title.toLowerCase() + "%"));
             }
             if (StringUtils.isNotBlank(titleFr)) {
-                predicates.add(cb.like(root.get(RapidLink_.TITLE_FR), "%" + titleFr + "%"));
+                predicates.add(cb.like(cb.lower(root.get(RapidLink_.TITLE_FR)), "%" + titleFr.toLowerCase() + "%"));
             }
             if (StringUtils.isNotBlank(rapidLinkPosition)) {
                 Join<RapidLink, RapidLinkPosition> join = root.join(RapidLink_.RAPID_LINK_POSITION);
