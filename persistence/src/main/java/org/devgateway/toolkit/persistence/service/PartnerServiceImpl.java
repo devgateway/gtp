@@ -38,4 +38,9 @@ public class PartnerServiceImpl extends BaseJpaServiceImpl<Partner> implements P
         return partnerRepository.findPartnerOrdered().stream()
                 .map(p -> new PartnerDTO(p, lang)).collect(Collectors.toList());
     }
+
+    @Override
+    public int countByName(String name) {
+        return partnerRepository.countByName(name);
+    }
 }

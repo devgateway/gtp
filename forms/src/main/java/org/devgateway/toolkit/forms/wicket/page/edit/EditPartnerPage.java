@@ -11,8 +11,10 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.page.edit;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.bean.validation.PropertyValidator;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.StringValidator;
@@ -30,8 +32,10 @@ import org.devgateway.toolkit.persistence.dao.Partner;
 import org.devgateway.toolkit.persistence.dao.categories.PartnerGroup;
 import org.devgateway.toolkit.persistence.repository.category.PartnerGroupRepository;
 import org.devgateway.toolkit.persistence.service.PartnerService;
+import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
 import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.wicketstuff.annotation.mount.MountPath;
+
 
 /**
  * @author Octavian Ciubotaru
@@ -45,6 +49,9 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
 
     @SpringBean
     private PartnerGroupRepository partnerGroupRepository;
+
+    @SpringBean
+    private ReleaseCacheService cacheService;
 
     public EditPartnerPage(final PageParameters parameters) {
         super(parameters);
@@ -90,5 +97,25 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
         url.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES));
         editForm.add(url);
 
+    }
+
+    @Override
+    public SaveEditPageButton getSaveEditPageButton() {
+        return new SaveEditPageButton("save", new StringResourceModel("save", EditPartnerPage.this, null)) {
+            private static final long serialVersionUID = 5214537995514151323L;
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
+                Partner partner = editForm.getModelObject();
+                if (entityId == null && partnerService.countByName(partner.getName()) > 0) {
+                    feedbackPanel.error(new StringResourceModel("partnerNameError", this, null).getString());
+                    target.add(feedbackPanel);
+                    redirectToSelf = true;
+                } else {
+                    jpaService.save(partner);
+                    cacheService.releaseCache();
+                    setResponsePage(listPageClass);
+                }
+            }
+        };
     }
 }
