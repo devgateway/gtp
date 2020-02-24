@@ -94,7 +94,6 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
 
         SummernoteBootstrapFormComponent description = new SummernoteBootstrapFormComponent("description");
         editForm.add(description);
-        description.required();
 
         SummernoteBootstrapFormComponent descriptionFr = new SummernoteBootstrapFormComponent("descriptionFr");
         editForm.add(descriptionFr);

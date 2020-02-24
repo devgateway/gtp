@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dto;
 
+import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.Partner;
 
 import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
@@ -33,7 +34,8 @@ public class PartnerDTO {
             this.description = partner.getDescriptionFr();
             this.groupType = partner.getGroupType().getLabelFr();
         } else {
-            this.description = partner.getDescription();
+            this.description = StringUtils.isNotBlank(partner.getDescription()) ? partner.getDescription() :
+                    partner.getDescriptionFr();
             this.groupType = partner.getGroupType().getLabel();
         }
 
