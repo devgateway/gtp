@@ -27,14 +27,15 @@ import org.devgateway.toolkit.forms.wicket.components.form.TextAreaFieldBootstra
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.util.ComponentUtil;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPartnerPage;
-import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
+import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.Partner;
 import org.devgateway.toolkit.persistence.dao.categories.PartnerGroup;
 import org.devgateway.toolkit.persistence.repository.category.PartnerGroupRepository;
 import org.devgateway.toolkit.persistence.service.PartnerService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
-import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.util.List;
 
 
 /**
@@ -68,11 +69,18 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
         name.getField().add(new PropertyValidator<>());
         name.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
 
-        Select2ChoiceBootstrapFormComponent<PartnerGroup> groupType = new Select2ChoiceBootstrapFormComponent<>(
-                "groupType", new GenericPersistableJpaTextChoiceProvider<>(
-                new TextSearchableAdapter<>(partnerGroupRepository)));
-        groupType.required();
+        List<PartnerGroup> partnerGroups = partnerGroupRepository.findAllFetchingLocalizedLabels();
+        GenericChoiceProvider<PartnerGroup> choiceProvider = new GenericChoiceProvider<PartnerGroup>(partnerGroups) {
+            @Override
+            public String getDisplayValue(PartnerGroup partnerGroup) {
+                return partnerGroup.getLabelFr() + " / " + partnerGroup.getLabel();
+            }
+        };
+
+        Select2ChoiceBootstrapFormComponent<PartnerGroup> groupType =
+                new Select2ChoiceBootstrapFormComponent<>("groupType", choiceProvider);
         editForm.add(groupType);
+        groupType.required();
 
         FileInputBootstrapFormComponent logo = new FileInputBootstrapFormComponent("logo").maxFiles(1);
         editForm.add(logo);

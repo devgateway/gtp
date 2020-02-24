@@ -780,4 +780,15 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="PartnerGroupUpdate" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <tableExists tableName="localized_category_label" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE localized_category_label SET label='Instituts de recherche et universités' WHERE label = 'Instituts de recherche';
+            UPDATE category SET label='Research Institutes & Universities' WHERE label = 'Research Institutes';
+        ]]></sql>
+    </changeSet>
+
 </databaseChangeLog>

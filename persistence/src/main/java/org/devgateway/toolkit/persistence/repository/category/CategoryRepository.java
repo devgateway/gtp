@@ -35,7 +35,7 @@ public interface CategoryRepository<T extends Category> extends TextSearchableRe
 
     List<IndexType> findByType(int typeId);
 
-    @Query("select cat from  #{#entityName} cat left join fetch cat.localizedLabels ")
-    List<Category> findAllFetchingLocalizedLabels();
+    @Query("select cat from  #{#entityName} cat left join fetch cat.localizedLabels order by cat.type asc")
+    List<T> findAllFetchingLocalizedLabels();
 
 }
