@@ -34,8 +34,8 @@ public class PartnerDTO {
             this.description = partner.getDescriptionFr();
             this.groupType = partner.getGroupType().getLabelFr();
         } else {
-            this.description = StringUtils.isNotBlank(partner.getDescription()) ? partner.getDescription() :
-                    partner.getDescriptionFr();
+            this.description = StringUtils.isNotBlank(partner.getDescription()) ? partner.getDescription()
+                    : partner.getDescriptionFr();
             this.groupType = partner.getGroupType().getLabel();
         }
 
