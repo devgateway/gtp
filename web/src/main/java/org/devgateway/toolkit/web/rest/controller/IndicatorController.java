@@ -6,9 +6,11 @@ import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicat
 import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dto.IndicatorData;
+import org.devgateway.toolkit.persistence.dto.IndicatorMetadataDTO;
 import org.devgateway.toolkit.persistence.service.AOIIndicatorService;
 import org.devgateway.toolkit.persistence.service.AgriculturalWomenIndicatorService;
 import org.devgateway.toolkit.persistence.service.FoodLossIndicatorService;
+import org.devgateway.toolkit.persistence.service.IndicatorMetadataService;
 import org.devgateway.toolkit.persistence.service.PovertyIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterState;
@@ -34,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -74,6 +77,9 @@ public class IndicatorController {
     @Autowired
     private AOIIndicatorService aoiService;
 
+    @Autowired
+    private IndicatorMetadataService metadataService;
+
     @CrossOrigin
     @ApiOperation(value = "Get summary data")
     @RequestMapping(method = POST)
@@ -85,6 +91,15 @@ public class IndicatorController {
         ret.put(AGRICULTURAL_WOMEN, getIndicatorAgriculturalWomen(new AgriculturalWomenFilterPagingRequest(req)));
         ret.put(AG_ORIENTATION, getIndicatorAOI(new AOIFilterPagingRequest(req)));
         return ret;
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get indicator metadata")
+    @RequestMapping(value = "/metadata", method = POST)
+    public @ResponseBody List<IndicatorMetadataDTO> getIndicatorMetadata(
+            @RequestBody(required = false) @Valid final DefaultFilterPagingRequest req) {
+        return metadataService.findAll().stream().map(im -> new IndicatorMetadataDTO(im, req.getLang()))
+                .collect(Collectors.toList());
     }
 
     @CrossOrigin
