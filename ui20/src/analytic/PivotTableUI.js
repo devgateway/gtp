@@ -629,7 +629,7 @@ var PivotTableUI = function (_React$PureComponent2) {
         return _this8.setState({ unusedOrder: order });
       }, 'pvtAxisContainer pvtUnused ' + (horizUnused ? 'pvtHorizList' : 'pvtVertList'));
 
-      debugger;
+      
       var colAttrs = this.props.cols.filter(function (e) {
         return !_this8.props.hiddenAttributes.includes(e) && !_this8.props.hiddenFromDragDrop.includes(e);
       });
@@ -649,7 +649,7 @@ var PivotTableUI = function (_React$PureComponent2) {
       );
 
       if (horizUnused) {
-        debugger;
+        
         return _react2.default.createElement(
           'table',
           { className: 'pvtUi' },

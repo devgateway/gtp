@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@nivo/bar": "^0.61.1",
+    "@nivo/bullet": "^0.61.1",
     "@nivo/line": "^0.61.1",
     "connected-react-router": "^6.5.2",
     "d3": "^5.14.2",

@@ -19,6 +19,7 @@ import Footer from './layout/Footer'
 import Indicators from './indicators'
 import Microdata from './microdata'
 import Maps from './maps/index.jsx'
+import NationalIndicators from './national/index.jsx'
 import Partners from './partners'
 import Initiatives from './initiatives'
 import smoothscroll from 'smoothscroll-polyfill';
@@ -112,6 +113,12 @@ class IntlRoutes extends Component {
                         <Header></Header>
                         <Initiatives></Initiatives>
                       </div>)}/>
+
+
+                                      <Route exact={true} path="/:lan/national" render={() => (<div>
+                                          <Header></Header>
+                                          <NationalIndicators></NationalIndicators>
+                                        </div>)}/>
             <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
           </Switch>
 

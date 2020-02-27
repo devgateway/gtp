@@ -19,7 +19,7 @@ const API_PARTNERS_URL = API_ROOT + '/data/partner/all'
 const URL_API_INITIATIVE_TYPES = API_ROOT + '/data/filter/contentType'
 const URL_API_INITIATIVE_ITEMS = API_ROOT + '/data/agriculturalContent/type'
 const URL_DATA_SETS_YEARS = API_ROOT + '/data/filter/dataset/years'
-
+const API_NATIONAL_URL = API_ROOT + '/data/nationalIndicator/all'
 
 const xlsExportURLBuilder = (what) => {
   let subfix = ''
@@ -129,6 +129,11 @@ export const getItems = (category, path, params) => {
 
 export const getGISData = () => {
   return post(API_GIS_URL, {})
+}
+
+
+export const getNationalIndicators = (params) => {
+  return post(API_NATIONAL_URL, {...params})
 }
 
 

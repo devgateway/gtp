@@ -27,6 +27,8 @@ const AnalystDropdown = withRouter(injectIntl((props) => (
       <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/consumption`)} text={<FormattedMessage id="home.header.menu.consumption" defaultMessage={"Consumption"} values={""}/>} />
       <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/marketPrice`)} text={<FormattedMessage id="home.header.menu.market" defaultMessage={"Market"} values={""}/>} />
       <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/gis`)} text={<FormattedMessage id="home.header.menu.gis.map" defaultMessage={"GIS Map"} values={""}/>} />
+      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/national`)} text={<FormattedMessage id="home.header.menu.indicator.national" defaultMessage={"National Indicators"} values={""}/>} />
+
     </Dropdown.Menu>
   </Dropdown>
 )))

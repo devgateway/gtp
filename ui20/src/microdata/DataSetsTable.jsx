@@ -68,7 +68,7 @@ class TableComponent extends Component {
       }else{
          direction = 'ASC'
       }
-      debugger;
+      
       onChangeFilter(['filters','datasets',"sortDir"],direction,locale,'DATASETS',true)
       onChangeFilter(['filters','datasets','sortBy'],clickedColumn,locale,'DATASETS',false)
 
@@ -105,7 +105,8 @@ class TableComponent extends Component {
                       <FormattedMessage id="microdata.table.source" defaultMessage="Source"/>
                     </Table.HeaderCell>
                     <Table.HeaderCell sorted={column === 'source' ? directionLong : null} onClick={handleSort('source')}>
-                      <FormattedMessage id="microdata.table.survey_year" defaultMessage="Survey Year"/>
+                      <FormattedMessage id="microdata.table.survey_year" defaultMessage="Survey Year
+                      "/>
                     </Table.HeaderCell>
 
 

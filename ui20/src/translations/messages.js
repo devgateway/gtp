@@ -221,11 +221,11 @@ const messages = defineMessages({
   },
 
 
-    totals: {
-      id: 'data.field.totals',
-      defaultMessage: 'Totals',
-      description: 'Totals table label'
-    },
+  totals: {
+    id: 'data.field.totals',
+    defaultMessage: 'Totals',
+    description: 'Totals table label'
+  },
 
   methodOfEnforcement: {
     id: 'data.field.enforcement_method',
@@ -392,18 +392,50 @@ const messages = defineMessages({
   },
 
 
+  accent: {
+    id: 'data.field.accent',
+    defaultMessage: 'Accent Colors',
+  },
+  dark2: {
+    id: 'data.field.dark2',
+    defaultMessage: 'Dark Colors',
+  },
+  paired: {
+    id: 'data.field.paired',
+    defaultMessage: 'Paired Colors',
+  },
+  pastel1: {
+    id: 'data.field.pastel1',
+    defaultMessage: 'Pastel Colors',
+  },
+  pastel2: {
+    id: 'data.field.pastel2',
+    defaultMessage: 'Pastel Colors (2)',
+  },
+  set1: {
+    id: 'data.field.set1',
+    defaultMessage: 'Set1',
+  },
+  set2: {
+    id: 'data.field.set2',
+    defaultMessage: 'Set2',
+  },
+  set3: {
+    id: 'data.field.set3',
+    defaultMessage: 'Set3',
+  },
 
-  table_help_unused_cols:{
+  table_help_unused_cols: {
     id: 'table.unsed.cols',
     defaultMessage: 'Drag and drop elements as rows or columns',
 
   },
-  table_help_used_cols:{
+  table_help_used_cols: {
     id: 'table.unsed.cols',
     defaultMessage: 'Element used as columns',
 
   },
-  table_help_used_rows:{
+  table_help_used_rows: {
     id: 'table.unsed.cols',
     defaultMessage: 'Element used as Rows',
 
