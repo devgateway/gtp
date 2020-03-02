@@ -105,6 +105,7 @@ public class EditAgriculturalContentPage extends AbstractEditPage<AgriculturalCo
         Select2ChoiceBootstrapFormComponent<ContentType> contentType =
                 new Select2ChoiceBootstrapFormComponent<>("contentType", choiceProvider);
         editForm.add(contentType);
+        contentType.required();
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");
         linkField.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
