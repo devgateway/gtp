@@ -14,6 +14,12 @@ import java.util.List;
 @Transactional
 public interface PartnerRepository extends BaseJpaRepository<Partner, Long> {
 
+    @Query("select r "
+            + "from Partner r "
+            + "join fetch r.groupType rl "
+            + "join fetch rl.localizedLabels")
+    List<Partner> findAllPopulatedLang();
+
     @Query("select count(p) "
             + "from Partner p "
             + "where lower(p.name)=lower(:name) ")
