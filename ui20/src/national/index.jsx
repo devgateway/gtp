@@ -57,30 +57,6 @@ class GIS extends Component {
           </div>
 
 
-
-            <div className="national chart description">
-              <p>
-                <FormattedMessage id="national.charts.percent_based" defaultMessage="Percentages based valued indicators"></FormattedMessage>
-                </p>
-
-            </div>
-
-          <Grid fluid>
-              <Grid.Column width={16}>
-                    <PercentChartContainer data={data}/>
-                  </Grid.Column>
-          </Grid>
-
-            <div className="national chart description">
-                    <p>
-                    <FormattedMessage id="national.charts.unit_based" defaultMessage="Unit based valued indicators"></FormattedMessage>
-
-                    </p>
-
-                </div>
-
-
-
           <Grid fluid  columns='equal'>
 
             {range.map(n=>{

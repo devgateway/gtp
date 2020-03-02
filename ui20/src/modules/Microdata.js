@@ -83,7 +83,7 @@ export const cleanFilter = (path) => (dispatch, getState) => {
 export const changeFilter = (path, value,locale, updates=[], doNotUpdate) => (dispatch, getState) => {
 
   dispatch({type: CHANGE_TABLE_FILTER, path, value})
-  debugger;
+  
   if(updates.indexOf('DATASETS') > -1 && !doNotUpdate){
     dispatch(loadDatasets(locale));
   }

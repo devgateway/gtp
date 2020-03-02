@@ -1,6 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Josefin+Slab|Arvo|Lato|Vollkorn|Abril+Fatface|Old+Standard+TT|Droid+Sans|Lobster|Inconsolata|Montserrat|Playfair+Display|Karla|Alegreya|Libre+Baskerville|Merriweather|Lora|Archivo+Narrow|Neuton|Signika|Questrial|Fjalla+One|Bitter|Varela+Round);
 @import "../base.scss";
 
+.tooltip {
+  border: 1px solid red;
+  min-height: 30px;
+  position: absolute;
+}
+
 .national.container {
   margin: auto;
   width: $page-width;
@@ -46,147 +52,6 @@
     }
   }
   //------------->
-  .ui.grid {
-    padding: 0;
-    margin: 0;
-
-    .row {
-      padding: 0;
-      margin: 0;
-    }
-
-    .column {
-      padding: 5px;
-      margin: 0;
-    }
-  }
-
-  .national.chart.description {
-    background-color: #f6faf5;
-    height: 80px;
-    line-height: 80px;
-    padding-left: 20px;
-    border-bottom: 1px solid $border-color;
-
-    p {
-      color: #497423 !important;
-      float: left;
-      font-size: 24px;
-      line-height: 80px;
-    }
-
-    .icons.container {
-      padding: 20px;
-
-      .export {
-        float: right;
-        margin: 10px;
-      }
-    }
-  }
-
-  .national.filter.container {
-    width: 100% !important;
-    padding: 7px;
-    height: 50px;
-
-    .ui.fluid.dropdown {
-      width: 100% !important;
-      display: block;
-      color: #646464;
-      background-color: #f9f9f9;
-      height: 32px;
-      padding-top: 5px;
-      font-size: 12px;
-      font-weight: bold;
-      padding-right: 10px;
-      padding-left: 5px;
-      border: 1px solid $border-color;
-      border-radius: 3px;
-
-      .divider {
-        display: none;
-      }
-    }
-
-    .dropdown.icon {
-      float: right;
-    }
-
-    .item {
-      cursor: pointer !important;
-    }
-
-    .filter.item.indicator {
-      width: 70%;
-      padding-right: 5px;
-    }
-
-    .filter.item.indicator.wide {
-      width: 100%;
-      padding-right: 5px;
-    }
-
-    .filter.item.color {
-      width: 30%;
-    }
-
-    .filter.item {
-      float: left;
-      cursor: pointer;
-
-      .text {
-        padding-left: 4px;
-
-        .breadcrums {
-          span {
-            font-size: 11px;
-          }
-        }
-      }
-    }
-  }
-
-  div.tooltip {
-    position: absolute;
-    text-align: center;
-    width: 120px;
-    padding: 2px;
-    font: 12px $font;
-    background: $color-green;
-    border: 0;
-    border-radius: 8px;
-    pointer-events: none;
-  }
-
-  div.checkbox {
-    margin-left: 5px;
-    margin-right: 5px;
-    width: 15px;
-    height: 15px;
-    float: left;
-    margin-top: -2px;
-    border: 1px solid $border-color;
-    border-radius: 4px;
-  }
-
-  div.checkbox.checked {}
-
-  div.checkbox.checked::before {
-    content: '';
-    background-color: #8dc63f;
-    margin-left: -1px;
-    margin-right: 5px;
-    width: 15px;
-    height: 15px;
-    float: left;
-    margin-top: -1px;
-    border: 1px solid $border-color;
-    border-radius: 4px;
-    position: absolute;
-    padding-left: 2px;
-  }
-
   .buttons {
     div {
       cursor: pointer;
@@ -210,89 +75,138 @@
 
   .national.chart.container {
     width: 100%;
-    height: 700px;
 
-    .national.chart {
+    .national.filter.container {
       display: block;
       clear: both;
-      border: 1px solid $border-color;
-      border: 1px solid #CCC;
-      border-radius: 6px;
-      margin-top: 5px;
-      width: 100%;
-      font-size: 12px;
+      width: 100% !important;
+      height: 55px;
 
-      .tooltip {
-        overflow: auto;
-        line-height: 28px;
+
+
+      .ui.fluid.dropdown {
+        width: 100% !important;
+        display: block;
+        color: #646464;
+        background-color: #f9f9f9;
+        height: 52px;
         margin: 0;
+        padding-top: 5px;
+        padding-right: 5px;
+        padding-left: 5px;
+        border: 1px solid $border-color;
         border-radius: 3px;
-        background-color: #EEE;
-        padding: 0 10px;
 
-        .label {
+        .text {
+          line-height: 40px;
+          margin: auto;
+          width: 90%;
+          font-size: 16px;
+          overflow: hidden;
+          height: 40px;
+        }
+
+        .divider {
+          display: none;
+        }
+
+        div.tooltip {
+          position: absolute;
+          text-align: center;
+          width: 120px;
+          padding: 2px;
+          font: 12px $font;
+          background: $color-green;
+          border: 0;
+          border-radius: 8px;
+          pointer-events: none;
+        }
+
+        div.checkbox {
+          margin-left: 5px;
+          margin-right: 5px;
+          width: 15px;
+          height: 15px;
           float: left;
+          margin-top: -2px;
+          border: 1px solid $border-color;
+          border-radius: 4px;
         }
 
-        .label::after {
-          content: '-';
-          margin-left: 3px;
-          margin-right: 3px;
-        }
+        div.checkbox.checked {}
 
-        .color {
-          width: 4px;
+        div.checkbox.checked::before {
+          content: '';
+          background-color: #8dc63f;
+          margin-left: -1px;
+          margin-right: 5px;
+          width: 15px;
+          height: 15px;
           float: left;
-          height: 28px;
-          margin-right: 10px;
-          margin-left: -6px;
+          margin-top: -1px;
+          border: 1px solid $border-color;
+          border-radius: 4px;
+          position: absolute;
+          padding-left: 2px;
         }
+      }
 
-        .x {
-          float: left;
-          margin: 0;
-        }
+      .options{
+        overflow: hidden;
+      }
 
-        .y::before {
-          content: ' : ';
-          margin: 2px;
-        }
+      .dropdown.icon {
+        float: right;
+        margin-right: 5px;
+        margin-top: 5px;
+      }
 
-        .y {
-          float: left;
-          margin: 0;
-          padding: 0;
+      .item {
+        cursor: pointer !important;
+      }
+
+      .filter.item.indicator {
+        width: 70%;
+        padding-right: 5px;
+      }
+
+      .filter.item.indicator.wide {
+        width: 100%;
+        padding-right: 5px;
+      }
+
+      .filter.item.color {
+        width: 30%;
+      }
+
+      .filter.item {
+        float: left;
+        cursor: pointer;
+
+        .text {
+          padding-left: 4px;
+
+          .breadcrums {
+            span {
+              font-size: 11px;
+            }
+          }
         }
       }
     }
 
-
-
-    .national.chart{
-      padding: 5px;
+    .national.chart {
+      background-color: #f9f9f9;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      display: block;
+      height: 430px;
+      padding-bottom: 20px;
       width: 100%;
-      height: 400px;
-      .reference.year{
-        color:#000;
-        margin-top: 3px;
-        margin-left: 5px;
-        font-weight: $font;
-        font-size: 12px;
-        font-weight: bold;
-        text-transform: uppercase;
+      text{
+        font-size: 13px !important;
       }
     }
-
-    .national.chart.short {
-      border: 1px solid #000;
-      border-radius: 6px;
-
-      height: 100px !important;
-      background-color: #Fbfbfb;
-    }
-
-    .national.chart.tall {
-      height: 650px;
-    }
+    margin-bottom: 40px;
   }
 }
