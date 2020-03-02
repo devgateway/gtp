@@ -107,7 +107,7 @@ var tooltip = d3.select("body")
 
 
 
-var showTooltip = function(e,target,value,color) {
+var showTooltip = function(e,html,color) {
 
   tooltip
     .transition()
@@ -115,8 +115,8 @@ var showTooltip = function(e,target,value,color) {
 
   tooltip
     .style("opacity", 1)
-    .style("background-color",color)
-    .html("Target Year " +target+' - Value '+value)
+    .attr("class",tooltip)
+    .html("<div className='square' style='background-color:"+color+"'></div>" +html)
     .style("left", (e.pageX -300 + "px"))
     .style("top", (e.pageY+ "px"))
 }
@@ -152,33 +152,36 @@ const CustomRange = ({ x, y, width, height, color, onMouseEnter, onMouseMove, on
 )
 
 
-const CustomMeasure = (props) =>{
+
+export const Bullet =injectIntl(({ data ,refData, intl/* see data tab */, keys,indexBy , groupMode, color}) => {
+
+
+
+  const CustomMeasure = (props) =>{
 
     const { x, y, width, height, color, onMouseEnter, onMouseMove, onMouseLeave } = props
 
+    return (
+      <rect
+          className="measure"
+          x={x + 2}
+          y={y + 2}
+          rx={height / 4}
+          ry={height / 2}
+          width={width - 4}
+          height={height - 4}
+          fill={color}
+          onMouseEnter={e=>{
 
-  return (
-    <rect
-        className="measure"
-        x={x + 2}
-        y={y + 2}
-        rx={height / 4}
-        ry={height / 2}
-        width={width - 4}
-        height={height - 4}
-        fill={color}
-        onMouseEnter={e=>{
-          debugger;
-          var t=d3.select(e.target)
-          console.log(t)
-          showTooltip(e,x,y, color)
-        }}
-        onMouseMove={moveTooltip}
-        onMouseLeave={hideTooltip}
-    />
-)
-}
-export const Bullet =injectIntl(({ data ,refData, intl/* see data tab */, keys,indexBy , groupMode, color}) => {
+            const index=[...e.target.parentElement.parentElement.parentElement.getElementsByClassName("measure")].indexOf(e.target)
+
+            showTooltip(e,data[index].id,data[index].measure[0], color)
+          }}
+          onMouseMove={moveTooltip}
+          onMouseLeave={hideTooltip}
+      />
+  )
+  }
 
 
   const CustomMarker = (props) => {
