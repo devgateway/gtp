@@ -100,14 +100,12 @@ var tooltip = d3.select("body")
     .append("div")
       .style("opacity", 0)
       .attr("class", "tooltip")
-      .style("background-color", "black")
-      .style("border-radius", "5px")
-      .style("padding", "10px")
-      .style("color", "white")
 
 
 
-var showTooltip = function(e,html,color) {
+
+
+var showTooltip = function(e,html,color, xOffset=0, yOffset=0) {
 
   tooltip
     .transition()
@@ -115,17 +113,21 @@ var showTooltip = function(e,html,color) {
 
   tooltip
     .style("opacity", 1)
-    .attr("class",tooltip)
-    .html("<div className='square' style='background-color:"+color+"'></div>" +html)
-    .style("left", (e.pageX -300 + "px"))
-    .style("top", (e.pageY+ "px"))
+    .attr("class","tooltip")
+    .html("<div class='square' style='background-color:"+color+"'></div><div class='label'>" +html+"</div>")
+    .style("left", ((e.pageX  +xOffset)  + "px"))
+    .style("top", ((e.pageY+yOffset )+  "px"))
 }
-var moveTooltip = function(e) {
+
+
+var moveTooltip = function(e, xOffset=0, yOffset=0) {
 
   tooltip
-  .style("left", (e.pageX -300 + "px"))
-  .style("top", (e.pageY+ "px"))
+  .style("left", ((e.pageX  + xOffset)  + "px"))
+  .style("top", ((e.pageY+ yOffset )+  "px"))
 }
+
+
 var hideTooltip = function(d) {
   tooltip
     .transition()
@@ -145,9 +147,9 @@ const CustomRange = ({ x, y, width, height, color, onMouseEnter, onMouseMove, on
         width={width - 4}
         height={height - 4}
         fill={color}
-        onMouseEnter={onMouseEnter}
-        onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}
+        onMouseEnter={e=>null}
+        onMouseMove={e=>null}
+        onMouseLeave={e=>null}
     />
 )
 
@@ -162,6 +164,17 @@ export const Bullet =injectIntl(({ data ,refData, intl/* see data tab */, keys,i
     const { x, y, width, height, color, onMouseEnter, onMouseMove, onMouseLeave } = props
 
     return (
+      <g
+      onMouseEnter={e=>{
+        const index=[...e.target.parentElement.parentElement.parentElement.getElementsByClassName("measure")].indexOf(e.target)
+        const d=data[index]
+        const {measure,measures,id}=d;
+
+        showTooltip(e,`${id} - ${measures[0]}${measure}`, color,0,0)
+      }}
+      onMouseMove={e=>moveTooltip(e,30,0)}
+      onMouseLeave={hideTooltip}
+      >
       <rect
           className="measure"
           x={x + 2}
@@ -171,15 +184,9 @@ export const Bullet =injectIntl(({ data ,refData, intl/* see data tab */, keys,i
           width={width - 4}
           height={height - 4}
           fill={color}
-          onMouseEnter={e=>{
 
-            const index=[...e.target.parentElement.parentElement.parentElement.getElementsByClassName("measure")].indexOf(e.target)
-
-            showTooltip(e,data[index].id,data[index].measure[0], color)
-          }}
-          onMouseMove={moveTooltip}
-          onMouseLeave={hideTooltip}
       />
+          </g>
   )
   }
 
@@ -188,14 +195,18 @@ export const Bullet =injectIntl(({ data ,refData, intl/* see data tab */, keys,i
       const { x, y,size,value, width,rotation,onClick, height, color, onMouseEnter, onMouseMove, onMouseLeave } = props
       return (
 
-        <g>
+        <g
+
+          onMouseEnter={e=>{
+            showTooltip(e,`TARGET YEAR: ${refData[0].id} -  ${refData[0].measures[0]}${refData[0].measure} `,'#39B54A')
+          }}
+          onMouseMove={e=>moveTooltip(e,0,0)}
+          onMouseLeave={hideTooltip}
+          >
 
           <line
-              onMouseEnter={e=>{
-                showTooltip(e,refData[0].id, refData[0].measures[0],'#39B54A')
-              }}
-              onMouseMove={moveTooltip}
-              onMouseLeave={hideTooltip}
+
+
               transform={`rotate(${rotation}, ${x}, ${y})`}
               x1={x}
               x2={x}
@@ -207,6 +218,7 @@ export const Bullet =injectIntl(({ data ,refData, intl/* see data tab */, keys,i
               strokeWidth="8"
               onClick={onClick}
             />
+
 
         </g>
     )
@@ -234,10 +246,9 @@ export const Bullet =injectIntl(({ data ,refData, intl/* see data tab */, keys,i
               animate={true}
               motionStiffness={90}
               motionDamping={12}
-
-              rangeComponent={CustomRange}
-              markerComponent={CustomMarker}
               measureComponent={CustomMeasure}
+              markerComponent={CustomMarker}
+              rangeComponent={CustomRange}
           />
           </div>
     </div>)

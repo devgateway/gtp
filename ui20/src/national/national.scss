@@ -1,10 +1,30 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Josefin+Slab|Arvo|Lato|Vollkorn|Abril+Fatface|Old+Standard+TT|Droid+Sans|Lobster|Inconsolata|Montserrat|Playfair+Display|Karla|Alegreya|Libre+Baskerville|Merriweather|Lora|Archivo+Narrow|Neuton|Signika|Questrial|Fjalla+One|Bitter|Varela+Round);
 @import "../base.scss";
 
 .tooltip {
-  border: 1px solid red;
-  min-height: 30px;
+
+  color: #000;
+  background-color: #FFF;
   position: absolute;
+  -webkit-box-shadow: 7px 9px 15px -9px rgba(0,0,0,0.66);
+  -moz-box-shadow: 7px 9px 15px -9px rgba(0,0,0,0.66);
+  box-shadow: 7px 9px 15px -9px rgba(0,0,0,0.66);
+  border-radius:5px;
+  padding:10px;
+
+
+  .square {
+    margin-right: 4px;
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-top: 4px;
+  }
+
+  .label{
+    line-height: 22px;
+    float: left;
+
+  }
 }
 
 .national.container {
@@ -82,13 +102,12 @@
       width: 100% !important;
       height: 55px;
 
-
-
       .ui.fluid.dropdown {
         width: 100% !important;
         display: block;
-        color: #646464;
-        background-color: #f9f9f9;
+        font-weight: bold;
+        color: #818181;
+        background-color: #f6faf5;
         height: 52px;
         margin: 0;
         padding-top: 5px;
@@ -151,7 +170,7 @@
         }
       }
 
-      .options{
+      .options {
         overflow: hidden;
       }
 
@@ -203,10 +222,15 @@
       height: 430px;
       padding-bottom: 20px;
       width: 100%;
-      text{
+
+      text {
         font-size: 13px !important;
       }
+
+      g {
+        pointer-events: all;
+      }
     }
-    margin-bottom: 40px;
+    margin-bottom: 10px;
   }
 }
