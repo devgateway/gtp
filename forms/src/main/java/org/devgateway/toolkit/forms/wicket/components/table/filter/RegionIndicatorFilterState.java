@@ -20,8 +20,8 @@ import java.util.List;
 public class RegionIndicatorFilterState extends JpaFilterState<RegionIndicator> {
 
     private static final long serialVersionUID = 8005371716983257722L;
-    private String name;
-    private String description;
+    private String reducedNameFr;
+    private String reducedName;
     private String organization;
 
     public RegionIndicatorFilterState() {
@@ -35,12 +35,12 @@ public class RegionIndicatorFilterState extends JpaFilterState<RegionIndicator> 
     public Specification<RegionIndicator> getSpecification() {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
-            if (StringUtils.isNotBlank(name)) {
-                predicates.add(cb.like(cb.lower(root.get(RegionIndicator_.name)), "%" + name.toLowerCase() + "%"));
+            if (StringUtils.isNotBlank(reducedName)) {
+                predicates.add(cb.like(cb.lower(root.get(RegionIndicator_.NAME)), "%" + reducedName.toLowerCase() + "%"));
             }
-            if (StringUtils.isNotBlank(description)) {
-                predicates.add(cb.like(cb.lower(root.get(RegionIndicator_.description)), "%"
-                        + description.toLowerCase() + "%"));
+            if (StringUtils.isNotBlank(reducedNameFr)) {
+                predicates.add(cb.like(cb.lower(root.get(RegionIndicator_.NAME_FR)), "%"
+                        + reducedNameFr.toLowerCase() + "%"));
             }
             if (organization != null) {
                 Join<RegionIndicator, Person> personJoin = root.join(RegionIndicator_.UPLOADED_BY);
@@ -52,20 +52,20 @@ public class RegionIndicatorFilterState extends JpaFilterState<RegionIndicator> 
         };
     }
 
-    public String getName() {
-        return name;
+    public String getReducedNameFr() {
+        return reducedNameFr;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setReducedNameFr(String reducedNameFr) {
+        this.reducedNameFr = reducedNameFr;
     }
 
-    public String getDescription() {
-        return description;
+    public String getReducedName() {
+        return reducedName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setReducedName(String reducedName) {
+        this.reducedName = reducedName;
     }
 
     public String getOrganization() {
