@@ -2,7 +2,7 @@ package org.devgateway.toolkit.persistence.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class ProductionGisDTO {
+public abstract class GisDTO {
 
     private Integer year;
 
@@ -18,10 +18,17 @@ public class ProductionGisDTO {
 
     private String source;
 
-    public ProductionGisDTO() {
+    public GisDTO() {
     }
 
-    public ProductionGisDTO(Integer year, String code, Double value, String crop, String cropFr, String source) {
+    public GisDTO(Integer year, String code, Double value, String source) {
+        this.year = year;
+        this.code = code;
+        this.value = value;
+        this.source = source;
+    }
+
+    public GisDTO(Integer year, String code, Double value, String crop, String cropFr, String source) {
         this.year = year;
         this.code = code;
         this.value = value;
@@ -77,4 +84,11 @@ public class ProductionGisDTO {
     public void setSource(String source) {
         this.source = source;
     }
+
+    public abstract String getName(boolean isFR);
+
+    public abstract String getNameEnFr();
+
+    public abstract String getMeasure(boolean isFR);
+
 }

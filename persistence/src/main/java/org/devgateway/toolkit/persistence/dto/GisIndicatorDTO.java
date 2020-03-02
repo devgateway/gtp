@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 
-public class RegionIndicatorDTO {
+public class GisIndicatorDTO {
 
     private Long id;
 
@@ -22,9 +22,11 @@ public class RegionIndicatorDTO {
 
     private String description;
 
+    private String measure;
+
     private Integer year;
 
-    private Collection<RegionStatDTO> stats;
+    private Collection<GisStatDTO> stats;
 
     private Double minValue;
 
@@ -37,21 +39,22 @@ public class RegionIndicatorDTO {
     @JsonIgnore
     private Set<String> sources = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
 
-    public RegionIndicatorDTO() {
+    public GisIndicatorDTO() {
 
     }
 
-    public RegionIndicatorDTO(final RegionIndicator ri, final String lang) {
+    public GisIndicatorDTO(final RegionIndicator ri, final String lang) {
         boolean isFr = StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(LANG_FR);
         this.id = ri.getId();
         this.name = isFr || StringUtils.isBlank(ri.getName()) ? ri.getNameFr() : ri.getName();
         this.nameEnFr = ri.getFullNameYear();
         this.description = isFr ? ri.getDescriptionFr() : ri.getDescription();
         this.year = ri.getYear();
-        this.stats = ri.getStats().stream().map(rs -> new RegionStatDTO(rs)).collect(Collectors.toList());
+        this.stats = ri.getStats().stream().map(rs -> new GisStatDTO(rs)).collect(Collectors.toList());
         this.minValue = ri.getMinValue();
         this.maxValue = ri.getMaxValue();
         this.leftMap = ri.isLeftMap();
+        this.measure = ri.getMeasure();
         this.rightMap = ri.isRightMap();
         if (ri.getSource() != null) {
             this.sources.add(ri.getSource());
@@ -98,12 +101,20 @@ public class RegionIndicatorDTO {
         this.year = year;
     }
 
-    public Collection<RegionStatDTO> getStats() {
+    public Collection<GisStatDTO> getStats() {
         return stats;
     }
 
-    public void setStats(Collection<RegionStatDTO> stats) {
+    public void setStats(Collection<GisStatDTO> stats) {
         this.stats = stats;
+    }
+
+    public String getMeasure() {
+        return measure;
+    }
+
+    public void setMeasure(String measure) {
+        this.measure = measure;
     }
 
     public Double getMinValue() {

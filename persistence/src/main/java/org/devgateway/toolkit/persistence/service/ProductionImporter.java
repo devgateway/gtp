@@ -11,14 +11,14 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.Dataset;
+import org.devgateway.toolkit.persistence.dao.Department;
 import org.devgateway.toolkit.persistence.dao.Production;
 import org.devgateway.toolkit.persistence.dao.ProductionDataset;
-import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
+import org.devgateway.toolkit.persistence.repository.DepartmentRepository;
 import org.devgateway.toolkit.persistence.repository.ProductionDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.ProductionRepository;
 import org.devgateway.toolkit.persistence.repository.category.CropTypeRepository;
-import org.devgateway.toolkit.persistence.service.category.RegionService;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,8 @@ public class ProductionImporter extends AbstractImportService<Production> {
     private ProductionRepository repository;
 
     @Autowired
-    private RegionService regionService;
+    private DepartmentRepository departmentRepository;
+
 
     @Autowired
     private ProductionDatasetRepository datasetRepository;
@@ -46,6 +47,8 @@ public class ProductionImporter extends AbstractImportService<Production> {
     private CropTypeRepository cropTypeRepository;
 
     private Map<String, CropType> cropTypes;
+
+    private Map<String, Department> departments;
 
     private Pattern campaignPattern = Pattern.compile("(\\d{4})/\\d{4}");
 
@@ -57,7 +60,8 @@ public class ProductionImporter extends AbstractImportService<Production> {
             rowIterator.next();
             rowNumber++;
         }
-
+        departments = departmentRepository.findAll().stream()
+                .collect(Collectors.toMap(c -> c.getName().toLowerCase(), z -> z));
         cropTypes = cropTypeRepository.findAll().stream()
                 .collect(Collectors.toMap(c -> c.getLabel().toLowerCase(), z -> z));
         cropTypes.putAll(cropTypeRepository.findAll().stream()
@@ -69,16 +73,15 @@ public class ProductionImporter extends AbstractImportService<Production> {
                 Row row = rowIterator.next();
 
                 //Extract data
-                String regionName = ImportUtils.getStringFromCell(row.getCell(0));
-                Region region = getRegion(regionName);
+                String departmentName = ImportUtils.getStringFromCell(row.getCell(0));
 
                 Production data = new Production();
-                data.setRegion(region);
+                data.setDepartment(getDepartment(departmentName));
                 data.setYear(getCampaignYear(row.getCell(1)));
                 data.setCropType(getCropType(row.getCell(2)));
                 data.setSurface(ImportUtils.getDoubleFromCell(row.getCell(3)));
-                data.setYield(ImportUtils.getDoubleFromCell(row.getCell(4)));
-                data.setProduction(ImportUtils.getDoubleFromCell(row.getCell(5)));
+                data.setProduction(ImportUtils.getDoubleFromCell(row.getCell(4)));
+                data.setYield(ImportUtils.getDoubleFromCell(row.getCell(5)));
 
                 importResults.addDataInstance(data);
 
@@ -124,14 +127,14 @@ public class ProductionImporter extends AbstractImportService<Production> {
     }
 
 
-    private Region getRegion(String regionName) {
-        Region region = null;
-        if (StringUtils.isNotBlank(regionName)) {
-            region = regionService.findByName(regionName.toLowerCase());
+    private Department getDepartment(String departmentName) {
+        Department department = null;
+        if (StringUtils.isNotBlank(departmentName)) {
+            department = departments.get(departmentName.toLowerCase());
         }
-        if (region == null) {
-            throw new RuntimeException("Could not find region named " + regionName);
+        if (department == null) {
+            throw new RuntimeException("Could not find department named " + departmentName);
         }
-        return region;
+        return department;
     }
 }

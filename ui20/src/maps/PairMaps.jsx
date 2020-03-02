@@ -30,7 +30,7 @@ export const joinData = (json, data = [], intl) => {
 
       json.features.forEach(f=>{
 
-        var rData=data.stats.filter(s=>s.regionCode==f.properties.HASC_1.substr(3))
+        var rData=data.stats.filter(s=>s.code==f.properties.HASC_1.substr(3))
         if (rData.length >0){
           let props=rData[0]
           const newProps={

@@ -2,25 +2,25 @@ package org.devgateway.toolkit.persistence.dto;
 
 import org.devgateway.toolkit.persistence.dao.RegionStat;
 
-public class RegionStatDTO {
+public class GisStatDTO {
 
-    private String regionCode;
+    private String code;
     private Double value;
 
-    public RegionStatDTO() {
+    public GisStatDTO() {
     }
 
-    public RegionStatDTO(RegionStat rs) {
-        this.regionCode = rs.getRegionCode();
+    public GisStatDTO(RegionStat rs) {
+        this.code = rs.getRegionCode();
         this.value = rs.getValue();
     }
 
-    public String getRegionCode() {
-        return regionCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setRegionCode(String regionCode) {
-        this.regionCode = regionCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Double getValue() {

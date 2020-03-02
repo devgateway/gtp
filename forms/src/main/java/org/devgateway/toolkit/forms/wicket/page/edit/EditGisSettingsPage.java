@@ -53,7 +53,7 @@ public class EditGisSettingsPage extends AbstractEditPage<GisSettings> {
 
         editForm.add(new Label("gisTitle", new StringResourceModel("gisTitle", this, null)));
 
-        List<String> indicatorList = regionIndicatorService.findGisIndicatorAndPovertyIndicator(null)
+        List<String> indicatorList = regionIndicatorService.findGisRegionIndicators(null)
                 .stream().map(n -> n.getNameEnFr()).collect(Collectors.toList());
 
         GenericChoiceProvider<String> choiceProvider = new GenericChoiceProvider<String>(indicatorList) {
