@@ -198,26 +198,16 @@ export const Bullet =injectIntl(({ data ,refData, intl/* see data tab */, keys,i
         <g
 
           onMouseEnter={e=>{
-            showTooltip(e,`TARGET YEAR: ${refData[0].id} -  ${refData[0].measures[0]}${refData[0].measure} `,'#39B54A')
+            showTooltip(e,`TARGET YEAR: ${refData[0].id} -  ${refData[0].measures[0]}${refData[0].measure} `,'#C1E5C9')
           }}
           onMouseMove={e=>moveTooltip(e,0,0)}
           onMouseLeave={hideTooltip}
           >
 
-          <line
-
-
-              transform={`rotate(${rotation}, ${x}, ${y})`}
-              x1={x}
-              x2={x}
-              y1={y - size / 2}
-              y2={y + size / 2}
-
-              fill="none"
-              stroke="#39B54A"
-              strokeWidth="8"
-              onClick={onClick}
-            />
+          <rect   transform={`rotate(${rotation}, ${x}, ${y})`} x={x} y={y - size / 2} width="16" height={size}
+                        fill="#C1E5C9"
+                        rx="5"
+                        ry="5"/>
 
 
         </g>
@@ -247,6 +237,7 @@ export const Bullet =injectIntl(({ data ,refData, intl/* see data tab */, keys,i
               motionStiffness={90}
               motionDamping={12}
               measureComponent={CustomMeasure}
+              markerSize={.6}
               markerComponent={CustomMarker}
               rangeComponent={CustomRange}
           />
