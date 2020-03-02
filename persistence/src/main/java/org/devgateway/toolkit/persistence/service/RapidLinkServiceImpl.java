@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -41,5 +42,8 @@ public class RapidLinkServiceImpl extends BaseJpaServiceImpl<RapidLink> implemen
         return repository.findByRapidLinkPositionIdNotNull();
     }
 
-
+    @Override
+    public List<RapidLink> findAll() {
+        return repository.findAllPopulatedLang();
+    }
 }

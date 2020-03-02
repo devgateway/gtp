@@ -382,6 +382,15 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="RapidLinkPosition3" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE localized_category_label SET label='Deuxième' WHERE label = 'Second';
+        ]]></sql>
+    </changeSet>
+
     <changeSet id="AlterDatasetTableDtypeColumn" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="dataset" />

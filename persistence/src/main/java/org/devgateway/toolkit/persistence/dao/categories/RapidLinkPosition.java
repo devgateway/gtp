@@ -10,5 +10,8 @@ import javax.persistence.Entity;
 @Entity
 @Audited
 public class RapidLinkPosition extends Category {
-
+    @Override
+    public String toString() {
+        return getLabelFr() + "/" + getLabel();
+    }
 }

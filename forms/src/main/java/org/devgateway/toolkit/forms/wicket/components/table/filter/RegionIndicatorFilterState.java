@@ -36,7 +36,8 @@ public class RegionIndicatorFilterState extends JpaFilterState<RegionIndicator> 
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (StringUtils.isNotBlank(reducedName)) {
-                predicates.add(cb.like(cb.lower(root.get(RegionIndicator_.NAME)), "%" + reducedName.toLowerCase() + "%"));
+                predicates.add(cb.like(cb.lower(root.get(RegionIndicator_.NAME)),
+                        "%" + reducedName.toLowerCase() + "%"));
             }
             if (StringUtils.isNotBlank(reducedNameFr)) {
                 predicates.add(cb.like(cb.lower(root.get(RegionIndicator_.NAME_FR)), "%"
