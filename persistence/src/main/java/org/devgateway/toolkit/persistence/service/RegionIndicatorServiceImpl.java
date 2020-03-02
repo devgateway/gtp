@@ -2,10 +2,12 @@ package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.GisSettings;
 import org.devgateway.toolkit.persistence.dao.RegionIndicator;
-import org.devgateway.toolkit.persistence.dto.PovertyGisDTO;
-import org.devgateway.toolkit.persistence.dto.ProductionGisDTO;
-import org.devgateway.toolkit.persistence.dto.RegionIndicatorDTO;
-import org.devgateway.toolkit.persistence.dto.RegionStatDTO;
+import org.devgateway.toolkit.persistence.dto.GisDTO;
+import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
+import org.devgateway.toolkit.persistence.dto.GisStatDTO;
+import org.devgateway.toolkit.persistence.repository.ConsumptionIndicatorRepository;
+import org.devgateway.toolkit.persistence.repository.GisIndicatorDepartment;
+import org.devgateway.toolkit.persistence.repository.GisIndicatorRegion;
 import org.devgateway.toolkit.persistence.repository.PovertyIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.ProductionIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.RegionIndicatorRepository;
@@ -21,12 +23,6 @@ import java.util.List;
 
 import static org.devgateway.toolkit.persistence.util.Constants.EMPTY_STRING;
 import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
-import static org.devgateway.toolkit.persistence.util.Constants.MINUS_STRING;
-import static org.devgateway.toolkit.persistence.util.Constants.POVERTY_EN_STR;
-import static org.devgateway.toolkit.persistence.util.Constants.POVERTY_FR_STR;
-import static org.devgateway.toolkit.persistence.util.Constants.PROD_EN_STR;
-import static org.devgateway.toolkit.persistence.util.Constants.PROD_FR_STR;
-import static org.devgateway.toolkit.persistence.util.Constants.SPACE_STRING;
 
 /**
  * @author dbianco
@@ -49,6 +45,9 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
     private ProductionIndicatorRepository prodRepo;
 
     @Autowired
+    private ConsumptionIndicatorRepository consRepo;
+
+    @Autowired
     private GisSettingsService gisSettingsService;
 
     @Override
@@ -62,13 +61,14 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
     }
 
     @Override
-    public List<RegionIndicatorDTO> findGisIndicatorAndPovertyIndicator(final String lang) {
-        List<RegionIndicatorDTO> ret = new ArrayList<>();
-        fillPovertyIndicator(lang, ret);
-        fillProductionIndicator(lang, ret);
+    public List<GisIndicatorDTO> findGisRegionIndicators(final String lang) {
+        List<GisIndicatorDTO> ret = new ArrayList<>();
+        fillIndicator(lang, ret, getGisDtoRegionList(povertyRepo));
+        fillIndicator(lang, ret, getGisDtoRegionList(prodRepo));
+        fillIndicator(lang, ret, getGisDtoRegionList(consRepo));
 
         List<RegionIndicator> indicatorList = repository.findAll();
-        indicatorList.stream().filter(n -> n.isApproved()).forEach(i -> ret.add(new RegionIndicatorDTO(i, lang)));
+        indicatorList.stream().filter(n -> n.isApproved()).forEach(i -> ret.add(new GisIndicatorDTO(i, lang)));
 
         List<GisSettings> gisSettings = gisSettingsService.findAll();
         if (gisSettings.size() > 0) {
@@ -85,37 +85,37 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
     }
 
     @Override
-    public void restoreLeftFlagToFalse() {
-        entityManager.createQuery("update RegionIndicator set leftMap = false")
-                .executeUpdate();
+    public List<GisIndicatorDTO> findGisDepartmentIndicators(String lang) {
+        List<GisIndicatorDTO> ret = new ArrayList<>();
+        fillIndicator(lang, ret, getGisDtoDepartmentList(prodRepo));
+        fillIndicator(lang, ret, getGisDtoDepartmentList(consRepo));
+        return ret;
     }
 
-    @Override
-    public void restoreRightFlagToFalse() {
-        entityManager.createQuery("update RegionIndicator set rightMap = false")
-                .executeUpdate();
+    List<GisDTO> getGisDtoRegionList(GisIndicatorRegion repo) {
+        return repo.findAllGisByRegion();
     }
 
-    private void fillProductionIndicator(String lang, List<RegionIndicatorDTO> ret) {
-        String prodStr = PROD_EN_STR;
+    List<GisDTO> getGisDtoDepartmentList(GisIndicatorDepartment repo) {
+        return repo.findAllGisByDepartment();
+    }
 
-        if (lang != null && lang.equalsIgnoreCase(LANG_FR)) {
-            prodStr = PROD_FR_STR;
-        }
-        List<ProductionGisDTO> prodList = prodRepo.findAllProductionGis();
+    private void fillIndicator(String lang, List<GisIndicatorDTO> ret, List<GisDTO> gisDTOList) {
+
+        boolean isFR = lang != null && lang.equalsIgnoreCase(LANG_FR);
         int year = -1;
         String crop = EMPTY_STRING;
-        RegionIndicatorDTO dto = null;
-        for (ProductionGisDTO p : prodList) {
-            if (p.getYear() != year || !crop.equals(p.getCrop())) {
-                dto = new RegionIndicatorDTO();
+        GisIndicatorDTO dto = null;
+        for (GisDTO p : gisDTOList) {
+
+            if ((p.getYear() != year && p.getCrop() == null)
+                    || (p.getCrop() != null && (p.getYear() != year || !crop.equals(p.getCrop())))) {
+                dto = new GisIndicatorDTO();
                 year = p.getYear();
-                crop = p.getCrop();
-                dto.setId(Long.valueOf(year) + p.getCrop().hashCode());
-                String cropLabel = lang != null && lang.equalsIgnoreCase(LANG_FR) ? p.getCropFr() : p.getCrop();
-                dto.setName(prodStr + MINUS_STRING + cropLabel + MINUS_STRING + year);
-                dto.setNameEnFr(PROD_EN_STR + SPACE_STRING + p.getCrop() + "/" + PROD_FR_STR + SPACE_STRING
-                        + p.getCropFr() + MINUS_STRING + year);
+                crop = p.getCrop() != null ? p.getCrop() : EMPTY_STRING;
+                dto.setId(Long.valueOf(year) * 1000 + crop.hashCode());
+                dto.setName(p.getName(isFR));
+                dto.setNameEnFr(p.getNameEnFr());
                 if (p.getValue() != null) {
                     dto.setMaxValue(p.getValue());
                     dto.setMinValue(p.getValue());
@@ -123,6 +123,7 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
                     dto.setMaxValue(0D);
                     dto.setMinValue(0D);
                 }
+                dto.setMeasure(p.getMeasure(isFR));
                 dto.setRightMap(false);
                 dto.setLeftMap(false);
                 dto.setStats(new ArrayList<>());
@@ -132,45 +133,13 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
                 }
                 ret.add(dto);
             }
-            fillRegionStat(dto, p.getCode(), p.getValue());
+            fillStat(dto, p.getCode(), p.getValue());
         }
     }
 
-    private void fillPovertyIndicator(String lang, List<RegionIndicatorDTO> ret) {
-        String povertyStr = POVERTY_EN_STR;
-
-        if (lang != null && lang.equalsIgnoreCase(LANG_FR)) {
-            povertyStr = POVERTY_FR_STR;
-        }
-
-        List<PovertyGisDTO> povertyList = povertyRepo.findAllPovertyGis();
-        int year = -1;
-        RegionIndicatorDTO dto = null;
-        for (PovertyGisDTO p : povertyList) {
-            if (p.getYear() != year) {
-                dto = new RegionIndicatorDTO();
-                year = p.getYear();
-                dto.setId(Long.valueOf(year));
-                dto.setName(povertyStr + SPACE_STRING + year);
-                dto.setNameEnFr(POVERTY_EN_STR + "/" + POVERTY_FR_STR + MINUS_STRING + year);
-                dto.setMaxValue(p.getValue());
-                dto.setMinValue(p.getValue());
-                dto.setRightMap(false);
-                dto.setLeftMap(false);
-                dto.setStats(new ArrayList<>());
-                dto.setYear(year);
-                if (p.getSource() != null) {
-                    dto.getSources().add(p.getSource());
-                }
-                ret.add(dto);
-            }
-            fillRegionStat(dto, p.getCode(), p.getValue());
-        }
-    }
-
-    private void fillRegionStat(RegionIndicatorDTO dto, String code, Double value) {
-        RegionStatDTO rs = new RegionStatDTO();
-        rs.setRegionCode(code);
+    private void fillStat(GisIndicatorDTO dto, String code, Double value) {
+        GisStatDTO rs = new GisStatDTO();
+        rs.setCode(code);
         rs.setValue(value);
         if (value != null && value > dto.getMaxValue()) {
             dto.setMaxValue(value);

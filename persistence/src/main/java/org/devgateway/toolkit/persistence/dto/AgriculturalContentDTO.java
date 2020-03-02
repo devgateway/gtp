@@ -7,6 +7,9 @@ import java.util.Date;
 
 import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 
+/**
+ * Created by Daniel Oliva
+ */
 public class AgriculturalContentDTO {
 
     private String title;

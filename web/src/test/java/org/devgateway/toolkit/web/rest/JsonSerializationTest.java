@@ -11,7 +11,6 @@ import org.devgateway.toolkit.persistence.dao.Department;
 import org.devgateway.toolkit.persistence.dao.Market;
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.Production;
-import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.dao.categories.CropSubType;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.web.spring.WebApplication;
@@ -82,7 +81,7 @@ public class JsonSerializationTest {
     public void testProductionWithAllValuesSpecified() throws IOException {
         Production record = new Production();
         record.setDataset(new Dataset());
-        record.setRegion(new Region(1L));
+        record.setDepartment(new Department(1L));
         record.setCropType(new CropType(2L, "Millet"));
         record.setYear(2018);
         record.setProduction(1.1d);
@@ -91,7 +90,7 @@ public class JsonSerializationTest {
 
         JsonContent<Production> content = productionJacksonTester.write(record);
 
-        assertEquals("{\"year\":2018,\"region\":1,\"cropType\":2,\"surface\":201.9,\"production\":1.1,\"yield\":0.5}",
+        assertEquals("{\"year\":2018,\"department\":1,\"cropType\":2,\"surface\":201.9,\"production\":1.1,\"yield\":0.5}",
                 content.getJson());
     }
 

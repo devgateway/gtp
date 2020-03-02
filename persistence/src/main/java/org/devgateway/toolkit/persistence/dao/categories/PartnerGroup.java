@@ -10,4 +10,8 @@ import javax.persistence.Entity;
 @Entity
 @Audited
 public class PartnerGroup extends Category {
+    @Override
+    public String toString() {
+        return getLabelFr() + "/" + getLabel();
+    }
 }

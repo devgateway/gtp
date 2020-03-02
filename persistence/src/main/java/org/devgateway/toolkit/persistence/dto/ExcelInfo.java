@@ -5,6 +5,9 @@ import org.devgateway.toolkit.persistence.excel.service.TranslateService;
 
 import java.util.List;
 
+/**
+ * Created by Daniel Oliva
+ */
 public class ExcelInfo<T extends DataDTO> {
 
     private String sheetName;

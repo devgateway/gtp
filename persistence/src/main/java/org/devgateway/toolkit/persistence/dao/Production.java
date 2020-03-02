@@ -17,17 +17,16 @@ import javax.validation.constraints.NotNull;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@JsonPropertyOrder({"year", "region", "cropType", "surface", "production", "yield"})
+@JsonPropertyOrder({"year", "department", "cropType", "surface", "production", "yield"})
 public class Production extends Data {
     private static final long serialVersionUID = -3339250112046118104L;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
-    @NotNull
     @PivotTableField(hideInAggregators = true, hideInDragAndDrop = true)
-    private Region region;
+    private Department department;
 
     @ManyToOne(optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -47,12 +46,16 @@ public class Production extends Data {
     @PivotTableField(hideInDragAndDrop = true)
     private Double yield;
 
-    public Region getRegion() {
-        return region;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setRegion(Region region) {
-        this.region = region;
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Region getRegion() {
+        return department != null ? department.getRegion() : null;
     }
 
     public CropType getCropType() {

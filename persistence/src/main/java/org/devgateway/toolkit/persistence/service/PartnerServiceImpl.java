@@ -43,4 +43,9 @@ public class PartnerServiceImpl extends BaseJpaServiceImpl<Partner> implements P
     public int countByName(String name) {
         return partnerRepository.countByName(name);
     }
+
+    @Override
+    public List<Partner> findAll() {
+        return partnerRepository.findAllPopulatedLang();
+    }
 }

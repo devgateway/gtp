@@ -5,7 +5,7 @@ import org.devgateway.toolkit.persistence.dao.categories.DatasetType;
 import org.devgateway.toolkit.persistence.dto.AgriculturalContentDTO;
 import org.devgateway.toolkit.persistence.dto.DatasetDTO;
 import org.devgateway.toolkit.persistence.dto.NationalIndicatorDTO;
-import org.devgateway.toolkit.persistence.dto.RegionIndicatorDTO;
+import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.category.DatasetTypeRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
 import org.devgateway.toolkit.persistence.service.DatasetService;
@@ -106,12 +106,21 @@ public class DatasetController {
     }
 
     @CrossOrigin
-    @ApiOperation(value = "Get all GIS indicators metadata")
-    @RequestMapping(value = "/gisIndicator/all", method = POST)
-    public @ResponseBody List<RegionIndicatorDTO> getAllGisIndicator(
+    @ApiOperation(value = "Get all GIS region indicator metadata")
+    @RequestMapping(value = "/gisIndicator/region/all", method = POST)
+    public @ResponseBody List<GisIndicatorDTO> getAllGisRegionIndicators(
             @RequestBody @Valid final DatasetFilterPagingRequest request) {
         LOGGER.info("get all GIS indicators");
-        return regionIndicatorService.findGisIndicatorAndPovertyIndicator(request.getLang());
+        return regionIndicatorService.findGisRegionIndicators(request.getLang());
+    }
+
+    @CrossOrigin
+    @ApiOperation(value = "Get all GIS department indicator metadata")
+    @RequestMapping(value = "/gisIndicator/department/all", method = POST)
+    public @ResponseBody List<GisIndicatorDTO> getAllGisDepartmentIndicators(
+            @RequestBody @Valid final DatasetFilterPagingRequest request) {
+        LOGGER.info("get all GIS indicators");
+        return regionIndicatorService.findGisDepartmentIndicators(request.getLang());
     }
 
     @CrossOrigin

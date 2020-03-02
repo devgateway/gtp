@@ -30,16 +30,16 @@ import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFor
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListRapidLinkFormPage;
-import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
+import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.RapidLink;
 import org.devgateway.toolkit.persistence.dao.categories.RapidLinkPosition;
 import org.devgateway.toolkit.persistence.repository.category.RapidLinkPositionRepository;
 import org.devgateway.toolkit.persistence.service.RapidLinkService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
-import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -99,9 +99,17 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
         editForm.add(linkField);
         linkField.required();
 
+        List<RapidLinkPosition> positions = rlpRepo.findAllFetchingLocalizedLabels();
+        GenericChoiceProvider<RapidLinkPosition> choiceProvider =
+                new GenericChoiceProvider<RapidLinkPosition>(positions) {
+            @Override
+            public String getDisplayValue(RapidLinkPosition rapidLinkPosition) {
+                return rapidLinkPosition.getLabelFr() + "/" + rapidLinkPosition.getLabel();
+            }
+        };
+
         Select2ChoiceBootstrapFormComponent<RapidLinkPosition> rapidLinkPosition =
-                new Select2ChoiceBootstrapFormComponent<>("rapidLinkPosition",
-                        new GenericPersistableJpaTextChoiceProvider<>(new TextSearchableAdapter<>(rlpRepo)));
+                new Select2ChoiceBootstrapFormComponent<>("rapidLinkPosition", choiceProvider);
         editForm.add(rapidLinkPosition);
 
         FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata").maxFiles(1);

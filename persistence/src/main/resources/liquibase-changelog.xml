@@ -382,6 +382,15 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="RapidLinkPosition3" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE localized_category_label SET label='Deuxième' WHERE label = 'Second';
+        ]]></sql>
+    </changeSet>
+
     <changeSet id="AlterDatasetTableDtypeColumn" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="dataset" />
@@ -788,6 +797,70 @@
         <sql><![CDATA[
             UPDATE localized_category_label SET label='Instituts de recherche et universités' WHERE label = 'Instituts de recherche';
             UPDATE category SET label='Research Institutes & Universities' WHERE label = 'Research Institutes';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="DepartmentAlterUpdate" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="department" />
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE department add column "code" varchar(10);
+            update department set code = 'BK' where name = 'Bakel';
+            update department set code = 'BB' where name = 'Bambey';
+            update department set code = 'BG' where name = 'Bignona';
+            update department set code = 'BR' where name = 'Birkilane';
+            update department set code = 'BL' where name = 'Bounkiling';
+            update department set code = 'DG' where name = 'Dagana';
+            update department set code = 'DK' where name = 'Dakar';
+            update department set code = 'DB' where name = 'Diourbel';
+            update department set code = 'FK' where name = 'Fatick';
+            update department set code = 'FD' where name = 'Foundiougne';
+            update department set code = 'GS' where name = 'Gossas';
+            update department set code = 'GY' where name = 'Goudiry';
+            update department set code = 'GP' where name = 'Goudomp';
+            update department set code = 'GD' where name = 'Guinguinéo';
+            update department set code = 'GG' where name = 'Guédiawaye';
+            update department set code = 'KF' where name = 'Kaffrine';
+            update department set code = 'KN' where name = 'Kanel';
+            update department set code = 'KL' where name = 'Kaolack';
+            update department set code = 'KB' where name = 'Kolda';
+            update department set code = 'KG' where name = 'Koumpentoum';
+            update department set code = 'KD' where name = 'Kounghel';
+            update department set code = 'KP' where name = 'Kébémer';
+            update department set code = 'KU' where name = 'Kédougou';
+            update department set code = 'LN' where name = 'Linguère';
+            update department set code = 'LG' where name = 'Louga';
+            update department set code = 'MH' where name = 'M''bour';
+            update department set code = 'MT' where name = 'Malem-Hodar';
+            update department set code = 'MK' where name = 'Matam';
+            update department set code = 'MR' where name = 'Mbacké';
+            update department set code = 'YF' where name = 'Médina Yoro Foulah';
+            update department set code = 'NR' where name = 'Nioro du Rip';
+            update department set code = 'OU' where name = 'Oussouye';
+            update department set code = 'PK' where name = 'Pikine';
+            update department set code = 'PD' where name = 'Podor';
+            update department set code = 'RN' where name = 'Ranérou';
+            update department set code = 'RF' where name = 'Rufisque';
+            update department set code = 'SL' where name = 'Saint-Louis';
+            update department set code = 'SM' where name = 'Salemata';
+            update department set code = 'SY' where name = 'Saraya';
+            update department set code = 'SD' where name = 'Sédhiou';
+            update department set code = 'TC' where name = 'Tambacounda';
+            update department set code = 'TH' where name = 'Thiès';
+            update department set code = 'TV' where name = 'Tivaouane';
+            update department set code = 'VL' where name = 'Vélingara';
+            update department set code = 'ZG' where name = 'Ziguinchor';
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="ProdDropRegion" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="production" />
+            <columnExists tableName="production" columnName="region_id" />
+        </preConditions>
+        <sql><![CDATA[
+            alter table production drop column "region_id";
         ]]></sql>
     </changeSet>
 

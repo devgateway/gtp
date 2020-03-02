@@ -29,6 +29,10 @@ public class Department extends GenericPersistable implements Serializable, Labe
     @Column(nullable = false, unique = true)
     private String name;
 
+    @NotNull
+    @Column(nullable = false, unique = true)
+    private String code;
+
     public Department() {
     }
 
@@ -66,5 +70,13 @@ public class Department extends GenericPersistable implements Serializable, Labe
     @Override
     public String getLabel(String lang) {
         return name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -3,6 +3,9 @@ package org.devgateway.toolkit.persistence.dto;
 import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
+/**
+ * Created by Daniel Oliva
+ */
 public class FoodLossDTO extends DataDTO {
 
     @ExcelExport(useTranslation = true)

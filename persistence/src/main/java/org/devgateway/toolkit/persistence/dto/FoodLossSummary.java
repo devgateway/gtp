@@ -2,6 +2,9 @@ package org.devgateway.toolkit.persistence.dto;
 
 import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
 
+/**
+ * Created by Daniel Oliva
+ */
 public class FoodLossSummary {
 
     private int year;
