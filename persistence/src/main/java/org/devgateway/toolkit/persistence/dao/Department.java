@@ -23,6 +23,7 @@ public class Department extends GenericPersistable implements Serializable, Labe
     @NotNull
     @ManyToOne(optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnore
     private Region region;
 
     @NotNull

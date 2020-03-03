@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@JsonPropertyOrder({"year", "department", "cropType", "surface", "production", "yield"})
+@JsonPropertyOrder({"year", "department", "cropType", "surface", "production", "yield", "region"})
 public class Production extends Data {
     private static final long serialVersionUID = -3339250112046118104L;
 
@@ -54,8 +54,8 @@ public class Production extends Data {
         this.department = department;
     }
 
-    public Region getRegion() {
-        return department != null ? department.getRegion() : null;
+    public Long getRegion() {
+        return department != null ? department.getRegion().getId() : null;
     }
 
     public CropType getCropType() {
