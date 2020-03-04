@@ -22,7 +22,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @JsonPropertyOrder({"year", "department", "cropType", "cropSubType", "householdSize", "dailyConsumption",
-        "weeklyConsumption"})
+        "weeklyConsumption", "region"})
 public class Consumption extends Data implements Serializable {
 
     private static final long serialVersionUID = -3219250112046118104L;
@@ -114,5 +114,9 @@ public class Consumption extends Data implements Serializable {
 
     public void setWeeklyConsumption(Double weeklyConsumption) {
         this.weeklyConsumption = weeklyConsumption;
+    }
+
+    public Long getRegion() {
+        return department != null ? department.getRegion().getId() : null;
     }
 }

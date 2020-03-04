@@ -9,6 +9,9 @@ public class ProductionDTO extends DataDTO {
     private String region;
 
     @ExcelExport
+    private String department;
+
+    @ExcelExport
     private String cropType;
 
     @ExcelExport
@@ -22,7 +25,10 @@ public class ProductionDTO extends DataDTO {
 
     public ProductionDTO(Production data, final String lang) {
         super(data, lang);
-        this.region = getStr(data.getRegion());
+        if (data.getDepartment() != null) {
+            this.region = getStr(data.getDepartment().getRegion());
+            this.department = getStr(data.getDepartment());
+        }
         this.cropType = getStr(data.getCropType());
         this.surface = data.getSurface();
         this.production = data.getProduction();
@@ -35,6 +41,14 @@ public class ProductionDTO extends DataDTO {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public String getCropType() {

@@ -72,7 +72,7 @@ const PairOfMaps=({intl,id, data, selection})=>{
 
 
     const options=getOptions(data.toJS())
-    
+
 
     const defLeft =  options.find(o=>o.leftMap==true) || options[0]
     const defRigth=  options.find(o=>o.rightMap==true)  || options[0]
@@ -107,7 +107,7 @@ const PairOfMaps=({intl,id, data, selection})=>{
     }, [right]);
 
 
-    
+
     return (
       <div>
         <div>

@@ -14,7 +14,7 @@ export const configurator = (intl) => {
       "cols": [intl.formatMessage(messages.crop_type)],
       "vals": [intl.formatMessage(messages.production)],
       "hiddenAttributes": [
-        "_region", "_cropType"
+        "_region", "_cropType","_department"
       ],
       "hiddenFromAggregators": [
         intl.formatMessage(messages.year),
@@ -37,6 +37,7 @@ export const configurator = (intl) => {
       "year": intl.formatMessage(messages.year),
       "yield": intl.formatMessage(messages.yield),
       "region": "_region",
+      "department": "_department",
       "cropType": "_cropType"
     },
 
@@ -48,6 +49,10 @@ export const configurator = (intl) => {
       "Region": {
         label: intl.formatMessage(messages.region),
         extractor: row => items => items['region'].filter(it => it.id == row._region)[0].name
+      },
+      "Department": {
+        label: intl.formatMessage(messages.department),
+        extractor: row => items => items['department'].filter(it => it.id == row._department)[0].name
       },
       "Crop Type": {
         label: intl.formatMessage(messages.crop_type),
