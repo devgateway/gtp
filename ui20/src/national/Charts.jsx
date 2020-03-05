@@ -223,7 +223,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
 
     const { x, y, width,metadata, height, onMouseEnter, onMouseMove, onMouseLeave } = props
     let color2='#FFF'
-    const reverse=true;
+    const reverse=metadata.reverse;
     const current=props.data.v1;
     const target=metadata.targetValue;
     const reference = metadata.referenceValue
@@ -272,9 +272,8 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
         <g
           className="marker"
           onMouseEnter={e=>{
-              console.log(props)
-              debugger;
-            showTooltip(e,`${index==1?`Target`:`Reference ${refData[0].id}`} <b>${value} ${refData[0].measure}</b> `,color)
+
+              showTooltip(e,`${index==1?`Target`:`Reference ${refData[0].id}`} <b>${value} ${metadata.measure}</b> `,color)
           }}
           onMouseMove={e=>moveTooltip(e,0,0)}
           onMouseLeave={hideTooltip}
@@ -309,7 +308,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
                           motionStiffness={90}
                           motionDamping={12}
                           rangeColors={["#d1e5f0"]}
-                          rangeComponent={CustomRange}
+                          rangeComponent={(props)=>CustomRange({...props, metadata})}
                           measureComponent={(props)=>CustomMeasure({...props, metadata})}
                           measureColors={["#b2182b","#a6dba0"]}
                           markerSize={.9}

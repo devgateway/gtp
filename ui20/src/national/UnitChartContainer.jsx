@@ -129,7 +129,7 @@ const PairOfMaps=({intl,id, data, n})=>{
 
     const options=getOptions(data.toJS())
 
-    const defaultSelection = options[n]
+    const defaultSelection = options[n > options.length-1?options.length-1:n ]
 
     const [currentSelection, setSeCurrentSelection] = useState([defaultSelection.key]);
     const [color, setColor] = useState(['accent']);
