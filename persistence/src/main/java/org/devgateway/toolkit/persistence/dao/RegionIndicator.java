@@ -34,6 +34,8 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     private Integer year;
 
+    private boolean descending;
+
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "regionIndicator", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Collection<RegionStat> stats;
@@ -65,6 +67,14 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isDescending() {
+        return descending;
+    }
+
+    public void setDescending(boolean descending) {
+        this.descending = descending;
     }
 
     public String getNameFr() {

@@ -48,6 +48,8 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
 
     private boolean approved;
 
+    private boolean descending;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private Person uploadedBy;
@@ -75,6 +77,14 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
 
     public void setNameFr(String nameFr) {
         this.nameFr = nameFr;
+    }
+
+    public boolean isDescending() {
+        return descending;
+    }
+
+    public void setDescending(boolean descending) {
+        this.descending = descending;
     }
 
     public String getDescription() {
