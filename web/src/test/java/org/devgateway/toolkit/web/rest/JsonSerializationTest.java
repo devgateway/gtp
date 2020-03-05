@@ -11,6 +11,7 @@ import org.devgateway.toolkit.persistence.dao.Department;
 import org.devgateway.toolkit.persistence.dao.Market;
 import org.devgateway.toolkit.persistence.dao.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.Production;
+import org.devgateway.toolkit.persistence.dao.Region;
 import org.devgateway.toolkit.persistence.dao.categories.CropSubType;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
 import org.devgateway.toolkit.web.spring.WebApplication;
@@ -81,7 +82,10 @@ public class JsonSerializationTest {
     public void testProductionWithAllValuesSpecified() throws IOException {
         Production record = new Production();
         record.setDataset(new Dataset());
-        record.setDepartment(new Department(1L));
+        Region region = new Region(1L);
+        Department department = new Department(1L);
+        department.setRegion(region);
+        record.setDepartment(department);
         record.setCropType(new CropType(2L, "Millet"));
         record.setYear(2018);
         record.setProduction(1.1d);
@@ -90,7 +94,8 @@ public class JsonSerializationTest {
 
         JsonContent<Production> content = productionJacksonTester.write(record);
 
-        assertEquals("{\"year\":2018,\"department\":1,\"cropType\":2,\"surface\":201.9,\"production\":1.1,\"yield\":0.5}",
+        assertEquals("{\"year\":2018,\"department\":1,\"cropType\":2,\"surface\":201.9,\"production\":1.1,"
+                        + "\"yield\":0.5,\"region\":1}",
                 content.getJson());
     }
 
@@ -128,7 +133,10 @@ public class JsonSerializationTest {
         record.setDataset(new Dataset());
         record.setCropType(new CropType(66L, "Rice"));
         record.setCropSubType(new CropSubType(77L, "Scented"));
-        record.setDepartment(new Department(1L));
+        Region region = new Region(1L);
+        Department department = new Department(1L);
+        department.setRegion(region);
+        record.setDepartment(department);
         record.setYear(2018);
         record.setHouseholdSize(53);
         record.setDailyConsumption(3.3d);
@@ -137,7 +145,7 @@ public class JsonSerializationTest {
         JsonContent<Consumption> content = consumptionJacksonTester.write(record);
 
         assertEquals("{\"year\":2018,\"department\":1,\"cropType\":66,\"cropSubType\":77,\"" +
-                "householdSize\":53,\"dailyConsumption\":3.3,\"weeklyConsumption\":5.5}", content.getJson());
+                "householdSize\":53,\"dailyConsumption\":3.3,\"weeklyConsumption\":5.5,\"region\":1}", content.getJson());
     }
 
     @Test

@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.categories.CropSubType;
@@ -116,6 +117,7 @@ public class Consumption extends Data implements Serializable {
         this.weeklyConsumption = weeklyConsumption;
     }
 
+    @JsonProperty("region")
     public Long getRegion() {
         return department != null ? department.getRegion().getId() : null;
     }

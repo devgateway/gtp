@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.categories.CropType;
@@ -54,6 +55,7 @@ public class Production extends Data {
         this.department = department;
     }
 
+    @JsonProperty("region")
     public Long getRegion() {
         return department != null ? department.getRegion().getId() : null;
     }
