@@ -120,6 +120,9 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
         Label linkInfo = new Label("linkInfo", new ResourceModel("linkInfo.label"));
         link.add(linkInfo);
 
+        final CheckBoxPickerBootstrapFormComponent descending = new CheckBoxPickerBootstrapFormComponent("descending");
+        editForm.add(descending);
+
         if (entityId != null) {
             linkInfo.setVisible(false);
             link.setVisible(false);

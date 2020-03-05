@@ -67,6 +67,9 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
         descriptionFr.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         editForm.add(descriptionFr);
 
+        final CheckBoxPickerBootstrapFormComponent descending = new CheckBoxPickerBootstrapFormComponent("descending");
+        editForm.add(descending);
+
         TextFieldBootstrapFormComponent<String> source = new TextFieldBootstrapFormComponent<>("source");
         source.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(source);
