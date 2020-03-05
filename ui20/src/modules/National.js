@@ -10,12 +10,12 @@ const LOAD_NATIONAL_DATA_ERROR = 'LOAD_NATIONAL_DATA_ERROR'
 const initialState = Immutable.Map()
 
 
-export const loadNationalIndicators = () => (dispatch, getState) => {
-  
+export const loadNationalIndicators = (lang) => (dispatch, getState) => {
+
   dispatch({
     type: LOAD_NATIONAL_DATA
   })
-  api.getNationalIndicators().then(data => {
+  api.getNationalIndicators({lang}).then(data => {
 
       dispatch({type: LOAD_NATIONAL_DATA_DONE, data})
     }).catch(error => {

@@ -10,12 +10,12 @@ const LOAD_GIS_DATA_ERROR = 'LOAD_GIS_DATA_ERROR'
 const initialState = Immutable.Map()
 
 
-export const loadGISData = () => (dispatch, getState) => {
+export const loadGISData = (lang) => (dispatch, getState) => {
 
   dispatch({
     type: LOAD_GIS_DATA
   })
-  api.getGISData().then(data => {
+  api.getGISData({lang}).then(data => {
 
       dispatch({type: LOAD_GIS_DATA_DONE, data})
     }).catch(error => {

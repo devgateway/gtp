@@ -26,7 +26,8 @@ class GIS extends Component {
   }
 
   componentDidMount(){
-    this.props.onLoad()
+    const lang=this.props.intl.locale
+    this.props.onLoad(lang)
   }
 
   addnewOne(){
@@ -57,12 +58,14 @@ class GIS extends Component {
           </div>
 
 
+
           <Grid fluid  columns='equal'>
 
             {range.map(n=>{
               return  (
                 <Grid.Column width={8}>
-                  <UnitChartContainer data={data}/>
+                
+                  <UnitChartContainer  data={data} />
                 </Grid.Column>
             )
 

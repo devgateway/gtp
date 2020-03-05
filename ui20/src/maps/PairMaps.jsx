@@ -33,12 +33,14 @@ export const joinData = (json, data = [], intl) => {
         var rData=data.stats.filter(s=>s.code==f.properties.HASC_1.substr(3))
         if (rData.length >0){
           let props=rData[0]
+
           const newProps={
               'indicator':data.name,
               'value':props.value,
               'year':data.year,
               'minValue': data.minValue,
-              'maxValue': data.maxValue
+              'maxValue': data.maxValue,
+              'measure': data.measure
           }
           Object.assign(f.properties,newProps)
         }

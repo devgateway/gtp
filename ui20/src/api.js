@@ -127,13 +127,13 @@ export const getItems = (category, path, params) => {
   return post(API_ROOT + itemsURLBuilder(category, path, ), params.global)
 }
 
-export const getGISData = () => {
-  return post(API_GIS_URL, {})
+export const getGISData = (params) => {
+  return post(API_GIS_URL, params)
 }
 
 
 export const getNationalIndicators = (params) => {
-  return post(API_NATIONAL_URL, {...params})
+  return post(API_NATIONAL_URL, params)
 }
 
 
