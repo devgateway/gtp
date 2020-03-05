@@ -32,6 +32,8 @@ public class NationalIndicatorDTO {
 
     private List<YearValueDTO> yearValues = new ArrayList<>();
 
+    private Boolean reverse;
+
     public NationalIndicatorDTO(NationalIndicator indicator, String lang) {
         this.id = indicator.getId();
         boolean isFr = lang != null && lang.equalsIgnoreCase(LANG_FR);
@@ -50,6 +52,7 @@ public class NationalIndicatorDTO {
         if (yearValues != null) {
             this.yearValues = yearValues;
         }
+        this.reverse = indicator.isDescending();
     }
 
     public Long getId() {
@@ -70,6 +73,14 @@ public class NationalIndicatorDTO {
 
     public String getDescription() {
         return description;
+    }
+
+    public Boolean getReverse() {
+        return reverse;
+    }
+
+    public void setReverse(Boolean reverse) {
+        this.reverse = reverse;
     }
 
     public void setDescription(String description) {

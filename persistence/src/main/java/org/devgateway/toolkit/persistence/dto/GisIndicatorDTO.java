@@ -36,6 +36,8 @@ public class GisIndicatorDTO {
 
     private Boolean rightMap;
 
+    private Boolean reverse;
+
     @JsonIgnore
     private Set<String> sources = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
 
@@ -59,6 +61,7 @@ public class GisIndicatorDTO {
         if (ri.getSource() != null) {
             this.sources.add(ri.getSource());
         }
+        this.reverse = ri.isDescending();
     }
 
     public String getNameEnFr() {
@@ -67,6 +70,14 @@ public class GisIndicatorDTO {
 
     public void setNameEnFr(String nameEnFr) {
         this.nameEnFr = nameEnFr;
+    }
+
+    public Boolean getReverse() {
+        return reverse;
+    }
+
+    public void setReverse(Boolean reverse) {
+        this.reverse = reverse;
     }
 
     public Long getId() {
