@@ -92,6 +92,7 @@
 
   .national.chart.container {
     width: 100%;
+    height:90%;
     margin-bottom: 10px;
 
     .national.filter.container {
@@ -213,25 +214,29 @@
     }
 
     .national.chart.wrapper {
-      border: 1px solid red;
-      height:auto;
       background-color: #f9f9f9;
       border: 1px solid $border-color;
       border-radius: 4px;
       display: block;
-
+      height:100%;
+      overflow: hidden;
       .yLeyend {
-        color: $color-green;
-        transform: rotate(-90);
-        position: absolute;
+        color: rgb(51, 51, 51);
+          transform: rotate(-90deg);
+          position: absolute;
+          font-weight: 600;
+          margin: auto;
+          margin-top: 200px
       }
 
       .xLeyend {
+        padding: 10px;
         margin: auto;
         margin-top: -20px;
         margin-bottom: 10px;
         text-align: center;
         color: rgb(51, 51, 51);
+        font-weight: 600;
       }
 
       .description{
@@ -254,7 +259,7 @@
           rect{
             pointer-events: all;
 
-          
+
           }
         }
 

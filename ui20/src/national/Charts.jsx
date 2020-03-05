@@ -240,7 +240,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
         if(d){
         const {measure,measures,id}=d;
 
-        showTooltip(e,`${id} - ${measures[0]}${measure} ${condition}`, color,0,0)
+        showTooltip(e,`${id} <b>${measures[0]}${measure}</b>  `, color,0,0)
       }else{
         debugger;
       }
@@ -274,7 +274,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
           onMouseEnter={e=>{
               console.log(props)
               debugger;
-            showTooltip(e,`${index==1?`Target`:`Reference ${refData[0].id}`} ${value} ${refData[0].measure} `,color)
+            showTooltip(e,`${index==1?`Target`:`Reference ${refData[0].id}`} <b>${value} ${refData[0].measure}</b> `,color)
           }}
           onMouseMove={e=>moveTooltip(e,0,0)}
           onMouseLeave={hideTooltip}
@@ -293,12 +293,12 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
   return(
   <div className="national chart wrapper">
 
-          <div clas="yLeyend">Year</div>
+          <div className="yLeyend">Year</div>
           <div className="national chart">
 
                     <ResponsiveBullet
                           data={data}
-                          margin={{ top: 20, right: 20, bottom: 30, left: 48 }}
+                          margin={{ top: 20, right: 20, bottom: 30, left: 70 }}
                           spacing={70}
                           titleAlign="start"
                           titleOffsetX={-70}
