@@ -64,8 +64,8 @@ class GIS extends Component {
             {range.map(n=>{
               return  (
                 <Grid.Column width={8}>
-                
-                  <UnitChartContainer  data={data} />
+
+                  <UnitChartContainer n={n}  data={data} />
                 </Grid.Column>
             )
 

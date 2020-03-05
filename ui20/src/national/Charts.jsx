@@ -158,13 +158,13 @@ const CustomRange = ({ x, y, width, height, color, onMouseEnter, onMouseMove, on
 
        switch (condition) {
          case 'GOOD':
-          return 'green'
+          return '#addd8e'
          case 'REGULAR':
-          return 'orange'
+          return '#fad976'
          case 'BAD':
-         return 'red'
+         return '#ef6548'
          case 'NONE':
-         return 'gray'
+         return '#bababa'
            break;
 
        }

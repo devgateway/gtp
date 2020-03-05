@@ -112,7 +112,7 @@ const getDataByKeys=(data, keys)=>{
 
 const DropDownLabel=()=>(<FormattedMessage id = "national.indicator.name" defaultMessage = "Indicator"  > </FormattedMessage>)
 
-const PairOfMaps=({intl,id, data})=>{
+const PairOfMaps=({intl,id, data, n})=>{
 
   if (data){
     const colors=[
@@ -129,7 +129,8 @@ const PairOfMaps=({intl,id, data})=>{
 
     const options=getOptions(data.toJS())
 
-    const defaultSelection =  options.find(o=> options[0])
+    const defaultSelection = options[n]
+
     const [currentSelection, setSeCurrentSelection] = useState([defaultSelection.key]);
     const [color, setColor] = useState(['accent']);
     const [chartData, setChartData] = useState(null);
