@@ -154,23 +154,96 @@ const CustomRange = ({ x, y, width, height, color, onMouseEnter, onMouseMove, on
 )
 
 
+  const getConditionalColor=(condition)=>{
 
-export const Bullet =injectIntl(({ data ,refData, intl/* see data tab */, keys,indexBy , groupMode, color}) => {
+       switch (condition) {
+         case 'GOOD':
+          return '#addd8e'
+         case 'REGULAR':
+          return '#fad976'
+         case 'BAD':
+         return '#ef6548'
+         case 'NONE':
+         return '#bababa'
+           break;
 
+       }
+
+  }
+const getCondition = (reverse, current, target, reference) => {
+  debugger;
+  let condition = 'NONE'
+  const compare = (a, b) => {
+    return (reverse) ? a < b : a > b
+  }
+
+
+
+  if (target && reference) {
+    //current has meet target or is better than target
+    if (current == target || compare(current, target)) {
+        condition = 'GOOD'
+    } else {
+      //current is worse  than taget but equal or better than reference
+      if (current == reference || compare(current, reference)) {
+        condition = 'REGULAR'
+      } else {
+        condition = 'BAD'
+      }
+
+    }
+  } else if (target && !reference) {
+    //if there no ference just check it agains target
+    if (current == target || compare(current, target)) {
+      condition = 'GOOD'
+    } else {
+      condition = 'BAD'
+    }
+  } else if (!target && reference) {
+
+    //if there no target just check it agains reference
+    if (current == reference || compare(current, reference)) {
+      condition = 'GOOD'
+    } else {
+      condition = 'BAD'
+    }
+  } else {
+    condition = 'NONE'
+  }
+
+  return condition
+
+}
+
+
+export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy , groupMode, color}) => {
 
 
   const CustomMeasure = (props) =>{
 
-    const { x, y, width, height, color, onMouseEnter, onMouseMove, onMouseLeave } = props
+    const { x, y, width,metadata, height, onMouseEnter, onMouseMove, onMouseLeave } = props
+    let color2='#FFF'
+    const reverse=metadata.reverse;
+    const current=props.data.v1;
+    const target=metadata.targetValue;
+    const reference = metadata.referenceValue
+
+    const condition=getCondition(reverse,current,target,reference)
+    const color=getConditionalColor(condition);
+
 
     return (
-      <g
-      onMouseEnter={e=>{
+      <g onMouseEnter={e=>{
+        debugger;
         const index=[...e.target.parentElement.parentElement.parentElement.getElementsByClassName("measure")].indexOf(e.target)
         const d=data[index]
+        if(d){
         const {measure,measures,id}=d;
 
-        showTooltip(e,`${id} - ${measures[0]}${measure}`, color,0,0)
+        showTooltip(e,`${id} <b>${measures[0]}${measure}</b>  `, color,0,0)
+      }else{
+        debugger;
+      }
       }}
       onMouseMove={e=>moveTooltip(e,30,0)}
       onMouseLeave={hideTooltip}
@@ -192,20 +265,22 @@ export const Bullet =injectIntl(({ data ,refData, intl/* see data tab */, keys,i
 
 
   const CustomMarker = (props) => {
-      const { x, y,size,value, width,rotation,onClick, height, color, onMouseEnter, onMouseMove, onMouseLeave } = props
+      const { x, y,size,value, index,width,rotation,onClick, height, color, onMouseEnter, onMouseMove, onMouseLeave , intl} = props
+
       return (
 
         <g
-
+          className="marker"
           onMouseEnter={e=>{
-            showTooltip(e,`TARGET YEAR: ${refData[0].id} -  ${refData[0].measures[0]}${refData[0].measure} `,'#C1E5C9')
+
+              showTooltip(e,`${index==1?`Target`:`Reference ${refData[0].id}`} <b>${value} ${metadata.measure}</b> `,color)
           }}
           onMouseMove={e=>moveTooltip(e,0,0)}
           onMouseLeave={hideTooltip}
           >
 
-          <rect   transform={`rotate(${rotation}, ${x}, ${y})`} x={x} y={y - size / 2} width="16" height={size}
-                        fill="#C1E5C9"
+          <rect   transform={`rotate(${rotation}, ${x}, ${y})`} x={x} y={y - size / 2} width="7" height={size}
+                        fill={color}
                         rx="5"
                         ry="5"/>
 
@@ -214,33 +289,36 @@ export const Bullet =injectIntl(({ data ,refData, intl/* see data tab */, keys,i
     )
   }
 
-
-
-
-
   return(
-  <div>
+  <div className="national chart wrapper">
 
-
+          <div className="yLeyend">Year</div>
           <div className="national chart">
-        <ResponsiveBullet
-              data={data}
-              margin={{ top: 20, right: 20, bottom: 30, left: 48 }}
-              spacing={70}
-              titleAlign="start"
-              titleOffsetX={-70}
-              measureSize={0.2}
-              rangeColors={["#e5612d","#f2a864","#fce38f","#b5f2a0"]}
-              measureSize={0.4}
-              titleOffsetX={-41}
-              animate={true}
-              motionStiffness={90}
-              motionDamping={12}
-              measureComponent={CustomMeasure}
-              markerSize={.6}
-              markerComponent={CustomMarker}
-              rangeComponent={CustomRange}
-          />
+
+                    <ResponsiveBullet
+                          data={data}
+                          margin={{ top: 20, right: 20, bottom: 30, left: 70 }}
+                          spacing={70}
+                          titleAlign="start"
+                          titleOffsetX={-70}
+                          measureSize={0.2}
+                          measureSize={0.4}
+                          titleOffsetX={-41}
+                          animate={true}
+                          motionStiffness={90}
+                          motionDamping={12}
+                          rangeColors={["#d1e5f0"]}
+                          rangeComponent={(props)=>CustomRange({...props, metadata})}
+                          measureComponent={(props)=>CustomMeasure({...props, metadata})}
+                          measureColors={["#b2182b","#a6dba0"]}
+                          markerSize={.9}
+                          markerColors={["#f88d59","#C1E5C9"]}
+                          markerComponent={CustomMarker}
+
+                      />
+
           </div>
+          <div className="xLeyend">{metadata.name}  ({metadata.measure})</div>
+          <div className="description">{metadata.description}</div>
     </div>)
 })

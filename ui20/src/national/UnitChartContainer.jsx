@@ -23,6 +23,7 @@ const getOptions=(data, percents)=> {
 
 
 const getDataByKeys=(data, keys)=>{
+
   const elements=data.filter(p=>keys.indexOf(p.get('id')) > -1)
 
   if (elements){
@@ -37,6 +38,17 @@ const getDataByKeys=(data, keys)=>{
 
     if(indicator.referenceValue){
       markers.push(indicator.referenceValue)
+
+
+
+    }else{
+      markers.push(-1000)
+
+    }
+
+    if(indicator.targetValue){
+      markers.push(indicator.targetValue)
+
     }
 
     if (referenceValue){
@@ -69,10 +81,11 @@ const getDataByKeys=(data, keys)=>{
       }
 
     const chartData= indicator.yearValues.map(yv=>{
+
       return {
             id: yv.year+" ",
-            measure:'%',
-            ranges,
+            measure:indicator.measure,
+            ranges:[ranges[0], ranges[ranges.length-1]],
             markers,
             measures: [yv.value],
           }
@@ -83,13 +96,15 @@ const getDataByKeys=(data, keys)=>{
     if(indicator.referenceValue){
       refData.push(  {
               id: indicator.referenceYear+" ",
-              measure:'%',
+              measure:indicator.measure,
               ranges,
               markers,
               measures: [indicator.referenceValue],
             })
     }
-      return  {refData,data:chartData}
+
+      console.log(indicator)
+      return  {refData,data:chartData,metadata:indicator }
     }
 }
 
@@ -97,7 +112,7 @@ const getDataByKeys=(data, keys)=>{
 
 const DropDownLabel=()=>(<FormattedMessage id = "national.indicator.name" defaultMessage = "Indicator"  > </FormattedMessage>)
 
-const PairOfMaps=({intl,id, data})=>{
+const PairOfMaps=({intl,id, data, n})=>{
 
   if (data){
     const colors=[
@@ -114,7 +129,8 @@ const PairOfMaps=({intl,id, data})=>{
 
     const options=getOptions(data.toJS())
 
-    const defaultSelection =  options.find(o=> options[0])
+    const defaultSelection = options[n > options.length-1?options.length-1:n ]
+
     const [currentSelection, setSeCurrentSelection] = useState([defaultSelection.key]);
     const [color, setColor] = useState(['accent']);
     const [chartData, setChartData] = useState(null);
@@ -122,6 +138,7 @@ const PairOfMaps=({intl,id, data})=>{
 
     useEffect(() => {
       if (data){
+
           setChartData(getDataByKeys(data,currentSelection) )
       }
     }, [currentSelection]);
@@ -141,7 +158,7 @@ const PairOfMaps=({intl,id, data})=>{
                             </div>
 
 
-                 {chartData?<Bullet {...chartData} color={color[0]}/>:null}
+                 {chartData?<Bullet {...chartData}  color={color[0]}/>:null}
 
      </div>)
    }else{

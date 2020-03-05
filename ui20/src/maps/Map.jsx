@@ -37,11 +37,6 @@ export default class D3Map extends Component < {},
     }
 
 
-
-
-
-
-
     showDetails(fid, duration) {
       let action;
       let data;
@@ -62,14 +57,16 @@ export default class D3Map extends Component < {},
       const measure = this.props.measure
       var text1, text2;
       if (action == 'in') {
-        
-        text1 = `${this.props.indicator.text} - ${data.properties.value? this.props.intl.formatNumber(data.properties.value):this.props.intl.formatMessage(messages.data_no_data_available)}`
+
+        text1 = `${this.props.indicator.text} - ${data.properties.value? this.props.intl.formatNumber(data.properties.value) +' ('+ data.properties.measure +')':this.props.intl.formatMessage(messages.data_no_data_available)} `
 
       }
 
       this.svg.selectAll('text').remove()
       this.svg.selectAll('circle').remove()
       this.svg.selectAll('rect').remove()
+
+
 
       if (action == 'in') {
         this.createLabels({
@@ -80,8 +77,18 @@ export default class D3Map extends Component < {},
           .attr("ry", 0)
           .attr('x', 0  )
           .attr('y', 0)
-          .attr('width', width ).attr('height', 32)
-          this.svg.append("text").attr('class', 'info').attr("x", 5).attr("y", 20).text("").transition().delay(100).duration(300).tween("text", function(d) {
+          .attr('width', width ).attr('height', 58)
+
+          this.svg.append("text")
+          .attr('class', 'info')
+          .attr("x", 5)
+          .attr("y", 26)
+          .text("")
+          .transition()
+          .delay(100)
+          .duration(300)
+          .tween("text", function(d) {
+
           var textLength = text1.length;
           return function(t) {
             this.textContent = text1.substr(0, Math.round(t * textLength));

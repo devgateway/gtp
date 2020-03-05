@@ -1,17 +1,15 @@
 @import "../base.scss";
 
 .tooltip {
-
   color: #000;
   background-color: #FFF;
   position: absolute;
   -webkit-box-shadow: 7px 9px 15px -9px rgba(0,0,0,0.66);
   -moz-box-shadow: 7px 9px 15px -9px rgba(0,0,0,0.66);
   box-shadow: 7px 9px 15px -9px rgba(0,0,0,0.66);
-  border-radius:5px;
-  padding:10px;
-
-
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: 10px;
   .square {
     margin-right: 4px;
     width: 15px;
@@ -20,10 +18,9 @@
     margin-top: 4px;
   }
 
-  .label{
+  .label {
     line-height: 22px;
     float: left;
-
   }
 }
 
@@ -95,6 +92,8 @@
 
   .national.chart.container {
     width: 100%;
+    height:90%;
+    margin-bottom: 10px;
 
     .national.filter.container {
       display: block;
@@ -214,23 +213,60 @@
       }
     }
 
-    .national.chart {
+    .national.chart.wrapper {
       background-color: #f9f9f9;
       border: 1px solid $border-color;
       border-radius: 4px;
       display: block;
-      height: 430px;
-      padding-bottom: 20px;
-      width: 100%;
-
-      text {
-        font-size: 13px !important;
+      height:100%;
+      overflow: hidden;
+      .yLeyend {
+        color: rgb(51, 51, 51);
+          transform: rotate(-90deg);
+          position: absolute;
+          font-weight: 600;
+          margin: auto;
+          margin-top: 200px
       }
 
-      g {
-        pointer-events: all;
+      .xLeyend {
+        padding: 10px;
+        margin: auto;
+        margin-top: -20px;
+        margin-bottom: 10px;
+        text-align: center;
+        color: rgb(51, 51, 51);
+        font-weight: 600;
+      }
+
+      .description{
+        padding:5px 20px;
+        color: #000;
+        font-size: 12px;
+      }
+
+      .national.chart {
+        height: 430px;
+        padding-bottom: 20px;
+        width: 100%;
+
+        .description text {
+          font-size: 13px !important;
+        }
+
+
+        g.marker{
+          rect{
+            pointer-events: all;
+
+
+          }
+        }
+
+        g {
+          pointer-events: all;
+        }
       }
     }
-    margin-bottom: 10px;
   }
 }

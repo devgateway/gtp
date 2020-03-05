@@ -25,7 +25,8 @@ class GIS extends Component {
   }
 
   componentDidMount(){
-    this.props.onLoad()
+    const lang=this.props.intl.locale
+    this.props.onLoad(lang)
   }
 
   addnewOne(){
