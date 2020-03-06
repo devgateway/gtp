@@ -171,7 +171,7 @@ const CustomRange = ({ x, y, width, height, color, onMouseEnter, onMouseMove, on
 
   }
 const getCondition = (reverse, current, target, reference) => {
-  debugger;
+
   let condition = 'NONE'
   const compare = (a, b) => {
     return (reverse) ? a < b : a > b
@@ -234,7 +234,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
 
     return (
       <g onMouseEnter={e=>{
-        debugger;
+
         const index=[...e.target.parentElement.parentElement.parentElement.getElementsByClassName("measure")].indexOf(e.target)
         const d=data[index]
         if(d){
@@ -242,7 +242,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
 
         showTooltip(e,`${id} <b>${measures[0]}${measure}</b>  `, color,0,0)
       }else{
-        debugger;
+
       }
       }}
       onMouseMove={e=>moveTooltip(e,30,0)}

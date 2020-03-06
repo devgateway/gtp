@@ -12,12 +12,15 @@ const initialState = Immutable.Map()
 
 export const loadGISData = (lang) => (dispatch, getState) => {
 
-  dispatch({
-    type: LOAD_GIS_DATA
-  })
-  api.getGISData({lang}).then(data => {
+  dispatch({ type: LOAD_GIS_DATA })
+  api.getGISDepartmentData({lang}).then(department => {
 
-      dispatch({type: LOAD_GIS_DATA_DONE, data})
+      api.getGISRegionData({lang}).then(region=>{
+        dispatch({type: LOAD_GIS_DATA_DONE, region,department})
+      }).catch(error => {
+        dispatch({type: LOAD_GIS_DATA_ERROR,error})
+      })
+
     }).catch(error => {
       dispatch({type: LOAD_GIS_DATA_ERROR,error})
     })
@@ -30,8 +33,10 @@ export default (state = initialState, action) => {
       return state.setIn(['status', 'loading'], true)
     }
     case LOAD_GIS_DATA_DONE: {
-      const {data} = action
-      return state.setIn(["data"], Immutable.fromJS(data)).setIn(['status', 'loading'], false)
+      const {department, region} = action
+      return state.setIn(['status', 'loading'], false)
+              .setIn(["region"], Immutable.fromJS(region))
+              .setIn(["department"], Immutable.fromJS(department))
     }
     case LOAD_GIS_DATA_ERROR: {
       return state.setIn(['status', 'loading'], false).setIn(['status', 'error'], action.error)

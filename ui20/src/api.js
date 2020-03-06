@@ -14,12 +14,17 @@ const URL_AOI_TOTAL_BUDGET = API_ROOT + '/data/agOrientation/summary/totalBudget
 const URL_RAPID_LINKS = API_ROOT + '/data/rapidLink/top5'
 const URL_DATA_SETS = API_ROOT + '/data/dataset/all'
 const URL_SOURCES = API_ROOT + '/data/datasources/all'
-const API_GIS_URL = API_ROOT + '/data/gisIndicator/region/all'
+
 const API_PARTNERS_URL = API_ROOT + '/data/partner/all'
 const URL_API_INITIATIVE_TYPES = API_ROOT + '/data/filter/contentType'
 const URL_API_INITIATIVE_ITEMS = API_ROOT + '/data/agriculturalContent/type'
 const URL_DATA_SETS_YEARS = API_ROOT + '/data/filter/dataset/years'
 const API_NATIONAL_URL = API_ROOT + '/data/nationalIndicator/all'
+
+
+const API_GIS_URL_REGION = API_ROOT + '/data/gisIndicator/region/all'
+
+const API_GIS_URL_DEPARTMENT = API_ROOT + '/data/gisIndicator/department/all'
 
 const xlsExportURLBuilder = (what) => {
   let subfix = ''
@@ -127,8 +132,13 @@ export const getItems = (category, path, params) => {
   return post(API_ROOT + itemsURLBuilder(category, path, ), params.global)
 }
 
-export const getGISData = (params) => {
-  return post(API_GIS_URL, params)
+export const getGISRegionData = (params) => {
+  return post(API_GIS_URL_REGION, params)
+}
+
+
+export const getGISDepartmentData = (params) => {
+  return post(API_GIS_URL_DEPARTMENT, params)
 }
 
 
