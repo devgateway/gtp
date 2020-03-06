@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.GisSettings;
+import org.devgateway.toolkit.persistence.dao.GisSettingsDescription;
 import org.devgateway.toolkit.persistence.dao.RegionIndicator;
 import org.devgateway.toolkit.persistence.dto.GisDTO;
 import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
@@ -8,6 +9,7 @@ import org.devgateway.toolkit.persistence.dto.GisStatDTO;
 import org.devgateway.toolkit.persistence.repository.ConsumptionIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.GisIndicatorDepartment;
 import org.devgateway.toolkit.persistence.repository.GisIndicatorRegion;
+import org.devgateway.toolkit.persistence.repository.GisSettingsDescriptionRepository;
 import org.devgateway.toolkit.persistence.repository.PovertyIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.ProductionIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.RegionIndicatorRepository;
@@ -17,9 +19,9 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.devgateway.toolkit.persistence.util.Constants.EMPTY_STRING;
 import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
@@ -32,8 +34,12 @@ import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 @Transactional
 public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicator> implements RegionIndicatorService {
 
+    public static final int POVERTY_TYPE_ID = 1;
+    public static final int PROD_TYPE_ID = 2;
+    public static final int CONSUMPTION_TYPE_ID = 3;
+
     @Autowired
-    private EntityManager entityManager;
+    private GisSettingsDescriptionRepository descRepository;
 
     @Autowired
     private RegionIndicatorRepository repository;
@@ -63,9 +69,9 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
     @Override
     public List<GisIndicatorDTO> findGisRegionIndicators(final String lang) {
         List<GisIndicatorDTO> ret = new ArrayList<>();
-        fillIndicator(lang, ret, getGisDtoRegionList(povertyRepo));
-        fillIndicator(lang, ret, getGisDtoRegionList(prodRepo));
-        fillIndicator(lang, ret, getGisDtoRegionList(consRepo));
+        fillIndicator(lang, ret, getGisDtoRegionList(povertyRepo), descRepository.findByType(POVERTY_TYPE_ID));
+        fillIndicator(lang, ret, getGisDtoRegionList(prodRepo), descRepository.findByType(PROD_TYPE_ID));
+        fillIndicator(lang, ret, getGisDtoRegionList(consRepo), descRepository.findByType(CONSUMPTION_TYPE_ID));
 
         List<RegionIndicator> indicatorList = repository.findAll();
         indicatorList.stream().filter(n -> n.isApproved()).forEach(i -> ret.add(new GisIndicatorDTO(i, lang)));
@@ -87,8 +93,9 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
     @Override
     public List<GisIndicatorDTO> findGisDepartmentIndicators(String lang) {
         List<GisIndicatorDTO> ret = new ArrayList<>();
-        fillIndicator(lang, ret, getGisDtoDepartmentList(prodRepo));
-        fillIndicator(lang, ret, getGisDtoDepartmentList(consRepo));
+        fillIndicator(lang, ret, getGisDtoDepartmentList(prodRepo), descRepository.findByType(PROD_TYPE_ID));
+        fillIndicator(lang, ret, getGisDtoDepartmentList(consRepo),
+                descRepository.findByType(CONSUMPTION_TYPE_ID));
         return ret;
     }
 
@@ -100,7 +107,8 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
         return repo.findAllGisByDepartment();
     }
 
-    private void fillIndicator(String lang, List<GisIndicatorDTO> ret, List<GisDTO> gisDTOList) {
+    private void fillIndicator(String lang, List<GisIndicatorDTO> ret, List<GisDTO> gisDTOList,
+                               Optional<GisSettingsDescription> description) {
 
         boolean isFR = lang != null && lang.equalsIgnoreCase(LANG_FR);
         int year = -1;
@@ -116,6 +124,15 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
                 dto.setId(Long.valueOf(year) * 1000 + crop.hashCode());
                 dto.setName(p.getName(isFR));
                 dto.setNameEnFr(p.getNameEnFr());
+                String desc = null;
+                if (description.isPresent()) {
+                    if (isFR) {
+                        desc = description.get().getDescriptionFr();
+                    } else {
+                        desc = description.get().getDescription();
+                    }
+                }
+                dto.setDescription(desc);
                 if (p.getValue() != null) {
                     dto.setMaxValue(p.getValue());
                     dto.setMinValue(p.getValue());

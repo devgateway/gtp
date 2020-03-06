@@ -4,6 +4,8 @@ import org.devgateway.toolkit.persistence.dao.GisSettings;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Transactional
 public interface GisSettingsRepository extends BaseJpaRepository<GisSettings, Long> {
+
 }

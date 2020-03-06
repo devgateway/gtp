@@ -63,6 +63,8 @@ public class EditGisSettingsPage extends AbstractEditPage<GisSettings> {
     protected void onInitialize() {
         super.onInitialize();
 
+        editForm.add(new Label("nationalTitle", new StringResourceModel("nationalTitle", this, null)));
+
         editForm.add(new Label("gisTitle", new StringResourceModel("gisTitle", this, null)));
 
         List<String> regionList = regionIndicatorService.findGisRegionIndicators(null)
