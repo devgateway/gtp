@@ -13,6 +13,7 @@ import {CustomFilterDropDown,items2options} from '../indicators/Components'
 import {PngExport} from '../indicators/Components'
 
 var regions = require('../json/regions.json'); //with path
+var departments = require('../json/departments.json'); //with path
 
 const getOptions=(data)=> {
 
@@ -21,17 +22,22 @@ const getOptions=(data)=> {
 
 
 const getMapData=(data,id)=>{
-  debugger;
+
   return data.filter(d=>d.id==id)[0]
 }
 
 
-export const joinData = (json, data = [], intl) => {
+export const joinData = (json, data = [], getCode,getName) => {
   if (data) {
 
       json.features.forEach(f=>{
 
-        var rData=data.stats.filter(s=>s.code==f.properties.HASC_1.substr(3))
+
+
+        var rData=data.stats.filter(s=>s.code==getCode(f))
+        Object.assign(f.properties,{
+            'NAME':getName(f)})
+
         if (rData.length >0){
           let props=rData[0]
 
@@ -59,8 +65,10 @@ const getOptionByKey=(options, key)=>{
 
 const DropDownLabel=()=>(<FormattedMessage id = "gis.indicator.name" defaultMessage = "Indicator"  > </FormattedMessage>)
 
-const PairOfMaps=({intl,id, data, selection})=>{
-  if (data){
+const PairOfMaps=({intl,id, data, selection,level})=>{
+
+
+if (data){
 
     const colors=[
     {key:'Blues' ,text: intl.formatMessage(messages.blues)},
@@ -75,8 +83,8 @@ const PairOfMaps=({intl,id, data, selection})=>{
 
 
     const options=getOptions(data.toJS())
+    console.log(options)
 
-    debugger;
     const defLeft =  options.find(o=>o.leftMap==true) || options[0]
     const defRigth=  options.find(o=>o.rightMap==true)  || options[0]
 
@@ -96,18 +104,27 @@ const PairOfMaps=({intl,id, data, selection})=>{
     const leftData=data && left? getMapData(data.toJS(),left):null
     const rightData=data && right? getMapData(data.toJS(),right):null
 
+    const shapes=(level=='region')?regions:departments;
+    const getCode=(level=='region')?(f)=>f.properties.HASC_1.substr(3):(f)=>f.properties.HASC_2.substr(6,2)
 
-    const [leftGeoJson, setLeftGeoJson] = useState(leftData?joinData(Immutable.fromJS(regions).toJS(), Immutable.fromJS(leftData).toJS()):null);
-    const [rightGeojson, setRightGeojson] = useState(rightData?joinData(Immutable.fromJS(regions).toJS(), Immutable.fromJS(rightData).toJS()):null);
+    const getName=(level=='region')?(f)=>f.properties.NAME_1:(f)=>f.properties.NAME_2
+
+
+
+
+    const [leftGeoJson, setLeftGeoJson] = useState(leftData?joinData(Immutable.fromJS(shapes).toJS(), Immutable.fromJS(leftData).toJS(),getCode,getName):null);
+
+    const [rightGeojson, setRightGeojson] = useState(rightData?joinData(Immutable.fromJS(shapes).toJS(), Immutable.fromJS(rightData).toJS(),getCode,getName):null);
 
 
     useEffect(() => {
-      setLeftGeoJson(joinData(Immutable.fromJS(regions).toJS(), getMapData(data.toJS(),left)))
+      setLeftGeoJson(joinData(Immutable.fromJS(shapes).toJS(), getMapData(data.toJS(),left),getCode,getName))
     }, [left]);
 
     useEffect(() => {
-      setRightGeojson(joinData(Immutable.fromJS(regions).toJS(), getMapData(data.toJS(),right)))
+      setRightGeojson(joinData(Immutable.fromJS(shapes).toJS(), getMapData(data.toJS(),right),getCode,getName))
     }, [right]);
+
 
 
 
@@ -156,7 +173,6 @@ const PairOfMaps=({intl,id, data, selection})=>{
         </div>
 
            <Map
-             key="map1"
              name={leftIndicator.name}
              selection={selection}
              key={leftIndicator.id}
@@ -168,6 +184,9 @@ const PairOfMaps=({intl,id, data, selection})=>{
             indicator={leftIndicator}
              sideColor={rightColor}
              onClick={e=>setSelection(selection&&selection.fid==e.fid?null:e)}/>
+              <div>
+                {leftIndicator.description}
+              </div>
 
          </Grid.Column>
          <Grid.Column>
@@ -193,7 +212,7 @@ const PairOfMaps=({intl,id, data, selection})=>{
              </div>
            </div>
 
-             <Map key="map2"
+             <Map
                   name={rightIndicator.name}
                   selection={selection}
                   key={rightIndicator.id}

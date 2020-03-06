@@ -10,8 +10,8 @@ const formatOptions = {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
 }
-const width = 653,
-  height = 360;
+const width = 640,
+  height = 500;
 
 export default class D3Map extends Component < {},
   State > {
@@ -52,46 +52,70 @@ export default class D3Map extends Component < {},
 
       }
 
-        this.scaleTo(data, fid, duration)
+
+
+      this.scaleTo(data, fid, duration, (action=='in'?true:false))
 
       const measure = this.props.measure
       var text1, text2;
       if (action == 'in') {
-
-        text1 = `${this.props.indicator.text} - ${data.properties.value? this.props.intl.formatNumber(data.properties.value) +' ('+ data.properties.measure +')':this.props.intl.formatMessage(messages.data_no_data_available)} `
+            text2 = `  ${this.props.indicator.text} - ${data.properties.value? this.props.intl.formatNumber(data.properties.value) +' ('+ data.properties.measure +')':this.props.intl.formatMessage(messages.data_no_data_available)} `
 
       }
-
       this.svg.selectAll('text').remove()
       this.svg.selectAll('circle').remove()
       this.svg.selectAll('rect').remove()
+      this.svg.selectAll('line').remove()
+
+
 
 
 
       if (action == 'in') {
-        this.createLabels({
-          features: [data]
-        })
+        const self=this
+
+        this.svg.append("text")
+        .attr("x",d=>width -20)
+        .attr("y",d=>height -30)
+        .attr("class", "big label")
+        .attr("fill", "black")
+        .attr("text-anchor", "end")
+        .text("")
+        .transition()
+        .delay(100)
+        .duration(300)
+        .tween("text", function(d) {
+
+        var textLength = data.properties.NAME.length;
+        return function(t) {
+          this.textContent = data.properties.NAME.substr(0, Math.round(t * textLength));
+        };
+      });
+
+
+
         this.svg.append('rect')
           .attr("rx", 0)
           .attr("ry", 0)
           .attr('x', 0  )
           .attr('y', 0)
-          .attr('width', width ).attr('height', 58)
+          .attr('width', width ).attr('height', 38)
+
+
 
           this.svg.append("text")
           .attr('class', 'info')
           .attr("x", 5)
-          .attr("y", 26)
+          .attr("y", 15)
           .text("")
           .transition()
           .delay(100)
           .duration(300)
           .tween("text", function(d) {
 
-          var textLength = text1.length;
+          var textLength = text2.length;
           return function(t) {
-            this.textContent = text1.substr(0, Math.round(t * textLength));
+            this.textContent = text2.substr(0, Math.round(t * textLength));
           };
         });
 
@@ -133,13 +157,25 @@ export default class D3Map extends Component < {},
 
     createLabels(json) {
       const _this = this
-      this.g.selectAll("circle").data(json.features).enter().append("circle").attr("r", 2).attr("cx", d => _this.path.centroid(d)[0] - 4).attr("cy", d => _this.path.centroid(d)[1] - 3)
+    //  this.g.selectAll("circle").data(json.features).enter().append("circle").attr("r", 2).attr("cx", d => _this.path.centroid(d)[0] - 4).attr("cy", d => _this.path.centroid(d)[1] - 3)
 
       this.g.selectAll("text").data(json.features).enter().append("text").attr("class", "label").attr("fill", "black").style("text-anchor", "start").attr("class", "label")
-        .attr("transform", (d) => {
-          return "translate(" + _this.path.centroid(d) + ")";
-        }).text(function(d) {
-          return d.properties.NAME_1
+        //.attr("transform", (d) => {return "translate(" + _this.path.centroid(d) + ")";})
+        .text(function(d) {
+
+          var bounds=_this.path.bounds(d)
+          var xwidth  = bounds[1][0] - bounds[0][0];
+
+          if(xwidth >(d.properties.NAME.length*4)){
+            return d.properties.NAME
+          }else{
+              return '';
+          }
+        })   .attr("x", function(d) {
+          return _this.path.centroid(d)[0];
+        })
+        .attr("y", function(d) {
+          return _this.path.centroid(d)[1];
         });
 
     }
@@ -159,7 +195,7 @@ export default class D3Map extends Component < {},
 
 
 
-    scaleTo(data, fid,duration) {
+    scaleTo(data, fid,duration , remark) {
       var bounds = this.path.bounds(data),
 
         dx = bounds[1][0] - bounds[0][0],
@@ -176,7 +212,9 @@ export default class D3Map extends Component < {},
       const getFillColor = this.getFillColor
 
       this.g.selectAll('path')
-        .style('fill', (d) => fid && d.properties.fid === fid ? getFillColor(d) : getFillColor(d)).style('stroke', (d) => fid && d.properties.fid === fid ? 'red' : '#EEE');
+        .style('fill', (d) => fid && d.properties.fid === fid ? getFillColor(d) : remark?"#EEE":getFillColor(d) )
+        .style('stroke', (d) => fid && d.properties.fid === fid ? 'red' : '#EEE');
+
       this.g.transition().duration(duration)
         .style("stroke-width", 1.5 / scale + "px")
         .attr("transform", "translate(" + translate + ") scale(" + scale + ")");
@@ -244,8 +282,8 @@ export default class D3Map extends Component < {},
     }
 
     render() {
-      return ( < div className = "map"
-        ref = "container" > < /div>)
+      return (
+        <div className = "map" ref = "container"> </div>)
       }
 
     }
