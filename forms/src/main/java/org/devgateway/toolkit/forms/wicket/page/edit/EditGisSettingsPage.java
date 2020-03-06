@@ -14,6 +14,7 @@ import org.devgateway.toolkit.forms.wicket.page.edit.panel.GisSettingsDescPanel;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.GisSettings;
 import org.devgateway.toolkit.persistence.service.GisSettingsService;
+import org.devgateway.toolkit.persistence.service.NationalIndicatorService;
 import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -34,6 +35,9 @@ public class EditGisSettingsPage extends AbstractEditPage<GisSettings> {
 
     @SpringBean
     private GisSettingsService service;
+
+    @SpringBean
+    private NationalIndicatorService nationalIndicatorService;
 
     @SpringBean
     private RegionIndicatorService regionIndicatorService;
@@ -64,6 +68,25 @@ public class EditGisSettingsPage extends AbstractEditPage<GisSettings> {
         super.onInitialize();
 
         editForm.add(new Label("nationalTitle", new StringResourceModel("nationalTitle", this, null)));
+        List<String> nationalList = nationalIndicatorService.findAll()
+                .stream().map(n -> n.getNameEnFr()).collect(Collectors.toList());
+
+        GenericChoiceProvider<String> nationalProvider = new GenericChoiceProvider<String>(nationalList) {
+            @Override
+            public String getDisplayValue(String indicator) {
+                return indicator;
+            }
+        };
+
+        Select2ChoiceBootstrapFormComponent<String> leftNationalName =
+                new Select2ChoiceBootstrapFormComponent<>("leftNationalName", nationalProvider);
+        editForm.add(leftNationalName);
+
+        Select2ChoiceBootstrapFormComponent<String> rightNationalName =
+                new Select2ChoiceBootstrapFormComponent<>("rightNationalName", nationalProvider);
+        editForm.add(rightNationalName);
+
+        ////////////////////////////
 
         editForm.add(new Label("gisTitle", new StringResourceModel("gisTitle", this, null)));
 

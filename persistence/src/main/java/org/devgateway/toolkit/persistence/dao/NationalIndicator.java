@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -77,6 +78,21 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
 
     public void setNameFr(String nameFr) {
         this.nameFr = nameFr;
+    }
+
+    @JsonIgnore
+    public String getNameEnFr() {
+        StringBuilder sb = new StringBuilder();
+        if (StringUtils.isNotBlank(name)) {
+            sb.append(name);
+            if (StringUtils.isNotBlank(nameFr)) {
+                sb.append("/");
+            }
+        }
+        if (StringUtils.isNotBlank(nameFr)) {
+            sb.append(nameFr);
+        }
+        return sb.toString();
     }
 
     public boolean isDescending() {

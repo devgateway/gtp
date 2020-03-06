@@ -19,6 +19,9 @@ public class GisSettings extends AbstractAuditableEntity implements Serializable
 
     private static final long serialVersionUID = -1051140524022133178L;
 
+    private String rightNationalName;
+    private String leftNationalName;
+
     private String rightGisName;
     private String leftGisName;
 
@@ -29,6 +32,22 @@ public class GisSettings extends AbstractAuditableEntity implements Serializable
     @OneToMany(mappedBy = "gisSettings", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @OrderColumn(name = "index")
     private List<GisSettingsDescription> descriptions;
+
+    public String getRightNationalName() {
+        return rightNationalName;
+    }
+
+    public void setRightNationalName(String rightNationalName) {
+        this.rightNationalName = rightNationalName;
+    }
+
+    public String getLeftNationalName() {
+        return leftNationalName;
+    }
+
+    public void setLeftNationalName(String leftNationalName) {
+        this.leftNationalName = leftNationalName;
+    }
 
     public String getRightGisName() {
         return rightGisName;

@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.dto;
 
 
 import org.apache.commons.lang3.StringUtils;
+import org.devgateway.toolkit.persistence.dao.GisSettings;
 import org.devgateway.toolkit.persistence.dao.NationalIndicator;
 
 import java.util.ArrayList;
@@ -28,13 +29,17 @@ public class NationalIndicatorDTO {
 
     private Double targetValue;
 
+    private Boolean leftMap = false;
+
+    private Boolean rightMap = false;
+
     private String measure;
 
     private List<YearValueDTO> yearValues = new ArrayList<>();
 
     private Boolean reverse;
 
-    public NationalIndicatorDTO(NationalIndicator indicator, String lang) {
+    public NationalIndicatorDTO(NationalIndicator indicator, String lang, GisSettings gisSettings) {
         this.id = indicator.getId();
         boolean isFr = lang != null && lang.equalsIgnoreCase(LANG_FR);
         this.name = isFr || StringUtils.isBlank(indicator.getName()) ? indicator.getNameFr() : indicator.getName();
@@ -44,6 +49,12 @@ public class NationalIndicatorDTO {
         this.referenceYear = indicator.getReferenceYear();
         this.referenceValue = indicator.getReferenceValue();
         this.targetValue = indicator.getTargetValue();
+        if (gisSettings != null && indicator.getNameEnFr().equalsIgnoreCase(gisSettings.getLeftNationalName())) {
+            this.leftMap = true;
+        }
+        if (gisSettings != null && indicator.getNameEnFr().equalsIgnoreCase(gisSettings.getRightNationalName())) {
+            this.rightMap = true;
+        }
         this.measure = indicator.getMeasure();
         List<YearValueDTO> yearValues = indicator.getYearValue().stream()
                 .filter(n -> n != null)
@@ -81,6 +92,22 @@ public class NationalIndicatorDTO {
 
     public void setReverse(Boolean reverse) {
         this.reverse = reverse;
+    }
+
+    public Boolean getLeftMap() {
+        return leftMap;
+    }
+
+    public void setLeftMap(Boolean leftMap) {
+        this.leftMap = leftMap;
+    }
+
+    public Boolean getRightMap() {
+        return rightMap;
+    }
+
+    public void setRightMap(Boolean rightMap) {
+        this.rightMap = rightMap;
     }
 
     public void setDescription(String description) {

@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
+import org.devgateway.toolkit.persistence.dao.GisSettings;
 import org.devgateway.toolkit.persistence.dao.categories.DatasetType;
 import org.devgateway.toolkit.persistence.dto.AgriculturalContentDTO;
 import org.devgateway.toolkit.persistence.dto.DatasetDTO;
@@ -9,6 +10,7 @@ import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.category.DatasetTypeRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
 import org.devgateway.toolkit.persistence.service.DatasetService;
+import org.devgateway.toolkit.persistence.service.GisSettingsService;
 import org.devgateway.toolkit.persistence.service.MicrodataLinkService;
 import org.devgateway.toolkit.persistence.service.NationalIndicatorService;
 import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
@@ -66,6 +68,9 @@ public class DatasetController {
     @Autowired
     private NationalIndicatorService nationalIndicatorService;
 
+    @Autowired
+    private GisSettingsService gisSettingsService;
+
     @CrossOrigin
     @ApiOperation(value = "Get all datasets metadata")
     @RequestMapping(value = "/dataset/all", method = POST)
@@ -99,9 +104,10 @@ public class DatasetController {
     public @ResponseBody
     List<NationalIndicatorDTO> getAllNationalIndicator(@RequestBody @Valid final DatasetFilterPagingRequest request) {
         LOGGER.info("get all national indicators");
+        GisSettings gisSettings = gisSettingsService.findAll().get(0);
         return nationalIndicatorService.findAll().stream()
                 .filter(n -> n.isApproved())
-                .map(n -> new NationalIndicatorDTO(n, request.getLang()))
+                .map(n -> new NationalIndicatorDTO(n, request.getLang(), gisSettings))
                 .collect(Collectors.toList());
     }
 
