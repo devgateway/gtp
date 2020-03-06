@@ -12,9 +12,7 @@ const initialState = Immutable.Map()
 
 export const loadGISData = (lang) => (dispatch, getState) => {
 
-  dispatch({
-    type: LOAD_GIS_DATA
-  })
+  dispatch({ type: LOAD_GIS_DATA })
   api.getGISData({lang}).then(data => {
 
       dispatch({type: LOAD_GIS_DATA_DONE, data})

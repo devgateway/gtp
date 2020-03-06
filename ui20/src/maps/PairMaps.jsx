@@ -16,11 +16,12 @@ var regions = require('../json/regions.json'); //with path
 
 const getOptions=(data)=> {
 
-    return data.map(d=>{return {key:d.id ,text:d.name}})
+    return data.map(d=>{return {key:d.id ,text:d.name, leftMap:d.leftMap, rightMap:d.rightMap}})
 }
 
 
 const getMapData=(data,id)=>{
+  debugger;
   return data.filter(d=>d.id==id)[0]
 }
 
@@ -62,7 +63,7 @@ const PairOfMaps=({intl,id, data, selection})=>{
   if (data){
 
     const colors=[
-      {key:'Blues' ,text: intl.formatMessage(messages.blues)},
+    {key:'Blues' ,text: intl.formatMessage(messages.blues)},
     {key:'Greens' ,text:  intl.formatMessage(messages.greens)},
     {key:'Greys' ,text:  intl.formatMessage(messages.greys)},
     {key:'Oranges' ,text:  intl.formatMessage(messages.oranges)},
@@ -75,7 +76,7 @@ const PairOfMaps=({intl,id, data, selection})=>{
 
     const options=getOptions(data.toJS())
 
-
+    debugger;
     const defLeft =  options.find(o=>o.leftMap==true) || options[0]
     const defRigth=  options.find(o=>o.rightMap==true)  || options[0]
 
