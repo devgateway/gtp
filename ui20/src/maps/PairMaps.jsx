@@ -16,8 +16,8 @@ var regions = require('../json/regions.json'); //with path
 var departments = require('../json/departments.json'); //with path
 
 const getOptions=(data)=> {
-
-    return data.map(d=>{return {key:d.id ,text:d.name, leftMap:d.leftMap, rightMap:d.rightMap}})
+    debugger;
+    return data.map(d=>{return {key:d.id ,text:d.name,description:d.description , leftMap:d.leftMap, rightMap:d.rightMap}})
 }
 
 
@@ -83,7 +83,7 @@ if (data){
 
 
     const options=getOptions(data.toJS())
-    console.log(options)
+
 
     const defLeft =  options.find(o=>o.leftMap==true) || options[0]
     const defRigth=  options.find(o=>o.rightMap==true)  || options[0]
@@ -131,7 +131,6 @@ if (data){
     return (
       <div>
         <div>
-
         </div>
         <div className="map description">
           <p>
@@ -141,90 +140,78 @@ if (data){
           <PngExport id={id} name="map_image"/>
           </div>
         </div>
-
-
       <Grid  className="pairs maps" columns={2} id={id}>
-
-
       <Grid.Row className="png exportable">
-
       <Grid.Column>
-      <div className="gis filter container  ">
-          <div className="gis filter item indicator">
-
-            <CustomFilterDropDown className="dropdown indicator" single options={options} onChange={s => {
-
-
-              if(s.length>0){
-                setLeft(s)
-              }
-            }} selected={left} text={""}/>
-            </div>
-            <div className="gis filter item color">
-
-            <CustomFilterDropDown className="dropdown colors" single options={colors} onChange={s => {
-              if (s.length>0){
-                setLeftColor(s)
-              }
-
-            }} selected={leftColor} text={""}/>
-          </div>
-
-        </div>
-
-           <Map
-             name={leftIndicator.name}
-             selection={selection}
-             key={leftIndicator.id}
-             max={leftData.maxValue}
-             min={leftData.minValue}
-             intl={intl}
-             json={leftGeoJson}
-             color={leftColor}
-            indicator={leftIndicator}
-             sideColor={rightColor}
-             onClick={e=>setSelection(selection&&selection.fid==e.fid?null:e)}/>
-              <div>
-                {leftIndicator.description}
+      <div className="wrapper">
+          <div className="gis filter container  ">
+              <div className="gis filter item indicator">
+                <CustomFilterDropDown className="dropdown indicator" single options={options} onChange={s => {
+                  if(s.length>0){
+                    setLeft(s)
+                  }
+                }} selected={left} text={""}/>
+                </div>
+                <div className="gis filter item color">
+                <CustomFilterDropDown className="dropdown colors" single options={colors} onChange={s => {
+                  if (s.length>0){
+                    setLeftColor(s)
+                  }
+                }} selected={leftColor} text={""}/>
               </div>
-
+            </div>
+               <Map
+                 name={leftIndicator.name}
+                 selection={selection}
+                 key={leftIndicator.id}
+                 max={leftData.maxValue}
+                 min={leftData.minValue}
+                 intl={intl}
+                 json={leftGeoJson}
+                 color={leftColor}
+                 indicator={leftIndicator}
+                 inverted={leftIndicator.inverted}
+                 sideColor={rightColor}
+                 onClick={e=>setSelection(selection&&selection.fid==e.fid?null:e)}/>
+            </div>
          </Grid.Column>
          <Grid.Column>
-         <div className="gis filter container">
-               <div className="gis filter item indicator">
-               <CustomFilterDropDown className="dropdown indicator" single options={options}
-                onChange={s => {
+         <div className="map wrapper">
 
-                  if(s.length>0){
-                    setRight(s)
-                  }
-               }} selected={right} text={""}/>
+             <div className="gis filter container">
+                   <div className="gis filter item indicator">
+                   <CustomFilterDropDown className="dropdown indicator" single options={options}
+                    onChange={s => {
+                      if(s.length>0){
+                        setRight(s)
+                      }
+                   }} selected={right} text={""}/>
+                   </div>
+
+                   <div className="gis filter item color">
+                   <CustomFilterDropDown className="dropdown colors"  single options={colors}
+                     onChange={s => {
+                       if (s.length>0){
+                         setRightColor(s)
+                       }
+                      }} selected={rightColor} text={""}/>
+                 </div>
                </div>
+                 <Map
+                      name={rightIndicator.name}
+                      selection={selection}
+                      key={rightIndicator.id}
+                      max={rightData.maxValue}
+                      min={rightData.minValue}
+                      intl={intl}
+                      indicator={rightIndicator}
+                      json={rightGeojson}
+                      color={rightColor}
+                      inverted={rightData.inverted}
+                      sideColor={leftColor}
+                      onClick={e=>setSelection(selection&&selection.fid==e.fid?null:e)}/>
 
-               <div className="gis filter item color">
-               <CustomFilterDropDown className="dropdown colors"  single options={colors}
-                 onChange={s => {
-                   if (s.length>0){
-                     setRightColor(s)
-                   }
-
-                  }} selected={rightColor} text={""}/>
-             </div>
-           </div>
-
-             <Map
-                  name={rightIndicator.name}
-                  selection={selection}
-                  key={rightIndicator.id}
-                  max={rightData.maxValue}
-                  min={rightData.minValue}
-                  intl={intl}
-
-                 indicator={rightIndicator}
-                  json={rightGeojson}
-                  color={rightColor}
-                   sideColor={leftColor}
-                   onClick={e=>setSelection(selection&&selection.fid==e.fid?null:e)}/>
+            </div>
          </Grid.Column>
          </Grid.Row>
        </Grid>

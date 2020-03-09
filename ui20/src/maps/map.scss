@@ -21,7 +21,7 @@
     }
   }
 
-  .microdata.title::before {
+  .gis.title::before {
     content: '';
     width: 40px;
     height: 40px;
@@ -141,21 +141,59 @@
   .ui.grid {
     margin: 0 !important;
 
-    .column {}
+    .column {
+      height: auto !important;
+    }
+  }
+
+  .tab {
+    border-top: 0;
+    margin: 0;
+  }
+  .active.tab {
+    border-top: 0;
+    margin: 0;
+  }
+
+  .ui.menu {
+    border-radius: 0;
+    border-bottom: 0;
+
+    .item {
+      width: 50%;
+
+      border: 1px solid $border-color;
+      line-height: 75px;
+      text-align: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #818181;
+      text-align: center;
+      border-radius: 0 !important;
+      height: 75px;
+      cursor: pointer;
+
+      .icon {
+        display: block;
+        width: 25px;
+        height: 25PX;
+        margin: 0 8px 0 -17px;
+      }
+    }
+
+    .active.item {
+      font-weight: bold;
+      background-color: #f6faf5;
+    }
+
+    .item::after {
+      display: none;
+    }
   }
 
   .ui.celled.grid {
     width: $content-width !important;
     margin: auto;
-  }
-
-  .map {
-    border: 1px solid red;
-    border-radius: 4px;
-    border: 1px solid $border-color;
-    width: 100%;
-    height: 600px;
-    background-color: #FFF;
   }
 
   div.tooltip {
@@ -202,7 +240,23 @@
     margin-bottom: 10px;
   }
 
-  .map {
+  .wrapper {
+    
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+    .map {
+      margin-top: 3px;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+    }
+
+    .description {
+      padding: 5px 20px;
+      color: #000;
+      font-size: 12px;
+    }
+
     svg {
       path {
         cursor: pointer;
@@ -217,7 +271,7 @@
       text {
         pointer-events: none !important;
         text-transform: uppercase;
-        font-size: 18px ;
+        font-size: 18px;
         font-family: $font !important;
         fill: #FFF !important;
         font-weight: bold;
@@ -238,11 +292,27 @@
         font-size: 6px !important;
       }
 
-      text.big.label {
+      text.big.label,
+      text.medium.label,
+      text.small.label {
+        opacity: 1;
         cursor: pointer;
         pointer-events: all;
         fill: #7b8d56 !important;
-        font-size: 30px !important;
+        stroke: #FFF;
+        stroke-width: 1px;
+      }
+
+      text.big.label {
+        font-size: 40px !important;
+      }
+
+      text.medium.label {
+        font-size: 40px !important;
+      }
+
+      text.small.label {
+        font-size: 22px !important;
       }
     }
   }
@@ -254,12 +324,11 @@
   }
 
   .add {
-    margin-right: auto 0;
     cursor: pointer;
   }
 
   .remove {
-    cursor: pointer;
+      cursor: pointer;
   }
 
   .aling.rigth {

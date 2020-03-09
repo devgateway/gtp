@@ -10,8 +10,8 @@ const formatOptions = {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
 }
-const width = 640,
-  height = 500;
+const width = 638,
+  height = 450;
 
 export default class D3Map extends Component < {},
   State > {
@@ -23,12 +23,11 @@ export default class D3Map extends Component < {},
       this.clicked = this.clicked.bind(this)
       this.createPaths = this.createPaths.bind(this)
       this.createLabels = this.createLabels.bind(this)
+      this.inverted=this.props.inverted;
     }
 
     getFillColor(d) {
-
-
-      const colorInterpolator = d3.scaleSequential().domain([this.props.min, this.props.max]).interpolator(d3['interpolate' + this.props.color]);
+      const colorInterpolator = d3.scaleSequential().domain([((this.inverted)?this.props.max:this.props.min), ((this.inverted)?this.props.min:this.props.max)]).interpolator(d3['interpolate' + this.props.color]);
       if (d.properties.value) {
         return colorInterpolator(d.properties.value)
       } else {
@@ -40,19 +39,14 @@ export default class D3Map extends Component < {},
     showDetails(fid, duration) {
       let action;
       let data;
-
-
       if (fid == null) {
         data = this.props.json
         action = 'out'
-
       } else {
         action = 'in'
         data = this.g.selectAll("path").filter(d => d.properties.fid == fid).data()[0]
 
       }
-
-
 
       this.scaleTo(data, fid, duration, (action=='in'?true:false))
 
@@ -67,17 +61,32 @@ export default class D3Map extends Component < {},
       this.svg.selectAll('rect').remove()
       this.svg.selectAll('line').remove()
 
-
-
-
-
       if (action == 'in') {
         const self=this
+            this.svg.append("text")
+            .attr("x",d=>20)
+            .attr("y",d=>45)
+            .attr("class", "big label")
+            .attr("fill", "black")
+            .attr("text-anchor", "start")
+            .text("")
+            .transition()
+            .delay(100)
+            .duration(300)
+            .tween("text", function(d) {
+            var textLength = data.properties.NAME.length;
+            return function(t) {
+              this.textContent = data.properties.NAME.substr(0, Math.round(t * textLength));
+            };
+          });
+
+      const valText=`${data.properties.value?self.props.intl.formatNumber(data.properties.value).toString():''} `
+      const measureText=`${data.properties.measure?data.properties.measure:''} `
 
         this.svg.append("text")
-        .attr("x",d=>width -20)
-        .attr("y",d=>height -30)
-        .attr("class", "big label")
+        .attr("x",d=>width -30)
+        .attr("y",d=>height -25)
+        .attr("class", "medium label")
         .attr("fill", "black")
         .attr("text-anchor", "end")
         .text("")
@@ -85,47 +94,29 @@ export default class D3Map extends Component < {},
         .delay(100)
         .duration(300)
         .tween("text", function(d) {
+            var textLength =valText.toString().length;
+            return function(t) {this.textContent = valText.substr(0, Math.round(t * textLength)) };
+        });
 
-        var textLength = data.properties.NAME.length;
-        return function(t) {
-          this.textContent = data.properties.NAME.substr(0, Math.round(t * textLength));
-        };
-      });
-
-
-
-        this.svg.append('rect')
-          .attr("rx", 0)
-          .attr("ry", 0)
-          .attr('x', 0  )
-          .attr('y', 0)
-          .attr('width', width ).attr('height', 38)
-
-
-
-          this.svg.append("text")
-          .attr('class', 'info')
-          .attr("x", 5)
-          .attr("y", 15)
-          .text("")
-          .transition()
-          .delay(100)
-          .duration(300)
-          .tween("text", function(d) {
-
-          var textLength = text2.length;
-          return function(t) {
-            this.textContent = text2.substr(0, Math.round(t * textLength));
-          };
+        this.svg.append("text")
+        .attr("x",d=>width -30)
+        .attr("y",d=>height -5)
+        .attr("class", "small label")
+        .attr("fill", "black")
+        .attr("text-anchor", "end")
+        .text("")
+        .transition()
+        .delay(100)
+        .duration(300)
+        .tween("text", function(d) {
+            var textLength =measureText.toString().length;
+            return function(t) {this.textContent = measureText.substr(0, Math.round(t * textLength)) };
         });
 
 
       } else {
         this.createLabels(this.props.json)
       }
-
-
-
 
     }
 
@@ -138,10 +129,8 @@ export default class D3Map extends Component < {},
     }
 
     componentDidUpdate(prevProps) {
-
       const newFid = this.props.selection ? this.props.selection.fid : null
       const prevFid = prevProps.selection ? prevProps.selection.fid : null
-
       const colorsWereChanged=(this.props.color != prevProps.color) || (this.props.sideColor != prevProps.sideColor)
 
       if (this.props.color != prevProps.color) {
@@ -157,15 +146,17 @@ export default class D3Map extends Component < {},
 
     createLabels(json) {
       const _this = this
-    //  this.g.selectAll("circle").data(json.features).enter().append("circle").attr("r", 2).attr("cx", d => _this.path.centroid(d)[0] - 4).attr("cy", d => _this.path.centroid(d)[1] - 3)
-
-      this.g.selectAll("text").data(json.features).enter().append("text").attr("class", "label").attr("fill", "black").style("text-anchor", "start").attr("class", "label")
-        //.attr("transform", (d) => {return "translate(" + _this.path.centroid(d) + ")";})
-        .text(function(d) {
-
-          var bounds=_this.path.bounds(d)
+      this.g.selectAll("text")
+      .data(json.features)
+      .enter()
+      .append("text")
+      .attr("class", "label")
+      .attr("fill", "black")
+      .style("text-anchor", "start")
+      .attr("class", "label")
+      .text(function(d) {
+        var bounds=_this.path.bounds(d)
           var xwidth  = bounds[1][0] - bounds[0][0];
-
           if(xwidth >(d.properties.NAME.length*4)){
             return d.properties.NAME
           }else{
@@ -212,7 +203,7 @@ export default class D3Map extends Component < {},
       const getFillColor = this.getFillColor
 
       this.g.selectAll('path')
-        .style('fill', (d) => fid && d.properties.fid === fid ? getFillColor(d) : remark?"#EEE":getFillColor(d) )
+        .style('fill', (d) => fid && d.properties.fid === fid ? getFillColor(d) : remark?"#FFF":getFillColor(d) )
         .style('stroke', (d) => fid && d.properties.fid === fid ? 'red' : '#EEE');
 
       this.g.transition().duration(duration)
@@ -282,8 +273,14 @@ export default class D3Map extends Component < {},
     }
 
     render() {
+      const {indicator:{description}}=this.props
+      debugger;
       return (
-        <div className = "map" ref = "container"> </div>)
+
+        <div className="map">
+          <div ref = "container"/>
+            <div className="description">{description }</div>
+        </div>)
       }
 
     }

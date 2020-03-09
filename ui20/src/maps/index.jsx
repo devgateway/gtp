@@ -59,7 +59,7 @@ class GIS extends Component {
 
     const panes = [
       {
-        menuItem: 'Regional',
+        menuItem: intl.formatMessage(messages.gis_tab_regional_title),
         render: () => <Tab.Pane attached='top'>
 
         {range1.map(n=>{
@@ -67,24 +67,33 @@ class GIS extends Component {
         })}
 
         <div className="aling rigth buttons">
-          <Label className="add"  color="olive" onClick={e=>this.addnewOne('region')}>
-          <FormattedMessage id='gis.page.add' defaultMessage="Add new pair of maps"/></Label>
 
-          {range1.length > 1&&<Label className="remove" color="black" onClick={e=>this.removeLast('region')}><FormattedMessage id='gis.page.remove' defaultMessage="Remove last one"/></Label>}
+
+          {range1.length > 1&&<Label className="remove" color="red" onClick={e=>this.removeLast('region')}><FormattedMessage id='gis.page.remove' defaultMessage="Remove last one"/></Label>}
+          <Label className="add"  color="olive" onClick={e=>this.addnewOne('region')}><FormattedMessage id='gis.page.add' defaultMessage="Add new pair of maps"/></Label>
+
          </div>
 
         </Tab.Pane>,
       },
       {
-        menuItem: 'Departamental',
+        menuItem: intl.formatMessage(messages.gis_tab_departamental_title) ,
         render: () => <Tab.Pane attached='top'>
 
                 {range2.map(n=>{
                     return <PairOfMaps key={`map.department_${n}`} level="department" id={`map.department_${n}`} data={departamentalIndicators}/>
                 })}
                 <div className="aling rigth buttons">
-                  <Label className="add"  color="olive" onClick={e=>this.addnewOne('repartment')}><FormattedMessage id='gis.page.add' defaultMessage="Add new pair of maps"/></Label>
-                  {range2.length > 1&&<Label className="remove" color="black" onClick={e=>this.removeLast('department')}><FormattedMessage id='gis.page.remove' defaultMessage="Remove last one"/></Label>}
+
+
+                  {range2.length > 1&&<Label className="remove" color="red" onClick={e=>this.removeLast('department')}>
+                      <FormattedMessage id='gis.page.remove' defaultMessage="Remove last one"/>
+                  </Label>}
+
+                  <Label className="add"  color="olive" onClick={e=>this.addnewOne('repartment')}>
+                    <FormattedMessage id='gis.page.add' defaultMessage="Add new pair of maps"/>
+                  </Label>
+
                  </div>
 
         </Tab.Pane>,

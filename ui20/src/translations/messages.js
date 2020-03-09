@@ -642,6 +642,17 @@ const messages = defineMessages({
   data_no_data_available: {
     id: 'data.no.available',
     defaultMessage: "No data available"
+  },
+
+  gis_tab_departamental_title: {
+    id: 'gis.tab.departamental.title',
+    defaultMessage: "Departamental"
+  }
+  ,
+
+  gis_tab_regional_title: {
+    id: 'gis.tab.regional.title',
+    defaultMessage: "Regional"
   }
 });
 
