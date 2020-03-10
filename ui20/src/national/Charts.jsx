@@ -331,5 +331,6 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
             <div className="measure none"><FormattedMessage id="national.indicator.chart.legend.none" defaultMessage="There's no reference or target values to calculate indicator status"/></div>
           </div>
           <div className="description">{metadata.description}</div>
+          <div className="source"><FormattedMessage id="charts.label.source" defaultMessage="Source"/> - {metadata.source}</div>
     </div>)
 })
