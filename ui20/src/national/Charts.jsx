@@ -318,7 +318,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
                       />
 
           </div>
-          <div className="xLeyend">{metadata.name}  ({metadata.measure})</div>
+          <div className="xLeyend">{metadata.name}  ({metadata.measure})  {metadata.reverse?<div className="decendingLegend"><FormattedMessage id="national.indicator.chart.legend.decending" defaultMessage="Decending Indicator"/></div>:null}</div>
           <div className="marketLegend">
             <div className="market reference"><FormattedMessage id="national.indicator.chart.legend.reference" defaultMessage="Reference data"/></div>
             <div className="market target"><FormattedMessage id="national.indicator.chart.legend.target" defaultMessage="Target data"/></div>
@@ -330,7 +330,9 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
             <div className="measure bad"><FormattedMessage id="national.indicator.chart.legend.bad" defaultMessage="Actual value is behind target and/or reference value"/></div>
             <div className="measure none"><FormattedMessage id="national.indicator.chart.legend.none" defaultMessage="There's no reference or target values to calculate indicator status"/></div>
           </div>
+
+
           <div className="description">{metadata.description}</div>
-          <div className="source"><FormattedMessage id="charts.label.source" defaultMessage="Source"/> - {metadata.source}</div>
+          <div className="source"><FormattedMessage id="national.indicator.chart.legend.source" defaultMessage="Source"/> - {metadata.source}</div>
     </div>)
 })
