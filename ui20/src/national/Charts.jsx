@@ -319,8 +319,8 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
           </div>
           <div className="xLeyend">{metadata.name}  ({metadata.measure})</div>
           <div className="marketLegend">
-            <div className="market reference"><FormattedMessage id="national.indicator.chart.legend.reference" defaultMessage="Reference Value"/></div>
-            <div className="market target"><FormattedMessage id="national.indicator.chart.legend.target" defaultMessage="Target Value"/></div>
+            <div className="market reference"><FormattedMessage id="national.indicator.chart.legend.reference" defaultMessage="Reference data"/></div>
+            <div className="market target"><FormattedMessage id="national.indicator.chart.legend.target" defaultMessage="Target data"/></div>
           </div>
 
           <div className="measureLegend">
