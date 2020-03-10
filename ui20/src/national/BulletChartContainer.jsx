@@ -102,9 +102,7 @@ const getDataByKeys=(data, keys)=>{
               measures: [indicator.referenceValue],
             })
     }
-
-      console.log(indicator)
-      return  {refData,data:chartData,metadata:indicator }
+            return  {refData,data:chartData,metadata:indicator }
     }
 }
 
@@ -112,9 +110,10 @@ const getDataByKeys=(data, keys)=>{
 
 const DropDownLabel=()=>(<FormattedMessage id = "national.indicator.name" defaultMessage = "Indicator"  > </FormattedMessage>)
 
-const PairOfMaps=({intl,id, data, n})=>{
+const PairOfMaps=({intl ,id, data, n})=>{
 
   if (data){
+
     const colors=[
     {key:'accent' ,text: intl.formatMessage(messages.accent)},
     {key:'dark2' ,text:  intl.formatMessage(messages.dark2)},
@@ -135,15 +134,14 @@ const PairOfMaps=({intl,id, data, n})=>{
     const [color, setColor] = useState(['accent']);
     const [chartData, setChartData] = useState(null);
 
-
     useEffect(() => {
       if (data){
-
           setChartData(getDataByKeys(data,currentSelection) )
       }
-    }, [currentSelection]);
+    }, [currentSelection,data]);
 
 
+    debugger;
 
 
     return (
@@ -158,6 +156,7 @@ const PairOfMaps=({intl,id, data, n})=>{
                             </div>
 
 
+            
                  {chartData?<Bullet {...chartData}  color={color[0]}/>:null}
 
      </div>)

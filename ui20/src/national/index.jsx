@@ -7,8 +7,7 @@ import './national.scss'
 import {loadNationalIndicators} from '../modules/National'
 import { Grid, Label } from 'semantic-ui-react'
 
-import PercentChartContainer from './PercentChartContainer'
-import UnitChartContainer from './UnitChartContainer'
+import BulletChartContainer from './BulletChartContainer'
 
 
 
@@ -64,8 +63,7 @@ class GIS extends Component {
             {range.map(n=>{
               return  (
                 <Grid.Column width={8}>
-
-                  <UnitChartContainer n={n}  data={data} />
+                  <BulletChartContainer key={'bullet_'+n} n={n}  data={data} />
                 </Grid.Column>
             )
 
@@ -93,7 +91,7 @@ class GIS extends Component {
 
 const mapStateToProps = state => {
   const data=state.getIn(['national','data']);
-
+  
   return {data}
 }
 

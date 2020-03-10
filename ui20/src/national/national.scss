@@ -10,6 +10,7 @@
   border-radius: 5px;
   padding: 10px;
   margin-left: 10px;
+
   .square {
     margin-right: 4px;
     width: 15px;
@@ -92,7 +93,7 @@
 
   .national.chart.container {
     width: 100%;
-    height:90%;
+    height: 90%;
     margin-bottom: 10px;
 
     .national.filter.container {
@@ -218,31 +219,105 @@
       border: 1px solid $border-color;
       border-radius: 4px;
       display: block;
-      height:100%;
+      height: 100%;
       overflow: hidden;
+
       .yLeyend {
         color: rgb(51, 51, 51);
-          transform: rotate(-90deg);
-          position: absolute;
-          font-weight: 600;
-          margin: auto;
-          margin-top: 200px
+        transform: rotate(-90deg);
+        position: absolute;
+        font-weight: 600;
+        margin: 200px auto auto -5px;
       }
 
       .xLeyend {
         padding: 10px;
-        margin: auto;
-        margin-top: -20px;
-        margin-bottom: 10px;
+        margin: -20px auto 10px;
         text-align: center;
         color: rgb(51, 51, 51);
         font-weight: 600;
       }
 
-      .description{
-        padding:5px 20px;
+      .description {
+        clear: both;
+        padding: 10px 20px;
         color: #000;
         font-size: 12px;
+        margin-bottom: 7px;
+      }
+
+      .marketLegend {
+        padding: 5px 20px;
+        color: #000;
+        font-size: 11px;
+        float: left;
+
+        .market {
+          text-align: left;
+          clear: both;
+        }
+
+        .market:before {
+          content: '';
+          width: 5px;
+          height: 22px;
+          float: left;
+          border: 1px;
+          border-top-right-radius: 2px;
+          border-top-left-radius: 2px;
+          border-bottom-right-radius: 2px;
+          border-bottom-left-radius: 2px;
+          margin: -2px 5px 5px;
+        }
+
+        .market.reference:before {
+          background-color: #f88d59;
+        }
+
+        .market.target:before {
+          background-color: #72a9e0;
+        }
+      }
+
+      .measureLegend {
+        float: right;
+        padding: 5px 20px;
+        color: #000;
+        font-size: 11px;
+
+        .measure {
+          text-align: right;
+          clear: both;
+        }
+
+        .measure:before {
+          content: '';
+          width: 50px;
+          height: 12px;
+          float: right;
+          border: 1px;
+          border-top-right-radius: 4px;
+          margin-right: 5px;
+          margin-left: 5px;
+          margin-top: 3px;
+          border-bottom-right-radius: 4px;
+        }
+
+        .measure.good:before {
+          background-color: #addd8e;
+        }
+
+        .measure.regular:before {
+          background-color: #fad976;
+        }
+
+        .measure.bad:before {
+          background-color: #ef6548;
+        }
+
+        .measure.none:before {
+          background-color: #bababa;
+        }
       }
 
       .national.chart {
@@ -254,12 +329,9 @@
           font-size: 13px !important;
         }
 
-
-        g.marker{
-          rect{
+        g.marker {
+          rect {
             pointer-events: all;
-
-
           }
         }
 

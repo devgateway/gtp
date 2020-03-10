@@ -170,6 +170,8 @@ const CustomRange = ({ x, y, width, height, color, onMouseEnter, onMouseMove, on
        }
 
   }
+
+
 const getCondition = (reverse, current, target, reference) => {
 
   let condition = 'NONE'
@@ -218,7 +220,6 @@ const getCondition = (reverse, current, target, reference) => {
 
 export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy , groupMode, color}) => {
 
-
   const CustomMeasure = (props) =>{
 
     const { x, y, width,metadata, height, onMouseEnter, onMouseMove, onMouseLeave } = props
@@ -262,8 +263,6 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
           </g>
   )
   }
-
-
   const CustomMarker = (props) => {
       const { x, y,size,value, index,width,rotation,onClick, height, color, onMouseEnter, onMouseMove, onMouseLeave , intl} = props
 
@@ -292,7 +291,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
   return(
   <div className="national chart wrapper">
 
-          <div className="yLeyend">Year</div>
+          <div className="yLeyend">{intl.formatMessage(messages.year)}</div>
           <div className="national chart">
 
                     <ResponsiveBullet
@@ -312,13 +311,24 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
                           measureComponent={(props)=>CustomMeasure({...props, metadata})}
                           measureColors={["#b2182b","#a6dba0"]}
                           markerSize={.9}
-                          markerColors={["#f88d59","#C1E5C9"]}
+                          markerColors={["#f88d59","#72a9e0"]}
                           markerComponent={CustomMarker}
 
                       />
 
           </div>
           <div className="xLeyend">{metadata.name}  ({metadata.measure})</div>
+          <div className="marketLegend">
+            <div className="market reference"><FormattedMessage id="national.indicator.chart.legend.reference" defaultMessage="Reference Value"/></div>
+            <div className="market target"><FormattedMessage id="national.indicator.chart.legend.target" defaultMessage="Target Value"/></div>
+          </div>
+
+          <div className="measureLegend">
+            <div className="measure good"><FormattedMessage id="national.indicator.chart.legend.good" defaultMessage="Target and/or reference value reached / exceeded"/></div>
+            <div className="measure regular"><FormattedMessage id="national.indicator.chart.legend.regular" defaultMessage="Actual value is behind target value and ahead of reference value"/></div>
+            <div className="measure bad"><FormattedMessage id="national.indicator.chart.legend.bad" defaultMessage="Actual value is behind target and/or reference value"/></div>
+            <div className="measure none"><FormattedMessage id="national.indicator.chart.legend.none" defaultMessage="There's no reference or target values to calculate indicator status"/></div>
+          </div>
           <div className="description">{metadata.description}</div>
     </div>)
 })
