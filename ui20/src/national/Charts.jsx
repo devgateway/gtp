@@ -236,12 +236,13 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
     return (
       <g onMouseEnter={e=>{
 
-        const index=[...e.target.parentElement.parentElement.parentElement.getElementsByClassName("measure")].indexOf(e.target)
+        const index=[...e.target.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("measure")].indexOf(e.target)
         const d=data[index]
+        var dElement=d3.select(e.target)
         if(d){
         const {measure,measures,id}=d;
-
-        showTooltip(e,`${id} <b>${measures[0]}${measure}</b>  `, color,0,0)
+          debugger;
+        showTooltip(e,`${intl.formatMessage(messages.national_indicators_actual)}: ${id} - <b>${measures[0]}${measure}</b>  `, color,0,0)
       }else{
 
       }

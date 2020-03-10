@@ -653,6 +653,11 @@ const messages = defineMessages({
   gis_tab_regional_title: {
     id: 'gis.tab.regional.title',
     defaultMessage: "Regional"
+  },
+
+  national_indicators_actual: {
+    id: 'national.indicators.actual',
+    defaultMessage: "Actual"
   }
 });
 
