@@ -46,9 +46,9 @@ export const loadDatasets = (locale) => (dispatch, getState) => {
 
 export const loadSources = (locale) => (dispatch, getState) => {
 
-  const filters= getState().getIn(['microdata','filters','sources'])|| new Immutable.Map({"pageSize":20})
+  const filters= getState().getIn(['microdata','filters','sources'])|| new Immutable.Map({"pageSize":8})
   dispatch({type: LOAD_SOURCES})
-  api.getSources(filters.set('lang',locale).set("pageSize",20) ).then((data) => {
+  api.getSources(filters.set('lang',locale).set("pageSize",8) ).then((data) => {
     dispatch({type: LOAD_SOURCES_DONE, data})
   }).catch(error => {
     dispatch({type: LOAD_SOURCES_ERROR})
@@ -83,7 +83,7 @@ export const cleanFilter = (path) => (dispatch, getState) => {
 export const changeFilter = (path, value,locale, updates=[], doNotUpdate) => (dispatch, getState) => {
 
   dispatch({type: CHANGE_TABLE_FILTER, path, value})
-  
+
   if(updates.indexOf('DATASETS') > -1 && !doNotUpdate){
     dispatch(loadDatasets(locale));
   }

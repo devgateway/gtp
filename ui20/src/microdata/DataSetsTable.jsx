@@ -68,7 +68,7 @@ class TableComponent extends Component {
       }else{
          direction = 'ASC'
       }
-      
+
       onChangeFilter(['filters','datasets',"sortDir"],direction,locale,'DATASETS',true)
       onChangeFilter(['filters','datasets','sortBy'],clickedColumn,locale,'DATASETS',false)
 
@@ -88,7 +88,7 @@ class TableComponent extends Component {
                   <CustomFilterDropDown  text={intl.formatMessage(messages.microdata_filters_organization)}  options={items2options(organizations,intl)} selected={selectedOrganizations} onChange={value => {onChangeFilter(['filters','datasets','organization'],value,locale,'DATASETS')}}/></div>
 
             </div>
-          <Table sortable celled fixed>
+          <Table sortable celled >
 
                 <Table.Header>
                   <Table.Row>
@@ -104,7 +104,7 @@ class TableComponent extends Component {
                     <Table.HeaderCell sorted={column === 'source' ? directionLong : null} onClick={handleSort('source')}>
                       <FormattedMessage id="microdata.table.source" defaultMessage="Source"/>
                     </Table.HeaderCell>
-                    <Table.HeaderCell sorted={column === 'source' ? directionLong : null} onClick={handleSort('source')}>
+                    <Table.HeaderCell sorted={column === 'year' ? directionLong : null} onClick={handleSort('year')}>
                       <FormattedMessage id="microdata.table.survey_year" defaultMessage="Survey Year
                       "/>
                     </Table.HeaderCell>
@@ -115,11 +115,11 @@ class TableComponent extends Component {
                 <Table.Body>
                   {this.state.data &&_.map(this.state.data, ({id, organization, title, source,creator, createdDate, fileId, type,year}) => (
                     <Table.Row key={id}>
-                     <Table.Cell>{type}</Table.Cell>
-                     <Table.Cell><a href={`/files/download/${fileId}`}>{title}</a></Table.Cell>
-                     <Table.Cell>{organization}</Table.Cell>
-                     <Table.Cell>{source}</Table.Cell>
-                     <Table.Cell>{year}</Table.Cell>
+                     <Table.Cell width={7}> {type}</Table.Cell>
+                     <Table.Cell width={7}> <a href={`/files/download/${fileId}`}>{title}</a></Table.Cell>
+                     <Table.Cell> {organization}</Table.Cell>
+                     <Table.Cell> {source}</Table.Cell>
+                     <Table.Cell> {year}</Table.Cell>
 
                     </Table.Row>
                   ))}

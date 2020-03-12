@@ -140,11 +140,7 @@ class Pooverty extends Component {
       }
     ]
 
-
-
-
     return (<div className="indicator.chart.container" id="anchor.indicator.global.population.short">
-
       <div className="indicator chart title poverty">
         <p>
           <FormattedMessage id="indicators.chart.poverty.title" defaultMessage="Proportion of population below the international poverty line."></FormattedMessage>
