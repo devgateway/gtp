@@ -318,7 +318,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
                       />
 
           </div>
-          <div className="xLeyend">{metadata.name}  ({metadata.measure})  {metadata.reverse?<div className="decendingLegend"><FormattedMessage id="national.indicator.chart.legend.decending" defaultMessage="Decending Indicator"/></div>:null}</div>
+          <div className="xLeyend">{metadata.name}  ({metadata.measure})  {metadata.reverse?<div className="decendingLegend"><FormattedMessage id="national.indicator.chart.legend.descending" defaultMessage="Descending Indicator"/></div>:null}</div>
           <div className="marketLegend">
             <div className="market reference"><FormattedMessage id="national.indicator.chart.legend.reference" defaultMessage="Reference data"/></div>
             <div className="market target"><FormattedMessage id="national.indicator.chart.legend.target" defaultMessage="Target data"/></div>
