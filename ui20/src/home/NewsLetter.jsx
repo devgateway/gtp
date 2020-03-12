@@ -1,24 +1,68 @@
-import React, {Component} from 'react';
+import React, {Component,useState} from 'react';
+import {connect} from 'react-redux';
 import {injectIntl, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
-
+import {doSubscribe} from '../modules/newsLetter'
 import './newsletter.scss';
 
-const Weather = injectIntl((props) => {
 
+const newsLetter = injectIntl(({onSubscribe}) => {
+
+  const [email, setEmail] = useState('');
+  const [enabled, setEnabled] = useState(false);
+
+  const handleEmailChange = (event) => {
+
+    event.persist();
+    const value= event.target.value;
+
+     if( value && (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value))) {
+        setEnabled(true)
+      }else{
+        setEnabled(false)
+      }
+
+    setEmail(value);
+  }
+
+  const handleSubscription = (event) => {
+    //onSubscribe(email)
+    return enabled
+  }
+
+
+  console.log(email)
   return (<div className="home-news-letter">
 
     <div className="news-letter-text">
       <FormattedMessage id="home.newsletter.title" defaultMessage="Subscribe to our newsletter"></FormattedMessage>
     </div>
-    <div className="btn-group">
-      <div className="btn-news-letter-suscribe">
-        <FormattedMessage id="home.newsletter.sign.up" defaultMessage="Newsletter Sign-Up"></FormattedMessage>
-      </div>
-      <div className="btn-news-letter-unsuscribe">
-        <FormattedMessage id="home.newsletter.sign.off" defaultMessage="Newsletter Sign-Off"></FormattedMessage>
-      </div>
+
+
+    <div>
+
+
     </div>
+    <div className="btn-group">
+        <form  onSubmit={handleSubscription} action="https://gmail.us19.list-manage.com/subscribe/post?u=bf5d2580ed54286720f7ebd3c&amp;id=35d5eec81f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+            <input type="email" onChange={handleEmailChange} value={email} className="input-news-letter-suscribe" name="EMAIL"  id="mce-EMAIL" placeholder="email address" required />
+            <input className={`btn-news-letter-suscribe ${enabled?'enabled':'disabled'}`}  type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" />
+            <input type="hidden" s name="b_bf5d2580ed54286720f7ebd3c_35d5eec81f" tabindex="-1" value=""/>
+        </form>
+    </div>
+
   </div>);
 })
 
-export default Weather
+
+
+const mapStateToProps = state => {
+  debugger;
+return {}
+}
+
+const mapActionCreators = {
+  onSubscribe:doSubscribe
+};
+
+
+export default connect(mapStateToProps, mapActionCreators)(newsLetter);

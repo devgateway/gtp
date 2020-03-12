@@ -12,6 +12,7 @@ import indicator from '../modules/Indicator'
 import microdata from '../modules/Microdata'
 import gis from '../modules/Gis'
 import national from '../modules/National'
+import newsLetter from '../modules/newsLetter'
 
 const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -20,7 +21,8 @@ const createRootReducer = (history) => combineReducers({
   indicator,
   microdata,
   gis,
-  national
+  national,
+  newsLetter
 })
 
 
