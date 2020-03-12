@@ -186,7 +186,7 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
     }
 
     public boolean isApproved() {
-        return approved;
+        return approved != null ? approved : false;
     }
 
     public void setApproved(boolean approved) {
