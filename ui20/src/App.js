@@ -18,7 +18,8 @@ import Header from './layout/Header'
 import Footer from './layout/Footer'
 import Indicators from './indicators'
 import Microdata from './microdata'
-import Maps from './maps/index.jsx'
+import {Departmental,Regional} from './maps/index.js'
+
 import NationalIndicators from './national/index.jsx'
 import Partners from './partners'
 import Initiatives from './initiatives'
@@ -99,9 +100,15 @@ class IntlRoutes extends Component {
                   <Microdata></Microdata>
                 </div>)}/>
 
-                <Route exact={true} path="/:lan/gis" render={() => (<div>
+                <Route exact={true} path="/:lan/gis/regional" render={() => (<div>
                     <Header></Header>
-                    <Maps></Maps>
+                    <Regional></Regional>
+                  </div>)}/>
+
+
+                <Route exact={true} path="/:lan/gis/departmental" render={() => (<div>
+                    <Header></Header>
+                    <Departmental></Departmental>
                   </div>)}/>
 
                   <Route exact={true} path="/:lan/partners" render={() => (<div>
@@ -115,10 +122,10 @@ class IntlRoutes extends Component {
                       </div>)}/>
 
 
-                                      <Route exact={true} path="/:lan/national" render={() => (<div>
-                                          <Header></Header>
-                                          <NationalIndicators></NationalIndicators>
-                                        </div>)}/>
+                  <Route exact={true} path="/:lan/national" render={() => (<div>
+                      <Header></Header>
+                      <NationalIndicators></NationalIndicators>
+                    </div>)}/>
             <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
           </Switch>
 

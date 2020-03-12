@@ -83,6 +83,12 @@
   .dropdown.active {
     background-color: $color-green;
   }
+  .ui.dropdown .menu > .divider {
+    display: none;
+    height: 1px;
+    background-color: #CCC;
+    margin: 1px;
+  }
 
   .ui.dropdown .menu > .item {
     font-size: 12px;
