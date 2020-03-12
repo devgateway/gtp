@@ -29,8 +29,14 @@ const getDataByKeys=(data, keys)=>{
   if (elements){
 
     const indicator=elements.get(0).toJS()
-    const maxValue= indicator.yearValues.map(z=>z.value).sort().pop()
+
+    let maxValue= indicator.yearValues.map(z=>z.value).sort().pop()
     const referenceValue=indicator.referenceValue;
+    const targetValue=indicator.targetValue;
+
+    maxValue=referenceValue && maxValue < referenceValue?referenceValue:maxValue
+    maxValue=targetValue && maxValue < targetValue?targetValue:maxValue
+
     const markers=[] //adding reference valued as marker
 
     const ranges=[]
@@ -51,41 +57,14 @@ const getDataByKeys=(data, keys)=>{
 
     }
 
-    if (referenceValue){
 
-      if(referenceValue < maxValue){
-          const newMaxValue=  maxValue-referenceValue
-          ranges.push(referenceValue/100*0)
-          ranges.push(referenceValue/100*25)
-          ranges.push(referenceValue/100*50)
-
-          ranges.push(referenceValue/100*100)
-          ranges.push(maxValue)
-
-
-
-      }else{
-
-          ranges.push(referenceValue/100*0)
-          ranges.push(referenceValue/100*25)
-          ranges.push(referenceValue/100*50)
-          ranges.push(referenceValue/100*100)
-      }
-
-    }else{
-        ranges.push(maxValue/100*0)
-        ranges.push(maxValue/100*20)
-        ranges.push(maxValue/100*40)
-        ranges.push(maxValue/100*70)
-        ranges.push(maxValue/100*100)
-      }
 
     const chartData= indicator.yearValues.map(yv=>{
 
       return {
             id: yv.year+" ",
             measure:indicator.measure,
-            ranges:[ranges[0], ranges[ranges.length-1]],
+            ranges:[0, maxValue],
             markers,
             measures: [yv.value],
           }
@@ -156,7 +135,7 @@ const PairOfMaps=({intl ,id, data, n})=>{
                             </div>
 
 
-            
+
                  {chartData?<Bullet {...chartData}  color={color[0]}/>:null}
 
      </div>)
