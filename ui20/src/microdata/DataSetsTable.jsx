@@ -101,9 +101,6 @@ class TableComponent extends Component {
                     <Table.HeaderCell sorted={column === 'organization' ? directionLong : null} onClick={handleSort('organization')}>
                       <FormattedMessage id="microdata.table.organization" defaultMessage="Organization"/>
                     </Table.HeaderCell>
-                    <Table.HeaderCell sorted={column === 'source' ? directionLong : null} onClick={handleSort('source')}>
-                      <FormattedMessage id="microdata.table.source" defaultMessage="Source"/>
-                    </Table.HeaderCell>
                     <Table.HeaderCell sorted={column === 'year' ? directionLong : null} onClick={handleSort('year')}>
                       <FormattedMessage id="microdata.table.survey_year" defaultMessage="Survey Year
                       "/>
@@ -118,7 +115,6 @@ class TableComponent extends Component {
                      <Table.Cell width={7}> {type}</Table.Cell>
                      <Table.Cell width={7}> <a href={`/files/download/${fileId}`}>{title}</a></Table.Cell>
                      <Table.Cell> {organization}</Table.Cell>
-                     <Table.Cell> {source}</Table.Cell>
                      <Table.Cell> {year}</Table.Cell>
 
                     </Table.Row>

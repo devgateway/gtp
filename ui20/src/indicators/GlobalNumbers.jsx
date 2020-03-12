@@ -20,7 +20,7 @@ import {connect} from 'react-redux';
 
 
 const getIndicatorName=(intl,key)=>{
-  
+
   if(key== 'indicator.global.population.short'){
     return intl.formatMessage(messages.indicator_global_population_short)
   }
@@ -88,8 +88,7 @@ class GlobalNumbers extends Component {
 
           </Grid>
           <Segment className="info-text">
-            <div className="source-icon"></div>
-            <FormattedMessage id="indicators.global.notes" defaultMessage={`  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.`}></FormattedMessage>
+          
           </Segment>
 
 
