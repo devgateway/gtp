@@ -42,15 +42,6 @@ return (<div className="initiatives container">
     </div>
 
 
-    <Container fluid>
-    <Grid>
-        <Grid.Row>
-          <Grid.Column >
-            <img src="/back_initiatives.png" className="ui image  fluid"/>
-          </Grid.Column>
-        </Grid.Row>
-    </Grid>
-    </Container>
 
     {types &&  types.map(d=>(<Items onLoadItems={onLoadItems} {...d} items={items}></Items>))}
 
@@ -86,7 +77,7 @@ const Items = injectIntl(({intl,id,type,label,labelFr, onLoadItems , items}) => 
     },
   }
 
-  
+
 
 return (<div className="initiatives container">
         <div className="initiatives list title">
@@ -103,8 +94,7 @@ return (<div className="initiatives container">
 
                       <Grid.Column width={8}>
 
-                      <div className="icon file"><img src="/icon_file.png"/></div>
-
+                  
                       <div className="date"><FormattedDate value={e.publicationDate} year="numeric" month="long" day="2-digit" /></div>
 
                       <div className="title">  {e.link?<a href={e.link}>{e.title}</a>:<a href={`/files/download/${e.fileId}`}>{e.title}</a>}</div>
