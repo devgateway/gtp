@@ -79,11 +79,7 @@ export const getPovertyRegionalYearly = (data = [], intl) => {
   }
 }
 
-
-
 export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
-
-
 
 
   let fields = ['region', 'povertyLevel']
@@ -123,7 +119,6 @@ export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
     colors: [ "#f1e15b", "#e8a838"," #f47561"]
   }
 }
-
 
 export const getPovertyTimeLine = (data) => {
 

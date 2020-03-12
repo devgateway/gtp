@@ -59,11 +59,12 @@ const ChartSection = injectIntl((props)=>{
            <div className="indicators chart women">
              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
              <div className="chart container png exportable">
-              {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<BarChart
+              {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:
+              <BarChart
               yLegend={props.intl.formatMessage(messages.age)}
               xLegend={props.intl.formatMessage(messages.percent)}
-
-              {...getWomenDistributionByGroup(props.population,props.intl)}></BarChart>}
+               {...getWomenDistributionByGroup(props.population,props.intl)}>
+               </BarChart>}
              </div>
            </div>,
       },
@@ -87,12 +88,13 @@ const ChartSection = injectIntl((props)=>{
                 <Filters {...props} options={{gender:true, age:false,methodOfEnforcement:true}}></Filters>
                 <div className="chart container png exportable">
 
-                {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<BarChart
-                yLegend={props.intl.formatMessage(messages.methodOfEnforcement)}
-                xLegend={props.intl.formatMessage(messages.percent)}
+                {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:
 
-
-                {...getWomenDistributionByGroup(props.distribution,props.intl)}></BarChart>}
+                <BarChart
+                  yLegend={props.intl.formatMessage(messages.methodOfEnforcement)}
+                  xLegend={props.intl.formatMessage(messages.percent)}
+                  {...getWomenDistributionByGroup(props.distribution,props.intl)}>
+                  </BarChart>}
 
                 </div>
               </div>,

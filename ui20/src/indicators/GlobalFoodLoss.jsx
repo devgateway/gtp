@@ -44,13 +44,13 @@ const ChartSection = injectIntl(( props)=>{
               <Filters {...props} options={ { gender:true, age:true,methodOfEnforcement:false } }></Filters>
               <div className="chart container png exportable">
 
-  {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:  <BarChart
+  {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:
+      <BarChart
         yLegend={props.intl.formatMessage(messages.percent)}
         xLegend={props.intl.formatMessage(messages.crop_type)}
-
         label={(s)=>props.intl.formatNumber(s.value/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}
-
-     {...getAverageProductionLossData(props.data,'avgPercentage', props.intl)}></BarChart>}
+        {...getAverageProductionLossData(props.data,'avgPercentage', props.intl)}>
+        </BarChart>}
 
             </div>
             </div>,
@@ -62,13 +62,12 @@ const ChartSection = injectIntl(( props)=>{
               <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
               <div className="chart container png exportable">
 
-
               <BarChart
                 yLegend={props.intl.formatMessage(messages.kg)}
                 xLegend={props.intl.formatMessage(messages.crop_type)}
                 label={(s)=>props.intl.formatNumber(s.value, {notation:'compact', minimumFractionDigits: 0,maximumFractionDigits: 0})+'Kg'}
-
-              {...getAverageProductionLossData(props.data,'avgKilograms',props.intl)}></BarChart>}
+                {...getAverageProductionLossData(props.data,'avgKilograms',props.intl)}>
+              </BarChart>}
               </div>
             </div>,
        }

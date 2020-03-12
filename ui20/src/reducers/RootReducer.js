@@ -22,7 +22,7 @@ const createRootReducer = (history) => combineReducers({
   microdata,
   gis,
   national,
-  newsLetter
+  newsLetter 
 })
 
 
