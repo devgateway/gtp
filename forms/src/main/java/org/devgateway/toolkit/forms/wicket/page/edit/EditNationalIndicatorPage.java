@@ -86,6 +86,9 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
                 new TextFieldBootstrapFormComponent<>("referenceValue");
         editForm.add(referenceValue);
 
+        TextFieldBootstrapFormComponent<Double> targetYear = new TextFieldBootstrapFormComponent<>("targetYear");
+        editForm.add(targetYear);
+
         TextFieldBootstrapFormComponent<Double> targetValue = new TextFieldBootstrapFormComponent<>("targetValue");
         editForm.add(targetValue);
 
