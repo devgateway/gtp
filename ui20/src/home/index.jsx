@@ -23,7 +23,9 @@ class Home extends Component {
         <Main {...this.props}></Main>
         <Links {...this.props}></Links>
         <Stories {...this.props}></Stories>
-        <Weather {...this.props}></Weather>
+        {
+          //<Weather {...this.props}></Weather>
+        }
         <Newsletter {...this.props}></Newsletter>
 
     </div>)

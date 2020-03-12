@@ -28,7 +28,7 @@ const Header=(props)=>{
     <MainIntro>
         <IntroTitle></IntroTitle>
         <IntroText></IntroText>
-        <IntroLink></IntroLink>
+        
       </MainIntro>
   </div>);
 }

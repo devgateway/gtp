@@ -8,11 +8,7 @@ import './links.scss'
 const PresnetedBy = (props) => {
   return (<div className="home presented by">
     <div className="col_1">
-      <div className="presented title">
-        <span><FormattedMessage id="home.presented.by" defaultMessage={"presented by"} values={""}/></span>
-        <div className="presented logo"/>
-          <div className="presented logo1"/>
-      </div>
+
       <div className="presented text"><FormattedMessage id="home.presented.text" defaultMessage={`The AgriData platform aims to bring science to the Senegalese agricultural sector by providing key support decision information to policymakers while empowering farmers and other relevant value chain actors.`} values={""}/></div>
     </div>
     <div className="col_2">
@@ -36,30 +32,33 @@ const Source=({type})=>{
 
 const LinksBlock = injectIntl((props) => {
   const {intl}=props
-  const panes=  [{
-      menuItem:  {className:'link microdata', key: 'microdata', icon: '', content: intl.formatMessage(messages.home_tabs_microdata_title)},
-      render: () =>(
-        <div className="links explanation">
-            {intl.formatMessage(messages.home_tabs_microdata_text)}
-            <Source type="microdata"/>
-        </div>
-      )
-    },
+  const panes=  [
+
     {
         menuItem:  {className:'link indicator', key: 'indicator', icon: '', content: intl.formatMessage(messages.home_tabs_indicator_title)},
         render: () =>(
           <div className="links explanation">
-          {intl.formatMessage(messages.home_tabs_indicator_text)}
-          <Source type="indicator"/>
+            <FormattedHTMLMessage id="home.tabs.indicator.text"/>
+            <Source type="indicator"/>
             </div>)
       },
-      {
+
+        {
           menuItem:  {className:'link market', key: 'market', icon: '', content: intl.formatMessage(messages.home_tabs_market_title)},
           render: () =>(<div className="links explanation">
-          {intl.formatMessage(messages.home_tabs_market_text)}
+            <FormattedHTMLMessage id="home.tabs.market.text"/>
             <Source type="market"/>
           </div>)
-        }
+        },
+      {
+        menuItem:  {className:'link microdata', key: 'microdata', icon: '', content: intl.formatMessage(messages.home_tabs_microdata_title)},
+        render: () =>(
+          <div className="links explanation">
+              <FormattedHTMLMessage id="home.tabs.microdata.text"/>
+              <Source type="microdata"/>
+          </div>
+        )
+      }
   ]
 
   return (<div className="home-links-container">
