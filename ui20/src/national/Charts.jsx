@@ -242,7 +242,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
         if(d){
         const {measure,measures,id}=d;
           debugger;
-        showTooltip(e,`${intl.formatMessage(messages.national_indicators_actual)}: ${id} - <b>${measures[0]}${measure}</b>  `, color,0,0)
+        showTooltip(e,`${intl.formatMessage(messages.national_indicators_actual)}: ${id} - <b>${measures[0]} ${measure}</b>  `, color,0,0)
       }else{
 
       }
