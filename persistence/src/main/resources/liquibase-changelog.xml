@@ -672,6 +672,21 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="NationalIndicatorColumnsNotNull" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="national_indicator" />
+            <columnExists tableName="national_indicator" columnName="approved" />
+            <columnExists tableName="national_indicator" columnName="descending" />
+        </preConditions>
+        <sql><![CDATA[
+
+            alter table national_indicator alter COLUMN descending drop not null;
+
+            alter table national_indicator alter COLUMN approved drop not null;
+
+        ]]></sql>
+    </changeSet>
+
     <changeSet id="NationalIndicators1" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="national_indicator" />
@@ -754,14 +769,28 @@
         ]]></sql>
     </changeSet>
 
-    <changeSet id="IndicatorApprovedFlag" author="Daniel Oliva">
+    <changeSet id="IndicatorApprovedFlag3" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="national_indicator" />
-            <tableExists tableName="region_indicator" />
+            <not>
+                <columnExists tableName="national_indicator" columnName="approved" />
+            </not>
         </preConditions>
         <sql><![CDATA[
             ALTER TABLE national_indicator
                 ADD COLUMN "approved" BOOLEAN DEFAULT FALSE;
+
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="IndicatorApprovedFlag4" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="region_indicator" />
+            <not>
+                <columnExists tableName="region_indicator" columnName="approved" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
             ALTER TABLE region_indicator
                 ADD COLUMN "approved" BOOLEAN DEFAULT FALSE;
 
@@ -876,16 +905,40 @@
         ]]></sql>
     </changeSet>
 
-    <changeSet id="AddDescendingColumn" author="Daniel Oliva">
+    <changeSet id="AddDescendingColumn3" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="region_indicator" />
-            <tableExists tableName="national_indicator" />
+            <not>
+                <columnExists tableName="region_indicator" columnName="descending" />
+            </not>
         </preConditions>
         <sql><![CDATA[
             ALTER TABLE region_indicator
                 ADD COLUMN "descending" BOOLEAN DEFAULT FALSE;
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="AddDescendingColumn4" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="national_indicator" />
+            <not>
+                <columnExists tableName="national_indicator" columnName="descending" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
             ALTER TABLE national_indicator
                 ADD COLUMN "descending" BOOLEAN DEFAULT FALSE;
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="NationalIndicatorTargetYear2" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="national_indicator" />
+            <columnExists tableName="national_indicator" columnName="target_year" />
+        </preConditions>
+        <sql><![CDATA[
+            update national_indicator set target_year=2030 where target_value is not null ;
+
         ]]></sql>
     </changeSet>
 

@@ -27,6 +27,8 @@ public class NationalIndicatorDTO {
 
     private Double referenceValue;
 
+    private Integer targetYear;
+
     private Double targetValue;
 
     private Boolean leftMap = false;
@@ -48,6 +50,7 @@ public class NationalIndicatorDTO {
         this.link = indicator.getLink();
         this.referenceYear = indicator.getReferenceYear();
         this.referenceValue = indicator.getReferenceValue();
+        this.targetYear = indicator.getTargetYear();
         this.targetValue = indicator.getTargetValue();
         if (gisSettings != null && indicator.getNameEnFr().equalsIgnoreCase(gisSettings.getLeftNationalName())) {
             this.leftMap = true;
@@ -144,6 +147,14 @@ public class NationalIndicatorDTO {
 
     public void setReferenceValue(Double referenceValue) {
         this.referenceValue = referenceValue;
+    }
+
+    public Integer getTargetYear() {
+        return targetYear;
+    }
+
+    public void setTargetYear(Integer targetYear) {
+        this.targetYear = targetYear;
     }
 
     public Double getTargetValue() {

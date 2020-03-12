@@ -45,11 +45,13 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
 
     private Double targetValue;
 
+    private Integer targetYear;
+
     private String measure;
 
-    private boolean approved;
+    private Boolean approved;
 
-    private boolean descending;
+    private Boolean descending;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
@@ -96,7 +98,7 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
     }
 
     public boolean isDescending() {
-        return descending;
+        return descending != null ? descending : false;
     }
 
     public void setDescending(boolean descending) {
@@ -157,6 +159,14 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
 
     public void setTargetValue(Double targetValue) {
         this.targetValue = targetValue;
+    }
+
+    public Integer getTargetYear() {
+        return targetYear;
+    }
+
+    public void setTargetYear(Integer targetYear) {
+        this.targetYear = targetYear;
     }
 
     public String getMeasure() {
