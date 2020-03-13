@@ -36,12 +36,12 @@ const PovertyFitlers=injectIntl((props)=>{
 
     <div className="filter item">
       <CustomFilterDropDown options={items2options(genders,intl)}  onChange={s => {onChange([ 'filters', 'poverty', 'gender'], s,['POVERTY'])}}
-       selected={genderSelection} text={<FormattedMessage id = "indicators.filter.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
+       selected={genderSelection} text={<FormattedMessage id = "indicators.filters.gender" defaultMessage = "Gender"  > </FormattedMessage>} />
     </div>
 
     <div className="filter item">
       <CustomFilterDropDown options={items2options(activities,intl)} onChange={s => {onChange(['filters', 'poverty', 'activity'], s,['POVERTY'])}}
-       selected={activitySelection} text={<FormattedMessage id = "indicators.filter.activity" defaultMessage = "Professional Activity" > </FormattedMessage>} />
+       selected={activitySelection} text={<FormattedMessage id = "indicators.filters.activity" defaultMessage = "Professional Activity" > </FormattedMessage>} />
     </div>
 
     <div className="filter item">
@@ -49,7 +49,7 @@ const PovertyFitlers=injectIntl((props)=>{
         onChange(['filters', 'poverty', 'minScore'],s[0])
         onChange(['filters', 'poverty', 'maxScore'],s[1],['POVERTY'])
 
-      }} max={maxScore} min={minScore}  selected={score} text={<FormattedMessage id="indicators.filter.slider.score" defaultMessage="Score Range"/>}></RangeSlider>}
+      }} max={maxScore} min={minScore}  selected={score} text={<FormattedMessage id="indicators.filters.slider.score" defaultMessage="Score Range"/>}></RangeSlider>}
     </div>
 
     <div className="filter item">
@@ -57,7 +57,7 @@ const PovertyFitlers=injectIntl((props)=>{
         onChange(['filters', 'poverty', 'minAge'],s[0])
         onChange(['filters', 'poverty', 'maxAge'],s[1],['POVERTY'])
 
-      }} max={maxAge} min={minAge}  selected={age} text={<FormattedMessage id="indicators.filter.slider.age" defaultMessage="Age Range"/>}></RangeSlider>}
+      }} max={maxAge} min={minAge}  selected={age} text={<FormattedMessage id="indicators.filters.slider.age" defaultMessage="Age Range"/>}></RangeSlider>}
     </div>
   </div>)
 })
@@ -81,7 +81,7 @@ class Pooverty extends Component {
             <div>
               <PovertyFitlers {...this.props}/>
               <div className="chart container png exportable">
-                  {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
+                  {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available"> No data available</FormattedMessage></Label>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
                   </div>
             </div>),
           },
@@ -89,7 +89,7 @@ class Pooverty extends Component {
 
             menuItem:{ key: 'poverty_chart_2', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year,{year:maxYear})}`},
             render: () =>   (<div>  <PovertyFitlers {...this.props}/> <div className=" chart container">
-              {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<BarChart    {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
+              {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available"> No data available</FormattedMessage></Label>:<BarChart    {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
 
             </div></div>),
 
@@ -98,7 +98,7 @@ class Pooverty extends Component {
             menuItem:{ key: 'poverty_chart_3', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`},
             render: () =>  (<div > <PovertyFitlers {...this.props}/><div className="chart container png exportable">
 
-              {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
+              {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available"> No data available</FormattedMessage></Label>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
 
             </div></div>),
           }
@@ -111,7 +111,7 @@ class Pooverty extends Component {
         render: () =><div className="chart container">
                       <PovertyFitlers {...this.props}/>
                         <div className="chart container png exportable">
-                        {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
+                        {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available"> No data available</FormattedMessage></Label>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
 
                           </div>
                       </div>
@@ -124,7 +124,7 @@ class Pooverty extends Component {
         <PovertyFitlers {...this.props}/>
                         <div className="chart container png exportable">
 
-                        {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<BarChart    {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
+                        {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available"> No data available</FormattedMessage></Label>:<BarChart    {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
 
                           </div>
                       </div>
@@ -134,7 +134,7 @@ class Pooverty extends Component {
         menuItem:{ key: 'poverty_chart_3', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`},
         render: () =>  (<div className="chart container" > <PovertyFitlers {...this.props}/><div className="chart container png exportable">
 
-          {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
+          {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available"> No data available</FormattedMessage></Label>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
 
         </div></div>),
       }

@@ -23,7 +23,7 @@ const  Filters=injectIntl(({intl,lossTypes,filters,onChange, options})=>{
   const lossTypesSelection = filters && filters.getIn(['food','lossType'])? filters.getIn(['food','lossType']).toJS(): []
   return (<div className="indicator chart filter  women">
     <div className="filter item">
-      <CustomFilterDropDown  options={items2options(lossTypes,intl)}  onChange={s => {onChange([ 'filters', 'food', 'lossType'], s,['FOOD'])}} selected={lossTypesSelection} text={<FormattedMessage id = "indicators.filter.losstype" defaultMessage = "Loss Type"  > </FormattedMessage>} />
+      <CustomFilterDropDown  options={items2options(lossTypes,intl)}  onChange={s => {onChange([ 'filters', 'food', 'lossType'], s,['FOOD'])}} selected={lossTypesSelection} text={<FormattedMessage id = "indicators.filters.losstype" defaultMessage = "Loss Type"  > </FormattedMessage>} />
     </div>
   </div>)
 })
@@ -44,7 +44,7 @@ const ChartSection = injectIntl(( props)=>{
               <Filters {...props} options={ { gender:true, age:true,methodOfEnforcement:false } }></Filters>
               <div className="chart container png exportable">
 
-  {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no.available"> No data available</FormattedMessage></Label>:
+  {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available"> No data available</FormattedMessage></Label>:
       <BarChart
         yLegend={props.intl.formatMessage(messages.percent)}
         xLegend={props.intl.formatMessage(messages.crop_type)}

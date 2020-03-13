@@ -108,9 +108,9 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
     {(single==null || single==false)&&    <Dropdown.Header>
         <div>
 
-          <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicator.filters.select_all' defaultMessage="Select All"/></span>
+          <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicators.filters.select_all' defaultMessage="Select All"/></span>
           <span> | </span>
-          <span className="none" onClick={e=>allNone(false)}><FormattedMessage id='indicator.filters.select_none' defaultMessage="Select None"/></span>
+          <span className="none" onClick={e=>allNone(false)}><FormattedMessage id='indicators.filters.select_none' defaultMessage="Select None"/></span>
         </div>
 
       </Dropdown.Header>

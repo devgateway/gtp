@@ -57,12 +57,12 @@ class GIS extends Component {
       <div className="gis container">
           <div className="gis title">
             <p>
-              <FormattedMessage id="gis.page.departmental.title" defaultMessage="Gis Data"></FormattedMessage>
+              <FormattedMessage id="gis.departmental.title" defaultMessage="Gis Data"></FormattedMessage>
             </p>
           </div>
 
           <div className="gis description">
-            <p><FormattedMessage id='gis.page.departmental.description' defaultMessage="The GIS page will display some indicators  that have been preloaded by each responsible partner organization.
+            <p><FormattedMessage id='gis.departmental.description' defaultMessage="The GIS page will display some indicators  that have been preloaded by each responsible partner organization.
             The site will also display, non-official data sources that users can access by clicking on the links provided. Where available, a given dataset will be displaying a link that will connect the ANSD data repository when users can consult reports, studies and other metadata related to a specific dataset."/></p>
           </div>
 
@@ -76,11 +76,11 @@ class GIS extends Component {
 
 
                             {range.length > 1&&<Label className="remove" color="red" onClick={e=>this.removeLast('department')}>
-                                <FormattedMessage id='gis.page.remove' defaultMessage="Remove last one"/>
+                                <FormattedMessage id='gis.remove' defaultMessage="Remove last one"/>
                             </Label>}
 
                             <Label className="add"  color="olive" onClick={e=>this.addnewOne('repartment')}>
-                              <FormattedMessage id='gis.page.add' defaultMessage="Add new pair of maps"/>
+                              <FormattedMessage id='gis.add' defaultMessage="Add new pair of maps"/>
                             </Label>
 
                            </div>

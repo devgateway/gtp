@@ -27,10 +27,6 @@ const messages = defineMessages({
     defaultMessage: "Source:"
   },
 
-  nav_analyst: {
-    id: "nav.analyst",
-    defaultMessage: "Analyst"
-  },
 
 
   weather_title_1: {
@@ -147,14 +143,14 @@ const messages = defineMessages({
 
 
   indicator_women_chart_distribution_by_enforcement_historical: {
-    id: 'indicators.chart.women.distribution.by.enforcement.historical',
+    id: 'indicators.chart.women.distribution_by_enforcement_historical',
     defaultMessage: 'Historical female distribution of parcels by method of enforcement.',
     description: 'Historical female distribution of parcels by method of enforcement chart title'
   },
 
 
   indicator_food_chart_average_production_loss: {
-    id: 'indicators.chart.food.average.production.loss',
+    id: 'indicators.chart.food_average_production_loss',
     defaultMessage: 'Destinations of agricultural production ({year})',
     description: 'Destinations of agricultural production chart title'
 
@@ -180,150 +176,150 @@ const messages = defineMessages({
   },
 
   department: {
-    id: 'data.field.department',
+    id: 'data.fields.department',
     defaultMessage: 'Department',
     description: 'Department Data Field'
   },
 
   billions: {
-    id: 'data.field.billions',
+    id: 'data.fields.billions',
     defaultMessage: 'Billions',
     description: 'Billions Data Field'
   },
 
   billions_short: {
-    id: 'data.field.billions_short',
+    id: 'data.fields.billions_short',
     defaultMessage: 'B',
     description: 'Billions Data Field'
   },
   year: {
-    id: 'data.field.year',
+    id: 'data.fields.year',
     defaultMessage: 'Year',
     description: 'Year Data Field'
   },
 
   age: {
-    id: 'data.field.age',
+    id: 'data.fields.age',
     defaultMessage: 'Age',
     description: 'Age data field'
   },
 
 
   totals: {
-    id: 'data.field.totals',
+    id: 'data.fields.totals',
     defaultMessage: 'Totals',
     description: 'Totals table label'
   },
 
   methodOfEnforcement: {
-    id: 'data.field.enforcement_method',
+    id: 'data.fields.enforcement_method',
     defaultMessage: 'Method of Enforcement',
     description: 'Age data field'
   },
 
   weekly_consumption: {
-    id: 'data.field.weekly_consumption',
+    id: 'data.fields.weekly_consumption',
     defaultMessage: 'Weekly Consumption',
     description: 'Weekly Consumption Data Field'
   },
 
   house_hold_size: {
-    id: 'data.field.house_hold_size',
+    id: 'data.fields.house_hold_size',
     defaultMessage: 'House Hold Size ',
     description: 'House Hold Size Field'
   },
 
 
   daily_consumption: {
-    id: 'data.field.daily_consumption',
+    id: 'data.fields.daily_consumption',
     defaultMessage: 'Weekly Consumption',
     description: 'Weekly Consumption Data Field'
   },
 
   crop_type: {
-    id: 'data.field.crop_type',
+    id: 'data.fields.crop_type',
     defaultMessage: 'Crop Type',
     description: 'Crop Type Data Field'
   },
 
   crop: {
-    id: 'data.field.crop',
+    id: 'data.fields.crop',
     defaultMessage: 'Crop',
     description: 'Crop Data Field'
   },
 
   area: {
-    id: 'data.field.area',
+    id: 'data.fields.area',
     defaultMessage: 'Area',
     description: 'Area Data Field'
   },
   production: {
-    id: 'data.field.production',
+    id: 'data.fields.production',
     defaultMessage: 'Production',
     description: 'Production Data Field'
   },
 
   yield: {
-    id: 'data.field.yield',
+    id: 'data.fields.yield',
     defaultMessage: 'Yield',
     description: 'Yield Data Field'
   },
   region_code: {
-    id: 'data.field.region_code',
+    id: 'data.fields.region_code',
     defaultMessage: 'Region Code',
     description: 'Region Code Data Field'
   },
   region: {
-    id: 'data.field.region',
+    id: 'data.fields.region',
     defaultMessage: 'Region',
     description: 'Region Data Field'
   },
   percent: {
-    id: 'data.field.percent',
+    id: 'data.fields.percent',
     defaultMessage: 'Percent',
     description: 'Percent Label'
   },
 
   kg: {
-    id: 'data.field.kg',
+    id: 'data.fields.kg',
     defaultMessage: 'Kg',
     description: 'Kg Label'
   },
 
 
   market: {
-    id: 'data.field.market',
+    id: 'data.fields.market',
     defaultMessage: 'Market',
     description: 'Market Data Field'
   },
   market: {
-    id: 'data.field.market',
+    id: 'data.fields.market',
     defaultMessage: 'Market',
     description: 'Market Data Field'
   },
 
   whole_sale_buy_price: {
-    id: 'data.field.whole_sale_buy_price',
+    id: 'data.fields.whole_sale_buy_price',
     defaultMessage: 'Whole Sale Buy Price',
     description: 'Whole Sale Buy Price Data Field'
   },
   selling_price: {
-    id: 'data.field.selling_price',
+    id: 'data.fields.selling_price',
     defaultMessage: 'Selling Price',
     description: 'Selling Price Data Field'
   },
   retail_buying_price: {
-    id: 'data.field.retail_buying_price',
+    id: 'data.fields.retail_buying_price',
     defaultMessage: 'Retail Buying Price',
     description: 'Selling Price Data Field'
   },
   date: {
-    id: 'data.field.date',
+    id: 'data.fields.date',
     defaultMessage: 'Date',
     description: 'Date Data Field'
   },
   quantity: {
-    id: 'data.field.quantity',
+    id: 'data.fields.quantity',
     defaultMessage: 'Quantity',
     description: 'Quantity Data Field'
   },
@@ -331,87 +327,54 @@ const messages = defineMessages({
 
 
   age: {
-    id: 'data.field.age',
+    id: 'data.fields.age',
     defaultMessage: 'Age',
     description: 'Age data field'
   },
 
 
   blues: {
-    id: 'data.field.blues',
+    id: 'data.fields.blues',
     defaultMessage: 'Blues',
   },
 
   greens: {
-    id: 'data.field.greens',
+    id: 'data.fields.greens',
     defaultMessage: 'Greens',
   },
 
   greys: {
-    id: 'data.field.greys',
+    id: 'data.fields.greys',
     defaultMessage: 'Greys',
   },
 
   oranges: {
-    id: 'data.field.oranges',
+    id: 'data.fields.oranges',
     defaultMessage: 'Oranges',
   },
 
   purples: {
-    id: 'data.field.purples',
+    id: 'data.fields.purples',
     defaultMessage: 'Purples',
   },
 
   reds: {
-    id: 'data.field.reds',
+    id: 'data.fields.reds',
     defaultMessage: 'Reds',
   },
   blue_to_green: {
-    id: 'data.field.blue_to_green',
+    id: 'data.fields.blue_to_green',
     defaultMessage: 'Blue to Green',
   },
   blue_to_purple: {
-    id: 'data.field.blue_to_purple',
+    id: 'data.fields.blue_to_purple',
     defaultMessage: 'Blue To Purple',
   },
   orange_to_red: {
-    id: 'data.field.orange_to_red',
+    id: 'data.fields.orange_to_red',
     defaultMessage: 'Orange To Red',
   },
 
-
-  accent: {
-    id: 'data.field.accent',
-    defaultMessage: 'Accent Colors',
-  },
-  dark2: {
-    id: 'data.field.dark2',
-    defaultMessage: 'Dark Colors',
-  },
-  paired: {
-    id: 'data.field.paired',
-    defaultMessage: 'Paired Colors',
-  },
-  pastel1: {
-    id: 'data.field.pastel1',
-    defaultMessage: 'Pastel Colors',
-  },
-  pastel2: {
-    id: 'data.field.pastel2',
-    defaultMessage: 'Pastel Colors (2)',
-  },
-  set1: {
-    id: 'data.field.set1',
-    defaultMessage: 'Set1',
-  },
-  set2: {
-    id: 'data.field.set2',
-    defaultMessage: 'Set2',
-  },
-  set3: {
-    id: 'data.field.set3',
-    defaultMessage: 'Set3',
-  },
 
   table_help_unused_cols: {
     id: 'table.unsed.cols',
@@ -419,12 +382,12 @@ const messages = defineMessages({
 
   },
   table_help_used_cols: {
-    id: 'table.unsed.cols',
+    id: 'table.used.cols',
     defaultMessage: 'Element used as columns',
 
   },
   table_help_used_rows: {
-    id: 'table.unsed.cols',
+    id: 'table.unsed.rows',
     defaultMessage: 'Element used as Rows',
 
   },
@@ -628,20 +591,10 @@ const messages = defineMessages({
     defaultMessage: "Organizations"
   },
   data_no_data_available: {
-    id: 'data.no.available',
+    id: 'data.no_available',
     defaultMessage: "No data available"
   },
 
-  gis_tab_departamental_title: {
-    id: 'gis.tab.departamental.title',
-    defaultMessage: "Departamental"
-  }
-  ,
-
-  gis_tab_regional_title: {
-    id: 'gis.tab.regional.title',
-    defaultMessage: "Regional"
-  },
 
   national_indicators_actual: {
     id: 'national.indicators.actual',

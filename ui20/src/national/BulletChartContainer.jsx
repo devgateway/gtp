@@ -93,16 +93,6 @@ const PairOfMaps=({intl ,id, data, n})=>{
 
   if (data){
 
-    const colors=[
-    {key:'accent' ,text: intl.formatMessage(messages.accent)},
-    {key:'dark2' ,text:  intl.formatMessage(messages.dark2)},
-    {key:'paired' ,text:  intl.formatMessage(messages.paired)},
-    {key:'pastel1' ,text:  intl.formatMessage(messages.pastel1)},
-    {key:'pastel2' ,text: intl.formatMessage(messages.pastel2)},
-    {key:'set1' ,text:  intl.formatMessage(messages.set1)},
-    {key:'set2' ,text:  intl.formatMessage(messages.set2)},
-    {key:'set3' ,text:  intl.formatMessage(messages.set3)},
-  ]
 
 
     const options=getOptions(data.toJS())

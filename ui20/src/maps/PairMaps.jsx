@@ -134,7 +134,7 @@ if (data){
         </div>
         <div className="map description">
           <p>
-            <FormattedMessage id="pair.maps.description" defaultMessage="Use both maps to compare two indicators "></FormattedMessage>
+            <FormattedMessage id="gis.twins_maps_description" defaultMessage="Use both maps to compare two indicators "></FormattedMessage>
           </p>
           <div className="icons container">
           <PngExport id={id} name="map_image"/>

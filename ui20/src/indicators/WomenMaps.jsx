@@ -25,7 +25,7 @@ const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,
               <CustomFilterDropDown disabled={!options.gender} options={items2options(genders,intl)}
               onChange={s => {onChange([ 'filters', 'women', 'gender'], s,['WOMEN'])}}
               selected={genderSelection}
-              text={<FormattedMessage id = "indicators.filter.gender"
+              text={<FormattedMessage id = "indicators.filters.gender"
               defaultMessage = "Gender">
               </FormattedMessage>} />
             </div>
@@ -34,14 +34,14 @@ const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,
                options={items2options(methodOfEnforcements,intl)}
                onChange={s => {onChange([ 'filters', 'women', 'methodOfEnforcement'], s,['WOMEN'])}}
                selected={methodOfEnforcementsSelection}
-               text={<FormattedMessage id = "indicators.filter.enforcement_method" defaultMessage = "Enforcement Method">
+               text={<FormattedMessage id = "indicators.filters.enforcement_method" defaultMessage = "Enforcement Method">
                </FormattedMessage>} />
             </div>
             <div className="filter item">
               <OptionList disabled={!options.age} options={items2options(ageGroups,intl).sort((a,b)=>a.key -b.key)}
                onChange={s => {onChange([ 'filters', 'women', 'ageGroup'], s,['WOMEN'])}}
                selected={ageSelection}
-               text={<FormattedMessage id="indicators.filter.age_group" defaultMessage = "Age Group">
+               text={<FormattedMessage id="indicators.filters.age_group" defaultMessage = "Age Group">
                </FormattedMessage>} />
             </div>
     </div>)

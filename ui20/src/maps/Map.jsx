@@ -262,6 +262,7 @@ export default class D3Map extends Component < {},
 
       this.createPaths(json)
       this.createLabels(json)
+
       if(this.props.selection){
         this.showDetails(this.props.selection.fid, 0)
       }
@@ -273,13 +274,12 @@ export default class D3Map extends Component < {},
     }
 
     render() {
-      const {indicator:{description}}=this.props
-      debugger;
-      return (
+      const { indicator :{ description }}=this.props
 
+      return (
         <div className="map">
           <div ref = "container"/>
-            <div className="description">{description }</div>
+            <div className="description">{description}</div>
         </div>)
       }
 

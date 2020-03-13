@@ -30,7 +30,7 @@ const Footer = (props) => {
       </div>
 
       <div className="footer-text">
-        <FormattedHTMLMessage id="footer.text.copy.right" defaultMessage={`Copyright 2016. Fundamedios
+        <FormattedHTMLMessage id="footer.text.copy_right" defaultMessage={`Copyright 2016. Fundamedios
 All Rights Reserved.
 Designed by Plastic
 Develloped by Plastic.`} values={""}/>
