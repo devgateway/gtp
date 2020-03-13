@@ -44,7 +44,7 @@ const ChartSection = injectIntl(( props)=>{
               <Filters {...props} options={ { gender:true, age:true,methodOfEnforcement:false } }></Filters>
               <div className="chart container png exportable">
 
-  {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available"> No data available</FormattedMessage></Label>:
+  {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:
       <BarChart
         yLegend={props.intl.formatMessage(messages.percent)}
         xLegend={props.intl.formatMessage(messages.crop_type)}

@@ -58,7 +58,7 @@ const ChartSection = injectIntl(( props)=>{
              <BudgetFilters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></BudgetFilters>
              <div className="chart container png exportable">
                   {props.budget == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>
-                  <FormattedMessage id="data.no_available"> No data available</FormattedMessage> </Label>: <BarChart  {...getAOItotalBudget(props.budget, props.intl)}></BarChart>}
+                  <FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage> </Label>: <BarChart  {...getAOItotalBudget(props.budget, props.intl)}></BarChart>}
 
             </div>
            </div>,
@@ -70,7 +70,7 @@ const ChartSection = injectIntl(( props)=>{
               <SubsidiesFilters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></SubsidiesFilters>
               <div className="chart container png exportable">
 
-                {props.budget == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available"> No data available</FormattedMessage></Label>: <BarChart   {...getAOIsubsidies(props.subsidies,props.intl)}/>}
+                {props.budget == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>: <BarChart   {...getAOIsubsidies(props.subsidies,props.intl)}/>}
 
               </div>
             </div>,
