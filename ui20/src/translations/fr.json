@@ -58,7 +58,7 @@
 	"home.newsletter.title": "",
 	"home.presented.by": "présenté par ",
 	"home.presented.text": "La plateforme AgriData vise à apporter au secteur agricole sénégalais des statistiques agricoles exhaustives et fiables  pour constituer la base d'une politique de développement économique reposant sur des bases factuelles, tout en responsabilisant les agriculteurs et les autres acteurs de la chaîne de valeur. ",
-	"home.tabs.indicator.source": "Les données proviennent de la DAPSA, de l'ANSD et de la FAO",
+	"home.tabs.indicators.source": "Les données proviennent de la DAPSA, de l'ANSD et de la FAO",
 	"home.tabs.indicator.text": "La page Indicateurs présente l’alignement des indicateurs agricoles du Sénégal par rapport aux ODD et à ceux gérés par le Système International pour la Science et la Technologie Agricoles (AGRIS). Tous les tableaux et graphiques sont automatiquement mis à jour à mesure que de nouvelles informations sont entrées dans le système. Les utilisateurs peuvent utiliser les filtres de date et de localité pour affiner leurs critères de recherche.",
 	"home.tabs.indicator.title": "Indicateurs",
 	"home.tabs.market.source": "Les données proviennent de la DAPSA, de l'ANSD et de la FAO",

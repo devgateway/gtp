@@ -23,7 +23,7 @@ const Source=({type})=>{
   <div className="source-icon"></div>
 
     {type=='microdata'&&<FormattedMessage id="home.tabs.microdata.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
-    {type=='indicator'&&<FormattedMessage id="home.tabs.indicator.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
+    {type=='indicator'&&<FormattedMessage id="home.tabs.indicators.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
     {type=='market'&&<FormattedMessage id="home.tabs.market.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
 
   </div>)

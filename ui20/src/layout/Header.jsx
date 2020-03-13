@@ -21,7 +21,7 @@ const AnalystDropdown = withRouter(injectIntl((props) => (
 
   <Dropdown text={<FormattedMessage id="home.header.menu.analysis" defaultMessage={"Analysis"} values={""}/>}>
     <Dropdown.Menu>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/national`)} text={<FormattedMessage id="home.header.menu.indicator.national" defaultMessage={"National Indicators"} values={""}/>} />
+      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/national`)} text={<FormattedMessage id="home.header.menu.indicators.national" defaultMessage={"National Indicators"} values={""}/>} />
       <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/indicators`)} text={<FormattedMessage id="home.header.menu.indicators.sdg" defaultMessage={"SDG Indicators"} values={""}/>}/>
       <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/gis/regional`)} text={<FormattedMessage id="home.header.menu.gis.regional" defaultMessage={"Regional Indicators Map"} values={""}/>} />
       <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/gis/departmental`)} text={<FormattedMessage id="home.header.menu.gis.departamental" defaultMessage={"Departamental Indicators Map"} values={""}/>} />
