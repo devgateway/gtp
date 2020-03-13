@@ -3,6 +3,8 @@ import React, {
 } from 'react'
 import * as d3 from 'd3'
 import  messages from '../translations/messages'
+
+import {FormattedMessage, injectIntl} from 'react-intl';
 import './map.scss'
 
 const formatOptions = {
@@ -23,13 +25,13 @@ export default class D3Map extends Component < {},
       this.clicked = this.clicked.bind(this)
       this.createPaths = this.createPaths.bind(this)
       this.createLabels = this.createLabels.bind(this)
-      this.inverted=this.props.inverted;
+      this.reverse=this.props.reverse;
     }
 
-    getFillColor(d) {
-      const colorInterpolator = d3.scaleSequential().domain([((this.inverted)?this.props.max:this.props.min), ((this.inverted)?this.props.min:this.props.max)]).interpolator(d3['interpolate' + this.props.color]);
-      if (d.properties.value) {
-        return colorInterpolator(d.properties.value)
+    getFillColor(value) {
+      const colorInterpolator = d3.scaleSequential().domain([((this.reverse)?this.props.max:this.props.min), ((this.reverse)?this.props.min:this.props.max)]).interpolator(d3['interpolate' + this.props.color]);
+      if (value) {
+        return colorInterpolator(value)
       } else {
         return '#FFF'
       }
@@ -173,14 +175,16 @@ export default class D3Map extends Component < {},
 
     createPaths(json) {
       this.g.selectAll('path').remove()
-      this.g.selectAll('path').data(json.features).enter().append('path').attr('d', this.path).attr('vector-effect', 'non-scaling-stroke').style('fill', this.getFillColor)
-        .on('click', this.clicked).style('stroke', '#EEE')
+      this.g.selectAll('path').data(json.features).enter().append('path')
+      .attr('d', this.path).attr('vector-effect', 'non-scaling-stroke')
+      .style('fill', (d)=>this.getFillColor(d.properties.value))
+      .on('click', this.clicked).style('stroke', '#EEE')
 
     }
 
 
     updateColors() {
-      this.g.selectAll('path').style('fill', this.getFillColor)
+      this.g.selectAll('path').style('fill', (d)=>this.getFillColor(d.properties.value))
         .on('click', this.clicked).style('stroke', '#EEE')
     }
 
@@ -203,7 +207,7 @@ export default class D3Map extends Component < {},
       const getFillColor = this.getFillColor
 
       this.g.selectAll('path')
-        .style('fill', (d) => fid && d.properties.fid === fid ? getFillColor(d) : remark?"#FFF":getFillColor(d) )
+        .style('fill', (d) => fid && d.properties.fid === fid ? getFillColor(d.properties.value) : remark?"#FFF":getFillColor(d.properties.value) )
         .style('stroke', (d) => fid && d.properties.fid === fid ? 'red' : '#EEE');
 
       this.g.transition().duration(duration)
@@ -274,12 +278,20 @@ export default class D3Map extends Component < {},
     }
 
     render() {
-      const { indicator :{ description }}=this.props
-
+      const { indicator :{ description },max,min,reverse,measure,source}=this.props
+      debugger;
+      const first=reverse?min:max
+      const second=reverse?max:min
       return (
         <div className="map">
           <div ref = "container"/>
+    <div className="legends">
+            {reverse?<div className="decending"><FormattedMessage id="national.indicator.chart.legend.descending" defaultMessage="Descending Indicator"/></div>:null}
+              <div className="color"><div className="square" style={{"background-color":this.getFillColor(first)}}/><div className="value"><b>{this.props.intl.formatNumber(first)}</b>  {measure}</div></div>
+              <div className="color"><div className="square" style={{"background-color":this.getFillColor(second)}}/><div className="value"><b>{this.props.intl.formatNumber(second)}</b> {measure}</div></div>
+            </div>
             <div className="description">{description}</div>
+            <div className="source"><FormattedMessage id="national.indicator.chart.legend.source" defaultMessage="Source"/>: {source}</div>
         </div>)
       }
 

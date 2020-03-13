@@ -16,8 +16,19 @@ var regions = require('../json/regions.json'); //with path
 var departments = require('../json/departments.json'); //with path
 
 const getOptions=(data)=> {
-    debugger;
-    return data.map(d=>{return {key:d.id ,text:d.name,description:d.description , leftMap:d.leftMap, rightMap:d.rightMap}})
+
+    return data.map(d=>{return {
+      key:d.id ,
+      text:d.name,
+      description:d.description ,
+      leftMap:d.leftMap,
+      rightMap:d.rightMap,
+      measure:d.measure,
+      reverse:d.reverse,
+      source:d.source,
+
+    }
+    })
 }
 
 
@@ -67,7 +78,7 @@ const DropDownLabel=()=>(<FormattedMessage id = "gis.indicator.name" defaultMess
 
 const PairOfMaps=({intl,id, data, selection,level})=>{
 
-
+  debugger;
 if (data){
 
     const colors=[
@@ -125,7 +136,7 @@ if (data){
       setRightGeojson(joinData(Immutable.fromJS(shapes).toJS(), getMapData(data.toJS(),right),getCode,getName))
     }, [right]);
 
-
+    debugger;
 
 
     return (
@@ -161,16 +172,20 @@ if (data){
               </div>
             </div>
                <Map
-                 name={leftIndicator.name}
+                 name={leftIndicator.text}
                  selection={selection}
                  key={leftIndicator.id}
                  max={leftData.maxValue}
                  min={leftData.minValue}
+                 measure={leftData.measure}
+                 reverse={leftIndicator.reverse}
+                 source={leftIndicator.source}
+
                  intl={intl}
                  json={leftGeoJson}
                  color={leftColor}
                  indicator={leftIndicator}
-                 inverted={leftIndicator.inverted}
+
                  sideColor={rightColor}
                  onClick={e=>setSelection(selection&&selection.fid==e.fid?null:e)}/>
             </div>
@@ -198,7 +213,7 @@ if (data){
                  </div>
                </div>
                  <Map
-                      name={rightIndicator.name}
+                      name={rightIndicator.text}
                       selection={selection}
                       key={rightIndicator.id}
                       max={rightData.maxValue}
@@ -207,7 +222,11 @@ if (data){
                       indicator={rightIndicator}
                       json={rightGeojson}
                       color={rightColor}
-                      inverted={rightData.inverted}
+
+                      reverse={rightData.reverse}
+                      measure={rightData.measure}
+                      source={rightData.source}
+
                       sideColor={leftColor}
                       onClick={e=>setSelection(selection&&selection.fid==e.fid?null:e)}/>
 
