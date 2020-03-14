@@ -82,6 +82,7 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
         final TextFieldBootstrapFormComponent<String> descriptionFr =
                 new TextFieldBootstrapFormComponent<>("descriptionFr");
         descriptionFr.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
+        descriptionFr.required();
         editForm.add(descriptionFr);
 
         final TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("name");

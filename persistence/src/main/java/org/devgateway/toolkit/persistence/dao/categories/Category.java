@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
+import org.devgateway.toolkit.persistence.util.Constants;
 import org.hibernate.LazyInitializationException;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
@@ -172,5 +173,22 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+
+
+    public String getNameEnFr() {
+        String frLabel = getLocalizedLabel(Constants.LANG_FR);
+        StringBuilder sb = new StringBuilder();
+        if (StringUtils.isNotBlank(label)) {
+            sb.append(label);
+            if (StringUtils.isNotBlank(frLabel)) {
+                sb.append(" / ");
+            }
+        }
+        if (StringUtils.isNotBlank(frLabel)) {
+            sb.append(frLabel);
+        }
+        return sb.toString();
     }
 }
