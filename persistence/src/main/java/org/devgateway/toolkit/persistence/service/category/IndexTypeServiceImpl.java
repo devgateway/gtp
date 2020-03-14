@@ -9,7 +9,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
  * @author Daniel Oliva
@@ -32,7 +32,7 @@ public class IndexTypeServiceImpl extends BaseJpaServiceImpl<IndexType> implemen
     }
 
     @Override
-    public Optional<IndexType> findByCategoryTypeId(int typeId) {
+    public List<IndexType> findByCategoryTypeId(int typeId) {
         return repository.findByType(typeId);
     }
 }
