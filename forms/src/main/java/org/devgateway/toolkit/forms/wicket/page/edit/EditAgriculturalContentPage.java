@@ -98,7 +98,7 @@ public class EditAgriculturalContentPage extends AbstractEditPage<AgriculturalCo
         GenericChoiceProvider<ContentType> choiceProvider = new GenericChoiceProvider<ContentType>(contentTypes) {
             @Override
             public String getDisplayValue(ContentType contentType) {
-                return contentType.getLabelFr() + " / " + contentType.getLabel();
+                return contentType.getNameEnFr();
             }
         };
 
