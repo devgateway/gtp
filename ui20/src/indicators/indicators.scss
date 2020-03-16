@@ -639,10 +639,13 @@
     background-color: #f6faf5;
     font-size: 18px;
     color: #646464;
-
+    display: flex;
     p {
       float: left;
+
+        flex-grow: 1
     }
+
     .icon.group{
       float: right;
       width: 180px;
