@@ -97,11 +97,11 @@ export const BarChart =injectIntl(({ data , intl/* see data tab */, keys,indexBy
 return (
     <ResponsiveBar
       data={data}
-      keys={keys}
+      keys={keys.sort()}
       indexBy={indexBy}
       groupMode={groupMode}
       colors={colors}
-      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+      margin={{ top: 50, right: 130, bottom: 80, left: 60 }}
       padding={0.1}
       innerPadding={0.5}
 

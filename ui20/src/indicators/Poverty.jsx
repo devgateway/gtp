@@ -114,7 +114,7 @@ class Pooverty extends Component {
   const panes1 = [
       {
         menuItem:{ key: 'poverty_chart_1', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_region_and_year)}`},
-        render: () =><div className="chart container">
+        render: () =><div className="indicators chart women">
                       <PovertyFitlers {...this.props}/>
                         <div className="chart container png exportable">
                         {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
@@ -126,7 +126,7 @@ class Pooverty extends Component {
       {
         menuItem:{ key: 'poverty_chart_2', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year,{year:maxYear})}`},
 
-        render: () => <div className="chart container">
+        render: () => <div className="indicators chart poverty">
         <PovertyFitlers {...this.props}/>
                         <div className="chart container png exportable">
 
@@ -138,7 +138,7 @@ class Pooverty extends Component {
       },
       {
         menuItem:{ key: 'poverty_chart_3', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`},
-        render: () =>  (<div className="chart container" > <PovertyFitlers {...this.props}/><div className="chart container png exportable">
+        render: () =>  (<div className="indicators chart poverty" > <PovertyFitlers {...this.props}/><div className="chart container png exportable">
 
           {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
 
@@ -164,7 +164,8 @@ class Pooverty extends Component {
 
         <Tab key="poverty" menu={{ pointing: true }} panes={panes1} />
 
-        <div className="source"><span className="source label"> <FormattedMessage id="indicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
+        <div className="source"><span className="source label">
+         <FormattedMessage id="indicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
       </div>)
   }
 
