@@ -16,7 +16,7 @@ var regions = require('../json/regions.json'); //with path
 
 const getOptions=(data, percents)=> {
 
-    return data.map(d=>{return {key:d.id ,text:d.name}})
+    return data.map(d=>{return {key:d.id ,text:d.name,  leftMap:d.leftMap,rightMap:d.rightMap,}})
 }
 
 
@@ -33,7 +33,6 @@ const getDataByKeys=(data, keys)=>{
     let maxValue= indicator.yearValues.map(z=>z.value).sort().pop()
     const referenceValue=indicator.referenceValue;
     const targetValue=indicator.targetValue;
-    const targetYear=indicator.targetValue;
 
     maxValue=referenceValue && maxValue < referenceValue?referenceValue:maxValue
     maxValue=targetValue && maxValue < targetValue?targetValue:maxValue
@@ -95,12 +94,16 @@ const PairOfMaps=({intl ,id, data, n})=>{
   if (data){
 
 
-
+    debugger;
     const options=getOptions(data.toJS())
 
     const defaultSelection = options[n > options.length-1?options.length-1:n ]
 
-    const [currentSelection, setSeCurrentSelection] = useState([defaultSelection.key]);
+    const defLeft =  options.find(o=>o.leftMap==true) || options[0]
+    const defRigth=  options.find(o=>o.rightMap==true)  || options[0]
+
+
+    const [currentSelection, setSeCurrentSelection] = useState([(n%2 == 0)? defLeft.key:defRigth.key]);
     const [color, setColor] = useState(['accent']);
     const [chartData, setChartData] = useState(null);
 
