@@ -30,6 +30,8 @@ Controls loading sequence
 */
 const listener = (store) => {
 
+
+
   const state = store.getState()
   const filters = state.getIn(['indicator', 'filters'])
   const globalFilters = filters.getIn(['global']);
@@ -83,6 +85,7 @@ const listener = (store) => {
 
   //all items were loaded then let's load default selected options
   if (povertyFiltersItemReady && !povertyFiltersReady && !flags['loadDefaultPovertyFiltersCalled']) {
+
     flags['loadDefaultPovertyFiltersCalled'] = true
     console.log("Listener -> Loading deafult poverty filter options")
     store.dispatch(loadDefaultPovertyFilters())
@@ -138,7 +141,7 @@ const listener = (store) => {
   if (aoiFiltersReady && !flags['aoiDataCalled']) {
     flags['aoiDataCalled'] = true;
     console.log('Listener -> Load Food Data')
-    
+
     store.dispatch(loadAOIsubsidies())
     store.dispatch(loadAOItotalbudget())
   }

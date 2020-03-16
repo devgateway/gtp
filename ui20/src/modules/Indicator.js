@@ -44,7 +44,7 @@ Get default selected filters
 */
 
 export const exportData = (what, format,language) => (dispatch, getState)  => {
-  
+
   const filters = getState().getIn(['indicator', 'filters']).toJS()
 
   api.exportIndicators(what, format, language, filters)
@@ -64,8 +64,9 @@ export const loadDefaultFilters = () => dispatch => {
 
 //Set here initial selected poverty filters if needed
 export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
+  debugger;
   console.log("loadDefaultPovertyFilters")
-  const filters = getState().getIn('filters')
+  const filters = getState().getIn(['filters'])
   const gender = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
   const professionalActivity = getState().getIn(['data', 'items', 'professionalActivity']).map(a => a.id);
   const ageGroup = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);

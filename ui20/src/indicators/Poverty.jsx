@@ -27,10 +27,16 @@ const PovertyFitlers=injectIntl((props)=>{
   const maxAge = range.age?range.age.max:0
   const minScore = range.score?range.score.min:0
   const maxScore = range.score?range.score.max:0
-
   //age and score selection
   const age= [filters.getIn(['poverty','minAge']),filters.getIn(['poverty','maxAge'])]
   const score=[ filters.getIn(['poverty','minScore']),filters.getIn(['poverty','maxScore'])]
+
+
+  console.log('-------------- Range min '+minAge+'--------------')
+  console.log('-------------- Range max '+maxAge+'--------------')
+
+  console.log('--------------Age '+age+'--------------')
+
 
   return (<div className="indicator chart filter  poverty">
 
@@ -165,6 +171,7 @@ class Pooverty extends Component {
 }
 
 const mapStateToProps = state => {
+
   const filters = state.getIn(['indicator', 'filters'])
   const activities = state.getIn(['data', 'items', 'professionalActivity']);
   const genders = state.getIn(['data', 'items', 'gender']);

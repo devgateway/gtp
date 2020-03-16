@@ -78,7 +78,7 @@ const DropDownLabel=()=>(<FormattedMessage id = "gis.indicator.name" defaultMess
 
 const PairOfMaps=({intl,id, data, selection,level})=>{
 
-  debugger;
+
 if (data){
 
     const colors=[
@@ -136,7 +136,7 @@ if (data){
       setRightGeojson(joinData(Immutable.fromJS(shapes).toJS(), getMapData(data.toJS(),right),getCode,getName))
     }, [right]);
 
-    debugger;
+
 
 
     return (

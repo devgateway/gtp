@@ -56,7 +56,7 @@ const newsLetter = injectIntl(({onSubscribe}) => {
 
 
 const mapStateToProps = state => {
-  debugger;
+  
 return {}
 }
 

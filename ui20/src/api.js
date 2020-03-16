@@ -463,9 +463,9 @@ export const subscribeToNewsLetter = (email) => {
              cache: 'default',
       body: JSON.stringify(subscriber)
     }).then(response=>{
-      debugger;
+      
     }).catch(error=>{
-      debugger;
+      
     })
   })
 }

@@ -110,7 +110,7 @@ const PairOfMaps=({intl ,id, data, n})=>{
     }, [currentSelection,data]);
 
 
-    debugger;
+
 
 
     return (
