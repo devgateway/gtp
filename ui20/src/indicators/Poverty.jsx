@@ -114,7 +114,7 @@ class Pooverty extends Component {
   const panes1 = [
       {
         menuItem:{ key: 'poverty_chart_1', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_region_and_year)}`},
-        render: () =><div className="indicators chart women">
+        render: () =><div className="indicators chart poverty">
                       <PovertyFitlers {...this.props}/>
                         <div className="chart container png exportable">
                         {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
@@ -146,7 +146,7 @@ class Pooverty extends Component {
       }
     ]
 
-    return (<div className="indicator.chart.container" id="anchor.indicator.global.population.short">
+    return (<div className="indicator chart section" id="anchor.indicator.global.population.short">
       <div className="indicator chart title poverty">
         <p>
           <FormattedMessage id="indicators.chart.poverty.title" defaultMessage="Proportion of population below the international poverty line."></FormattedMessage>

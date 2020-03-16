@@ -79,7 +79,7 @@ const ChartSection = injectIntl(( props)=>{
 
 
     return (
-        <div className="indicator chart container" id="anchor.indicator.global.aoi.short">
+        <div className="indicator chart section" id="anchor.indicator.global.aoi.short">
 
         <div className="indicator chart aoi title ">
           <p>

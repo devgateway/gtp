@@ -75,7 +75,7 @@ const ChartSection = injectIntl(( props)=>{
      ]
 
     return (
-        <div className="indicator.chart.container" id="anchor.indicator.global.food.short">
+        <div className="indicator chart section" id="anchor.indicator.global.food.short">
           <div className="indicator chart food title ">
             <p>
               <FormattedMessage id="indicators.chart.food.title" defaultMessage="Post-Harvest Loss"></FormattedMessage>
