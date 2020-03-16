@@ -226,7 +226,7 @@ const CustomMarker = (props) => {
         className="marker"
         onMouseEnter={e=>{
 
-            showTooltip(e,`${index==1?`Target (${metadata.targetYear}) `:`Reference (${metadata.referenceYear})`} -  <b>${metadata.referenceValue} ${metadata.measure}</b> `,color)
+            showTooltip(e,`${index==1?`Target: ${metadata.targetYear} `:`Reference: ${metadata.referenceYear}`} -  <b>${metadata.referenceValue} ${metadata.measure}</b> `,color)
         }}
         onMouseMove={e=>moveTooltip(e,0,0)}
         onMouseLeave={hideTooltip}
