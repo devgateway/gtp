@@ -48,7 +48,16 @@ const  SubsidiesFilters=injectIntl(({intl,indexTypes2,filters,onChange, options}
 
 
 const ChartSection = injectIntl(( props)=>{
-  const {onExport, intl}=props
+  const {onExport, intl,metadata}=props
+
+
+  const intro=metadata? (props.intl.locale=='fr')?metadata.introFr:metadata.intro:null
+  const ansdLink=metadata?metadata.ansdLink:null
+  const source=metadata?metadata.source:null
+
+
+
+
   const panes=[
       {
 
@@ -89,15 +98,19 @@ const ChartSection = injectIntl(( props)=>{
         </div>
         <div className="indicator chart aoi description">
           <p>
-            <FormattedMessage id="indicators.chart.aoi.description" defaultMessage="The agriculture orientation index for government expenditures"></FormattedMessage>
+          {intro}
           </p>
-          <div className="indicator chart icon download xls" onClick={e=>onExport('AOI', 'XLS',intl.locale)}></div>
-        <PngExport id="anchor.indicator.global.aoi.short"/>
-          <div className="indicator chart icon download csv" onClick={e=>onExport('AOI', 'CSV',intl.locale)}></div>
 
+          <div className="indicator chart icon group">
+            <div className="indicator chart icon download xls" onClick={e=>onExport('AOI', 'XLS',intl.locale)}></div>
+            <PngExport id="anchor.indicator.global.aoi.short"/>
+            <div className="indicator chart icon download csv" onClick={e=>onExport('AOI', 'CSV',intl.locale)}></div>
+          </div>
         </div>
 
           <Tab menu={{ pointing: true }} panes={panes} />
+
+          <div className="source"><span className="source label"> <FormattedMessage id="data.fied.source.label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
 
         </div>
       )

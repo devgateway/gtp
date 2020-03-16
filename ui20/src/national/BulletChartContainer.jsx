@@ -92,17 +92,10 @@ const DropDownLabel=()=>(<FormattedMessage id = "national.indicator.name" defaul
 const PairOfMaps=({intl ,id, data, n})=>{
 
   if (data){
-
-
-    debugger;
     const options=getOptions(data.toJS())
-
     const defaultSelection = options[n > options.length-1?options.length-1:n ]
-
     const defLeft =  options.find(o=>o.leftMap==true) || options[0]
     const defRigth=  options.find(o=>o.rightMap==true)  || options[0]
-
-
     const [currentSelection, setSeCurrentSelection] = useState([(n%2 == 0)? defLeft.key:defRigth.key]);
     const [color, setColor] = useState(['accent']);
     const [chartData, setChartData] = useState(null);

@@ -18,7 +18,7 @@ const URL_API_INITIATIVE_TYPES = API_ROOT + '/data/filter/contentType'
 const URL_API_INITIATIVE_ITEMS = API_ROOT + '/data/agriculturalContent/type'
 const URL_DATA_SETS_YEARS = API_ROOT + '/data/filter/dataset/years'
 const API_NATIONAL_URL = API_ROOT + '/data/nationalIndicator/all'
-
+const URL_API_METADATA=API_ROOT +'/data/indicatorMetadata/all'
 
 const API_GIS_URL_REGION = API_ROOT + '/data/gisIndicator/region/all'
 
@@ -165,6 +165,16 @@ export const getPartners = (locale) => {
         groups
       })
 
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
+
+export const getIndicatorsMetadata=(lang)=>{
+  return new Promise((resolve, reject) => {
+    post(URL_API_METADATA, {}).then((data) => {
+      resolve(data)
     }).catch(error => {
       reject(error)
     })
@@ -463,9 +473,9 @@ export const subscribeToNewsLetter = (email) => {
              cache: 'default',
       body: JSON.stringify(subscriber)
     }).then(response=>{
-      
+
     }).catch(error=>{
-      
+
     })
   })
 }

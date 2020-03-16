@@ -279,7 +279,7 @@ export default class D3Map extends Component < {},
 
     render() {
       const { indicator :{ description },max,min,reverse,measure,source}=this.props
-      debugger;
+
       const first=reverse?min:max
       const second=reverse?max:min
       return (

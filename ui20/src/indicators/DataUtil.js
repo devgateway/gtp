@@ -123,7 +123,7 @@ export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
 export const getPovertyTimeLine = (data) => {
 
   const regions = Array.from(new Set(data.map(d => d.region))).sort()
-  debugger;
+  
   const years = Array.from(new Set(data.map(d => d.year)))
   const lineData = regions.map(r => {
     const record = {

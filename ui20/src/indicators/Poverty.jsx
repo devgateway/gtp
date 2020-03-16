@@ -32,11 +32,6 @@ const PovertyFitlers=injectIntl((props)=>{
   const score=[ filters.getIn(['poverty','minScore']),filters.getIn(['poverty','maxScore'])]
 
 
-  console.log('-------------- Range min '+minAge+'--------------')
-  console.log('-------------- Range max '+maxAge+'--------------')
-
-  console.log('--------------Age '+age+'--------------')
-
 
   return (<div className="indicator chart filter  poverty">
 
@@ -77,10 +72,15 @@ const ChartSection = injectIntl((props)=>{
 class Pooverty extends Component {
   render() {
 
-    const {data=[],intl, onExport} = this.props
+    const {data=[],intl, onExport, metadata} = this.props
     const years = Array.from(new Set(data.map(r => r.year)))
     const maxYear=years.pop()
-  
+
+    const intro=metadata? (this.props.intl.locale=='fr')?metadata.introFr:metadata.intro:null
+    const ansdLink=metadata?metadata.ansdLink:null
+    const source=metadata?metadata.source:null
+
+
 
   const panes1 = [
       {
@@ -122,21 +122,24 @@ class Pooverty extends Component {
         <p>
           <FormattedMessage id="indicators.chart.poverty.title" defaultMessage="Proportion of population below the international poverty line."></FormattedMessage>
         </p>
-        <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
+          <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
       </div>
       <div className="indicator chart description poverty">
         <p>
-          <FormattedMessage id="indicators.chart.poverty.description" defaultMessage="Proportion of population below the international poverty line, by sex, age, employment status and geographical location (urban/rural)."></FormattedMessage>
+        {intro}
         </p>
-        <div className="indicator chart icon download xls" onClick={e=>onExport('POVERTY', 'XLS',intl.locale)}></div>
-        <PngExport id="anchor.indicator.global.population.short"/>
-        <div className="indicator chart icon download csv" onClick={e=>onExport('POVERTY', 'CSV',intl.locale)}></div>
+        <div className="indicator chart icon group">
+
+          <div className="indicator chart icon download xls" onClick={e=>onExport('POVERTY', 'XLS',intl.locale)}></div>
+          <PngExport id="anchor.indicator.global.population.short"/>
+          <div className="indicator chart icon download csv" onClick={e=>onExport('POVERTY', 'CSV',intl.locale)}></div>
+        </div>
       </div>
 
         <Tab key="poverty" menu={{ pointing: true }} panes={panes1} />
 
-        <div className="source"><span className="source label">
-         <FormattedMessage id="indicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
+        <div className="source"><span className="source label"> <FormattedMessage id="data.fied.source.label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
+
       </div>)
   }
 

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
-import {updateGlobalFilter,updateFilter,reset,apply, exportData} from '../modules/Indicator'
+import {updateGlobalFilter,updateFilter,reset,apply, exportData, loadMetadata} from '../modules/Indicator'
 import {Grid,Segment} from 'semantic-ui-react'
 
 import MainFilter from './MainFilter'
@@ -22,6 +22,13 @@ class Indicators extends Component {
     this.onAppllyFilters = this.onAppllyFilters.bind(this);
     this.onResetFilters = this.onResetFilters.bind(this);
     this.onChangeChartFilter = this.onChangeChartFilter.bind(this);
+  }
+
+
+
+  componentDidMount(){
+
+    this.props.onLoadMetadata(this.props.intl.locale)
   }
 
   onChangeGlobalFilter(name, selection) {
@@ -58,12 +65,12 @@ class Indicators extends Component {
         </div>
 
           <GlobalNumbers  {...this.props}></GlobalNumbers>
-          <Poverty onChange={this.onChangeChartFilter} {...this.props}></Poverty>
-          <Women onChange={this.onChangeChartFilter} {...this.props}></Women>
+          <Poverty metadata={this.props.povertyMetadata} onChange={this.onChangeChartFilter} {...this.props}></Poverty>
+          <Women  metadata={this.props.womenMetadata} onChange={this.onChangeChartFilter} {...this.props}></Women>
 
 
-          <Food onChange={this.onChangeChartFilter} {...this.props}></Food>
-          <AgriculturalIndex onChange={this.onChangeChartFilter} {...this.props}></AgriculturalIndex>
+          <Food metadata={this.props.globalFoodMetadata}  onChange={this.onChangeChartFilter} {...this.props}></Food>
+          <AgriculturalIndex metadata={this.props.aoiMetadata} onChange={this.onChangeChartFilter} {...this.props}></AgriculturalIndex>
 
       </div>
     </div>)
@@ -77,6 +84,14 @@ const mapStateToProps = state => {
   const gender = state.getIn(['data', 'items', 'gender']);
   const years = state.getIn(['data', 'items', 'year']);
   const filters = state.getIn(['indicator', 'filters'])
+  const metadata = state.getIn(['indicator', 'metadata'])
+
+  const povertyMetadata= metadata?  metadata.filter(f=>f.get('indicatorType')==1).get(0).toJS():null
+  const womenMetadata= metadata?  metadata.filter(f=>f.get('indicatorType')==2).get(0).toJS():null
+  const globalFoodMetadata= metadata?  metadata.filter(f=>f.get('indicatorType')==3).get(0).toJS():null
+  const aoiMetadata= metadata?  metadata.filter(f=>f.get('indicatorType')==4).get(0).toJS():null
+
+
 
   return {
     globalFilters,
@@ -84,6 +99,10 @@ const mapStateToProps = state => {
     regions,
     crops,
     years,
+    povertyMetadata,
+    womenMetadata,
+    globalFoodMetadata,
+    aoiMetadata
   }
 }
 
@@ -93,6 +112,7 @@ const mapActionCreators = {
   onReset:reset,
   onApply:apply,
   onExport:exportData,
+  onLoadMetadata:loadMetadata
 };
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(Indicators));

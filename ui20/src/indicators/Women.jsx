@@ -49,7 +49,14 @@ const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,
 })
 
 const ChartSection = injectIntl((props)=>{
-  const {population=[], onExport, intl} = props
+  const {population=[], onExport, intl, metadata} = props
+
+  const intro=metadata? (props.intl.locale=='fr')?metadata.introFr:metadata.intro:null
+  const ansdLink=metadata?metadata.ansdLink:null
+  const source=metadata?metadata.source:null
+
+
+
   const years = Array.from(new Set(population.map(r => r.year))).sort()
   const maxYear=years.pop()
     const byAgePanes=[
@@ -138,15 +145,19 @@ const ChartSection = injectIntl((props)=>{
         </div>
         <div className="indicator chart women description">
           <p>
-            <FormattedMessage id="indicators.chart.women.description" defaultMessage="Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex; and (b) share of women among owners or rights-bearers of agricultural land, by type of tenure."></FormattedMessage>
+            {intro}
           </p>
-          <div className="indicator chart icon download xls" onClick={e=>onExport('WOMEN', 'XLS',intl.locale)}></div>
-          <PngExport id="anchor.indicator.global.women.short"/>
-          <div className="indicator chart icon download csv" onClick={e=>onExport('WOMEN', 'CSV',intl.locale)}></div>
+          <div className="indicator chart icon group">
+
+            <div className="indicator chart icon download xls" onClick={e=>onExport('WOMEN', 'XLS',intl.locale)}></div>
+            <PngExport id="anchor.indicator.global.women.short"/>
+            <div className="indicator chart icon download csv" onClick={e=>onExport('WOMEN', 'CSV',intl.locale)}></div>
+          </div>
+
         </div>
           <Tab key="women" menu={{ pointing: true }} panes={panes} />
 
-          <div className="source"><span className="source label"> <FormattedMessage id="indicators.source.label" defaultMessage="Source :"></FormattedMessage></span> Source place holder.</div>
+          <div className="source"><span className="source label"> <FormattedMessage id="data.fied.source.label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
         </div>
       )
 })

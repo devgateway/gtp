@@ -35,6 +35,9 @@ const LOAD_AOI_TOTAL_BUDGET_DONE = 'LOAD_AOI_TOTAL_BUDGET_DONE'
 const LOAD_AOI_TOTAL_BUDGET_ERROR = 'LOAD_AOI_TOTAL_BUDGET_ERROR'
 
 
+const LOAD_METADATA_DONE = 'LOAD_METADATA_DONE'
+const LOAD_METADATA_ERROR = 'LOAD_METADATA_ERROR'
+
 const initialState = Immutable.fromJS({
   filters: {}
 })
@@ -62,9 +65,17 @@ export const loadDefaultFilters = () => dispatch => {
   }))
 }
 
+
+export const loadMetadata= (lang)=> (dispatch, getState) => {
+
+    api.getIndicatorsMetadata(lang).then(data=>{
+        dispatch({type: LOAD_METADATA_DONE,data})
+    }).catch(error=>dispatch({type:LOAD_METADATA_ERROR}))
+}
+
 //Set here initial selected poverty filters if needed
 export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
-  debugger;
+
   console.log("loadDefaultPovertyFilters")
   const filters = getState().getIn(['filters'])
   const gender = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
@@ -313,6 +324,13 @@ export const loadGlobalIndicators = () => (dispatch, getState) => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+
+    case LOAD_METADATA_DONE: {
+      const {data} = action
+      return state.setIn(['metadata'], Immutable.fromJS(data.content))
+    }
+
+
     case LOAD_DEFAULT_FILTERS_DONE: {
       const {
         category,
