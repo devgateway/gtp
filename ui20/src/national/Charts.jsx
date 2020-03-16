@@ -218,6 +218,31 @@ const getCondition = (reverse, current, target, reference) => {
 }
 
 
+const CustomMarker = (props) => {
+    const { x, y,size,value,metadata, index,width,rotation,onClick, height, color, onMouseEnter, onMouseMove, onMouseLeave , intl,refData} = props
+    return (
+
+      <g
+        className="marker"
+        onMouseEnter={e=>{
+
+            showTooltip(e,`${index==1?`Target (${metadata.targetYear}) `:`Reference (${metadata.referenceYear})`} -  <b>${metadata.referenceValue} ${metadata.measure}</b> `,color)
+        }}
+        onMouseMove={e=>moveTooltip(e,0,0)}
+        onMouseLeave={hideTooltip}
+        >
+
+        <rect   transform={`rotate(${rotation}, ${x}, ${y})`} x={x} y={y - size / 2} width="7" height={size}
+                      fill={color}
+                      rx="5"
+                      ry="5"/>
+
+
+      </g>
+  )
+}
+
+
 export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy , groupMode, color}) => {
 
   const CustomMeasure = (props) =>{
@@ -264,30 +289,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
           </g>
   )
   }
-  const CustomMarker = (props) => {
-      const { x, y,size,value, index,width,rotation,onClick, height, color, onMouseEnter, onMouseMove, onMouseLeave , intl} = props
 
-      return (
-
-        <g
-          className="marker"
-          onMouseEnter={e=>{
-
-              showTooltip(e,`${index==1?`Target`:`Reference ${refData[0].id}`} <b>${value} ${metadata.measure}</b> `,color)
-          }}
-          onMouseMove={e=>moveTooltip(e,0,0)}
-          onMouseLeave={hideTooltip}
-          >
-
-          <rect   transform={`rotate(${rotation}, ${x}, ${y})`} x={x} y={y - size / 2} width="7" height={size}
-                        fill={color}
-                        rx="5"
-                        ry="5"/>
-
-
-        </g>
-    )
-  }
 
   return(
   <div className="national chart wrapper">
@@ -313,7 +315,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
                           measureColors={["#b2182b","#a6dba0"]}
                           markerSize={.9}
                           markerColors={["#f88d59","#72a9e0"]}
-                          markerComponent={CustomMarker}
+                          markerComponent={(props)=>CustomMarker({...props, metadata})}
 
                       />
 

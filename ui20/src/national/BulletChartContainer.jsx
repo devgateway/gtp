@@ -33,6 +33,7 @@ const getDataByKeys=(data, keys)=>{
     let maxValue= indicator.yearValues.map(z=>z.value).sort().pop()
     const referenceValue=indicator.referenceValue;
     const targetValue=indicator.targetValue;
+    const targetYear=indicator.targetValue;
 
     maxValue=referenceValue && maxValue < referenceValue?referenceValue:maxValue
     maxValue=targetValue && maxValue < targetValue?targetValue:maxValue
