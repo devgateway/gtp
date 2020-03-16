@@ -32,7 +32,9 @@ export const LineChart =injectIntl( ({intl, data }) => (
          pointLabel={(s)=>intl.formatNumber(s.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0}) }
          pointLabelYOffset={-10}
          pointLabelXOffset={20}
-         tooltip={(s)=><div className="tooltip"><div className='x'>{s.point.data.x}</div> <div className=' y'>{intl.formatNumber(s.point.data.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}</div></div>}
+         tooltip={(s)=><div className="tooltip">
+         <div className='x'>{s.point.data.x}</div>
+         <div className='y'>{intl.formatNumber(s.point.data.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}</div></div>}
          onMouseEnter={s=>{
          }}
 
@@ -56,7 +58,7 @@ export const LineChart =injectIntl( ({intl, data }) => (
           tickPadding: 5,
           tickRotation: 0,
           legend:intl.formatMessage(messages.percent),
-          legendOffset: -40,
+          legendOffset: -50,
           legendPosition: 'middle'
         }}
 
@@ -69,7 +71,6 @@ export const LineChart =injectIntl( ({intl, data }) => (
             translateX: -11,
             translateY: 70,
             itemsSpacing: 0,
-            itemDirection: 'left-to-right',
             itemWidth: 120,
             itemHeight: 20,
             itemOpacity: 0.75,
@@ -115,7 +116,7 @@ return (
         tickRotation: 0,
         legend: intl.formatMessage(messages.region),
         legendPosition: 'middle',
-        legendOffset: 32
+        legendOffset: 52
       }}
       axisLeft={{
         tickSize: 5,
@@ -131,7 +132,7 @@ return (
       labelTextColor={"#FFF"}
 
       tooltip={(s)=>{
-          return (<div className="tooltip white">
+          return (<div className="tooltips white">
                 <div className="color" style={{'background-color':s.color}}></div>
                 <div className="label">{s.indexValue}</div>
                 <div className='x'>{s.id}</div>
@@ -150,7 +151,7 @@ return (
           itemsSpacing: 2,
           itemWidth: 100,
           itemHeight: 20,
-          itemDirection: 'left-to-right',
+          itemDirection: 'right-to-left',
           itemOpacity:1,
           symbolSize: 20,
           effects: [

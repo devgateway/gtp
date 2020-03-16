@@ -80,36 +80,7 @@ class Pooverty extends Component {
     const {data=[],intl, onExport} = this.props
     const years = Array.from(new Set(data.map(r => r.year)))
     const maxYear=years.pop()
-    const panes = [
-          {
-            menuItem:{ key: 'poverty_chart_1', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_region_and_year)}`},
-            render: () =>  (
-            <div>
-              <PovertyFitlers {...this.props}/>
-              <div className="chart container png exportable">
-                  {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
-                  </div>
-            </div>),
-          },
-          {
-
-            menuItem:{ key: 'poverty_chart_2', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year,{year:maxYear})}`},
-            render: () =>   (<div>  <PovertyFitlers {...this.props}/> <div className=" chart container">
-              {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:<BarChart    {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
-
-            </div></div>),
-
-          },
-          {
-            menuItem:{ key: 'poverty_chart_3', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`},
-            render: () =>  (<div > <PovertyFitlers {...this.props}/><div className="chart container png exportable">
-
-              {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
-
-            </div></div>),
-          }
-        ]
-
+  
 
   const panes1 = [
       {

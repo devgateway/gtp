@@ -58,7 +58,7 @@ export const LineChart =injectIntl( ({intl, data }) => (
         pointLabel={(s)=>intl.formatNumber(s.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0}) }
         pointLabelYOffset={-10}
         pointLabelXOffset={20}
-        tooltip={(s)=><div className="tooltip"><div className='x'>{s.point.data.x}</div> <div className=' y'>{intl.formatNumber(s.point.data.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}</div></div>}
+        tooltip={(s)=><div className="tooltips"><div className='x'>{s.point.data.x}</div> <div className=' y'>{intl.formatNumber(s.point.data.y/100, {style: 'percent', minimumFractionDigits: 0,maximumFractionDigits: 0})}</div></div>}
         onMouseEnter={s=>{
         }}
         useMesh={true}
@@ -156,8 +156,8 @@ return (
 
 
             tooltip={(s)=>{
-                
-                return (<div className="tooltip white">
+
+                return (<div className="tooltips white">
                       <div className="color" style={{'background-color':s.color}}></div>
                       <div className="label">{s.indexValue}</div>
                       <div className='x'>{s.id}</div>

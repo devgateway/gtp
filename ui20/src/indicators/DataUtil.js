@@ -70,7 +70,7 @@ export const getPovertyRegionalYearly = (data = [], intl) => {
 
   return {
     'data': barData,
-    'keys': keys,
+    'keys': keys.sort(),
     'groupMode': "grouped",
     'indexBy': tr_region,
     'colors': {
@@ -112,7 +112,7 @@ export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
 
   return {
     data: barData,
-    keys: keys,
+    keys: keys.sort(),
     groupMode: "grouped",
     indexBy: tr_region,
     groupMode: 'stacked',
@@ -122,7 +122,8 @@ export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
 
 export const getPovertyTimeLine = (data) => {
 
-  const regions = Array.from(new Set(data.map(d => d.region)))
+  const regions = Array.from(new Set(data.map(d => d.region))).sort()
+  debugger;
   const years = Array.from(new Set(data.map(d => d.year)))
   const lineData = regions.map(r => {
     const record = {
