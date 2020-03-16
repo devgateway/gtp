@@ -69,9 +69,10 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
 
         TextFieldBootstrapFormComponent<String> introField = new TextFieldBootstrapFormComponent<>("intro");
         introField.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
+        introField.required();
         editForm.add(introField);
 
-        List<Indicator> indicators = indicatorRepo.findAll();
+        List<Indicator> indicators = indicatorRepo.findAllFetchingLocalizedLabels();
         Indicator currentIndicator = editForm.getModelObject().getIndicator();
         service.findAll().stream().forEach(x -> {
             if (currentIndicator == null || !currentIndicator.getId().equals(x.getIndicator().getId())) {

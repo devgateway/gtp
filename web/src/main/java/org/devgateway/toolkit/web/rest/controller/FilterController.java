@@ -51,7 +51,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -196,7 +195,7 @@ public class FilterController {
     @CrossOrigin
     @ApiOperation(value = "Get loss type information")
     @RequestMapping(value = "/indexType/{typeId}", method = {POST, GET})
-    public Optional<IndexType> getIndexTypeByCategoryIndexType(@PathVariable final int typeId) {
+    public List<IndexType> getIndexTypeByCategoryIndexType(@PathVariable final int typeId) {
         return indexTypeService.findByCategoryTypeId(typeId);
     }
 
