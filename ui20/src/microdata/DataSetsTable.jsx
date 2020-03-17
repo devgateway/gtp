@@ -118,7 +118,7 @@ class TableComponent extends Component {
                      <Table.Cell width={7}> <a href={`/files/download/${fileId}`}>{title}</a></Table.Cell>
                      <Table.Cell> {organization}</Table.Cell>
                      <Table.Cell> {year}</Table.Cell>
-                     <Table.Cell> <a href={`/files/download/${fileId}`}><FormattedMessage id="microdata.table.download" defaultMessage="Download"/></a></Table.Cell>
+                     <Table.Cell> <a href={metadata}>{metadata}</a></Table.Cell>
 
                     </Table.Row>
                   ))}
