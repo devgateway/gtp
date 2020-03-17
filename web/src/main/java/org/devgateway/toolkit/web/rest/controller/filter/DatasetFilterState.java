@@ -73,6 +73,9 @@ public class DatasetFilterState {
             isAsc = true;
         }
         switch (column) {
+            case "year" :
+                query.orderBy(new OrderImpl(root.get(Dataset_.YEAR), isAsc));
+                break;
             case "type" :
                 query.orderBy(new OrderImpl(root.get(Dataset_.DTYPE), isAsc));
                 break;

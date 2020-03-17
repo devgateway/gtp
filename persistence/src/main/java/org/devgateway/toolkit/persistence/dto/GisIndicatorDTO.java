@@ -24,6 +24,8 @@ public class GisIndicatorDTO {
 
     private String measure;
 
+    private String indicatorGroup;
+
     private Integer year;
 
     private Collection<GisStatDTO> stats;
@@ -57,6 +59,7 @@ public class GisIndicatorDTO {
         this.maxValue = ri.getMaxValue();
         this.leftMap = ri.isLeftMap();
         this.measure = ri.getMeasure();
+        this.indicatorGroup = this.name.split(" ")[0];
         this.rightMap = ri.isRightMap();
         if (ri.getSource() != null) {
             this.sources.add(ri.getSource());
@@ -102,6 +105,14 @@ public class GisIndicatorDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getIndicatorGroup() {
+        return indicatorGroup;
+    }
+
+    public void setIndicatorGroup(String indicatorGroup) {
+        this.indicatorGroup = indicatorGroup;
     }
 
     public Integer getYear() {

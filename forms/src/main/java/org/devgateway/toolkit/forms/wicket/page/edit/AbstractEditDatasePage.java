@@ -9,6 +9,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.validator.RangeValidator;
 import org.apache.wicket.validation.validator.StringValidator;
+import org.apache.wicket.validation.validator.UrlValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
@@ -61,6 +62,7 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
         editForm.add(source);
 
         final TextFieldBootstrapFormComponent<String> metadata = new TextFieldBootstrapFormComponent<>("metadata");
+        metadata.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES));
         metadata.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         editForm.add(metadata);
 

@@ -123,6 +123,7 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
                 crop = p.getCrop() != null ? p.getCrop() : EMPTY_STRING;
                 dto.setId(Long.valueOf(year) * 1000 + crop.hashCode());
                 dto.setName(p.getName(isFR));
+                dto.setIndicatorGroup(dto.getName().split(" ")[0]);
                 dto.setNameEnFr(p.getNameEnFr());
                 String desc = null;
                 if (description.isPresent()) {
