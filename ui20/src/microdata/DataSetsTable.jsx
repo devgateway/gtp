@@ -112,7 +112,7 @@ class TableComponent extends Component {
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  {this.state.data &&_.map(this.state.data, ({id, organization, title, source,creator, createdDate, fileId, type,year}) => (
+                  {this.state.data &&_.map(this.state.data, ({id, organization, title, source,creator, createdDate, fileId, type,year,metadata}) => (
                     <Table.Row key={id}>
                      <Table.Cell width={7}> {type}</Table.Cell>
                      <Table.Cell width={7}> <a href={`/files/download/${fileId}`}>{title}</a></Table.Cell>
