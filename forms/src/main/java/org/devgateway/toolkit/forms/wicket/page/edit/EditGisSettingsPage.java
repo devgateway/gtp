@@ -13,6 +13,7 @@ import org.devgateway.toolkit.forms.wicket.page.Homepage;
 import org.devgateway.toolkit.forms.wicket.page.edit.panel.GisSettingsDescPanel;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.GisSettings;
+import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;
 import org.devgateway.toolkit.persistence.service.GisSettingsService;
 import org.devgateway.toolkit.persistence.service.NationalIndicatorService;
 import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
@@ -41,6 +42,9 @@ public class EditGisSettingsPage extends AbstractEditPage<GisSettings> {
 
     @SpringBean
     private RegionIndicatorService regionIndicatorService;
+
+    @SpringBean
+    private DepartmentIndicatorService departmentIndicatorService;
 
     @SpringBean
     protected MarkupCacheService markupCacheService;
@@ -109,7 +113,7 @@ public class EditGisSettingsPage extends AbstractEditPage<GisSettings> {
         editForm.add(leftGisName);
 
 
-        List<String> depList = regionIndicatorService.findGisDepartmentIndicators(null)
+        List<String> depList = departmentIndicatorService.findGisDepartmentIndicators(null)
                 .stream().map(n -> n.getNameEnFr()).collect(Collectors.toList());
 
         GenericChoiceProvider<String> depProvider = new GenericChoiceProvider<String>(depList) {

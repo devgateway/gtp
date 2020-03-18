@@ -62,6 +62,7 @@ import org.devgateway.toolkit.forms.wicket.page.lists.ListAOIIndicatorDatasetPag
 import org.devgateway.toolkit.forms.wicket.page.lists.ListAgriculturalContentFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListAgriculturalWomenDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListConsumptionDatasetPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListDepartmentIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListFoodLossDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListIndicatorMetadataFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListMarketPriceDatasetPage;
@@ -395,6 +396,9 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         .setIconType(FontAwesomeIconType.area_chart));
                 list.add(new MenuBookmarkablePageLink<ListRegionIndicatorPage>(ListRegionIndicatorPage.class, null,
                         new StringResourceModel("navbar.regionIndicator", this, null))
+                        .setIconType(FontAwesomeIconType.map_marker));
+                list.add(new MenuBookmarkablePageLink<ListDepartmentIndicatorPage>(ListDepartmentIndicatorPage.class,
+                        null, new StringResourceModel("navbar.departmentIndicator", this, null))
                         .setIconType(FontAwesomeIconType.map_marker));
 
                 list.add(new MenuDivider());

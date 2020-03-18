@@ -11,6 +11,4 @@ public interface RegionIndicatorService extends BaseJpaService<RegionIndicator> 
 
     List<GisIndicatorDTO> findGisRegionIndicators(String lang);
 
-    //TODO this method should be moved to DepartmentIndicatorService when it is implemented
-    List<GisIndicatorDTO> findGisDepartmentIndicators(String lang);
 }

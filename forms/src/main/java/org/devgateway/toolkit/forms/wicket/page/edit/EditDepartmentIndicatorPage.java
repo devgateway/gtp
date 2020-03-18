@@ -27,12 +27,12 @@ import org.devgateway.toolkit.forms.util.MarkupCacheService;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.page.lists.ListRegionIndicatorPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListDepartmentIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
-import org.devgateway.toolkit.persistence.dao.RegionIndicator;
-import org.devgateway.toolkit.persistence.dao.RegionStat;
-import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
-import org.devgateway.toolkit.persistence.service.ImportRegionIndicatorService;
+import org.devgateway.toolkit.persistence.dao.DepartmentIndicator;
+import org.devgateway.toolkit.persistence.dao.DepartmentStat;
+import org.devgateway.toolkit.persistence.service.ImportDepartmentIndicatorService;
+import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
@@ -44,18 +44,18 @@ import org.wicketstuff.annotation.mount.MountPath;
  * Created by Daniel Oliva
  */
 @AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
-@MountPath("/editRegionIndicator")
-public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
+@MountPath("/editDepartmentIndicator")
+public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndicator> {
 
     private static final long serialVersionUID = -6069250112046118104L;
-    private static final Logger logger = LoggerFactory.getLogger(EditRegionIndicatorPage.class);
-    public static final String TEMPLATE_XLSX = "gisRegionDataset-Template.xlsx";
+    private static final Logger logger = LoggerFactory.getLogger(EditDepartmentIndicatorPage.class);
+    public static final String TEMPLATE_XLSX = "gisDepartmentDataset-Template.xlsx";
 
     @SpringBean
-    private transient ImportRegionIndicatorService importService;
+    private transient ImportDepartmentIndicatorService importService;
 
     @SpringBean
-    protected RegionIndicatorService service;
+    protected DepartmentIndicatorService service;
 
     @SpringBean
     protected MarkupCacheService markupCacheService;
@@ -64,10 +64,10 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
     private ReleaseCacheService cacheService;
 
 
-    public EditRegionIndicatorPage(final PageParameters parameters) {
+    public EditDepartmentIndicatorPage(final PageParameters parameters) {
         super(parameters);
         this.jpaService = service;
-        this.listPageClass = ListRegionIndicatorPage.class;
+        this.listPageClass = ListDepartmentIndicatorPage.class;
     }
 
     @Override
@@ -137,7 +137,7 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
         }
         editForm.add(approved);
 
-        if (entityId != null && ((RegionIndicator) this.editForm.getModelObject()).isApproved()
+        if (entityId != null && ((DepartmentIndicator) this.editForm.getModelObject()).isApproved()
                 && !SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
                 .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {
             deleteButton.setVisibilityAllowed(false);
@@ -152,9 +152,9 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
             @Override
             protected void onSubmit(final AjaxRequestTarget target) {
                 logger.info("Check the file and process it");
-                RegionIndicator model = editForm.getModelObject();
+                DepartmentIndicator model = editForm.getModelObject();
 
-                ImportResults<RegionStat> results = null;
+                ImportResults<DepartmentStat> results = null;
 
                 if (model.getId() != null) {
                     jpaService.saveAndFlush(model);

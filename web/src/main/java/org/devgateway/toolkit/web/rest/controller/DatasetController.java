@@ -10,6 +10,7 @@ import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.category.DatasetTypeRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
 import org.devgateway.toolkit.persistence.service.DatasetService;
+import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;
 import org.devgateway.toolkit.persistence.service.GisSettingsService;
 import org.devgateway.toolkit.persistence.service.MicrodataLinkService;
 import org.devgateway.toolkit.persistence.service.NationalIndicatorService;
@@ -58,6 +59,9 @@ public class DatasetController {
 
     @Autowired
     private RegionIndicatorService regionIndicatorService;
+
+    @Autowired
+    private DepartmentIndicatorService departmentIndicatorService;
 
     @Autowired
     private AgriculturalContentService agriculturalContentService;
@@ -126,7 +130,7 @@ public class DatasetController {
     public @ResponseBody List<GisIndicatorDTO> getAllGisDepartmentIndicators(
             @RequestBody @Valid final DatasetFilterPagingRequest request) {
         LOGGER.info("get all GIS indicators");
-        return regionIndicatorService.findGisDepartmentIndicators(request.getLang());
+        return departmentIndicatorService.findGisDepartmentIndicators(request.getLang());
     }
 
     @CrossOrigin
