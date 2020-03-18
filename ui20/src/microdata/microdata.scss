@@ -93,6 +93,9 @@
     background-color: #f5fcff !important;
     color: #000;
 
+    input{
+    font-family: "Open Sans", sans-serif !important
+    }
     ::-webkit-input-placeholder {
       /* Edge */
       font-size: 14px;
@@ -297,7 +300,7 @@
   }
 
   .microdata.sources {
-    
+
     .title::before {
       display: none;
     }
