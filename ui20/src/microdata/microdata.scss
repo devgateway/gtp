@@ -59,10 +59,16 @@
     height: 100px;
 
     p {
-      font-size: 18px;
+      font-size: 21px;
       float: left;
       margin: 0;
       color: #646464;
+    }
+  }
+
+  .microdata.table1.description{
+    p{
+      font-size: 18px;
     }
   }
 
@@ -70,6 +76,7 @@
     height: auto!important;
     min-height: 50px;
     clear: both;
+    margin-bottom: 20px;
   }
 
   div.table.filters {
@@ -290,6 +297,7 @@
   }
 
   .microdata.sources {
+    
     .title::before {
       display: none;
     }
@@ -333,6 +341,7 @@
           font-weight: bold;
           color: #000;
           height: auto;
+
         }
       }
     }

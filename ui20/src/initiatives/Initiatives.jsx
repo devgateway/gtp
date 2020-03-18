@@ -78,7 +78,7 @@ const Items = injectIntl(({intl,id,type,label,labelFr, onLoadItems , items}) => 
   }
 
 
-
+  var i=1;
 return (<div className="initiatives container">
         <div className="initiatives list title">
           <p>
@@ -88,21 +88,22 @@ return (<div className="initiatives container">
           </p>
         </div>
           <Container fluid className="initiatives list container">
-              <Grid fluid width={2} stackable>
+              <Grid fluid width={2} >
+
               {content.map(e=>{
+
+
                   return(
 
-                      <Grid.Column width={8}>
+                      <Grid.Column width={content.length > 1?8:16}>
 
-                  
-                      <div className="date"><FormattedDate value={e.publicationDate} year="numeric" month="long" day="2-digit" /></div>
+                        <div className="date"><FormattedDate value={e.publicationDate} year="numeric" month="long" day="2-digit" /></div>
 
-                      <div className="title">  {e.link?<a href={e.link}>{e.title}</a>:<a href={`/files/download/${e.fileId}`}>{e.title}</a>}</div>
+                        <div className="title">  {e.link?<a href={e.link}>{e.title}</a>:<a href={`/files/download/${e.fileId}`}>{e.title}</a>}</div>
 
-                      <div className="description"> <a href={e.link}>{e.description}</a> </div>
-
-                        {e.fileId &&   <div className="download">  <a href={`/files/download/${e.fileId}`}>Download File</a></div>}
+                        <div className="description"> <a href={e.link}>{e.description}</a> </div> {e.fileId &&   <div className="download">  <a href={`/files/download/${e.fileId}`}>Download File</a></div>}
                       </Grid.Column>
+
               )
 
                 })}

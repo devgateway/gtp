@@ -386,9 +386,12 @@
     padding: 10px;
     margin-bottom: 50px;
     height: 850px;
+    margin-top: 30px;
+    border: 1px solid red;
   }
 
   .indicator.chart.title {
+
     background-color: #FFF;
     border-top: 1px solid $border-color;
     height: 74px;
@@ -637,7 +640,7 @@
     font-size: 15px;
     display: flex;
     background-color: #f6faf5;
-    font-size: 18px;
+    font-size: 21px;
     color: #646464;
     display: flex;
     p {

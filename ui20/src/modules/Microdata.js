@@ -18,8 +18,8 @@ const initialState = Immutable.fromJS(
   {
     filters:{
       datasets:{
-          "sortBy":'type',
-          "sortDir":'ASC'
+          "sortBy":'year',
+          "sortDir":'DESC'
         }
     }
 
