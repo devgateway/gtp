@@ -208,30 +208,34 @@
   margin: auto;
 
   .indicators.title {
-    height: 72px;
-    line-height: 72px;
-    padding-bottom: 10px;
-    margin: auto;
+    background-color: #FFF;
     border-bottom: 2px solid $border-color;
-    width: $page-width;
-    font-size: 36px;
-    color: $color-green;
-    margin-bottom: 10px;
+    height: 54px;
+    color: #73a745;
+    margin-top: 50px;
+    margin-bottom: 20px;
 
-    span {
-      margin-left: 20px;
+    p {
+      font-size: 36px;
+      line-height: 36px;
+      float: left;
+      margin: 0;
     }
+
+
   }
 
   .indicators.title::before {
     content: '';
-    display: flex;
+    width: 40px;
+    height: 40px;
     float: left;
-    margin-top: 20px;
-    width: 33px;
-    height: 32px;
+    margin-right: 17px;
+    margin-left: 0;
     background-repeat: no-repeat;
-    background-image: url("/icon_indicators_title.png");
+    background-size: 40px 40px;
+    
+    background-image: url("/page_icon_indicator.svg");
   }
 
   .intro {

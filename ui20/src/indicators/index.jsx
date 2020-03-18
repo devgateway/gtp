@@ -56,9 +56,9 @@ class Indicators extends Component {
       <div className="indicators content fixed " >
 
         <div className="indicators title">
-          <span>
+          <p>
             <FormattedMessage id="indicators.title" defaultMessage="Indicators"></FormattedMessage>
-          </span>
+          </p>
         </div>
         <div className="indicators global intro">
           <FormattedMessage id="indicators.global.intro" defaultMessage={`This page displays the alignment of specific agricultural indicators against the SDGs and the ones managed by the International System for Agricultural Science and Technology (AGRIS). All tables and charts will be automatically updated as new information is entered in the system. Users can use the date and the region filters to refine their search criteria.`}></FormattedMessage>

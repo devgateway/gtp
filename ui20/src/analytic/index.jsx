@@ -150,9 +150,11 @@ class Analytic extends Component{
   }
 
   render() {
+
+
     return (
-    <div className="analytic container">
-      <div className="analytic title">
+    <div className={`analytic container ${this.props.name}`}>
+      <div className={`analytic title ${this.props.name}`}>
         <p>
           <FormattedMessage id="analytic.page.title" defaultMessage="Analysis and Visual Tools."></FormattedMessage>
         </p>
