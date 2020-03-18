@@ -50,8 +50,7 @@ public class ListAgriculturalContentFormPage extends AbstractListPage<Agricultur
                 new StringResourceModel("publicationDateFormatted", ListAgriculturalContentFormPage.this),
                 "publicationDate", "publicationDateFormatted"));
         columns.add(new PropertyColumn<>(
-                new StringResourceModel("contentType", ListAgriculturalContentFormPage.this), "contentTypeFr",
-                "contentTypeFr"));
+                new StringResourceModel("contentType", ListAgriculturalContentFormPage.this), "contentTypeFr"));
 
     }
 
