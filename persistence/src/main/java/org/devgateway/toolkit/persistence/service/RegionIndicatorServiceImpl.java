@@ -70,7 +70,7 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
         IndicatorUtils.fillIndicator(lang, ret, getGisDtoRegionList(consRepo),
                 descRepository.findByType(CONSUMPTION_TYPE_ID));
 
-        List<RegionIndicator> indicatorList = repository.findAll();
+        List<RegionIndicator> indicatorList = repository.findAllApproved();
         indicatorList.stream().filter(n -> n.isApproved()).forEach(i -> ret.add(new GisIndicatorDTO(i, lang)));
 
         List<GisSettings> gisSettings = gisSettingsService.findAll();

@@ -65,7 +65,7 @@ public class DepartmentIndicatorServiceImpl extends BaseJpaServiceImpl<Departmen
         IndicatorUtils.fillIndicator(lang, ret, getGisDtoDepartmentList(consRepo),
                 descRepository.findByType(CONSUMPTION_TYPE_ID));
 
-        List<DepartmentIndicator> indicatorList = repository.findAll();
+        List<DepartmentIndicator> indicatorList = repository.findAllApproved();
         indicatorList.stream().filter(n -> n.isApproved()).forEach(i -> ret.add(new GisIndicatorDTO(i, lang)));
 
         List<GisSettings> gisSettings = gisSettingsService.findAll();
