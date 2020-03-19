@@ -184,8 +184,22 @@ export default class D3Map extends Component < {},
 
 
     updateColors() {
-      this.g.selectAll('path').style('fill', (d)=>this.getFillColor(d.properties.value))
-        .on('click', this.clicked).style('stroke', '#EEE')
+      const {selection} = this.props;
+      this.g.selectAll('path').style('fill', (d)=>{
+
+        if (selection){
+          if(selection.fid==d.properties.fid){
+
+            return  this.getFillColor(d.properties.value)
+          }else{
+            return '#FFF'
+          }
+        }
+        else{
+          return  this.getFillColor(d.properties.value)
+        }
+
+      })
     }
 
 
@@ -208,7 +222,7 @@ export default class D3Map extends Component < {},
 
       this.g.selectAll('path')
         .style('fill', (d) => fid && d.properties.fid === fid ? getFillColor(d.properties.value) : remark?"#FFF":getFillColor(d.properties.value) )
-        .style('stroke', (d) => fid && d.properties.fid === fid ? 'red' : '#EEE');
+        .style('stroke', (d) => fid && d.properties.fid === fid ? '#EEE' : '#EEE');
 
       this.g.transition().duration(duration)
         .style("stroke-width", 1.5 / scale + "px")
