@@ -13,8 +13,7 @@ import java.util.List;
  * Created by Daniel Oliva
  */
 @Transactional
-public interface PovertyIndicatorRepository extends AuditedEntityRepository<PovertyIndicator>,
-        GisIndicatorRegion<GisDTOPoverty> {
+public interface PovertyIndicatorRepository extends AuditedEntityRepository<PovertyIndicator> {
 
     @Query("select new org.devgateway.toolkit.persistence.dto.GisDTOPoverty(p.year, r.code, "
             + "avg(p.povertyScore) as value, d.source) from PovertyIndicator p "
@@ -23,6 +22,6 @@ public interface PovertyIndicatorRepository extends AuditedEntityRepository<Pove
             + "where d.approved = true "
             + "group by p.year, r.code, d.source "
             + "order by p.year, r.code, d.source")
-    List<GisDTOPoverty> findAllGisByRegion();
+    List<GisDTOPoverty> findAllGisDailyConsumptionByRegion();
 
 }

@@ -85,10 +85,10 @@ public abstract class GisDTO {
         this.source = source;
     }
 
-    public abstract String getName(boolean isFR);
+    public abstract String getName(boolean isFR, int type);
 
-    public abstract String getNameEnFr();
+    public abstract String getNameEnFr(int type);
 
-    public abstract String getMeasure(boolean isFR);
+    public abstract String getMeasure(boolean isFR, int type);
 
 }

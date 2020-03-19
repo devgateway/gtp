@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
+import org.devgateway.toolkit.persistence.dao.DepartmentIndicator;
 import org.devgateway.toolkit.persistence.dao.RegionIndicator;
 
 import java.util.Collection;
@@ -66,6 +67,27 @@ public class GisIndicatorDTO {
             this.sources.add(ri.getSource());
         }
         this.reverse = ri.isDescending();
+    }
+
+    public GisIndicatorDTO(final DepartmentIndicator di, final String lang) {
+        boolean isFr = StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(LANG_FR);
+        this.id = di.getId();
+        this.name = isFr || StringUtils.isBlank(di.getName()) ? di.getNameFr() : di.getName();
+        this.nameEnFr = di.getFullNameYear();
+        this.description = isFr ? di.getDescriptionFr() : di.getDescription();
+        this.year = di.getYear();
+        this.stats = di.getStats().stream().map(rs -> new GisStatDTO(rs)).collect(Collectors.toList());
+        this.minValue = di.getMinValue();
+        this.maxValue = di.getMaxValue();
+        this.leftMap = di.isLeftMap();
+        this.measure = di.getMeasure();
+        //TODO
+        this.indicatorGroup = this.name.split(" ")[0];
+        this.rightMap = di.isRightMap();
+        if (di.getSource() != null) {
+            this.sources.add(di.getSource());
+        }
+        this.reverse = di.isDescending();
     }
 
     public String getNameEnFr() {

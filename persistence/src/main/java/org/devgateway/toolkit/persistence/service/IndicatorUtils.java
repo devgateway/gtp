@@ -17,8 +17,8 @@ public final class IndicatorUtils {
     private IndicatorUtils() {
     }
 
-    protected static void fillIndicator(String lang, List<GisIndicatorDTO> ret, List<GisDTO> gisDTOList,
-                                        Optional<GisSettingsDescription> description) {
+    protected static void fillIndicator(String lang, List<GisIndicatorDTO> ret, List<? extends GisDTO> gisDTOList,
+                                        Optional<GisSettingsDescription> description, int type) {
 
         boolean isFR = lang != null && lang.equalsIgnoreCase(LANG_FR);
         int year = -1;
@@ -32,10 +32,10 @@ public final class IndicatorUtils {
                 year = p.getYear();
                 crop = p.getCrop() != null ? p.getCrop() : EMPTY_STRING;
                 dto.setId((long) year * 1000 + crop.hashCode());
-                dto.setName(p.getName(isFR));
+                dto.setName(p.getName(isFR, type));
                 //TODO
                 dto.setIndicatorGroup(dto.getName().split(" ")[0]);
-                dto.setNameEnFr(p.getNameEnFr());
+                dto.setNameEnFr(p.getNameEnFr(type));
                 String desc = null;
                 if (description.isPresent()) {
                     if (isFR) {
@@ -52,7 +52,7 @@ public final class IndicatorUtils {
                     dto.setMaxValue(0D);
                     dto.setMinValue(0D);
                 }
-                dto.setMeasure(p.getMeasure(isFR));
+                dto.setMeasure(p.getMeasure(isFR, type));
                 dto.setRightMap(false);
                 dto.setLeftMap(false);
                 dto.setStats(new ArrayList<>());
