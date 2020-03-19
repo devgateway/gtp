@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dto;
 
+import org.devgateway.toolkit.persistence.dao.DepartmentStat;
 import org.devgateway.toolkit.persistence.dao.RegionStat;
 
 public class GisStatDTO {
@@ -12,6 +13,11 @@ public class GisStatDTO {
 
     public GisStatDTO(RegionStat rs) {
         this.code = rs.getRegionCode();
+        this.value = rs.getValue();
+    }
+
+    public GisStatDTO(DepartmentStat rs) {
+        this.code = rs.getDepartmentCode();
         this.value = rs.getValue();
     }
 

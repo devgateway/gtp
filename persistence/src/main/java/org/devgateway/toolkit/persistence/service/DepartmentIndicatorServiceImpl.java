@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.DepartmentIndicator;
+import org.devgateway.toolkit.persistence.dao.GisSettings;
 import org.devgateway.toolkit.persistence.dto.GisDTO;
 import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.ConsumptionIndicatorRepository;
@@ -42,6 +43,9 @@ public class DepartmentIndicatorServiceImpl extends BaseJpaServiceImpl<Departmen
     @Autowired
     private ConsumptionIndicatorRepository consRepo;
 
+    @Autowired
+    private GisSettingsService gisSettingsService;
+
 
     @Override
     protected BaseJpaRepository<DepartmentIndicator, Long> repository() {
@@ -60,6 +64,22 @@ public class DepartmentIndicatorServiceImpl extends BaseJpaServiceImpl<Departmen
                 descRepository.findByType(PROD_TYPE_ID));
         IndicatorUtils.fillIndicator(lang, ret, getGisDtoDepartmentList(consRepo),
                 descRepository.findByType(CONSUMPTION_TYPE_ID));
+
+        List<DepartmentIndicator> indicatorList = repository.findAll();
+        indicatorList.stream().filter(n -> n.isApproved()).forEach(i -> ret.add(new GisIndicatorDTO(i, lang)));
+
+        List<GisSettings> gisSettings = gisSettingsService.findAll();
+        if (gisSettings.size() > 0) {
+            ret.stream().forEach(n -> {
+                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getLeftGisName())) {
+                    n.setLeftMap(true);
+                }
+                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getRightGisName())) {
+                    n.setRightMap(true);
+                }
+            });
+        }
+
         return ret;
     }
 
