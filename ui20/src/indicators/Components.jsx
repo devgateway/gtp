@@ -22,20 +22,35 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 
-export const PngExport=({id, element, name="chart"})=>{
 
+export const PngExport=({id, element, name="chart", filters=[],includes=[]})=>{
+
+
+  const changedNodes=[]
       return (<div className="icon download png" onClick={e=>{
 
         var node =id? document.getElementById(id):document[element];
+
         var exportable=id?node.getElementsByClassName("png exportable")[0]:node
 
-                toPng(exportable, {backgroundColor:"#FFF"})
-                  .then(function (dataUrl) {
-                    download(dataUrl, name+'.png');
-                  })
-                  .catch(function (error) {
-                    console.error('oops, something went wrong!', error);
-                  });
+        const doFilter=(node)=>{
+
+          if (node.classList && ([...node.classList].map(l=>filters.indexOf(l) > -1).filter(n=>n).length > 0 ) && !([...node.classList].map(l=>includes.indexOf(l) > -1).filter(n=>n).length > 0 ) ){
+            return false
+          }
+          return true
+        }
+
+
+      toPng(exportable, {backgroundColor:"#FFF",filter:doFilter, style:{'border':'0px !important'}})
+          .then(function (dataUrl) {
+            download(dataUrl, name+'.png');
+
+          })
+          .catch(function (error) {
+            console.error('oops, something went wrong!', error);
+          });
+
 
       }}></div>)
 }

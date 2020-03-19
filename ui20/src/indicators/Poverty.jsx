@@ -33,7 +33,7 @@ const PovertyFitlers=injectIntl((props)=>{
 
 
 
-  return (<div className="indicator chart filter  poverty">
+  return (<div className="indicator chart filter poverty">
 
     <div className="filter item">
       <CustomFilterDropDown options={items2options(genders,intl)}  onChange={s => {onChange([ 'filters', 'poverty', 'gender'], s,['POVERTY'])}}
@@ -87,7 +87,7 @@ class Pooverty extends Component {
         menuItem:{ key: 'poverty_chart_1', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_region_and_year)}`},
         render: () =><div className="indicators chart poverty">
                       <PovertyFitlers {...this.props}/>
-                        <div className="chart container png exportable">
+                        <div className="chart container">
                         {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:<BarChart {...getPovertyRegionalYearly(data,intl)}/>}
 
                           </div>
@@ -98,8 +98,8 @@ class Pooverty extends Component {
         menuItem:{ key: 'poverty_chart_2', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_by_poor_no_poor_rencet_year,{year:maxYear})}`},
 
         render: () => <div className="indicators chart poverty">
-        <PovertyFitlers {...this.props}/>
-                        <div className="chart container png exportable">
+        <PovertyFitlers {...this.props} />
+                        <div className="chart container">
 
                         {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:<BarChart    {...getPovertyRegionalStackedByPovertyLevel(data,intl)}/>}
 
@@ -109,7 +109,7 @@ class Pooverty extends Component {
       },
       {
         menuItem:{ key: 'poverty_chart_3', icon: '', content:`${intl.formatMessage(messages.indicator_poverty_chart_historical_by_region)}`},
-        render: () =>  (<div className="indicators chart poverty" > <PovertyFitlers {...this.props}/><div className="chart container png exportable">
+        render: () =>  (<div className="indicators chart poverty" > <PovertyFitlers {...this.props}/><div className="chart container">
 
           {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:<LineChart {...getPovertyTimeLine(data,intl)}/>}
 
@@ -118,7 +118,11 @@ class Pooverty extends Component {
     ]
 
     return (<div className="indicator chart section" id="anchor.indicator.global.population.short">
-      <div className="indicator chart title poverty">
+    <div className="png exportable">
+      <div className="indicator chart title poverty ">
+
+      <img className="sdg icon" src='/sdg/1.svg' width="48px" height="48px"/>
+
         <p>
           <FormattedMessage id="indicators.chart.poverty.title" defaultMessage="Proportion of population below the international poverty line."></FormattedMessage>
         </p>
@@ -131,7 +135,7 @@ class Pooverty extends Component {
         <div className="indicator chart icon group">
 
           <div className="indicator chart icon download xls" onClick={e=>onExport('POVERTY', 'XLS',intl.locale)}></div>
-          <PngExport id="anchor.indicator.global.population.short"/>
+          <PngExport name={intl.formatMessage({id:'indicators.chart.poverty.title'})} id="anchor.indicator.global.population.short" filters={['filter','item','download']} includes={['active']}/>
           <div className="indicator chart icon download csv" onClick={e=>onExport('POVERTY', 'CSV',intl.locale)}></div>
         </div>
       </div>
@@ -140,7 +144,9 @@ class Pooverty extends Component {
 
         <div className="source"><span className="source label"> <FormattedMessage id="data.fied.source.label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
 
-      </div>)
+      </div>
+      </div>
+    )
   }
 
 }

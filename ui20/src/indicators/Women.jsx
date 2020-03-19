@@ -65,7 +65,7 @@ const ChartSection = injectIntl((props)=>{
         render: () =>
            <div className="indicators chart women">
              <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
-             <div className="chart container png exportable">
+             <div className="chart container">
               {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:
               <BarChart
               yLegend={props.intl.formatMessage(messages.age)}
@@ -79,7 +79,7 @@ const ChartSection = injectIntl((props)=>{
         menuItem:  { key: 'line', icon: '', content:  `${props.intl.formatMessage(messages.indicator_women_chart_distribution_historical)}` },
         render: () =><div className="indicators chart women">
               <Filters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></Filters>
-              <div className="chart container png exportable">
+              <div className="chart container">
               {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:<LineChart   {...getWomebHistoricalDistribution(props.population,props.intl)}/>}
 
               </div>
@@ -93,7 +93,7 @@ const ChartSection = injectIntl((props)=>{
           menuItem:  { key: 'bar', icon: '', content:`${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_enforcement_method,{year:maxYear})}` },
           render: () =><div className="indicators chart women">
                 <Filters {...props} options={{gender:true, age:false,methodOfEnforcement:true}}></Filters>
-                <div className="chart container png exportable">
+                <div className="chart container">
 
                 {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:
 
@@ -113,7 +113,7 @@ const ChartSection = injectIntl((props)=>{
           menuItem:  { key: 'line', icon: '', content: `${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_enforcement_historical)}`  },
           render: () =><div className="indicators chart women">
                 <Filters {...props} options={{gender:false, age:false,methodOfEnforcement:true}}></Filters>
-                <div className="chart container png exportable">
+                <div className="chart container">
 
                 {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:<LineChart  key="ByMethodOfEnforcementLine"  {...getWomebHistoricalDistribution(props.distribution,props.intl)}></LineChart>}
 
@@ -124,40 +124,46 @@ const ChartSection = injectIntl((props)=>{
 
     const panes = [
       {
-        menuItem:  { key: 'bar', icon: '', content: props.intl.formatMessage(messages.indicator_women_chart_distribution_by_age_tab_title)},
+        menuItem:  { key: 'bar', className:"parent", icon: '', content: props.intl.formatMessage(messages.indicator_women_chart_distribution_by_age_tab_title)},
         render: () =><Tab class="sub tab" key="byAge" menu={{ pointing: true }} panes={byAgePanes}/>,
 
       },
       {
-        menuItem:  { key: 'line', icon: '', content: props.intl.formatMessage(messages.indicator_women_chart_distribution_by_method_tab_title) },
+        menuItem:  { key: 'line',  className:"parent", icon: '', content: props.intl.formatMessage(messages.indicator_women_chart_distribution_by_method_tab_title) },
         render: () =><Tab class="sub tab" key="byAge" menu={{ pointing: true }} panes={byMethodPanes}/>,
 
       },
     ]
     return (
         <div className="indicator chart section" id="anchor.indicator.global.women.short">
+        <div className="png exportable">
 
-        <div className="indicator chart women title ">
-          <p>
-            <FormattedMessage id="indicators.chart.women.title" defaultMessage="Women in the Agricultural sector"></FormattedMessage>
-          </p>
-          <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
-        </div>
-        <div className="indicator chart women description">
-          <p>
-            {intro}
-          </p>
-          <div className="indicator chart icon group">
+          <div className="indicator chart women title">
+          <img className="sdg icon" src='/sdg/5.svg' width="48px" height="48px"/>
 
-            <div className="indicator chart icon download xls" onClick={e=>onExport('WOMEN', 'XLS',intl.locale)}></div>
-            <PngExport id="anchor.indicator.global.women.short"/>
-            <div className="indicator chart icon download csv" onClick={e=>onExport('WOMEN', 'CSV',intl.locale)}></div>
+            <p>
+              <FormattedMessage id="indicators.chart.women.title" defaultMessage="Women in the Agricultural sector"></FormattedMessage>
+            </p>
+            <ChartTableSwitcher mode='chart'></ChartTableSwitcher>
           </div>
+          <div className="indicator chart women description">
+            <p>
+              {intro}
+            </p>
+            <div className="indicator chart icon group">
 
-        </div>
-          <Tab key="women" menu={{ pointing: true }} panes={panes} />
+              <div className="indicator chart icon download xls" onClick={e=>onExport('WOMEN', 'XLS',intl.locale)}></div>
 
-          <div className="source"><span className="source label"> <FormattedMessage id="data.fied.source.label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
+              <PngExport name={intl.formatMessage({id:'indicators.chart.women.title'})} id="anchor.indicator.global.women.short" filters={['filter','parent','item','download']} includes={['active']}/>
+
+              <div className="indicator chart icon download csv" onClick={e=>onExport('WOMEN', 'CSV',intl.locale)}></div>
+            </div>
+
+          </div>
+            <Tab key="women" menu={{ pointing: true }} panes={panes} />
+
+            <div className="source"><span className="source label"> <FormattedMessage id="data.fied.source.label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
+          </div>
         </div>
       )
 })

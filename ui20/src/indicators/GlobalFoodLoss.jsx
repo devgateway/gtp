@@ -49,7 +49,7 @@ const ChartSection = injectIntl(( props)=>{
          render: () =>
             <div className="indicators chart food">
               <Filters {...props} options={ { gender:true, age:true,methodOfEnforcement:false } }></Filters>
-              <div className="chart container png exportable">
+              <div className="chart container">
 
   {data.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:
       <BarChart
@@ -67,7 +67,7 @@ const ChartSection = injectIntl(( props)=>{
          render: () =>
             <div className="indicators chart food">
               <Filters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></Filters>
-              <div className="chart container png exportable">
+              <div className="chart container ">
 
               <BarChart
                 yLegend={props.intl.formatMessage(messages.kg)}
@@ -83,7 +83,10 @@ const ChartSection = injectIntl(( props)=>{
 
     return (
         <div className="indicator chart section" id="anchor.indicator.global.food.short">
+        <div className="png exportable">
           <div className="indicator chart food title ">
+          <img className="sdg icon" src='/sdg/food_loss.svg' width="48px" height="48px"/>
+
             <p>
               <FormattedMessage id="indicators.chart.food.title" defaultMessage="Post-Harvest Loss"></FormattedMessage>
             </p>
@@ -95,7 +98,7 @@ const ChartSection = injectIntl(( props)=>{
             </p>
             <div className="indicator chart icon group">
               <div className="indicator chart icon download xls" onClick={e=>onExport('FOOD', 'XLS',intl.locale)}></div>
-              <PngExport id="anchor.indicator.global.food.short"/>
+              <PngExport  name={intl.formatMessage({id:'indicators.chart.food.title'})} id="anchor.indicator.global.food.short" filters={['filter','item','download']} includes={['active']}/>
               <div className="indicator chart icon download csv" onClick={e=>onExport('FOOD', 'CSV',intl.locale)}></div>
             </div>
 
@@ -105,7 +108,7 @@ const ChartSection = injectIntl(( props)=>{
 
           <div className="source"><span className="source label"> <FormattedMessage id="data.fied.source.label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
 
-
+  </div>
         </div>
       )
     })

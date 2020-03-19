@@ -4,29 +4,27 @@
 
 
 
-  .indicator.chart.title.poverty::before {
-    content: '';
+  .sdg.icon{
+    float: left;
     width: 48px;
     height: 48px;
     float: left;
     margin-right: 17px;
-    margin-left: 0;
+    margin-left: 3px;
     margin-top: 12px;
-    background-image: url("/sdg/1.svg");
-    background-repeat: no-repeat;
+
     background-size: 48px 48px;
   }
 
   .ui.pointing.menu {
-
-
-
     .active.item{
-      font-weight: 800;
-    
+        font-weight: 800;
+
     }
 
+
     .item:nth-child(1) {
+
       .icon {
         background-image: url("/icons/icon_bar_char.svg");
         background-repeat: no-repeat;
@@ -55,6 +53,8 @@
     }
 
     .item:nth-child(3) {
+      border-right: 0px;
+
       .icon {
         background-image: url("/icons/icon_line_char.svg");
         background-repeat: no-repeat;

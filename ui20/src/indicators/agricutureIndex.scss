@@ -1,18 +1,19 @@
 @import '../base.scss';
 
 #anchor\.indicator\.global\.aoi\.short {
-  .indicator.chart.title.aoi::before {
-    content: '';
+
+
+  .sdg.icon{
+    float: left;
     width: 48px;
     height: 48px;
     float: left;
     margin-right: 17px;
-    margin-left: 5px;
+    margin-left: 3px;
     margin-top: 12px;
-    background-image: url("/sdg/12.svg");
-    background-repeat: no-repeat;
     background-size: 48px 48px;
   }
+
 
   .ui.pointing.menu {
     .item:nth-child(1) {

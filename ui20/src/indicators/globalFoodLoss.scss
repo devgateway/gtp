@@ -2,18 +2,19 @@
 
 #anchor\.indicator\.global\.food\.short {
 
-  .indicator.chart.title.food::before {
-    content: '';
+
+  .sdg.icon{
+    float: left;
     width: 48px;
     height: 48px;
     float: left;
     margin-right: 17px;
-    margin-left: 0;
+    margin-left: 3px;
     margin-top: 12px;
-    background-image: url("/sdg/food_loss.svg");
-    background-repeat: no-repeat;
+      background-repeat: no-repeat;
     background-size: 48px 48px;
   }
+
 
   .ui.pointing.menu {
     .item:nth-child(1) {

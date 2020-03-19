@@ -65,7 +65,7 @@ const ChartSection = injectIntl(( props)=>{
         render: () =>
            <div className="indicators chart aoi">
              <BudgetFilters {...props} options={{gender:true, age:true,methodOfEnforcement:false}}></BudgetFilters>
-             <div className="chart container png exportable">
+             <div className="chart container">
                   {props.budget == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>
                   <FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage> </Label>: <BarChart  {...getAOItotalBudget(props.budget, props.intl)}></BarChart>}
 
@@ -77,7 +77,7 @@ const ChartSection = injectIntl(( props)=>{
         menuItem:  { key: 'line', icon: '', content: `${props.intl.formatMessage(messages.indicator_aoi_composition_of_subsidies)}` },
         render: () =><div className="indicators chart aoi">
               <SubsidiesFilters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></SubsidiesFilters>
-              <div className="chart container png exportable">
+              <div className="chart container ">
 
                 {props.budget == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>: <BarChart   {...getAOIsubsidies(props.subsidies,props.intl)}/>}
 
@@ -89,8 +89,10 @@ const ChartSection = injectIntl(( props)=>{
 
     return (
         <div className="indicator chart section" id="anchor.indicator.global.aoi.short">
-
+  <div className="png exportable">
         <div className="indicator chart aoi title ">
+        <img className="sdg icon" src='/sdg/12.svg' width="48px" height="48px"/>
+
           <p>
             <FormattedMessage id="indicators.chart.aoi.title" defaultMessage="The Agriculture Orientation Index for Government Expenditures"></FormattedMessage>
           </p>
@@ -103,7 +105,8 @@ const ChartSection = injectIntl(( props)=>{
 
           <div className="indicator chart icon group">
             <div className="indicator chart icon download xls" onClick={e=>onExport('AOI', 'XLS',intl.locale)}></div>
-            <PngExport id="anchor.indicator.global.aoi.short"/>
+            <PngExport name={intl.formatMessage({id:'indicators.chart.aoi.title'})} id="anchor.indicator.global.aoi.short" filters={['filter','parent','item','download']} includes={['active']}/>
+
             <div className="indicator chart icon download csv" onClick={e=>onExport('AOI', 'CSV',intl.locale)}></div>
           </div>
         </div>
@@ -111,7 +114,7 @@ const ChartSection = injectIntl(( props)=>{
           <Tab menu={{ pointing: true }} panes={panes} />
 
           <div className="source"><span className="source label"> <FormattedMessage id="data.fied.source.label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
-
+  </div>
         </div>
       )
     })
