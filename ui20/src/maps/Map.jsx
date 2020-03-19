@@ -284,14 +284,21 @@ export default class D3Map extends Component < {},
       const second=reverse?max:min
       return (
         <div className="map">
-          <div ref = "container"/>
-    <div className="legends">
-            {reverse?<div className="decending"><FormattedMessage id="national.indicator.chart.legend.descending" defaultMessage="Descending Indicator"/></div>:null}
-              <div className="color"><div className="square" style={{"background-color":this.getFillColor(first)}}/><div className="value"><b>{this.props.intl.formatNumber(first)}</b>  {measure}</div></div>
-              <div className="color"><div className="square" style={{"background-color":this.getFillColor(second)}}/><div className="value"><b>{this.props.intl.formatNumber(second)}</b> {measure}</div></div>
+          <div ref = "container" className="d3Map"/>
+          <div className="map info">
+          <div className="legends">
+            {reverse?
+
+              <div className="decending"><svg className="arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="green" d="M12 24l-8-9h6v-15h4v15h6z"/></svg> <FormattedMessage id="national.indicator.chart.legend.descending" defaultMessage="Descending Indicator"/></div>:null}
+              <div className="color"><div className="square" style={{"background-color":this.getFillColor(first)}}/><div className="value"><b>{this.props.intl.formatNumber(first)}</b> <br/> {measure}</div></div>
+              <div className="color"><div className="square" style={{"background-color":this.getFillColor(second)}}/><div className="value"><b>{this.props.intl.formatNumber(second)}</b> <br/>{measure}</div></div>
             </div>
+
             <div className="description">{description}</div>
-            <div className="source"><FormattedMessage id="national.indicator.chart.legend.source" defaultMessage="Source"/>: {source}</div>
+            <div className="source">
+              <span className="label">  <FormattedMessage id="data.field.source.label" defaultMessage="Source :"></FormattedMessage></span><span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>}</span>
+            </div>
+            </div>
         </div>)
       }
 

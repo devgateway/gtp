@@ -55,7 +55,6 @@
     background-repeat: no-repeat;
     background-size: 40px 40px;
     background-image: url("/page_icon_national_indicators.svg");
-
   }
 
   .national.description {
@@ -129,13 +128,13 @@
         .menu {
           max-width: 650px;
           width: 100% !important;
-
         }
 
-        .breadcrums{
-            height: 36px;
-            overflow: hidden;
+        .breadcrums {
+          height: 36px;
+          overflow: hidden;
         }
+
         .dropdown.icon {
           float: right;
           margin-top: 10px;
@@ -231,140 +230,163 @@
     }
 
     .national.chart.wrapper {
+      display: flex;
+      flex-direction: column;
       flex-grow: 1 !important;
       background-color: #f9f9f9;
       border: 1px solid $border-color;
       border-radius: 4px;
-      overflow: hidden;
 
-      .yLeyend {
-        color: rgb(51, 51, 51);
-        transform: rotate(-90deg);
-        position: absolute;
-        font-weight: 600;
-        margin: 200px auto auto -5px;
-      }
-
-      .xLeyend {
-        padding: 10px;
-        margin: -20px auto 10px;
-        text-align: center;
-        color: rgb(51, 51, 51);
-        font-weight: 600;
-      }
-
-      .description {
-        clear: both;
-        padding: 10px 20px;
-        color: #000;
-        font-size: 12px;
-      }
-
-      .decendingLegend {
-        clear: both;
-        text-align: center;
-        color: #000;
-        font-size: 10px;
-        text-transform: uppercase;
-      }
-
-      .source {
-        text-align: right;
-        clear: both;
-        font-weight: bold;
-        padding: 10px 20px;
-        color: #000;
-        font-size: 12px;
-        margin-bottom: 7px;
-      }
-
-      .marketLegend {
-        padding: 5px 20px;
-        color: #000;
-        font-size: 11px;
-        float: left;
-
-        .market {
-          text-align: left;
-          clear: both;
+      .chart.group {
+        .yLeyend {
+          color: rgb(51, 51, 51);
+          transform: rotate(-90deg);
+          position: absolute;
+          font-weight: 600;
+          margin: 200px auto auto -5px;
         }
 
-        .market:before {
-          content: '';
-          width: 5px;
-          height: 22px;
-          float: left;
-          border: 1px;
-          border-radius: 2px;
-          margin: -2px 5px 5px;
-        }
+        .national.chart {
+          height: 430px;
+          padding-bottom: 20px;
+          width: 100%;
 
-        .market.reference:before {
-          background-color: #f88d59;
-        }
+          .description text {
+            font-size: 13px !important;
+          }
 
-        .market.target:before {
-          background-color: #72a9e0;
-        }
-      }
+          g.marker {
+            rect {
+              pointer-events: all;
+            }
+          }
 
-      .measureLegend {
-        float: right;
-        padding: 5px 20px;
-        color: #000;
-        font-size: 11px;
-
-        .measure {
-          text-align: right;
-          clear: both;
-        }
-
-        .measure:before {
-          content: '';
-          width: 50px;
-          height: 12px;
-          float: right;
-          border: 1px;
-          border-radius: 4px;
-          margin-right: 5px;
-          margin-left: 5px;
-          margin-top: 3px;
-        }
-
-        .measure.good:before {
-          background-color: #addd8e;
-        }
-
-        .measure.regular:before {
-          background-color: #fad976;
-        }
-
-        .measure.bad:before {
-          background-color: #ef6548;
-        }
-
-        .measure.none:before {
-          background-color: #bababa;
-        }
-      }
-
-      .national.chart {
-        height: 430px;
-        padding-bottom: 20px;
-        width: 100%;
-
-        .description text {
-          font-size: 13px !important;
-        }
-
-        g.marker {
-          rect {
+          g {
             pointer-events: all;
           }
         }
 
-        g {
-          pointer-events: all;
+        .xLeyend {
+          padding: 10px;
+          margin: -20px auto 0 0;
+          text-align: center;
+          color: rgb(51, 51, 51);
+          font-weight: 600;
+          min-height: 80px;
+        }
+      }
+
+      .legend.group {
+        display: inline-flex;
+        flex-direction: column;
+        flex-grow: 1;
+
+        .description {
+          flex-grow: 1;
+          clear: both;
+          padding: 10px 20px;
+          color: #000;
+          font-size: 12px;
+        }
+
+        .source {
+          clear: both;
+          font-weight: bold;
+          padding: 0 10px;
+          color: #000;
+          font-size: 12px;
+          margin-bottom: 7px;
+        }
+
+        .measureGroup {
+          display: flex;
+
+          .marketLegend {
+            width: 200px;
+            padding: 5px;
+            color: #000;
+            font-size: 11px;
+
+            .market {
+              display: flex;
+              text-align: left;
+              clear: both;
+            }
+
+            .decending {
+              display: flex;
+              line-height: 26px;
+              font-size: 11px;
+              font-weight: bold;
+              justify-content: flex-start;
+
+              .arrow {
+                margin-left: -3px;
+                margin-top: 5px;
+                height: 20px;
+              }
+              color: #000;
+            }
+
+            .market:before {
+              content: '';
+              width: 5px;
+              height: 22px;
+              float: left;
+              border: 1px;
+              border-radius: 2px;
+              margin: -2px 5px 5px;
+            }
+
+            .market.reference:before {
+              background-color: #f88d59;
+            }
+
+            .market.target:before {
+              background-color: #72a9e0;
+            }
+          }
+
+          .measureLegend {
+            flex-grow: 1;
+            float: right;
+            padding: 5px 20px;
+            color: #000;
+            font-size: 11px;
+
+            .measure {
+              text-align: right;
+              clear: both;
+            }
+
+            .measure:before {
+              content: '';
+              width: 50px;
+              height: 12px;
+              float: right;
+              border: 1px;
+              border-radius: 4px;
+              margin-right: 5px;
+              margin-left: 5px;
+              margin-top: 3px;
+            }
+
+            .measure.good:before {
+              background-color: #addd8e;
+            }
+
+            .measure.regular:before {
+              background-color: #fad976;
+            }
+
+            .measure.bad:before {
+              background-color: #ef6548;
+            }
+
+            .measure.none:before {
+              background-color: #bababa;
+            }
+          }
         }
       }
     }

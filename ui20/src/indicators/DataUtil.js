@@ -123,7 +123,7 @@ export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
 export const getPovertyTimeLine = (data) => {
 
   const regions = Array.from(new Set(data.map(d => d.region))).sort()
-  
+
   const years = Array.from(new Set(data.map(d => d.year)))
   const lineData = regions.map(r => {
     const record = {
@@ -199,7 +199,7 @@ export const getAverageProductionLossData = (data = [], valueField, intl) => {
 
 export const getWomenDistributionByGroup = (data = [], intl) => {
   if(data.length > 0){
-
+    debugger;
   }
   let fields = ['groupType', 'gender']
   if (intl.locale == 'fr') {

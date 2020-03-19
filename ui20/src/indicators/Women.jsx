@@ -162,7 +162,7 @@ const ChartSection = injectIntl((props)=>{
           </div>
             <Tab key="women" menu={{ pointing: true }} panes={panes} />
 
-            <div className="source"><span className="source label"> <FormattedMessage id="data.fied.source.label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
+            <div className="source"><span className="source label"> <FormattedMessage id="data.field.source.label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
           </div>
         </div>
       )
