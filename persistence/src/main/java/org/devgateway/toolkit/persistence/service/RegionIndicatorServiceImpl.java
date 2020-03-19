@@ -2,10 +2,8 @@ package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.GisSettings;
 import org.devgateway.toolkit.persistence.dao.RegionIndicator;
-import org.devgateway.toolkit.persistence.dto.GisDTO;
 import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.ConsumptionIndicatorRepository;
-import org.devgateway.toolkit.persistence.repository.GisIndicatorRegion;
 import org.devgateway.toolkit.persistence.repository.GisSettingsDescriptionRepository;
 import org.devgateway.toolkit.persistence.repository.PovertyIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.ProductionIndicatorRepository;
@@ -18,6 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.devgateway.toolkit.persistence.util.Constants.CONS_DAILY_TYPE;
+import static org.devgateway.toolkit.persistence.util.Constants.CONS_SIZE_TYPE;
+import static org.devgateway.toolkit.persistence.util.Constants.CONS_WEEKLY_TYPE;
+import static org.devgateway.toolkit.persistence.util.Constants.PROD_PROD_TYPE;
+import static org.devgateway.toolkit.persistence.util.Constants.PROD_SURFACE_TYPE;
+import static org.devgateway.toolkit.persistence.util.Constants.PROD_YIELD_TYPE;
 
 
 /**
@@ -63,12 +68,33 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
     @Override
     public List<GisIndicatorDTO> findGisRegionIndicators(final String lang) {
         List<GisIndicatorDTO> ret = new ArrayList<>();
-        IndicatorUtils.fillIndicator(lang, ret, getGisDtoRegionList(povertyRepo),
-                descRepository.findByType(POVERTY_TYPE_ID));
-        IndicatorUtils.fillIndicator(lang, ret, getGisDtoRegionList(prodRepo),
-                descRepository.findByType(PROD_TYPE_ID));
-        IndicatorUtils.fillIndicator(lang, ret, getGisDtoRegionList(consRepo),
-                descRepository.findByType(CONSUMPTION_TYPE_ID));
+
+        IndicatorUtils.fillIndicator(lang, ret, povertyRepo.findAllGisDailyConsumptionByRegion(),
+                descRepository.findByType(POVERTY_TYPE_ID), 0);
+
+        //production
+        IndicatorUtils.fillIndicator(lang, ret, prodRepo.findAllGisProductionByRegion(),
+                descRepository.findByType(PROD_TYPE_ID), PROD_PROD_TYPE);
+
+        //surface
+        IndicatorUtils.fillIndicator(lang, ret, prodRepo.findAllGisSurfaceByRegion(),
+                descRepository.findByType(PROD_TYPE_ID), PROD_SURFACE_TYPE);
+
+        //yield
+        IndicatorUtils.fillIndicator(lang, ret, prodRepo.findAllGisYieldByRegion(),
+                descRepository.findByType(PROD_TYPE_ID), PROD_YIELD_TYPE);
+
+        //daily
+        IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllGisDailyByRegion(),
+                descRepository.findByType(CONSUMPTION_TYPE_ID), CONS_DAILY_TYPE);
+
+        //weekly
+        IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllGisWeeklyByRegion(),
+                descRepository.findByType(CONSUMPTION_TYPE_ID), CONS_WEEKLY_TYPE);
+
+        //Size
+        IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllGisSizeByRegion(),
+                descRepository.findByType(CONSUMPTION_TYPE_ID), CONS_SIZE_TYPE);
 
         List<RegionIndicator> indicatorList = repository.findAllApproved();
         indicatorList.stream().filter(n -> n.isApproved()).forEach(i -> ret.add(new GisIndicatorDTO(i, lang)));
@@ -87,8 +113,4 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
         return ret;
     }
 
-
-    List<GisDTO> getGisDtoRegionList(GisIndicatorRegion repo) {
-        return repo.findAllGisByRegion();
-    }
 }

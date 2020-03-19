@@ -2,10 +2,8 @@ package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.DepartmentIndicator;
 import org.devgateway.toolkit.persistence.dao.GisSettings;
-import org.devgateway.toolkit.persistence.dto.GisDTO;
 import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.ConsumptionIndicatorRepository;
-import org.devgateway.toolkit.persistence.repository.GisIndicatorDepartment;
 import org.devgateway.toolkit.persistence.repository.GisSettingsDescriptionRepository;
 import org.devgateway.toolkit.persistence.repository.ProductionIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.DepartmentIndicatorRepository;
@@ -18,6 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.devgateway.toolkit.persistence.util.Constants.CONS_DAILY_TYPE;
+import static org.devgateway.toolkit.persistence.util.Constants.CONS_SIZE_TYPE;
+import static org.devgateway.toolkit.persistence.util.Constants.CONS_WEEKLY_TYPE;
+import static org.devgateway.toolkit.persistence.util.Constants.PROD_PROD_TYPE;
+import static org.devgateway.toolkit.persistence.util.Constants.PROD_SURFACE_TYPE;
+import static org.devgateway.toolkit.persistence.util.Constants.PROD_YIELD_TYPE;
 
 /**
  * @author dbianco
@@ -60,10 +64,30 @@ public class DepartmentIndicatorServiceImpl extends BaseJpaServiceImpl<Departmen
     @Override
     public List<GisIndicatorDTO> findGisDepartmentIndicators(String lang) {
         List<GisIndicatorDTO> ret = new ArrayList<>();
-        IndicatorUtils.fillIndicator(lang, ret, getGisDtoDepartmentList(prodRepo),
-                descRepository.findByType(PROD_TYPE_ID));
-        IndicatorUtils.fillIndicator(lang, ret, getGisDtoDepartmentList(consRepo),
-                descRepository.findByType(CONSUMPTION_TYPE_ID));
+
+        //production
+        IndicatorUtils.fillIndicator(lang, ret, prodRepo.findAllGisProductionByDepartment(),
+                descRepository.findByType(PROD_TYPE_ID), PROD_PROD_TYPE);
+
+        //surface
+        IndicatorUtils.fillIndicator(lang, ret, prodRepo.findAllGisSurfaceByDepartment(),
+                descRepository.findByType(PROD_TYPE_ID), PROD_SURFACE_TYPE);
+
+        //yield
+        IndicatorUtils.fillIndicator(lang, ret, prodRepo.findAllGisYieldByDepartment(),
+                descRepository.findByType(PROD_TYPE_ID), PROD_YIELD_TYPE);
+
+        //Daily Consumption
+        IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllGisDailyByDepartment(),
+                descRepository.findByType(CONSUMPTION_TYPE_ID), CONS_DAILY_TYPE);
+
+        //Weekly
+        IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllGisWeeklyByDepartment(),
+                descRepository.findByType(CONSUMPTION_TYPE_ID), CONS_WEEKLY_TYPE);
+
+        //Size
+        IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllSizeByDepartment(),
+                descRepository.findByType(CONSUMPTION_TYPE_ID), CONS_SIZE_TYPE);
 
         List<DepartmentIndicator> indicatorList = repository.findAllApproved();
         indicatorList.stream().filter(n -> n.isApproved()).forEach(i -> ret.add(new GisIndicatorDTO(i, lang)));
@@ -81,10 +105,6 @@ public class DepartmentIndicatorServiceImpl extends BaseJpaServiceImpl<Departmen
         }
 
         return ret;
-    }
-
-    List<GisDTO> getGisDtoDepartmentList(GisIndicatorDepartment repo) {
-        return repo.findAllGisByDepartment();
     }
 
 

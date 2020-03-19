@@ -17,18 +17,18 @@ public class GisDTOPoverty extends GisDTO {
     }
 
     @Override
-    public String getName(boolean isFR) {
+    public String getName(boolean isFR, int type) {
         String povertyLabel = isFR ? POVERTY_FR_STR : POVERTY_EN_STR;
         return povertyLabel + SPACE_STRING + getYear();
     }
 
     @Override
-    public String getNameEnFr() {
+    public String getNameEnFr(int type) {
         return POVERTY_EN_STR + "/" + POVERTY_FR_STR + MINUS_STRING + getYear();
     }
 
     @Override
-    public String getMeasure(boolean isFR) {
+    public String getMeasure(boolean isFR, int type) {
         return isFR ? POVERTY_MEASURE_FR : POVERTY_MEASURE_EN;
     }
 }
