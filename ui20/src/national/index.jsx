@@ -75,7 +75,7 @@ class GIS extends Component {
                   <FormattedMessage id='national.page.add_row' defaultMessage="Add row"/>
                 </Label>
 
-              {nCharts > 1&&
+              {nCharts > 2&&
                 <Label className="remove" color="black" onClick={this.removeLast}>
                   <FormattedMessage id='national.page.remove_row' defaultMessage="Remove last row"/>
                 </Label>}
@@ -91,7 +91,7 @@ class GIS extends Component {
 
 const mapStateToProps = state => {
   const data=state.getIn(['national','data']);
-  
+
   return {data}
 }
 
