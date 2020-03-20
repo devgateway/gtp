@@ -21,7 +21,8 @@ export const configurator = (intl) => {
         intl.formatMessage(messages.department),
         intl.formatMessage(messages.year),
         intl.formatMessage(messages.crop_type),
-        intl.formatMessage(messages.region)
+        intl.formatMessage(messages.region),
+        intl.formatMessage(messages.region_code)
       ],
       "hiddenFromDragDrop": [
         intl.formatMessage(messages.daily_consumption),

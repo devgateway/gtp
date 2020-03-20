@@ -232,7 +232,7 @@ const messages = defineMessages({
 
   daily_consumption: {
     id: 'data.fields.daily_consumption',
-    defaultMessage: 'Weekly Consumption',
+    defaultMessage: 'Daily Consumption (Kg)',
     description: 'Weekly Consumption Data Field'
   },
 

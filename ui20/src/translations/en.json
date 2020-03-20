@@ -12,7 +12,7 @@
 	"data.fields.billions_short": "B",
 	"data.fields.crop": "Crop",
 	"data.fields.crop_type": "Crop Type",
-	"data.fields.daily_consumption": "Weekly Consumption",
+	"data.fields.daily_consumption": "Daily Consumption (Kg)",
 	"data.fields.date": "Date",
 	"data.fields.department": "Department",
 	"data.fields.enforcement_method": "Method of Enforcement",

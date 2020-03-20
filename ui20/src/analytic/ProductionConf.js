@@ -20,7 +20,8 @@ export const configurator = (intl) => {
         intl.formatMessage(messages.year),
         intl.formatMessage(messages.crop_type),
         intl.formatMessage(messages.region),
-        intl.formatMessage(messages.region_code)
+        intl.formatMessage(messages.region_code),
+        intl.formatMessage(messages.department)
       ],
       "hiddenFromDragDrop": [
         intl.formatMessage(messages.area),
