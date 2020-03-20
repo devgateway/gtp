@@ -187,7 +187,7 @@ export const getAverageProductionLossData = (data = [], valueField, intl) => {
 
   return {
     data: barData,
-    keys: types,
+    keys: types.sort(),
     indexBy: 'Crop',
     groupMode: 'stacked'
   }
@@ -197,10 +197,8 @@ export const getAverageProductionLossData = (data = [], valueField, intl) => {
 
 
 
-export const getWomenDistributionByGroup = (data = [], intl) => {
-  if(data.length > 0){
-    debugger;
-  }
+export const getWomenDistributionByGroup = (data = [], intl, sortFunc) => {
+
   let fields = ['groupType', 'gender']
   if (intl.locale == 'fr') {
     fields = ['groupTypeFr', 'genderFr']
@@ -218,6 +216,11 @@ export const getWomenDistributionByGroup = (data = [], intl) => {
   const maxYear = Array.from(years).sort()[years.size - 1]
 
   const mostRecent = data.filter(d => d.year == maxYear)
+  if(sortFunc){
+    groups.sort(sortFunc)
+  } else{
+    groups.sort()
+  }
 
   groups.forEach(g => {
     const r = {}
@@ -228,6 +231,7 @@ export const getWomenDistributionByGroup = (data = [], intl) => {
     });
     barData.push(r)
   })
+
 
   console.log(barData)
 
@@ -241,7 +245,7 @@ export const getWomenDistributionByGroup = (data = [], intl) => {
 }
 
 
-export const getWomebHistoricalDistribution = (data = [], intl) => {
+export const getWomenHistoricalDistribution = (data = [], intl) => {
   let fields = ['groupType', 'gender']
   if (intl.locale == 'fr') {
     fields = ['groupTypeFr', 'genderFr']
@@ -320,7 +324,7 @@ export const getAOItotalBudget = (data, intl) => {
 
   return {
     data: barData,
-    keys: keys,
+    keys: keys.sort(),
     groupMode: "stacked",
     indexBy: "Year",
   }

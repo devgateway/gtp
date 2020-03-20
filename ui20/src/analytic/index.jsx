@@ -100,7 +100,7 @@ const TableWrapper =(props)=>{
   const {name, isDataReady, intl,items} = props
   const data = props.data? props.data.toJS():  null
 
-  debugger;
+
   if(isDataReady && name=='production' && data && data.length > 0){
       const configuration=productionConfigurator(intl)
       const preparedData = mapFields(data, configuration.fields,configuration.extraFields, items.toJS())
