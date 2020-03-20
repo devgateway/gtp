@@ -157,7 +157,10 @@ const mapStateToProps = state => {
   const keyword=state.getIn(['microdata','filters','datasets','text'])
   const selectedOrganizations=state.getIn(['microdata','filters','datasets','organization'])
   const selectedYear=state.getIn(['microdata','filters','datasets','year'])
-  const organizations=state.getIn(['data','items','organization'])
+
+  const organizations=state.getIn(['data','items','dataset/organizations'])
+
+
   const datasets=state.getIn(['microdata','data','datasets'])
   const years=state.getIn(['microdata','data','years'])
 

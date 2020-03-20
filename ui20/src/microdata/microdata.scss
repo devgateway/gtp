@@ -141,7 +141,7 @@
       }
 
       .react-datepicker-ignore-onclickoutside {
-        
+
       }
       margin-left: 20px;
     }
@@ -167,8 +167,83 @@
 
         .item {
           margin: 0;
-          width: 50%;
+
         }
+      }
+    }
+
+
+    .ui.fluid.dropdown {
+      color: #646464;
+      background-color: #f9f9f9;
+      height: 36px;
+      font-weight: 600;
+      font-size: 14px;
+      border: 1px solid #e6e7ec;
+      border-radius: 3px;
+      padding-right: 10px;
+      padding-left: 5px;
+
+      .menu {
+        max-width: 650px;
+        width: 100% !important;
+      }
+
+      .breadcrums {
+        height: 36px;
+        overflow: hidden;
+      }
+
+      .dropdown.icon {
+        float: right;
+        margin-top: 10px;
+      }
+
+      .divider {
+        display: none;
+      }
+
+      .item{
+        width: 100%;
+      }
+      div.tooltip {
+        position: absolute;
+        text-align: center;
+        width: 120px;
+        padding: 2px;
+        font: 12px $font;
+        background: $color-green;
+        border: 0;
+        border-radius: 8px;
+        pointer-events: none;
+      }
+
+      div.checkbox {
+        margin-left: 5px;
+        margin-right: 5px;
+        width: 15px;
+        height: 15px;
+        float: left;
+        margin-top: -2px;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+      }
+
+      div.checkbox.checked {}
+
+      div.checkbox.checked::before {
+        content: '';
+        background-color: #8dc63f;
+        margin-left: -1px;
+        margin-right: 5px;
+        width: 15px;
+        height: 15px;
+        float: left;
+        margin-top: -1px;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        position: absolute;
+        padding-left: 2px;
       }
     }
     cursor: pointer;

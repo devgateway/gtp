@@ -86,6 +86,9 @@ export const loadRapidLInks = (category, path, filtered) => (dispatch, getState)
 export const loadDataItems = (category, path, filtered) => (dispatch, getState) => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
   dispatch({type: LOAD_ITEM_DATA,category})
+
+  debugger;
+
   api.getItems(category, path, filters)
     .then(data => {
       dispatch({type: LOAD_DATA_ITEM_DONE,category,data})
