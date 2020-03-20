@@ -1,7 +1,6 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.devgateway.toolkit.persistence.dao.AdminSettings;
 import org.devgateway.toolkit.persistence.dao.Department;
 import org.devgateway.toolkit.persistence.dao.Market;
 import org.devgateway.toolkit.persistence.dao.Region;
@@ -20,7 +19,7 @@ import org.devgateway.toolkit.persistence.dao.categories.PartnerGroup;
 import org.devgateway.toolkit.persistence.dao.categories.PovertyLevel;
 import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
 import org.devgateway.toolkit.persistence.repository.DatasetRepository;
-import org.devgateway.toolkit.persistence.service.AdminSettingsService;
+import org.devgateway.toolkit.persistence.service.DataService;
 import org.devgateway.toolkit.persistence.service.category.AgeGroupService;
 import org.devgateway.toolkit.persistence.service.category.AgriculturalWomenGroupService;
 import org.devgateway.toolkit.persistence.service.category.ContentTypeService;
@@ -47,7 +46,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,7 +103,7 @@ public class FilterController {
     private LocationTypeService locService;
 
     @Autowired
-    private AdminSettingsService adminService;
+    private DataService dataService;
 
     @Autowired
     private PovertyLevelService povertyLevelService;
@@ -270,25 +268,13 @@ public class FilterController {
     @ApiOperation(value = "Get campaing/year information")
     @RequestMapping(value = "/year", method = {POST, GET})
     public List<Map<String, Integer>> getAllYears() {
-        Integer startingYear = 2010;
-        List<AdminSettings> adminSettings =  adminService.findAll();
-        if (adminSettings.size() > 0 && adminSettings.get(0).getStartingYear() != null) {
-            startingYear = adminSettings.get(0).getStartingYear();
-        }
-        Map<String, Integer> yearMap = new HashMap<>();
-        yearMap.put("id", startingYear);
-        yearMap.put("label", startingYear);
+        List<Integer> years = dataService.findDistinctYears();
         List<Map<String, Integer>> ret = new ArrayList<>();
-        ret.add(yearMap);
-
-        Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        int year = startingYear + 1;
-        while (currentYear >= year) {
+        for (Integer year : years) {
             Map<String, Integer> map = new HashMap<>();
             map.put("id", year);
             map.put("label", year);
             ret.add(map);
-            year += 1;
         }
 
         return ret;
