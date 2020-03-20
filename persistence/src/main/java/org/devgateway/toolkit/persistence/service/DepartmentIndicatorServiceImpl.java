@@ -95,10 +95,10 @@ public class DepartmentIndicatorServiceImpl extends BaseJpaServiceImpl<Departmen
         List<GisSettings> gisSettings = gisSettingsService.findAll();
         if (gisSettings.size() > 0) {
             ret.stream().forEach(n -> {
-                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getLeftGisName())) {
+                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getLeftGisDepartmentName())) {
                     n.setLeftMap(true);
                 }
-                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getRightGisName())) {
+                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getRightGisDepartmentName())) {
                     n.setRightMap(true);
                 }
             });

@@ -102,10 +102,10 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
         List<GisSettings> gisSettings = gisSettingsService.findAll();
         if (gisSettings.size() > 0) {
             ret.stream().forEach(n -> {
-                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getLeftGisName())) {
+                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getLeftGisRegionName())) {
                     n.setLeftMap(true);
                 }
-                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getRightGisName())) {
+                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getRightGisRegionName())) {
                     n.setRightMap(true);
                 }
             });

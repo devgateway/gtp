@@ -22,8 +22,9 @@ public class GisSettings extends AbstractAuditableEntity implements Serializable
     private String rightNationalName;
     private String leftNationalName;
 
-    private String rightGisName;
-    private String leftGisName;
+    //Region
+    private String rightGisRegionName;
+    private String leftGisRegionName;
 
     private String rightGisDepartmentName;
     private String leftGisDepartmentName;
@@ -49,20 +50,20 @@ public class GisSettings extends AbstractAuditableEntity implements Serializable
         this.leftNationalName = leftNationalName;
     }
 
-    public String getRightGisName() {
-        return rightGisName;
+    public String getRightGisRegionName() {
+        return rightGisRegionName;
     }
 
-    public void setRightGisName(String rightGisName) {
-        this.rightGisName = rightGisName;
+    public void setRightGisRegionName(String rightGisName) {
+        this.rightGisRegionName = rightGisName;
     }
 
-    public String getLeftGisName() {
-        return leftGisName;
+    public String getLeftGisRegionName() {
+        return leftGisRegionName;
     }
 
-    public void setLeftGisName(String leftGisName) {
-        this.leftGisName = leftGisName;
+    public void setLeftGisRegionName(String leftGisName) {
+        this.leftGisRegionName = leftGisName;
     }
 
     public String getRightGisDepartmentName() {
