@@ -31,7 +31,8 @@ public final class IndicatorUtils {
                 dto = new GisIndicatorDTO();
                 year = p.getYear();
                 crop = p.getCrop() != null ? p.getCrop() : EMPTY_STRING;
-                dto.setId((long) year * 1000 + crop.hashCode());
+                dto.setName(p.getName(isFR, type));
+                dto.setId((long) year * 1000 + dto.getName().hashCode());
                 dto.setName(p.getName(isFR, type));
                 //TODO
                 dto.setIndicatorGroup(dto.getName().split(" ")[0]);

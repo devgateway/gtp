@@ -38,9 +38,9 @@ public class ListPartnerPage extends AbstractListPage<Partner> {
         columns.add(new LambdaColumn<>(new StringResourceModel("name", ListPartnerPage.this),
                 "name", Partner::getName));
         columns.add(new LambdaColumn<>(new StringResourceModel("groupType", ListPartnerPage.this),
-                "groupType", Partner::getGroupType));
+                Partner::getGroupType));
         columns.add(new LambdaColumn<>(new StringResourceModel("url", ListPartnerPage.this),
-                "url", Partner::getReducedUrl));
+                Partner::getReducedUrl));
     }
 
     @Override
