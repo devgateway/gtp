@@ -19,6 +19,7 @@ import marketPriceConfigurator from './MarketPriceConf'
 import consumptionConfigurator from './ConsumptionConf'
 
 import  messages from '../translations/messages'
+import { Label } from 'semantic-ui-react'
 
 const mapFields = (data, fields, extraFields, dataItems) => {
 
@@ -99,8 +100,8 @@ const TableWrapper =(props)=>{
   const {name, isDataReady, intl,items} = props
   const data = props.data? props.data.toJS():  null
 
-
-  if(isDataReady && name=='production' && data){
+  debugger;
+  if(isDataReady && name=='production' && data && data.length > 0){
       const configuration=productionConfigurator(intl)
       const preparedData = mapFields(data, configuration.fields,configuration.extraFields, items.toJS())
       return (<div>
@@ -111,7 +112,7 @@ const TableWrapper =(props)=>{
       </div>)
   }
 
-  if(isDataReady && name=='consumption' && data){
+  if(isDataReady && name=='consumption' && data && data.length > 0){
 
       const configuration=consumptionConfigurator(intl)
       const preparedData = mapFields(data, configuration.fields,configuration.extraFields, items.toJS())
@@ -122,12 +123,18 @@ const TableWrapper =(props)=>{
       </div>)
   }
 
-  if(isDataReady && name=='marketPrice' && data){
+  if(isDataReady && name=='marketPrice' && data && data.length > 0){
     const configuration=marketPriceConfigurator(intl)
       const preparedData = mapFields(data, configuration.fields,configuration.extraFields, items.toJS())
       return (<div><div className="analytic table"><Table intl={intl} data={preparedData} config={configuration}></Table></div></div>)
     }
-    return null;
+
+
+    return <div>
+      <div className="no data message container">
+        <Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>
+      </div>
+    </div>
 }
 
 

@@ -37,7 +37,7 @@
     margin-left: 0;
     background-repeat: no-repeat;
     background-size: 40px 40px;
-    
+
     background-image: url("/page_icon_market.svg");
 
   }
@@ -79,7 +79,11 @@
       color: #646464;
     }
   }
+.no.data.message.container{
+  min-height: 200px;
+  background-color: #FFF!important;
 
+}
   .analytic.table {
     overflow-x: auto;
     overflow-y: visible;
