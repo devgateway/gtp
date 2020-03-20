@@ -83,7 +83,6 @@ public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
         Select2ChoiceBootstrapFormComponent<Organization> organization = ComponentUtil.addSelect2ChoiceField(editForm,
                 "organization", new TextSearchableAdapter<>(orgRepo));
         editForm.add(organization);
-        organization.required();
 
         TextFieldBootstrapFormComponent<String> linkField = new TextFieldBootstrapFormComponent<>("link");
         linkField.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
