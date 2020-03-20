@@ -197,7 +197,7 @@ export const getAverageProductionLossData = (data = [], valueField, intl) => {
 
 
 
-export const getWomenDistributionByGroup = (data = [], intl, sortFunc) => {
+export const getWomenDistributionByGroup = (data = [], intl, groupMode='grouped', sortFunc) => {
 
   let fields = ['groupType', 'gender']
   if (intl.locale == 'fr') {
@@ -239,7 +239,7 @@ export const getWomenDistributionByGroup = (data = [], intl, sortFunc) => {
     data: barData,
     keys: genders,
     indexBy: "Age",
-    groupMode: 'stacked'
+    groupMode: groupMode
   }
 
 }
