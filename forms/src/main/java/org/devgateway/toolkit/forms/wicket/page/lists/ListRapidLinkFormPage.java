@@ -19,7 +19,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.table.TextFilteredBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
-import org.devgateway.toolkit.forms.wicket.components.table.filter.RapidLinkFilterState;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.ipar.RapidLinkFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditRapidLinkPage;
 import org.devgateway.toolkit.persistence.dao.ipar.RapidLink;
 import org.devgateway.toolkit.persistence.service.ipar.RapidLinkService;

@@ -19,7 +19,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.table.TextFilteredBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
-import org.devgateway.toolkit.forms.wicket.components.table.filter.AgriculturalContentFilterState;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.ipar.AgriculturalContentFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditAgriculturalContentPage;
 import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalContent;
 import org.devgateway.toolkit.persistence.service.ipar.AgriculturalContentService;

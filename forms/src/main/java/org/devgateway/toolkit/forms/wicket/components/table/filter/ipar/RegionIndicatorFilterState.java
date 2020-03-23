@@ -1,10 +1,11 @@
-package org.devgateway.toolkit.forms.wicket.components.table.filter;
+package org.devgateway.toolkit.forms.wicket.components.table.filter.ipar;
 
 import org.apache.commons.lang3.StringUtils;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.dao.Person_;
-import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
-import org.devgateway.toolkit.persistence.dao.DepartmentIndicator_;
+import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
+import org.devgateway.toolkit.persistence.dao.RegionIndicator_;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.dao.categories.Organization_;
 import org.springframework.data.jpa.domain.Specification;
@@ -17,34 +18,34 @@ import java.util.List;
 /**
  * Created by Daniel Oliva.
  */
-public class DepartmentIndicatorFilterState extends JpaFilterState<DepartmentIndicator> {
+public class RegionIndicatorFilterState extends JpaFilterState<RegionIndicator> {
 
     private static final long serialVersionUID = 8005371716983257722L;
     private String reducedNameFr;
     private String reducedName;
     private String organization;
 
-    public DepartmentIndicatorFilterState() {
+    public RegionIndicatorFilterState() {
     }
 
-    public DepartmentIndicatorFilterState(String organization) {
+    public RegionIndicatorFilterState(String organization) {
         this.organization = organization;
     }
 
     @Override
-    public Specification<DepartmentIndicator> getSpecification() {
+    public Specification<RegionIndicator> getSpecification() {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (StringUtils.isNotBlank(reducedName)) {
-                predicates.add(cb.like(cb.lower(root.get(DepartmentIndicator_.NAME)),
+                predicates.add(cb.like(cb.lower(root.get(RegionIndicator_.NAME)),
                         "%" + reducedName.toLowerCase() + "%"));
             }
             if (StringUtils.isNotBlank(reducedNameFr)) {
-                predicates.add(cb.like(cb.lower(root.get(DepartmentIndicator_.NAME_FR)), "%"
+                predicates.add(cb.like(cb.lower(root.get(RegionIndicator_.NAME_FR)), "%"
                         + reducedNameFr.toLowerCase() + "%"));
             }
             if (organization != null) {
-                Join<DepartmentIndicator, Person> personJoin = root.join(DepartmentIndicator_.UPLOADED_BY);
+                Join<RegionIndicator, Person> personJoin = root.join(RegionIndicator_.UPLOADED_BY);
                 Join<Person, Organization> organizationJoin = personJoin.join(Person_.ORGANIZATION);
                 predicates.add(cb.like(cb.lower(organizationJoin.get(Organization_.label)),
                         "%" + organization.toLowerCase() + "%"));

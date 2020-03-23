@@ -19,7 +19,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
-import org.devgateway.toolkit.forms.wicket.components.table.filter.DepartmentIndicatorFilterState;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.ipar.DepartmentIndicatorFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditDepartmentIndicatorPage;
 import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;

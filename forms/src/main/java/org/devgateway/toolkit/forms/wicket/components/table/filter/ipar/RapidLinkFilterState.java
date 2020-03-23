@@ -1,6 +1,7 @@
-package org.devgateway.toolkit.forms.wicket.components.table.filter;
+package org.devgateway.toolkit.forms.wicket.components.table.filter.ipar;
 
 import org.apache.commons.lang3.StringUtils;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.persistence.dao.ipar.RapidLink;
 import org.devgateway.toolkit.persistence.dao.RapidLink_;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.RapidLinkPosition;

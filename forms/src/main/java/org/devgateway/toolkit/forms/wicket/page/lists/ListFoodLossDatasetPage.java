@@ -19,7 +19,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.components.table.LinkBootstrapPropertyColumn;
-import org.devgateway.toolkit.forms.wicket.components.table.filter.DatasetFilterState;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.ipar.DatasetFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditFoodLossDatasetPage;
 import org.devgateway.toolkit.persistence.dao.ipar.FoodLossDataset;

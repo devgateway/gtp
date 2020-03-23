@@ -21,7 +21,7 @@ import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.components.table.DirectLinkBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.TextFilteredBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
-import org.devgateway.toolkit.forms.wicket.components.table.filter.MicrodataLinkFilterState;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.ipar.MicrodataLinkFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditMicrodataLinkPage;
 import org.devgateway.toolkit.persistence.dao.ipar.MicrodataLink;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
