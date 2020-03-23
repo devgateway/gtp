@@ -12,9 +12,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.devgateway.ad3</groupId>
-    <artifactId>ad3</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <groupId>org.devgateway.ad3.anacim</groupId>
+    <artifactId>ad3-anacim</artifactId>
+    <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Administrative Data Driven Decisions</name>
     <description>Administrative Data Driven Decisions</description>
@@ -48,28 +48,28 @@
     </organization>
     <issueManagement>
         <system>JIRA</system>
-        <url>https://jira.developmentgateway.org/projects/AD3/</url>
+        <url>https://jira.developmentgateway.org/projects/ANACIM/</url>
     </issueManagement>
     <ciManagement>
         <system>Jenkins</system>
-        <url>https://ad3.dgstg.org/ci/</url>
+        <url>https://anacim.dgstg.org/ci/</url>
     </ciManagement>
 
     <scm>
-        <url>git@github.com:devgateway/ad3-ipar.git</url>
+        <url>git@github.com:devgateway/ad3-anacim.git</url>
         <developerConnection>
-            scm:git:git@github.com:devgateway/ad3-ipar.git
+            scm:git:git@github.com:devgateway/ad3-anacim.git
         </developerConnection>
-        <connection>git@github.com:devgateway/ad3-ipar.git
+        <connection>git@github.com:devgateway/ad3-anacim.git
         </connection>
         <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
         <repository>
-            <id>ad3-releases</id>
-            <name>ad3-releases</name>
-            <url>http://artifactory.ampdev.net/artifactory/ad3-releases</url>
+            <id>ad3-anacim-releases</id>
+            <name>ad3-anacim-releases</name>
+            <url>http://artifactory.ampdev.net/artifactory/ad3-anacim-releases</url>
         </repository>
     </distributionManagement>
 
