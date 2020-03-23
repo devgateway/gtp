@@ -140,17 +140,12 @@ if (data){
 
 
     return (
-      <div>
-        <div>
-        </div>
-        <div className="map description">
-          <p>
-            <FormattedMessage id="gis.twins_maps_description" defaultMessage="Use both maps to compare two indicators "></FormattedMessage>
-          </p>
-          <div className="icons container">
-          <PngExport id={id} name="map_image"/>
-          </div>
-        </div>
+      <div className="pairs maps">
+      <div className="export area">
+      <PngExport name={intl.formatMessage({id:'indicators.chart.aoi.title'})} id={id} filters={[]} includes={[]}/>
+
+      </div>
+
       <Grid  className="pairs maps" columns={2} id={id}>
       <Grid.Row className="png exportable">
       <Grid.Column>
@@ -191,7 +186,7 @@ if (data){
             </div>
          </Grid.Column>
          <Grid.Column>
-         <div className="wrapper">
+         <div className="map wrapper">
 
              <div className="gis filter container">
                    <div className="gis filter item indicator">
@@ -234,6 +229,7 @@ if (data){
          </Grid.Column>
          </Grid.Row>
        </Grid>
+
      </div>)
    }else{
      return null
