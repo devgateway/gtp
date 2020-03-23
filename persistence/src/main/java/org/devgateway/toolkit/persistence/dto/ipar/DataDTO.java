@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.dto;
+package org.devgateway.toolkit.persistence.dto.ipar;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.ipar.Data;

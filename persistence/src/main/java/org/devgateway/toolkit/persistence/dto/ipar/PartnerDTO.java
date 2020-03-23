@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.dto;
+package org.devgateway.toolkit.persistence.dto.ipar;
 
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.ipar.Partner;

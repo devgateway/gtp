@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import org.devgateway.toolkit.persistence.dao.ipar.Consumption;
-import org.devgateway.toolkit.persistence.dto.ConsumptionDTO;
+import org.devgateway.toolkit.persistence.dto.ipar.ConsumptionDTO;
 import org.devgateway.toolkit.persistence.service.ConsumptionService;
 import org.devgateway.toolkit.web.rest.controller.filter.ConsumptionFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.ConsumptionFilterState;

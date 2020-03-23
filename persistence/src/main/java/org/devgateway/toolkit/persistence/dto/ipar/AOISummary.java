@@ -1,32 +1,36 @@
-package org.devgateway.toolkit.persistence.dto;
+package org.devgateway.toolkit.persistence.dto.ipar;
 
 import org.devgateway.toolkit.persistence.dao.ipar.AgricultureOrientationIndexIndicator;
-import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
-public class AgricultureOrientationIndexDTO extends DataDTO {
+public class AOISummary {
 
-    @ExcelExport(useTranslation = true)
+    private int year;
     private String indexType;
-
-    @ExcelExport(useTranslation = true)
+    private String indexTypeFr;
     private Double budgetedExpenditures;
-
-    @ExcelExport(useTranslation = true)
     private Double disbursedExpenditures;
-
-    @ExcelExport(useTranslation = true)
     private Double subsidies;
-
-    @ExcelExport(useTranslation = true)
     private String variableType;
+    private String variableTypeFr;
 
-    public AgricultureOrientationIndexDTO(AgricultureOrientationIndexIndicator aoi, final String lang) {
-        super(aoi, lang);
-        this.indexType = getStr(aoi.getIndexType());
-        this.budgetedExpenditures = aoi.getBudgetedExpenditures();
-        this.disbursedExpenditures = aoi.getDisbursedExpenditures();
-        this.subsidies = aoi.getSubsidies();
-        this.variableType = aoi.getVariableType();
+
+    public AOISummary(AgricultureOrientationIndexIndicator indicator) {
+        this.year = indicator.getYear();
+        this.indexType = indicator.getIndexType().getLabel();
+        this.indexTypeFr = indicator.getIndexType().getLabelFr();
+        this.budgetedExpenditures = indicator.getBudgetedExpenditures();
+        this.disbursedExpenditures = indicator.getDisbursedExpenditures();
+        this.subsidies = indicator.getSubsidies();
+        this.variableType = indicator.getVariableType();
+        this.variableTypeFr = indicator.getVariableType();
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getIndexType() {
@@ -35,6 +39,14 @@ public class AgricultureOrientationIndexDTO extends DataDTO {
 
     public void setIndexType(String indexType) {
         this.indexType = indexType;
+    }
+
+    public String getIndexTypeFr() {
+        return indexTypeFr;
+    }
+
+    public void setIndexTypeFr(String indexTypeFr) {
+        this.indexTypeFr = indexTypeFr;
     }
 
     public Double getBudgetedExpenditures() {
@@ -67,5 +79,13 @@ public class AgricultureOrientationIndexDTO extends DataDTO {
 
     public void setVariableType(String variableType) {
         this.variableType = variableType;
+    }
+
+    public String getVariableTypeFr() {
+        return variableTypeFr;
+    }
+
+    public void setVariableTypeFr(String variableTypeFr) {
+        this.variableTypeFr = variableTypeFr;
     }
 }

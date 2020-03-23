@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.repository;
 
 import org.devgateway.toolkit.persistence.dao.ipar.Production;
-import org.devgateway.toolkit.persistence.dto.GisDTOProduction;
+import org.devgateway.toolkit.persistence.dto.ipar.GisDTOProduction;
 import org.devgateway.toolkit.persistence.repository.norepository.AuditedEntityRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;

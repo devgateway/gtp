@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import org.devgateway.toolkit.persistence.dao.ipar.MarketPrice;
-import org.devgateway.toolkit.persistence.dto.MarketPriceDTO;
+import org.devgateway.toolkit.persistence.dto.ipar.MarketPriceDTO;
 import org.devgateway.toolkit.persistence.service.MarketPriceService;
 import org.devgateway.toolkit.web.rest.controller.filter.MarketFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.MarketPriceFilterState;

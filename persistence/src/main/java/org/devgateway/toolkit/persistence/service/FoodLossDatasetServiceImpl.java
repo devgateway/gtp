@@ -2,7 +2,7 @@ package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
 import org.devgateway.toolkit.persistence.dao.ipar.FoodLossDataset;
-import org.devgateway.toolkit.persistence.dto.DatasetDTO;
+import org.devgateway.toolkit.persistence.dto.ipar.DatasetDTO;
 import org.devgateway.toolkit.persistence.repository.FoodLossDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

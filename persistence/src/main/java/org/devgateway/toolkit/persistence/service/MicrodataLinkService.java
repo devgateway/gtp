@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.MicrodataLink;
-import org.devgateway.toolkit.persistence.dto.DatasetDTO;
+import org.devgateway.toolkit.persistence.dto.ipar.DatasetDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

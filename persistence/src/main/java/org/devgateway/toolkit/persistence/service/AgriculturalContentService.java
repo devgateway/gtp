@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalContent;
-import org.devgateway.toolkit.persistence.dto.AgriculturalContentDTO;
+import org.devgateway.toolkit.persistence.dto.ipar.AgriculturalContentDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

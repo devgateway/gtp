@@ -1,9 +1,9 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.GisSettingsDescription;
-import org.devgateway.toolkit.persistence.dto.GisDTO;
-import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
-import org.devgateway.toolkit.persistence.dto.GisStatDTO;
+import org.devgateway.toolkit.persistence.dto.ipar.GisDTO;
+import org.devgateway.toolkit.persistence.dto.ipar.GisIndicatorDTO;
+import org.devgateway.toolkit.persistence.dto.ipar.GisStatDTO;
 
 import java.util.ArrayList;
 import java.util.List;

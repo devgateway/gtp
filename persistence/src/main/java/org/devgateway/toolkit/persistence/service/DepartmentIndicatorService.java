@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
-import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
+import org.devgateway.toolkit.persistence.dto.ipar.GisIndicatorDTO;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

@@ -3,7 +3,7 @@ package org.devgateway.toolkit.web.rest.controller.export;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.ipar.Region;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
-import org.devgateway.toolkit.persistence.dto.ExcelFilterDTO;
+import org.devgateway.toolkit.persistence.dto.ipar.ExcelFilterDTO;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.AgriculturalWomenFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.FoodLossFilterPagingRequest;

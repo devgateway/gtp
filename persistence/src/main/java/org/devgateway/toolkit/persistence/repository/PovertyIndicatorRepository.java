@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.repository;
 
 import org.devgateway.toolkit.persistence.dao.ipar.PovertyIndicator;
-import org.devgateway.toolkit.persistence.dto.GisDTOPoverty;
+import org.devgateway.toolkit.persistence.dto.ipar.GisDTOPoverty;
 import org.devgateway.toolkit.persistence.repository.norepository.AuditedEntityRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;

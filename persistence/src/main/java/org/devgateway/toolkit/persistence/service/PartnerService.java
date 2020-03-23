@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.Partner;
-import org.devgateway.toolkit.persistence.dto.PartnerDTO;
+import org.devgateway.toolkit.persistence.dto.ipar.PartnerDTO;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.dto;
+package org.devgateway.toolkit.persistence.dto.ipar;
 
 import org.devgateway.toolkit.persistence.dao.ipar.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;

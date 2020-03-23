@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.dto;
+package org.devgateway.toolkit.persistence.dto.ipar;
 
 
 import static org.devgateway.toolkit.persistence.util.Constants.CONS_DAILY_EN;

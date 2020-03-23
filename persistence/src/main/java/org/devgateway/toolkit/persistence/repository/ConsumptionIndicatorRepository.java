@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.repository;
 
 import org.devgateway.toolkit.persistence.dao.ipar.Consumption;
-import org.devgateway.toolkit.persistence.dto.GisDTOConsumption;
+import org.devgateway.toolkit.persistence.dto.ipar.GisDTOConsumption;
 import org.devgateway.toolkit.persistence.repository.norepository.AuditedEntityRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
