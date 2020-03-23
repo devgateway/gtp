@@ -7,9 +7,9 @@ import org.devgateway.toolkit.persistence.dao.ipar.AgricultureOrientationIndexIn
 import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.IndexType;
-import org.devgateway.toolkit.persistence.repository.AOIDatasetRepository;
-import org.devgateway.toolkit.persistence.repository.AOIIndicatorRepository;
-import org.devgateway.toolkit.persistence.repository.category.IndexTypeRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.AOIDatasetRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.AOIIndicatorRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.category.IndexTypeRepository;
 import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

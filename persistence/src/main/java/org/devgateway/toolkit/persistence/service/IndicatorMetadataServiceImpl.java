@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
-import org.devgateway.toolkit.persistence.repository.IndicatorMetadataRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.IndicatorMetadataRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

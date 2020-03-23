@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service.category;
 
 import org.devgateway.toolkit.persistence.dao.ipar.Market;
-import org.devgateway.toolkit.persistence.repository.MarketRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.MarketRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

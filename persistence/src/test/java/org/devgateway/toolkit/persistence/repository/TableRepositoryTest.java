@@ -13,6 +13,8 @@ import javax.persistence.EntityManager;
 import org.devgateway.toolkit.persistence.dao.ipar.Column;
 import org.devgateway.toolkit.persistence.dao.ipar.DataSource;
 import org.devgateway.toolkit.persistence.dao.ipar.Table;
+import org.devgateway.toolkit.persistence.repository.ipar.DataSourceRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.TableRepository;
 import org.devgateway.toolkit.persistence.spring.PersistenceApplication;
 import org.hamcrest.Matcher;
 import org.junit.Test;

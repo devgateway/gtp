@@ -7,7 +7,7 @@ import org.devgateway.toolkit.persistence.dto.ipar.AgriculturalContentDTO;
 import org.devgateway.toolkit.persistence.dto.ipar.DatasetDTO;
 import org.devgateway.toolkit.persistence.dto.ipar.NationalIndicatorDTO;
 import org.devgateway.toolkit.persistence.dto.ipar.GisIndicatorDTO;
-import org.devgateway.toolkit.persistence.repository.category.DatasetTypeRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.category.DatasetTypeRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;

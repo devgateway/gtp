@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.GisSettings;
-import org.devgateway.toolkit.persistence.repository.GisSettingsRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.GisSettingsRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

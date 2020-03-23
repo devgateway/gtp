@@ -2,7 +2,7 @@ package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalContent;
 import org.devgateway.toolkit.persistence.dto.ipar.AgriculturalContentDTO;
-import org.devgateway.toolkit.persistence.repository.AgriculturalContentRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.AgriculturalContentRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

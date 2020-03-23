@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.FoodLossIndicator;
-import org.devgateway.toolkit.persistence.repository.FoodLossIndicatorRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.FoodLossIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.AuditedEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

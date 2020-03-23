@@ -2,7 +2,7 @@ package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.MicrodataLink;
 import org.devgateway.toolkit.persistence.dto.ipar.DatasetDTO;
-import org.devgateway.toolkit.persistence.repository.MicrodataLinkRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.MicrodataLinkRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

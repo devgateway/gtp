@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.Data;
-import org.devgateway.toolkit.persistence.repository.DataRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.DataRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

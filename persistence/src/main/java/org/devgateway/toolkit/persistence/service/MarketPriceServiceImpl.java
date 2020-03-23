@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dao.ipar.MarketPrice;
-import org.devgateway.toolkit.persistence.repository.MarketPriceRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.MarketPriceRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.AuditedEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

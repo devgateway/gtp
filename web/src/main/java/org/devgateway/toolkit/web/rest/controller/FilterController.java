@@ -18,7 +18,7 @@ import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.PartnerGroup;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.PovertyLevel;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.ProfessionalActivity;
-import org.devgateway.toolkit.persistence.repository.DatasetRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.DatasetRepository;
 import org.devgateway.toolkit.persistence.service.DataService;
 import org.devgateway.toolkit.persistence.service.category.AgeGroupService;
 import org.devgateway.toolkit.persistence.service.category.AgriculturalWomenGroupService;

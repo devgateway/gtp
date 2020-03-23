@@ -34,7 +34,7 @@ import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.ipar.RapidLink;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.RapidLinkPosition;
-import org.devgateway.toolkit.persistence.repository.category.RapidLinkPositionRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.category.RapidLinkPositionRepository;
 import org.devgateway.toolkit.persistence.service.RapidLinkService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;

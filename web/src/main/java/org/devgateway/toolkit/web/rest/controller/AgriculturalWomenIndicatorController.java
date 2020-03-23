@@ -5,7 +5,7 @@ import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalWomenIndicator;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.AgriculturalWomenGroup;
 import org.devgateway.toolkit.persistence.dto.ipar.AgriculturalWomenDTO;
 import org.devgateway.toolkit.persistence.dto.ipar.AgriculturalWomenSummary;
-import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalWomenIndicatorService;
 import org.devgateway.toolkit.persistence.service.category.AgriculturalWomenGroupService;
 import org.devgateway.toolkit.web.rest.controller.filter.AgriculturalWomenFilterPagingRequest;

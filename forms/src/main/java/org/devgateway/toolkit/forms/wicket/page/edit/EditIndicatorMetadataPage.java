@@ -27,7 +27,7 @@ import org.devgateway.toolkit.forms.wicket.page.lists.ListIndicatorMetadataFormP
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.Indicator;
-import org.devgateway.toolkit.persistence.repository.category.IndicatorRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.category.IndicatorRepository;
 import org.devgateway.toolkit.persistence.service.IndicatorMetadataService;
 import org.wicketstuff.annotation.mount.MountPath;
 

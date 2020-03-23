@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service.category;
 
 import org.devgateway.toolkit.persistence.dao.ipar.categories.ProfessionalActivity;
-import org.devgateway.toolkit.persistence.repository.category.ProfessionalActivityRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.category.ProfessionalActivityRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -10,7 +10,7 @@ import org.devgateway.toolkit.persistence.dto.ipar.AgricultureOrientationIndexDT
 import org.devgateway.toolkit.persistence.dto.ipar.ExcelFilterDTO;
 import org.devgateway.toolkit.persistence.dto.ipar.ExcelInfo;
 import org.devgateway.toolkit.persistence.dto.ipar.FoodLossDTO;
-import org.devgateway.toolkit.persistence.repository.RegionRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.RegionRepository;
 import org.devgateway.toolkit.persistence.service.IndicatorTranslateService;
 import org.devgateway.toolkit.persistence.dto.ipar.PovertyDTO;
 import org.devgateway.toolkit.persistence.excel.ExcelFile;

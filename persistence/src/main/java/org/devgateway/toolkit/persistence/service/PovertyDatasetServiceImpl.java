@@ -3,7 +3,7 @@ package org.devgateway.toolkit.persistence.service;
 import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
 import org.devgateway.toolkit.persistence.dao.ipar.PovertyDataset;
 import org.devgateway.toolkit.persistence.dto.ipar.DatasetDTO;
-import org.devgateway.toolkit.persistence.repository.PovertyDatasetRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.PovertyDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

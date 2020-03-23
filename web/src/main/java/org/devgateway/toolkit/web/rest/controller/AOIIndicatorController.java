@@ -6,7 +6,7 @@ import org.devgateway.toolkit.persistence.dao.ipar.AgricultureOrientationIndexIn
 import org.devgateway.toolkit.persistence.dao.ipar.categories.IndexType;
 import org.devgateway.toolkit.persistence.dto.ipar.AOISummary;
 import org.devgateway.toolkit.persistence.dto.ipar.AgricultureOrientationIndexDTO;
-import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.AOIIndicatorService;
 import org.devgateway.toolkit.persistence.service.category.IndexTypeService;
 import org.devgateway.toolkit.web.rest.controller.filter.AOIFilterPagingRequest;

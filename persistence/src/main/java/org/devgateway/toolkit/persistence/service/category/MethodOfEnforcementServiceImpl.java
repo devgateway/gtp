@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service.category;
 
 import org.devgateway.toolkit.persistence.dao.ipar.categories.MethodOfEnforcement;
-import org.devgateway.toolkit.persistence.repository.category.MethodOfEnforcementRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.category.MethodOfEnforcementRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
