@@ -25,7 +25,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.MicrodataLink
 import org.devgateway.toolkit.forms.wicket.page.edit.EditMicrodataLinkPage;
 import org.devgateway.toolkit.persistence.dao.ipar.MicrodataLink;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.service.MicrodataLinkService;
+import org.devgateway.toolkit.persistence.service.ipar.MicrodataLinkService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

@@ -21,7 +21,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterStat
 import org.devgateway.toolkit.forms.wicket.components.table.filter.WebContentFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditWebContentPage;
 import org.devgateway.toolkit.persistence.dao.ipar.WebContent;
-import org.devgateway.toolkit.persistence.service.WebContentService;
+import org.devgateway.toolkit.persistence.service.ipar.WebContentService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

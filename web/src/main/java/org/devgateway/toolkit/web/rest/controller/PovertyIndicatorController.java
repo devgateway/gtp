@@ -6,7 +6,7 @@ import org.devgateway.toolkit.persistence.dao.ipar.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dto.ipar.PovertyDTO;
 import org.devgateway.toolkit.persistence.dto.ipar.PovertySummary;
 import org.devgateway.toolkit.persistence.repository.ipar.SummaryIndicatorRepository;
-import org.devgateway.toolkit.persistence.service.PovertyIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.PovertyIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterState;
 import org.springframework.beans.factory.annotation.Autowired;

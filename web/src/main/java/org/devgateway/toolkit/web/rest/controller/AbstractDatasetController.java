@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dto.ipar.DataDTO;
 import org.devgateway.toolkit.persistence.dto.ipar.MessageSource;
-import org.devgateway.toolkit.persistence.service.AbstractDatasetService;
+import org.devgateway.toolkit.persistence.service.ipar.AbstractDatasetService;
 import org.devgateway.toolkit.web.rest.controller.filter.DefaultFilterPagingRequest;
 import org.devgateway.toolkit.web.util.JSONUtil;
 import org.slf4j.Logger;

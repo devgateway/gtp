@@ -7,8 +7,8 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.ipar.Department;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.CropType;
-import org.devgateway.toolkit.persistence.service.category.CropTypeService;
-import org.devgateway.toolkit.persistence.service.category.DepartmentService;
+import org.devgateway.toolkit.persistence.service.ipar.category.CropTypeService;
+import org.devgateway.toolkit.persistence.service.ipar.category.DepartmentService;
 
 /**
  * @author Octavian Ciubotaru

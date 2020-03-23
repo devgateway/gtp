@@ -31,9 +31,9 @@ import org.devgateway.toolkit.forms.wicket.page.lists.ListDepartmentIndicatorPag
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
 import org.devgateway.toolkit.persistence.dao.ipar.DepartmentStat;
-import org.devgateway.toolkit.persistence.service.ImportDepartmentIndicatorService;
-import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;
-import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
+import org.devgateway.toolkit.persistence.service.ipar.ImportDepartmentIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.DepartmentIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

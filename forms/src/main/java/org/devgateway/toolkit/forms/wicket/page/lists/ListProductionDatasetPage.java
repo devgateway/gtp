@@ -24,7 +24,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterStat
 import org.devgateway.toolkit.forms.wicket.page.edit.EditProductionDatasetPage;
 import org.devgateway.toolkit.persistence.dao.ipar.ProductionDataset;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.service.DatasetService;
+import org.devgateway.toolkit.persistence.service.ipar.DatasetService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

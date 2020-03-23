@@ -21,7 +21,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterStat
 import org.devgateway.toolkit.forms.wicket.components.table.filter.IndicatorMetadataFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditIndicatorMetadataPage;
 import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
-import org.devgateway.toolkit.persistence.service.IndicatorMetadataService;
+import org.devgateway.toolkit.persistence.service.ipar.IndicatorMetadataService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

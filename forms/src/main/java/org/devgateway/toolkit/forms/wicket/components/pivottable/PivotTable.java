@@ -34,10 +34,10 @@ import org.devgateway.toolkit.persistence.dao.ipar.Consumption;
 import org.devgateway.toolkit.persistence.dao.ipar.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.ipar.PivotTableField;
 import org.devgateway.toolkit.persistence.dao.ipar.Production;
-import org.devgateway.toolkit.persistence.service.category.CropTypeService;
-import org.devgateway.toolkit.persistence.service.category.DepartmentService;
-import org.devgateway.toolkit.persistence.service.category.MarketService;
-import org.devgateway.toolkit.persistence.service.category.RegionService;
+import org.devgateway.toolkit.persistence.service.ipar.category.CropTypeService;
+import org.devgateway.toolkit.persistence.service.ipar.category.DepartmentService;
+import org.devgateway.toolkit.persistence.service.ipar.category.MarketService;
+import org.devgateway.toolkit.persistence.service.ipar.category.RegionService;
 
 /**
  * Wicket component that acts as a wrapper for pivottable.js library.

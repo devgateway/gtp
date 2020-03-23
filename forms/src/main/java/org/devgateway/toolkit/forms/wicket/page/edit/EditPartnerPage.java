@@ -31,8 +31,8 @@ import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.ipar.Partner;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.PartnerGroup;
 import org.devgateway.toolkit.persistence.repository.ipar.category.PartnerGroupRepository;
-import org.devgateway.toolkit.persistence.service.PartnerService;
-import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
+import org.devgateway.toolkit.persistence.service.ipar.PartnerService;
+import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.List;

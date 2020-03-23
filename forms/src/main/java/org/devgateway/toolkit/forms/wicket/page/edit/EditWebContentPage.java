@@ -24,7 +24,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.SummernoteBootstrapFo
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListWebContentFormPage;
 import org.devgateway.toolkit.persistence.dao.ipar.WebContent;
-import org.devgateway.toolkit.persistence.service.WebContentService;
+import org.devgateway.toolkit.persistence.service.ipar.WebContentService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

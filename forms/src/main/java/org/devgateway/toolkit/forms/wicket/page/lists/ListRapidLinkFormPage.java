@@ -22,7 +22,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterStat
 import org.devgateway.toolkit.forms.wicket.components.table.filter.RapidLinkFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditRapidLinkPage;
 import org.devgateway.toolkit.persistence.dao.ipar.RapidLink;
-import org.devgateway.toolkit.persistence.service.RapidLinkService;
+import org.devgateway.toolkit.persistence.service.ipar.RapidLinkService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

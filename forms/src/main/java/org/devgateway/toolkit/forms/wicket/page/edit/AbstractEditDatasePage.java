@@ -19,8 +19,8 @@ import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFor
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.persistence.dao.ipar.Data;
 import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
-import org.devgateway.toolkit.persistence.service.ImportService;
-import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
+import org.devgateway.toolkit.persistence.service.ipar.ImportService;
+import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -23,7 +23,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.RegionIndicat
 import org.devgateway.toolkit.forms.wicket.page.edit.EditRegionIndicatorPage;
 import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.RegionIndicatorService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

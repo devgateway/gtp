@@ -23,7 +23,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.DepartmentInd
 import org.devgateway.toolkit.forms.wicket.page.edit.EditDepartmentIndicatorPage;
 import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.DepartmentIndicatorService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

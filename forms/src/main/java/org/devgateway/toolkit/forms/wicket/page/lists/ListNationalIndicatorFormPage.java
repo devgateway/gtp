@@ -24,7 +24,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.NationalIndic
 import org.devgateway.toolkit.forms.wicket.page.edit.EditNationalIndicatorPage;
 import org.devgateway.toolkit.persistence.dao.ipar.NationalIndicator;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.service.NationalIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.NationalIndicatorService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

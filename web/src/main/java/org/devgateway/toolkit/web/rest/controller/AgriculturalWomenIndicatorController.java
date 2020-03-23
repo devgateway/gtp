@@ -6,8 +6,8 @@ import org.devgateway.toolkit.persistence.dao.ipar.categories.AgriculturalWomenG
 import org.devgateway.toolkit.persistence.dto.ipar.AgriculturalWomenDTO;
 import org.devgateway.toolkit.persistence.dto.ipar.AgriculturalWomenSummary;
 import org.devgateway.toolkit.persistence.repository.ipar.SummaryIndicatorRepository;
-import org.devgateway.toolkit.persistence.service.AgriculturalWomenIndicatorService;
-import org.devgateway.toolkit.persistence.service.category.AgriculturalWomenGroupService;
+import org.devgateway.toolkit.persistence.service.ipar.AgriculturalWomenIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.category.AgriculturalWomenGroupService;
 import org.devgateway.toolkit.web.rest.controller.filter.AgriculturalWomenFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.AgriculturalWomenFilterState;
 import org.springframework.beans.factory.annotation.Autowired;

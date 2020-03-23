@@ -16,8 +16,8 @@ import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFor
 import org.devgateway.toolkit.forms.wicket.page.edit.panel.YearValuePanel;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListNationalIndicatorFormPage;
 import org.devgateway.toolkit.persistence.dao.ipar.NationalIndicator;
-import org.devgateway.toolkit.persistence.service.NationalIndicatorService;
-import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
+import org.devgateway.toolkit.persistence.service.ipar.NationalIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.HashSet;

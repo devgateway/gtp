@@ -19,7 +19,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditPartnerPage;
 import org.devgateway.toolkit.persistence.dao.ipar.Partner;
-import org.devgateway.toolkit.persistence.service.PartnerService;
+import org.devgateway.toolkit.persistence.service.ipar.PartnerService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)

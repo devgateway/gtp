@@ -1,0 +1,14 @@
+package org.devgateway.toolkit.persistence.service.ipar.category;
+
+import org.devgateway.toolkit.persistence.dao.ipar.Region;
+import org.devgateway.toolkit.persistence.service.BaseJpaService;
+
+/**
+ * @author Octavian Ciubotaru
+ */
+public interface RegionService extends BaseJpaService<Region> {
+
+    Region findByName(String name);
+
+    Region findByCode(String code);
+}

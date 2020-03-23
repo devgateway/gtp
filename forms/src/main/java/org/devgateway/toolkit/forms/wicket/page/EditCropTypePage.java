@@ -20,7 +20,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFor
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListCropTypePage;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.CropType;
-import org.devgateway.toolkit.persistence.service.category.CropTypeService;
+import org.devgateway.toolkit.persistence.service.ipar.category.CropTypeService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)

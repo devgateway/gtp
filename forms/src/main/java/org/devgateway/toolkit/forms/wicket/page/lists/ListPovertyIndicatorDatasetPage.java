@@ -24,7 +24,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterStat
 import org.devgateway.toolkit.forms.wicket.page.edit.EditPovertyIndicatorDatasetPage;
 import org.devgateway.toolkit.persistence.dao.ipar.PovertyDataset;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.service.DatasetService;
+import org.devgateway.toolkit.persistence.service.ipar.DatasetService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

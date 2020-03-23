@@ -5,7 +5,7 @@ import org.devgateway.toolkit.persistence.dao.ipar.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.dto.ipar.FoodLossDTO;
 import org.devgateway.toolkit.persistence.dto.ipar.FoodLossSummary;
 import org.devgateway.toolkit.persistence.repository.ipar.SummaryIndicatorRepository;
-import org.devgateway.toolkit.persistence.service.FoodLossIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.FoodLossIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.FoodLossFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.FoodLossFilterState;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -22,7 +22,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterStat
 import org.devgateway.toolkit.forms.wicket.components.table.filter.AgriculturalContentFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditAgriculturalContentPage;
 import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalContent;
-import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
+import org.devgateway.toolkit.persistence.service.ipar.AgriculturalContentService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

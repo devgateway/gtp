@@ -13,11 +13,11 @@ import org.devgateway.toolkit.forms.wicket.page.Homepage;
 import org.devgateway.toolkit.forms.wicket.page.edit.panel.GisSettingsDescPanel;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.ipar.GisSettings;
-import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;
-import org.devgateway.toolkit.persistence.service.GisSettingsService;
-import org.devgateway.toolkit.persistence.service.NationalIndicatorService;
-import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
-import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
+import org.devgateway.toolkit.persistence.service.ipar.DepartmentIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.GisSettingsService;
+import org.devgateway.toolkit.persistence.service.ipar.NationalIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.RegionIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.HashSet;

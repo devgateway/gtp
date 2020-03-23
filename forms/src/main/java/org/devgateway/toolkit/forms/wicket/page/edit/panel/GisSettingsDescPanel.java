@@ -11,7 +11,7 @@ import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextCh
 import org.devgateway.toolkit.persistence.dao.ipar.GisSettings;
 import org.devgateway.toolkit.persistence.dao.ipar.GisSettingsDescription;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.GisIndicator;
-import org.devgateway.toolkit.persistence.service.category.GisIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.category.GisIndicatorService;
 
 
 /**

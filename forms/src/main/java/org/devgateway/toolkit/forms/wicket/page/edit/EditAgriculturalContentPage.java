@@ -32,8 +32,8 @@ import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalContent;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.ContentType;
 import org.devgateway.toolkit.persistence.repository.ipar.category.ContentTypeRepository;
-import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
-import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
+import org.devgateway.toolkit.persistence.service.ipar.AgriculturalContentService;
+import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.List;
