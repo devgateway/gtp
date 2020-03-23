@@ -3,8 +3,12 @@
 
 .gis.container {
   margin: auto;
-  width: $page-width;
+  width: $content-width;
+  display: block;
 
+.clear.block{
+  clear: both;
+}
   .gis.title {
     background-color: #FFF;
     border-bottom: 2px solid $border-color;
@@ -312,7 +316,7 @@
             .value{
               flex-grow: 1;
               text-align: right;
-              
+
             }
             .square {
               margin-right: 5px;

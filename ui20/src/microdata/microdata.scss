@@ -6,7 +6,7 @@
 
 .microdata.container {
   margin: auto;
-  width: $page-width;
+  width: $content-width;
 
   .microdata.title {
     background-color: #FFF;
@@ -76,7 +76,7 @@
   }
 
   .microdata.table1.description {
-    
+
     p {
       font-size: 20px;
     }

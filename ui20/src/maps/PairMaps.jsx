@@ -191,7 +191,7 @@ if (data){
             </div>
          </Grid.Column>
          <Grid.Column>
-         <div className="map wrapper">
+         <div className="wrapper">
 
              <div className="gis filter container">
                    <div className="gis filter item indicator">
