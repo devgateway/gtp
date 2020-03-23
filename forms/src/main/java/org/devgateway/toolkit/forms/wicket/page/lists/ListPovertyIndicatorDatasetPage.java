@@ -22,7 +22,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.LinkBootstrapPropert
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DatasetFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditPovertyIndicatorDatasetPage;
-import org.devgateway.toolkit.persistence.dao.PovertyDataset;
+import org.devgateway.toolkit.persistence.dao.ipar.PovertyDataset;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.wicketstuff.annotation.mount.MountPath;

@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.Gender;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.Gender;
 import org.devgateway.toolkit.persistence.repository.category.GenderRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;

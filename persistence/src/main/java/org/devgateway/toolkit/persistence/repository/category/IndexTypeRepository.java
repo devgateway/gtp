@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.repository.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.IndexType;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.IndexType;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

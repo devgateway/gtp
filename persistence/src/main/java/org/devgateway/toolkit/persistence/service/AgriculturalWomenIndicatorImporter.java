@@ -7,12 +7,12 @@ import java.util.stream.Collectors;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.devgateway.toolkit.persistence.dao.AgriculturalWomenDataset;
-import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
-import org.devgateway.toolkit.persistence.dao.Dataset;
-import org.devgateway.toolkit.persistence.dao.categories.AgriculturalWomenGroup;
+import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalWomenDataset;
+import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalWomenIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.AgriculturalWomenGroup;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
-import org.devgateway.toolkit.persistence.dao.categories.Gender;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.Gender;
 import org.devgateway.toolkit.persistence.repository.AgriculturalWomenDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.AgriculturalWomenIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.category.AgeGroupRepository;

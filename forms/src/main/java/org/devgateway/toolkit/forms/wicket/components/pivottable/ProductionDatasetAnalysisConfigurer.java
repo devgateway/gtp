@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
-import org.devgateway.toolkit.persistence.dao.Region;
-import org.devgateway.toolkit.persistence.dao.categories.CropType;
+import org.devgateway.toolkit.persistence.dao.ipar.Region;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.CropType;
 import org.devgateway.toolkit.persistence.service.category.CropTypeService;
 import org.devgateway.toolkit.persistence.service.category.RegionService;
 

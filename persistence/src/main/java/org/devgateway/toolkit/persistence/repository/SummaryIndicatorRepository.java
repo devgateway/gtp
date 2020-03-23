@@ -1,10 +1,10 @@
 package org.devgateway.toolkit.persistence.repository;
 
 
-import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
-import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
-import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalWomenIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.AgricultureOrientationIndexIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.FoodLossIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dto.AOISummary;
 import org.devgateway.toolkit.persistence.dto.AgriculturalWomenSummary;
 import org.devgateway.toolkit.persistence.dto.FoodLossSummary;

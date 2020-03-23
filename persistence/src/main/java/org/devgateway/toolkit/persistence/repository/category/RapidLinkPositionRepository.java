@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.repository.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.RapidLinkPosition;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.RapidLinkPosition;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

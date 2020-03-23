@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.dto.FoodLossDTO;
 import org.devgateway.toolkit.persistence.dto.FoodLossSummary;
 import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;

@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service;
 
-import org.devgateway.toolkit.persistence.dao.RapidLink;
+import org.devgateway.toolkit.persistence.dao.ipar.RapidLink;
 
 import java.util.Optional;
 

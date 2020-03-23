@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service;
 
-import org.devgateway.toolkit.persistence.dao.Consumption;
+import org.devgateway.toolkit.persistence.dao.ipar.Consumption;
 import org.devgateway.toolkit.persistence.repository.ConsumptionRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.AuditedEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;

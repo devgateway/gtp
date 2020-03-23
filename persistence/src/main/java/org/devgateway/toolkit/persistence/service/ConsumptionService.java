@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service;
 
-import org.devgateway.toolkit.persistence.dao.Consumption;
+import org.devgateway.toolkit.persistence.dao.ipar.Consumption;
 
 /**
  * Created by Daniel Oliva

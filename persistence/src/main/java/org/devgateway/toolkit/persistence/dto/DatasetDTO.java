@@ -1,9 +1,9 @@
 package org.devgateway.toolkit.persistence.dto;
 
 import org.apache.commons.lang3.StringUtils;
-import org.devgateway.toolkit.persistence.dao.Dataset;
-import org.devgateway.toolkit.persistence.dao.MicrodataLink;
-import org.devgateway.toolkit.persistence.dao.categories.DatasetType;
+import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
+import org.devgateway.toolkit.persistence.dao.ipar.MicrodataLink;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.DatasetType;
 
 import java.time.LocalDateTime;
 

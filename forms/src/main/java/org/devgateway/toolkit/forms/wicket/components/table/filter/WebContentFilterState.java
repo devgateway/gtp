@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.forms.wicket.components.table.filter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.devgateway.toolkit.persistence.dao.WebContent;
+import org.devgateway.toolkit.persistence.dao.ipar.WebContent;
 import org.devgateway.toolkit.persistence.dao.WebContent_;
 import org.springframework.data.jpa.domain.Specification;
 

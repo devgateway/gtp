@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service;
 
-import org.devgateway.toolkit.persistence.dao.GisSettingsDescription;
+import org.devgateway.toolkit.persistence.dao.ipar.GisSettingsDescription;
 import org.devgateway.toolkit.persistence.dto.GisDTO;
 import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.dto.GisStatDTO;

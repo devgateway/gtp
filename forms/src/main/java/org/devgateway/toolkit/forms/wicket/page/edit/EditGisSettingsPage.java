@@ -12,7 +12,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstra
 import org.devgateway.toolkit.forms.wicket.page.Homepage;
 import org.devgateway.toolkit.forms.wicket.page.edit.panel.GisSettingsDescPanel;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
-import org.devgateway.toolkit.persistence.dao.GisSettings;
+import org.devgateway.toolkit.persistence.dao.ipar.GisSettings;
 import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;
 import org.devgateway.toolkit.persistence.service.GisSettingsService;
 import org.devgateway.toolkit.persistence.service.NationalIndicatorService;

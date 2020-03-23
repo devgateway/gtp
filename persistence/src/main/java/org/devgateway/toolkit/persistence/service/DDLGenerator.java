@@ -3,8 +3,8 @@ package org.devgateway.toolkit.persistence.service;
 import static java.util.stream.Collectors.joining;
 import static org.devgateway.toolkit.persistence.service.SQLUtils.quotedIdentifier;
 
-import org.devgateway.toolkit.persistence.dao.Column;
-import org.devgateway.toolkit.persistence.dao.Table;
+import org.devgateway.toolkit.persistence.dao.ipar.Column;
+import org.devgateway.toolkit.persistence.dao.ipar.Table;
 
 /**
  * DDL SQL Generator for tables.

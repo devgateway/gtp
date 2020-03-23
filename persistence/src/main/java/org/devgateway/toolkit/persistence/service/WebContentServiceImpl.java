@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service;
 
-import org.devgateway.toolkit.persistence.dao.WebContent;
+import org.devgateway.toolkit.persistence.dao.ipar.WebContent;
 import org.devgateway.toolkit.persistence.repository.WebContentRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller.filter;
 
 import org.devgateway.toolkit.persistence.dao.Data_;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator_;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;

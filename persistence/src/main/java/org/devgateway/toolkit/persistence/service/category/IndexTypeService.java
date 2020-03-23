@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.IndexType;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.IndexType;
 import org.devgateway.toolkit.persistence.service.BaseJpaService;
 
 import java.util.List;

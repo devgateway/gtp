@@ -1,10 +1,10 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
-import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
-import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalWomenIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.AgricultureOrientationIndexIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.FoodLossIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dto.IndicatorData;
 import org.devgateway.toolkit.persistence.dto.IndicatorMetadataDTO;
 import org.devgateway.toolkit.persistence.service.AOIIndicatorService;

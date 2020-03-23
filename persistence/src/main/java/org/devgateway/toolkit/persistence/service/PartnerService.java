@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service;
 
-import org.devgateway.toolkit.persistence.dao.Partner;
+import org.devgateway.toolkit.persistence.dao.ipar.Partner;
 import org.devgateway.toolkit.persistence.dto.PartnerDTO;
 
 import java.util.List;

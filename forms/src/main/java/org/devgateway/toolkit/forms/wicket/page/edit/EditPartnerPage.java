@@ -28,8 +28,8 @@ import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFor
 import org.devgateway.toolkit.forms.wicket.components.util.ComponentUtil;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPartnerPage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
-import org.devgateway.toolkit.persistence.dao.Partner;
-import org.devgateway.toolkit.persistence.dao.categories.PartnerGroup;
+import org.devgateway.toolkit.persistence.dao.ipar.Partner;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.PartnerGroup;
 import org.devgateway.toolkit.persistence.repository.category.PartnerGroupRepository;
 import org.devgateway.toolkit.persistence.service.PartnerService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;

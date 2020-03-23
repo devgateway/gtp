@@ -2,11 +2,11 @@ package org.devgateway.toolkit.persistence.service;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexDataset;
-import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
-import org.devgateway.toolkit.persistence.dao.Dataset;
+import org.devgateway.toolkit.persistence.dao.ipar.AgricultureOrientationIndexDataset;
+import org.devgateway.toolkit.persistence.dao.ipar.AgricultureOrientationIndexIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
-import org.devgateway.toolkit.persistence.dao.categories.IndexType;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.IndexType;
 import org.devgateway.toolkit.persistence.repository.AOIDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.AOIIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.category.IndexTypeRepository;

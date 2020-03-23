@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
 
-import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.FoodLossIndicator;
 
 /**
  * Created by Daniel Oliva

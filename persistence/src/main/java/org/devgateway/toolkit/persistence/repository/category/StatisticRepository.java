@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.repository.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.Statistic;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.Statistic;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

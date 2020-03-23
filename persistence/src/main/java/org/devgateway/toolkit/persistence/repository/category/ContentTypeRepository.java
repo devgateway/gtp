@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.repository.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.ContentType;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.ContentType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 

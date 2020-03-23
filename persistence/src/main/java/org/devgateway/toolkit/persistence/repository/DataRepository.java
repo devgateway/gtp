@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.repository;
 
-import org.devgateway.toolkit.persistence.dao.Data;
+import org.devgateway.toolkit.persistence.dao.ipar.Data;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;

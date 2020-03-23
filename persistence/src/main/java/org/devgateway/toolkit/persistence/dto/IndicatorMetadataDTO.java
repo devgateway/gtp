@@ -2,7 +2,7 @@ package org.devgateway.toolkit.persistence.dto;
 
 
 import org.apache.commons.lang3.StringUtils;
-import org.devgateway.toolkit.persistence.dao.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.util.Constants;
 
 public class IndicatorMetadataDTO {

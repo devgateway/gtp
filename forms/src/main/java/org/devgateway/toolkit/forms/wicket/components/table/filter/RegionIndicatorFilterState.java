@@ -3,7 +3,7 @@ package org.devgateway.toolkit.forms.wicket.components.table.filter;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.dao.Person_;
-import org.devgateway.toolkit.persistence.dao.RegionIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
 import org.devgateway.toolkit.persistence.dao.RegionIndicator_;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.dao.categories.Organization_;

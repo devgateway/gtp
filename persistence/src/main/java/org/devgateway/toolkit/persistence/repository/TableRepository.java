@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.repository;
 
-import org.devgateway.toolkit.persistence.dao.Table;
+import org.devgateway.toolkit.persistence.dao.ipar.Table;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 
 /**

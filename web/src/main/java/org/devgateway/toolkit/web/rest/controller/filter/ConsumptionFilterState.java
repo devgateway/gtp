@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.web.rest.controller.filter;
 
-import org.devgateway.toolkit.persistence.dao.Consumption;
+import org.devgateway.toolkit.persistence.dao.ipar.Consumption;
 import org.devgateway.toolkit.persistence.dao.Consumption_;
 import org.springframework.data.jpa.domain.Specification;
 

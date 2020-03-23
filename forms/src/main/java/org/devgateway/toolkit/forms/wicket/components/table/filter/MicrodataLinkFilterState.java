@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.forms.wicket.components.table.filter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.devgateway.toolkit.persistence.dao.MicrodataLink;
+import org.devgateway.toolkit.persistence.dao.ipar.MicrodataLink;
 import org.devgateway.toolkit.persistence.dao.MicrodataLink_;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.dao.categories.Organization_;

@@ -1,8 +1,8 @@
 package org.devgateway.toolkit.persistence.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.devgateway.toolkit.persistence.dao.Region;
-import org.devgateway.toolkit.persistence.dao.categories.PovertyLevel;
+import org.devgateway.toolkit.persistence.dao.ipar.Region;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.PovertyLevel;
 
 public class PovertySummary {
 

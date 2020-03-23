@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.web.rest.controller.filter;
 
-import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalWomenIndicator;
 import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator_;
 import org.devgateway.toolkit.persistence.dao.Data_;
 import org.hibernate.query.criteria.internal.OrderImpl;

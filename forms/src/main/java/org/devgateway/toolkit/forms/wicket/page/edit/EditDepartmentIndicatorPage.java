@@ -29,8 +29,8 @@ import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFor
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListDepartmentIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
-import org.devgateway.toolkit.persistence.dao.DepartmentIndicator;
-import org.devgateway.toolkit.persistence.dao.DepartmentStat;
+import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.DepartmentStat;
 import org.devgateway.toolkit.persistence.service.ImportDepartmentIndicatorService;
 import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;

@@ -8,9 +8,9 @@ import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstra
 import org.devgateway.toolkit.forms.wicket.components.pivottable.PivotTable;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
-import org.devgateway.toolkit.persistence.dao.Consumption;
-import org.devgateway.toolkit.persistence.dao.MarketPrice;
-import org.devgateway.toolkit.persistence.dao.Production;
+import org.devgateway.toolkit.persistence.dao.ipar.Consumption;
+import org.devgateway.toolkit.persistence.dao.ipar.MarketPrice;
+import org.devgateway.toolkit.persistence.dao.ipar.Production;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.dto;
 
-import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalWomenIndicator;
 import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 public class AgriculturalWomenDTO extends DataDTO {

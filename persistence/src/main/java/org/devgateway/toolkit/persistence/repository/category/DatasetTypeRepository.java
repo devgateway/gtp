@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.repository.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.DatasetType;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.DatasetType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 

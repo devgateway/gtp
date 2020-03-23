@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.AgeGroup;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.AgeGroup;
 import org.devgateway.toolkit.persistence.repository.category.AgeGroupRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;

@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
-import org.devgateway.toolkit.persistence.dao.Dataset;
-import org.devgateway.toolkit.persistence.dao.ProductionDataset;
+import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
+import org.devgateway.toolkit.persistence.dao.ipar.ProductionDataset;
 import org.devgateway.toolkit.persistence.dto.DatasetDTO;
 import org.devgateway.toolkit.persistence.repository.ProductionDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;

@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.forms.wicket.components.table.filter;
 
-import org.devgateway.toolkit.persistence.dao.NationalIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.NationalIndicator;
 import org.devgateway.toolkit.persistence.dao.NationalIndicator_;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.dao.Person_;

@@ -2,7 +2,7 @@ package org.devgateway.toolkit.web.rest.controller;
 
 
 import io.swagger.annotations.ApiOperation;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dto.PovertyDTO;
 import org.devgateway.toolkit.persistence.dto.PovertySummary;
 import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;

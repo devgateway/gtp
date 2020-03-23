@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.web.rest.controller.filter;
 
-import org.devgateway.toolkit.persistence.dao.MarketPrice;
+import org.devgateway.toolkit.persistence.dao.ipar.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.MarketPrice_;
 import org.springframework.data.jpa.domain.Specification;
 

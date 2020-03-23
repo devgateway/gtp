@@ -21,7 +21,7 @@ import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DepartmentIndicatorFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditDepartmentIndicatorPage;
-import org.devgateway.toolkit.persistence.dao.DepartmentIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;
 import org.wicketstuff.annotation.mount.MountPath;

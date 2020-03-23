@@ -2,8 +2,8 @@ package org.devgateway.toolkit.persistence.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
-import org.devgateway.toolkit.persistence.dao.DepartmentIndicator;
-import org.devgateway.toolkit.persistence.dao.RegionIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
 
 import java.util.Collection;
 import java.util.Set;

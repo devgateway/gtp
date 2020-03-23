@@ -15,7 +15,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstr
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.panel.YearValuePanel;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListNationalIndicatorFormPage;
-import org.devgateway.toolkit.persistence.dao.NationalIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.NationalIndicator;
 import org.devgateway.toolkit.persistence.service.NationalIndicatorService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;

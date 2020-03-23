@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.CropSubType;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.CropSubType;
 import org.devgateway.toolkit.persistence.repository.category.CropSubTypeRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;

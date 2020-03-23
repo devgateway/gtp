@@ -2,8 +2,8 @@ package org.devgateway.toolkit.web.rest.controller;
 
 
 import io.swagger.annotations.ApiOperation;
-import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
-import org.devgateway.toolkit.persistence.dao.categories.IndexType;
+import org.devgateway.toolkit.persistence.dao.ipar.AgricultureOrientationIndexIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.IndexType;
 import org.devgateway.toolkit.persistence.dto.AOISummary;
 import org.devgateway.toolkit.persistence.dto.AgricultureOrientationIndexDTO;
 import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;

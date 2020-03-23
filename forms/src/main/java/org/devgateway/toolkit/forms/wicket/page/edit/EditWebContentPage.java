@@ -23,7 +23,7 @@ import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.SummernoteBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListWebContentFormPage;
-import org.devgateway.toolkit.persistence.dao.WebContent;
+import org.devgateway.toolkit.persistence.dao.ipar.WebContent;
 import org.devgateway.toolkit.persistence.service.WebContentService;
 import org.wicketstuff.annotation.mount.MountPath;
 

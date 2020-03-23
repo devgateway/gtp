@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.repository.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.Indicator;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.Indicator;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

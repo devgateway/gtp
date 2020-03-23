@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.LocalizedCategoryLabel;
 import org.devgateway.toolkit.persistence.util.Constants;
 import org.hibernate.LazyInitializationException;
 import org.hibernate.annotations.BatchSize;

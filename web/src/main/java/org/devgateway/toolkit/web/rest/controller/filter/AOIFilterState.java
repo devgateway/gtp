@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.web.rest.controller.filter;
 
-import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.AgricultureOrientationIndexIndicator;
 import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexIndicator_;
 import org.devgateway.toolkit.persistence.dao.Data_;
 import org.hibernate.query.criteria.internal.OrderImpl;

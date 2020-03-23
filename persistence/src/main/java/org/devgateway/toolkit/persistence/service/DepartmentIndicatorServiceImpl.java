@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.service;
 
-import org.devgateway.toolkit.persistence.dao.DepartmentIndicator;
-import org.devgateway.toolkit.persistence.dao.GisSettings;
+import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.GisSettings;
 import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.ConsumptionIndicatorRepository;
 import org.devgateway.toolkit.persistence.repository.GisSettingsDescriptionRepository;

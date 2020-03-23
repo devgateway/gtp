@@ -22,7 +22,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.LinkBootstrapPropert
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DatasetFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditAOIDatasetPage;
-import org.devgateway.toolkit.persistence.dao.AgricultureOrientationIndexDataset;
+import org.devgateway.toolkit.persistence.dao.ipar.AgricultureOrientationIndexDataset;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.service.DatasetService;
 import org.wicketstuff.annotation.mount.MountPath;

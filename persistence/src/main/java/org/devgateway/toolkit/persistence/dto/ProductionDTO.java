@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.dto;
 
-import org.devgateway.toolkit.persistence.dao.Production;
+import org.devgateway.toolkit.persistence.dao.ipar.Production;
 import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 public class ProductionDTO extends DataDTO {

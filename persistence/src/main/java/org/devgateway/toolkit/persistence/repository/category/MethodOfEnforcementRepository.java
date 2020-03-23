@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.repository.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.MethodOfEnforcement;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.MethodOfEnforcement;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

@@ -1,9 +1,9 @@
 package org.devgateway.toolkit.forms.wicket.components.table.filter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.devgateway.toolkit.persistence.dao.RapidLink;
+import org.devgateway.toolkit.persistence.dao.ipar.RapidLink;
 import org.devgateway.toolkit.persistence.dao.RapidLink_;
-import org.devgateway.toolkit.persistence.dao.categories.RapidLinkPosition;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.RapidLinkPosition;
 import org.devgateway.toolkit.persistence.dao.categories.RapidLinkPosition_;
 import org.springframework.data.jpa.domain.Specification;
 

@@ -1,11 +1,11 @@
 package org.devgateway.toolkit.web.rest.controller.filter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.devgateway.toolkit.persistence.dao.Dataset;
+import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
 import org.devgateway.toolkit.persistence.dao.Dataset_;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.dao.Person_;
-import org.devgateway.toolkit.persistence.dao.categories.DatasetType;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.DatasetType;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.dao.categories.Organization_;
 import org.hibernate.query.criteria.internal.OrderImpl;

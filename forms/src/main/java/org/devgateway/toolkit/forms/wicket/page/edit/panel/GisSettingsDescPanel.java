@@ -8,9 +8,9 @@ import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstra
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.util.ComponentUtil;
 import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
-import org.devgateway.toolkit.persistence.dao.GisSettings;
-import org.devgateway.toolkit.persistence.dao.GisSettingsDescription;
-import org.devgateway.toolkit.persistence.dao.categories.GisIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.GisSettings;
+import org.devgateway.toolkit.persistence.dao.ipar.GisSettingsDescription;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.GisIndicator;
 import org.devgateway.toolkit.persistence.service.category.GisIndicatorService;
 
 

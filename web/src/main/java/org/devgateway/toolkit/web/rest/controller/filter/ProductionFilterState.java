@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.web.rest.controller.filter;
 
-import org.devgateway.toolkit.persistence.dao.Production;
+import org.devgateway.toolkit.persistence.dao.ipar.Production;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Predicate;

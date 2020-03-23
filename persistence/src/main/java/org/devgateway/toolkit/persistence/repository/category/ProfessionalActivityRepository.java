@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.repository.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.ProfessionalActivity;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.ProfessionalActivity;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

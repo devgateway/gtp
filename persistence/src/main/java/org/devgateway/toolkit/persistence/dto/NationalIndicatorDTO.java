@@ -2,8 +2,8 @@ package org.devgateway.toolkit.persistence.dto;
 
 
 import org.apache.commons.lang3.StringUtils;
-import org.devgateway.toolkit.persistence.dao.GisSettings;
-import org.devgateway.toolkit.persistence.dao.NationalIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.GisSettings;
+import org.devgateway.toolkit.persistence.dao.ipar.NationalIndicator;
 
 import java.util.ArrayList;
 import java.util.List;

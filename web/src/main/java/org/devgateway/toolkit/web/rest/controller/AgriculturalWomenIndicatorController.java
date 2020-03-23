@@ -1,8 +1,8 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator;
-import org.devgateway.toolkit.persistence.dao.categories.AgriculturalWomenGroup;
+import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalWomenIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.AgriculturalWomenGroup;
 import org.devgateway.toolkit.persistence.dto.AgriculturalWomenDTO;
 import org.devgateway.toolkit.persistence.dto.AgriculturalWomenSummary;
 import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;

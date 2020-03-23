@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.web.rest.controller;
 
-import org.devgateway.toolkit.persistence.dao.Production;
+import org.devgateway.toolkit.persistence.dao.ipar.Production;
 import org.devgateway.toolkit.persistence.dto.ProductionDTO;
 import org.devgateway.toolkit.persistence.service.ProductionService;
 import org.devgateway.toolkit.web.rest.controller.filter.ProductionFilterPagingRequest;

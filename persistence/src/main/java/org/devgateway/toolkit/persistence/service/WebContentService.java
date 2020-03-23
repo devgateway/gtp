@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service;
 
-import org.devgateway.toolkit.persistence.dao.WebContent;
+import org.devgateway.toolkit.persistence.dao.ipar.WebContent;
 
 /**
  * Created by Daniel Oliva

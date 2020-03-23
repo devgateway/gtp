@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.dto;
 
-import org.devgateway.toolkit.persistence.dao.DepartmentStat;
-import org.devgateway.toolkit.persistence.dao.RegionStat;
+import org.devgateway.toolkit.persistence.dao.ipar.DepartmentStat;
+import org.devgateway.toolkit.persistence.dao.ipar.RegionStat;
 
 public class GisStatDTO {
 

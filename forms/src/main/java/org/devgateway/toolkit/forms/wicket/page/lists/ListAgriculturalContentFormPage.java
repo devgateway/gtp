@@ -21,7 +21,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.TextFilteredBootstra
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.AgriculturalContentFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditAgriculturalContentPage;
-import org.devgateway.toolkit.persistence.dao.AgriculturalContent;
+import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalContent;
 import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
 import org.wicketstuff.annotation.mount.MountPath;
 

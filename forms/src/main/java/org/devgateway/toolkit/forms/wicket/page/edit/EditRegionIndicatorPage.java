@@ -29,8 +29,8 @@ import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFor
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListRegionIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
-import org.devgateway.toolkit.persistence.dao.RegionIndicator;
-import org.devgateway.toolkit.persistence.dao.RegionStat;
+import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.RegionStat;
 import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ImportRegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;

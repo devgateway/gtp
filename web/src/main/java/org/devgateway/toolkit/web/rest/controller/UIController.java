@@ -1,9 +1,9 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.devgateway.toolkit.persistence.dao.IndicatorMetadata;
-import org.devgateway.toolkit.persistence.dao.RapidLink;
-import org.devgateway.toolkit.persistence.dao.WebContent;
+import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.dao.ipar.RapidLink;
+import org.devgateway.toolkit.persistence.dao.ipar.WebContent;
 import org.devgateway.toolkit.persistence.dto.PartnerDTO;
 import org.devgateway.toolkit.persistence.service.IndicatorMetadataService;
 import org.devgateway.toolkit.persistence.service.PartnerService;

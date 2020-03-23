@@ -29,8 +29,8 @@ import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstra
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListAgriculturalContentFormPage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
-import org.devgateway.toolkit.persistence.dao.AgriculturalContent;
-import org.devgateway.toolkit.persistence.dao.categories.ContentType;
+import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalContent;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.ContentType;
 import org.devgateway.toolkit.persistence.repository.category.ContentTypeRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;

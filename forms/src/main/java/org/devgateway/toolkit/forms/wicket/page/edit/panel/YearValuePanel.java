@@ -5,8 +5,8 @@ import org.apache.wicket.model.IModel;
 import org.devgateway.toolkit.forms.wicket.components.ListViewSectionPanel;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.util.ComponentUtil;
-import org.devgateway.toolkit.persistence.dao.NationalIndicator;
-import org.devgateway.toolkit.persistence.dao.NationalIndicatorYearValue;
+import org.devgateway.toolkit.persistence.dao.ipar.NationalIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.NationalIndicatorYearValue;
 
 /**
  * @author dbianco

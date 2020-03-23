@@ -22,7 +22,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.DirectLinkBootstrapP
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.NationalIndicatorFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditNationalIndicatorPage;
-import org.devgateway.toolkit.persistence.dao.NationalIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.NationalIndicator;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.service.NationalIndicatorService;
 import org.wicketstuff.annotation.mount.MountPath;

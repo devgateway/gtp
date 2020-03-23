@@ -1,9 +1,9 @@
 package org.devgateway.toolkit.forms.wicket.components.table.filter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.devgateway.toolkit.persistence.dao.AgriculturalContent;
+import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalContent;
 import org.devgateway.toolkit.persistence.dao.AgriculturalContent_;
-import org.devgateway.toolkit.persistence.dao.categories.ContentType;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.ContentType;
 import org.devgateway.toolkit.persistence.dao.categories.ContentType_;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;

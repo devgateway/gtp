@@ -2,11 +2,11 @@ package org.devgateway.toolkit.persistence.service;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.devgateway.toolkit.persistence.dao.FoodLossDataset;
-import org.devgateway.toolkit.persistence.dao.FoodLossIndicator;
-import org.devgateway.toolkit.persistence.dao.Dataset;
-import org.devgateway.toolkit.persistence.dao.categories.CropType;
-import org.devgateway.toolkit.persistence.dao.categories.LossType;
+import org.devgateway.toolkit.persistence.dao.ipar.FoodLossDataset;
+import org.devgateway.toolkit.persistence.dao.ipar.FoodLossIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.CropType;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.LossType;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
 import org.devgateway.toolkit.persistence.repository.FoodLossDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.FoodLossIndicatorRepository;

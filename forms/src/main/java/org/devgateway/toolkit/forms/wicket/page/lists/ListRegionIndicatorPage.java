@@ -21,7 +21,7 @@ import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.RegionIndicatorFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditRegionIndicatorPage;
-import org.devgateway.toolkit.persistence.dao.RegionIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
 import org.wicketstuff.annotation.mount.MountPath;

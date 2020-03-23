@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.dto;
 
 import org.apache.commons.lang3.StringUtils;
-import org.devgateway.toolkit.persistence.dao.Partner;
+import org.devgateway.toolkit.persistence.dao.ipar.Partner;
 
 import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 

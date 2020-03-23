@@ -1,8 +1,8 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.devgateway.toolkit.persistence.dao.GisSettings;
-import org.devgateway.toolkit.persistence.dao.categories.DatasetType;
+import org.devgateway.toolkit.persistence.dao.ipar.GisSettings;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.DatasetType;
 import org.devgateway.toolkit.persistence.dto.AgriculturalContentDTO;
 import org.devgateway.toolkit.persistence.dto.DatasetDTO;
 import org.devgateway.toolkit.persistence.dto.NationalIndicatorDTO;

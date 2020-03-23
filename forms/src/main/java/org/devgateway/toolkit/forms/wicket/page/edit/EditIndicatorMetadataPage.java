@@ -25,8 +25,8 @@ import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstra
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListIndicatorMetadataFormPage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
-import org.devgateway.toolkit.persistence.dao.IndicatorMetadata;
-import org.devgateway.toolkit.persistence.dao.categories.Indicator;
+import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.Indicator;
 import org.devgateway.toolkit.persistence.repository.category.IndicatorRepository;
 import org.devgateway.toolkit.persistence.service.IndicatorMetadataService;
 import org.wicketstuff.annotation.mount.MountPath;

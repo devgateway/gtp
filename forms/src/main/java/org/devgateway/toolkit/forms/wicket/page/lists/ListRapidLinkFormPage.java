@@ -21,7 +21,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.TextFilteredBootstra
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.RapidLinkFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditRapidLinkPage;
-import org.devgateway.toolkit.persistence.dao.RapidLink;
+import org.devgateway.toolkit.persistence.dao.ipar.RapidLink;
 import org.devgateway.toolkit.persistence.service.RapidLinkService;
 import org.wicketstuff.annotation.mount.MountPath;
 

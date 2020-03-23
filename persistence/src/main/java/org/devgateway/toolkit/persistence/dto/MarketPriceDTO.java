@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.dto;
 
-import org.devgateway.toolkit.persistence.dao.MarketPrice;
+import org.devgateway.toolkit.persistence.dao.ipar.MarketPrice;
 import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 
 import java.time.LocalDate;

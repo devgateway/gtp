@@ -10,9 +10,9 @@ import static org.junit.Assert.assertThat;
 
 import javax.persistence.EntityManager;
 
-import org.devgateway.toolkit.persistence.dao.Column;
-import org.devgateway.toolkit.persistence.dao.DataSource;
-import org.devgateway.toolkit.persistence.dao.Table;
+import org.devgateway.toolkit.persistence.dao.ipar.Column;
+import org.devgateway.toolkit.persistence.dao.ipar.DataSource;
+import org.devgateway.toolkit.persistence.dao.ipar.Table;
 import org.devgateway.toolkit.persistence.spring.PersistenceApplication;
 import org.hamcrest.Matcher;
 import org.junit.Test;
@@ -20,7 +20,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
