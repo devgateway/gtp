@@ -472,7 +472,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
                 newUploadMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
 
-        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
+        // navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
 
         return navbar;
     }
