@@ -23,6 +23,8 @@ public class NationalIndicatorDTO {
 
     private String link;
 
+    private String indicatorGroup;
+
     private Integer referenceYear;
 
     private Double referenceValue;
@@ -67,6 +69,8 @@ public class NationalIndicatorDTO {
             this.yearValues = yearValues;
         }
         this.reverse = indicator.isDescending();
+        //TODO
+        this.indicatorGroup = this.source.split("/")[0];
     }
 
     public Long getId() {
@@ -75,6 +79,14 @@ public class NationalIndicatorDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getIndicatorGroup() {
+        return indicatorGroup;
+    }
+
+    public void setIndicatorGroup(String indicatorGroup) {
+        this.indicatorGroup = indicatorGroup;
     }
 
     public String getName() {
