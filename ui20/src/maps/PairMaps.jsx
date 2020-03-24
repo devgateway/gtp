@@ -9,7 +9,7 @@ import { Grid, Image } from 'semantic-ui-react'
 import Map from './Map.jsx'
 import Immutable from 'immutable'
 import messages from '../translations/messages'
-import {CustomFilterDropDown,items2options} from '../indicators/Components'
+import {CustomGroupedDropDown, CustomFilterDropDown,items2options} from '../indicators/Components'
 import {PngExport} from '../indicators/Components'
 
 var regions = require('../json/regions.json'); //with path
@@ -29,6 +29,33 @@ const getOptions=(data)=> {
 
     }
     })
+}
+
+
+const getGroupedOptions=(data)=> {
+  const groups=[...new Set(data.map(d=>d.indicatorGroup))]
+
+  const level1=groups.map(g=>{
+      const level2=  data.filter(d1=>d1.indicatorGroup==g).map(d=>{return {
+        key:d.id ,
+        text:d.name,
+        description:d.description ,
+        leftMap:d.leftMap,
+        rightMap:d.rightMap,
+        measure:d.measure,
+        reverse:d.reverse,
+        source:d.source,
+
+      }
+      });
+        return {
+          group:g,
+          options:level2
+        };
+  })
+
+
+  return level1;
 }
 
 
@@ -94,7 +121,7 @@ if (data){
 
 
     const options=getOptions(data.toJS())
-
+    const groupedOptions=getGroupedOptions(data.toJS())
 
     const defLeft =  options.find(o=>o.leftMap==true) || options[0]
     const defRigth=  options.find(o=>o.rightMap==true)  || options[0]
@@ -142,7 +169,7 @@ if (data){
     return (
       <div className="pairs maps">
       <div className="export area">
-      <PngExport name={intl.formatMessage({id:'indicators.chart.aoi.title'})} id={id} filters={[]} includes={[]}/>
+        <PngExport name={intl.formatMessage({id:'indicators.chart.aoi.title'})} id={id} filters={[]} includes={[]}/>
 
       </div>
 
@@ -152,7 +179,7 @@ if (data){
       <div className="wrapper">
           <div className="gis filter container  ">
               <div className="gis filter item indicator">
-                <CustomFilterDropDown className="dropdown indicator" single options={options} onChange={s => {
+                <CustomGroupedDropDown className="dropdown indicator" single options={groupedOptions} onChange={s => {
                   if(s.length>0){
                     setLeft(s)
                   }
@@ -190,7 +217,7 @@ if (data){
 
              <div className="gis filter container">
                    <div className="gis filter item indicator">
-                   <CustomFilterDropDown className="dropdown indicator" single options={options}
+                   <CustomGroupedDropDown className="dropdown indicator" single options={groupedOptions}
                     onChange={s => {
                       if(s.length>0){
                         setRight(s)

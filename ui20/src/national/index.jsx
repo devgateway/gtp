@@ -6,14 +6,9 @@ import React, {Component, createRef, useState} from 'react'
 import './national.scss'
 import {loadNationalIndicators} from '../modules/National'
 import { Grid, Label } from 'semantic-ui-react'
-
 import BulletChartContainer from './BulletChartContainer'
-
-
-
 import Immutable from 'immutable'
 import messages from '../translations/messages'
-import {CustomFilterDropDown,items2options} from '../indicators/Components'
 
 
 class GIS extends Component {

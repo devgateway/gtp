@@ -9,7 +9,7 @@ import { Grid, Image } from 'semantic-ui-react'
 import {Bullet} from './Charts.jsx'
 import Immutable from 'immutable'
 import messages from '../translations/messages'
-import {CustomFilterDropDown,items2options} from '../indicators/Components'
+import {CustomGroupedDropDown} from '../indicators/Components'
 import {PngExport} from '../indicators/Components'
 
 var regions = require('../json/regions.json'); //with path
@@ -114,7 +114,7 @@ const PairOfMaps=({intl ,id, data, n})=>{
       <div className="national chart container">
             <div className="national filter container">
 
-                <CustomFilterDropDown single className="dropdown indicator"  options={options} onChange={s => {
+                <CustomGroupedDropDown single className="dropdown indicator"  options={options} onChange={s => {
                     if(s.length>0){
                                 setSeCurrentSelection(s)
                               }
