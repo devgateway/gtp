@@ -26,18 +26,30 @@ import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListDepartmentIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
+import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.DepartmentIndicator;
 import org.devgateway.toolkit.persistence.dao.DepartmentStat;
+import org.devgateway.toolkit.persistence.dao.RegionIndicator;
+import org.devgateway.toolkit.persistence.dao.categories.IndicatorGroup;
+import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
+import org.devgateway.toolkit.persistence.repository.category.IndicatorGroupRepository;
 import org.devgateway.toolkit.persistence.service.ImportDepartmentIndicatorService;
 import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;
+import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
+import org.devgateway.toolkit.persistence.util.Constants;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -55,7 +67,13 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
     private transient ImportDepartmentIndicatorService importService;
 
     @SpringBean
+    private IndicatorGroupRepository indicatorGroupRepository;
+
+    @SpringBean
     protected DepartmentIndicatorService service;
+
+    @SpringBean
+    protected RegionIndicatorService regionService;
 
     @SpringBean
     protected MarkupCacheService markupCacheService;
@@ -93,6 +111,20 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
                 new TextFieldBootstrapFormComponent<>("description");
         description.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
         editForm.add(description);
+
+        List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAllFetchingLocalizedLabels();
+        GenericChoiceProvider<IndicatorGroup> choiceProvider =
+                new GenericChoiceProvider<IndicatorGroup>(indicatorGroups) {
+                    @Override
+                    public String getDisplayValue(IndicatorGroup indicatorGroup) {
+                        return indicatorGroup.getLabelFr() + " / " + indicatorGroup.getLabel();
+                    }
+                };
+
+        Select2ChoiceBootstrapFormComponent<IndicatorGroup> indicatorGroup =
+                new Select2ChoiceBootstrapFormComponent<>("indicatorGroup", choiceProvider);
+        editForm.add(indicatorGroup);
+        indicatorGroup.required();
 
         final TextFieldBootstrapFormComponent<String> measure =
                 new TextFieldBootstrapFormComponent<>("measure");
@@ -171,6 +203,8 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
                     target.add(feedbackPanel);
                     redirectToSelf = true;
                 } else {
+                    addDepartmentsFakeIndicators();
+                    addRegionFakeIndicators();
                     markupCacheService.clearAllCaches();
                 }
                 cacheService.releaseCache();
@@ -189,6 +223,50 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
                 }
             }
         };
+    }
+
+    private void addDepartmentsFakeIndicators() {
+        List<GisIndicatorDTO> listEn = service.findGisDepartmentIndicators(null);
+        Map<Long, GisIndicatorDTO> listFr = service.findGisDepartmentIndicators(Constants.LANG_FR)
+                .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
+        Map<String, DepartmentIndicator> indicatorList = service.findAll().stream()
+                .collect(Collectors.toMap(DepartmentIndicator::getName, r -> r));
+
+        for (GisIndicatorDTO enDTO : listEn) {
+            if (!indicatorList.containsKey(enDTO.getName())) {
+                DepartmentIndicator ri = new DepartmentIndicator();
+                ri.setName(enDTO.getName());
+                GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
+                if (frDTO != null) {
+                    ri.setNameFr(frDTO.getName());
+                }
+                ri.setFakeIndicatorFlag(true);
+                ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
+                jpaService.saveAndFlush(ri);
+            }
+        }
+    }
+
+    private void addRegionFakeIndicators() {
+        List<GisIndicatorDTO> listEn = regionService.findGisRegionIndicators(null);
+        Map<Long, GisIndicatorDTO> listFr = regionService.findGisRegionIndicators(Constants.LANG_FR)
+                .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
+        Map<String, RegionIndicator> indicatorList = regionService.findAll().stream()
+                .collect(Collectors.toMap(RegionIndicator::getName, r -> r));
+
+        for (GisIndicatorDTO enDTO : listEn) {
+            if (!indicatorList.containsKey(enDTO.getName())) {
+                RegionIndicator ri = new RegionIndicator();
+                ri.setName(enDTO.getName());
+                GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
+                if (frDTO != null) {
+                    ri.setNameFr(frDTO.getName());
+                }
+                ri.setFakeIndicatorFlag(true);
+                ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
+                regionService.saveAndFlush(ri);
+            }
+        }
     }
 
 }

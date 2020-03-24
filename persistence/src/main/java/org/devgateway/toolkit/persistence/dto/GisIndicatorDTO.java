@@ -81,8 +81,7 @@ public class GisIndicatorDTO {
         this.maxValue = di.getMaxValue();
         this.leftMap = di.isLeftMap();
         this.measure = di.getMeasure();
-        //TODO
-        this.indicatorGroup = this.name.split(" ")[0];
+        this.indicatorGroup = isFr ? di.getIndicatorGroup().getLabelFr() : di.getIndicatorGroup().getLabel();
         this.rightMap = di.isRightMap();
         if (di.getSource() != null) {
             this.sources.add(di.getSource());

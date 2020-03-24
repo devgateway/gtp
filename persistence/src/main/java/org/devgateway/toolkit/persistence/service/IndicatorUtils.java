@@ -32,7 +32,6 @@ public final class IndicatorUtils {
                 year = p.getYear();
                 crop = p.getCrop() != null ? p.getCrop() : EMPTY_STRING;
                 dto.setName(p.getName(isFR, type));
-                dto.setId((long) year * 1000 + dto.getName().hashCode());
                 dto.setName(p.getName(isFR, type));
                 //TODO
                 dto.setIndicatorGroup(dto.getName().split(" ")[0]);
@@ -61,6 +60,7 @@ public final class IndicatorUtils {
                 if (p.getSource() != null) {
                     dto.getSources().add(p.getSource());
                 }
+                dto.setId((long) year * 1000 + dto.getNameEnFr().hashCode());
                 ret.add(dto);
             }
             fillStat(dto, p.getCode(), p.getValue());
