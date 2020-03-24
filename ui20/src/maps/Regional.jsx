@@ -64,7 +64,7 @@ class GIS extends Component {
             <p><FormattedMessage id='gis.regional.description' defaultMessage="The GIS page will display some indicators  that have been preloaded by each responsible partner organization.
             The site will also display, non-official data sources that users can access by clicking on the links provided. Where available, a given dataset will be displaying a link that will connect the ANSD data repository when users can consult reports, studies and other metadata related to a specific dataset."/></p>
           </div>
-
+          <div className="clear block">
           {range.map(n=>{
               return <PairOfMaps key={`map.region_${n}`} level="region" id={`map.region_${n}`} data={regionalIndicator}/>
           })}
@@ -75,6 +75,7 @@ class GIS extends Component {
             {range.length > 1&&<Label className="remove" color="red" onClick={e=>this.removeLast('region')}><FormattedMessage id='gis.remove' defaultMessage="Remove last one"/></Label>}
             <Label className="add"  color="olive" onClick={e=>this.addnewOne('region')}><FormattedMessage id='gis.add' defaultMessage="Add new pair of maps"/></Label>
 
+           </div>
            </div>
          </div>
       )

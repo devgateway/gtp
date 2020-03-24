@@ -12,7 +12,7 @@ const formatOptions = {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
 }
-const width = 638,
+const width = 600,
   height = 450;
 
 export default class D3Map extends Component < {},
@@ -69,8 +69,15 @@ export default class D3Map extends Component < {},
             .attr("x",d=>20)
             .attr("y",d=>45)
             .attr("class", "big label")
-            .attr("fill", "black")
-            .attr("text-anchor", "start")
+            .style("fill","#7b8d56")
+            .style("stroke", "#FFF")
+            .style("font-family","Open Sans")
+            .style("font-weight","bold")
+            .style("stroke-width", "1px")
+            .style("font-size", "40px")
+            .style("text-transform", "uppercase")
+            .style("font-weight", "bold")
+            .style("text-anchor", "start")
             .text("")
             .transition()
             .delay(100)
@@ -89,8 +96,15 @@ export default class D3Map extends Component < {},
         .attr("x",d=>width -30)
         .attr("y",d=>height -25)
         .attr("class", "medium label")
-        .attr("fill", "black")
-        .attr("text-anchor", "end")
+        .style("fill","#7b8d56")
+        .style("stroke", "#FFF")
+        .style("font-family","Open Sans")
+        .style("font-weight","bold")
+        .style("stroke-width", "1px")
+        .style("font-size", "40px")
+        .style("text-transform", "uppercase")
+        .style("font-weight", "bold")
+          .attr("text-anchor", "end")
         .text("")
         .transition()
         .delay(100)
@@ -104,7 +118,15 @@ export default class D3Map extends Component < {},
         .attr("x",d=>width -30)
         .attr("y",d=>height -5)
         .attr("class", "small label")
-        .attr("fill", "black")
+        .style("fill","#7b8d56")
+        .style("stroke", "#FFF")
+        .style("font-family","Open Sans")
+        .style("font-weight","bold")
+        .style("stroke-width", "1px")
+        .style("font-size", "22px")
+        .style("text-transform", "uppercase")
+        .style("font-weight", "bold")
+      .attr("fill", "black")
         .attr("text-anchor", "end")
         .text("")
         .transition()
@@ -152,6 +174,10 @@ export default class D3Map extends Component < {},
       .data(json.features)
       .enter()
       .append("text")
+      .style("font-size","6px")
+      .style("font-family","Open Sans")
+      .style("font-weight","bold")
+
       .attr("class", "label")
       .attr("fill", "black")
       .style("text-anchor", "start")

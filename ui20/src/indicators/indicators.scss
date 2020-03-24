@@ -204,7 +204,7 @@
   min-height: 200px;
   display: block;
   clear: both;
-  width: $page-width;
+  width:  $content-width;
   margin: auto;
 
   .indicators.title {
@@ -547,7 +547,7 @@
     .item:last-child{
       border-right: 0px;
     }
-    
+
     .item {
       line-height: 75px;
       text-align: center;

@@ -68,7 +68,7 @@ const ChartSection = injectIntl((props)=>{
              <div className="chart container">
               {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>
               <FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:
-              <BarChart
+              <BarChart groupMode="stacked"
                 yLegend={props.intl.formatMessage(messages.age)}
                 xLegend={props.intl.formatMessage(messages.percent)}
                {...getWomenDistributionByGroup(props.population,props.intl,(a,b)=>{
