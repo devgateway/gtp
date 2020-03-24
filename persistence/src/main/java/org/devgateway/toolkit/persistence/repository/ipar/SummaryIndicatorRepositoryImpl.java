@@ -5,9 +5,9 @@ import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalWomenIndicator;
 import org.devgateway.toolkit.persistence.dao.ipar.AgricultureOrientationIndexIndicator;
 import org.devgateway.toolkit.persistence.dao.ipar.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.dao.ipar.PovertyIndicator;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicator_;
+// import org.devgateway.toolkit.persistence.dao.PovertyIndicator_;
 import org.devgateway.toolkit.persistence.dao.ipar.Region;
-import org.devgateway.toolkit.persistence.dao.Region_;
+// import org.devgateway.toolkit.persistence.dao.Region_;
 import org.devgateway.toolkit.persistence.dto.ipar.AOISummary;
 import org.devgateway.toolkit.persistence.dto.ipar.AgriculturalWomenSummary;
 import org.devgateway.toolkit.persistence.dto.ipar.FoodLossSummary;
@@ -56,6 +56,7 @@ public class SummaryIndicatorRepositoryImpl implements SummaryIndicatorRepositor
 
     public List<PovertySummary> getPovertyByYearAndRegionAndLevel(final Specification<PovertyIndicator> spec) {
         LOGGER.debug("getPovertyByYearAndRegion");
+        /*
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery query = cb.createQuery();
         Root<PovertyIndicator> root = query.from(PovertyIndicator.class);
@@ -92,9 +93,12 @@ public class SummaryIndicatorRepositoryImpl implements SummaryIndicatorRepositor
         List<PovertySummary> summary = allItems.stream().map(s -> new PovertySummary(s)).collect(Collectors.toList());
         calculatePercentage(summary, spec);
         return summary;
+        */
+        return null;
     }
 
     private void calculatePercentage(List<PovertySummary> summary, final Specification<PovertyIndicator> spec) {
+        /*
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery query = cb.createQuery();
         Root<PovertyIndicator> root = query.from(PovertyIndicator.class);
@@ -125,6 +129,7 @@ public class SummaryIndicatorRepositoryImpl implements SummaryIndicatorRepositor
                 s.setPercentage(new Double(s.getCount()) / new Double((Long) total.get()[0]));
             }
         });
+        */
     }
 
     public List<AgriculturalWomenSummary> getAgriculturalWomenIndicator(

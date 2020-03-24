@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller.filter.ipar;
 
 import org.devgateway.toolkit.persistence.dao.ipar.Consumption;
-import org.devgateway.toolkit.persistence.dao.Consumption_;
+// import org.devgateway.toolkit.persistence.dao.Consumption_;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -41,11 +41,11 @@ public class ConsumptionFilterState extends DataFilterState<Consumption> {
     }
 
     protected void addDeparmentPredicates(Root<Consumption> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getRegion(), Consumption_.DEPARTMENT); // TODO fix type mismatch
+        // addIntPredicates(root, cb, predicates, filter.getRegion(), Consumption_.DEPARTMENT); // TODO fix type mismatch
     }
 
     protected void addCropSubTypePredicates(Root<Consumption> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getCropSubType(), Consumption_.CROP_SUB_TYPE);
+        // addIntPredicates(root, cb, predicates, filter.getCropSubType(), Consumption_.CROP_SUB_TYPE);
         // TODO fix type mismatch
     }
 }

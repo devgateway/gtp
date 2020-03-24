@@ -2,12 +2,12 @@ package org.devgateway.toolkit.web.rest.controller.filter.ipar;
 
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
-import org.devgateway.toolkit.persistence.dao.Dataset_;
+// import org.devgateway.toolkit.persistence.dao.Dataset_;
 import org.devgateway.toolkit.persistence.dao.Person;
-import org.devgateway.toolkit.persistence.dao.Person_;
+// import org.devgateway.toolkit.persistence.dao.Person_;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.DatasetType;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.dao.categories.Organization_;
+// import org.devgateway.toolkit.persistence.dao.categories.Organization_;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -57,13 +57,14 @@ public class DatasetFilterState {
         if (filter.getYear() != null && filter.getYear().size() > 0) {
             List<Predicate> intPred = new ArrayList<>();
             for (Integer value:filter.getYear()) {
-                intPred.add(cb.equal(root.get(Dataset_.YEAR), value));
+                // intPred.add(cb.equal(root.get(Dataset_.YEAR), value));
             }
             predicates.add(cb.or(intPred.toArray(new Predicate[intPred.size()])));
         }
     }
 
     private void applyOrderByQuery(Root<Dataset> root, CriteriaQuery<?> query) {
+        /*
         String column = "";
         if (StringUtils.isNotBlank(filter.getSortBy())) {
             column = filter.getSortBy().toLowerCase().trim();
@@ -95,25 +96,27 @@ public class DatasetFilterState {
             default :
                 query.orderBy(new OrderImpl(root.get(Dataset_.CREATED_DATE), isAsc));
         }
+         */
 
     }
 
     protected void addOrganizationPredicates(Root<Dataset> root, CriteriaBuilder cb, List<Predicate> predicates) {
         if (filter.getOrganization() != null && filter.getOrganization().size() > 0) {
             List<Predicate> intPred = new ArrayList<>();
-            Join<Dataset, Organization> join = root.join(Dataset_.ORGANIZATION, JoinType.LEFT);
+            // Join<Dataset, Organization> join = root.join(Dataset_.ORGANIZATION, JoinType.LEFT);
             for (Integer value:filter.getOrganization()) {
-                intPred.add(cb.equal(join.get("id"), value));
+                // intPred.add(cb.equal(join.get("id"), value));
             }
             predicates.add(cb.or(intPred.toArray(new Predicate[intPred.size()])));
         }
     }
 
     protected void addApprovedDatasets(Root<Dataset> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        predicates.add(cb.and(cb.isTrue(root.get(Dataset_.APPROVED))));
+        // predicates.add(cb.and(cb.isTrue(root.get(Dataset_.APPROVED))));
     }
 
     protected void addTextPredicates(Root<Dataset> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        /*
         if (StringUtils.isNotBlank(filter.getText())) {
             String txt = filter.getText().toLowerCase();
             Join<Dataset, Person> join = root.join(Dataset_.UPLOADED_BY, JoinType.LEFT);
@@ -141,10 +144,12 @@ public class DatasetFilterState {
                 )));
             }
         }
+        */
     }
 
 
     protected void addDatePredicates(Root<Dataset> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        /*
         ZonedDateTime minDate = filter.getRealMinDate();
         if (minDate != null) {
             predicates.add(cb.greaterThanOrEqualTo(root.get(Dataset_.CREATED_DATE), minDate));
@@ -153,6 +158,7 @@ public class DatasetFilterState {
         if (filter.getMaxDate() != null) {
             predicates.add(cb.lessThanOrEqualTo(root.get(Dataset_.CREATED_DATE), maxDate));
         }
+        */
     }
 
 }

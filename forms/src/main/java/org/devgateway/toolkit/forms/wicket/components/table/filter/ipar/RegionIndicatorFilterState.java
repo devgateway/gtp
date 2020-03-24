@@ -3,11 +3,11 @@ package org.devgateway.toolkit.forms.wicket.components.table.filter.ipar;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.persistence.dao.Person;
-import org.devgateway.toolkit.persistence.dao.Person_;
+// import org.devgateway.toolkit.persistence.dao.Person_;
 import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
-import org.devgateway.toolkit.persistence.dao.RegionIndicator_;
+// import org.devgateway.toolkit.persistence.dao.RegionIndicator_;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.dao.categories.Organization_;
+// import org.devgateway.toolkit.persistence.dao.categories.Organization_;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Join;
@@ -36,6 +36,7 @@ public class RegionIndicatorFilterState extends JpaFilterState<RegionIndicator> 
     public Specification<RegionIndicator> getSpecification() {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
+            /*
             if (StringUtils.isNotBlank(reducedName)) {
                 predicates.add(cb.like(cb.lower(root.get(RegionIndicator_.NAME)),
                         "%" + reducedName.toLowerCase() + "%"));
@@ -50,6 +51,7 @@ public class RegionIndicatorFilterState extends JpaFilterState<RegionIndicator> 
                 predicates.add(cb.like(cb.lower(organizationJoin.get(Organization_.label)),
                         "%" + organization.toLowerCase() + "%"));
             }
+             */
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }

@@ -1,8 +1,8 @@
 package org.devgateway.toolkit.web.rest.controller.filter.ipar;
 
 import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalWomenIndicator;
-import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator_;
-import org.devgateway.toolkit.persistence.dao.Data_;
+// import org.devgateway.toolkit.persistence.dao.AgriculturalWomenIndicator_;
+// import org.devgateway.toolkit.persistence.dao.Data_;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -40,7 +40,7 @@ public class AgriculturalWomenFilterState extends DataFilterState<AgriculturalWo
                 addMaxPercentagePredicate(root, cb, predicates);
             }
             addApprovedDatasets(root, cb, predicates);
-            query.orderBy(new OrderImpl(root.get(Data_.YEAR), true));
+            // query.orderBy(new OrderImpl(root.get(Data_.YEAR), true));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
@@ -48,23 +48,23 @@ public class AgriculturalWomenFilterState extends DataFilterState<AgriculturalWo
 
     protected void addMinPercentagePredicate(Root<AgriculturalWomenIndicator> root, CriteriaBuilder cb,
                                              List<Predicate> predicates) {
-        addMinPredicate(root, cb, predicates, filter.getMinPercentage(), AgriculturalWomenIndicator_.PERCENTAGE);
+        // addMinPredicate(root, cb, predicates, filter.getMinPercentage(), AgriculturalWomenIndicator_.PERCENTAGE);
     }
 
     protected void addMaxPercentagePredicate(Root<AgriculturalWomenIndicator> root, CriteriaBuilder cb,
                                              List<Predicate> predicates) {
-        addMaxPredicate(root, cb, predicates, filter.getMaxPercentage(), AgriculturalWomenIndicator_.PERCENTAGE);
+        // addMaxPredicate(root, cb, predicates, filter.getMaxPercentage(), AgriculturalWomenIndicator_.PERCENTAGE);
     }
 
     protected void addAwGroupPredicates(Root<AgriculturalWomenIndicator> root, CriteriaBuilder cb,
                                        List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getAwGroup(), AgriculturalWomenIndicator_.GROUP);
+        // addIntPredicates(root, cb, predicates, filter.getAwGroup(), AgriculturalWomenIndicator_.GROUP);
         // TODO fix type mismatch
     }
 
     protected void addAwGroupTypePredicates(Root<AgriculturalWomenIndicator> root, CriteriaBuilder cb,
                                         List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getAwGroupType(), AgriculturalWomenIndicator_.GROUP_TYPE);
+        // addIntPredicates(root, cb, predicates, filter.getAwGroupType(), AgriculturalWomenIndicator_.GROUP_TYPE);
         // TODO fix type mismatch
     }
 

@@ -3,9 +3,9 @@ package org.devgateway.toolkit.forms.wicket.components.table.filter.ipar;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.persistence.dao.ipar.RapidLink;
-import org.devgateway.toolkit.persistence.dao.RapidLink_;
+// import org.devgateway.toolkit.persistence.dao.RapidLink_;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.RapidLinkPosition;
-import org.devgateway.toolkit.persistence.dao.categories.RapidLinkPosition_;
+// import org.devgateway.toolkit.persistence.dao.categories.RapidLinkPosition_;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Join;
@@ -27,6 +27,7 @@ public class RapidLinkFilterState extends JpaFilterState<RapidLink> {
     public Specification<RapidLink> getSpecification() {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
+            /*
             if (StringUtils.isNotBlank(title)) {
                 predicates.add(cb.like(cb.lower(root.get(RapidLink_.TITLE)), "%" + title.toLowerCase() + "%"));
             }
@@ -37,6 +38,7 @@ public class RapidLinkFilterState extends JpaFilterState<RapidLink> {
                 Join<RapidLink, RapidLinkPosition> join = root.join(RapidLink_.RAPID_LINK_POSITION);
                 predicates.add(cb.like(join.get(RapidLinkPosition_.LABEL), "%" + rapidLinkPosition + "%"));
             }
+             */
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }

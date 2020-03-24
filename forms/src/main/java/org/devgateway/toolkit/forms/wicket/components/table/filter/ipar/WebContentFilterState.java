@@ -3,7 +3,7 @@ package org.devgateway.toolkit.forms.wicket.components.table.filter.ipar;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.persistence.dao.ipar.WebContent;
-import org.devgateway.toolkit.persistence.dao.WebContent_;
+// import org.devgateway.toolkit.persistence.dao.WebContent_;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Predicate;
@@ -23,7 +23,7 @@ public class WebContentFilterState extends JpaFilterState<WebContent> {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (StringUtils.isNotBlank(title)) {
-                predicates.add(cb.like(cb.lower(root.get(WebContent_.title)), "%" + title.toLowerCase() + "%"));
+                // predicates.add(cb.like(cb.lower(root.get(WebContent_.title)), "%" + title.toLowerCase() + "%"));
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };

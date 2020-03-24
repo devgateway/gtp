@@ -13,9 +13,9 @@ import javax.persistence.criteria.Root;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.ipar.Data;
-import org.devgateway.toolkit.persistence.dao.Data_;
+// import org.devgateway.toolkit.persistence.dao.Data_;
 import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
-import org.devgateway.toolkit.persistence.dao.Dataset_;
+// import org.devgateway.toolkit.persistence.dao.Dataset_;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
@@ -49,13 +49,13 @@ public class DataFilterState<T extends Data> implements Serializable {
 
     protected void addDatasetIdPredicates(Root<T> root, CriteriaBuilder cb,
                                        List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getDatasetId(), Data_.DATASET);
+        // addIntPredicates(root, cb, predicates, filter.getDatasetId(), Data_.DATASET);
         // TODO fix type mismatch
     }
 
     protected void addApprovedDatasets(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        Join<T, Dataset> join = root.join(Data_.DATASET, JoinType.LEFT);
-        predicates.add(cb.and(cb.isTrue(join.get(Dataset_.APPROVED))));
+        // Join<T, Dataset> join = root.join(Data_.DATASET, JoinType.LEFT);
+        // predicates.add(cb.and(cb.isTrue(join.get(Dataset_.APPROVED))));
     }
 
     protected void addStringPredicates(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates,

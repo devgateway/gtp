@@ -2,11 +2,11 @@ package org.devgateway.toolkit.forms.wicket.components.table.filter.ipar;
 
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.persistence.dao.ipar.NationalIndicator;
-import org.devgateway.toolkit.persistence.dao.NationalIndicator_;
+// import org.devgateway.toolkit.persistence.dao.NationalIndicator_;
 import org.devgateway.toolkit.persistence.dao.Person;
-import org.devgateway.toolkit.persistence.dao.Person_;
+// import org.devgateway.toolkit.persistence.dao.Person_;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.dao.categories.Organization_;
+// import org.devgateway.toolkit.persistence.dao.categories.Organization_;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Join;
@@ -34,10 +34,12 @@ public class NationalIndicatorFilterState extends JpaFilterState<NationalIndicat
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (organization != null) {
+                /*
                 Join<NationalIndicator, Person> personJoin = root.join(NationalIndicator_.UPLOADED_BY);
                 Join<Person, Organization> organizationJoin = personJoin.join(Person_.ORGANIZATION);
                 predicates.add(cb.like(cb.lower(organizationJoin.get(Organization_.LABEL)),
                         "%" + organization.toLowerCase() + "%"));
+                 */
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };

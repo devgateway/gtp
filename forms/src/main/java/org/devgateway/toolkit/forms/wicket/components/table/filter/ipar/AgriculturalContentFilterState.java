@@ -3,9 +3,9 @@ package org.devgateway.toolkit.forms.wicket.components.table.filter.ipar;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.persistence.dao.ipar.AgriculturalContent;
-import org.devgateway.toolkit.persistence.dao.AgriculturalContent_;
+// import org.devgateway.toolkit.persistence.dao.AgriculturalContent_;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.ContentType;
-import org.devgateway.toolkit.persistence.dao.categories.ContentType_;
+// import org.devgateway.toolkit.persistence.dao.categories.ContentType_;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -29,6 +29,7 @@ public class AgriculturalContentFilterState extends JpaFilterState<AgriculturalC
     public Specification<AgriculturalContent> getSpecification() {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
+            /*
             if (StringUtils.isNotBlank(reducedTitle)) {
                 predicates.add(cb.like(cb.lower(root.get(AgriculturalContent_.title)), "%"
                         + reducedTitle.toLowerCase() + "%"));
@@ -42,6 +43,7 @@ public class AgriculturalContentFilterState extends JpaFilterState<AgriculturalC
                 predicates.add(cb.like(join.get(ContentType_.label), "%" + contentType + "%"));
             }
             query.orderBy(new OrderImpl(root.get(AgriculturalContent_.publicationDate), false));
+             */
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }

@@ -1,8 +1,8 @@
 package org.devgateway.toolkit.web.rest.controller.filter.ipar;
 
-import org.devgateway.toolkit.persistence.dao.Data_;
+// import org.devgateway.toolkit.persistence.dao.Data_;
 import org.devgateway.toolkit.persistence.dao.ipar.PovertyIndicator;
-import org.devgateway.toolkit.persistence.dao.PovertyIndicator_;
+// import org.devgateway.toolkit.persistence.dao.PovertyIndicator_;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -43,32 +43,32 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
                 addProfActivityPredicates(root, cb, predicates);
             }
             addApprovedDatasets(root, cb, predicates);
-            query.orderBy(new OrderImpl(root.get(Data_.YEAR), true));
+            // query.orderBy(new OrderImpl(root.get(Data_.YEAR), true));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
 
     private void addProfActivityPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> pred) {
-        addIntPredicates(root, cb, pred, filter.getActivity(), PovertyIndicator_.PROFESSIONAL_ACTIVITY);
+        // addIntPredicates(root, cb, pred, filter.getActivity(), PovertyIndicator_.PROFESSIONAL_ACTIVITY);
     }
 
     protected void addMinAgePredicate(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addMinPredicate(root, cb, predicates, filter.getMinAge(), PovertyIndicator_.AGE);
+        // addMinPredicate(root, cb, predicates, filter.getMinAge(), PovertyIndicator_.AGE);
     }
 
     protected void addMaxAgePredicate(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addMaxPredicate(root, cb, predicates, filter.getMaxAge(), PovertyIndicator_.AGE);
+        // addMaxPredicate(root, cb, predicates, filter.getMaxAge(), PovertyIndicator_.AGE);
     }
 
     protected void addMinScorePredicate(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addMinPredicate(root, cb, predicates, filter.getMinScore(), PovertyIndicator_.POVERTY_SCORE);
+        // addMinPredicate(root, cb, predicates, filter.getMinScore(), PovertyIndicator_.POVERTY_SCORE);
     }
 
     protected void addMaxScorePredicate(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addMaxPredicate(root, cb, predicates, filter.getMaxScore(), PovertyIndicator_.POVERTY_SCORE);
+        // addMaxPredicate(root, cb, predicates, filter.getMaxScore(), PovertyIndicator_.POVERTY_SCORE);
     }
 
     protected void addPovLevelPredicates(Root<PovertyIndicator> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getPovertyLevel(), PovertyIndicator_.POVERTY_LEVEL);
+        // addIntPredicates(root, cb, predicates, filter.getPovertyLevel(), PovertyIndicator_.POVERTY_LEVEL);
     }
 }

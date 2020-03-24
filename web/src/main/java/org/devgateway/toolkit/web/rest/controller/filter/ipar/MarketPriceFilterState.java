@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller.filter.ipar;
 
 import org.devgateway.toolkit.persistence.dao.ipar.MarketPrice;
-import org.devgateway.toolkit.persistence.dao.MarketPrice_;
+// import org.devgateway.toolkit.persistence.dao.MarketPrice_;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -31,7 +31,7 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
                 addDataIdPredicates(root, cb, predicates);
                 addDatasetIdPredicates(root, cb, predicates);
                 addCropTypePredicates(root, cb, predicates);
-                addYearDatePredicates(root, cb, predicates, MarketPrice_.DATE);
+                // addYearDatePredicates(root, cb, predicates, MarketPrice_.DATE);
                 addMarketPredicates(root, cb, predicates);
             }
             addApprovedDatasets(root, cb, predicates);
@@ -41,7 +41,7 @@ public class MarketPriceFilterState extends DataFilterState<MarketPrice> {
 
 
     protected void addMarketPredicates(Root<MarketPrice> root, CriteriaBuilder cb, List<Predicate> predicates) {
-        addIntPredicates(root, cb, predicates, filter.getMarket(), MarketPrice_.MARKET);
+        // addIntPredicates(root, cb, predicates, filter.getMarket(), MarketPrice_.MARKET);
     }
 
 }

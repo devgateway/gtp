@@ -2,7 +2,7 @@ package org.devgateway.toolkit.web.rest.controller.filter.ipar;
 
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.ipar.MicrodataLink;
-import org.devgateway.toolkit.persistence.dao.MicrodataLink_;
+// import org.devgateway.toolkit.persistence.dao.MicrodataLink_;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
@@ -38,7 +38,7 @@ public class MicrodataLinkFilterState {
                 addTextPredicates(root, cb, predicates);
                 addOrganizationPredicates(root, cb, predicates);
             }
-            query.orderBy(new OrderImpl(root.get(MicrodataLink_.CREATED_DATE), false));
+            // query.orderBy(new OrderImpl(root.get(MicrodataLink_.CREATED_DATE), false));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
@@ -46,9 +46,9 @@ public class MicrodataLinkFilterState {
     protected void addOrganizationPredicates(Root<MicrodataLink> root, CriteriaBuilder cb, List<Predicate> predicates) {
         if (filter.getOrganization() != null && filter.getOrganization().size() > 0) {
             List<Predicate> intPred = new ArrayList<>();
-            Join<MicrodataLink, Organization> join = root.join(MicrodataLink_.ORGANIZATION, JoinType.LEFT);
+            // Join<MicrodataLink, Organization> join = root.join(MicrodataLink_.ORGANIZATION, JoinType.LEFT);
             for (Integer value:filter.getOrganization()) {
-                intPred.add(cb.equal(join.get("id"), value));
+                // intPred.add(cb.equal(join.get("id"), value));
             }
             predicates.add(cb.or(intPred.toArray(new Predicate[intPred.size()])));
         }
@@ -59,13 +59,13 @@ public class MicrodataLinkFilterState {
             String txt = filter.getText().toLowerCase();
             if (StringUtils.isNotEmpty(filter.getLang()) && filter.getLang().equalsIgnoreCase(LANG_FR)) {
                 predicates.add(cb.and(cb.or(
-                        cb.like(cb.lower(root.get(MicrodataLink_.TITLE_FR)), "%" + txt + "%"),
-                        cb.like(cb.lower(root.get(MicrodataLink_.DESCRIPTION_FR)), "%" + txt + "%")
+                        // cb.like(cb.lower(root.get(MicrodataLink_.TITLE_FR)), "%" + txt + "%"),
+                        // cb.like(cb.lower(root.get(MicrodataLink_.DESCRIPTION_FR)), "%" + txt + "%")
                 )));
             } else {
                 predicates.add(cb.and(cb.or(
-                        cb.like(cb.lower(root.get(MicrodataLink_.TITLE)), "%" + txt + "%"),
-                        cb.like(cb.lower(root.get(MicrodataLink_.DESCRIPTION)), "%" + txt + "%")
+                        // cb.like(cb.lower(root.get(MicrodataLink_.TITLE)), "%" + txt + "%"),
+                        // cb.like(cb.lower(root.get(MicrodataLink_.DESCRIPTION)), "%" + txt + "%")
                 )));
             }
         }
@@ -75,11 +75,11 @@ public class MicrodataLinkFilterState {
     protected void addDatePredicates(Root<MicrodataLink> root, CriteriaBuilder cb, List<Predicate> predicates) {
         ZonedDateTime minDate = filter.getRealMinDate();
         if (minDate != null) {
-            predicates.add(cb.greaterThanOrEqualTo(root.get(MicrodataLink_.CREATED_DATE), minDate));
+            // predicates.add(cb.greaterThanOrEqualTo(root.get(MicrodataLink_.CREATED_DATE), minDate));
         }
         ZonedDateTime maxDate = filter.getRealMaxDate();
         if (filter.getMaxDate() != null) {
-            predicates.add(cb.lessThanOrEqualTo(root.get(MicrodataLink_.CREATED_DATE), maxDate));
+            // predicates.add(cb.lessThanOrEqualTo(root.get(MicrodataLink_.CREATED_DATE), maxDate));
         }
     }
 

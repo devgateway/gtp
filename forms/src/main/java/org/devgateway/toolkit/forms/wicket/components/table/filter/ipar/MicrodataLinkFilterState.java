@@ -3,9 +3,9 @@ package org.devgateway.toolkit.forms.wicket.components.table.filter.ipar;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.persistence.dao.ipar.MicrodataLink;
-import org.devgateway.toolkit.persistence.dao.MicrodataLink_;
+// import org.devgateway.toolkit.persistence.dao.MicrodataLink_;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
-import org.devgateway.toolkit.persistence.dao.categories.Organization_;
+// import org.devgateway.toolkit.persistence.dao.categories.Organization_;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -39,6 +39,7 @@ public class MicrodataLinkFilterState extends JpaFilterState<MicrodataLink> {
     public Specification<MicrodataLink> getSpecification() {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
+            /*
             if (StringUtils.isNotBlank(title)) {
                 predicates.add(cb.like(cb.lower(root.get(MicrodataLink_.title)), "%" + title.toLowerCase() + "%"));
             }
@@ -68,6 +69,7 @@ public class MicrodataLinkFilterState extends JpaFilterState<MicrodataLink> {
                         + descriptionFr.toLowerCase() + "%"));
             }
             query.orderBy(new OrderImpl(root.get(MicrodataLink_.createdDate), false));
+             */
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
