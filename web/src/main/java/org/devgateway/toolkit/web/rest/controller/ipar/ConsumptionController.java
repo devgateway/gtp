@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by Daniel Oliva
  */
-@RestController
+ // @RestController
 @RequestMapping(value = "/data/consumption")
 @CrossOrigin
 public class ConsumptionController extends AbstractDatasetController<Consumption, ConsumptionFilterPagingRequest,

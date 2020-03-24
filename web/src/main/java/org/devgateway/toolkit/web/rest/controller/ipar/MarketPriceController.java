@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by Daniel Oliva
  */
-@RestController
+ // @RestController
 @RequestMapping(value = "/data/marketPrice")
 @CrossOrigin
 public class MarketPriceController extends AbstractDatasetController<MarketPrice, MarketFilterPagingRequest,

@@ -34,7 +34,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 /**
  * Created by Daniel Oliva
  */
-@RestController
+ // @RestController
 @RequestMapping(value = "/data/agriculturalWomen")
 @CrossOrigin
 @CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "servicesCache")

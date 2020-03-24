@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-@RestController
+ // @RestController
 @RequestMapping(value = "/data")
 @CrossOrigin
 public class DatasetController {

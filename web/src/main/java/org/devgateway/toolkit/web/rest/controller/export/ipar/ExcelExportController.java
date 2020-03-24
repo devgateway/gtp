@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 
-@RestController
+// @RestController
 @RequestMapping(value = "/data/indicator")
 @CrossOrigin
 public class ExcelExportController {

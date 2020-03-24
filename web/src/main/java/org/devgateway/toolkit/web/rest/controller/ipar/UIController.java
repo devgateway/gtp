@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.web.rest.controller;
+package org.devgateway.toolkit.web.rest.controller.ipar;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
@@ -35,7 +35,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 /**
  * Created by Daniel Oliva
  */
-@RestController
+ // @RestController
 @RequestMapping(value = "/data")
 @CrossOrigin
 public class UIController {
