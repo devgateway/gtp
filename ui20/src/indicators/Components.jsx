@@ -217,8 +217,7 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
 
       </Dropdown.Header>
         }
-      <Dropdown.Divider/>
-
+    
 
       <Dropdown.Menu scrolling="scrolling" className="filter options">
 
