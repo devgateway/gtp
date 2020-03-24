@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Daniel Oliva
  */
-@Service("marketPriceImporter")
+// @Service("marketPriceImporter")
 public class MarketPriceImporter extends AbstractImportService<MarketPrice> {
 
     private static final Logger logger = LoggerFactory.getLogger(MarketPriceImporter.class);

@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author Daniel Oliva
  */
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class IndexTypeServiceImpl extends BaseJpaServiceImpl<IndexType> implements IndexTypeService {

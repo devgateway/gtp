@@ -28,7 +28,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Daniel Oliva
  */
-@Service("productionImporter")
+// @Service("productionImporter")
 public class ProductionImporter extends AbstractImportService<Production> {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductionImporter.class);

@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional
 public class ImportRegionIndicatorServiceImpl implements ImportRegionIndicatorService {

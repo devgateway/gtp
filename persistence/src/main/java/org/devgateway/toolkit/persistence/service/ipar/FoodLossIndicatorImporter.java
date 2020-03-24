@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Daniel Oliva
  */
-@Service("foodLossIndicatorImporter")
+// @Service("foodLossIndicatorImporter")
 public class FoodLossIndicatorImporter extends AbstractImportService<FoodLossIndicator> {
 
     private static final Logger logger = LoggerFactory.getLogger(FoodLossIndicatorImporter.class);

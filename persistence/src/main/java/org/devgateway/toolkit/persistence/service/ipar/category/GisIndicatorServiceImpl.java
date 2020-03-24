@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Daniel Oliva
  */
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class GisIndicatorServiceImpl extends BaseJpaServiceImpl<GisIndicator> implements GisIndicatorService {

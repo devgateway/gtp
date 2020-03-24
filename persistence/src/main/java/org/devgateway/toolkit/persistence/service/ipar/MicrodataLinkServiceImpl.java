@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Daniel Oliva
  */
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class MicrodataLinkServiceImpl extends BaseJpaServiceImpl<MicrodataLink> implements MicrodataLinkService {

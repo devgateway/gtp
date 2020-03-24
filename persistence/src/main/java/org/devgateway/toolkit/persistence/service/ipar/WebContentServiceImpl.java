@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Created by Daniel Oliva
  */
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class WebContentServiceImpl extends BaseJpaServiceImpl<WebContent> implements WebContentService {

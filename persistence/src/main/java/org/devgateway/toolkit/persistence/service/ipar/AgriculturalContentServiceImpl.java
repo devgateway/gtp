@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * @author dbianco
  */
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional
 public class AgriculturalContentServiceImpl extends BaseJpaServiceImpl<AgriculturalContent>

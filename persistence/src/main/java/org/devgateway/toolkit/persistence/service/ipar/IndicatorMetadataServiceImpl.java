@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by Daniel Oliva
  */
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class IndicatorMetadataServiceImpl extends BaseJpaServiceImpl<IndicatorMetadata>

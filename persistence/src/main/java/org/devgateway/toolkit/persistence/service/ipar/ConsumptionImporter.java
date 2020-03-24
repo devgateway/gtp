@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Daniel Oliva
  */
-@Service("consumptionImporter")
+// @Service("consumptionImporter")
 public class ConsumptionImporter extends AbstractImportService<Consumption> {
 
     private static final Logger logger = LoggerFactory.getLogger(ConsumptionImporter.class);

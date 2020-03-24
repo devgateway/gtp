@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Daniel Oliva
  */
-@Service("povertyIndicatorImporter")
+// @Service("povertyIndicatorImporter")
 public class PovertyIndicatorImporter extends AbstractImportService<PovertyIndicator> {
 
     private static final Logger logger = LoggerFactory.getLogger(PovertyIndicatorImporter.class);

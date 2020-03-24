@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Daniel Oliva
  */
-@Service("agriculturalWomenIndicatorImporter")
+// @Service("agriculturalWomenIndicatorImporter")
 public class AgriculturalWomenIndicatorImporter extends AbstractImportService<AgriculturalWomenIndicator> {
 
     private static final Logger logger = LoggerFactory.getLogger(AgriculturalWomenIndicatorImporter.class);

@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Daniel Oliva
  */
-@Service("marketPriceDatasetService")
+// @Service("marketPriceDatasetService")
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class MarketPriceDatasetServiceImpl extends BaseJpaServiceImpl<MarketDataset>

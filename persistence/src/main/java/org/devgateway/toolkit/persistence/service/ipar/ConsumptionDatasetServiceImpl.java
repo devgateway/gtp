@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Daniel Oliva
  */
-@Service("consumptionDatasetService")
+// @Service("consumptionDatasetService")
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class ConsumptionDatasetServiceImpl extends BaseJpaServiceImpl<ConsumptionDataset>

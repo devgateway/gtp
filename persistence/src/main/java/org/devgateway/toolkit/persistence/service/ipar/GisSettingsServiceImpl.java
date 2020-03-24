@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author dbianco
  */
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class GisSettingsServiceImpl extends BaseJpaServiceImpl<GisSettings> implements GisSettingsService {

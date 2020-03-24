@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author idobre
  * @since 2019-03-04
  */
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class CropTypeServiceImpl extends BaseJpaServiceImpl<CropType> implements CropTypeService {

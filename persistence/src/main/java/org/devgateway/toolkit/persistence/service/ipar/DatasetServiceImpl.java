@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 /**
  * @author Daniel Oliva
  */
-@Service("datasetService")
+// @Service("datasetService")
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class DatasetServiceImpl extends BaseJpaServiceImpl<Dataset>

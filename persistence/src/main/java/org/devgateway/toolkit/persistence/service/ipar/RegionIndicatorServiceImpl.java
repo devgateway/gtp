@@ -29,7 +29,7 @@ import static org.devgateway.toolkit.persistence.util.Constants.PROD_YIELD_TYPE;
 /**
  * @author dbianco
  */
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional
 public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicator> implements RegionIndicatorService {

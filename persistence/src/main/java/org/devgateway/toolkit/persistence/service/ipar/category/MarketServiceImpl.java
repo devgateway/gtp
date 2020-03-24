@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Octavian Ciubotaru
  */
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class MarketServiceImpl extends BaseJpaServiceImpl<Market> implements MarketService {

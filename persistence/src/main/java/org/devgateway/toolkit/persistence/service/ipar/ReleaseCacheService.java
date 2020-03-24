@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by dbianco
  */
-@Service
+// @Service
 public class ReleaseCacheService {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ReleaseCacheService.class);

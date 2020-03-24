@@ -45,7 +45,7 @@ import java.util.stream.Collectors;
 import static org.devgateway.toolkit.persistence.util.Constants.EMPTY_STRING;
 import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 
-@Service
+// @Service
 @CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "excelExportCache")
 public class ExcelGenerator {
 

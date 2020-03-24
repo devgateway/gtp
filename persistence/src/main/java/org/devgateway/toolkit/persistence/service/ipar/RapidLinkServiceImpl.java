@@ -15,7 +15,7 @@ import java.util.Optional;
 /**
  * Created by Daniel Oliva
  */
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class RapidLinkServiceImpl extends BaseJpaServiceImpl<RapidLink> implements RapidLinkService {

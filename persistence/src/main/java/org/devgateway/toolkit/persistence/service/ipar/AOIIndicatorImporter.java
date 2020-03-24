@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Daniel Oliva
  */
-@Service("aoiIndicatorImporter")
+// @Service("aoiIndicatorImporter")
 public class AOIIndicatorImporter extends AbstractImportService<AgricultureOrientationIndexIndicator> {
 
     private static final Logger logger = LoggerFactory.getLogger(AOIIndicatorImporter.class);

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * @author Octavian Ciubotaru
  */
-@Service
+// @Service
 @CacheConfig(cacheNames = "servicesCache") // TODO if not specified then persistence project can't run?
 @Transactional(readOnly = true)
 public class PartnerServiceImpl extends BaseJpaServiceImpl<Partner> implements PartnerService {
