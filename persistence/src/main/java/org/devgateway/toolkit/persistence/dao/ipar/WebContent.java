@@ -15,8 +15,8 @@ import java.io.Serializable;
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
-@Audited
+// @Entity
+ @Audited
 @JsonIgnoreProperties({"id", "new"})
 public class WebContent extends AbstractAuditableEntity implements Serializable {
 

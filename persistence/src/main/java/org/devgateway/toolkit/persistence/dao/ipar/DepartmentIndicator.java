@@ -24,7 +24,7 @@ import java.util.Set;
  * three different entities since they were requested at project end
  * Created by Daniel Oliva
  */
-@Entity
+// @Entity
 @JsonIgnoreProperties({"new"})
 public class DepartmentIndicator extends GenericPersistable implements Serializable {
 

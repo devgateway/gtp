@@ -9,6 +9,6 @@ import javax.persistence.Entity;
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 public class ProductionDataset extends Dataset {
 }

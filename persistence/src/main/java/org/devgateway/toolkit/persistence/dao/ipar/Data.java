@@ -20,7 +20,7 @@ import java.io.Serializable;
 /**
  * Created by Daniel Oliva
  */
-@Entity
+// @Entity
 @JsonIgnoreProperties({"id", "new"})
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Data extends AbstractAuditableEntity implements Serializable {

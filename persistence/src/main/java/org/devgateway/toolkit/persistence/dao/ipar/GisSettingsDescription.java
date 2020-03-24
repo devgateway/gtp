@@ -13,7 +13,7 @@ import java.io.Serializable;
 /**
  * Created by Daniel Oliva
  */
-@Entity
+// @Entity
 @JsonIgnoreProperties({"new"})
 public class GisSettingsDescription extends AbstractAuditableEntity implements Serializable {
 

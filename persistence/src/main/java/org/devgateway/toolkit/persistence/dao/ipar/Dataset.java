@@ -20,7 +20,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * @author Daniel Oliva
  */
-@Entity
+// @Entity
 public class Dataset extends AbstractAuditableEntity implements Serializable, Labelable, Fileable {
 
     private String label;

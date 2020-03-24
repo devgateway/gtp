@@ -11,8 +11,8 @@ import org.hibernate.envers.Audited;
 /**
  * @author Octavian Ciubotaru
  */
-@Entity
-@Audited
+// @Entity
+ @Audited
 @javax.persistence.Table(name = "md_column",
         indexes = @Index(unique = true, columnList = "parent_id, name"))
 public class Column extends AbstractChildAuditableEntity<Table> {

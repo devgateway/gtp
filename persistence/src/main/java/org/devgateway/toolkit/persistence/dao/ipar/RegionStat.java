@@ -17,7 +17,7 @@ import java.io.Serializable;
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 @JsonIgnoreProperties({"id", "new"})
 public class RegionStat extends GenericPersistable implements Serializable {
 

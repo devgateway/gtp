@@ -8,8 +8,8 @@ import org.hibernate.envers.Audited;
 /**
  * @author Octavian Ciubotaru
  */
-@Entity
-@Audited
+// @Entity
+ @Audited
 public class CropType extends Category {
 
     public CropType() {

@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 @JsonPropertyOrder({"year", "department", "cropType", "surface", "production", "yield", "region"})
 public class Production extends Data {
     private static final long serialVersionUID = -3339250112046118104L;

@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 @JsonIgnoreProperties({"id", "new"})
 public class MicrodataLink extends AbstractAuditableEntity implements Serializable, Linkable {
 

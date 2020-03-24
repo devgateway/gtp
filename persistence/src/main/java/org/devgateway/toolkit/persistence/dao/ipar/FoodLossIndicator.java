@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 public class FoodLossIndicator extends Data {
 
     @ManyToOne(optional = false)

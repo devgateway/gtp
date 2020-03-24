@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by Daniel Oliva
  */
-@Entity
+// @Entity
 @JsonIgnoreProperties({"new"})
 public class NationalIndicator extends AbstractAuditableEntity implements Serializable, Linkable {
 

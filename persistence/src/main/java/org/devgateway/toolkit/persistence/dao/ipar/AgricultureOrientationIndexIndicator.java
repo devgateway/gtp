@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 public class AgricultureOrientationIndexIndicator extends Data {
     private static final long serialVersionUID = 3;
 

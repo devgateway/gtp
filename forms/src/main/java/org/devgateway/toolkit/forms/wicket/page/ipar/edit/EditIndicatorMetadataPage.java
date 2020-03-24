@@ -73,7 +73,8 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
         introField.required();
         editForm.add(introField);
 
-        List<Indicator> indicators = indicatorRepo.findAllFetchingLocalizedLabels();
+        // List<Indicator> indicators = indicatorRepo.findAllFetchingLocalizedLabels();
+        List<Indicator> indicators = indicatorRepo.findAll();
         Indicator currentIndicator = editForm.getModelObject().getIndicator();
         service.findAll().stream().forEach(x -> {
             if (currentIndicator == null || !currentIndicator.getId().equals(x.getIndicator().getId())) {

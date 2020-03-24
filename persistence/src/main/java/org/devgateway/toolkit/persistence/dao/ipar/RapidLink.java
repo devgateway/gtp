@@ -26,7 +26,7 @@ import java.util.Set;
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 @JsonPropertyOrder({"title", "subtitle", "link", "position", "fileId"})
 @JsonIgnoreProperties({"id", "new"})
 public class RapidLink extends AbstractAuditableEntity implements Serializable {

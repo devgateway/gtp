@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 /**
  * Created by Daniel Oliva
  */
-@Entity
-@Audited
+// @Entity
+ @Audited
 public class Indicator extends Category {
 }

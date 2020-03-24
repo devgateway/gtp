@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 public class AgriculturalWomenIndicator extends Data {
     private static final long serialVersionUID = -3339250112046134104L;
 

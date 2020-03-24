@@ -21,8 +21,8 @@ import org.hibernate.envers.RelationTargetAuditMode;
 /**
  * @author Octavian Ciubotaru
  */
-@Entity
-@Audited
+// @Entity
+ @Audited
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"department_id", "name"}))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
@@ -30,7 +30,7 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
 
     @NotNull
     @ManyToOne(optional = false)
-    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
+     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Department department;
 

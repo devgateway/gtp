@@ -20,9 +20,9 @@ import org.springframework.lang.NonNull;
 /**
  * @author Octavian Ciubotaru
  */
-@Entity
-@Audited
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"category_id", "language"}))
+// @Entity
+ @Audited
+// @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"category_id", "language"}))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class LocalizedCategoryLabel extends AbstractAuditableEntity implements Serializable {
 

@@ -24,7 +24,7 @@ import java.util.Set;
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 @JsonPropertyOrder({"id", "title", "description", "link", "fileId"})
 @JsonIgnoreProperties({"new"})
 public class AgriculturalContent extends AbstractAuditableEntity implements Serializable {

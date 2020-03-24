@@ -21,9 +21,9 @@ import org.hibernate.envers.Audited;
 /**
  * @author Octavian Ciubotaru
  */
-@Entity
-@Audited
-@javax.persistence.Table(name = "md_table")
+// @Entity
+ @Audited
+// @javax.persistence.Table(name = "md_table")
 public class Table extends AbstractAuditableEntity {
 
     /**

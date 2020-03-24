@@ -26,8 +26,8 @@ import org.hibernate.envers.Audited;
  * @author Octavian Ciubotaru
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
-@Audited
+// @Entity
+ @Audited
 @JsonIgnoreProperties({"new", "groupType", "logo"})
 public class Partner extends AbstractAuditableEntity implements Serializable {
 

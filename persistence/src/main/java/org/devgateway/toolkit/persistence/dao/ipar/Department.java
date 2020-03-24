@@ -17,7 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * @author Octavian Ciubotaru
  */
-@Entity
+// @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
 public class Department extends GenericPersistable implements Serializable, Labelable {

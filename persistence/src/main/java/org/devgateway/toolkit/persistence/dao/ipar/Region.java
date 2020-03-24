@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 @BatchSize(size = 100)
 public class Region extends GenericPersistable implements Serializable, Labelable {
 

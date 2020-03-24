@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 public class PovertyIndicator extends Data {
     private static final long serialVersionUID = -3339250112046118104L;
 

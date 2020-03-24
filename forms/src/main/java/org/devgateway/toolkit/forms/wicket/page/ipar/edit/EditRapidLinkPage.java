@@ -100,7 +100,8 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
         editForm.add(linkField);
         linkField.required();
 
-        List<RapidLinkPosition> positions = rlpRepo.findAllFetchingLocalizedLabels();
+        // List<RapidLinkPosition> positions = rlpRepo.findAllFetchingLocalizedLabels();
+        List<RapidLinkPosition> positions = rlpRepo.findAll();
         GenericChoiceProvider<RapidLinkPosition> choiceProvider =
                 new GenericChoiceProvider<RapidLinkPosition>(positions) {
             @Override

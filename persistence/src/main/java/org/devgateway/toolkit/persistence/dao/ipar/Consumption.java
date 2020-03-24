@@ -21,7 +21,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 @JsonPropertyOrder({"year", "department", "cropType", "cropSubType", "householdSize", "dailyConsumption",
         "weeklyConsumption", "region"})
 public class Consumption extends Data implements Serializable {

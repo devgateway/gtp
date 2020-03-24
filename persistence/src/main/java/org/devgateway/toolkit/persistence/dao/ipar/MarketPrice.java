@@ -20,7 +20,7 @@ import java.time.LocalDate;
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+// @Entity
 @JsonPropertyOrder({"year", "market", "cropType", "date", "quantity", "sellPrice", "detailBuyPrice",
         "wholesaleBuyPrice"})
 public class MarketPrice extends Data {

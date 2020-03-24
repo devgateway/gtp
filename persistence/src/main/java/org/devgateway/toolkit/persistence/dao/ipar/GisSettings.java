@@ -13,8 +13,8 @@ import javax.persistence.OrderColumn;
 import java.io.Serializable;
 import java.util.List;
 
-@Entity
-@Audited
+// @Entity
+ @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class GisSettings extends AbstractAuditableEntity implements Serializable {
 

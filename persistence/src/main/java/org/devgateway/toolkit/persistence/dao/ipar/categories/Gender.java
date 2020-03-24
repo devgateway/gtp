@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 /*
  * @author Daniel Oliva
  */
-@Entity
-@Audited
+// @Entity
+ @Audited
 public class Gender extends Category {
 }

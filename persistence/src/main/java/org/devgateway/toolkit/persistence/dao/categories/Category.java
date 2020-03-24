@@ -60,11 +60,13 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
 
     private Integer type;
 
+    /*
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "category")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @BatchSize(size = 100)
     @JsonIgnore
     private List<LocalizedCategoryLabel> localizedLabels = new ArrayList<>();
+    */
 
     public Category(final String label) {
         this.label = label;
@@ -84,11 +86,11 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     }
 
     public List<LocalizedCategoryLabel> getLocalizedLabels() {
-        return localizedLabels;
+        return null;
     }
 
     public void setLocalizedLabels(List<LocalizedCategoryLabel> localizedLabels) {
-        this.localizedLabels = localizedLabels;
+        // this.localizedLabels = localizedLabels;
     }
 
     /**
@@ -99,6 +101,7 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     }
 
     public String getLabel(String language) {
+        /*
         if (StringUtils.isNotBlank(language)) {
             try {
                 for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
@@ -111,6 +114,7 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
                 //Dont return null for label, its being used in serialization
             }
         }
+         */
         return label;
     }
 
@@ -123,6 +127,7 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
 
     private void setLabel(String language, String label) {
         LocalizedCategoryLabel target = null;
+        /*
         for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
             if (localizedLabel.getLanguage().equals(language)) {
                 target = localizedLabel;
@@ -134,6 +139,7 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
             target.setLanguage(language);
             localizedLabels.add(target);
         }
+         */
         target.setLabel(label);
     }
 

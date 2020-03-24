@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 /*
  * @author Daniel Oliva
  */
-@Entity
+// @Entity
 @Audited
 public class AgeGroup extends Category {
 }

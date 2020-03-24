@@ -70,7 +70,8 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
         name.getField().add(new PropertyValidator<>());
         name.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
 
-        List<PartnerGroup> partnerGroups = partnerGroupRepository.findAllFetchingLocalizedLabels();
+        // List<PartnerGroup> partnerGroups = partnerGroupRepository.findAllFetchingLocalizedLabels();
+        List<PartnerGroup> partnerGroups = partnerGroupRepository.findAll();
         GenericChoiceProvider<PartnerGroup> choiceProvider = new GenericChoiceProvider<PartnerGroup>(partnerGroups) {
             @Override
             public String getDisplayValue(PartnerGroup partnerGroup) {

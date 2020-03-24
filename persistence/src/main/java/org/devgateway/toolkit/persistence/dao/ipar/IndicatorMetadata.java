@@ -23,8 +23,8 @@ import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
  * Created by Daniel Oliva
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
-@Audited
+// @Entity
+ @Audited
 @JsonIgnoreProperties(value = { "new" })
 public class IndicatorMetadata extends AbstractAuditableEntity implements Serializable {
 
@@ -33,7 +33,7 @@ public class IndicatorMetadata extends AbstractAuditableEntity implements Serial
     private String introFr;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
+     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @JsonIgnore
     private Indicator indicator;
 

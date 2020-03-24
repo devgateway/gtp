@@ -4,6 +4,6 @@ import org.devgateway.toolkit.persistence.dao.categories.Category;
 
 import javax.persistence.Entity;
 
-@Entity
+// @Entity
 public class DatasetType extends Category {
 }

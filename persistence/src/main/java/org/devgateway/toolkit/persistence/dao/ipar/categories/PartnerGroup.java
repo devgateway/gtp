@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 /*
  * @author Daniel Oliva
  */
-@Entity
-@Audited
+// @Entity
+ @Audited
 public class PartnerGroup extends Category {
     @Override
     public String toString() {

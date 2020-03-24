@@ -7,6 +7,6 @@ import javax.persistence.Entity;
 /**
  * @author dbianco
  */
-@Entity
+// @Entity
 public class ContentType extends Category {
 }
