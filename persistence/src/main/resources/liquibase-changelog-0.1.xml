@@ -1,0 +1,58 @@
+<!--
+    Copyright (c) 2015 Development Gateway, Inc and others.
+
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the MIT License (MIT)
+    which accompanies this distribution, and is available at
+    https://opensource.org/licenses/MIT
+
+    Contributors:
+    Development Gateway - initial API and implementation
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    
+    <changeSet id="ANACIM-1" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="person" />
+            <columnExists tableName="person" columnName="organization_id" />
+            <tableExists tableName="role" />
+            <tableExists tableName="person_roles" />
+            <tableExists tableName="category" />
+        </preConditions>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="Organization" />
+            <column name="label" value="ANACIM" />
+        </insert>
+        <insert tableName="person">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="username" value="admin" />
+            <column name="email" value="admin@developmentgateway.org" />
+            <column name="enabled" value="true" />
+            <column name="password" value="$2a$10$BTYSCSAFdv8K31CsY8RnN.FsJHp8xcUcMxWvf2L7QR3.C2hP02cQe" />
+        </insert>
+        <insert tableName="role">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="authority" value="ROLE_ADMIN" />
+        </insert>
+        <sql><![CDATA[
+            INSERT INTO person_roles(person_id, roles_id)
+            SELECT p.id, r.id
+            FROM person p,
+                 role r
+            WHERE p.username = 'admin'
+              AND r.authority = 'ROLE_ADMIN';
+        ]]></sql>
+        <sql><![CDATA[
+            UPDATE person
+            SET organization_id=org.id
+            FROM category org
+            WHERE person.username = 'admin'
+              AND org.dtype = 'Organization'
+              AND org.label = 'ANACIM';
+        ]]></sql>
+    </changeSet>
+
+</databaseChangeLog>
