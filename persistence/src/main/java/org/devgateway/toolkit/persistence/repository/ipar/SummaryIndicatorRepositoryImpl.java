@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  * Created by dbianco
  */
 @Transactional
-@Service
+// @Service
 public class SummaryIndicatorRepositoryImpl implements SummaryIndicatorRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SummaryIndicatorRepositoryImpl.class);

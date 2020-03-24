@@ -4,6 +4,7 @@ import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @author Daniel Oliva
  */
+@NoRepositoryBean
 @Transactional
 public interface DatasetRepository extends BaseJpaRepository<Dataset, Long> {
 

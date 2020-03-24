@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.repository.ipar;
 import org.devgateway.toolkit.persistence.dao.ipar.Partner;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @author Octavian Ciubotaru
  */
+@NoRepositoryBean
 @Transactional
 public interface PartnerRepository extends BaseJpaRepository<Partner, Long> {
 

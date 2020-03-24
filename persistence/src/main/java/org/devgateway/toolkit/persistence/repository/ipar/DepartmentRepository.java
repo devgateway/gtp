@@ -5,10 +5,12 @@ import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaReposit
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 @CacheConfig(cacheNames = "servicesCache")
+@NoRepositoryBean
 @Transactional
 public interface DepartmentRepository extends BaseJpaRepository<Department, Long> {
 

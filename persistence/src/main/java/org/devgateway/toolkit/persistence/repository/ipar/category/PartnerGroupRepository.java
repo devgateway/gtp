@@ -13,11 +13,13 @@ package org.devgateway.toolkit.persistence.repository.ipar.category;
 
 import org.devgateway.toolkit.persistence.dao.ipar.categories.PartnerGroup;
 import org.devgateway.toolkit.persistence.repository.category.CategoryRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Daniel Oliva
  */
+@NoRepositoryBean
 @Transactional
 public interface PartnerGroupRepository extends CategoryRepository<PartnerGroup> {
 

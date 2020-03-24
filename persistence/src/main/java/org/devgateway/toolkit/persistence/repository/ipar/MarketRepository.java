@@ -3,12 +3,14 @@ package org.devgateway.toolkit.persistence.repository.ipar;
 import org.devgateway.toolkit.persistence.dao.ipar.Market;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Octavian Ciubotaru
  */
+@NoRepositoryBean
 @Transactional
 public interface MarketRepository extends BaseJpaRepository<Market, Long> {
 

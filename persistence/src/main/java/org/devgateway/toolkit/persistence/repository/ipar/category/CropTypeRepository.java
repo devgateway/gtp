@@ -13,11 +13,13 @@ package org.devgateway.toolkit.persistence.repository.ipar.category;
 
 import org.devgateway.toolkit.persistence.dao.ipar.categories.CropType;
 import org.devgateway.toolkit.persistence.repository.category.CategoryRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author mpostelnicu
  */
+@NoRepositoryBean
 @Transactional
 public interface CropTypeRepository extends CategoryRepository<CropType> {
 

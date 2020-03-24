@@ -4,6 +4,7 @@ import org.devgateway.toolkit.persistence.dao.ipar.Consumption;
 import org.devgateway.toolkit.persistence.dto.ipar.GisDTOConsumption;
 import org.devgateway.toolkit.persistence.repository.norepository.AuditedEntityRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  * Created by Daniel Oliva
  */
+@NoRepositoryBean
 @Transactional
 public interface ConsumptionIndicatorRepository extends AuditedEntityRepository<Consumption> {
 
