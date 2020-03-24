@@ -24,8 +24,6 @@ const getOptions=(data, percents)=> {
 
 const getGroupedOptions=(data)=> {
 
-  data.forEach(d=>d.indicatorGroup="Default")
-
   const groups=[...new Set(data.map(d=>d.indicatorGroup))]
 
   const level1=groups.map(g=>{
