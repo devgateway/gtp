@@ -184,11 +184,6 @@ html {
   background-image: url("/icon_csv_gray.png");
 }
 
-
-
-
-
-
 .grouped.dropdown {
   color: #646464;
   background-color: #f9f9f9;
@@ -206,8 +201,9 @@ html {
     float: left;
     overflow: hidden;
   }
-
-
+  .dropdown.icon {
+    margin-top: 10px !important;
+  }
 
   .breadcrums {
     height: 36px;
@@ -229,8 +225,7 @@ html {
     }
 
     .item {
-
-        cursor: pointer !important;
+      cursor: pointer !important;
       color: #73a745!important;
       font-size: 18px;
       margin-top: 0 !important;
@@ -239,7 +234,8 @@ html {
 
       .item {
         .checkbox {
-          margin-bottom: 5px;
+          margin-top: 2px !important;
+          margin-bottom: 16px !important;
         }
         white-space: pre-line !important;
         cursor: pointer !important;
