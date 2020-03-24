@@ -3,8 +3,9 @@ package org.devgateway.toolkit.persistence.service;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
-import org.devgateway.toolkit.persistence.dao.Column;
-import org.devgateway.toolkit.persistence.dao.Table;
+import org.devgateway.toolkit.persistence.dao.ipar.Column;
+import org.devgateway.toolkit.persistence.dao.ipar.Table;
+import org.devgateway.toolkit.persistence.service.ipar.DDLGenerator;
 import org.junit.Test;
 
 /**

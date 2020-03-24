@@ -9,7 +9,8 @@ import static org.junit.Assert.assertThat;
 
 import javax.persistence.EntityManager;
 
-import org.devgateway.toolkit.persistence.dao.DataSource;
+import org.devgateway.toolkit.persistence.dao.ipar.DataSource;
+import org.devgateway.toolkit.persistence.repository.ipar.DataSourceRepository;
 import org.devgateway.toolkit.persistence.spring.PersistenceApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;

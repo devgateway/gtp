@@ -26,9 +26,9 @@
     </properties>
 
     <parent>
-        <groupId>org.devgateway.ad3</groupId>
-        <artifactId>ad3</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <groupId>org.devgateway.ad3.anacim</groupId>
+        <artifactId>ad3-anacim</artifactId>
+        <version>0.1-SNAPSHOT</version>
     </parent>
 
     <dependencies>
@@ -88,9 +88,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.devgateway.ad3</groupId>
+            <groupId>org.devgateway.ad3.anacim</groupId>
             <artifactId>persistence</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
 
 <!--        <dependency>-->

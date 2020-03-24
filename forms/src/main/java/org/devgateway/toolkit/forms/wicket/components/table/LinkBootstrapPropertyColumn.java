@@ -8,7 +8,7 @@ import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
-import org.devgateway.toolkit.persistence.dao.Fileable;
+import org.devgateway.toolkit.persistence.dao.ipar.Fileable;
 
 /**
  * Created by Daniel Oliva

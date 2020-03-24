@@ -1,9 +1,11 @@
 package org.devgateway.toolkit.forms.wicket.components.pivottable;
 
+import org.devgateway.toolkit.persistence.dao.ipar.MarketPrice;
+
 import java.util.Map;
 
 /**
- * Opts to pass to javascript that are related to {@link org.devgateway.toolkit.persistence.dao.MarketPrice}.
+ * Opts to pass to javascript that are related to {@link MarketPrice}.
  *
  * @author Octavian Ciubotaru
  */

@@ -30,14 +30,14 @@ import org.apache.wicket.protocol.http.WicketFilter;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.devgateway.toolkit.persistence.dao.Consumption;
-import org.devgateway.toolkit.persistence.dao.MarketPrice;
-import org.devgateway.toolkit.persistence.dao.PivotTableField;
-import org.devgateway.toolkit.persistence.dao.Production;
-import org.devgateway.toolkit.persistence.service.category.CropTypeService;
-import org.devgateway.toolkit.persistence.service.category.DepartmentService;
-import org.devgateway.toolkit.persistence.service.category.MarketService;
-import org.devgateway.toolkit.persistence.service.category.RegionService;
+import org.devgateway.toolkit.persistence.dao.ipar.Consumption;
+import org.devgateway.toolkit.persistence.dao.ipar.MarketPrice;
+import org.devgateway.toolkit.persistence.dao.ipar.PivotTableField;
+import org.devgateway.toolkit.persistence.dao.ipar.Production;
+import org.devgateway.toolkit.persistence.service.ipar.category.CropTypeService;
+import org.devgateway.toolkit.persistence.service.ipar.category.DepartmentService;
+import org.devgateway.toolkit.persistence.service.ipar.category.MarketService;
+import org.devgateway.toolkit.persistence.service.ipar.category.RegionService;
 
 /**
  * Wicket component that acts as a wrapper for pivottable.js library.

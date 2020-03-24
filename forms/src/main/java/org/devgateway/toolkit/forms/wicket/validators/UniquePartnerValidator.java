@@ -3,7 +3,7 @@ package org.devgateway.toolkit.forms.wicket.validators;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
-import org.devgateway.toolkit.persistence.repository.PartnerRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.PartnerRepository;
 
 /**
  * @author Octavian Ciubotaru
