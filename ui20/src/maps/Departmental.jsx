@@ -66,7 +66,7 @@ class GIS extends Component {
             The site will also display, non-official data sources that users can access by clicking on the links provided. Where available, a given dataset will be displaying a link that will connect the ANSD data repository when users can consult reports, studies and other metadata related to a specific dataset."/></p>
           </div>
 
-
+  <div className="clear block">
 
 
                           {range.map(n=>{
@@ -84,6 +84,7 @@ class GIS extends Component {
                             </Label>
 
                            </div>
+                            </div>
          </div>
       )
   }

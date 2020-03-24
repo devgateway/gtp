@@ -6,7 +6,7 @@
 
 .initiatives.container {
   margin: auto;
-  width: $page-width;
+  width: $content-width;
 
   .initiatives.title {
     background-color: #FFF;
@@ -142,8 +142,6 @@
       margin: 10px auto auto;
       font-size: 10px;
       .item{
-        padding: 7px;
-
       }
       .item:before{
         }
