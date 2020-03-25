@@ -103,6 +103,7 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
         descriptionFr.required();
         editForm.add(descriptionFr);
 
+
         final TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("name");
         name.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
         editForm.add(name);
@@ -169,6 +170,20 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
         }
         editForm.add(approved);
 
+        if (entityId != null
+                && ((DepartmentIndicator) this.editForm.getModelObject()).isFakeIndicatorFlag()) {
+            name.setEnabled(false);
+            nameFr.setEnabled(false);
+            description.setVisibilityAllowed(false);
+            descriptionFr.setVisibilityAllowed(false);
+            approved.setVisibilityAllowed(false);
+            measure.setVisibilityAllowed(false);
+            year.setVisibilityAllowed(false);
+            source.setVisibilityAllowed(false);
+            descending.setVisibilityAllowed(false);
+            deleteButton.setEnabled(false);
+        }
+
         if (entityId != null && ((DepartmentIndicator) this.editForm.getModelObject()).isApproved()
                 && !SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
                 .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {
@@ -226,10 +241,10 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
     }
 
     private void addDepartmentsFakeIndicators() {
-        List<GisIndicatorDTO> listEn = service.findGisDepartmentIndicators(null);
-        Map<Long, GisIndicatorDTO> listFr = service.findGisDepartmentIndicators(Constants.LANG_FR)
+        List<GisIndicatorDTO> listEn = service.getFakeIndicatorDTOs(null);
+        Map<Long, GisIndicatorDTO> listFr = service.getFakeIndicatorDTOs(Constants.LANG_FR)
                 .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
-        Map<String, DepartmentIndicator> indicatorList = service.findAll().stream()
+        Map<String, DepartmentIndicator> indicatorList = service.findAllFake().stream()
                 .collect(Collectors.toMap(DepartmentIndicator::getName, r -> r));
 
         for (GisIndicatorDTO enDTO : listEn) {
@@ -248,10 +263,10 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
     }
 
     private void addRegionFakeIndicators() {
-        List<GisIndicatorDTO> listEn = regionService.findGisRegionIndicators(null);
-        Map<Long, GisIndicatorDTO> listFr = regionService.findGisRegionIndicators(Constants.LANG_FR)
+        List<GisIndicatorDTO> listEn = regionService.getFakeIndicatorDTOs(null);
+        Map<Long, GisIndicatorDTO> listFr = regionService.getFakeIndicatorDTOs(Constants.LANG_FR)
                 .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
-        Map<String, RegionIndicator> indicatorList = regionService.findAll().stream()
+        Map<String, RegionIndicator> indicatorList = regionService.findAllFake().stream()
                 .collect(Collectors.toMap(RegionIndicator::getName, r -> r));
 
         for (GisIndicatorDTO enDTO : listEn) {

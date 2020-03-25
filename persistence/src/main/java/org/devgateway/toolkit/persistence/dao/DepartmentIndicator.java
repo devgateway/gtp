@@ -256,7 +256,7 @@ public class DepartmentIndicator extends GenericPersistable implements Serializa
         if (StringUtils.isNotBlank(nameFr)) {
             sb.append(nameFr);
         }
-        if (StringUtils.isNotBlank(year.toString())) {
+        if (year != null && StringUtils.isNotBlank(year.toString())) {
             sb.append(" - ");
             sb.append(year);
         }

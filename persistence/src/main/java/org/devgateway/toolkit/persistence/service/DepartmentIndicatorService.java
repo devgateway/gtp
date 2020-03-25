@@ -10,4 +10,8 @@ import java.util.List;
 public interface DepartmentIndicatorService extends BaseJpaService<DepartmentIndicator> {
 
     List<GisIndicatorDTO> findGisDepartmentIndicators(String lang);
+
+    List<GisIndicatorDTO> getFakeIndicatorDTOs(String lang);
+
+    List<DepartmentIndicator> findAllFake();
 }

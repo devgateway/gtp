@@ -16,6 +16,11 @@ public interface DepartmentIndicatorRepository extends BaseJpaRepository<Departm
 
     @Query("select r "
             + "from DepartmentIndicator r "
-            + "where r.approved = true")
-    List<DepartmentIndicator> findAllApproved();
+            + "where r.approved = true and r.fakeIndicatorFlag = false")
+    List<DepartmentIndicator> findAllApprovedNotFake();
+
+    @Query("select r "
+            + "from DepartmentIndicator r "
+            + "where r.fakeIndicatorFlag = true")
+    List<DepartmentIndicator> findAllFake();
 }

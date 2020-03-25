@@ -164,6 +164,20 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
         }
         editForm.add(approved);
 
+        if (entityId != null
+                && ((RegionIndicator) this.editForm.getModelObject()).isFakeIndicatorFlag()) {
+            name.setEnabled(false);
+            nameFr.setEnabled(false);
+            description.setVisibilityAllowed(false);
+            descriptionFr.setVisibilityAllowed(false);
+            approved.setVisibilityAllowed(false);
+            measure.setVisibilityAllowed(false);
+            year.setVisibilityAllowed(false);
+            source.setVisibilityAllowed(false);
+            descending.setVisibilityAllowed(false);
+            deleteButton.setEnabled(false);
+        }
+
         if (entityId != null && ((RegionIndicator) this.editForm.getModelObject()).isApproved()
                 && !SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
                 .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {
@@ -221,10 +235,10 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
     }
 
     private void addRegionFakeIndicators() {
-        List<GisIndicatorDTO> listEn = service.findGisRegionIndicators(null);
-        Map<Long, GisIndicatorDTO> listFr = service.findGisRegionIndicators(Constants.LANG_FR)
+        List<GisIndicatorDTO> listEn = service.getFakeIndicatorDTOs(null);
+        Map<Long, GisIndicatorDTO> listFr = service.getFakeIndicatorDTOs(Constants.LANG_FR)
                 .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
-        Map<String, RegionIndicator> indicatorList = service.findAll().stream()
+        Map<String, RegionIndicator> indicatorList = service.findAllFake().stream()
                 .collect(Collectors.toMap(RegionIndicator::getName, r -> r));
 
         for (GisIndicatorDTO enDTO : listEn) {
