@@ -57,6 +57,7 @@ import org.apache.wicket.resource.JQueryResourceReference;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
+import org.devgateway.toolkit.forms.wicket.components.navigation.DropDownSubMenu;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditGisSettingsPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListAOIIndicatorDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListAgriculturalContentFormPage;
@@ -275,6 +276,60 @@ public abstract class BasePage extends GenericWebPage<Void> {
             @Override
             protected List<AbstractLink> newSubMenuButtons(final String arg0) {
                 final List<AbstractLink> list = new ArrayList<>();
+
+                list.add(new MenuBookmarkablePageLink<>(ListUserPage.class, null,
+                        new StringResourceModel("navbar.users", this, null))
+                        .setIconType(FontAwesomeIconType.users));
+
+                list.add(new MenuBookmarkablePageLink<>(ListOrganizationPage.class, null,
+                        new StringResourceModel("navbar.orgs", this, null)).setIconType(FontAwesomeIconType.tags));
+
+                list.add(new MenuDivider());
+
+                list.add(new MenuBookmarkablePageLink<>(EditAdminSettingsPage.class,
+                        new StringResourceModel("navbar.adminSettings", BasePage.this, null))
+                        .setIconType(FontAwesomeIconType.briefcase));
+
+                list.add(new MenuDivider());
+
+                final MenuBookmarkablePageLink<UIRedirectPage> uiBrowserLink =
+                        new MenuBookmarkablePageLink<UIRedirectPage>(
+                                UIRedirectPage.class, null, new StringResourceModel("navbar.ui", this, null)) {
+                            private static final long serialVersionUID = 1L;
+
+                            @Override
+                            protected void onComponentTag(final ComponentTag tag) {
+                                super.onComponentTag(tag);
+                                tag.put("target", "_blank");
+                            }
+                        };
+                uiBrowserLink.setIconType(FontAwesomeIconType.rocket).setEnabled(true);
+                list.add(uiBrowserLink);
+
+                return list;
+            }
+        };
+
+        adminMenu.setIconType(FontAwesomeIconType.cog);
+        MetaDataRoleAuthorizationStrategy.authorize(adminMenu, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
+
+        return adminMenu;
+    }
+
+    protected NavbarDropDownButton newCMMenu() {
+
+        // admin menu
+        NavbarDropDownButton cmMenu = new NavbarDropDownButton(new StringResourceModel("navbar.cm", this, null)) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected List<AbstractLink> newSubMenuButtons(final String arg0) {
+                final List<AbstractLink> list = new ArrayList<>();
+
+                list.add(new MenuBookmarkablePageLink<>(ListPartnerPage.class, null,
+                        new StringResourceModel("navbar.partners", this, null))
+                        .setIconType(FontAwesomeIconType.handshake_o));
+
                 list.add(new MenuBookmarkablePageLink<ListIndicatorMetadataFormPage>(
                         ListIndicatorMetadataFormPage.class, null, new StringResourceModel("navbar.indicatorMetadata",
                         this, null)).setIconType(FontAwesomeIconType.bolt));
@@ -293,120 +348,31 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         new StringResourceModel("navbar.agriculturalContent", this, null))
                         .setIconType(FontAwesomeIconType.list_ul));
 
-                /*list.add(new MenuBookmarkablePageLink<ListWebContentFormPage>(ListWebContentFormPage.class, null,
-                        new StringResourceModel("navbar.webContent", this, null))
-                        .setIconType(FontAwesomeIconType.html5));*/
-
-                list.add(new MenuDivider());
-
-                list.add(new MenuBookmarkablePageLink<>(ListUserPage.class, null,
-                        new StringResourceModel("navbar.users", this, null))
-                        .setIconType(FontAwesomeIconType.users));
-
-                list.add(new MenuBookmarkablePageLink<>(ListPartnerPage.class, null,
-                        new StringResourceModel("navbar.partners", this, null))
-                        .setIconType(FontAwesomeIconType.handshake_o));
-
-                list.add(new MenuBookmarkablePageLink<>(ListOrganizationPage.class, null,
-                        new StringResourceModel("navbar.orgs", this, null)).setIconType(FontAwesomeIconType.tags));
 
                 list.add(new MenuBookmarkablePageLink<>(ListIndicatorGroupPage.class, null,
                         new StringResourceModel("navbar.indicatorGroup", this, null))
-                        .setIconType(FontAwesomeIconType.tags));
-
-                list.add(new MenuBookmarkablePageLink<>(EditGisSettingsPage.class,
-                        new StringResourceModel("navbar.gisSettings", BasePage.this, null))
-                        .setIconType(FontAwesomeIconType.map));
-
-                /*list.add(new MenuBookmarkablePageLink<>(ListTestFormPage.class, null,
-                        new StringResourceModel("navbar.testcomponents", this, null))
-                        .setIconType(FontAwesomeIconType.android));*/
-
-                list.add(new MenuDivider());
-
-                /*final BootstrapBookmarkablePageLink swagger = new MenuBookmarkablePageLink<>(SwaggerPage.class,
-                        new StringResourceModel("navbar.swagger", BasePage.this, null))
-                        .setIconType(FontAwesomeIconType.code);
-                MetaDataRoleAuthorizationStrategy.authorize(swagger, Component.RENDER,
-                        SecurityConstants.Roles.ROLE_ADMIN);
-                list.add(swagger);
-
-                list.add(new MenuBookmarkablePageLink<>(SpringEndpointsPage.class, null,
-                        new StringResourceModel("navbar.springendpoints", this, null))
-                        .setIconType(FontAwesomeIconType.anchor));
-
-                list.add(new MenuBookmarkablePageLink<>(JminixRedirectPage.class, null,
-                        new StringResourceModel("navbar.jminix", this, null)).setIconType(FontAwesomeIconType.bug));
-
-                final MenuBookmarkablePageLink<HALRedirectPage> halBrowserLink =
-                        new MenuBookmarkablePageLink<HALRedirectPage>(HALRedirectPage.class, null,
-                                new StringResourceModel("navbar.halbrowser", this, null)) {
-                            private static final long serialVersionUID = 1L;
-
-                            @Override
-                            protected void onComponentTag(final ComponentTag tag) {
-                                super.onComponentTag(tag);
-                                tag.put("target", "_blank");
-                            }
-                        };
-                halBrowserLink.setIconType(FontAwesomeIconType.rss).setEnabled(true);
-
-                list.add(halBrowserLink);
-
-                 */
-
-                final MenuBookmarkablePageLink<UIRedirectPage> uiBrowserLink =
-                        new MenuBookmarkablePageLink<UIRedirectPage>(
-                                UIRedirectPage.class, null, new StringResourceModel("navbar.ui", this, null)) {
-                            private static final long serialVersionUID = 1L;
-
-                            @Override
-                            protected void onComponentTag(final ComponentTag tag) {
-                                super.onComponentTag(tag);
-                                tag.put("target", "_blank");
-                            }
-                        };
-                uiBrowserLink.setIconType(FontAwesomeIconType.rocket).setEnabled(true);
-                list.add(uiBrowserLink);
-
-                list.add(new MenuDivider());
-
-                list.add(new MenuBookmarkablePageLink<>(EditAdminSettingsPage.class,
-                        new StringResourceModel("navbar.adminSettings", BasePage.this, null))
-                        .setIconType(FontAwesomeIconType.briefcase));
+                        .setIconType(FontAwesomeIconType.sort_amount_desc));
 
                 return list;
             }
         };
 
-        adminMenu.setIconType(FontAwesomeIconType.cog);
-        MetaDataRoleAuthorizationStrategy.authorize(adminMenu, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
+        cmMenu.setIconType(FontAwesomeIconType.toggle_on);
+        MetaDataRoleAuthorizationStrategy.authorize(cmMenu, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
 
-        return adminMenu;
+        return cmMenu;
     }
 
-    protected NavbarDropDownButton newUploadMenu() {
+    protected NavbarDropDownButton newDatasetMenu() {
 
         // upload menu
-        NavbarDropDownButton uploadMenu = new NavbarDropDownButton(
-                new StringResourceModel("navbar.upload", this, null)) {
+        NavbarDropDownButton datasetMenu = new NavbarDropDownButton(
+                new StringResourceModel("navbar.dataset", this, null)) {
             private static final long serialVersionUID = 2L;
 
             @Override
             protected List<AbstractLink> newSubMenuButtons(final String arg0) {
                 final List<AbstractLink> list = new ArrayList<>();
-                list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
-                        ListNationalIndicatorFormPage.class, null,
-                        new StringResourceModel("navbar.nationalIndicator", this, null))
-                        .setIconType(FontAwesomeIconType.area_chart));
-                list.add(new MenuBookmarkablePageLink<ListRegionIndicatorPage>(ListRegionIndicatorPage.class, null,
-                        new StringResourceModel("navbar.regionIndicator", this, null))
-                        .setIconType(FontAwesomeIconType.map_marker));
-                list.add(new MenuBookmarkablePageLink<ListDepartmentIndicatorPage>(ListDepartmentIndicatorPage.class,
-                        null, new StringResourceModel("navbar.departmentIndicator", this, null))
-                        .setIconType(FontAwesomeIconType.map_marker));
-
-                list.add(new MenuDivider());
 
                 list.add(new MenuBookmarkablePageLink<ListProductionDatasetPage>(ListProductionDatasetPage.class, null,
                         new StringResourceModel("navbar.production", this, null))
@@ -421,39 +387,126 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         null, new StringResourceModel("navbar.marketPrice", this, null))
                         .setIconType(FontAwesomeIconType.usd));
 
+                return list;
+            }
+        };
+
+        datasetMenu.setIconType(FontAwesomeIconType.upload);
+        MetaDataRoleAuthorizationStrategy.authorize(datasetMenu, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
+        MetaDataRoleAuthorizationStrategy.authorize(datasetMenu, Component.RENDER,
+                SecurityConstants.Roles.ROLE_FOCAL_POINT);
+
+        return datasetMenu;
+    }
+
+    protected NavbarDropDownButton newIndicatorMenu() {
+
+        // upload menu
+        NavbarDropDownButton indicatorMenu = new NavbarDropDownButton(
+                new StringResourceModel("navbar.indicator", this, null)) {
+            private static final long serialVersionUID = 2L;
+
+            @Override
+            protected List<AbstractLink> newSubMenuButtons(final String arg0) {
+                final List<AbstractLink> list = new ArrayList<>();
+
+                DropDownSubMenu sdgMenu = new DropDownSubMenu(
+                        new StringResourceModel("navbar.sdgs", this, null)) {
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public boolean isActive(Component item) {
+                        return false;
+                    }
+
+                    @Override
+                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+                        List<AbstractLink> list = new ArrayList<>();
+
+                        list.add(new MenuBookmarkablePageLink<ListPovertyIndicatorDatasetPage>(
+                                ListPovertyIndicatorDatasetPage.class, null,
+                                new StringResourceModel("navbar.poverty", this, null))
+                                .setIconType(FontAwesomeIconType.group));
+
+                        list.add(new MenuBookmarkablePageLink<ListAgriculturalWomenDatasetPage>(
+                                ListAgriculturalWomenDatasetPage.class, null,
+                                new StringResourceModel("navbar.agriculturalWomen", this, null))
+                                .setIconType(FontAwesomeIconType.female));
+
+                        list.add(new MenuBookmarkablePageLink<ListFoodLossDatasetPage>(
+                                ListFoodLossDatasetPage.class, null,
+                                new StringResourceModel("navbar.foodLoss", this, null))
+                                .setIconType(FontAwesomeIconType.bolt));
+
+
+                        list.add(new MenuBookmarkablePageLink<ListAOIIndicatorDatasetPage>(
+                                ListAOIIndicatorDatasetPage.class, null,
+                                new StringResourceModel("navbar.aoi", this, null))
+                                .setIconType(FontAwesomeIconType.arrows_alt));
+
+                        return list;
+                    }
+                };
+                sdgMenu.setIconType(FontAwesomeIconType.th_large);
+                list.add(sdgMenu);
+
+                list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
+                        ListNationalIndicatorFormPage.class, null,
+                        new StringResourceModel("navbar.nationalIndicator", this, null))
+                        .setIconType(FontAwesomeIconType.area_chart));
+
                 list.add(new MenuDivider());
 
-                list.add(new MenuBookmarkablePageLink<ListPovertyIndicatorDatasetPage>(
-                        ListPovertyIndicatorDatasetPage.class, null,
-                        new StringResourceModel("navbar.poverty", this, null))
-                        .setIconType(FontAwesomeIconType.group));
 
-                list.add(new MenuBookmarkablePageLink<ListAgriculturalWomenDatasetPage>(
-                        ListAgriculturalWomenDatasetPage.class, null,
-                        new StringResourceModel("navbar.agriculturalWomen", this, null))
-                        .setIconType(FontAwesomeIconType.female));
-
-                list.add(new MenuBookmarkablePageLink<ListFoodLossDatasetPage>(
-                        ListFoodLossDatasetPage.class, null,
-                        new StringResourceModel("navbar.foodLoss", this, null))
-                        .setIconType(FontAwesomeIconType.bolt));
-
-                list.add(new MenuBookmarkablePageLink<ListAOIIndicatorDatasetPage>(
-                        ListAOIIndicatorDatasetPage.class, null,
-                        new StringResourceModel("navbar.aoi", this, null))
-                        .setIconType(FontAwesomeIconType.arrows_alt));
 
 
                 return list;
             }
         };
 
-        uploadMenu.setIconType(FontAwesomeIconType.upload);
-        MetaDataRoleAuthorizationStrategy.authorize(uploadMenu, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
-        MetaDataRoleAuthorizationStrategy.authorize(uploadMenu, Component.RENDER,
+        indicatorMenu.setIconType(FontAwesomeIconType.upload);
+        MetaDataRoleAuthorizationStrategy.authorize(indicatorMenu, Component.RENDER,
+                SecurityConstants.Roles.ROLE_ADMIN);
+        MetaDataRoleAuthorizationStrategy.authorize(indicatorMenu, Component.RENDER,
                 SecurityConstants.Roles.ROLE_FOCAL_POINT);
 
-        return uploadMenu;
+        return indicatorMenu;
+    }
+
+
+
+    protected NavbarDropDownButton newGisMenu() {
+
+        // upload menu
+        NavbarDropDownButton gisMenu = new NavbarDropDownButton(
+                new StringResourceModel("navbar.gisMenu", this, null)) {
+            private static final long serialVersionUID = 2L;
+
+            @Override
+            protected List<AbstractLink> newSubMenuButtons(final String arg0) {
+                final List<AbstractLink> list = new ArrayList<>();
+
+
+                list.add(new MenuBookmarkablePageLink<ListRegionIndicatorPage>(ListRegionIndicatorPage.class, null,
+                        new StringResourceModel("navbar.regionIndicator", this, null))
+                        .setIconType(FontAwesomeIconType.map_marker));
+
+                list.add(new MenuBookmarkablePageLink<ListDepartmentIndicatorPage>(ListDepartmentIndicatorPage.class,
+                        null, new StringResourceModel("navbar.departmentIndicator", this, null))
+                        .setIconType(FontAwesomeIconType.map_marker));
+
+                list.add(new MenuBookmarkablePageLink<>(EditGisSettingsPage.class,
+                        new StringResourceModel("navbar.gisSettings", BasePage.this, null))
+                        .setIconType(FontAwesomeIconType.map));
+
+                return list;
+            }
+        };
+
+        gisMenu.setIconType(FontAwesomeIconType.upload);
+        MetaDataRoleAuthorizationStrategy.authorize(gisMenu, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
+
+        return gisMenu;
     }
 
     /**
@@ -475,7 +528,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
         navbar.setInverted(true);
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
-                newUploadMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
+                newAdminMenu(), newCMMenu(), newDatasetMenu(), newIndicatorMenu(),
+                newGisMenu(), newAccountMenu(), newLogoutMenu()));
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
 

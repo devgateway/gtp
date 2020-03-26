@@ -33,23 +33,17 @@ import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.DepartmentIndicator;
 import org.devgateway.toolkit.persistence.dao.DepartmentStat;
-import org.devgateway.toolkit.persistence.dao.RegionIndicator;
 import org.devgateway.toolkit.persistence.dao.categories.IndicatorGroup;
-import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.category.IndicatorGroupRepository;
 import org.devgateway.toolkit.persistence.service.ImportDepartmentIndicatorService;
 import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;
-import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
-import org.devgateway.toolkit.persistence.util.Constants;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 
 /**
@@ -73,13 +67,10 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
     protected DepartmentIndicatorService service;
 
     @SpringBean
-    protected RegionIndicatorService regionService;
-
-    @SpringBean
     protected MarkupCacheService markupCacheService;
 
     @SpringBean
-    private ReleaseCacheService cacheService;
+    protected ReleaseCacheService cacheService;
 
 
     public EditDepartmentIndicatorPage(final PageParameters parameters) {
@@ -218,8 +209,6 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
                     target.add(feedbackPanel);
                     redirectToSelf = true;
                 } else {
-                    addDepartmentsFakeIndicators();
-                    addRegionFakeIndicators();
                     markupCacheService.clearAllCaches();
                 }
                 cacheService.releaseCache();
@@ -240,48 +229,5 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
         };
     }
 
-    private void addDepartmentsFakeIndicators() {
-        List<GisIndicatorDTO> listEn = service.getFakeIndicatorDTOs(null);
-        Map<Long, GisIndicatorDTO> listFr = service.getFakeIndicatorDTOs(Constants.LANG_FR)
-                .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
-        Map<String, DepartmentIndicator> indicatorList = service.findAllFake().stream()
-                .collect(Collectors.toMap(DepartmentIndicator::getName, r -> r));
-
-        for (GisIndicatorDTO enDTO : listEn) {
-            if (!indicatorList.containsKey(enDTO.getName())) {
-                DepartmentIndicator ri = new DepartmentIndicator();
-                ri.setName(enDTO.getName());
-                GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
-                if (frDTO != null) {
-                    ri.setNameFr(frDTO.getName());
-                }
-                ri.setFakeIndicatorFlag(true);
-                ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
-                jpaService.saveAndFlush(ri);
-            }
-        }
-    }
-
-    private void addRegionFakeIndicators() {
-        List<GisIndicatorDTO> listEn = regionService.getFakeIndicatorDTOs(null);
-        Map<Long, GisIndicatorDTO> listFr = regionService.getFakeIndicatorDTOs(Constants.LANG_FR)
-                .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
-        Map<String, RegionIndicator> indicatorList = regionService.findAllFake().stream()
-                .collect(Collectors.toMap(RegionIndicator::getName, r -> r));
-
-        for (GisIndicatorDTO enDTO : listEn) {
-            if (!indicatorList.containsKey(enDTO.getName())) {
-                RegionIndicator ri = new RegionIndicator();
-                ri.setName(enDTO.getName());
-                GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
-                if (frDTO != null) {
-                    ri.setNameFr(frDTO.getName());
-                }
-                ri.setFakeIndicatorFlag(true);
-                ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
-                regionService.saveAndFlush(ri);
-            }
-        }
-    }
 
 }
