@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.GenericPersistable;
 import org.devgateway.toolkit.persistence.dao.Person;
+import org.devgateway.toolkit.persistence.dao.categories.ipar.IndicatorGroup;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -38,6 +39,11 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
     private Integer year;
 
     private boolean descending;
+
+    @ManyToOne(optional = false)
+    private IndicatorGroup indicatorGroup;
+
+    private boolean fakeIndicatorFlag;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "regionIndicator", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -219,6 +225,22 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
 
     public void setRightMap(boolean rightMap) {
         this.rightMap = rightMap;
+    }
+
+    public boolean isFakeIndicatorFlag() {
+        return fakeIndicatorFlag;
+    }
+
+    public void setFakeIndicatorFlag(boolean fakeIndicatorFlag) {
+        this.fakeIndicatorFlag = fakeIndicatorFlag;
+    }
+
+    public IndicatorGroup getIndicatorGroup() {
+        return indicatorGroup;
+    }
+
+    public void setIndicatorGroup(IndicatorGroup indicatorGroup) {
+        this.indicatorGroup = indicatorGroup;
     }
 
     @JsonIgnore

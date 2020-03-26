@@ -26,19 +26,29 @@ import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListRegionIndicatorPage;
+import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
 import org.devgateway.toolkit.persistence.dao.ipar.RegionStat;
+import org.devgateway.toolkit.persistence.dao.categories.ipar.IndicatorGroup;
+import org.devgateway.toolkit.persistence.dto.ipar.GisIndicatorDTO;
+import org.devgateway.toolkit.persistence.repository.category.ipar.IndicatorGroupRepository;
 import org.devgateway.toolkit.persistence.service.ipar.RegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.ImportRegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
+import org.devgateway.toolkit.persistence.util.Constants;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -54,6 +64,9 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
 
     @SpringBean
     private transient ImportRegionIndicatorService importService;
+
+    @SpringBean
+    private IndicatorGroupRepository indicatorGroupRepository;
 
     @SpringBean
     protected RegionIndicatorService service;
@@ -94,6 +107,20 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
                 new TextFieldBootstrapFormComponent<>("description");
         description.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
         editForm.add(description);
+
+        List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAllFetchingLocalizedLabels();
+        GenericChoiceProvider<IndicatorGroup> choiceProvider =
+                new GenericChoiceProvider<IndicatorGroup>(indicatorGroups) {
+                    @Override
+                    public String getDisplayValue(IndicatorGroup indicatorGroup) {
+                        return indicatorGroup.getLabelFr() + " / " + indicatorGroup.getLabel();
+                    }
+                };
+
+        Select2ChoiceBootstrapFormComponent<IndicatorGroup> indicatorGroup =
+                new Select2ChoiceBootstrapFormComponent<>("indicatorGroup", choiceProvider);
+        editForm.add(indicatorGroup);
+        indicatorGroup.required();
 
         final TextFieldBootstrapFormComponent<String> measure =
                 new TextFieldBootstrapFormComponent<>("measure");
@@ -138,6 +165,20 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
         }
         editForm.add(approved);
 
+        if (entityId != null
+                && ((RegionIndicator) this.editForm.getModelObject()).isFakeIndicatorFlag()) {
+            name.setEnabled(false);
+            nameFr.setEnabled(false);
+            description.setVisibilityAllowed(false);
+            descriptionFr.setVisibilityAllowed(false);
+            approved.setVisibilityAllowed(false);
+            measure.setVisibilityAllowed(false);
+            year.setVisibilityAllowed(false);
+            source.setVisibilityAllowed(false);
+            descending.setVisibilityAllowed(false);
+            deleteButton.setEnabled(false);
+        }
+
         if (entityId != null && ((RegionIndicator) this.editForm.getModelObject()).isApproved()
                 && !SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
                 .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {
@@ -172,6 +213,8 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
                     target.add(feedbackPanel);
                     redirectToSelf = true;
                 } else {
+                    addRegionFakeIndicators();
+
                     markupCacheService.clearAllCaches();
                 }
                 cacheService.releaseCache();
@@ -190,6 +233,28 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
                 }
             }
         };
+    }
+
+    private void addRegionFakeIndicators() {
+        List<GisIndicatorDTO> listEn = service.getFakeIndicatorDTOs(null);
+        Map<Long, GisIndicatorDTO> listFr = service.getFakeIndicatorDTOs(Constants.LANG_FR)
+                .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
+        Map<String, RegionIndicator> indicatorList = service.findAllFake().stream()
+                .collect(Collectors.toMap(RegionIndicator::getName, r -> r));
+
+        for (GisIndicatorDTO enDTO : listEn) {
+            if (!indicatorList.containsKey(enDTO.getName())) {
+                RegionIndicator ri = new RegionIndicator();
+                ri.setName(enDTO.getName());
+                GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
+                if (frDTO != null) {
+                    ri.setNameFr(frDTO.getName());
+                }
+                ri.setFakeIndicatorFlag(true);
+                ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
+                jpaService.saveAndFlush(ri);
+            }
+        }
     }
 
 }

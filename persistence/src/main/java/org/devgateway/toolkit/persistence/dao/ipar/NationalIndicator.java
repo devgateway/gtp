@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.dao.ipar;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.StringUtils;
+import org.devgateway.toolkit.persistence.dao.categories.ipar.IndicatorGroup;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Linkable;
 import org.devgateway.toolkit.persistence.dao.Person;
@@ -55,6 +56,9 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
     private Boolean approved;
 
     private Boolean descending;
+
+    @ManyToOne(optional = false)
+    private IndicatorGroup indicatorGroup;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
@@ -202,6 +206,30 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
 
     public void setUploadedBy(Person uploadedBy) {
         this.uploadedBy = uploadedBy;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+
+    public Boolean getDescending() {
+        return descending;
+    }
+
+    public void setDescending(Boolean descending) {
+        this.descending = descending;
+    }
+
+    public IndicatorGroup getIndicatorGroup() {
+        return indicatorGroup;
+    }
+
+    public void setIndicatorGroup(IndicatorGroup indicatorGroup) {
+        this.indicatorGroup = indicatorGroup;
     }
 
     @Override

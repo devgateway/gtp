@@ -18,6 +18,11 @@ public interface RegionIndicatorRepository extends BaseJpaRepository<RegionIndic
 
     @Query("select r "
             + "from RegionIndicator r "
-            + "where r.approved = true")
-    List<RegionIndicator> findAllApproved();
+            + "where r.approved = true and r.fakeIndicatorFlag = false")
+    List<RegionIndicator> findAllApprovedNotFake();
+
+    @Query("select r "
+            + "from RegionIndicator r "
+            + "where r.fakeIndicatorFlag = true")
+    List<RegionIndicator> findAllFake();
 }
