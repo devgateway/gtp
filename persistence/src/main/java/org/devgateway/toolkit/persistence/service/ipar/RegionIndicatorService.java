@@ -12,4 +12,8 @@ public interface RegionIndicatorService extends BaseJpaService<RegionIndicator> 
 
     List<GisIndicatorDTO> findGisRegionIndicators(String lang);
 
+    List<GisIndicatorDTO> getFakeIndicatorDTOs(String lang);
+
+    List<RegionIndicator> findAllFake();
+
 }

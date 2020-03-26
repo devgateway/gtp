@@ -34,17 +34,14 @@ import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
 import org.devgateway.toolkit.persistence.dao.ipar.DepartmentStat;
-import org.devgateway.toolkit.persistence.service.ipar.ImportDepartmentIndicatorService;
-import org.devgateway.toolkit.persistence.service.ipar.DepartmentIndicatorService;
-import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
-import org.devgateway.toolkit.persistence.dao.categories.ipar.IndicatorGroup;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.IndicatorGroup;
 import org.devgateway.toolkit.persistence.dto.ipar.GisIndicatorDTO;
-import org.devgateway.toolkit.persistence.repository.category.ipar.IndicatorGroupRepository;
-import org.devgateway.toolkit.persistence.service.ipar.ImportDepartmentIndicatorService;
+import org.devgateway.toolkit.persistence.repository.ipar.category.IndicatorGroupRepository;
 import org.devgateway.toolkit.persistence.service.ipar.DepartmentIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.ImportDepartmentIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.RegionIndicatorService;
-import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
+import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.devgateway.toolkit.persistence.util.Constants;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
@@ -117,7 +114,8 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
         description.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
         editForm.add(description);
 
-        List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAllFetchingLocalizedLabels();
+        // List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAllFetchingLocalizedLabels();
+        List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAll();
         GenericChoiceProvider<IndicatorGroup> choiceProvider =
                 new GenericChoiceProvider<IndicatorGroup>(indicatorGroups) {
                     @Override
@@ -137,7 +135,7 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
         editForm.add(measure);
 
         final TextFieldBootstrapFormComponent<Integer> year = new TextFieldBootstrapFormComponent<>("year");
-        year.getField().add(new RangeValidator<>("2010", "2030"));
+        year.getField().add(new RangeValidator<String>("2010", "2030"));
         editForm.add(year);
 
         final TextFieldBootstrapFormComponent<String> source = new TextFieldBootstrapFormComponent<>("source");

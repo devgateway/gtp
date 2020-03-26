@@ -34,7 +34,7 @@ import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.Indicator;
 import org.devgateway.toolkit.persistence.repository.ipar.category.IndicatorRepository;
 import org.devgateway.toolkit.persistence.service.ipar.IndicatorMetadataService;
-import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
+import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.List;

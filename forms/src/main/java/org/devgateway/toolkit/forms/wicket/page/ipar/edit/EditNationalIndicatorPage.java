@@ -14,14 +14,13 @@ import org.devgateway.toolkit.forms.util.MarkupCacheService;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.page.edit.panel.YearValuePanel;
-import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.edit.panel.YearValuePanel;
+import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListNationalIndicatorFormPage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.ipar.NationalIndicator;
-import org.devgateway.toolkit.persistence.dao.categories.ipar.IndicatorGroup;
-import org.devgateway.toolkit.persistence.repository.category.ipar.IndicatorGroupRepository;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.IndicatorGroup;
+import org.devgateway.toolkit.persistence.repository.ipar.category.IndicatorGroupRepository;
 import org.devgateway.toolkit.persistence.service.ipar.NationalIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -78,7 +77,8 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
         editForm.add(descriptionFr);
         descriptionFr.required();
 
-        List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAllFetchingLocalizedLabels();
+        // List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAllFetchingLocalizedLabels();
+        List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAll();
         GenericChoiceProvider<IndicatorGroup> choiceProvider =
                 new GenericChoiceProvider<IndicatorGroup>(indicatorGroups) {
             @Override

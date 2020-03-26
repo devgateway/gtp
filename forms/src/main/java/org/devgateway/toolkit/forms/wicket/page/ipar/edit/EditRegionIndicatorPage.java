@@ -34,9 +34,9 @@ import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
 import org.devgateway.toolkit.persistence.dao.ipar.RegionStat;
-import org.devgateway.toolkit.persistence.dao.categories.ipar.IndicatorGroup;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.IndicatorGroup;
 import org.devgateway.toolkit.persistence.dto.ipar.GisIndicatorDTO;
-import org.devgateway.toolkit.persistence.repository.category.ipar.IndicatorGroupRepository;
+import org.devgateway.toolkit.persistence.repository.ipar.category.IndicatorGroupRepository;
 import org.devgateway.toolkit.persistence.service.ipar.RegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.ImportRegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
@@ -108,7 +108,8 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
         description.getField().add(new StringValidator(null, DEFA_MAX_LENGTH));
         editForm.add(description);
 
-        List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAllFetchingLocalizedLabels();
+        // List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAllFetchingLocalizedLabels();
+        List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAll();
         GenericChoiceProvider<IndicatorGroup> choiceProvider =
                 new GenericChoiceProvider<IndicatorGroup>(indicatorGroups) {
                     @Override
