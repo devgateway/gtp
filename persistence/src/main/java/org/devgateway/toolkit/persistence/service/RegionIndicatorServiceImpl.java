@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.devgateway.toolkit.persistence.util.Constants.CONS_DAILY_TYPE;
 import static org.devgateway.toolkit.persistence.util.Constants.CONS_SIZE_TYPE;
@@ -67,6 +69,39 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
 
     @Override
     public List<GisIndicatorDTO> findGisRegionIndicators(final String lang) {
+        List<GisIndicatorDTO> ret = getFakeIndicatorDTOs(lang);
+
+        //Add indicator groups to fake DI
+        List<RegionIndicator> fakeList = repository.findAllFake();
+        Map<String, RegionIndicator> indicatorFake = fakeList.stream()
+                .collect(Collectors.toMap(RegionIndicator::getName, i -> i));
+        indicatorFake.putAll(fakeList.stream()
+                .collect(Collectors.toMap(RegionIndicator::getNameFr, i -> i)));
+        ret.stream().forEach(i -> {
+            RegionIndicator di = indicatorFake.get(i.getName());
+            if (di != null) {
+                i.setIndicatorGroup(di.getIndicatorGroup().getLabel(lang));
+            }
+        });
+
+        List<RegionIndicator> indicatorList = repository.findAllApprovedNotFake();
+        indicatorList.stream().forEach(i -> ret.add(new GisIndicatorDTO(i, lang)));
+
+        List<GisSettings> gisSettings = gisSettingsService.findAll();
+        if (gisSettings.size() > 0) {
+            ret.stream().forEach(n -> {
+                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getLeftGisRegionName())) {
+                    n.setLeftMap(true);
+                }
+                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getRightGisRegionName())) {
+                    n.setRightMap(true);
+                }
+            });
+        }
+        return ret;
+    }
+
+    public List<GisIndicatorDTO> getFakeIndicatorDTOs(String lang) {
         List<GisIndicatorDTO> ret = new ArrayList<>();
 
         IndicatorUtils.fillIndicator(lang, ret, povertyRepo.findAllGisDailyConsumptionByRegion(),
@@ -95,22 +130,12 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
         //Size
         IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllGisSizeByRegion(),
                 descRepository.findByType(CONSUMPTION_TYPE_ID), CONS_SIZE_TYPE);
-
-        List<RegionIndicator> indicatorList = repository.findAllApproved();
-        indicatorList.stream().filter(n -> n.isApproved()).forEach(i -> ret.add(new GisIndicatorDTO(i, lang)));
-
-        List<GisSettings> gisSettings = gisSettingsService.findAll();
-        if (gisSettings.size() > 0) {
-            ret.stream().forEach(n -> {
-                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getLeftGisRegionName())) {
-                    n.setLeftMap(true);
-                }
-                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getRightGisRegionName())) {
-                    n.setRightMap(true);
-                }
-            });
-        }
         return ret;
+    }
+
+    @Override
+    public List<RegionIndicator> findAllFake() {
+        return repository.findAllFake();
     }
 
 }

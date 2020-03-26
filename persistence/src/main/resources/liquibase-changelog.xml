@@ -942,4 +942,114 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="GisSettingsInit" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="gis_settings" />
+            <sqlCheck expectedResult="0">
+                select count(*) from gis_settings;
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="gis_settings">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="IndicatorGroupInit" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <sqlCheck expectedResult="0">
+                select count(*) from category where dtype = 'IndicatorGroup' ;
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="IndicatorGroup" />
+            <column name="label" value="Default" />
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="AddRegionIndicatorFlag" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="region_indicator" />
+            <not>
+                <columnExists tableName="region_indicator" columnName="fake_indicator_flag" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE region_indicator
+                ADD COLUMN "fake_indicator_flag" BOOLEAN DEFAULT FALSE;
+        ]]></sql>
+    </changeSet>
+
+
+    <changeSet id="AddDepIndicatorFlag" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="department_indicator" />
+            <not>
+                <columnExists tableName="department_indicator" columnName="fake_indicator_flag" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE department_indicator
+                ADD COLUMN "fake_indicator_flag" BOOLEAN DEFAULT FALSE;
+        ]]></sql>
+    </changeSet>
+
+
+    <changeSet id="AddNationalIndicatorGroup" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="national_indicator" />
+            <not>
+                <columnExists tableName="national_indicator" columnName="indicator_group_id" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE national_indicator
+                ADD COLUMN "indicator_group_id" int8;
+        ]]></sql>
+    </changeSet>
+
+
+    <changeSet id="AddRegionIndicatorGroup" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="region_indicator" />
+            <not>
+                <columnExists tableName="region_indicator" columnName="indicator_group_id" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE region_indicator
+                ADD COLUMN "indicator_group_id" int8;
+        ]]></sql>
+    </changeSet>
+
+
+    <changeSet id="AddDepIndicatorGroup" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="department_indicator" />
+            <not>
+                <columnExists tableName="department_indicator" columnName="indicator_group_id" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE department_indicator
+                ADD COLUMN "indicator_group_id" int8;
+        ]]></sql>
+    </changeSet>
+
+
+    <changeSet id="AddDefaultIndicatorGroup" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="department_indicator" />
+            <tableExists tableName="region_indicator" />
+            <tableExists tableName="national_indicator" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE national_indicator set indicator_group_id = ind.id FROM category ind WHERE ind.dtype = 'IndicatorGroup' AND ind.label = 'Default';
+            UPDATE region_indicator set indicator_group_id = ind.id FROM category ind WHERE ind.dtype = 'IndicatorGroup' AND ind.label = 'Default';
+            UPDATE department_indicator set indicator_group_id = ind.id FROM category ind WHERE ind.dtype = 'IndicatorGroup' AND ind.label = 'Default';
+        ]]></sql>
+    </changeSet>
+
 </databaseChangeLog>

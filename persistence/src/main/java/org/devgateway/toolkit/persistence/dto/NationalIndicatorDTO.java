@@ -69,8 +69,9 @@ public class NationalIndicatorDTO {
             this.yearValues = yearValues;
         }
         this.reverse = indicator.isDescending();
-        //TODO
-        this.indicatorGroup = this.source.split("/")[0];
+
+        this.indicatorGroup = isFr ? indicator.getIndicatorGroup().getLabelFr()
+                : indicator.getIndicatorGroup().getLabel();
     }
 
     public Long getId() {

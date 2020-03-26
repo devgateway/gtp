@@ -12,15 +12,20 @@ import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxPickerBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.panel.YearValuePanel;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListNationalIndicatorFormPage;
+import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.NationalIndicator;
+import org.devgateway.toolkit.persistence.dao.categories.IndicatorGroup;
+import org.devgateway.toolkit.persistence.repository.category.IndicatorGroupRepository;
 import org.devgateway.toolkit.persistence.service.NationalIndicatorService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -33,6 +38,9 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
 
     @SpringBean
     private NationalIndicatorService service;
+
+    @SpringBean
+    private IndicatorGroupRepository indicatorGroupRepository;
 
     @SpringBean
     protected MarkupCacheService markupCacheService;
@@ -67,6 +75,20 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
         descriptionFr.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         editForm.add(descriptionFr);
         descriptionFr.required();
+
+        List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAllFetchingLocalizedLabels();
+        GenericChoiceProvider<IndicatorGroup> choiceProvider =
+                new GenericChoiceProvider<IndicatorGroup>(indicatorGroups) {
+            @Override
+            public String getDisplayValue(IndicatorGroup indicatorGroup) {
+                return indicatorGroup.getLabelFr() + " / " + indicatorGroup.getLabel();
+            }
+        };
+
+        Select2ChoiceBootstrapFormComponent<IndicatorGroup> indicatorGroup =
+                new Select2ChoiceBootstrapFormComponent<>("indicatorGroup", choiceProvider);
+        editForm.add(indicatorGroup);
+        indicatorGroup.required();
 
         final CheckBoxPickerBootstrapFormComponent descending = new CheckBoxPickerBootstrapFormComponent("descending");
         editForm.add(descending);
@@ -108,7 +130,7 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
         }
         editForm.add(approved);
 
-        if (entityId != null && ((NationalIndicator) this.editForm.getModelObject()).isApproved()
+        if (entityId != null && ((NationalIndicator) editForm.getModelObject()).isApproved()
                 && !isAdmin()) {
             deleteButton.setVisibilityAllowed(false);
         }

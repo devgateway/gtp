@@ -64,6 +64,7 @@ import org.devgateway.toolkit.forms.wicket.page.lists.ListAgriculturalWomenDatas
 import org.devgateway.toolkit.forms.wicket.page.lists.ListConsumptionDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListDepartmentIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListFoodLossDatasetPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListIndicatorGroupPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListIndicatorMetadataFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListMarketPriceDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListMicrodataLinkFormPage;
@@ -308,6 +309,10 @@ public abstract class BasePage extends GenericWebPage<Void> {
 
                 list.add(new MenuBookmarkablePageLink<>(ListOrganizationPage.class, null,
                         new StringResourceModel("navbar.orgs", this, null)).setIconType(FontAwesomeIconType.tags));
+
+                list.add(new MenuBookmarkablePageLink<>(ListIndicatorGroupPage.class, null,
+                        new StringResourceModel("navbar.indicatorGroup", this, null))
+                        .setIconType(FontAwesomeIconType.tags));
 
                 list.add(new MenuBookmarkablePageLink<>(EditGisSettingsPage.class,
                         new StringResourceModel("navbar.gisSettings", BasePage.this, null))

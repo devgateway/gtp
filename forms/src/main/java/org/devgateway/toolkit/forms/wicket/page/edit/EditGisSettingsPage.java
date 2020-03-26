@@ -104,13 +104,13 @@ public class EditGisSettingsPage extends AbstractEditPage<GisSettings> {
             }
         };
 
-        Select2ChoiceBootstrapFormComponent<String> rightGisName =
-                new Select2ChoiceBootstrapFormComponent<>("rightGisName", regionProvider);
-        editForm.add(rightGisName);
+        Select2ChoiceBootstrapFormComponent<String> rightGisRegionName =
+                new Select2ChoiceBootstrapFormComponent<>("rightGisRegionName", regionProvider);
+        editForm.add(rightGisRegionName);
 
-        Select2ChoiceBootstrapFormComponent<String> leftGisName =
-                new Select2ChoiceBootstrapFormComponent<>("leftGisName", regionProvider);
-        editForm.add(leftGisName);
+        Select2ChoiceBootstrapFormComponent<String> leftGisRegionName =
+                new Select2ChoiceBootstrapFormComponent<>("leftGisRegionName", regionProvider);
+        editForm.add(leftGisRegionName);
 
 
         List<String> depList = departmentIndicatorService.findGisDepartmentIndicators(null)

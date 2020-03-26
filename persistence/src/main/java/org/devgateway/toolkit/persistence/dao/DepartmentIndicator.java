@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.dao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.StringUtils;
+import org.devgateway.toolkit.persistence.dao.categories.IndicatorGroup;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -39,6 +40,9 @@ public class DepartmentIndicator extends GenericPersistable implements Serializa
 
     private boolean descending;
 
+    @ManyToOne(optional = false)
+    private IndicatorGroup indicatorGroup;
+
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "departmentIndicator", cascade = CascadeType.ALL, orphanRemoval = true,
             fetch = FetchType.LAZY)
@@ -64,6 +68,8 @@ public class DepartmentIndicator extends GenericPersistable implements Serializa
     private String source;
 
     private boolean approved;
+
+    private boolean fakeIndicatorFlag;
 
     public String getName() {
         return name;
@@ -222,6 +228,22 @@ public class DepartmentIndicator extends GenericPersistable implements Serializa
         this.rightMap = rightMap;
     }
 
+    public IndicatorGroup getIndicatorGroup() {
+        return indicatorGroup;
+    }
+
+    public void setIndicatorGroup(IndicatorGroup indicatorGroup) {
+        this.indicatorGroup = indicatorGroup;
+    }
+
+    public boolean isFakeIndicatorFlag() {
+        return fakeIndicatorFlag;
+    }
+
+    public void setFakeIndicatorFlag(boolean fakeIndicatorFlag) {
+        this.fakeIndicatorFlag = fakeIndicatorFlag;
+    }
+
     @JsonIgnore
     public String getFullNameYear() {
         StringBuilder sb = new StringBuilder();
@@ -234,7 +256,7 @@ public class DepartmentIndicator extends GenericPersistable implements Serializa
         if (StringUtils.isNotBlank(nameFr)) {
             sb.append(nameFr);
         }
-        if (StringUtils.isNotBlank(year.toString())) {
+        if (year != null && StringUtils.isNotBlank(year.toString())) {
             sb.append(" - ");
             sb.append(year);
         }
