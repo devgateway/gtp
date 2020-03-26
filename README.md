@@ -68,7 +68,8 @@ Create /etc/system.d/system/ad3.service with the following contents:
 ```
 [Unit]
 Description=ad3
-After=syslog.target
+After=syslog.target network-online.target
+BindsTo=postgresql.service
 
 [Service]
 User=ad3
@@ -91,7 +92,7 @@ Here we can also change memory limits for the java process.
 
 Start the service with:
 
-`systemctl start ad3`
+`sudo systemctl start ad3`
 
 Now you can verify that service is running with:
  
@@ -99,12 +100,16 @@ Now you can verify that service is running with:
 
 To stop the service one can use:
 
-`systemctl stop ad3`
+`sudo systemctl stop ad3`
 
 Since we're running AD3 as systemd service, standard output is most likely being redirected to journal.
 To see the standard output:
 
-`journalctl -u ad3`
+`sudo journalctl -u ad3`
+
+or to see the service output
+
+`sudo journalctl -u ad3.service`
 
 # Debugging
 
