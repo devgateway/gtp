@@ -3,10 +3,15 @@ package org.devgateway.toolkit.web.rest.controller.filter;
 import org.devgateway.toolkit.persistence.dao.Data_;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator_;
+import org.devgateway.toolkit.persistence.dao.Region;
+import org.devgateway.toolkit.persistence.dao.Region_;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
@@ -43,7 +48,11 @@ public class PovertyFilterState extends DataFilterState<PovertyIndicator> {
                 addProfActivityPredicates(root, cb, predicates);
             }
             addApprovedDatasets(root, cb, predicates);
-            query.orderBy(new OrderImpl(root.get(Data_.YEAR), true));
+            List<Order> orders = new ArrayList<>();
+            orders.add(new OrderImpl(root.get(Data_.YEAR), true));
+            Join<PovertyIndicator, Region> join = root.join(PovertyIndicator_.REGION, JoinType.LEFT);
+            orders.add(new OrderImpl(join.get(Region_.NAME), true));
+            query.orderBy(orders);
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
