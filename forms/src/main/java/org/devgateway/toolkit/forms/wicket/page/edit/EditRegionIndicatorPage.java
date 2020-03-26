@@ -34,20 +34,16 @@ import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.RegionIndicator;
 import org.devgateway.toolkit.persistence.dao.RegionStat;
 import org.devgateway.toolkit.persistence.dao.categories.IndicatorGroup;
-import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.category.IndicatorGroupRepository;
 import org.devgateway.toolkit.persistence.service.RegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ImportRegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
-import org.devgateway.toolkit.persistence.util.Constants;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 
 /**
@@ -62,10 +58,10 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
     public static final String TEMPLATE_XLSX = "gisRegionDataset-Template.xlsx";
 
     @SpringBean
-    private transient ImportRegionIndicatorService importService;
+    protected transient ImportRegionIndicatorService importService;
 
     @SpringBean
-    private IndicatorGroupRepository indicatorGroupRepository;
+    protected IndicatorGroupRepository indicatorGroupRepository;
 
     @SpringBean
     protected RegionIndicatorService service;
@@ -74,7 +70,7 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
     protected MarkupCacheService markupCacheService;
 
     @SpringBean
-    private ReleaseCacheService cacheService;
+    protected ReleaseCacheService cacheService;
 
 
     public EditRegionIndicatorPage(final PageParameters parameters) {
@@ -212,8 +208,6 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
                     target.add(feedbackPanel);
                     redirectToSelf = true;
                 } else {
-                    addRegionFakeIndicators();
-
                     markupCacheService.clearAllCaches();
                 }
                 cacheService.releaseCache();
@@ -232,28 +226,6 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
                 }
             }
         };
-    }
-
-    private void addRegionFakeIndicators() {
-        List<GisIndicatorDTO> listEn = service.getFakeIndicatorDTOs(null);
-        Map<Long, GisIndicatorDTO> listFr = service.getFakeIndicatorDTOs(Constants.LANG_FR)
-                .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
-        Map<String, RegionIndicator> indicatorList = service.findAllFake().stream()
-                .collect(Collectors.toMap(RegionIndicator::getName, r -> r));
-
-        for (GisIndicatorDTO enDTO : listEn) {
-            if (!indicatorList.containsKey(enDTO.getName())) {
-                RegionIndicator ri = new RegionIndicator();
-                ri.setName(enDTO.getName());
-                GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
-                if (frDTO != null) {
-                    ri.setNameFr(frDTO.getName());
-                }
-                ri.setFakeIndicatorFlag(true);
-                ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
-                jpaService.saveAndFlush(ri);
-            }
-        }
     }
 
 }
