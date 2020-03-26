@@ -11,4 +11,6 @@
     <suppress checks="[a-zA-Z0-9]*" files="[\\/]ui[\\/]" />
 
     <suppress checks="." files=".ipar.*" />
+
+    <suppress checks="." files=".target.*" />
 </suppressions>
