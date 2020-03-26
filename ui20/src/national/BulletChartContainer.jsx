@@ -9,14 +9,35 @@ import { Grid, Image } from 'semantic-ui-react'
 import {Bullet} from './Charts.jsx'
 import Immutable from 'immutable'
 import messages from '../translations/messages'
-import {CustomFilterDropDown,items2options} from '../indicators/Components'
+import {CustomGroupedDropDown} from '../indicators/Components'
 import {PngExport} from '../indicators/Components'
 
 var regions = require('../json/regions.json'); //with path
 
 const getOptions=(data, percents)=> {
 
-    return data.map(d=>{return {key:d.id ,text:d.name,  leftMap:d.leftMap,rightMap:d.rightMap,}})
+    return data.map(d=>{return {key:d.id ,text:d.name,  leftMap:d.leftMap,rightMap:d.rightMap}})
+}
+
+
+
+
+const getGroupedOptions=(data)=> {
+
+  const groups=[...new Set(data.map(d=>d.indicatorGroup))]
+
+  const level1=groups.map(g=>{
+      const level2=  data.filter(d1=>d1.indicatorGroup==g).map(d=>{
+        return  {key:d.id ,text:d.name,  leftMap:d.leftMap,rightMap:d.rightMap,}
+      });
+        return {
+          group:g,
+          options:level2
+        };
+  })
+
+
+  return level1;
 }
 
 
@@ -93,6 +114,7 @@ const PairOfMaps=({intl ,id, data, n})=>{
 
   if (data){
     const options=getOptions(data.toJS())
+    const groupedOptions=getGroupedOptions(data.toJS())
     const defaultSelection = options[n > options.length-1?options.length-1:n ]
     const defLeft =  options.find(o=>o.leftMap==true) || options[0]
     const defRigth=  options.find(o=>o.rightMap==true)  || options[0]
@@ -114,7 +136,7 @@ const PairOfMaps=({intl ,id, data, n})=>{
       <div className="national chart container">
             <div className="national filter container">
 
-                <CustomFilterDropDown single className="dropdown indicator"  options={options} onChange={s => {
+                <CustomGroupedDropDown single className="dropdown indicator"  options={groupedOptions} onChange={s => {
                     if(s.length>0){
                                 setSeCurrentSelection(s)
                               }

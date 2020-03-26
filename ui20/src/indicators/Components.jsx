@@ -8,6 +8,7 @@ import download from 'downloadjs'
 
 import {
   Dropdown,
+  Menu,
   Grid,
   Image,
   Rail,
@@ -73,18 +74,16 @@ export const DateInput=({onChange, value, text, locale})=>{
 
 
 
+
+
+
 export const CustomFilterDropDown = ({options, selected, onChange, text, disabled, single}) => {
 
   const [open, setOpen] = useState(false);
 
-
-
-
   const breadcrum=single?(<div className="breadcrums">{selected && selected.length > 0? options[  options.map(a=>a.key).indexOf(selected[0]) ].text:text}</div>):(<div className="breadcrums">{text} {true?<span>({selected.length} of {options.length})</span>:null}</div>)
 
-
   const updateSelection = (key) => {
-
     var newSelection = selected.slice(0)
     if (newSelection.indexOf(key) > -1) {
       newSelection.splice(newSelection.indexOf(key), 1);
@@ -115,10 +114,13 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
   }
 
 
-  return (<Dropdown className={disabled?"disabled":""} fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
+  return (
+
+    <Dropdown className={disabled?"disabled":""} fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
       const keepOpen = !e || !e.currentTarget || !e.currentTarget.getAttribute || e.currentTarget.getAttribute("role") != 'listbox'
       setOpen(!keepOpen)
     }}>
+
     <Dropdown.Menu>
     {(single==null || single==false)&&    <Dropdown.Header>
         <div>
@@ -131,18 +133,119 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
       </Dropdown.Header>
         }
       <Dropdown.Divider/>
+
       <Dropdown.Menu scrolling="scrolling" className="filter options">
         {
           options.map(o =>< Dropdown.Item onClick = {e => updateSelection(o.key)} > <div className={"checkbox " + (
               getChecked(o.key)
               ? "checked"
               : "")}/>
-            {o.text} < /Dropdown.Item>)}
+            {o.text}
+
+        < /Dropdown.Item>)}
       </Dropdown.Menu>
+
       <Dropdown.Divider/>
+
     </Dropdown.Menu>
 
   </Dropdown>)}
+
+
+
+/*---------------------------*/
+export const CustomGroupedDropDown = ({options, selected, onChange, text, disabled, single}) => {
+
+  const [open, setOpen] = useState(false);
+
+  const plainOptions=[]
+  options.forEach(o=>o.options.forEach(i=>plainOptions.push(i)))
+
+
+  const selectedText=selected[0]
+
+
+
+    const breadcrum=single?(<div className="breadcrums">{selected && selected.length > 0? plainOptions[  plainOptions.map(a=>a.key).indexOf(selected[0]) ].text:text}</div>):(<div className="breadcrums">{text} {true?<span>({selected.length} of {plainOptions.length})</span>:null}</div>)
+
+  const updateSelection = (key) => {
+    var newSelection = selected.slice(0)
+    if (newSelection.indexOf(key) > -1) {
+      newSelection.splice(newSelection.indexOf(key), 1);
+    } else {
+      if(single){
+        newSelection=[key]
+
+      }else{
+      newSelection.push(key)
+      }
+    }
+    onChange(newSelection)
+  }
+
+  const getChecked = (key) => {
+
+    return selected.indexOf(key) > -1
+  }
+
+  const allNone = (flag) => {
+    if (flag == false) {
+      onChange([])
+    } else {
+      const newSelection = []
+      options.map(o => newSelection.push(o.key))
+      onChange(newSelection)
+    }
+  }
+
+
+  return (
+
+    <Dropdown className={disabled?"grouped dropdown disabled":"grouped dropdown"} fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
+      const keepOpen = !e || !e.currentTarget || !e.currentTarget.getAttribute || e.currentTarget.getAttribute("role") != 'listbox'
+      setOpen(!keepOpen)
+    }}>
+
+    <Dropdown.Menu>
+    {(single==null || single==false)&&<Dropdown.Header>
+        <div>
+
+          <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicators.filters.select_all' defaultMessage="Select All"/></span>
+          <span> | </span>
+          <span className="none" onClick={e=>allNone(false)}><FormattedMessage id='indicators.filters.select_none' defaultMessage="Select None"/></span>
+        </div>
+
+      </Dropdown.Header>
+        }
+    
+
+      <Dropdown.Menu scrolling="scrolling" className="filter options">
+
+      {options.map(o=>{
+
+          return <div>
+            <Dropdown.Item>{o.group}
+
+            {o.options.map(o =>< Dropdown.Item onClick = {e => updateSelection(o.key)} > <div className={"checkbox " + (getChecked(o.key) ? "checked" : "")}/> {o.text} </Dropdown.Item>)}
+
+
+            </Dropdown.Item>
+
+            <Dropdown.Divider/>
+          </div>
+
+      })}
+
+      </Dropdown.Menu>
+
+      <Dropdown.Divider/>
+
+    </Dropdown.Menu>
+
+  </Dropdown>)}
+
+
+  /*---------------------------*/
 
 
 export const ChartTableSwitcher = (props) =>(

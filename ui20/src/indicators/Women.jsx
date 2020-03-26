@@ -187,7 +187,7 @@ const mapStateToProps = state => {
   const population=state.getIn(['indicator','women','population', 'data'])
   const distribution=state.getIn(['indicator','women','distribution', 'data'])
 
-  debugger;
+  
 
   return {
     filters,

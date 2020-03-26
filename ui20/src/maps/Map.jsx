@@ -13,7 +13,7 @@ const formatOptions = {
   maximumFractionDigits: 2
 }
 const width = 600,
-  height = 450;
+  height = 500;
 
 export default class D3Map extends Component < {},
   State > {

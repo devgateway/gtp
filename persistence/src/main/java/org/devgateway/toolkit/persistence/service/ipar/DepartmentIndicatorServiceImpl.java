@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.devgateway.toolkit.persistence.util.Constants.CONS_DAILY_TYPE;
 import static org.devgateway.toolkit.persistence.util.Constants.CONS_SIZE_TYPE;
@@ -64,6 +66,41 @@ public class DepartmentIndicatorServiceImpl extends BaseJpaServiceImpl<Departmen
 
     @Override
     public List<GisIndicatorDTO> findGisDepartmentIndicators(String lang) {
+        List<GisIndicatorDTO> ret = getFakeIndicatorDTOs(lang);
+
+        //Add indicator groups to fake DI
+        List<DepartmentIndicator> fakeList = repository.findAllFake();
+        Map<String, DepartmentIndicator> indicatorFake = fakeList.stream()
+                .collect(Collectors.toMap(DepartmentIndicator::getName, i -> i));
+        indicatorFake.putAll(fakeList.stream()
+                .collect(Collectors.toMap(DepartmentIndicator::getNameFr, i -> i)));
+        ret.stream().forEach(i -> {
+            DepartmentIndicator di = indicatorFake.get(i.getName());
+            if (di != null) {
+                i.setIndicatorGroup(di.getIndicatorGroup().getLabel(lang));
+            }
+        });
+
+        List<DepartmentIndicator> indicatorList = repository.findAllApprovedNotFake();
+        indicatorList.stream().forEach(i -> ret.add(new GisIndicatorDTO(i, lang)));
+
+        List<GisSettings> gisSettings = gisSettingsService.findAll();
+        if (gisSettings.size() > 0) {
+            ret.stream().forEach(n -> {
+                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getLeftGisDepartmentName())) {
+                    n.setLeftMap(true);
+                }
+                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getRightGisDepartmentName())) {
+                    n.setRightMap(true);
+                }
+            });
+        }
+
+        return ret;
+    }
+
+    @Override
+    public List<GisIndicatorDTO> getFakeIndicatorDTOs(String lang) {
         List<GisIndicatorDTO> ret = new ArrayList<>();
 
         //production
@@ -89,23 +126,12 @@ public class DepartmentIndicatorServiceImpl extends BaseJpaServiceImpl<Departmen
         //Size
         IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllSizeByDepartment(),
                 descRepository.findByType(CONSUMPTION_TYPE_ID), CONS_SIZE_TYPE);
-
-        List<DepartmentIndicator> indicatorList = repository.findAllApproved();
-        indicatorList.stream().filter(n -> n.isApproved()).forEach(i -> ret.add(new GisIndicatorDTO(i, lang)));
-
-        List<GisSettings> gisSettings = gisSettingsService.findAll();
-        if (gisSettings.size() > 0) {
-            ret.stream().forEach(n -> {
-                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getLeftGisDepartmentName())) {
-                    n.setLeftMap(true);
-                }
-                if (n.getNameEnFr().equalsIgnoreCase(gisSettings.get(0).getRightGisDepartmentName())) {
-                    n.setRightMap(true);
-                }
-            });
-        }
-
         return ret;
+    }
+
+    @Override
+    public List<DepartmentIndicator> findAllFake() {
+        return repository.findAllFake();
     }
 
 

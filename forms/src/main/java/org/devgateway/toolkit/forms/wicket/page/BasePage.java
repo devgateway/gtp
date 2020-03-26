@@ -64,6 +64,7 @@ import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListAgriculturalWomen
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListConsumptionDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListDepartmentIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListFoodLossDatasetPage;
+import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListIndicatorGroupPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListIndicatorMetadataFormPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListMarketPriceDatasetPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListMicrodataLinkFormPage;
@@ -309,6 +310,10 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 list.add(new MenuBookmarkablePageLink<>(ListOrganizationPage.class, null,
                         new StringResourceModel("navbar.orgs", this, null)).setIconType(FontAwesomeIconType.tags));
 
+                list.add(new MenuBookmarkablePageLink<>(ListIndicatorGroupPage.class, null,
+                        new StringResourceModel("navbar.indicatorGroup", this, null))
+                        .setIconType(FontAwesomeIconType.tags));
+
                 list.add(new MenuBookmarkablePageLink<>(EditGisSettingsPage.class,
                         new StringResourceModel("navbar.gisSettings", BasePage.this, null))
                         .setIconType(FontAwesomeIconType.map));
@@ -472,7 +477,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
                 newUploadMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
 
-        // navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
+        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
 
         return navbar;
     }
