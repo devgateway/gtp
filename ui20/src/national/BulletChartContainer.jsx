@@ -15,7 +15,6 @@ import {PngExport} from '../indicators/Components'
 var regions = require('../json/regions.json'); //with path
 
 const getOptions=(data, percents)=> {
-
     return data.map(d=>{return {key:d.id ,text:d.name,  leftMap:d.leftMap,rightMap:d.rightMap}})
 }
 

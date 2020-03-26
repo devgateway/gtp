@@ -103,28 +103,51 @@ var tooltip = d3.select("body")
 
 
 
-
+const tooltipSize=300
 
 var showTooltip = function(e,html,color, xOffset=0, yOffset=0) {
+  let left=(e.pageX  + xOffset)
+  let top=(e.pageY   + yOffset )
 
   tooltip
-    .transition()
-    .duration(200)
+  .style("top", (top+  "px"))
 
-  tooltip
-    .style("opacity", 1)
+
+
+  tooltip.transition().duration(200)
+  tooltip.style("opacity", 1)
     .attr("class","tooltip")
     .html("<div class='square' style='background-color:"+color+"'></div><div class='label'>" +html+"</div>")
-    .style("left", ((e.pageX  +xOffset)  + "px"))
-    .style("top", ((e.pageY+yOffset )+  "px"))
+    .style("top",  (top + "px"))
+
+    if (left > window.innerWidth-tooltipSize  ){
+      tooltip.style("right", window.innerWidth-left   + "px")
+      tooltip.style("left","auto")
+    }else{
+      tooltip .style("left", (left  + "px"))
+      tooltip.style("right","auto")
+    }
+
 }
 
 
-var moveTooltip = function(e, xOffset=0, yOffset=0) {
+var moveTooltip = function(e, xOffset=0, yOffset=0 ) {
 
-  tooltip
-  .style("left", ((e.pageX  + xOffset)  + "px"))
-  .style("top", ((e.pageY+ yOffset )+  "px"))
+  let left=(e.pageX  + xOffset)
+  let top=(e.pageY   + yOffset )
+
+  tooltip.style("top", (top+  "px"))
+
+  if (left > window.innerWidth-tooltipSize  ){
+    debugger;
+    tooltip.style("right", window.innerWidth-left   + "px")
+    tooltip.style("left","auto")
+
+  }else{
+    tooltip .style("left", (left  + "px"))
+    tooltip.style("right","auto")
+  }
+
 }
 
 
@@ -228,7 +251,7 @@ const CustomMarker = (props) => {
 
             showTooltip(e,`${index==1?`Target: ${metadata.targetYear} `:`Reference: ${metadata.referenceYear}`} -  <b>${metadata.referenceValue} ${metadata.measure}</b> `,color)
         }}
-        onMouseMove={e=>moveTooltip(e,0,0)}
+        onMouseMove={e=>moveTooltip(e)}
         onMouseLeave={hideTooltip}
         >
 
@@ -272,7 +295,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
 
       }
       }}
-      onMouseMove={e=>moveTooltip(e,30,0)}
+      onMouseMove={e=>moveTooltip(e)}
       onMouseLeave={hideTooltip}
       >
       <rect
