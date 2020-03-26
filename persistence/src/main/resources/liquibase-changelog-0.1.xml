@@ -31,7 +31,7 @@
             <column name="username" value="admin" />
             <column name="email" value="admin@developmentgateway.org" />
             <column name="enabled" value="true" />
-            <column name="password" value="$2a$10$BTYSCSAFdv8K31CsY8RnN.FsJHp8xcUcMxWvf2L7QR3.C2hP02cQe" />
+            <column name="password" value="$2a$10$wvn/WOzcIGu.GGFGDhEzS.0KVIhHG3ypCNjH4ui1Xa8h3qgt2mdZ6" />
         </insert>
         <insert tableName="role">
             <column name="id" valueSequenceNext="hibernate_sequence" />
