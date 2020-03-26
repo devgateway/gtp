@@ -111,7 +111,7 @@ return (<div className="initiatives container">
                 {content== 0 &&<Grid.Column width={16}><Label   ribbon={true} className="centered" basic color="olive" inverted>This section has no data</Label></Grid.Column>}
               </Grid>
 
-                {content.length > 0 &&<Pagination   {...paginationProps}/>}
+                {content.length > 0 &&  <div className="pagination wrapper"><Pagination   {...paginationProps}/></div>}
 
 
             </Container>

@@ -298,3 +298,39 @@ html {
     padding-left: 2px;
   }
 }
+
+
+.pagination.wrapper {
+  margin-bottom: 12px;
+
+  .ui.mini.pagination {
+    border: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    font-family: $font;
+    font-size: 12px;
+
+    a {
+      font-weight: normal !important;
+    }
+
+    .item {
+      min-width: 23px;
+      border: 0;
+      font-size: 11px !important;
+      margin: 3 !important;
+      padding: 3 !important;
+    }
+
+    .item.active {
+      color: $color-green;
+    }
+
+    .item:before {
+      display: none;
+    }
+    margin: auto;
+  }
+  height: 60px;
+  display: flex;
+}
