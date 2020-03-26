@@ -84,7 +84,7 @@ public class EditProductionDatasetPage extends AbstractEditDatasePage<Production
                     model.setUploadedBy(SecurityUtil.getCurrentAuthenticatedPerson());
                     redirectToSelf = false;
                     results = importer.processFile(model);
-                    
+
                 }
 
                 //process results
