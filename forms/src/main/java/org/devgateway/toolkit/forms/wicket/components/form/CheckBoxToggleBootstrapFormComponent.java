@@ -18,6 +18,7 @@ import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.StringResourceModel;
 
 /**
  * @author mpostelnicu
@@ -60,7 +61,7 @@ public class CheckBoxToggleBootstrapFormComponent
         config.withOnStyle(BootstrapToggleConfig.Style.info).withOffStyle(BootstrapToggleConfig.Style.warning)
                 .withStyle("customCssClass");
 
-        final BootstrapToggle checkBoxToggle = new BootstrapToggle("field", initFieldModel(), config) {
+        final CheckBoxToggle checkBoxToggle = new CheckBoxToggle("field", initFieldModel(), config) {
 
             private static final long serialVersionUID = 1L;
 
@@ -95,5 +96,21 @@ public class CheckBoxToggleBootstrapFormComponent
 
     public BootstrapToggleConfig getConfig() {
         return config;
+    }
+
+    class CheckBoxToggle extends BootstrapToggle {
+        CheckBoxToggle(String id, IModel<Boolean> model, BootstrapToggleConfig config) {
+            super(id, model, config);
+        }
+
+        @Override
+        protected IModel<String> getOnLabel() {
+            return new StringResourceModel("onLabel", CheckBoxToggleBootstrapFormComponent.this);
+        }
+
+        @Override
+        protected IModel<String> getOffLabel() {
+            return new StringResourceModel("offLabel", CheckBoxToggleBootstrapFormComponent.this);
+        }
     }
 }

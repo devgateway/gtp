@@ -30,6 +30,8 @@ import org.wicketstuff.select2.Select2Choice;
 public class Select2ChoiceBootstrapFormComponent<TYPE>
         extends GenericEnablingBootstrapFormComponent<TYPE, Select2Choice<TYPE>> {
     private static final long serialVersionUID = -3430670677135618576L;
+    public static final String CLICK_TO_SELECT_EN = "Click to select";
+    public static final String CLICK_TO_SELECT_FR = "Cliquez pour sélectionner";
 
     public Select2ChoiceBootstrapFormComponent(final String id, final IModel<String> labelModel,
                                                final IModel<TYPE> model, final ChoiceProvider<TYPE> choiceProvider) {
@@ -76,7 +78,12 @@ public class Select2ChoiceBootstrapFormComponent<TYPE>
      */
     @Override
     protected void onInitialize() {
-        field.getSettings().setPlaceholder("Click to select");
+        String placeholder = CLICK_TO_SELECT_EN;
+        if (this.getParent() != null && this.getParent().getLocale() != null
+                && this.getParent().getLocale().getLanguage().equalsIgnoreCase("fr")) {
+            placeholder = CLICK_TO_SELECT_FR;
+        }
+        field.getSettings().setPlaceholder(placeholder);
         field.getSettings().setAllowClear(true);
         field.getSettings().setCloseOnSelect(true);
         field.getSettings().setDropdownAutoWidth(true);
