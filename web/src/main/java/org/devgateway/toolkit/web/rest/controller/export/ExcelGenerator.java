@@ -51,7 +51,7 @@ public class ExcelGenerator {
 
     public static final String AOI_INDICATOR = "AOI Indicator";
     public static final String AGRICULTURAL_WOMEN_INDICATOR = "Agricultural Women Indicator";
-    public static final String FOOD_LOSS_INDICATOR = "Post-Harvest Loss Indicator";
+    public static final String FOOD_LOSS_INDICATOR = "Post-Harvest Loss";
     public static final String POVERTY_INDICATOR = "Poverty Indicator";
 
     public static final String AOI_INDICATOR_FR = "Indice d'Orientation Agricole";
