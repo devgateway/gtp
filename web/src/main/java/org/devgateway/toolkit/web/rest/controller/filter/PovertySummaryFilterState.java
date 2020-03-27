@@ -3,15 +3,10 @@ package org.devgateway.toolkit.web.rest.controller.filter;
 import org.devgateway.toolkit.persistence.dao.Data_;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dao.PovertyIndicator_;
-import org.devgateway.toolkit.persistence.dao.Region;
-import org.devgateway.toolkit.persistence.dao.Region_;
 import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
@@ -20,12 +15,12 @@ import java.util.List;
 /**
  * Created by Daniel Oliva
  */
-public class PovertySumaryFilterState extends DataFilterState<PovertyIndicator> {
+public class PovertySummaryFilterState extends DataFilterState<PovertyIndicator> {
     private static final long serialVersionUID = 8005371716983257722L;
 
     private PovertyFilterPagingRequest filter;
 
-    public PovertySumaryFilterState(PovertyFilterPagingRequest filter) {
+    public PovertySummaryFilterState(PovertyFilterPagingRequest filter) {
         super(filter);
         this.filter = filter;
     }
