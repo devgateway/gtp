@@ -275,6 +275,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
             @Override
             protected List<AbstractLink> newSubMenuButtons(final String arg0) {
                 final List<AbstractLink> list = new ArrayList<>();
+                /*
                 list.add(new MenuBookmarkablePageLink<ListIndicatorMetadataFormPage>(
                         ListIndicatorMetadataFormPage.class, null, new StringResourceModel("navbar.indicatorMetadata",
                         this, null)).setIconType(FontAwesomeIconType.bolt));
@@ -292,24 +293,27 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         ListAgriculturalContentFormPage.class, null,
                         new StringResourceModel("navbar.agriculturalContent", this, null))
                         .setIconType(FontAwesomeIconType.list_ul));
+                 */
 
                 /*list.add(new MenuBookmarkablePageLink<ListWebContentFormPage>(ListWebContentFormPage.class, null,
                         new StringResourceModel("navbar.webContent", this, null))
                         .setIconType(FontAwesomeIconType.html5));*/
 
-                list.add(new MenuDivider());
+                // list.add(new MenuDivider());
 
                 list.add(new MenuBookmarkablePageLink<>(ListUserPage.class, null,
                         new StringResourceModel("navbar.users", this, null))
                         .setIconType(FontAwesomeIconType.users));
 
+                /*
                 list.add(new MenuBookmarkablePageLink<>(ListPartnerPage.class, null,
                         new StringResourceModel("navbar.partners", this, null))
                         .setIconType(FontAwesomeIconType.handshake_o));
-
+                */
                 list.add(new MenuBookmarkablePageLink<>(ListOrganizationPage.class, null,
                         new StringResourceModel("navbar.orgs", this, null)).setIconType(FontAwesomeIconType.tags));
 
+                /*
                 list.add(new MenuBookmarkablePageLink<>(ListIndicatorGroupPage.class, null,
                         new StringResourceModel("navbar.indicatorGroup", this, null))
                         .setIconType(FontAwesomeIconType.tags));
@@ -317,6 +321,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 list.add(new MenuBookmarkablePageLink<>(EditGisSettingsPage.class,
                         new StringResourceModel("navbar.gisSettings", BasePage.this, null))
                         .setIconType(FontAwesomeIconType.map));
+                 */
 
                 /*list.add(new MenuBookmarkablePageLink<>(ListTestFormPage.class, null,
                         new StringResourceModel("navbar.testcomponents", this, null))
@@ -397,6 +402,23 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 final List<AbstractLink> list = new ArrayList<>();
                 list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
                         ListNationalIndicatorFormPage.class, null,
+                        new StringResourceModel("navbar.climateAndMeteorology", this, null))
+                        .setIconType(FontAwesomeIconType.umbrella));
+                list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
+                        ListNationalIndicatorFormPage.class, null,
+                        new StringResourceModel("navbar.environmentAndHydrology", this, null))
+                        .setIconType(FontAwesomeIconType.pagelines));
+                list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
+                        ListNationalIndicatorFormPage.class, null,
+                        new StringResourceModel("navbar.agricultureAndMarkets", this, null))
+                        .setIconType(FontAwesomeIconType.shopping_basket));
+                list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
+                        ListNationalIndicatorFormPage.class, null,
+                        new StringResourceModel("navbar.livestock", this, null))
+                        .setIconType(FontAwesomeIconType.paw));
+                /*
+                list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
+                        ListNationalIndicatorFormPage.class, null,
                         new StringResourceModel("navbar.nationalIndicator", this, null))
                         .setIconType(FontAwesomeIconType.area_chart));
                 list.add(new MenuBookmarkablePageLink<ListRegionIndicatorPage>(ListRegionIndicatorPage.class, null,
@@ -442,7 +464,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         ListAOIIndicatorDatasetPage.class, null,
                         new StringResourceModel("navbar.aoi", this, null))
                         .setIconType(FontAwesomeIconType.arrows_alt));
-
+                 */
 
                 return list;
             }
