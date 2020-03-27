@@ -18,6 +18,10 @@ body {
     margin-bottom: 50px !important;
 }
 
+.container {
+    width: 95%;
+}
+
 .mainHeader.with-navbar-default .navbar-default {
     /*
      * The mainHeader navbar should not have rounded borders when it is not fixed.
@@ -47,6 +51,7 @@ body {
      * The main page content should have some height.
      */
     min-height: 20em;
+    width: 1170px;
 }
 
 .mainFooter {
@@ -247,6 +252,8 @@ label {
 .btn.dropdown-toggle {
     text-align: left;
 }
+
+
 
 /*
 -------------------------------------------------- */

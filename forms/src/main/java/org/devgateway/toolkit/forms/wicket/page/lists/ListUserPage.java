@@ -13,7 +13,7 @@ package org.devgateway.toolkit.forms.wicket.page.lists;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
@@ -35,11 +35,16 @@ public class ListUserPage extends AbstractListPage<Person> {
         this.jpaService = personService;
 
         this.editPageClass = EditUserPageElevated.class;
-        columns.add(new LambdaColumn<>(new Model<>("Username"), "username", Person::getUsername));
-        columns.add(new LambdaColumn<>(new Model<>("First Name"), "firstName", Person::getFirstName));
-        columns.add(new LambdaColumn<>(new Model<>("Last Name"), "lastName", Person::getLastName));
-        columns.add(new LambdaColumn<>(new Model<>("Organization"), "organization", Person::getOrganization));
-        columns.add(new LambdaColumn<>(new Model<>("Roles"), Person::getRoles));
+        columns.add(new LambdaColumn<>(new StringResourceModel("username", ListUserPage.this),
+                "username", Person::getUsername));
+        columns.add(new LambdaColumn<>(new StringResourceModel("firstName", ListUserPage.this),
+                "firstName", Person::getFirstName));
+        columns.add(new LambdaColumn<>(new StringResourceModel("lastName", ListUserPage.this),
+                "lastName", Person::getLastName));
+        columns.add(new LambdaColumn<>(new StringResourceModel("organization", ListUserPage.this),
+                "organization", Person::getOrganization));
+        columns.add(new LambdaColumn<>(new StringResourceModel("roles", ListUserPage.this),
+                Person::getRoles));
     }
 
     @Override
