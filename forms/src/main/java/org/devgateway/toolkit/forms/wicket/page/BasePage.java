@@ -11,11 +11,6 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.page;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
-
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.ButtonList;
@@ -57,24 +52,8 @@ import org.apache.wicket.resource.JQueryResourceReference;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
-import org.devgateway.toolkit.forms.wicket.page.ipar.edit.EditGisSettingsPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListAOIIndicatorDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListAgriculturalContentFormPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListAgriculturalWomenDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListConsumptionDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListDepartmentIndicatorPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListFoodLossDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListIndicatorGroupPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListIndicatorMetadataFormPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListMarketPriceDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListMicrodataLinkFormPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListNationalIndicatorFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListPartnerPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListPovertyIndicatorDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListProductionDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListRapidLinkFormPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListRegionIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
 import org.devgateway.toolkit.forms.wicket.page.user.EditUserPage;
 import org.devgateway.toolkit.forms.wicket.page.user.LogoutPage;
@@ -82,6 +61,11 @@ import org.devgateway.toolkit.forms.wicket.styles.BaseStyles;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * Base wicket-bootstrap {@link org.apache.wicket.Page}
@@ -275,6 +259,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
             @Override
             protected List<AbstractLink> newSubMenuButtons(final String arg0) {
                 final List<AbstractLink> list = new ArrayList<>();
+                /*
                 list.add(new MenuBookmarkablePageLink<ListIndicatorMetadataFormPage>(
                         ListIndicatorMetadataFormPage.class, null, new StringResourceModel("navbar.indicatorMetadata",
                         this, null)).setIconType(FontAwesomeIconType.bolt));
@@ -292,24 +277,27 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         ListAgriculturalContentFormPage.class, null,
                         new StringResourceModel("navbar.agriculturalContent", this, null))
                         .setIconType(FontAwesomeIconType.list_ul));
+                 */
 
                 /*list.add(new MenuBookmarkablePageLink<ListWebContentFormPage>(ListWebContentFormPage.class, null,
                         new StringResourceModel("navbar.webContent", this, null))
                         .setIconType(FontAwesomeIconType.html5));*/
 
-                list.add(new MenuDivider());
+                // list.add(new MenuDivider());
 
                 list.add(new MenuBookmarkablePageLink<>(ListUserPage.class, null,
                         new StringResourceModel("navbar.users", this, null))
                         .setIconType(FontAwesomeIconType.users));
 
+                /*
                 list.add(new MenuBookmarkablePageLink<>(ListPartnerPage.class, null,
                         new StringResourceModel("navbar.partners", this, null))
                         .setIconType(FontAwesomeIconType.handshake_o));
-
+                */
                 list.add(new MenuBookmarkablePageLink<>(ListOrganizationPage.class, null,
                         new StringResourceModel("navbar.orgs", this, null)).setIconType(FontAwesomeIconType.tags));
 
+                /*
                 list.add(new MenuBookmarkablePageLink<>(ListIndicatorGroupPage.class, null,
                         new StringResourceModel("navbar.indicatorGroup", this, null))
                         .setIconType(FontAwesomeIconType.tags));
@@ -317,6 +305,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 list.add(new MenuBookmarkablePageLink<>(EditGisSettingsPage.class,
                         new StringResourceModel("navbar.gisSettings", BasePage.this, null))
                         .setIconType(FontAwesomeIconType.map));
+                 */
 
                 /*list.add(new MenuBookmarkablePageLink<>(ListTestFormPage.class, null,
                         new StringResourceModel("navbar.testcomponents", this, null))
@@ -397,6 +386,23 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 final List<AbstractLink> list = new ArrayList<>();
                 list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
                         ListNationalIndicatorFormPage.class, null,
+                        new StringResourceModel("navbar.climateAndMeteorology", this, null))
+                        .setIconType(FontAwesomeIconType.umbrella));
+                list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
+                        ListNationalIndicatorFormPage.class, null,
+                        new StringResourceModel("navbar.environmentAndHydrology", this, null))
+                        .setIconType(FontAwesomeIconType.pagelines));
+                list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
+                        ListNationalIndicatorFormPage.class, null,
+                        new StringResourceModel("navbar.agricultureAndMarkets", this, null))
+                        .setIconType(FontAwesomeIconType.shopping_basket));
+                list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
+                        ListNationalIndicatorFormPage.class, null,
+                        new StringResourceModel("navbar.livestock", this, null))
+                        .setIconType(FontAwesomeIconType.paw));
+                /*
+                list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
+                        ListNationalIndicatorFormPage.class, null,
                         new StringResourceModel("navbar.nationalIndicator", this, null))
                         .setIconType(FontAwesomeIconType.area_chart));
                 list.add(new MenuBookmarkablePageLink<ListRegionIndicatorPage>(ListRegionIndicatorPage.class, null,
@@ -442,7 +448,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         ListAOIIndicatorDatasetPage.class, null,
                         new StringResourceModel("navbar.aoi", this, null))
                         .setIconType(FontAwesomeIconType.arrows_alt));
-
+                 */
 
                 return list;
             }
@@ -477,7 +483,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
                 newUploadMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
 
-        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
+        // navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
 
         return navbar;
     }
