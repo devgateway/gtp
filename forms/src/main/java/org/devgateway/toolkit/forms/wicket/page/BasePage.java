@@ -11,11 +11,6 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.page;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
-
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.ButtonList;
@@ -57,24 +52,8 @@ import org.apache.wicket.resource.JQueryResourceReference;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
-import org.devgateway.toolkit.forms.wicket.page.ipar.edit.EditGisSettingsPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListAOIIndicatorDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListAgriculturalContentFormPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListAgriculturalWomenDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListConsumptionDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListDepartmentIndicatorPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListFoodLossDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListIndicatorGroupPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListIndicatorMetadataFormPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListMarketPriceDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListMicrodataLinkFormPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListNationalIndicatorFormPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListPartnerPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListPovertyIndicatorDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListProductionDatasetPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListRapidLinkFormPage;
-import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListRegionIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
 import org.devgateway.toolkit.forms.wicket.page.user.EditUserPage;
 import org.devgateway.toolkit.forms.wicket.page.user.LogoutPage;
@@ -82,6 +61,11 @@ import org.devgateway.toolkit.forms.wicket.styles.BaseStyles;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * Base wicket-bootstrap {@link org.apache.wicket.Page}
@@ -499,7 +483,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
                 newUploadMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
 
-        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
+        // navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
 
         return navbar;
     }
