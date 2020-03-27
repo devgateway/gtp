@@ -9,14 +9,8 @@ const Footer = (props) => {
     <div className="st-row">
 
       <div className="footer-share-bar">
-        <a href="https://twitter.com/IPAR_ThinkTank" className="share-icon tw"/>
-        <a href="https://www.facebook.com/IPARNEWS/" className="share-icon fb"/>
-        <a className="share-icon in"/>
-        <a className="share-icon inst"/>
-      </div>
-      <div className="footer-share-bar right">
-        <a href="https://twitter.com/statsenegal" className="share-icon tw"/>
-        <a href="https://www.facebook.com/ANSD.Senegal" className="share-icon fb"/>
+        <a href="https://twitter.com/meteosenegal" className="share-icon tw"/>
+        <a href="https://www.facebook.com/Anacim-Prevision-498598026887517/" className="share-icon fb"/>
         <a className="share-icon in"/>
         <a className="share-icon inst"/>
       </div>
@@ -28,14 +22,6 @@ const Footer = (props) => {
               Washington, DC, 20005 USA
               (at the Open Gov Hub) `} values={""}/>
       </div>
-
-      <div className="footer-text">
-        <FormattedHTMLMessage id="footer.text.copy_right" defaultMessage={`Copyright 2016. Fundamedios
-All Rights Reserved.
-Designed by Plastic
-Develloped by Plastic.`} values={""}/>
-      </div>
-
     </div>
   </div>);
 }

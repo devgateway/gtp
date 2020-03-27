@@ -26,7 +26,9 @@ class Home extends Component {
         {
           //<Weather {...this.props}></Weather>
         }
-        <Newsletter {...this.props}></Newsletter>
+        {
+            //<Newsletter {...this.props}></Newsletter>
+        }
 
     </div>)
   }
