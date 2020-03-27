@@ -9,6 +9,7 @@ import org.devgateway.toolkit.persistence.repository.SummaryIndicatorRepository;
 import org.devgateway.toolkit.persistence.service.PovertyIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.PovertyFilterState;
+import org.devgateway.toolkit.web.rest.controller.filter.PovertySumaryFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -90,7 +91,7 @@ public class PovertyIndicatorController extends AbstractDatasetController<Povert
     @RequestMapping(value = "/summary", method = POST)
     public @ResponseBody List<PovertySummary> getSummaryIndicatorPoverty(
             @RequestBody(required = false) @Valid final PovertyFilterPagingRequest req) {
-        PovertyFilterState filterState = new PovertyFilterState(req);
+        PovertySumaryFilterState filterState = new PovertySumaryFilterState(req);
         return summaryIndicatorRepository.getPovertyByYearAndRegionAndLevel(filterState.getSpecification());
     }
 

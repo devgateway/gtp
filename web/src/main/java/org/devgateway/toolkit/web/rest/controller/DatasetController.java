@@ -9,7 +9,7 @@ import org.devgateway.toolkit.persistence.dto.NationalIndicatorDTO;
 import org.devgateway.toolkit.persistence.dto.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.category.DatasetTypeRepository;
 import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
-import org.devgateway.toolkit.persistence.service.DatasetService;
+import org.devgateway.toolkit.persistence.service.DatasetFinderService;
 import org.devgateway.toolkit.persistence.service.DepartmentIndicatorService;
 import org.devgateway.toolkit.persistence.service.GisSettingsService;
 import org.devgateway.toolkit.persistence.service.MicrodataLinkService;
@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,7 +54,7 @@ public class DatasetController {
 
     @Autowired
     @Qualifier(value = "datasetService")
-    private DatasetService datasetService;
+    private DatasetFinderService datasetService;
 
     @Autowired
     private MicrodataLinkService microdataLinkService;
@@ -86,7 +88,20 @@ public class DatasetController {
         Pageable pageable = PageRequest.of(request.getPageNumber(), pageSize);
         List<DatasetType> datasetTypes = datasetTypeRepository.findAll();
         DatasetFilterState filter = new DatasetFilterState(request, datasetTypes);
-        return datasetService.findAllDTO(filter.getSpecification(), pageable, request.getLang());
+
+        List<DatasetDTO> dtoList = datasetService.findAllDTO(filter.getSpecification(), request.getLang());
+        if (request.getSortBy().equalsIgnoreCase("type")) {
+            if (request.getSortDir().equalsIgnoreCase("asc")) {
+                dtoList = dtoList.stream().sorted(Comparator.comparing(DatasetDTO::getType))
+                        .collect(Collectors.toList());
+            } else {
+                dtoList = dtoList.stream().sorted(Comparator.comparing(DatasetDTO::getType).reversed())
+                        .collect(Collectors.toList());
+            }
+        }
+
+
+        return new PageImpl(dtoList, pageable, dtoList.size());
     }
 
     @CrossOrigin
