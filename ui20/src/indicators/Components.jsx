@@ -164,9 +164,7 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
 
   const selectedText=selected[0]
 
-
-
-    const breadcrum=single?(<div className="breadcrums">{selected && selected.length > 0? plainOptions[  plainOptions.map(a=>a.key).indexOf(selected[0]) ].text:text}</div>):(<div className="breadcrums">{text} {true?<span>({selected.length} of {plainOptions.length})</span>:null}</div>)
+  const breadcrum=single?(<div className="breadcrums">{selected && selected.length > 0? plainOptions[  plainOptions.map(a=>a.key).indexOf(selected[0]) ].text:text}</div>):(<div className="breadcrums">{text} {true?<span>({selected.length} of {plainOptions.length})</span>:null}</div>)
 
   const updateSelection = (key) => {
     var newSelection = selected.slice(0)
@@ -198,6 +196,7 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
     }
   }
 
+  debugger;
 
   return (
 
@@ -217,16 +216,16 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
 
       </Dropdown.Header>
         }
-    
+
 
       <Dropdown.Menu scrolling="scrolling" className="filter options">
 
-      {options.map(o=>{
+      {options.sort((a,b)=>a.group.localeCompare(b.group)).map(o=>{
 
           return <div>
             <Dropdown.Item>{o.group}
 
-            {o.options.map(o =>< Dropdown.Item onClick = {e => updateSelection(o.key)} > <div className={"checkbox " + (getChecked(o.key) ? "checked" : "")}/> {o.text} </Dropdown.Item>)}
+            {o.options.sort((a,b)=>a.text.localeCompare(b.text)).map(o =>< Dropdown.Item onClick = {e => updateSelection(o.key)} > <div className={"checkbox " + (getChecked(o.key) ? "checked" : "")}/> {o.text} </Dropdown.Item>)}
 
 
             </Dropdown.Item>
