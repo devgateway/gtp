@@ -11,7 +11,7 @@ const MainIntro = (props) => {
 
 
 const IntroTitle=(props)=>{
-    return (<div className="title"><FormattedMessage id="home.intro.title" defaultMessage={"Senegal Agridata Platform"} values={""}/> </div>)
+    return (<div className="title"><FormattedMessage id="home.intro.title" values={""}/> </div>)
 }
 const IntroText=(props)=>{
     return (<div className="text"><FormattedHTMLMessage id="home.intro.text" defaultMessage={"Senegal AgriData Platform - a joint initiative between Initiative Prospective Agricole et Rurale (IPAR) and the National Statistical Agency (ANSD) to foster agricultural development in Senegal"} values={""}/> </div>)
@@ -28,7 +28,7 @@ const Header=(props)=>{
     <MainIntro>
         <IntroTitle></IntroTitle>
         <IntroText></IntroText>
-        
+
       </MainIntro>
   </div>);
 }

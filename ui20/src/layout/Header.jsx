@@ -19,27 +19,15 @@ const HeaderImage = (props) => {
 
 const AnalystDropdown = withRouter(injectIntl((props) => (
 
-  <Dropdown text={<FormattedMessage id="home.header.menu.analysis" defaultMessage={"Analysis"} values={""}/>}>
+  <Dropdown text={<FormattedMessage id="home.header.menu.graphics" values={""}/>}>
     <Dropdown.Menu>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/national`)} text={<FormattedMessage id="home.header.menu.indicators.national" defaultMessage={"National Indicators"} values={""}/>} />
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/indicators`)} text={<FormattedMessage id="home.header.menu.indicators.sdg" defaultMessage={"SDG Indicators"} values={""}/>}/>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/gis/regional`)} text={<FormattedMessage id="home.header.menu.gis.regional" defaultMessage={"Regional Indicators Map"} values={""}/>} />
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/gis/departmental`)} text={<FormattedMessage id="home.header.menu.gis.departamental" defaultMessage={"Departamental Indicators Map"} values={""}/>} />
-      <Dropdown.Divider/>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/production`)} text={<FormattedMessage id="home.header.menu.production" defaultMessage={"Production"} values={""}/>}/>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/consumption`)} text={<FormattedMessage id="home.header.menu.consumption" defaultMessage={"Consumption"} values={""}/>} />
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/analytic/marketPrice`)} text={<FormattedMessage id="home.header.menu.market" defaultMessage={"Market Price"} values={""}/>} />
-      <Dropdown.Divider/>
-
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/microdata`)} text={<FormattedMessage id="home.header.menu.microdata" defaultMessage={"Microdata"} values={""}/>}/>
-
-
+      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/climate-and-meteorology`)} text={<FormattedMessage id="home.pane.climateAndMeteorology.title" values={""}/>} />
+      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/environment-and-hydrology`)} text={<FormattedMessage id="home.pane.environmentAndHydrology.title" values={""}/>}/>
+      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/agriculture-and-markets`)} text={<FormattedMessage id="home.pane.agricultureAndMarkets.title" values={""}/>} />
+      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/livestock`)} text={<FormattedMessage id="home.pane.livestock.title" values={""}/>} />
     </Dropdown.Menu>
   </Dropdown>
-)))
-
-
-
+)));
 
 const LanSwitcher = withRouter((props) => (
   <div>
@@ -57,11 +45,20 @@ const LanSwitcher = withRouter((props) => (
 const HeaderNavButtons = withRouter((props) => {
   return (<div className="header-nav-bar">
     <div className="nav link"><Link to={`/${props.match.params.lan}/home`}><FormattedMessage id="home.header.menu.home" defaultMessage={"Home"} values={""}/></Link></div>
-    <div className="nav link"><Link to={`/${props.match.params.lan}/initiatives`}><FormattedMessage id="home.header.menu.agriculutural.initiatives" defaultMessage={"Agricultural Initiatives"} values={""}/></Link></div>
+    <div className="nav link"><Link to={`/${props.match.params.lan}/about`}>
+      <FormattedMessage id="home.header.menu.about" values={""}/></Link>
+    </div>
+    <div className="nav link"><Link to={`/${props.match.params.lan}/bulletins`}>
+      <FormattedMessage id="home.header.menu.bulletins" values={""}/></Link>
+    </div>
+    <div className="nav link"><Link to={`/${props.match.params.lan}/members`}>
+      <FormattedMessage id="home.header.menu.members" values={""}/></Link>
+    </div>
     <div className="nav link menu"><AnalystDropdown></AnalystDropdown></div>
-    <div className="nav link"><Link to={`/${props.match.params.lan}/partners`}><FormattedMessage id="home.header.menu.partners" defaultMessage={"Partners"} values={""}/></Link></div>
-    <div className="nav  separator"></div>
-    <div className="nav link"><LanSwitcher/></div>
+    {
+      // <div className="nav  separator"></div>
+      // <div className="nav link"><LanSwitcher/></div>
+    }
     <div className="nav  separator"></div>
     <div className="nav link">  <a href="/admin">  <img className="logo admin" src="/header_admin_logo.png"/></a></div>
 
