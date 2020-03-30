@@ -4,12 +4,8 @@ import {FormattedMessage} from 'react-intl';
 
 
 import Main from './Intro'
-import Links from './Links'
-import Stories from './Sotries'
-import Weather from './Weather'
-import Newsletter from './NewsLetter'
-
 import {loadRapidLInks} from '../modules/Data'
+import ModuleLinksBlock from "./ModuleLink";
 
 class Home extends Component {
   componentDidMount() {
@@ -21,12 +17,19 @@ class Home extends Component {
     return (
       <div>
         <Main {...this.props}></Main>
-        <Links {...this.props}></Links>
-        <Stories {...this.props}></Stories>
+        <ModuleLinksBlock {...this.props}></ModuleLinksBlock>
+        {
+          //<Links {...this.props}></Links>
+        }
+        {
+          //<Stories {...this.props}></Stories>
+        }
         {
           //<Weather {...this.props}></Weather>
         }
-        <Newsletter {...this.props}></Newsletter>
+        {
+          //<Newsletter {...this.props}></Newsletter>
+        }
 
     </div>)
   }
