@@ -27,9 +27,7 @@ import org.devgateway.toolkit.persistence.repository.ipar.category.IndicatorGrou
 import org.devgateway.toolkit.persistence.service.ipar.ImportService;
 import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.devgateway.toolkit.persistence.service.ipar.DepartmentIndicatorService;
-import org.devgateway.toolkit.persistence.service.ipar.ImportService;
 import org.devgateway.toolkit.persistence.service.ipar.RegionIndicatorService;
-import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.devgateway.toolkit.persistence.util.Constants;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;

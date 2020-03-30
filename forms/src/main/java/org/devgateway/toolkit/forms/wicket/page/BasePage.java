@@ -245,7 +245,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
 
     protected NavbarButton<Homepage> newHomeMenu() {
         // home
-        NavbarButton<Homepage> homeMenu = new NavbarButton<>(Homepage.class, Model.of("Home"));
+        NavbarButton<Homepage> homeMenu = new NavbarButton<>(Homepage.class,
+                new StringResourceModel("home", this, null));
         homeMenu.setIconType(FontAwesomeIconType.home);
         MetaDataRoleAuthorizationStrategy.authorize(homeMenu, Component.RENDER,
                 SecurityConstants.Roles.ROLE_FOCAL_POINT);
@@ -377,7 +378,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         return adminMenu;
     }
 
-    protected NavbarDropDownButton newUploadMenu() {
+    protected NavbarDropDownButton newIndicatorsMenu() {
 
         // upload menu
         NavbarDropDownButton uploadMenu = new NavbarDropDownButton(
@@ -388,19 +389,19 @@ public abstract class BasePage extends GenericWebPage<Void> {
             protected List<AbstractLink> newSubMenuButtons(final String arg0) {
                 final List<AbstractLink> list = new ArrayList<>();
                 list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
-                        ListNationalIndicatorFormPage.class, null,
+                        Homepage.class, null,
                         new StringResourceModel("navbar.climateAndMeteorology", this, null))
                         .setIconType(FontAwesomeIconType.umbrella));
                 list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
-                        ListNationalIndicatorFormPage.class, null,
+                        Homepage.class, null,
                         new StringResourceModel("navbar.environmentAndHydrology", this, null))
                         .setIconType(FontAwesomeIconType.pagelines));
                 list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
-                        ListNationalIndicatorFormPage.class, null,
+                        Homepage.class, null,
                         new StringResourceModel("navbar.agricultureAndMarkets", this, null))
                         .setIconType(FontAwesomeIconType.shopping_basket));
                 list.add(new MenuBookmarkablePageLink<ListNationalIndicatorFormPage>(
-                        ListNationalIndicatorFormPage.class, null,
+                        Homepage.class, null,
                         new StringResourceModel("navbar.livestock", this, null))
                         .setIconType(FontAwesomeIconType.paw));
                 /*
@@ -568,7 +569,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         navbar.setInverted(true);
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
-                newUploadMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
+                newIndicatorsMenu(), newAdminMenu(), newAccountMenu(), newLogoutMenu()));
 
         // navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
 
