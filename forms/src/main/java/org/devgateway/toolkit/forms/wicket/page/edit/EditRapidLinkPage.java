@@ -39,9 +39,11 @@ import org.devgateway.toolkit.persistence.service.RapidLinkService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by Daniel Oliva
@@ -100,6 +102,8 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
         linkField.required();
 
         List<RapidLinkPosition> positions = rlpRepo.findAllFetchingLocalizedLabels();
+        positions = positions.stream().sorted(Comparator.comparing(RapidLinkPosition::getDescription))
+                .collect(Collectors.toList());
         GenericChoiceProvider<RapidLinkPosition> choiceProvider =
                 new GenericChoiceProvider<RapidLinkPosition>(positions) {
             @Override
