@@ -130,7 +130,7 @@ return (
       colors={colors}
       margin={{ top: 50, right: 50, bottom: 130, left: 60 }}
       padding={0.1}
-      innerPadding={0.5}
+      innerPadding={0}
       fill={[]}
       borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
       axisTop={null}

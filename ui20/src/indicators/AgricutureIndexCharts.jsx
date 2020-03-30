@@ -8,12 +8,15 @@ import messages from '../translations/messages'
 
 export const BarChart = injectIntl(({data, intl,keys,indexBy,groupMode,colors}) => {
 
+
+
   return (
   <ResponsiveBar data={data} keys={keys} indexBy={indexBy}
     groupMode={groupMode}
     margin={{top: 20,right: 50,bottom: 160,left: 80}}
     padding={0.35}
-    innerPadding={3}
+
+    innerPadding={0}
     defs={[
       {
         id: 'dots',
@@ -67,6 +70,7 @@ export const BarChart = injectIntl(({data, intl,keys,indexBy,groupMode,colors}) 
     }}
 
     axisLeft={{
+
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
@@ -74,6 +78,7 @@ export const BarChart = injectIntl(({data, intl,keys,indexBy,groupMode,colors}) 
       legendPosition: 'middle',
       legendOffset: -40
     }}
+
 
     label={d=>intl.formatNumber(d.value)+intl.formatMessage(messages.billions_short).toUpperCase()}
     labelSkipWidth={12}
