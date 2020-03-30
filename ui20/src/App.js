@@ -129,7 +129,10 @@ class IntlRoutes extends Component {
                       <Header></Header>
                       <NationalIndicators></NationalIndicators>
                     </div>)}/>
-            <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
+            <Route render={() => (<div>
+                <Header></Header>
+                <div className="not-found">Page Not Found</div>
+            </div>)}/>
           </Switch>
 
           <Footer></Footer>
