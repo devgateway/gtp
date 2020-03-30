@@ -66,14 +66,14 @@ class GIS extends Component {
             </Grid>
 
           <div className="aling rigth buttons">
+
+              {nCharts > 2&&
+                <Label className="remove" color="red" onClick={this.removeLast}>
+                  <FormattedMessage id='national.page.remove_row' defaultMessage="Remove last one"/>
+                </Label>}
                 <Label className="add"  color="olive" onClick={this.addnewOne}>
                   <FormattedMessage id='national.page.add_row' defaultMessage="Add row"/>
                 </Label>
-
-              {nCharts > 2&&
-                <Label className="remove" color="black" onClick={this.removeLast}>
-                  <FormattedMessage id='national.page.remove_row' defaultMessage="Remove last row"/>
-                </Label>}
 
 
            </div>

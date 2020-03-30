@@ -174,9 +174,9 @@ export default class D3Map extends Component < {},
       .data(json.features)
       .enter()
       .append("text")
-      .style("font-size","6px")
+      .style("font-size","8px")
       .style("font-family","Open Sans")
-      .style("font-weight","bold")
+      .style("font-weight","600")
 
       .attr("class", "label")
       .attr("fill", "black")
