@@ -5,25 +5,26 @@ import org.devgateway.toolkit.persistence.dao.ipar.GisSettings;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.DatasetType;
 import org.devgateway.toolkit.persistence.dto.ipar.AgriculturalContentDTO;
 import org.devgateway.toolkit.persistence.dto.ipar.DatasetDTO;
-import org.devgateway.toolkit.persistence.dto.ipar.NationalIndicatorDTO;
 import org.devgateway.toolkit.persistence.dto.ipar.GisIndicatorDTO;
+import org.devgateway.toolkit.persistence.dto.ipar.NationalIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.ipar.category.DatasetTypeRepository;
+import org.devgateway.toolkit.persistence.service.DatasetFinderService;
 import org.devgateway.toolkit.persistence.service.ipar.AgriculturalContentService;
-import org.devgateway.toolkit.persistence.service.ipar.DatasetService;
 import org.devgateway.toolkit.persistence.service.ipar.DepartmentIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.GisSettingsService;
 import org.devgateway.toolkit.persistence.service.ipar.MicrodataLinkService;
 import org.devgateway.toolkit.persistence.service.ipar.NationalIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.RegionIndicatorService;
+import org.devgateway.toolkit.web.rest.controller.filter.GenericPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.ipar.DatasetFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.ipar.DatasetFilterState;
-import org.devgateway.toolkit.web.rest.controller.filter.GenericPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.ipar.MicrodataLinkFilterState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,10 +32,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,7 +52,7 @@ public class DatasetController {
 
     @Autowired
     @Qualifier(value = "datasetService")
-    private DatasetService datasetService;
+    private DatasetFinderService datasetService;
 
     @Autowired
     private MicrodataLinkService microdataLinkService;
@@ -86,7 +86,20 @@ public class DatasetController {
         Pageable pageable = PageRequest.of(request.getPageNumber(), pageSize);
         List<DatasetType> datasetTypes = datasetTypeRepository.findAll();
         DatasetFilterState filter = new DatasetFilterState(request, datasetTypes);
-        return datasetService.findAllDTO(filter.getSpecification(), pageable, request.getLang());
+
+        List<DatasetDTO> dtoList = datasetService.findAllDTO(filter.getSpecification(), request.getLang());
+        if (request.getSortBy().equalsIgnoreCase("type")) {
+            if (request.getSortDir().equalsIgnoreCase("asc")) {
+                dtoList = dtoList.stream().sorted(Comparator.comparing(DatasetDTO::getType))
+                        .collect(Collectors.toList());
+            } else {
+                dtoList = dtoList.stream().sorted(Comparator.comparing(DatasetDTO::getType).reversed())
+                        .collect(Collectors.toList());
+            }
+        }
+
+
+        return new PageImpl(dtoList, pageable, dtoList.size());
     }
 
     @CrossOrigin

@@ -20,11 +20,25 @@ import org.devgateway.toolkit.forms.wicket.page.ipar.edit.TemplateLink;
 import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.persistence.dao.ipar.Data;
 import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
+import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
+import org.devgateway.toolkit.persistence.dto.ipar.GisIndicatorDTO;
+import org.devgateway.toolkit.persistence.repository.ipar.category.IndicatorGroupRepository;
 import org.devgateway.toolkit.persistence.service.ipar.ImportService;
 import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
+import org.devgateway.toolkit.persistence.service.ipar.DepartmentIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.ImportService;
+import org.devgateway.toolkit.persistence.service.ipar.RegionIndicatorService;
+import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
+import org.devgateway.toolkit.persistence.util.Constants;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Daniel Oliva
@@ -45,6 +59,15 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
 
     @SpringBean
     private ReleaseCacheService cacheService;
+
+    @SpringBean
+    private IndicatorGroupRepository indicatorGroupRepository;
+
+    @SpringBean
+    protected DepartmentIndicatorService depService;
+
+    @SpringBean
+    protected RegionIndicatorService regionService;
 
     protected transient ImportService importer;
 
@@ -152,5 +175,77 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
                 }
             }
         };
+    }
+
+    @Transactional
+    protected void addDepartmentsFakeIndicators() {
+        List<GisIndicatorDTO> listEn = depService.getFakeIndicatorDTOs(null);
+        Map<Long, GisIndicatorDTO> listFr = depService.getFakeIndicatorDTOs(Constants.LANG_FR)
+                .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
+        Map<String, DepartmentIndicator> indicatorList = depService.findAllFake().stream()
+                .collect(Collectors.toMap(DepartmentIndicator::getName, r -> r));
+
+        for (GisIndicatorDTO enDTO : listEn) {
+            if (!indicatorList.containsKey(enDTO.getName())) {
+                DepartmentIndicator ri = new DepartmentIndicator();
+                ri.setName(enDTO.getName());
+                GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
+                if (frDTO != null) {
+                    ri.setNameFr(frDTO.getName());
+                }
+                ri.setFakeIndicatorFlag(true);
+                ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
+                depService.saveAndFlush(ri);
+            }
+        }
+    }
+
+    @Transactional
+    protected void addRegionFakeIndicators() {
+        List<GisIndicatorDTO> listEn = regionService.getFakeIndicatorDTOs(null);
+        Map<Long, GisIndicatorDTO> listFr = regionService.getFakeIndicatorDTOs(Constants.LANG_FR)
+                .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
+        Map<String, RegionIndicator> indicatorList = regionService.findAllFake().stream()
+                .collect(Collectors.toMap(RegionIndicator::getName, r -> r));
+
+        for (GisIndicatorDTO enDTO : listEn) {
+            if (!indicatorList.containsKey(enDTO.getName())) {
+                RegionIndicator ri = new RegionIndicator();
+                ri.setName(enDTO.getName());
+                GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
+                if (frDTO != null) {
+                    ri.setNameFr(frDTO.getName());
+                }
+                ri.setFakeIndicatorFlag(true);
+                ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
+                regionService.saveAndFlush(ri);
+            }
+        }
+    }
+
+    @Transactional
+    protected void removeRegionFakeIndicators() {
+        Map<String, GisIndicatorDTO> mapFake = regionService.getFakeIndicatorDTOs(null).stream()
+                .collect(Collectors.toMap(GisIndicatorDTO::getName, r -> r));
+        List<RegionIndicator> indicatorList = regionService.findAllFake();
+
+        for (RegionIndicator ri : indicatorList) {
+            if (!mapFake.containsKey(ri.getName())) {
+                regionService.delete(ri);
+            }
+        }
+    }
+
+
+    protected void removeDepFakeIndicators() {
+        Map<String, GisIndicatorDTO> mapFake = depService.getFakeIndicatorDTOs(null).stream()
+                .collect(Collectors.toMap(GisIndicatorDTO::getName, r -> r));
+        List<DepartmentIndicator> indicatorList = depService.findAllFake();
+
+        for (DepartmentIndicator ri : indicatorList) {
+            if (!mapFake.containsKey(ri.getName())) {
+                depService.delete(ri);
+            }
+        }
     }
 }

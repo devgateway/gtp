@@ -52,7 +52,10 @@ import org.apache.wicket.resource.JQueryResourceReference;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
+import org.devgateway.toolkit.forms.wicket.page.ipar.edit.EditGisSettingsPage;
+import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListDepartmentIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListNationalIndicatorFormPage;
+import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListRegionIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
 import org.devgateway.toolkit.forms.wicket.page.user.EditUserPage;
@@ -460,6 +463,90 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 SecurityConstants.Roles.ROLE_FOCAL_POINT);
 
         return uploadMenu;
+    }
+
+    protected NavbarDropDownButton newCMMenu() {
+
+        // admin menu
+        NavbarDropDownButton cmMenu = new NavbarDropDownButton(new StringResourceModel("navbar.cm", this, null)) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected List<AbstractLink> newSubMenuButtons(final String arg0) {
+                final List<AbstractLink> list = new ArrayList<>();
+                /*
+
+                list.add(new MenuBookmarkablePageLink<>(ListPartnerPage.class, null,
+                        new StringResourceModel("navbar.partners", this, null))
+                        .setIconType(FontAwesomeIconType.handshake_o));
+
+                list.add(new MenuBookmarkablePageLink<ListIndicatorMetadataFormPage>(
+                        ListIndicatorMetadataFormPage.class, null, new StringResourceModel("navbar.indicatorMetadata",
+                        this, null)).setIconType(FontAwesomeIconType.bolt));
+
+                list.add(new MenuBookmarkablePageLink<ListMicrodataLinkFormPage>(ListMicrodataLinkFormPage.class, null,
+                        new StringResourceModel("navbar.microdata", this, null))
+                        .setIconType(FontAwesomeIconType.external_link));
+
+                list.add(new MenuBookmarkablePageLink<ListRapidLinkFormPage>(ListRapidLinkFormPage.class, null,
+                        new StringResourceModel("navbar.rapidLink", this, null))
+                        .setIconType(FontAwesomeIconType.link));
+
+
+                list.add(new MenuBookmarkablePageLink<ListAgriculturalContentFormPage>(
+                        ListAgriculturalContentFormPage.class, null,
+                        new StringResourceModel("navbar.agriculturalContent", this, null))
+                        .setIconType(FontAwesomeIconType.list_ul));
+
+
+                list.add(new MenuBookmarkablePageLink<>(ListIndicatorGroupPage.class, null,
+                        new StringResourceModel("navbar.indicatorGroup", this, null))
+                        .setIconType(FontAwesomeIconType.sort_amount_desc));
+
+                 */
+
+                return list;
+            }
+        };
+
+        cmMenu.setIconType(FontAwesomeIconType.toggle_on);
+        MetaDataRoleAuthorizationStrategy.authorize(cmMenu, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
+
+        return cmMenu;
+    }
+
+    protected NavbarDropDownButton newGisMenu() {
+
+        // upload menu
+        NavbarDropDownButton gisMenu = new NavbarDropDownButton(
+                new StringResourceModel("navbar.gisMenu", this, null)) {
+            private static final long serialVersionUID = 2L;
+
+            @Override
+            protected List<AbstractLink> newSubMenuButtons(final String arg0) {
+                final List<AbstractLink> list = new ArrayList<>();
+
+
+                list.add(new MenuBookmarkablePageLink<ListRegionIndicatorPage>(ListRegionIndicatorPage.class, null,
+                        new StringResourceModel("navbar.regionIndicator", this, null))
+                        .setIconType(FontAwesomeIconType.map_marker));
+
+                list.add(new MenuBookmarkablePageLink<ListDepartmentIndicatorPage>(ListDepartmentIndicatorPage.class,
+                        null, new StringResourceModel("navbar.departmentIndicator", this, null))
+                        .setIconType(FontAwesomeIconType.map_marker));
+
+                list.add(new MenuBookmarkablePageLink<>(EditGisSettingsPage.class,
+                        new StringResourceModel("navbar.gisSettings", BasePage.this, null))
+                        .setIconType(FontAwesomeIconType.map));
+
+                return list;
+            }
+        };
+
+        gisMenu.setIconType(FontAwesomeIconType.upload);
+        MetaDataRoleAuthorizationStrategy.authorize(gisMenu, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
+
+        return gisMenu;
     }
 
     /**

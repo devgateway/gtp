@@ -206,14 +206,6 @@ public final class JSONUtil {
         Set<String> headers = new TreeSet<>(new Comparator<String>() {
             @Override
             public int compare(String s1, String s2) {
-                if (!s1.equals(s2)) {
-                    if (s1.equalsIgnoreCase("year") || s1.equalsIgnoreCase("année")) {
-                        return -1;
-                    }
-                    if (s2.equalsIgnoreCase("year") || s2.equalsIgnoreCase("année")) {
-                        return 1;
-                    }
-                }
                 return s1.compareToIgnoreCase(s2);
             }
         });
