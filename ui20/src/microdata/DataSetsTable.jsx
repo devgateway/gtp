@@ -101,10 +101,13 @@ class TableComponent extends Component {
                     <Table.HeaderCell sorted={column === 'organization' ? directionLong : null} onClick={handleSort('organization')}>
                       <FormattedMessage id="microdata.table.organization" defaultMessage="Organization"/>
                     </Table.HeaderCell>
+
+
                     <Table.HeaderCell sorted={column === 'year' ? directionLong : null} onClick={handleSort('year')}>
                       <FormattedMessage id="microdata.table.survey_year" defaultMessage="Survey Year"/>
                     </Table.HeaderCell>
-                    <Table.HeaderCell sorted={column === 'link' ? directionLong : null} onClick={handleSort('metadata')}>
+
+                    <Table.HeaderCell sorted={column === 'metadata' ? directionLong : null} onClick={handleSort('metadata')}>
                       <FormattedMessage id="microdata.table.dataset_metadata" defaultMessage="Dataset Metadata"/>
                     </Table.HeaderCell>
 
