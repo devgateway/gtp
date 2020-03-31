@@ -81,7 +81,8 @@ const mapStateToProps = state => {
   const globalFilters = state.getIn(['indicator', 'filters', 'global']);
   const regions = state.getIn(['data', 'items', 'region']);
   const crops = state.getIn(['data', 'items', 'cropType']);
-  const gender = state.getIn(['data', 'items', 'gender']);
+
+  
   const years = state.getIn(['data', 'items', 'year']);
   const filters = state.getIn(['indicator', 'filters'])
   const metadata = state.getIn(['indicator', 'metadata'])
