@@ -222,6 +222,7 @@ export const exportIndicators = (what, format, lang, params) => {
         Object.assign(filters, params.women)
         break;
 
+
       case "FOOD":
         Object.assign(filters, params.food)
         break;

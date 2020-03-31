@@ -126,7 +126,7 @@ export default class D3Map extends Component < {},
         .style("font-size", "22px")
         .style("text-transform", "uppercase")
         .style("font-weight", "bold")
-      .attr("fill", "black")
+        .attr("fill", "black")
         .attr("text-anchor", "end")
         .text("")
         .transition()
