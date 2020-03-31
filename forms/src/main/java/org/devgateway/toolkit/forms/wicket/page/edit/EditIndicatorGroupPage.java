@@ -64,7 +64,6 @@ public class EditIndicatorGroupPage extends AbstractEditPage<IndicatorGroup> {
 
         final TextFieldBootstrapFormComponent<String> description =
                 new TextFieldBootstrapFormComponent<>("description");
-        description.required();
         description.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(description);
     }
@@ -92,6 +91,9 @@ public class EditIndicatorGroupPage extends AbstractEditPage<IndicatorGroup> {
                         model.setLocalizedLabels(list);
                     }
                     labelFr.setLabel(model.getDescription());
+                    if (StringUtils.isBlank(model.getLabel())) {
+                        model.setLabel(model.getDescription());
+                    }
                 }
 
                 jpaService.saveAndFlush(model);
