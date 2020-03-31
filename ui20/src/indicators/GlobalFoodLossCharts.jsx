@@ -34,7 +34,6 @@ export const BarChart = injectIntl(({intl,data,keys,indexBy,groupMode,colors,lab
       legendOffset: -40
     }}
 
-
     labelSkipWidth={12}
     labelSkipHeight={12}
     labelTextColor={"#FFF"}
@@ -62,7 +61,6 @@ export const BarChart = injectIntl(({intl,data,keys,indexBy,groupMode,colors,lab
     }
     ]}
           tooltip={(s)=>{
-              console.log(label)
 
               return (<div className="tooltips white">
                     <div className="color" style={{'background-color':s.color}}></div>

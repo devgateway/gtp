@@ -22,7 +22,7 @@ const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,
   const ageSelection = filters && filters.getIn(['women', 'ageGroup'])? filters.getIn(['women', 'ageGroup']).toJS(): []
   const methodOfEnforcementsSelection = filters && filters.getIn(['women', 'methodOfEnforcement'])? filters.getIn(['women', 'methodOfEnforcement']).toJS(): []
   return (<div className="indicator chart filter  women">
-        {   options.gender&& <div className="filter item">
+          {options.gender&& <div className="filter item">
               <CustomFilterDropDown disabled={!options.gender} options={items2options(genders,intl)}
               onChange={s => {onChange([ 'filters', 'women', 'gender'], s,['WOMEN'])}}
               selected={genderSelection}
@@ -30,8 +30,8 @@ const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,
               defaultMessage = "Gender">
               </FormattedMessage>} />
             </div>
-}
-             {options.methodOfEnforcement && <div className="filter item">
+          }
+          {options.methodOfEnforcement && <div className="filter item">
               <CustomFilterDropDown disabled={!options.methodOfEnforcement}
                options={items2options(methodOfEnforcements,intl)}
                onChange={s => {onChange([ 'filters', 'women', 'methodOfEnforcement'], s,['WOMEN'])}}
@@ -39,16 +39,28 @@ const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,
                text={<FormattedMessage id = "indicators.filters.enforcement_method" defaultMessage = "Enforcement Method">
                </FormattedMessage>} />
             </div>
-}
-            {options.age &&<div className="filter item">
+          }
+          {options.age &&<div className="filter item">
               <OptionList disabled={!options.age} options={items2options(ageGroups,intl).sort((a,b)=>a.key -b.key)}
                onChange={s => {onChange([ 'filters', 'women', 'ageGroup'], s,['WOMEN'])}}
                selected={ageSelection}
                text={<FormattedMessage id="indicators.filters.age_group" defaultMessage = "Age Group">
                </FormattedMessage>} />
-            </div>}
+               </div>
+          }
     </div>)
 })
+
+const ageSortFunction=(a,b)=>{
+   debugger;
+  const aValue=a.substring(a.length-2)
+  const bValue=b.substring(b.length-2)
+
+  if(aValue< bValue) { return -1; }
+    if(aValue > bValue) { return 1; }
+    return 0;
+}
+
 
 const ChartSection = injectIntl((props)=>{
   const {population=[], onExport, intl, metadata} = props
@@ -73,15 +85,7 @@ const ChartSection = injectIntl((props)=>{
               <BarChart groupMode="stacked"
                 yLegend={props.intl.formatMessage(messages.age)}
                 xLegend={props.intl.formatMessage(messages.percent)}
-               {...getWomenDistributionByGroup(props.population,props.intl,(a,b)=>{
-
-                 const aValue=a.substring(a.length-2)
-                 const bValue=b.substring(b.length-2)
-
-                 if(aValue< bValue) { return -1; }
-                   if(aValue > bValue) { return 1; }
-                   return 0;
-               })}>
+               {...getWomenDistributionByGroup(props.population,props.intl,'grouped',ageSortFunction)}>
                </BarChart>}
              </div>
            </div>,
@@ -93,7 +97,8 @@ const ChartSection = injectIntl((props)=>{
               <div className="chart container">
               {population.length == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted>
               <FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:
-              <LineChart   {...getWomenHistoricalDistribution(props.population,props.intl)}/>}
+
+              <LineChart   {...getWomenHistoricalDistribution(props.population,props.intl,ageSortFunction)}/>}
 
               </div>
 
