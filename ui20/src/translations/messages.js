@@ -599,7 +599,10 @@ const messages = defineMessages({
   national_indicators_actual: {
     id: 'national.indicators.actual',
     defaultMessage: "Actual"
-  }
+  },
+
+
+
 });
 
 

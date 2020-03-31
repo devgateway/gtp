@@ -202,6 +202,7 @@ html {
     float: left;
     overflow: hidden;
   }
+
   .dropdown.icon {
     margin-top: 10px !important;
   }
@@ -300,7 +301,6 @@ html {
   }
 }
 
-
 .pagination.wrapper {
   margin-bottom: 12px;
 
@@ -334,4 +334,24 @@ html {
   }
   height: 60px;
   display: flex;
+}
+
+.dropdown.icon::before {
+
+  font-weight: bold;
+  font-size: 14px;
+  height: 20px;
+  width: 10px;
+  display: block;
+  background-repeat: no-repeat !important;
+  background-size: 10px 10px !important;
+  content: '' !important;
+
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH5AMeExQSdRASfAAAAIRJREFUSMftk7ERwCAIRQOZRyeg0yV0D+YnRapcFIheOl6rvK8HHEcQ7AIiIuoFANDOrXpMKZ2rAkuec77dRIRiMJJrEBE+Cmqt7hDrXikFh19qrZkhFr13VLvOzMshzPySw2oDvdO2NYKeUQareHdPwPPCWYgldweMQjzyz8yWLgj+5QI6OSwHPpNcpQAAAABJRU5ErkJggg==') !important;
+}
+.chart.section, .gis, .national {
+  .dropdown.icon::before {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH5AMeEh0z6XnTXAAAAMVJREFUSMftlE0KgzAQRueb3KF4CL1BduYSeo9sRAQJ4vlEpGfpqt1kkcI4ipWu8sFsksx7hPwQ5eT8HGYORPQSajHGPI7645pFYjBzoLIsGcBMRG+hVk0S51apF8BcVRUTEZG1VpNskiSObXtway1/NTjnGMCkSIoEXijwqa5rFrfcNA0DCJrkAB7atmX10Lz3muQZS4R77/n07QIw7kgk+HjpCp+RXIYnkkGBD7c8RgC9AO9vffGp5HZ4IukAdPmDzflvPig3efqy6uycAAAAAElFTkSuQmCC") !important;
+
+  }
 }
