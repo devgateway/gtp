@@ -550,6 +550,19 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="IndicatorsUpdate" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE category SET label = 'Proportion de la population en-deça du seuil international de pauvreté' WHERE dtype = 'Indicator' AND label = 'Proportion of population below the international poverty line';
+            UPDATE category SET label = 'Les femmes dans le secteur agricole' WHERE dtype = 'Indicator' AND label = 'Women in the agricultural sector';
+            UPDATE category SET label = 'Répartition moyenne de la production' WHERE dtype = 'Indicator' AND label = 'Global food loss index';
+            UPDATE category SET label = 'Indice de l''orientation des dépenses du gouvernement en faveur de l''agriculture' WHERE dtype = 'Indicator' AND label = 'Agriculture orientation index for government expenditures';
+
+        ]]></sql>
+    </changeSet>
+
     <changeSet id="Population" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="category" />

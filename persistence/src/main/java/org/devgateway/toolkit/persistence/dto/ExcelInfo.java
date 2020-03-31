@@ -12,6 +12,8 @@ public class ExcelInfo<T extends DataDTO> {
 
     private String sheetName;
 
+    private String noDataLabel;
+
     @ExcelExport(name = "Intro")
     private String intro;
 
@@ -22,12 +24,13 @@ public class ExcelInfo<T extends DataDTO> {
     private TranslateService translateService;
 
     public ExcelInfo(String sheetName, String intro, ExcelFilterDTO filters,
-                     List<T> objects, TranslateService translateService) {
+                     List<T> objects, TranslateService translateService, String noDataLabel) {
         this.sheetName = sheetName;
         this.intro = intro;
         this.filters = filters;
         this.objects = objects;
         this.translateService = translateService;
+        this.noDataLabel = noDataLabel;
     }
 
     public String getSheetName() {
@@ -68,5 +71,13 @@ public class ExcelInfo<T extends DataDTO> {
 
     public void setTranslateService(TranslateService translateService) {
         this.translateService = translateService;
+    }
+
+    public String getNoDataLabel() {
+        return noDataLabel;
+    }
+
+    public void setNoDataLabel(String noDataLabel) {
+        this.noDataLabel = noDataLabel;
     }
 }
