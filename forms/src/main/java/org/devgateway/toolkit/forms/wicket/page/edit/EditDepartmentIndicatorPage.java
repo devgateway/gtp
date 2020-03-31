@@ -43,7 +43,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.text.Normalizer;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -105,6 +108,9 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
         editForm.add(description);
 
         List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAllFetchingLocalizedLabels();
+        indicatorGroups = indicatorGroups.stream().sorted(Comparator.comparing(x ->
+                Normalizer.normalize(x.getLabelFr().toLowerCase(), Normalizer.Form.NFD)))
+                .collect(Collectors.toList());
         GenericChoiceProvider<IndicatorGroup> choiceProvider =
                 new GenericChoiceProvider<IndicatorGroup>(indicatorGroups) {
                     @Override

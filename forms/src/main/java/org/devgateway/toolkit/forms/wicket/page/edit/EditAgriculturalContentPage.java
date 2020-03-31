@@ -36,7 +36,10 @@ import org.devgateway.toolkit.persistence.service.AgriculturalContentService;
 import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.text.Normalizer;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -95,6 +98,9 @@ public class EditAgriculturalContentPage extends AbstractEditPage<AgriculturalCo
         editForm.add(publicationDate);
 
         List<ContentType> contentTypes = repo.findAllPopulatedLang();
+        contentTypes = contentTypes.stream().sorted(Comparator.comparing(x ->
+                Normalizer.normalize(x.getNameEnFr().toLowerCase(), Normalizer.Form.NFD)))
+                .collect(Collectors.toList());
         GenericChoiceProvider<ContentType> choiceProvider = new GenericChoiceProvider<ContentType>(contentTypes) {
             @Override
             public String getDisplayValue(ContentType contentType) {
