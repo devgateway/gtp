@@ -61,7 +61,6 @@ const ageSortFunction=(a,b)=>{
     return 0;
 }
 
-
 const ChartSection = injectIntl((props)=>{
   const {population=[], onExport, intl, metadata} = props
 
@@ -73,7 +72,8 @@ const ChartSection = injectIntl((props)=>{
 
   const years = Array.from(new Set(population.map(r => r.year))).sort()
   const maxYear=years.pop()
-    const byAgePanes=[
+
+  const byAgePanes=[
       {
         menuItem:  { key: 'bar', icon: '', content:`${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_gender,{year:maxYear})}`},
         render: () =>
@@ -105,8 +105,7 @@ const ChartSection = injectIntl((props)=>{
             </div>,
 
       }]
-
-      const byMethodPanes=[
+  const byMethodPanes=[
         {
           menuItem:  { key: 'bar', icon: '', content:`${props.intl.formatMessage(messages.indicator_women_chart_distribution_by_enforcement_method,{year:maxYear})}` },
           render: () =><div className="indicators chart women">
@@ -140,7 +139,7 @@ const ChartSection = injectIntl((props)=>{
 
         }]
 
-    const panes = [
+  const panes = [
       {
         menuItem:  { key: 'bar', className:"parent", icon: '', content: props.intl.formatMessage(messages.indicator_women_chart_distribution_by_age_tab_title)},
         render: () =><Tab class="sub tab" key="byAge" menu={{ pointing: true }} panes={byAgePanes}/>,
