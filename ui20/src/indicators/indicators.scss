@@ -555,13 +555,11 @@
     }
 
     .item {
-      line-height: 75px;
       text-align: center;
       justify-content: center;
       flex: 1;
       font-size: 16px;
       color: #818181;
-      text-align: center;
       border-radius: 0 !important;
       height: 75px;
       cursor: pointer;
@@ -570,7 +568,7 @@
         display: block;
         width: 25px;
         height: 25PX;
-        margin: 0 8px 0 -17px;
+        margin: 0 8px 0 -10px;
       }
     }
 
