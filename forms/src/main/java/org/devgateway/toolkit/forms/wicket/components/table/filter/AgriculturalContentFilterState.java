@@ -40,7 +40,7 @@ public class AgriculturalContentFilterState extends JpaFilterState<AgriculturalC
                 Join<AgriculturalContent, ContentType> join = root.join(AgriculturalContent_.contentType);
                 predicates.add(cb.like(join.get(ContentType_.label), "%" + contentType + "%"));
             }
-            query.orderBy(new OrderImpl(root.get(AgriculturalContent_.publicationDate), false));
+            query.orderBy(new OrderImpl(root.get(AgriculturalContent_.PUBLICATION_DATE), true));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }

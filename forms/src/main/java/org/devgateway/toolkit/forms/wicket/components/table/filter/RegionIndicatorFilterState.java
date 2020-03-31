@@ -7,6 +7,7 @@ import org.devgateway.toolkit.persistence.dao.RegionIndicator;
 import org.devgateway.toolkit.persistence.dao.RegionIndicator_;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.dao.categories.Organization_;
+import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Join;
@@ -49,6 +50,7 @@ public class RegionIndicatorFilterState extends JpaFilterState<RegionIndicator> 
                 predicates.add(cb.like(cb.lower(organizationJoin.get(Organization_.label)),
                         "%" + organization.toLowerCase() + "%"));
             }
+            query.orderBy(new OrderImpl(root.get(RegionIndicator_.NAME), true));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
