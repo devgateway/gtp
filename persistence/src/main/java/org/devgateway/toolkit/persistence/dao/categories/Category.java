@@ -180,14 +180,14 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     public String getNameEnFr() {
         String frLabel = getLocalizedLabel(Constants.LANG_FR);
         StringBuilder sb = new StringBuilder();
-        if (StringUtils.isNotBlank(label)) {
-            sb.append(label);
-            if (StringUtils.isNotBlank(frLabel)) {
+        if (StringUtils.isNotBlank(frLabel)) {
+            sb.append(frLabel);
+            if (StringUtils.isNotBlank(label)) {
                 sb.append(" / ");
             }
         }
-        if (StringUtils.isNotBlank(frLabel)) {
-            sb.append(frLabel);
+        if (StringUtils.isNotBlank(label)) {
+            sb.append(label);
         }
         return sb.toString();
     }
