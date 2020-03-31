@@ -4,12 +4,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {loadDataSet} from '../modules/Analytic';
-import {loadDataItems} from '../modules/Data';
-import ReactDOM from 'react-dom';
-import PivotTable from 'react-pivottable/PivotTable'
 import PivotTableUI from './PivotTableUI.js';
 import Plot from 'react-plotly.js';
-import {TableRenderers, TableRenderersWithIntl} from './TableRenders';
+import { TableRenderersWithIntl} from './TableRenders';
 import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
 import {aggregatorTemplates} from 'react-pivottable/Utilities'
 import {aggregators} from './PivotUtils'
