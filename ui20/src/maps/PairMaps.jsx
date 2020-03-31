@@ -164,7 +164,7 @@ if (data){
     }, [right]);
 
 
-    debugger;
+    
 
     return (
       <div className="pairs maps">

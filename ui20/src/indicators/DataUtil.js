@@ -219,7 +219,7 @@ export const getWomenDistributionByGroup = (data = [], intl, groupMode='grouped'
 
   const mostRecent = data.filter(d => d.year == maxYear)
 
-  debugger;
+
   if(sortFunc){
     groups.sort(sortFunc)
   } else{
@@ -236,8 +236,6 @@ export const getWomenDistributionByGroup = (data = [], intl, groupMode='grouped'
     barData.push(r)
   })
 
-
-  console.log(barData)
 
   return {
     data: barData,
