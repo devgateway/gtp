@@ -4,7 +4,6 @@ import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState, useEffect} from 'react'
 
-import './map.scss'
 import { Grid, Image } from 'semantic-ui-react'
 import Map from './Map.jsx'
 import Immutable from 'immutable'
@@ -164,7 +163,7 @@ if (data){
     }, [right]);
 
 
-    
+
 
     return (
       <div className="pairs maps">

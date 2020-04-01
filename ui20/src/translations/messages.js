@@ -111,20 +111,20 @@ const messages = defineMessages({
 
 
   indicator_women_chart_distribution_by_age_tab_title: {
-    id: 'indicators.chart.women.distribution.by.age.tab.title',
+    id: 'indicators.chart.women.distribution_by_age_tab_title',
     defaultMessage: 'Distribution by age.',
     description: 'Distribution by age tab title'
   },
 
   indicator_women_chart_distribution_by_method_tab_title: {
-    id: 'indicators.chart.women.distribution.by.method.tab.title',
+    id: 'indicators.chart.women.distribution_by_method_tab_title',
     defaultMessage: 'Distribution by method of enforcement.',
     description: 'Distribution by method of enforcement tab title'
   },
 
 
   indicator_women_chart_distribution_by_gender: {
-    id: 'indicators.chart.women.distribution.by.gender',
+    id: 'indicators.chart.women.distribution_by_gender',
     defaultMessage: 'Distribution of the agricultural population by age group and gender ({year}).',
     description: 'Distribution of the agricultural population gender chart title'
   },
@@ -136,7 +136,7 @@ const messages = defineMessages({
   },
 
   indicator_women_chart_distribution_by_enforcement_method: {
-    id: 'indicators.chart.women.distribution.by.method',
+    id: 'indicators.chart.women.distribution_by_method',
     defaultMessage: 'Distribution of parcels by method of enforcement and gender ({year}).',
     description: 'Distribution of parcels by method of enforcement and gender ({year}).',
   },
@@ -597,11 +597,19 @@ const messages = defineMessages({
 
 
   national_indicators_actual: {
-    id: 'national.indicators.actual',
+    id: 'national.indicator.actual',
     defaultMessage: "Actual"
   },
 
+  national_indicators_reference: {
+    id: 'national.indicator.reference',
+    defaultMessage: "Reference"
+  },
 
+  national_indicators_target: {
+    id: 'national.indicator.target',
+    defaultMessage: "Target"
+  },
 
 });
 

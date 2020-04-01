@@ -139,7 +139,7 @@ var moveTooltip = function(e, xOffset=0, yOffset=0 ) {
   tooltip.style("top", (top+  "px"))
 
   if (left > window.innerWidth-tooltipSize  ){
-    
+
     tooltip.style("right", window.innerWidth-left   + "px")
     tooltip.style("left","auto")
 
@@ -249,7 +249,7 @@ const CustomMarker = (props) => {
         className="marker"
         onMouseEnter={e=>{
 
-            showTooltip(e,`${index==1?`Target: ${metadata.targetYear} `:`Reference: ${metadata.referenceYear}`} -  <b>${metadata.referenceValue} ${metadata.measure}</b> `,color)
+            showTooltip(e,`${index==1?`${intl.formatMessage(messages.national_indicators_target)}: ${metadata.targetYear} `:`${intl.formatMessage(messages.national_indicators_reference)}: ${metadata.referenceYear}`} -  <b>${metadata.referenceValue} ${metadata.measure}</b> `,color)
         }}
         onMouseMove={e=>moveTooltip(e)}
         onMouseLeave={hideTooltip}
@@ -378,7 +378,7 @@ export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy 
 
           <div className="description">{metadata.description}</div>
           <div className="source">
-          <span className="label">  <FormattedMessage id="data.field.source.label" defaultMessage="Source :"></FormattedMessage></span><span> {metadata.source?metadata.source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>}</span>
+          <span className="label">  <FormattedMessage id="data.fields.source_label" defaultMessage="Source :"></FormattedMessage></span><span> {metadata.source?metadata.source:<FormattedMessage id="data.fields.source_undefined" defaultMessage="Not specified"></FormattedMessage>}</span>
           </div>
           </div>
     </div>)

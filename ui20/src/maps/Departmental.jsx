@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
-import './map.scss'
+
 import {loadGISData} from '../modules/Gis'
 import { Grid, Label , Tab} from 'semantic-ui-react'
 
@@ -65,6 +65,11 @@ class GIS extends Component {
             <p><FormattedMessage id='gis.departmental.description' defaultMessage="The GIS page will display some indicators  that have been preloaded by each responsible partner organization.
             The site will also display, non-official data sources that users can access by clicking on the links provided. Where available, a given dataset will be displaying a link that will connect the ANSD data repository when users can consult reports, studies and other metadata related to a specific dataset."/></p>
           </div>
+
+          <div className="gis description">
+            <p><FormattedMessage id='gis.usage_text' defaultMessage="Select the indicator(s) from the available options in the dropdown menus. You can also select the color scheme to display indicator variations where applicable."/></p>
+          </div>
+
 
   <div className="clear block">
 
