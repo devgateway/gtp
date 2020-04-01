@@ -17,18 +17,18 @@
 
       .title {
         margin-left: 74px;
-        font-size: 24px;
+        font-size: 22px;
         line-height: 37px;
         font-weight: 700;
-        margin-top: 7px;
-        letter-spacing: -1px;
+        margin-top: 6px;
+        letter-spacing: -.5px;
       }
 
       .legend {
         margin-left: 74px;
         font-size: 18px;
         font-weight: normal;
-        line-height: 15px;
+        line-height: 10px;
         letter-spacing: -1px;
       }
     }
@@ -100,7 +100,7 @@
     font-family: $font;
     line-height: 20px;
     border-bottom: 1px solid #8ba17e;
-    font-weight: bold;
+    font-weight: 600;
   }
 
   .dropdown.icon:before {

@@ -283,6 +283,7 @@
         flex-direction: column;
 
         .legends {
+          font-family: $font;
           display: flex;
           justify-content: center;
           text-align: right;
@@ -297,7 +298,6 @@
               height: 38px;
             }
             font-size: 15px;
-
             background-color: #EEE;
             margin-right: 20px;
             padding: 5px;
@@ -330,7 +330,6 @@
             .value {
               flex-grow: 1;
               text-align: right;
-
             }
 
             .square {
@@ -341,7 +340,6 @@
             }
 
             b {
-              font-weight: 600;
               font-size: 15px;
             }
           }
@@ -396,7 +394,7 @@
         cursor: pointer;
         pointer-events: all;
         fill: #000 !important;
-        font-family: "Arial, Helvetica, sans-serif" !important;
+        font-family: "Arial" !important;
       }
 
       text.big.label,
@@ -411,11 +409,12 @@
       }
 
       text.big.label {
-        font-size: 52px !important;
+        font-weight: 600;
+        font-size: 56px !important;
       }
 
       text.medium.label {
-        font-weight: 800;
+        font-weight: 600;
         font-size: 48px !important;
       }
 
