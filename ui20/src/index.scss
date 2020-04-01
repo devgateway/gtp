@@ -8,6 +8,7 @@ html {
   height: 100%;
   font-family: $font;
   color: $color;
+  font-display: fallback;
 }
 
 .st-row {
