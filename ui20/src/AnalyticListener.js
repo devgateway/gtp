@@ -1,10 +1,4 @@
 import {} from './modules/Indicator'
-import {
-  loadDataItems
-} from './modules/Data'
-
-const flags = []
-
 /*
  *
  *  Analytic loading sequence.

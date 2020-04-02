@@ -23,10 +23,23 @@ import smoothscroll from 'smoothscroll-polyfill';
 
 import asyncComponent from "./AsyncComponent";
 
+
+const Home = asyncComponent(() => import("./home/"));
+const Indicators = asyncComponent(() => import("./indicators/"));
+const Microdata = asyncComponent(() => import("./microdata/"));
+const Analytic = asyncComponent(() => import("./analytic/"));
+const NationalIndicators = asyncComponent(() => import("./national/"));
+const Partners = asyncComponent(() => import("./partners/"));
+const Initiatives = asyncComponent(() => import("./initiatives/"));
+
+
+
+
 // kick off the polyfill!
 smoothscroll.polyfill();
 
-var areIntlLocalesSupported = require('intl-locales-supported');
+
+
 
 const messages = {
   'fr': messages_fr,
@@ -42,14 +55,6 @@ const messages = {
 //import NationalIndicators from './national/index.jsx'
 //import Partners from './partners'
 //import Initiatives from './initiatives'
-
-const Home = asyncComponent(() => import("./home/"));
-const Indicators = asyncComponent(() => import("./indicators/"));
-const Microdata = asyncComponent(() => import("./microdata/"));
-const Analytic = asyncComponent(() => import("./analytic/"));
-const NationalIndicators = asyncComponent(() => import("./national/"));
-const Partners = asyncComponent(() => import("./partners/"));
-const Initiatives = asyncComponent(() => import("./initiatives/"));
 
 
 class IntlRoutes extends Component {
