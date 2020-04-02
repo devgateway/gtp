@@ -1,19 +1,14 @@
-import React, { useEffect ,Component,useState, createRef} from 'react'
+import React, { useEffect ,useState, createRef} from 'react'
 import {loadPartners} from '../modules/Data'
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import Sticky from './Sticky'
 import {
-  Dropdown,
   Grid,
-  Image,
   Ref,
-  Rail,
-  Segment,
   Container,
   Label,
   Menu,
-  Input
 } from 'semantic-ui-react'
 
 import './partners.scss'

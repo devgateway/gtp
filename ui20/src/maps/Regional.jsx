@@ -9,13 +9,11 @@ import {  Label} from 'semantic-ui-react'
 import PairOfMaps from './PairMaps.jsx'
 
 
-import messages from '../translations/messages'
-
 
 class GIS extends Component {
   constructor(props) {
     super(props);
-     this.state = { mapCount: 1, mapCount: 1 };
+     this.state = { mapCount: 1 };
      this.addnewOne=this.addnewOne.bind(this)
      this.removeLast=this.removeLast.bind(this)
   }
@@ -37,7 +35,7 @@ class GIS extends Component {
 
 
   render() {
-    const {regionalIndicator, departamentalIndicators, intl, onExport} = this.props
+    const {regionalIndicator} = this.props
 
     const {mapCount}=this.state
 

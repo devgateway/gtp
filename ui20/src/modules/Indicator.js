@@ -130,8 +130,8 @@ export const loadDefaultFoodFilters = () => (dispatch, getState) => {
 // Set here initial selected AOI  filters if needed
 export const loadDefaultAOIFilters = () => (dispatch, getState) => {
   console.log('loadDefaultAOIFilters')
-  const indexType1 = getState().getIn(['data', 'items', 'indexType/1']).map(a => a.id)
-  const indexType2 = getState().getIn(['data', 'items', 'indexType/2']).map(a => a.id)
+  //const indexType1 = getState().getIn(['data', 'items', 'indexType/1']).map(a => a.id)
+  //const indexType2 = getState().getIn(['data', 'items', 'indexType/2']).map(a => a.id)
   const aoiFilters = Immutable.Map().setIn(['budget', 'indexType'], Immutable.List()).setIn(['subsidies', 'indexType'], Immutable.List())
 
   dispatch({

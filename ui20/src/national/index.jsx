@@ -6,8 +6,6 @@ import './national.scss'
 import {loadNationalIndicators} from '../modules/National'
 import { Grid, Label } from 'semantic-ui-react'
 import BulletChartContainer from './BulletChartContainer'
-import Immutable from 'immutable'
-import messages from '../translations/messages'
 
 
 class GIS extends Component {

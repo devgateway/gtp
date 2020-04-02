@@ -106,7 +106,6 @@ export default (state = initialState, action) => {
     }
 
     case LOAD_PARTNERS_DATA: {
-      const { data } = action
       return state.setIn(['partners', 'loading'], true)
     }
 
@@ -125,7 +124,6 @@ export default (state = initialState, action) => {
     }
 
     case LOAD_INITIATIVE_TYPES: {
-      const { data } = action
       return state.setIn(['initiatives', 'types', 'loading'], true)
     }
 
@@ -143,7 +141,7 @@ export default (state = initialState, action) => {
     }
 
     case LOAD_INITIATIVE_ITEMS: {
-      const { data, id } = action
+      const { id } = action
       return state.setIn(['initiatives', 'items', 'loading', id], true)
     }
 

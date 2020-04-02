@@ -1,9 +1,6 @@
-import React, {Component, createRef, useState} from 'react'
+import React from 'react'
 import {ResponsiveBar} from '@nivo/bar'
-import {ResponsiveLine} from '@nivo/line'
 import {injectIntl} from 'react-intl';
-import messages from '../translations/messages'
-const curveOptions = ['linear', 'monotoneX', 'step', 'stepBefore', 'stepAfter'];
 
 
 export const BarChart = injectIntl(({intl,data,keys,indexBy,groupMode,colors,label, yLegend,xLegend}) => {

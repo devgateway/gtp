@@ -1,8 +1,6 @@
 import React from 'react'
-import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveLine } from '@nivo/line'
 import { ResponsiveBullet } from '@nivo/bullet'
-import { BasicTooltip } from '@nivo/tooltip'
 import * as d3 from "d3";
 import {injectIntl, FormattedMessage} from 'react-intl';
 import messages from '../translations/messages'

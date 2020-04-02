@@ -52,15 +52,18 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-decorators": "^7.8.3",
-    "babel-plugin-react-intl": "^4.3.0"
+    "babel-plugin-react-intl": "^4.3.0",
+    "webpack-bundle-analyzer": "^3.6.1"
   },
   "scripts": {
+    "stats": "webpack-bundle-analyzer dist/stats.json",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "extract-messages": "NODE_ENV=production babel ./src  --out-file /dev/null",
     "start": "react-scripts start",
     "build": "react-scripts --max_old_space_size=4096  build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ."
   },
   "browserslist": [
     ">0.2%",

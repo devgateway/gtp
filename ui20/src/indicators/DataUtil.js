@@ -99,7 +99,6 @@ export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
   return {
     data: barData,
     keys: keys.sort(),
-    groupMode: 'grouped',
     indexBy: tr_region,
     groupMode: 'stacked',
     colors: ['#f1e15b', '#e8a838', ' #f47561']

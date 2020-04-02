@@ -9,9 +9,6 @@ import { Label} from 'semantic-ui-react'
 import PairOfMaps from './PairMaps.jsx'
 
 
-import Immutable from 'immutable'
-import messages from '../translations/messages'
-import {CustomFilterDropDown,items2options} from '../indicators/Components'
 
 
 class GIS extends Component {

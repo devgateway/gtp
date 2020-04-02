@@ -59,12 +59,12 @@ class TableComponent extends Component {
     let column=sortBy
     //descending
 
-    const directionLong=(sortDir=='ASC')?'ascending':'descending'
+    const directionLong=(sortDir==='ASC')?'ascending':'descending'
 
     const handleSort = (clickedColumn) => () => {
 
-      if(column==clickedColumn){
-         direction = (sortDir=='ASC')?'DESC':'ASC'
+      if(column===clickedColumn){
+         direction = (sortDir==='ASC')?'DESC':'ASC'
       }else{
          direction = 'ASC'
       }
