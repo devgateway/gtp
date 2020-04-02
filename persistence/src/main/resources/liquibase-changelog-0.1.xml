@@ -57,16 +57,20 @@
     <changeSet id="ANACIM-15 rain indicators metadata" author="nmandrescu">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="indicator_metadata" />
+            <changeSetExecuted id="ANACIM-1 initial org and admin" author="nmandrescu"
+                               changeLogFile="liquibase-changelog-0.1.xml"/>
         </preConditions>
         <insert tableName="indicator_metadata">
             <column name="id" valueSequenceNext="hibernate_sequence" />
             <column name="name" value="Cumul de pluie" />
             <column name="type" value="RAINFALL" />
+            <column name="organization_id" valueComputed="(SELECT id FROM organization WHERE tag='ANACIM')" />
         </insert>
         <insert tableName="indicator_metadata">
             <column name="id" valueSequenceNext="hibernate_sequence" />
             <column name="name" value="Démarrage de la saison des pluies" />
             <column name="type" value="RAINFALL_SEASON" />
+            <column name="organization_id" valueComputed="(SELECT id FROM organization WHERE tag='ANACIM')" />
         </insert>
     </changeSet>
 

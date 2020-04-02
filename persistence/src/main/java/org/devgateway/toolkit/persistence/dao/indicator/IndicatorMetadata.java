@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.dao.indicator;
 
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.IndicatorType;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -10,6 +11,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 /**
@@ -31,6 +34,10 @@ public class IndicatorMetadata extends AbstractAuditableEntity implements Serial
     private String link;
 
     private String source;
+
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Organization organization;
 
     public String getName() {
         return name;
@@ -74,6 +81,14 @@ public class IndicatorMetadata extends AbstractAuditableEntity implements Serial
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 
     @Override
