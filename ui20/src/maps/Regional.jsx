@@ -1,17 +1,14 @@
 
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import ReactDOM from 'react-dom';
-import React, {Component, createRef, useState} from 'react'
+import React, {Component} from 'react'
 
 import {loadGISData} from '../modules/Gis'
-import { Grid, Label , Tab} from 'semantic-ui-react'
+import {  Label} from 'semantic-ui-react'
 
-import Map from './Map.jsx'
 import PairOfMaps from './PairMaps.jsx'
 
 
-import Immutable from 'immutable'
 import messages from '../translations/messages'
 
 
