@@ -165,6 +165,8 @@
 	"microdata.table.created": "Créé(e)",
 	"microdata.table.creator": "",
 	"microdata.table.dataset_metadata": "Lien vers les métadonnées",
+	"microdata.table.datasets.description": "",
+	"microdata.table.datasets.title": "",
 	"microdata.table.datasets_description": "Cette section affiche les ensemble des données en commençant par le plus récent. Le tableau sera actualisé à chaque fois que de nouvelles ressources y sont ajoutées. Les utilisateurs peuvent utiliser la fonction Recherche pour trouver d'autres ensembles de données. ",
 	"microdata.table.datasets_title": "Ensembles de Données des Acteurs",
 	"microdata.table.organization": "Organisation",
