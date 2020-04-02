@@ -513,6 +513,9 @@ public abstract class BasePage extends GenericWebPage<Void> {
         gisMenu.setIconType(FontAwesomeIconType.upload);
         MetaDataRoleAuthorizationStrategy.authorize(gisMenu, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
 
+        MetaDataRoleAuthorizationStrategy.authorize(gisMenu, Component.RENDER,
+                SecurityConstants.Roles.ROLE_FOCAL_POINT);
+
         return gisMenu;
     }
 
