@@ -1,14 +1,13 @@
 
 
 import {FormattedMessage, injectIntl} from 'react-intl';
-import ReactDOM from 'react-dom';
-import React, {Component, createRef, useState, useEffect} from 'react'
+import React, { useState, useEffect} from 'react'
 
-import { Grid, Image } from 'semantic-ui-react'
+import { Grid} from 'semantic-ui-react'
 import Map from './Map.jsx'
 import Immutable from 'immutable'
 import messages from '../translations/messages'
-import {CustomGroupedDropDown, CustomFilterDropDown,items2options} from '../indicators/Components'
+import {CustomGroupedDropDown, CustomFilterDropDown} from '../indicators/Components'
 import {PngExport} from '../indicators/Components'
 
 var regions = require('../json/regions.json'); //with path
