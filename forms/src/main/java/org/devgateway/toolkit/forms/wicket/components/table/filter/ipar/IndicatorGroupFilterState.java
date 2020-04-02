@@ -1,13 +1,12 @@
-package org.devgateway.toolkit.forms.wicket.components.table.filter;
+package org.devgateway.toolkit.forms.wicket.components.table.filter.ipar;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.devgateway.toolkit.persistence.dao.categories.IndicatorGroup;
-import org.devgateway.toolkit.persistence.dao.categories.IndicatorGroup_;
-import org.devgateway.toolkit.persistence.dao.categories.LocalizedCategoryLabel;
-import org.devgateway.toolkit.persistence.dao.categories.LocalizedCategoryLabel_;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.IndicatorGroup;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.Join;
+// import org.devgateway.toolkit.persistence.dao.categories.IndicatorGroup_;
+// import org.devgateway.toolkit.persistence.dao.categories.LocalizedCategoryLabel_;
 
 
 /**
@@ -21,8 +20,10 @@ public class IndicatorGroupFilterState extends JpaFilterState<IndicatorGroup> {
     @JsonIgnore
     public Specification<IndicatorGroup> getSpecification() {
         return (root, query, cb) -> {
+            /*
             Join<IndicatorGroup, LocalizedCategoryLabel> join = root.join(IndicatorGroup_.LOCALIZED_LABELS);
             query.orderBy(cb.asc(join.get(LocalizedCategoryLabel_.LABEL)));
+             */
             return cb.and();
         };
     }
