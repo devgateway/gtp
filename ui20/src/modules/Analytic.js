@@ -1,7 +1,6 @@
 import {getDataSet} from '../api'
 import Immutable from 'immutable'
 
-import {loadDataItems} from '../modules/Data'
 
 const initialState = Immutable.fromJS({})
 

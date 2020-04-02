@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import React from 'react'
 import {FormattedMessage} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown} from './Components'
-import {Dropdown,Ref} from 'semantic-ui-react'
 import { Tab, Label } from 'semantic-ui-react'
 import {items2options} from './DataUtil'
 import './globalFoodLoss.scss'
