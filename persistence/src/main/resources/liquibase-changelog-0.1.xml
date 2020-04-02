@@ -21,9 +21,9 @@
             <tableExists tableName="person_roles" />
             <tableExists tableName="category" />
         </preConditions>
-        <insert tableName="category">
+        <insert tableName="organization">
             <column name="id" valueSequenceNext="hibernate_sequence" />
-            <column name="dtype" value="Organization" />
+            <column name="tag" value="ANACIM" />
             <column name="label" value="ANACIM" />
         </insert>
         <insert tableName="person">
@@ -48,10 +48,9 @@
         <sql><![CDATA[
             UPDATE person
             SET organization_id=org.id
-            FROM category org
+            FROM organization org
             WHERE person.username = 'admin'
-              AND org.dtype = 'Organization'
-              AND org.label = 'ANACIM';
+              AND org.tag = 'ANACIM';
         ]]></sql>
     </changeSet>
 
