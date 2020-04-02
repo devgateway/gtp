@@ -45,7 +45,8 @@
     "redux-thunk": "^2.3.0",
     "save": "^2.4.0",
     "semantic-ui-react": "^0.88.2",
-    "smoothscroll-polyfill": "^0.4.4"
+    "smoothscroll-polyfill": "^0.4.4",
+    "source-map-explorer": "^2.4.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -54,6 +55,7 @@
     "babel-plugin-react-intl": "^4.3.0"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "extract-messages": "NODE_ENV=production babel ./src  --out-file /dev/null",
     "start": "react-scripts start",
     "build": "react-scripts --max_old_space_size=4096  build",

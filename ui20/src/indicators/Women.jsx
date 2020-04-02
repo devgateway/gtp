@@ -1,12 +1,11 @@
 import './poverty.scss'
 import 'rc-slider/assets/index.css'
-
+import React, {Component, createRef, useState,useEffect} from 'react'
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import React, {Component, createRef, useState,useEffect} from 'react'
 import {FormattedMessage,injectIntl} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown,OptionList} from './Components'
-import Plot from 'react-plotly.js';
+
 import Slider, {Range} from 'rc-slider';
 import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
 import { Tab, Label } from 'semantic-ui-react'

@@ -2,7 +2,7 @@ import "./indicators.scss"
 
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import React, {Component, createRef, useState} from 'react'
+import React, {Component} from 'react'
 import {updateGlobalFilter,updateFilter,reset,apply, exportData, loadMetadata} from '../modules/Indicator'
 import {Grid,Segment} from 'semantic-ui-react'
 
