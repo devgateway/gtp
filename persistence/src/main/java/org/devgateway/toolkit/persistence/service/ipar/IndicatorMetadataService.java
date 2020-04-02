@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service.ipar;
 
-import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.dao.indicator.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.service.BaseJpaService;
 
 

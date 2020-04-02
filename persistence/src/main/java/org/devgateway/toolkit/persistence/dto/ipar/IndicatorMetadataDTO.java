@@ -2,7 +2,7 @@ package org.devgateway.toolkit.persistence.dto.ipar;
 
 
 import org.apache.commons.lang3.StringUtils;
-import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.dao.indicator.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.util.Constants;
 
 public class IndicatorMetadataDTO {
@@ -23,10 +23,10 @@ public class IndicatorMetadataDTO {
         this.id = im.getId();
         this.intro = (StringUtils.isNotEmpty(lang) && lang.equalsIgnoreCase(Constants.LANG_FR))
                 || StringUtils.isBlank(im.getIntro())
-                ? im.getIntroFr() : im.getIntro();
-        this.indicatorName = im.getIndicatorName();
-        this.indicatorType = im.getIndicatorType();
-        this.ansdLink = im.getAnsdLink();
+                ? im.getIntro() : im.getIntro();
+        this.indicatorName = im.getName();
+        this.indicatorType = 0;
+        this.ansdLink = im.getLink();
         this.source = im.getSource();
     }
 

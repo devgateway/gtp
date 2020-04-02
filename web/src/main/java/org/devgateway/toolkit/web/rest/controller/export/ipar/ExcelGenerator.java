@@ -2,7 +2,7 @@ package org.devgateway.toolkit.web.rest.controller.export.ipar;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.dao.indicator.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.dao.ipar.Region;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
 import org.devgateway.toolkit.persistence.dto.ipar.AgriculturalWomenDTO;
@@ -32,7 +32,6 @@ import org.devgateway.toolkit.web.rest.controller.filter.ipar.PovertyFilterPagin
 import org.devgateway.toolkit.web.rest.controller.filter.ipar.PovertyFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

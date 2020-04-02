@@ -13,7 +13,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
     
-    <changeSet id="ANACIM-1" author="nmandrescu">
+    <changeSet id="ANACIM-1 initial org and admin" author="nmandrescu">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="person" />
             <columnExists tableName="person" columnName="organization_id" />
@@ -52,6 +52,22 @@
             WHERE person.username = 'admin'
               AND org.tag = 'ANACIM';
         ]]></sql>
+    </changeSet>
+
+    <changeSet id="ANACIM-15 rain indicators metadata" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="indicator_metadata" />
+        </preConditions>
+        <insert tableName="indicator_metadata">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Cumul de pluie" />
+            <column name="type" value="RAINFALL" />
+        </insert>
+        <insert tableName="indicator_metadata">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Démarrage de la saison des pluies" />
+            <column name="type" value="RAINFALL_SEASON" />
+        </insert>
     </changeSet>
 
 </databaseChangeLog>
