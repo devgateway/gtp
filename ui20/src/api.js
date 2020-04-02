@@ -18,7 +18,7 @@ const URL_API_INITIATIVE_TYPES = API_ROOT + '/data/filter/contentType'
 const URL_API_INITIATIVE_ITEMS = API_ROOT + '/data/agriculturalContent/type'
 const URL_DATA_SETS_YEARS = API_ROOT + '/data/filter/dataset/years'
 const API_NATIONAL_URL = API_ROOT + '/data/nationalIndicator/all'
-const URL_API_METADATA=API_ROOT +'/data/indicatorMetadata/all'
+const URL_API_METADATA = API_ROOT + '/data/indicatorMetadata/all'
 
 const API_GIS_URL_REGION = API_ROOT + '/data/gisIndicator/region/all'
 
@@ -29,16 +29,16 @@ const xlsExportURLBuilder = (what) => {
   switch (what) {
     case 'POVERTY':
       subfix = 'poverty'
-      break;
+      break
     case 'WOMEN':
       subfix = 'women'
-      break;
+      break
     case 'FOOD':
       subfix = 'foodLoss'
-      break;
+      break
     case 'AOI':
       subfix = 'aoi'
-      break;
+      break
   }
 
   return `${API_ROOT}/data/indicator/excelExport/${subfix}`
@@ -49,72 +49,71 @@ const csvExportURLBuilder = (what) => {
   switch (what) {
     case 'POVERTY':
       subfix = 'poverty'
-      break;
+      break
     case 'WOMEN':
       subfix = 'agriculturalWomen'
-      break;
+      break
     case 'FOOD':
       subfix = 'foodLoss'
-      break;
+      break
     case 'AOI':
       subfix = 'agOrientation'
-      break;
+      break
   }
 
   return `${API_ROOT}/data/${subfix}/summary/csv`
 }
 
-function queryParams(params) {
+function queryParams (params) {
   return Object.keys(params)
     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
-    .join('&');
+    .join('&')
 }
 
 const post = (url, params, isBlob) => {
   return new Promise((resolve, reject) => {
     fetch(url, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify(params)
-      })
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(params)
+    })
       .then(
-        function(response) {
+        function (response) {
           if (response.status !== 200) {
             reject(response)
           }
           if (isBlob) {
-
             resolve(response.blob())
           }
-          response.json().then(function(data) {
-            resolve(data);
-          }).catch(() => resolve(response.status));
+          response.json().then(function (data) {
+            resolve(data)
+          }).catch(() => resolve(response.status))
         }
       )
-      .catch(function(err) {
-        reject(err);
-      });
+      .catch(function (err) {
+        reject(err)
+      })
   })
 }
 const get = (url) => {
   return new Promise((resolve, reject) => {
     fetch(url)
       .then(
-        function(response) {
+        function (response) {
           if (response.status !== 200) {
             reject(response)
           }
-          response.json().then(function(data) {
-            resolve(data);
-          });
+          response.json().then(function (data) {
+            resolve(data)
+          })
         }
       )
-      .catch(function(err) {
-        reject(err);
-      });
+      .catch(function (err) {
+        reject(err)
+      })
   })
 }
 
@@ -127,31 +126,26 @@ export const getDataSet = (name) => {
 }
 
 export const getItems = (category, path, params) => {
-  return post(API_ROOT + itemsURLBuilder(category, path, ), params.global)
+  return post(API_ROOT + itemsURLBuilder(category, path), params.global)
 }
 
 export const getGISRegionData = (params) => {
   return post(API_GIS_URL_REGION, params)
 }
 
-
 export const getGISDepartmentData = (params) => {
   return post(API_GIS_URL_DEPARTMENT, params)
 }
-
 
 export const getNationalIndicators = (params) => {
   return post(API_NATIONAL_URL, params)
 }
 
-
 export const getPartners = (locale) => {
   return new Promise((resolve, reject) => {
-
     return post(API_PARTNERS_URL, {
       lang: locale
     }).then((partners) => {
-
       const groups = Array.from(new Set(partners.map(p => p.groupType))).map(g => {
         const pps = partners.filter(p => p.groupType == g)
         return {
@@ -159,19 +153,18 @@ export const getPartners = (locale) => {
           id: pps[0].groupId,
           partners: pps
         }
-      });
+      })
       resolve({
         partners,
         groups
       })
-
     }).catch(error => {
       reject(error)
     })
   })
 }
 
-export const getIndicatorsMetadata=(lang)=>{
+export const getIndicatorsMetadata = (lang) => {
   return new Promise((resolve, reject) => {
     post(URL_API_METADATA, {}).then((data) => {
       resolve(data)
@@ -180,7 +173,6 @@ export const getIndicatorsMetadata=(lang)=>{
     })
   })
 }
-
 
 export const loadPovertyChartData = (params) => {
   return new Promise((resolve, reject) => {
@@ -196,12 +188,11 @@ export const loadPovertyChartData = (params) => {
 }
 
 export const exportIndicators = (what, format, lang, params, options) => {
-  debugger;
+  debugger
 
   return new Promise((resolve, reject) => {
-
     let url = ''
-    let fileName = (what == 'ALL' ? 'indicator' : what) + (format == 'XLS' ? '.xlsx' : '.csv')
+    const fileName = (what == 'ALL' ? 'indicator' : what) + (format == 'XLS' ? '.xlsx' : '.csv')
 
     if (format == 'XLS') {
       url = xlsExportURLBuilder(what)
@@ -214,69 +205,58 @@ export const exportIndicators = (what, format, lang, params, options) => {
     }
 
     switch (what) {
-
-      case "POVERTY":
+      case 'POVERTY':
         Object.assign(filters, params.poverty)
-        break;
+        break
 
-      case "WOMEN":
+      case 'WOMEN':
 
-        const womenFilters={}
-        Object.keys(options).filter(o=>options[o]).forEach(k=>{
-          womenFilters[k]=params.women[k]
-          debugger;
+        const womenFilters = {}
+        Object.keys(options).filter(o => options[o]).forEach(k => {
+          womenFilters[k] = params.women[k]
+          debugger
         })
-        Object.assign(filters,womenFilters)
-        break;
+        Object.assign(filters, womenFilters)
+        break
 
-
-      case "FOOD":
+      case 'FOOD':
         Object.assign(filters, params.food)
-        break;
+        break
 
-      case "AOI":
+      case 'AOI':
         Object.assign(filters, params.aoi)
-        break;
+        break
       default:
-
     }
 
     post(url, {
       ...filters,
       lang
     }, true).then(blob => {
-
-
-      var url = window.URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = fileName.toLowerCase();
-      document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
-      a.click();
-      a.remove(); //afterwards we remove the element again
+      var url = window.URL.createObjectURL(blob)
+      var a = document.createElement('a')
+      a.href = url
+      a.download = fileName.toLowerCase()
+      document.body.appendChild(a) // we need to append the element to the dom -> otherwise it will not work in firefox
+      a.click()
+      a.remove() // afterwards we remove the element again
     }).catch(error => {
       reject(error)
     })
-
-
   })
 }
 
 export const getAgricuturalDistribution = (params) => {
   return new Promise((resolve, reject) => {
-    const specificFilters = params.women;
+    const specificFilters = params.women
     specificFilters.ageGroup = []
 
     post(URL_AGRICULTURAL_DISTRIBUTION, {
       ...params.global,
       ...specificFilters
     }).then((data) => {
-
-
       resolve(data)
-
     }).catch(error => {
-
       reject(error)
     })
   })
@@ -284,7 +264,7 @@ export const getAgricuturalDistribution = (params) => {
 
 export const getAgricuturalPopulation = (params) => {
   return new Promise((resolve, reject) => {
-    const specificFilters = params.women;
+    const specificFilters = params.women
     specificFilters.methodOfEnforcement = []
     post(URL_AGRICULTURAL_POPULATION, {
       ...params.global,
@@ -299,7 +279,6 @@ export const getAgricuturalPopulation = (params) => {
 
 export const getFoodLoss = (params) => {
   return new Promise((resolve, reject) => {
-
     post(URL_FOOD_LOSS, {
       ...params.global,
       ...params.food
@@ -313,7 +292,6 @@ export const getFoodLoss = (params) => {
 
 export const getAOIsubsidies = (params) => {
   return new Promise((resolve, reject) => {
-
     post(URL_AOI_SUBSIDIES, {
       ...params.global,
       ...(params.aoi ? params.aoi.subsidies : {})
@@ -327,7 +305,6 @@ export const getAOIsubsidies = (params) => {
 
 export const getAOItotalBudget = (params) => {
   return new Promise((resolve, reject) => {
-
     post(URL_AOI_TOTAL_BUDGET, {
       ...params.global,
       ...(params.aoi ? params.aoi.budget : {})
@@ -341,47 +318,44 @@ export const getAOItotalBudget = (params) => {
 
 export const getGlobalIndicators = (params) => {
   return new Promise((resolve, reject) => {
-
     post(URL_INDICATORS, params.global).then((data) => {
       const mockData = [{
-          value: data.poverty.data ? data.poverty.data.value : null,
-          image: '/sdg/1.svg',
-          text: 'Proportion of population below the international poverty line',
-          key: 'indicator.global.population.short',
-          year: data.poverty.data ? data.poverty.data.year : null,
-          style: "percent"
-        }, {
-          value: data.agriculturalWomen.data ? data.agriculturalWomen.data.value : null,
-          image: '/sdg/5.svg',
-          text: 'Women in the Agricultural sector',
-          key: 'indicator.global.women.short',
-          year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
-          style: "percent"
-        },
+        value: data.poverty.data ? data.poverty.data.value : null,
+        image: '/sdg/1.svg',
+        text: 'Proportion of population below the international poverty line',
+        key: 'indicator.global.population.short',
+        year: data.poverty.data ? data.poverty.data.year : null,
+        style: 'percent'
+      }, {
+        value: data.agriculturalWomen.data ? data.agriculturalWomen.data.value : null,
+        image: '/sdg/5.svg',
+        text: 'Women in the Agricultural sector',
+        key: 'indicator.global.women.short',
+        year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
+        style: 'percent'
+      },
 
-        {
-          value: data.foodLoss.data ? data.foodLoss.data.value : null,
-          image: '/sdg/food_loss.svg',
-          text: 'Post-Harvest Loss',
-          key: 'indicator.global.food.short',
-          year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
-          style: "percent"
-        }
+      {
+        value: data.foodLoss.data ? data.foodLoss.data.value : null,
+        image: '/sdg/food_loss.svg',
+        text: 'Post-Harvest Loss',
+        key: 'indicator.global.food.short',
+        year: data.agriculturalWomen.data ? data.agriculturalWomen.data.year : null,
+        style: 'percent'
+      },
 
-        , {
-          value: data.agOrientation.data ? data.agOrientation.data.value : null,
-          image: '/sdg/12.svg',
-          text: 'Agriculture orientation index for government expenditures',
-          key: 'indicator.global.aoi.short',
-          year: data.agOrientation.data ? data.agOrientation.data.year : null,
-          style: "percent"
-        },
+      {
+        value: data.agOrientation.data ? data.agOrientation.data.value : null,
+        image: '/sdg/12.svg',
+        text: 'Agriculture orientation index for government expenditures',
+        key: 'indicator.global.aoi.short',
+        year: data.agOrientation.data ? data.agOrientation.data.year : null,
+        style: 'percent'
+      }
 
       ]
 
-
       resolve(mockData)
-
     }).catch(error => {
       console.log('ERROR')
       reject(error)
@@ -398,8 +372,6 @@ export const getDefaultIndicatorFilters = () => {
     })
   })
 }
-
-
 
 export const getDatasets = (params) => {
   return new Promise((resolve, reject) => {
@@ -431,21 +403,16 @@ export const getSources = (params) => {
   })
 }
 
-
 export const getInitiativeTypes = () => {
   return get(URL_API_INITIATIVE_TYPES)
 }
 
-
 export const getInitiativeItems = (id, locale, page) => {
-
-
   return new Promise((resolve, reject) => {
     return post(`${URL_API_INITIATIVE_ITEMS}/${id}`, {
       lang: locale,
       pageNumber: page
     }).then((data) => {
-
       resolve({
         data,
         id
@@ -456,33 +423,29 @@ export const getInitiativeItems = (id, locale, page) => {
   })
 }
 
-
-
-  //CORS NOT SUPPORTED ON MAILCHIMP this mehtod can't beused
+// CORS NOT SUPPORTED ON MAILCHIMP this mehtod can't beused
 export const subscribeToNewsLetter = (email) => {
   return new Promise((resolve, reject) => {
-    const AUDIENCE_ID = "35d5eec81f"; //https://mailchimp.com/en/help/find-audience-id/
+    const AUDIENCE_ID = '35d5eec81f' // https://mailchimp.com/en/help/find-audience-id/
     const API_KEY = '20a617cf01c77ab0b149fe438e74b8f0-us19'
 
     const URL_PREFIX = API_KEY.split('-')[1]
     const KEY = API_KEY.split('-')[0]
 
-    var subscriber = {"email_address":email,"status":"subscribed"};
-
-
+    var subscriber = { email_address: email, status: 'subscribed' }
 
     fetch(`https://${URL_PREFIX}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Basic ${KEY}`,
+        Authorization: `Basic ${KEY}`
       },
-      method: "POST",
+      method: 'POST',
       mode: 'cors',
-             cache: 'default',
+      cache: 'default',
       body: JSON.stringify(subscriber)
-    }).then(response=>{
+    }).then(response => {
 
-    }).catch(error=>{
+    }).catch(error => {
 
     })
   })

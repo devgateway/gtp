@@ -1,10 +1,7 @@
 import messages from '../translations/messages'
 
-
-
 export const getPovertyMapData = (json, data = [], intl) => {
   if (data.length > 0) {
-
     const tr_region = intl.formatMessage(messages.region)
     const keys = Array.from(new Set(data.map(d => d.region)))
     const years = Array.from(new Set(data.map(r => r.year)))
@@ -31,6 +28,5 @@ export const getPovertyMapData = (json, data = [], intl) => {
     })
   }
 
-
-  return json;
+  return json
 }

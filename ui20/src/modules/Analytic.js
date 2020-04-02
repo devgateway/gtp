@@ -1,12 +1,11 @@
-import {getDataSet} from '../api'
+import { getDataSet } from '../api'
 import Immutable from 'immutable'
-
 
 const initialState = Immutable.fromJS({})
 
 export const loadDataSet = (name) => (dispatch, getState) => {
   dispatch({
-    type: 'LOAD_DATASET',
+    type: 'LOAD_DATASET'
 
   })
   getDataSet(name).then(data => {
@@ -15,7 +14,6 @@ export const loadDataSet = (name) => (dispatch, getState) => {
       name,
       data: data
     })
-
   }).catch(error => {
     dispatch({
       type: 'LOAD_DATASET_DATA_ERROR',

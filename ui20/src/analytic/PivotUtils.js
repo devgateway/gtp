@@ -1,23 +1,21 @@
-import {injectIntl} from 'react-intl';
+import { injectIntl } from 'react-intl'
 
-import {sortAs, aggregatorTemplates, localeStrings} from 'react-pivottable/Utilities';
+import { sortAs, aggregatorTemplates, localeStrings } from 'react-pivottable/Utilities'
 
 import messages from '../translations/messages'
 
-
-
-var addSeparators = function addSeparators(nStr, thousandsSep, decimalSep) {
-  var x = String(nStr).split('.');
-  var x1 = x[0];
-  var x2 = x.length > 1 ? decimalSep + x[1] : '';
-  var rgx = /(\d+)(\d{3})/;
+var addSeparators = function addSeparators (nStr, thousandsSep, decimalSep) {
+  var x = String(nStr).split('.')
+  var x1 = x[0]
+  var x2 = x.length > 1 ? decimalSep + x[1] : ''
+  var rgx = /(\d+)(\d{3})/
   while (rgx.test(x1)) {
-    x1 = x1.replace(rgx, '$1' + thousandsSep + '$2');
+    x1 = x1.replace(rgx, '$1' + thousandsSep + '$2')
   }
-  return x1 + x2;
-};
+  return x1 + x2
+}
 
-var numberFormat = function numberFormat(opts_in) {
+var numberFormat = function numberFormat (opts_in) {
   var defaults = {
     digitsAfterDecimal: 2,
     scaler: 1,
@@ -25,34 +23,28 @@ var numberFormat = function numberFormat(opts_in) {
     decimalSep: '.',
     prefix: '',
     suffix: ''
-  };
-  var opts = Object.assign({}, defaults, opts_in);
+  }
+  var opts = Object.assign({}, defaults, opts_in)
   return function (x) {
     if (isNaN(x) || !isFinite(x)) {
-      return '';
+      return ''
     }
-    var result = addSeparators((opts.scaler * x).toFixed(opts.digitsAfterDecimal), opts.thousandsSep, opts.decimalSep);
-    return '' + opts.prefix + result + opts.suffix;
-  };
-};
+    var result = addSeparators((opts.scaler * x).toFixed(opts.digitsAfterDecimal), opts.thousandsSep, opts.decimalSep)
+    return '' + opts.prefix + result + opts.suffix
+  }
+}
 
+var usFmt = numberFormat()
 
-var usFmt = numberFormat();
+var usFmtInt = numberFormat({ digitsAfterDecimal: 0 })
 
-var usFmtInt = numberFormat({digitsAfterDecimal: 0});
+var usFmtPct = numberFormat({ digitsAfterDecimal: 1, scaler: 100, suffix: '%' })
 
-var usFmtPct = numberFormat({digitsAfterDecimal: 1, scaler: 100, suffix: '%'});
+var frFmt = numberFormat({ decimalSep: ',', thousandsSep: ' ' })
 
-var frFmt = numberFormat({decimalSep:',',thousandsSep:' '});
+var frFmtInt = numberFormat({ digitsAfterDecimal: 0 })
 
-var frFmtInt = numberFormat({digitsAfterDecimal: 0});
-
-var frFmtPct = numberFormat({digitsAfterDecimal: 1, scaler: 100, suffix: '%'});
-
-
-
-
-
+var frFmtPct = numberFormat({ digitsAfterDecimal: 1, scaler: 100, suffix: '%' })
 
 const getFmt = (locale) => (locale == 'fr')
   ? frFmt
@@ -66,12 +58,9 @@ const getFmtPct = (locale) => (locale == 'fr')
   ? frFmtPct
   : usFmtPct
 
-
 // default aggregators & renderers use US naming and number formatting
 export const aggregators = (intl) => {
-
-  
-  let aggregators = {}
+  const aggregators = {}
   const locale = intl.locale
 
   aggregators[intl.formatMessage(messages.count)] = aggregatorTemplates.count(getFmtInt(locale))
