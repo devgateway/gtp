@@ -25,9 +25,12 @@ import org.devgateway.toolkit.persistence.service.ipar.NationalIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.text.Normalizer;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Daniel Oliva
@@ -79,6 +82,9 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
 
         // List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAllFetchingLocalizedLabels();
         List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAll();
+        indicatorGroups = indicatorGroups.stream().sorted(Comparator.comparing(x ->
+                Normalizer.normalize(x.getLabelFr().toLowerCase(), Normalizer.Form.NFD)))
+                .collect(Collectors.toList());
         GenericChoiceProvider<IndicatorGroup> choiceProvider =
                 new GenericChoiceProvider<IndicatorGroup>(indicatorGroups) {
             @Override

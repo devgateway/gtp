@@ -46,11 +46,11 @@ const initialState = Immutable.fromJS({
 Get default selected filters
 */
 
-export const exportData = (what, format,language) => (dispatch, getState)  => {
-
+export const exportData = (what, format,language, options) => (dispatch, getState)  => {
   const filters = getState().getIn(['indicator', 'filters']).toJS()
 
-  api.exportIndicators(what, format, language, filters)
+
+  api.exportIndicators(what, format, language, filters,options)
 }
 
 export const loadDefaultFilters = () => dispatch => {

@@ -48,6 +48,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.text.Normalizer;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -74,13 +76,10 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
     protected DepartmentIndicatorService service;
 
     @SpringBean
-    protected RegionIndicatorService regionService;
-
-    @SpringBean
     protected MarkupCacheService markupCacheService;
 
     @SpringBean
-    private ReleaseCacheService cacheService;
+    protected ReleaseCacheService cacheService;
 
 
     public EditDepartmentIndicatorPage(final PageParameters parameters) {
@@ -116,6 +115,9 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
 
         // List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAllFetchingLocalizedLabels();
         List<IndicatorGroup> indicatorGroups = indicatorGroupRepository.findAll();
+        indicatorGroups = indicatorGroups.stream().sorted(Comparator.comparing(x ->
+                Normalizer.normalize(x.getLabelFr().toLowerCase(), Normalizer.Form.NFD)))
+                .collect(Collectors.toList());
         GenericChoiceProvider<IndicatorGroup> choiceProvider =
                 new GenericChoiceProvider<IndicatorGroup>(indicatorGroups) {
                     @Override
@@ -220,8 +222,6 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
                     target.add(feedbackPanel);
                     redirectToSelf = true;
                 } else {
-                    addDepartmentsFakeIndicators();
-                    addRegionFakeIndicators();
                     markupCacheService.clearAllCaches();
                 }
                 cacheService.releaseCache();
@@ -242,48 +242,5 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
         };
     }
 
-    private void addDepartmentsFakeIndicators() {
-        List<GisIndicatorDTO> listEn = service.getFakeIndicatorDTOs(null);
-        Map<Long, GisIndicatorDTO> listFr = service.getFakeIndicatorDTOs(Constants.LANG_FR)
-                .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
-        Map<String, DepartmentIndicator> indicatorList = service.findAllFake().stream()
-                .collect(Collectors.toMap(DepartmentIndicator::getName, r -> r));
-
-        for (GisIndicatorDTO enDTO : listEn) {
-            if (!indicatorList.containsKey(enDTO.getName())) {
-                DepartmentIndicator ri = new DepartmentIndicator();
-                ri.setName(enDTO.getName());
-                GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
-                if (frDTO != null) {
-                    ri.setNameFr(frDTO.getName());
-                }
-                ri.setFakeIndicatorFlag(true);
-                ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
-                jpaService.saveAndFlush(ri);
-            }
-        }
-    }
-
-    private void addRegionFakeIndicators() {
-        List<GisIndicatorDTO> listEn = regionService.getFakeIndicatorDTOs(null);
-        Map<Long, GisIndicatorDTO> listFr = regionService.getFakeIndicatorDTOs(Constants.LANG_FR)
-                .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
-        Map<String, RegionIndicator> indicatorList = regionService.findAllFake().stream()
-                .collect(Collectors.toMap(RegionIndicator::getName, r -> r));
-
-        for (GisIndicatorDTO enDTO : listEn) {
-            if (!indicatorList.containsKey(enDTO.getName())) {
-                RegionIndicator ri = new RegionIndicator();
-                ri.setName(enDTO.getName());
-                GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
-                if (frDTO != null) {
-                    ri.setNameFr(frDTO.getName());
-                }
-                ri.setFakeIndicatorFlag(true);
-                ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
-                regionService.saveAndFlush(ri);
-            }
-        }
-    }
 
 }

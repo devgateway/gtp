@@ -35,7 +35,7 @@ public class ExcelFileData implements ExcelFile {
                 String name = StringUtils.isNotBlank(info.getSheetName()) ? info.getSheetName() : NO_DATA;
                 final ExcelSheet excelSheet = new ExcelSheetDefault(this.workbook,
                         info.getTranslateService(), name);
-                excelSheet.emptySheet();
+                excelSheet.emptySheet(info.getNoDataLabel());
             } else {
                 final Class clazz = info.getObjects().get(0).getClass();
                 String name = StringUtils.isNotBlank(info.getSheetName()) ? info.getSheetName()

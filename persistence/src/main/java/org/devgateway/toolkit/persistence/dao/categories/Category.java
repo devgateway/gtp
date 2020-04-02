@@ -51,7 +51,9 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
 
     private String description;
 
+    /*
     private Integer type;
+     */
 
     /*
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "category")
@@ -158,11 +160,12 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     }
 
     public Integer getType() {
-        return type;
+        // return type;
+        return null;
     }
 
     public void setType(Integer type) {
-        this.type = type;
+        // this.type = type;
     }
 
     @Override
@@ -180,14 +183,14 @@ public class Category extends AbstractAuditableEntity implements Serializable, L
     public String getNameEnFr() {
         String frLabel = getLocalizedLabel(Constants.LANG_FR);
         StringBuilder sb = new StringBuilder();
-        if (StringUtils.isNotBlank(label)) {
-            sb.append(label);
-            if (StringUtils.isNotBlank(frLabel)) {
+        if (StringUtils.isNotBlank(frLabel)) {
+            sb.append(frLabel);
+            if (StringUtils.isNotBlank(label)) {
                 sb.append(" / ");
             }
         }
-        if (StringUtils.isNotBlank(frLabel)) {
-            sb.append(frLabel);
+        if (StringUtils.isNotBlank(label)) {
+            sb.append(label);
         }
         return sb.toString();
     }

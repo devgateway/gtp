@@ -195,7 +195,8 @@ export const loadPovertyChartData = (params) => {
   })
 }
 
-export const exportIndicators = (what, format, lang, params) => {
+export const exportIndicators = (what, format, lang, params, options) => {
+  debugger;
 
   return new Promise((resolve, reject) => {
 
@@ -219,8 +220,15 @@ export const exportIndicators = (what, format, lang, params) => {
         break;
 
       case "WOMEN":
-        Object.assign(filters, params.women)
+
+        const womenFilters={}
+        Object.keys(options).filter(o=>options[o]).forEach(k=>{
+          womenFilters[k]=params.women[k]
+          debugger;
+        })
+        Object.assign(filters,womenFilters)
         break;
+
 
       case "FOOD":
         Object.assign(filters, params.food)

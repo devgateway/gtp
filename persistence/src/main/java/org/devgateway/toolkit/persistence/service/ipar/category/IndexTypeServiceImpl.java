@@ -6,7 +6,6 @@ import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaReposit
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -33,6 +32,7 @@ public class IndexTypeServiceImpl extends BaseJpaServiceImpl<IndexType> implemen
 
     @Override
     public List<IndexType> findByCategoryTypeId(int typeId) {
-        return repository.findByType(typeId);
+        // return repository.findByType(typeId);
+        return null;
     }
 }

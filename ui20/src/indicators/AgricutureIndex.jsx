@@ -79,7 +79,8 @@ const ChartSection = injectIntl(( props)=>{
               <SubsidiesFilters {...props} options={{gender:false, age:true ,methodOfEnforcement:false}}></SubsidiesFilters>
               <div className="chart container ">
 
-                {props.budget == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>: <BarChart   {...getAOIsubsidies(props.subsidies,props.intl)}/>}
+                {props.budget == 0?<Label   ribbon="right" className="no data centered" basic color="olive" inverted><FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage></Label>:
+                <BarChart   {...getAOIsubsidies(props.subsidies,props.intl)}/>}
 
               </div>
             </div>,

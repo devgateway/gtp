@@ -59,6 +59,10 @@ public class AbstractExcelSheetTest {
         public void emptySheet() {
 
         }
+
+        @Override
+        public void emptySheet(String message) {
+        }
     }
 
     @Test

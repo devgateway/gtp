@@ -19,8 +19,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * @param <T>
  * @author mpostelnicu
@@ -32,11 +30,11 @@ public interface CategoryRepository<T extends Category> extends TextSearchableRe
     @Query("select cat from  #{#entityName} cat where lower(cat.label) like %:code%")
     Page<T> searchText(@Param("code") String code, Pageable page);
 
+    /*
     List<T> findByType(int typeId);
 
-/*
     @Query("select cat from  #{#entityName} cat left join fetch cat.localizedLabels order by cat.type asc")
     List<T> findAllFetchingLocalizedLabels();
-*/
+     */
 
 }

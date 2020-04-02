@@ -139,7 +139,7 @@ var moveTooltip = function(e, xOffset=0, yOffset=0 ) {
   tooltip.style("top", (top+  "px"))
 
   if (left > window.innerWidth-tooltipSize  ){
-    debugger;
+    
     tooltip.style("right", window.innerWidth-left   + "px")
     tooltip.style("left","auto")
 

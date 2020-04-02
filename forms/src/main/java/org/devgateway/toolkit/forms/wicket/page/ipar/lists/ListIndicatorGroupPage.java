@@ -17,6 +17,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.ipar.IndicatorGroupFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditIndicatorGroupPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.IndicatorGroup;
@@ -36,6 +37,13 @@ public class ListIndicatorGroupPage extends AbstractListPage<IndicatorGroup> {
         this.jpaService = service;
         this.editPageClass = EditIndicatorGroupPage.class;
         columns.add(new PropertyColumn<>(
-                new StringResourceModel("name", ListIndicatorGroupPage.this, null), "label", "label"));
+                new StringResourceModel("nameFr", ListIndicatorGroupPage.this, null), "labelFr"));
+        columns.add(new PropertyColumn<>(
+                new StringResourceModel("name", ListIndicatorGroupPage.this, null), "label"));
+    }
+
+    @Override
+    public IndicatorGroupFilterState newFilterState() {
+        return new IndicatorGroupFilterState();
     }
 }
