@@ -6,9 +6,10 @@
   width: $content-width;
   display: block;
 
-.clear.block{
-  clear: both;
-}
+  .clear.block {
+    clear: both;
+  }
+
   .gis.title {
     background-color: #FFF;
     border-bottom: 2px solid $border-color;
@@ -108,7 +109,6 @@
     display: flex;
     vertical-align: middle;
     border-bottom: 1px solid $border-color;
-
   }
 
   .filter.item.indicator {
@@ -123,7 +123,6 @@
     margin: auto;
     width: 30%;
   }
-
 
   .filter.item {
     float: left;
@@ -243,7 +242,8 @@
     display: flex;
     flex-direction: column;
   }
-  .export.area{
+
+  .export.area {
     flex-direction: row-reverse;
     padding-right: 14px;
     margin-bottom: -25px;
@@ -252,11 +252,12 @@
     clear: both;
     display: flex;
     margin-top: -10px;
+
     .export {
       float: right;
     }
-
   }
+
   .wrapper {
     display: flex;
     flex-flow: column;
@@ -269,7 +270,7 @@
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-        color: #000;
+      color: #000;
       margin-top: 3px;
       border-radius: 4px;
 
@@ -278,11 +279,11 @@
       }
 
       .map.info {
-
         flex-grow: 1;
         flex-direction: column;
 
         .legends {
+          font-family: $font;
           display: flex;
           justify-content: center;
           text-align: right;
@@ -296,8 +297,7 @@
               margin-top: 0;
               height: 38px;
             }
-            font-size: 15px;
-            font-weight: bold;
+            font-size: 12px;
             background-color: #EEE;
             margin-right: 20px;
             padding: 5px;
@@ -326,11 +326,12 @@
             width: auto;
             overflow: extend;
             text-align: right;
-            .value{
+
+            .value {
               flex-grow: 1;
               text-align: right;
-
             }
+
             .square {
               margin-right: 5px;
               height: 100%;
@@ -339,19 +340,18 @@
             }
 
             b {
+              font-weight: 600;
               font-size: 15px;
             }
           }
         }
 
         .source {
-
-            color: #000;
+          color: #000;
           font-size: 13px;
           padding: 20px;
           width: 100%;
-          font-weight: bold;
-
+          font-weight: 600;
         }
 
         .description {
@@ -378,7 +378,8 @@
         pointer-events: none !important;
         text-transform: uppercase;
         font-size: 18px;
-        font-family: $font !important;
+        font-family: "Arial, Helvetica, sans-serif" !important;
+
         fill: #FFF !important;
         font-weight: bold;
       }
@@ -394,13 +395,11 @@
       text.label {
         cursor: pointer;
         pointer-events: all;
-        fill: #000 !important;
-
-          }
+        fill: #a0a0a0!important;
+      }
 
       text.big.label,
       text.medium.label,
-
       text.small.label {
         opacity: 1;
         cursor: pointer;
@@ -411,15 +410,17 @@
       }
 
       text.big.label {
-        font-size: 40px !important;
+        font-weight: 600;
+
       }
 
       text.medium.label {
-        font-size: 40px !important;
+        font-weight: 600;
+
       }
 
       text.small.label {
-        font-size: 22px !important;
+
       }
     }
   }
@@ -443,5 +444,4 @@
     padding-right: 10px;
     margin-bottom: 20px;
   }
-
 }

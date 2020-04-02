@@ -1,11 +1,10 @@
-import React, {
-  Component
-} from 'react'
+import React, { Component } from 'react'
 import * as d3 from 'd3'
 import  messages from '../translations/messages'
+import './map.scss'
 
 import {FormattedMessage, injectIntl} from 'react-intl';
-import './map.scss'
+
 
 const formatOptions = {
   style: 'percent',
@@ -68,16 +67,15 @@ export default class D3Map extends Component < {},
             this.svg.append("text")
             .attr("x",d=>20)
             .attr("y",d=>45)
-            .attr("class", "big label")
             .style("fill","#7b8d56")
             .style("stroke", "#FFF")
-            .style("font-family","Open Sans")
+
             .style("font-weight","bold")
             .style("stroke-width", "1px")
-            .style("font-size", "40px")
+            .style("font-size", "48px")
             .style("text-transform", "uppercase")
-            .style("font-weight", "bold")
             .style("text-anchor", "start")
+            .attr("class","big label")
             .text("")
             .transition()
             .delay(100)
@@ -95,13 +93,13 @@ export default class D3Map extends Component < {},
         this.svg.append("text")
         .attr("x",d=>width -30)
         .attr("y",d=>height -25)
-        .attr("class", "medium label")
+          .attr("class","medium label")
         .style("fill","#7b8d56")
         .style("stroke", "#FFF")
-        .style("font-family","Open Sans")
+        .style("font-family","Arial, Helvetica, sans-serif")
         .style("font-weight","bold")
         .style("stroke-width", "1px")
-        .style("font-size", "40px")
+        .style("font-size", "43px")
         .style("text-transform", "uppercase")
         .style("font-weight", "bold")
           .attr("text-anchor", "end")
@@ -117,13 +115,13 @@ export default class D3Map extends Component < {},
         this.svg.append("text")
         .attr("x",d=>width -30)
         .attr("y",d=>height -5)
-        .attr("class", "small label")
+        .attr("class","small label")
         .style("fill","#7b8d56")
         .style("stroke", "#FFF")
-        .style("font-family","Open Sans")
+        .style("font-family","Arial, Helvetica, sans-serif")
         .style("font-weight","bold")
         .style("stroke-width", "1px")
-        .style("font-size", "22px")
+        .style("font-size", "28px")
         .style("text-transform", "uppercase")
         .style("font-weight", "bold")
         .attr("fill", "black")
@@ -174,14 +172,13 @@ export default class D3Map extends Component < {},
       .data(json.features)
       .enter()
       .append("text")
-      .style("font-size","8px")
-      .style("font-family","Open Sans")
-      .style("font-weight","600")
-
-      .attr("class", "label")
-      .attr("fill", "black")
+      .style("font-size","10px")
+      .style("font-family","Arial, Helvetica, sans-serif")
+      .style("font-weight","400")
+      .style("fill","#a0a0a0")
       .style("text-anchor", "start")
-      .attr("class", "label")
+      .style("text-transform", "uppercase")
+      .attr("class","label")
       .text(function(d) {
         var bounds=_this.path.bounds(d)
           var xwidth  = bounds[1][0] - bounds[0][0];
@@ -336,7 +333,7 @@ export default class D3Map extends Component < {},
 
             <div className="description">{description}</div>
             <div className="source">
-              <span className="label">  <FormattedMessage id="data.field.source.label" defaultMessage="Source :"></FormattedMessage></span><span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>}</span>
+              <span className="label">  <FormattedMessage id="data.fields.source_label" defaultMessage="Source :"></FormattedMessage></span><span> {source?source:<FormattedMessage id="data.fields.source_undefined" defaultMessage="Not specified"></FormattedMessage>}</span>
             </div>
             </div>
         </div>)
