@@ -87,7 +87,7 @@ export const loadDataItems = (category, path, filtered) => (dispatch, getState) 
   const filters = getState().getIn(['indicator', 'filters']).toJS()
   dispatch({type: LOAD_ITEM_DATA,category})
 
-  
+
 
   api.getItems(category, path, filters)
     .then(data => {
@@ -115,7 +115,6 @@ export default (state = initialState, action) => {
       .setIn(['items','status',category,'error'],action.error)
     }
     case LOAD_RAPID_LINKS: {
-      const {data} = action
       return state.setIn(['links','loading'],true)
     }
       case LOAD_RAPID_LINKS_DONE: {

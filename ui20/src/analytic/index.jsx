@@ -8,7 +8,6 @@ import PivotTableUI from './PivotTableUI.js';
 import Plot from 'react-plotly.js';
 import { TableRenderersWithIntl} from './TableRenders';
 import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
-import {aggregatorTemplates} from 'react-pivottable/Utilities'
 import {aggregators} from './PivotUtils'
 
 import productionConfigurator from './ProductionConf'

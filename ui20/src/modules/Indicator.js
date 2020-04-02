@@ -109,9 +109,9 @@ export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
 //Set here initial selected women filters if needed
 export const loadDefaultWomenFilters = () => (dispatch, getState) => {
   console.log("loadDefaultWomenFilters")
-  const ageGroups = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);
-  const methodOfEnforcements = getState().getIn(['data', 'items', 'methodOfEnforcement']).map(a => a.id);
-  const genders = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
+  //const ageGroups = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);
+  //const methodOfEnforcements = getState().getIn(['data', 'items', 'methodOfEnforcement']).map(a => a.id);
+  //const genders = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
   const womenFilters = Immutable.Map()
     .setIn(['gender'], Immutable.List())
     .setIn(['ageGroup'], Immutable.List())
@@ -125,7 +125,7 @@ export const loadDefaultWomenFilters = () => (dispatch, getState) => {
 //Set here initial selected food loss filters if needed
 export const loadDefaultFoodFilters = () => (dispatch, getState) => {
   console.log("loadDefaultFoodFilters")
-  const lossType = getState().getIn(['data', 'items', 'lossType']).map(a => a.id);
+  //const lossType = getState().getIn(['data', 'items', 'lossType']).map(a => a.id);
   const foodFilters = Immutable.Map().setIn(['lossType'], Immutable.List())
   dispatch({
     type: LOAD_DEFAULT_FOOD_FILTERS_DONE,
