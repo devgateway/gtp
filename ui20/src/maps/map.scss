@@ -297,7 +297,7 @@
               margin-top: 0;
               height: 38px;
             }
-            font-size: 15px;
+            font-size: 12px;
             background-color: #EEE;
             margin-right: 20px;
             padding: 5px;
@@ -340,6 +340,7 @@
             }
 
             b {
+              font-weight: 600;
               font-size: 15px;
             }
           }
@@ -377,7 +378,8 @@
         pointer-events: none !important;
         text-transform: uppercase;
         font-size: 18px;
-        font-family: $font !important;
+        font-family: "Arial, Helvetica, sans-serif" !important;
+
         fill: #FFF !important;
         font-weight: bold;
       }
@@ -393,8 +395,7 @@
       text.label {
         cursor: pointer;
         pointer-events: all;
-        fill: #000 !important;
-        font-family: "Arial" !important;
+        fill: #a0a0a0!important;
       }
 
       text.big.label,
@@ -410,16 +411,16 @@
 
       text.big.label {
         font-weight: 600;
-        font-size: 56px !important;
+
       }
 
       text.medium.label {
         font-weight: 600;
-        font-size: 48px !important;
+
       }
 
       text.small.label {
-        font-size: 22px !important;
+
       }
     }
   }
