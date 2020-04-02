@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import React, {Component} from 'react'
 import {updateGlobalFilter,updateFilter,reset,apply, exportData, loadMetadata} from '../modules/Indicator'
-import {Grid,Segment} from 'semantic-ui-react'
 
 import MainFilter from './MainFilter'
 import GlobalNumbers from './GlobalNumbers'

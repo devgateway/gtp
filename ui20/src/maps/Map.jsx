@@ -3,14 +3,9 @@ import * as d3 from 'd3'
 import  messages from '../translations/messages'
 import './map.scss'
 
-import {FormattedMessage, injectIntl} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 
 
-const formatOptions = {
-  style: 'percent',
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-}
 const width = 600,
   height = 500;
 

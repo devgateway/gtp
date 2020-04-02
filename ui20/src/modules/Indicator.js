@@ -77,10 +77,10 @@ export const loadMetadata= (lang)=> (dispatch, getState) => {
 export const loadDefaultPovertyFilters = () => (dispatch, getState) => {
 
   console.log("loadDefaultPovertyFilters")
-  const filters = getState().getIn(['filters'])
-  const gender = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
-  const professionalActivity = getState().getIn(['data', 'items', 'professionalActivity']).map(a => a.id);
-  const ageGroup = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);
+  //const filters = getState().getIn(['filters'])
+  //const gender = getState().getIn(['data', 'items', 'gender']).map(a => a.id);
+  //const professionalActivity = getState().getIn(['data', 'items', 'professionalActivity']).map(a => a.id);
+  //const ageGroup = getState().getIn(['data', 'items', 'ageGroup']).map(a => a.id);
   //default values
   const ranges = getState().getIn(['data', 'items', 'range']);
 
