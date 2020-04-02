@@ -371,7 +371,7 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
 
     private String fixHeader(String h) {
         String ret = h;
-        if (h.contains(" - ")) {
+        if (h != null && h.contains(" - ")) {
             String[] array = h.split(" - ");
             ret = array[array.length - 1];
         }

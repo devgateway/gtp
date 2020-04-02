@@ -62,7 +62,7 @@ public class Select2ChoiceBootstrapFormComponent<TYPE>
 
     @Override
     protected Select2Choice<TYPE> inputField(final String id, final IModel<TYPE> model) {
-        return new Select2Choice<TYPE>(id, initFieldModel());
+        return new InnerSelect2Choice<TYPE>(id, initFieldModel());
     }
 
     @Override
@@ -101,5 +101,25 @@ public class Select2ChoiceBootstrapFormComponent<TYPE>
     @Override
     protected boolean boundComponentsVisibilityAllowed(final TYPE selectedValue) {
         return false;
+    }
+
+
+
+    class InnerSelect2Choice<TYPE> extends Select2Choice<TYPE> {
+
+        public InnerSelect2Choice(String id, IModel model) {
+            super(id, model);
+        }
+
+        @Override
+        protected void onConfigure() {
+            super.onConfigure();
+            String placeholder = CLICK_TO_SELECT_EN;
+            if (this.getParent() != null && this.getParent().getLocale() != null
+                    && this.getParent().getLocale().getLanguage().equalsIgnoreCase("fr")) {
+                placeholder = CLICK_TO_SELECT_FR;
+            }
+        }
+
     }
 }
