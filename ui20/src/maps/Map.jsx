@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
-import  messages from '../translations/messages'
 import './map.scss'
 
 import {FormattedMessage} from 'react-intl';
@@ -35,29 +34,23 @@ export default class D3Map extends Component < {},
     showDetails(fid, duration) {
       let action;
       let data;
-      if (fid == null) {
+      if (fid === null) {
         data = this.props.json
         action = 'out'
       } else {
         action = 'in'
-        data = this.g.selectAll("path").filter(d => d.properties.fid == fid).data()[0]
+        data = this.g.selectAll("path").filter(d => d.properties.fid === fid).data()[0]
 
       }
 
-      this.scaleTo(data, fid, duration, (action=='in'?true:false))
+      this.scaleTo(data, fid, duration, (action==='in'?true:false))
 
-      const measure = this.props.measure
-      var text1, text2;
-      if (action == 'in') {
-            text2 = `  ${this.props.indicator.text} - ${data.properties.value? this.props.intl.formatNumber(data.properties.value) +' ('+ data.properties.measure +')':this.props.intl.formatMessage(messages.data_no_data_available)} `
-
-      }
       this.svg.selectAll('text').remove()
       this.svg.selectAll('circle').remove()
       this.svg.selectAll('rect').remove()
       this.svg.selectAll('line').remove()
 
-      if (action == 'in') {
+      if (action === 'in') {
         const self=this
             this.svg.append("text")
             .attr("x",d=>20)

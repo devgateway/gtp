@@ -1,6 +1,6 @@
 
 
-import {FormattedMessage, injectIntl} from 'react-intl';
+import { injectIntl} from 'react-intl';
 import React, { useState, useEffect} from 'react'
 
 import { Grid} from 'semantic-ui-react'
@@ -99,7 +99,6 @@ const getOptionByKey=(options, key)=>{
 
 
 
-const DropDownLabel=()=>(<FormattedMessage id = "gis.indicator.name" defaultMessage = "Indicator"  > </FormattedMessage>)
 
 const PairOfMaps=({intl,id, data, selection,level})=>{
 
