@@ -227,7 +227,7 @@
 	"table.aggregators.sum_as_fraction_of_rows": "Somme en fraction de lignes",
 	"table.aggregators.sum_as_fraction_of_total": "Somme en fraction du total",
 	"table.aggregators.sum_over_sum": "Somme totale",
-	"table.unsed.cols": "Glisser déposer lignes ou les colonnes",
+	"table.unsed.cols": "Faites glisser les lignes ou les colonnes",
 	"table.unsed.rows": "Elément des lignes",
 	"table.used.cols": "Eléments des colonnes"
 }
