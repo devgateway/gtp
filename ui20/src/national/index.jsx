@@ -1,8 +1,7 @@
 
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import ReactDOM from 'react-dom';
-import React, {Component, createRef, useState} from 'react'
+import React, {Component} from 'react'
 import './national.scss'
 import {loadNationalIndicators} from '../modules/National'
 import { Grid, Label } from 'semantic-ui-react'
