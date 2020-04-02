@@ -363,9 +363,19 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
      */
     private void writeHeaderLabel(final Class clazz, final Field field, final Row row, final int coll) {
         if (!hideHeader && row != null) {
+
             writeHeaderLabel(getHeaderPrefix()
-                    + ExcelFieldService.getFieldName(clazz, field, translateService), row, coll);
+                    + fixHeader(ExcelFieldService.getFieldName(clazz, field, translateService)), row, coll);
         }
+    }
+
+    private String fixHeader(String h) {
+        String ret = h;
+        if (h.contains(" - ")) {
+            String[] array = h.split(" - ");
+            ret = array[array.length - 1];
+        }
+        return ret;
     }
 
     /**
