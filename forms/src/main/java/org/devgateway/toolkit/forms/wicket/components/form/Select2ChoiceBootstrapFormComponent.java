@@ -104,10 +104,9 @@ public class Select2ChoiceBootstrapFormComponent<TYPE>
     }
 
 
-
     class InnerSelect2Choice<TYPE> extends Select2Choice<TYPE> {
 
-        public InnerSelect2Choice(String id, IModel model) {
+        InnerSelect2Choice(String id, IModel model) {
             super(id, model);
         }
 
