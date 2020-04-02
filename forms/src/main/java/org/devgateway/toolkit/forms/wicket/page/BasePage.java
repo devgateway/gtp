@@ -389,6 +389,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
         final NavbarButton<Homepage> categoriesMenu = new NavbarButton<Homepage>(Homepage.class,
                 new StringResourceModel("navbar.categories", this, null));
         categoriesMenu.setIconType(FontAwesomeIconType.list_ul);
+        MetaDataRoleAuthorizationStrategy.authorize(categoriesMenu, Component.RENDER,
+                SecurityConstants.Roles.ROLE_ADMIN);
         return categoriesMenu;
     }
 
@@ -397,6 +399,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
         final NavbarButton<Homepage> indicatorsMenu = new NavbarButton<Homepage>(Homepage.class,
                 new StringResourceModel("navbar.indicators", this, null));
         indicatorsMenu.setIconType(FontAwesomeIconType.area_chart);
+        MetaDataRoleAuthorizationStrategy.authorize(indicatorsMenu, Component.RENDER,
+                SecurityConstants.Roles.ROLE_ADMIN);
         return indicatorsMenu;
     }
 
