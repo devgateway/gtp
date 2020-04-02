@@ -164,12 +164,12 @@ if (data){
     }, [right]);
 
 
-
+    
 
     return (
       <div className="pairs maps">
       <div className="export area">
-        <PngExport name={intl.formatMessage({id:'indicators.chart.aoi.title'})} id={id} filters={[]} includes={[]}/>
+        <PngExport name={`${leftIndicator.text} | ${rightIndicator.text}`} id={id} filters={[]} includes={[]}/>
 
       </div>
 
@@ -179,7 +179,7 @@ if (data){
       <div className="wrapper">
           <div className="gis filter container  ">
               <div className="gis filter item indicator">
-                <CustomGroupedDropDown className="dropdown indicator" single options={groupedOptions} onChange={s => {
+                <CustomGroupedDropDown className="dropdown indicator " single options={groupedOptions} onChange={s => {
                   if(s.length>0){
                     setLeft(s)
                   }

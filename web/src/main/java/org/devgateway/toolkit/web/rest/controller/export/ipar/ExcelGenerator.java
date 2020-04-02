@@ -53,11 +53,13 @@ public class ExcelGenerator {
     public static final String AGRICULTURAL_WOMEN_INDICATOR = "Agricultural Women Indicator";
     public static final String FOOD_LOSS_INDICATOR = "Post-Harvest Loss";
     public static final String POVERTY_INDICATOR = "Poverty Indicator";
+    public static final String NO_DATA_LABEL = "There are no records to export";
 
     public static final String AOI_INDICATOR_FR = "Indice d'Orientation Agricole";
     public static final String AGRICULTURAL_WOMEN_INDICATOR_FR = "Femmes dans le Secteur Agricole";
     public static final String FOOD_LOSS_INDICATOR_FR = "Pertes Alimentaires";
     public static final String POVERTY_INDICATOR_FR = "Pauvreté";
+    public static final String NO_DATA_LABEL_FR = "Aucun enregistrement/fichier à télécharger";
 
     private static final Map<Integer, Category> CATEGORIES = new HashMap<>();
     private static final Map<Integer, Region> REGIONS = new HashMap<>();
@@ -133,8 +135,9 @@ public class ExcelGenerator {
         }
         IndicatorTranslateService translator = new IndicatorTranslateService(filters.getLang());
         String sheetName = getLabel(filters.getLang(), POVERTY_INDICATOR, POVERTY_INDICATOR_FR);
+        String noDataLabel = getLabel(filters.getLang(), NO_DATA_LABEL, NO_DATA_LABEL_FR);
 
-        return (ExcelInfo<PovertyDTO>) new ExcelInfo(sheetName, intro, excelFilter, aoi, translator);
+        return (ExcelInfo<PovertyDTO>) new ExcelInfo(sheetName, intro, excelFilter, aoi, translator, noDataLabel);
     }
 
     private String getLabel(String lang, String engLabel, String frLabel) {
@@ -161,9 +164,9 @@ public class ExcelGenerator {
         IndicatorTranslateService translator = new IndicatorTranslateService(filters.getLang());
 
         String sheetName = getLabel(filters.getLang(), AOI_INDICATOR, AOI_INDICATOR_FR);
-
+        String noDataLabel = getLabel(filters.getLang(), NO_DATA_LABEL, NO_DATA_LABEL_FR);
         return (ExcelInfo<AgricultureOrientationIndexDTO>) new ExcelInfo(sheetName, intro, excelFilter, aoi,
-                translator);
+                translator, noDataLabel);
     }
 
     private ExcelInfo<AgriculturalWomenDTO> getAgriculturalWomenExcelInfo(final IndicatorFilterPagingRequest filters) {
@@ -181,8 +184,10 @@ public class ExcelGenerator {
         IndicatorTranslateService translator = new IndicatorTranslateService(filters.getLang());
 
         String sheetName = getLabel(filters.getLang(), AGRICULTURAL_WOMEN_INDICATOR, AGRICULTURAL_WOMEN_INDICATOR_FR);
+        String noDataLabel = getLabel(filters.getLang(), NO_DATA_LABEL, NO_DATA_LABEL_FR);
 
-        return (ExcelInfo<AgriculturalWomenDTO>) new ExcelInfo(sheetName, intro, excelFilter, women, translator);
+        return (ExcelInfo<AgriculturalWomenDTO>) new ExcelInfo(sheetName, intro, excelFilter, women, translator,
+                noDataLabel);
     }
 
     private ExcelInfo<FoodLossDTO> getFoodLossExcelInfo(final IndicatorFilterPagingRequest filters) {
@@ -200,8 +205,9 @@ public class ExcelGenerator {
         IndicatorTranslateService translator = new IndicatorTranslateService(filters.getLang());
 
         String sheetName = getLabel(filters.getLang(), FOOD_LOSS_INDICATOR, FOOD_LOSS_INDICATOR_FR);
+        String noDataLabel = getLabel(filters.getLang(), NO_DATA_LABEL, NO_DATA_LABEL_FR);
 
-        return (ExcelInfo<FoodLossDTO>) new ExcelInfo(sheetName, intro, excelFilter, aoi, translator);
+        return (ExcelInfo<FoodLossDTO>) new ExcelInfo(sheetName, intro, excelFilter, aoi, translator, noDataLabel);
     }
 
     enum Indicators {

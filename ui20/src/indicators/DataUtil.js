@@ -122,7 +122,7 @@ export const getPovertyRegionalStackedByPovertyLevel = (data, intl) => {
 
 export const getPovertyTimeLine = (data) => {
 
-  const regions = Array.from(new Set(data.map(d => d.region))).sort()
+  const regions = Array.from(new Set(data.map(d => d.region))).sort((a,b)=>b.localeCompare(a))
 
   const years = Array.from(new Set(data.map(d => d.year)))
   const lineData = regions.map(r => {
@@ -163,7 +163,6 @@ export const getAverageProductionLossData = (data = [], valueField, intl) => {
     fields = ['cropTypeFr', 'lossTypeFr']
   }
 
-
   const crops = Array.from(new Set(data.map(d => d[fields[0]])));
   const types = Array.from(new Set(data.map(r => r[fields[1]])))
   let barData = []
@@ -171,6 +170,9 @@ export const getAverageProductionLossData = (data = [], valueField, intl) => {
   const maxYear = Array.from(years).sort()[years.size - 1]
 
   const mostRecent = data.filter(d => d.year == maxYear)
+
+
+  crops.sort((a,b)=>a.localeCompare(b))
   crops.forEach(g => {
     const r = {
       'Crop': g
@@ -187,7 +189,7 @@ export const getAverageProductionLossData = (data = [], valueField, intl) => {
 
   return {
     data: barData,
-    keys: types.sort(),
+    keys: types.sort((a,b)=>b.localeCompare(a)),
     indexBy: 'Crop',
     groupMode: 'stacked'
   }
@@ -216,6 +218,8 @@ export const getWomenDistributionByGroup = (data = [], intl, groupMode='grouped'
   const maxYear = Array.from(years).sort()[years.size - 1]
 
   const mostRecent = data.filter(d => d.year == maxYear)
+
+
   if(sortFunc){
     groups.sort(sortFunc)
   } else{
@@ -233,8 +237,6 @@ export const getWomenDistributionByGroup = (data = [], intl, groupMode='grouped'
   })
 
 
-  console.log(barData)
-
   return {
     data: barData,
     keys: genders,
@@ -245,7 +247,7 @@ export const getWomenDistributionByGroup = (data = [], intl, groupMode='grouped'
 }
 
 
-export const getWomenHistoricalDistribution = (data = [], intl) => {
+export const getWomenHistoricalDistribution = (data = [], intl, sortFunc) => {
   let fields = ['groupType', 'gender']
   if (intl.locale == 'fr') {
     fields = ['groupTypeFr', 'genderFr']
@@ -256,6 +258,12 @@ export const getWomenHistoricalDistribution = (data = [], intl) => {
   const years = Array.from(new Set(data.map(r => r.year)))
   const filteredData = data.filter(d => d.gender == 'Female')
   let lineData = []
+
+  if(sortFunc){
+    groups.sort(sortFunc)
+  } else{
+    groups.sort()
+  }
 
 
   groups.forEach((g) => {
@@ -324,7 +332,7 @@ export const getAOItotalBudget = (data, intl) => {
 
   return {
     data: barData,
-    keys: keys.sort(),
+    keys: keys.sort((a,b)=>b.localeCompare(a)),
     groupMode: "stacked",
     indexBy: "Year",
   }
@@ -364,7 +372,7 @@ export const getAOIsubsidies = (data, intl) => {
 
   return {
     data: barData,
-    keys: keys,
+    keys: keys.sort((a,b)=>b.localeCompare(a)),
     groupMode: "stacked",
     indexBy: "Year",
   }

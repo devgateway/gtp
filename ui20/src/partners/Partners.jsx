@@ -26,8 +26,8 @@ const Partners = ({intl, onLoad , groups , partners}) => {
     if (onLoad){
         onLoad(intl.locale)
     }
-
   }, [])
+
 return (<div className="partners container">
     <div className="partners title">
       <p>
@@ -39,7 +39,7 @@ return (<div className="partners container">
       <p>  <FormattedMessage id='partners.page.description' defaultMessage="This page displays the list of partners that collaborated to this initiative. Partner organizations have been grouped by type to ease up the search functionality."/></p>
     </div>
 
-    
+
     <Container fluid>
     <Ref innerRef={contextRef}>
 
@@ -86,12 +86,12 @@ const ListItems=({groups,onChangeSelection})=>{
                             <Grid padded fluid size={2}>
 
                                     <Grid.Row id={"_partner_"+p.id}>
-                                        <Grid.Column  width={11}>
+                                        <Grid.Column  width={8}>
                                         {p.base64&&  <a href={p.url} className="ui image medium padding5">
                                             <img src={`data:image/png;base64,${p.base64}`}/>
                                           </a>}
                                         </Grid.Column>
-                                        <Grid.Column  width={5} className="align right link">
+                                        <Grid.Column  width={8} className="align right link">
                                           <a href={p.url}>{p.url}</a>
                                         </Grid.Column>
                                     </Grid.Row>
@@ -133,28 +133,34 @@ const ListMenu=({groups,onChangeSelection})=>{
  const [selected, setSelected] = useState(groups?groups[0].partners[0].name:null);
 
  const goTo=(id)=>{
-   document.getElementById("_partner_"+id)
-   .scrollIntoView({behavior:  "smooth",block:    "start"});
+   document.getElementById("_partner_"+id).scrollIntoView({behavior:  "smooth",block:    "start"});
+
  }
 
   return (
     <Menu vertical fixed fluid className="menu level1">
     {groups && groups.map(g=>{
-      return (<Menu.Item fluid name='inbox' active={active === g.id} onClick={(e)=>{
+      return (<Menu.Item fluid name='inbox' active={active === g.id}  onClick={(e)=>{
+          if(active==g.id){
+            setActive(null)
 
-        setActive(g.id)
+          }else{
+          setActive(g.id)
+          }
+
         setSelected(g.partners[0].name)
         onChangeSelection(g.partners[0].id)
         goTo(g.partners[0].id)
 
       }}>
         <Label color='teal'>{g.partners.length}</Label>
+
           <p>{g.name}</p>
 
           {active === g.id &&<Menu vertical fluid className="menu level2">
           { g.partners.map(p=>(
 
-            <Menu.Item fluid active={selected === p.name} onClick={(e)=>{
+            <Menu.Item fluid id={"level_2"+p.id}  active={selected === p.name} onClick={(e)=>{
               goTo(p.id)
               setSelected(p.name)
               onChangeSelection(p.id)

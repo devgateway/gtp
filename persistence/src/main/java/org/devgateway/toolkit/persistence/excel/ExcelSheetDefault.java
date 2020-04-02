@@ -312,13 +312,18 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
      * Print an error message in case we have an empty sheet.
      */
     public void emptySheet() {
+        emptySheet("");
+    }
+
+
+    public void emptySheet(String message) {
         final Row row;
         if (excelSheet.getRow(0) == null) {
             row = createRow(excelSheet, 0);
         } else {
             row = excelSheet.getRow(0);
         }
-        writeHeaderCell("There are no records to export", row, 0);
+        writeHeaderCell(message, row, 0);
     }
 
     /**

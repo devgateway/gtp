@@ -11,7 +11,6 @@ import {
   Sticky,
 } from 'semantic-ui-react'
 
-const Placeholder = () => <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
 
 export default class StickyExampleActive extends Component {
   state = { active: true }

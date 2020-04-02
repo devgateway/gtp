@@ -20,7 +20,7 @@ public class ExcelFilterHelper extends ExcelFilterDTO {
 
 
     public static final String[] EN_LABELS = {"Years", "Regions", "Genders", "Index Types", "Crop Types", "AW Groups",
-            "AW Group Types", "Crop SubTypes", "Loss Types", "Poverty Levels", "Profesional Activities",
+            "AW Group Types", "Crop SubTypes", "Loss Types", "Poverty Levels", "Professional Activities",
             "Minimum Percentage", "Maximum Percentage", "Minimum Kilograms", "Maximum Percentage", "Minimum Age",
             "Maximum Age", "Minimum Score", "Maximum Score", "Minimum Avg Percentage", "Maximum Avg Percentage",
             "Minimum Avg Kilograms", "Maximum Avg Kilograms", "None", "Filters used: "};

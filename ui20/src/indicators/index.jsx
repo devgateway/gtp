@@ -2,7 +2,6 @@ import "./indicators.scss"
 
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import ReactDOM from 'react-dom';
 import React, {Component, createRef, useState} from 'react'
 import {updateGlobalFilter,updateFilter,reset,apply, exportData, loadMetadata} from '../modules/Indicator'
 import {Grid,Segment} from 'semantic-ui-react'
@@ -81,7 +80,8 @@ const mapStateToProps = state => {
   const globalFilters = state.getIn(['indicator', 'filters', 'global']);
   const regions = state.getIn(['data', 'items', 'region']);
   const crops = state.getIn(['data', 'items', 'cropType']);
-  const gender = state.getIn(['data', 'items', 'gender']);
+
+
   const years = state.getIn(['data', 'items', 'year']);
   const filters = state.getIn(['indicator', 'filters'])
   const metadata = state.getIn(['indicator', 'metadata'])

@@ -11,19 +11,17 @@ import messages_fr from "./translations/fr.json";
 import messages_en from "./translations/en.json";
 import {IntlProvider} from "react-intl";
 import {loadDataItems} from './modules/Data'
-import Home from './home/'
-import Analytic from "./analytic/"
+
 import {Container} from 'semantic-ui-react'
 import Header from './layout/Header'
 import Footer from './layout/Footer'
-import Indicators from './indicators'
-import Microdata from './microdata'
+
 import {Departmental,Regional} from './maps/index.js'
 
-import NationalIndicators from './national/index.jsx'
-import Partners from './partners'
-import Initiatives from './initiatives'
+
 import smoothscroll from 'smoothscroll-polyfill';
+
+import asyncComponent from "./AsyncComponent";
 
 // kick off the polyfill!
 smoothscroll.polyfill();
@@ -35,7 +33,23 @@ const messages = {
   'en': messages_en
 };
 
-const language = navigator.language.split(/[-_]/)[0]; // language without region code
+//const language = navigator.language.split(/[-_]/)[0]; // language without region code
+//import Home from './home/'
+//import Indicators from './indicators'
+//import Microdata from './microdata'
+//import Analytic from "./analytic/"
+
+//import NationalIndicators from './national/index.jsx'
+//import Partners from './partners'
+//import Initiatives from './initiatives'
+
+const Home = asyncComponent(() => import("./home/"));
+const Indicators = asyncComponent(() => import("./indicators/"));
+const Microdata = asyncComponent(() => import("./microdata/"));
+const Analytic = asyncComponent(() => import("./analytic/"));
+const NationalIndicators = asyncComponent(() => import("./national/"));
+const Partners = asyncComponent(() => import("./partners/"));
+const Initiatives = asyncComponent(() => import("./initiatives/"));
 
 
 class IntlRoutes extends Component {

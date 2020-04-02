@@ -66,4 +66,7 @@ public interface ExcelSheet {
      * Just create an empty excel sheet.
      */
     void emptySheet();
+
+
+    void emptySheet(String message);
 }

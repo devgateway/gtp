@@ -29,6 +29,7 @@ import de.agilecoders.wicket.core.util.CssClassNames;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeCssReference;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.markup.ComponentTag;
@@ -217,8 +218,9 @@ public abstract class BasePage extends GenericWebPage<Void> {
     protected NavbarButton<LogoutPage> newLogoutMenu() {
         // logout menu
         final NavbarButton<LogoutPage> logoutMenu =
-                new NavbarButton<LogoutPage>(LogoutPage.class, new StringResourceModel("navbar.logout", this, null));
+                new NavbarButton<LogoutPage>(LogoutPage.class, Model.of(""));
         logoutMenu.setIconType(FontAwesomeIconType.sign_out);
+        logoutMenu.add(AttributeModifier.append("title", new StringResourceModel("navbar.logout", this, null)));
         MetaDataRoleAuthorizationStrategy.authorize(logoutMenu, Component.RENDER,
                 SecurityConstants.Roles.ROLE_FOCAL_POINT);
 
@@ -230,13 +232,17 @@ public abstract class BasePage extends GenericWebPage<Void> {
         final Person person = SecurityUtil.getCurrentAuthenticatedPerson();
         // account menu
         Model<String> account = null;
-        if (person != null) {
-            account = Model.of(person.getFirstName());
-            pageParametersForAccountPage.add(WebConstants.PARAM_ID, person.getId());
-        }
-
         final NavbarButton<EditUserPage> accountMenu =
                 new NavbarButton<>(EditUserPage.class, pageParametersForAccountPage, account);
+
+        if (person != null) {
+            //account = Model.of(person.getFirstName());
+            account = Model.of("");
+            pageParametersForAccountPage.add(WebConstants.PARAM_ID, person.getId());
+            accountMenu.add(AttributeModifier.append("title", Model.of(person.getFirstName())));
+        }
+
+
         accountMenu.setIconType(FontAwesomeIconType.user);
         MetaDataRoleAuthorizationStrategy.authorize(accountMenu, Component.RENDER,
                 SecurityConstants.Roles.ROLE_FOCAL_POINT);

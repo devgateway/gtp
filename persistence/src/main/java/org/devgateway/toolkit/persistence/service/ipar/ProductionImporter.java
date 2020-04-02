@@ -110,7 +110,7 @@ public class ProductionImporter extends AbstractImportService<Production> {
         String campaign = ImportUtils.getStringFromCell(cell);
         Matcher matcher = campaignPattern.matcher(campaign);
         if (!matcher.matches()) {
-            throw new RuntimeException("Invalid campaign " + campaign + ". Example campaign '2018/2019'.");
+            throw new RuntimeException("Invalid campaign " + campaign + ". Example Campaign '2018/2019'.");
         }
         return Integer.parseInt(matcher.group(1));
     }

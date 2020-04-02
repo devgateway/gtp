@@ -60,7 +60,7 @@ const HeaderNavButtons = withRouter((props) => {
       // <div className="nav link"><LanSwitcher/></div>
     }
     <div className="nav  separator"></div>
-    <div className="nav link">  <a href="/admin">  <img className="logo admin" src="/header_admin_logo.png"/></a></div>
+    <div className="nav link">  <a href="/admin">  <img className="logo admin" src="/header_admin_logo.jpg"/></a></div>
 
 
   </div>)

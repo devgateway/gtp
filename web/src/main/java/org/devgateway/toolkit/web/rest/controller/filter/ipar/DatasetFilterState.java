@@ -80,6 +80,9 @@ public class DatasetFilterState {
             case "type" :
                 query.orderBy(new OrderImpl(root.get(Dataset_.DTYPE), isAsc));
                 break;
+            case "metadata" :
+                query.orderBy(new OrderImpl(root.get(Dataset_.METADATA), isAsc));
+                break;
             case "title" :
                 query.orderBy(new OrderImpl(root.get(Dataset_.LABEL), isAsc));
                 break;
