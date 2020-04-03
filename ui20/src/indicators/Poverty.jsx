@@ -1,12 +1,10 @@
 import  './poverty.scss'
 import 'rc-slider/assets/index.css'
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import React, {Component, createRef, useState} from 'react'
+import React, {Component} from 'react'
 import {FormattedMessage,injectIntl} from 'react-intl';
 import {ChartTableSwitcher, CustomFilterDropDown, RangeSlider} from './Components'
 import {BarChart,LineChart} from './PovertyCharts'
-import { ResponsiveBar } from '@nivo/bar'
 
 import { Tab , Label} from 'semantic-ui-react'
 import {getPovertyRegionalYearly,getPovertyRegionalStackedByPovertyLevel, getPovertyTimeLine, items2options} from './DataUtil'
@@ -142,7 +140,7 @@ class Pooverty extends Component {
 
         <Tab key="poverty" menu={{ pointing: true }} panes={panes1} />
 
-        <div className="source"><span className="source label"> <FormattedMessage id="data.field.source.label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
+        <div className="source"><span className="source label"> <FormattedMessage id="data.fields.source_label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.fields.source_undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
 
       </div>
       </div>

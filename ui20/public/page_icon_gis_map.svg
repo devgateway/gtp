@@ -3,15 +3,15 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:none;stroke:#76ba73;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-	.st1{fill:none;stroke:#76ba73;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;}
+	.st0{fill:none;stroke:#76ba73;stroke-width:2.0994;stroke-miterlimit:10;}
+	.st1{fill:none;stroke:#76ba73;stroke-width:2.0994;stroke-linecap:round;stroke-miterlimit:10;}
+	.st2{fill:none;stroke:#76ba73;stroke-width:1.9033;stroke-linecap:round;stroke-miterlimit:10;}
 </style>
 <g>
-	<path class="st0" d="M86.8,72.4L86.8,72.4c-7.7,12.1-19.8,12.1-27.2,0l0,0l0,0C67.1,62.2,78.2,62.4,86.8,72.4L86.8,72.4z"/>
-	<circle class="st1" cx="73.1" cy="69.3" r="4.5"/>
-	<circle class="st0" cx="73.1" cy="72.4" r="21.2"/>
-	<path class="st0" d="M72.7,51.2c0.1,0,0.3,0,0.4,0c5.9,0,11.3,2.4,15.1,6.4V46.6L72.4,31.3l15.8-15.8V5.8h-9.6L36.9,47.6V5.8H24.8
-		V24H6.6v12.1h18.1v23.6L22.4,62L6.6,77.8v9.6h9.6L62.7,41L72.7,51.2z"/>
-	<path class="st0" d="M52,72.4c0-11.7,9.5-21.2,21.2-21.2c5.9,0,11.3,2.4,15.1,6.4V5.8H6.6v81.6h51.7C54.4,83.6,52,78.3,52,72.4z"/>
+	<circle class="st0" cx="49.9" cy="34" r="8.1"/>
+	<path class="st0" d="M49.9,79.7L30.4,51.4c-7.3-9.7-6.3-25.9,2.3-34.5l0,0c9.5-9.5,25-9.5,34.6,0l0,0c8.6,8.6,9.6,24.8,2.3,34.5
+		L49.9,79.7z"/>
+	<path class="st1" d="M33.8,67.6c-13.5,1.6-22.9,6-22.9,10.1c0,5.6,17.5,10.1,39,10.1s39-4.5,39-10.1c0-4.1-9.4-8.5-22.9-10.1"/>
+	<path class="st2" d="M26.5,66.3C9.9,68.2,2,73.4,2,78.4c0,6.8,21.4,12.4,47.9,12.4s47.9-5.5,47.9-12.4c0-5-8-10.2-24.6-12.1"/>
 </g>
 </svg>

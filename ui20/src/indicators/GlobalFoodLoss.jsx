@@ -1,14 +1,10 @@
 import './poverty.scss'
 import 'rc-slider/assets/index.css'
 
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import React, {Component, createRef, useState} from 'react'
+import React from 'react'
 import {FormattedMessage} from 'react-intl';
-import {ChartTableSwitcher, CustomFilterDropDown,OptionList} from './Components'
-import Plot from 'react-plotly.js';
-import Slider, {Range} from 'rc-slider';
-import {Dropdown,Grid,Image,Rail,Ref,Segment,Sticky} from 'semantic-ui-react'
+import {ChartTableSwitcher, CustomFilterDropDown} from './Components'
 import { Tab, Label } from 'semantic-ui-react'
 import {items2options} from './DataUtil'
 import './globalFoodLoss.scss'
@@ -35,7 +31,7 @@ const ChartSection = injectIntl(( props)=>{
   const {data=[], onExport, intl,metadata} = props
 
   const intro=metadata? (props.intl.locale=='fr')?metadata.introFr:metadata.intro:null
-  const ansdLink=metadata?metadata.ansdLink:null
+  //const ansdLink=metadata?metadata.ansdLink:null
   const source=metadata?metadata.source:null
 
 
@@ -106,7 +102,7 @@ const ChartSection = injectIntl(( props)=>{
 
           <Tab menu={{ pointing: true }} panes={panes} />
 
-          <div className="source"><span className="source label"> <FormattedMessage id="data.field.source.label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
+          <div className="source"><span className="source label"> <FormattedMessage id="data.fields.source_label" defaultMessage="Source :"></FormattedMessage></span> {source?source:<FormattedMessage id="data.fields.source_undefined" defaultMessage="Not specified"></FormattedMessage>} </div>
 
   </div>
         </div>

@@ -51,7 +51,7 @@ public class ListPovertyIndicatorDatasetPage extends AbstractListPage<PovertyDat
                 "organization", "organization"));
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("approved", ListPovertyIndicatorDatasetPage.this),
-                "approved", "approved"));
+                "approved", "approvedStr"));
         columns.add(new LinkBootstrapPropertyColumn(
                 new StringResourceModel("fileMetadata", ListPovertyIndicatorDatasetPage.this), "fileMetadata"));
     }

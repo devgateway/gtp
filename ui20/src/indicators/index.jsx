@@ -2,9 +2,8 @@ import "./indicators.scss"
 
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import React, {Component, createRef, useState} from 'react'
+import React, {Component} from 'react'
 import {updateGlobalFilter,updateFilter,reset,apply, exportData, loadMetadata} from '../modules/Indicator'
-import {Grid,Segment} from 'semantic-ui-react'
 
 import MainFilter from './MainFilter'
 import GlobalNumbers from './GlobalNumbers'
@@ -86,10 +85,10 @@ const mapStateToProps = state => {
   const filters = state.getIn(['indicator', 'filters'])
   const metadata = state.getIn(['indicator', 'metadata'])
 
-  const povertyMetadata= metadata?  metadata.filter(f=>f.get('indicatorType')==1).get(0).toJS():null
-  const womenMetadata= metadata?  metadata.filter(f=>f.get('indicatorType')==2).get(0).toJS():null
-  const globalFoodMetadata= metadata?  metadata.filter(f=>f.get('indicatorType')==3).get(0).toJS():null
-  const aoiMetadata= metadata?  metadata.filter(f=>f.get('indicatorType')==4).get(0).toJS():null
+  const povertyMetadata= metadata?  metadata.filter(f=>f.get('indicatorType')===1).get(0).toJS():null
+  const womenMetadata= metadata?  metadata.filter(f=>f.get('indicatorType')===2).get(0).toJS():null
+  const globalFoodMetadata= metadata?  metadata.filter(f=>f.get('indicatorType')===3).get(0).toJS():null
+  const aoiMetadata= metadata?  metadata.filter(f=>f.get('indicatorType')===4).get(0).toJS():null
 
 
 

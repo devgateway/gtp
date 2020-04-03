@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * @author dbianco
@@ -182,13 +183,23 @@ public final class JSONUtil {
 
     public static String getCSV(List<Map<String, String>> flatJson, String separator) {
         Set<String> headers = collectHeaders(flatJson);
-        String csvString = StringUtils.join(headers.toArray(), separator) + "\n";
+        Set<String> headersFixed = headers.stream().map(h -> fixHeader(h)).collect(Collectors.toSet());
+        String csvString = StringUtils.join(headersFixed.toArray(), separator) + "\n";
 
         for (Map<String, String> map : flatJson) {
             csvString = csvString + getSeperatedColumns(headers, map, separator) + "\n";
         }
 
         return csvString;
+    }
+
+    private static String fixHeader(String h) {
+        String ret = h;
+        if (h != null && h.contains(" - ")) {
+            String[] array = h.split(" - ");
+            ret = array[array.length - 1];
+        }
+        return ret;
     }
 
     private static String getSeperatedColumns(Set<String> headers, Map<String, String> map, String separator) {

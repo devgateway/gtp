@@ -1,18 +1,12 @@
 
-import ReactDOM from 'react-dom';
-import React, {Component, createRef, useState, useEffect} from 'react'
-import {FormattedMessage, FormattedNumber, injectIntl} from 'react-intl';
+import React, {Component} from 'react'
+import {FormattedMessage, injectIntl} from 'react-intl';
 import messages from '../translations/messages'
-import { getGlobalIndicators} from '../modules/Indicator'
 
 import {
-  Dropdown,
   Grid,
   Image,
-  Rail,
-  Ref,
   Segment,
-  Sticky
 } from 'semantic-ui-react'
 import CountUp from 'react-countup';
 
@@ -88,7 +82,7 @@ class GlobalNumbers extends Component {
 
           </Grid>
           <Segment className="info-text">
-          
+
           </Segment>
 
 

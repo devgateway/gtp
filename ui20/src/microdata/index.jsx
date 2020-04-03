@@ -33,13 +33,13 @@ class Microdata extends Component {
 
       <div className="microdata focal point title ">
         <p>
-          <FormattedMessage id="microdata.table.datasets.title" defaultMessage="Organization Dataset"></FormattedMessage>
+          <FormattedMessage id="microdata.table.datasets_title" defaultMessage="Organization Dataset"></FormattedMessage>
         </p>
       </div>
 
       <div className="microdata table1 description">
           <p>
-            <FormattedMessage id="microdata.table.datasets.description" defaultMessage="The section displays datasets starting with the most recent ones. The table will be updated as new information is uploaded and will only show the 10 most recent datasets. Users can use the Search function or the Pagination options to retrieve hidden dataset that have been previously made available."></FormattedMessage>
+            <FormattedMessage id="microdata.table.datasets_description" defaultMessage="The section displays datasets starting with the most recent ones. The table will be updated as new information is uploaded and will only show the 10 most recent datasets. Users can use the Search function or the Pagination options to retrieve hidden dataset that have been previously made available."></FormattedMessage>
           </p>
       </div>
 
