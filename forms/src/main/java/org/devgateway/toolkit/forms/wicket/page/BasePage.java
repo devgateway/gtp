@@ -333,9 +333,18 @@ public abstract class BasePage extends GenericWebPage<Void> {
             protected List<AbstractLink> newSubMenuButtons(final String arg0) {
                 final List<AbstractLink> list = new ArrayList<>();
 
-                list.add(new MenuBookmarkablePageLink<>(ListPartnerPage.class, null,
-                        new StringResourceModel("navbar.partners", this, null))
-                        .setIconType(FontAwesomeIconType.handshake_o));
+                list.add(new MenuBookmarkablePageLink<ListRapidLinkFormPage>(ListRapidLinkFormPage.class, null,
+                        new StringResourceModel("navbar.rapidLink", this, null))
+                        .setIconType(FontAwesomeIconType.link));
+
+                list.add(new MenuBookmarkablePageLink<ListAgriculturalContentFormPage>(
+                        ListAgriculturalContentFormPage.class, null,
+                        new StringResourceModel("navbar.agriculturalContent", this, null))
+                        .setIconType(FontAwesomeIconType.list_ul));
+
+                list.add(new MenuBookmarkablePageLink<>(ListIndicatorGroupPage.class, null,
+                        new StringResourceModel("navbar.indicatorGroup", this, null))
+                        .setIconType(FontAwesomeIconType.sort_amount_desc));
 
                 list.add(new MenuBookmarkablePageLink<ListIndicatorMetadataFormPage>(
                         ListIndicatorMetadataFormPage.class, null, new StringResourceModel("navbar.indicatorMetadata",
@@ -345,20 +354,9 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         new StringResourceModel("navbar.microdata", this, null))
                         .setIconType(FontAwesomeIconType.external_link));
 
-                list.add(new MenuBookmarkablePageLink<ListRapidLinkFormPage>(ListRapidLinkFormPage.class, null,
-                        new StringResourceModel("navbar.rapidLink", this, null))
-                        .setIconType(FontAwesomeIconType.link));
-
-
-                list.add(new MenuBookmarkablePageLink<ListAgriculturalContentFormPage>(
-                        ListAgriculturalContentFormPage.class, null,
-                        new StringResourceModel("navbar.agriculturalContent", this, null))
-                        .setIconType(FontAwesomeIconType.list_ul));
-
-
-                list.add(new MenuBookmarkablePageLink<>(ListIndicatorGroupPage.class, null,
-                        new StringResourceModel("navbar.indicatorGroup", this, null))
-                        .setIconType(FontAwesomeIconType.sort_amount_desc));
+                list.add(new MenuBookmarkablePageLink<>(ListPartnerPage.class, null,
+                        new StringResourceModel("navbar.partners", this, null))
+                        .setIconType(FontAwesomeIconType.handshake_o));
 
                 return list;
             }
@@ -539,9 +537,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
                 newAdminMenu(), newCMMenu(), newDatasetMenu(), newIndicatorMenu(),
-                newGisMenu(), newAccountMenu(), newLogoutMenu()));
-
-        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
+                newGisMenu(), newLanguageMenu(), newAccountMenu(), newLogoutMenu()));
 
         return navbar;
     }
