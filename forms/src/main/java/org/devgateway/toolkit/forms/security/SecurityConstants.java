@@ -22,6 +22,6 @@ public final class SecurityConstants {
 
     public static final class Roles {
         public static final String ROLE_ADMIN = "ROLE_ADMIN";
-        public static final String ROLE_FOCAL_POINT = "ROLE_FOCAL_POINT";
+        public static final String ROLE_EDITOR = "ROLE_EDITOR";
     }
 }

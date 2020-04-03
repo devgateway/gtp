@@ -5,7 +5,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.wicketstuff.annotation.mount.MountPath;
 
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_FOCAL_POINT)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
 @MountPath(value = "/changePassword")
 public class ChangePasswordPage extends EditUserPage {
 

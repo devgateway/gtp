@@ -35,12 +35,10 @@ import org.devgateway.toolkit.forms.wicket.page.validator.InputFileValidator;
 import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
 import org.devgateway.toolkit.persistence.dao.ipar.RegionStat;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.IndicatorGroup;
-import org.devgateway.toolkit.persistence.dto.ipar.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.ipar.category.IndicatorGroupRepository;
 import org.devgateway.toolkit.persistence.service.ipar.RegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.ImportRegionIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
-import org.devgateway.toolkit.persistence.util.Constants;
 import org.devgateway.toolkit.persistence.util.ImportResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,14 +47,13 @@ import org.wicketstuff.annotation.mount.MountPath;
 import java.text.Normalizer;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 
 /**
  * Created by Daniel Oliva
  */
-@AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
+@AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_EDITOR})
 @MountPath("/editRegionIndicator")
 public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
 

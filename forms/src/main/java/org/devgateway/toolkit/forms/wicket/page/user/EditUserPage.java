@@ -53,7 +53,7 @@ import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.wicketstuff.annotation.mount.MountPath;
 
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_FOCAL_POINT)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
 @MountPath(value = "/account")
 public class EditUserPage extends AbstractEditPage<Person> {
     private static final long serialVersionUID = 5208480049061989277L;
@@ -229,7 +229,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
     }
 
     private boolean focalPointRole(Role role) {
-        return role.getAuthority().equals(SecurityConstants.Roles.ROLE_FOCAL_POINT);
+        return role.getAuthority().equals(SecurityConstants.Roles.ROLE_EDITOR);
     }
 
     @Override

@@ -24,7 +24,7 @@ import java.util.Arrays;
  * @author idobre
  * @since 4/19/17
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_FOCAL_POINT)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
 @MountPath(value = "/plotly-chart-dashboard-examples")
 public class PlotlyChartDashboardExamplesPage extends BasePage {
     private static final Integer[] DATA1 = {19, 26, 55};

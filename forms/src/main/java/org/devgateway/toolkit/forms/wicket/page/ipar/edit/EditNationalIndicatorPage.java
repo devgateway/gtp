@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 /**
  * @author Daniel Oliva
  */
-@AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
+@AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_EDITOR})
 @MountPath(value = "/editNationalIndicator")
 public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicator> {
     private static final long serialVersionUID = -111L;

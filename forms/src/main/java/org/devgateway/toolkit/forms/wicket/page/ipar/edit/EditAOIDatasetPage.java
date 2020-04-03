@@ -30,7 +30,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * Created by Daniel Oliva
  */
-@AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
+@AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_EDITOR})
 @MountPath("/editAgricultureOrientationIndex")
 public class EditAOIDatasetPage extends AbstractEditDatasePage<AgricultureOrientationIndexDataset,
         AgricultureOrientationIndexIndicator> {
