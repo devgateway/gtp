@@ -110,4 +110,14 @@
         </insert>
     </changeSet>
 
+    <changeSet id="ANACIM-14 editor role" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="role" />
+        </preConditions>
+        <insert tableName="role">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="authority" value="ROLE_EDITOR" />
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>
