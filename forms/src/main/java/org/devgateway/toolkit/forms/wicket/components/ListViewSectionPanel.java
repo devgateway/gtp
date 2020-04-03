@@ -137,6 +137,13 @@ public abstract class ListViewSectionPanel<T extends AbstractAuditableEntity, PA
 
         final BootstrapAddButton addButton = getAddNewChildButton();
         add(addButton);
+
+        Label totalEntriesLabel = new Label("totalEntriesLabel", new ResourceModel("totalEntriesLabel"));
+        listWrapper.add(totalEntriesLabel);
+
+        Label showHide = new Label("showHide", new ResourceModel("showHide"));
+        listWrapper.add(showHide);
+
     }
 
     private void addAcordion(final ListItem<T> item) {

@@ -118,6 +118,7 @@ public class Select2ChoiceBootstrapFormComponent<TYPE>
                     && this.getParent().getLocale().getLanguage().equalsIgnoreCase("fr")) {
                 placeholder = CLICK_TO_SELECT_FR;
             }
+            field.getSettings().setPlaceholder(placeholder);
         }
 
     }

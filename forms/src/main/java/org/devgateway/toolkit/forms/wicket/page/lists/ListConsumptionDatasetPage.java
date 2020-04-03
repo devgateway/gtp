@@ -49,7 +49,7 @@ public class ListConsumptionDatasetPage extends AbstractListPage<ConsumptionData
                 "organization", "organization"));
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("approved", ListConsumptionDatasetPage.this),
-                "approved", "approved"));
+                "approved", "approvedStr"));
         columns.add(new LinkBootstrapPropertyColumn(
                 new StringResourceModel("fileMetadata", ListConsumptionDatasetPage.this), "fileMetadata"));
     }
