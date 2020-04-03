@@ -72,6 +72,7 @@ import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListRapidLinkFormPage
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListRegionIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.category.SystemCategoriesHomePage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.IndicatorHomePage;
 import org.devgateway.toolkit.forms.wicket.page.user.EditUserPage;
 import org.devgateway.toolkit.forms.wicket.page.user.LogoutPage;
@@ -326,8 +327,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
     }
 
     protected NavbarButton<Homepage> newCategoriesMenu() {
-        // TODO actual categories page
-        final NavbarButton<Homepage> categoriesMenu = new NavbarButton<Homepage>(Homepage.class,
+        final NavbarButton<Homepage> categoriesMenu = new NavbarButton<Homepage>(SystemCategoriesHomePage.class,
                 new StringResourceModel("navbar.categories", this, null));
         categoriesMenu.setIconType(FontAwesomeIconType.list_ul);
         MetaDataRoleAuthorizationStrategy.authorize(categoriesMenu, Component.RENDER,
@@ -381,7 +381,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 new StringResourceModel("navbar.indicators", this, null));
         indicatorsMenu.setIconType(FontAwesomeIconType.area_chart);
         MetaDataRoleAuthorizationStrategy.authorize(indicatorsMenu, Component.RENDER,
-                SecurityConstants.Roles.ROLE_ADMIN);
+                SecurityConstants.Roles.ROLE_EDITOR);
         return indicatorsMenu;
     }
 
