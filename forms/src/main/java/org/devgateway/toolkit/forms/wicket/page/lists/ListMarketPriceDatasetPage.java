@@ -50,7 +50,7 @@ public class ListMarketPriceDatasetPage extends AbstractListPage<MarketDataset> 
                 "organization", "organization"));
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("approved", ListMarketPriceDatasetPage.this),
-                "approved", "approved"));
+                "approved", "approvedStr"));
         columns.add(new LinkBootstrapPropertyColumn(
                 new StringResourceModel("fileMetadata", ListMarketPriceDatasetPage.this), "fileMetadata"));
     }

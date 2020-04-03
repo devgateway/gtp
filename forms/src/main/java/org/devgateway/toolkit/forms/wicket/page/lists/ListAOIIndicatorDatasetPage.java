@@ -50,7 +50,7 @@ public class ListAOIIndicatorDatasetPage extends AbstractListPage<AgricultureOri
                 "organization", "organization"));
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("approved", ListAOIIndicatorDatasetPage.this),
-                "approved", "approved"));
+                "approved", "approvedStr"));
         columns.add(new LinkBootstrapPropertyColumn(
                 new StringResourceModel("fileMetadata", ListAOIIndicatorDatasetPage.this), "fileMetadata"));
     }

@@ -50,7 +50,7 @@ public class ListProductionDatasetPage extends AbstractListPage<ProductionDatase
                 "organization", "organization"));
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("approved", ListProductionDatasetPage.this),
-                "approved", "approved"));
+                "approved", "approvedStr"));
         columns.add(new LinkBootstrapPropertyColumn(
                 new StringResourceModel("fileMetadata", ListProductionDatasetPage.this), "fileMetadata"));
     }

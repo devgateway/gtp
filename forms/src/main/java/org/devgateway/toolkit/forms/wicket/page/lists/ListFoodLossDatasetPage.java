@@ -50,7 +50,7 @@ public class ListFoodLossDatasetPage extends AbstractListPage<FoodLossDataset> {
                 "organization", "organization"));
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("approved", ListFoodLossDatasetPage.this),
-                "approved", "approved"));
+                "approved", "approvedStr"));
         columns.add(new LinkBootstrapPropertyColumn(new StringResourceModel("fileMetadata",
                 ListFoodLossDatasetPage.this), "fileMetadata"));
     }
