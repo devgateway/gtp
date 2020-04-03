@@ -550,6 +550,19 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="IndicatorsUpdate" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE category SET label = 'Proportion de la population en-deça du seuil international de pauvreté' WHERE dtype = 'Indicator' AND label = 'Proportion of population below the international poverty line';
+            UPDATE category SET label = 'Les femmes dans le secteur agricole' WHERE dtype = 'Indicator' AND label = 'Women in the agricultural sector';
+            UPDATE category SET label = 'Répartition moyenne de la production' WHERE dtype = 'Indicator' AND label = 'Global food loss index';
+            UPDATE category SET label = 'Indice de l''orientation des dépenses du gouvernement en faveur de l''agriculture' WHERE dtype = 'Indicator' AND label = 'Agriculture orientation index for government expenditures';
+
+        ]]></sql>
+    </changeSet>
+
     <changeSet id="Population" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="category" />
@@ -672,6 +685,21 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="NationalIndicatorColumnsNotNull" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="national_indicator" />
+            <columnExists tableName="national_indicator" columnName="approved" />
+            <columnExists tableName="national_indicator" columnName="descending" />
+        </preConditions>
+        <sql><![CDATA[
+
+            alter table national_indicator alter COLUMN descending drop not null;
+
+            alter table national_indicator alter COLUMN approved drop not null;
+
+        ]]></sql>
+    </changeSet>
+
     <changeSet id="NationalIndicators1" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="national_indicator" />
@@ -754,14 +782,28 @@
         ]]></sql>
     </changeSet>
 
-    <changeSet id="IndicatorApprovedFlag" author="Daniel Oliva">
+    <changeSet id="IndicatorApprovedFlag3" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="national_indicator" />
-            <tableExists tableName="region_indicator" />
+            <not>
+                <columnExists tableName="national_indicator" columnName="approved" />
+            </not>
         </preConditions>
         <sql><![CDATA[
             ALTER TABLE national_indicator
                 ADD COLUMN "approved" BOOLEAN DEFAULT FALSE;
+
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="IndicatorApprovedFlag4" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="region_indicator" />
+            <not>
+                <columnExists tableName="region_indicator" columnName="approved" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
             ALTER TABLE region_indicator
                 ADD COLUMN "approved" BOOLEAN DEFAULT FALSE;
 
@@ -876,16 +918,150 @@
         ]]></sql>
     </changeSet>
 
-    <changeSet id="AddDescendingColumn" author="Daniel Oliva">
+    <changeSet id="AddDescendingColumn3" author="Daniel Oliva">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="region_indicator" />
-            <tableExists tableName="national_indicator" />
+            <not>
+                <columnExists tableName="region_indicator" columnName="descending" />
+            </not>
         </preConditions>
         <sql><![CDATA[
             ALTER TABLE region_indicator
                 ADD COLUMN "descending" BOOLEAN DEFAULT FALSE;
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="AddDescendingColumn4" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="national_indicator" />
+            <not>
+                <columnExists tableName="national_indicator" columnName="descending" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
             ALTER TABLE national_indicator
                 ADD COLUMN "descending" BOOLEAN DEFAULT FALSE;
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="NationalIndicatorTargetYear2" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="national_indicator" />
+            <columnExists tableName="national_indicator" columnName="target_year" />
+        </preConditions>
+        <sql><![CDATA[
+            update national_indicator set target_year=2030 where target_value is not null ;
+
+        ]]></sql>
+    </changeSet>
+
+    <changeSet id="GisSettingsInit" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="gis_settings" />
+            <sqlCheck expectedResult="0">
+                select count(*) from gis_settings;
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="gis_settings">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="IndicatorGroupInit" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <sqlCheck expectedResult="0">
+                select count(*) from category where dtype = 'IndicatorGroup' ;
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="IndicatorGroup" />
+            <column name="label" value="Default" />
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="AddRegionIndicatorFlag" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="region_indicator" />
+            <not>
+                <columnExists tableName="region_indicator" columnName="fake_indicator_flag" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE region_indicator
+                ADD COLUMN "fake_indicator_flag" BOOLEAN DEFAULT FALSE;
+        ]]></sql>
+    </changeSet>
+
+
+    <changeSet id="AddDepIndicatorFlag" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="department_indicator" />
+            <not>
+                <columnExists tableName="department_indicator" columnName="fake_indicator_flag" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE department_indicator
+                ADD COLUMN "fake_indicator_flag" BOOLEAN DEFAULT FALSE;
+        ]]></sql>
+    </changeSet>
+
+
+    <changeSet id="AddNationalIndicatorGroup" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="national_indicator" />
+            <not>
+                <columnExists tableName="national_indicator" columnName="indicator_group_id" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE national_indicator
+                ADD COLUMN "indicator_group_id" int8;
+        ]]></sql>
+    </changeSet>
+
+
+    <changeSet id="AddRegionIndicatorGroup" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="region_indicator" />
+            <not>
+                <columnExists tableName="region_indicator" columnName="indicator_group_id" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE region_indicator
+                ADD COLUMN "indicator_group_id" int8;
+        ]]></sql>
+    </changeSet>
+
+
+    <changeSet id="AddDepIndicatorGroup" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="department_indicator" />
+            <not>
+                <columnExists tableName="department_indicator" columnName="indicator_group_id" />
+            </not>
+        </preConditions>
+        <sql><![CDATA[
+            ALTER TABLE department_indicator
+                ADD COLUMN "indicator_group_id" int8;
+        ]]></sql>
+    </changeSet>
+
+
+    <changeSet id="AddDefaultIndicatorGroup" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="department_indicator" />
+            <tableExists tableName="region_indicator" />
+            <tableExists tableName="national_indicator" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE national_indicator set indicator_group_id = ind.id FROM category ind WHERE ind.dtype = 'IndicatorGroup' AND ind.label = 'Default';
+            UPDATE region_indicator set indicator_group_id = ind.id FROM category ind WHERE ind.dtype = 'IndicatorGroup' AND ind.label = 'Default';
+            UPDATE department_indicator set indicator_group_id = ind.id FROM category ind WHERE ind.dtype = 'IndicatorGroup' AND ind.label = 'Default';
         ]]></sql>
     </changeSet>
 
