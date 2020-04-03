@@ -18,9 +18,7 @@ import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.behavior.AttributeAppender;
-import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.extensions.validation.validator.RfcCompliantEmailAddressValidator;
-import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -53,7 +51,7 @@ import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.wicketstuff.annotation.mount.MountPath;
 
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_FOCAL_POINT)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
 @MountPath(value = "/account")
 public class EditUserPage extends AbstractEditPage<Person> {
     private static final long serialVersionUID = 5208480049061989277L;
@@ -146,11 +144,10 @@ public class EditUserPage extends AbstractEditPage<Person> {
         }
 
         title = ComponentUtil.addTextField(editForm, "title");
-        title.getField().add(getRequiredForFocalPointBehavior());
 
         organization = ComponentUtil.addSelect2ChoiceField(editForm, "organization",
                 new TextSearchableAdapter<>(organizationRepository));
-        organization.getField().add(getRequiredForFocalPointBehavior());
+        organization.required();
         MetaDataRoleAuthorizationStrategy.authorize(organization, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
 
         phone = ComponentUtil.addTextField(editForm, "phone");
@@ -212,24 +209,6 @@ public class EditUserPage extends AbstractEditPage<Person> {
         editForm.add(new EqualPasswordInputValidator(plainPassword.getField(), plainPasswordCheck.getField()));
 
         deleteButton.setVisibilityAllowed(false);
-    }
-
-    /**
-     * Create a behavior that marks a FormComponent it is attached to as required when current user is a focal point.
-     */
-    private Behavior getRequiredForFocalPointBehavior() {
-        return new Behavior() {
-            @Override
-            public void onConfigure(Component component) {
-                boolean required = editForm.getModelObject().getRoles().stream()
-                        .anyMatch(EditUserPage.this::focalPointRole);
-                ((FormComponent) component).setRequired(required);
-            }
-        };
-    }
-
-    private boolean focalPointRole(Role role) {
-        return role.getAuthority().equals(SecurityConstants.Roles.ROLE_FOCAL_POINT);
     }
 
     @Override

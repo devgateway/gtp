@@ -235,7 +235,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         logoutMenu.setIconType(FontAwesomeIconType.sign_out);
         logoutMenu.add(AttributeModifier.append("title", new StringResourceModel("navbar.logout", this, null)));
         MetaDataRoleAuthorizationStrategy.authorize(logoutMenu, Component.RENDER,
-                SecurityConstants.Roles.ROLE_FOCAL_POINT);
+                SecurityConstants.Roles.ROLE_EDITOR);
 
         return logoutMenu;
     }
@@ -258,7 +258,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
 
         accountMenu.setIconType(FontAwesomeIconType.user);
         MetaDataRoleAuthorizationStrategy.authorize(accountMenu, Component.RENDER,
-                SecurityConstants.Roles.ROLE_FOCAL_POINT);
+                SecurityConstants.Roles.ROLE_EDITOR);
         return accountMenu;
     }
 
@@ -268,7 +268,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 new StringResourceModel("home", BasePage.this));
         homeMenu.setIconType(FontAwesomeIconType.home);
         MetaDataRoleAuthorizationStrategy.authorize(homeMenu, Component.RENDER,
-                SecurityConstants.Roles.ROLE_FOCAL_POINT);
+                SecurityConstants.Roles.ROLE_EDITOR);
         return homeMenu;
     }
 
@@ -416,7 +416,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         datasetMenu.setIconType(FontAwesomeIconType.upload);
         MetaDataRoleAuthorizationStrategy.authorize(datasetMenu, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
         MetaDataRoleAuthorizationStrategy.authorize(datasetMenu, Component.RENDER,
-                SecurityConstants.Roles.ROLE_FOCAL_POINT);
+                SecurityConstants.Roles.ROLE_EDITOR);
 
         return datasetMenu;
     }
@@ -490,7 +490,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         MetaDataRoleAuthorizationStrategy.authorize(indicatorMenu, Component.RENDER,
                 SecurityConstants.Roles.ROLE_ADMIN);
         MetaDataRoleAuthorizationStrategy.authorize(indicatorMenu, Component.RENDER,
-                SecurityConstants.Roles.ROLE_FOCAL_POINT);
+                SecurityConstants.Roles.ROLE_EDITOR);
 
         return indicatorMenu;
     }
@@ -527,7 +527,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         MetaDataRoleAuthorizationStrategy.authorize(gisMenu, Component.RENDER, SecurityConstants.Roles.ROLE_ADMIN);
 
         MetaDataRoleAuthorizationStrategy.authorize(gisMenu, Component.RENDER,
-                SecurityConstants.Roles.ROLE_FOCAL_POINT);
+                SecurityConstants.Roles.ROLE_EDITOR);
 
         return gisMenu;
     }

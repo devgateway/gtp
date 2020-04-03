@@ -83,4 +83,8 @@ public class Organization extends AbstractAuditableEntity implements Serializabl
         return null;
     }
 
+    @Override
+    public String toString() {
+        return getLabel();
+    }
 }

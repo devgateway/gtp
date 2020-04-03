@@ -1,13 +1,13 @@
 package org.devgateway.toolkit.persistence.service.ipar;
 
-import java.io.Serializable;
-
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.repository.PersonRepository;
 import org.devgateway.toolkit.persistence.service.TextSearchableService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.io.Serializable;
 
 /**
  * @author Octavian Ciubotaru
@@ -27,10 +27,13 @@ public class FocalPointTextSearchable implements TextSearchableService<Person>, 
 
     @Override
     public Page<Person> searchText(String term, Pageable page) {
+        /*
         if (term == null) {
             return personRepository.findFocalPoints(page);
         } else {
             return personRepository.findFocalPoints(term, page);
         }
+        */
+        return null;
     }
 }

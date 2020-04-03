@@ -30,7 +30,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * Created by Daniel Oliva
  */
-@AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_FOCAL_POINT})
+@AuthorizeInstantiation({SecurityConstants.Roles.ROLE_ADMIN, SecurityConstants.Roles.ROLE_EDITOR})
 @MountPath(value = "/listDepartmentIndicator")
 public class ListDepartmentIndicatorPage extends AbstractListPage<DepartmentIndicator> {
     private static final long serialVersionUID = -378945525712620234L;

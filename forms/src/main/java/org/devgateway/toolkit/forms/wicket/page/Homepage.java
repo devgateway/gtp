@@ -24,7 +24,7 @@ import org.devgateway.toolkit.forms.security.SecurityConstants;
  * @author mpostelnicu
  *
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_FOCAL_POINT)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
 public class Homepage extends BasePage {
     /**
      * @param parameters

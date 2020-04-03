@@ -11,7 +11,7 @@ import org.devgateway.toolkit.forms.security.SecurityConstants;
  *
  * Simple class the redirect the user to swagger UI URL (which is an external Wicket URL)
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_FOCAL_POINT)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
 public class SwaggerPage extends WebPage {
     public static final String URL = "/swagger-ui.html";
 
