@@ -72,6 +72,7 @@ import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListRapidLinkFormPage
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListRegionIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.indicator.IndicatorHomePage;
 import org.devgateway.toolkit.forms.wicket.page.user.EditUserPage;
 import org.devgateway.toolkit.forms.wicket.page.user.LogoutPage;
 import org.devgateway.toolkit.forms.wicket.styles.BaseStyles;
@@ -376,8 +377,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
     }
 
     protected NavbarButton<Homepage> newIndicatorsMenu() {
-        // TODO actual indicators page
-        final NavbarButton<Homepage> indicatorsMenu = new NavbarButton<Homepage>(Homepage.class,
+        final NavbarButton<Homepage> indicatorsMenu = new NavbarButton<Homepage>(IndicatorHomePage.class,
                 new StringResourceModel("navbar.indicators", this, null));
         indicatorsMenu.setIconType(FontAwesomeIconType.area_chart);
         MetaDataRoleAuthorizationStrategy.authorize(indicatorsMenu, Component.RENDER,
