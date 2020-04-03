@@ -1,11 +1,11 @@
 package org.devgateway.toolkit.web.rest.controller.ipar;
 
 import io.swagger.annotations.ApiOperation;
-import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.dao.indicator.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.dao.ipar.RapidLink;
 import org.devgateway.toolkit.persistence.dao.ipar.WebContent;
 import org.devgateway.toolkit.persistence.dto.ipar.PartnerDTO;
-import org.devgateway.toolkit.persistence.service.ipar.IndicatorMetadataService;
+import org.devgateway.toolkit.persistence.service.indicator.IndicatorMetadataService;
 import org.devgateway.toolkit.persistence.service.ipar.PartnerService;
 import org.devgateway.toolkit.persistence.service.ipar.RapidLinkService;
 import org.devgateway.toolkit.persistence.service.ipar.WebContentService;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -71,7 +70,8 @@ public class UIController {
     public @ResponseBody
     IndicatorMetadata getIndicatorMetadataById(@PathVariable final int id) {
         LOGGER.info("get indicator by type id: " + id);
-        return indicatorService.findByIndicatorType(id);
+        // return indicatorService.findByIndicatorType(id);
+        return null;
     }
 
     @CrossOrigin

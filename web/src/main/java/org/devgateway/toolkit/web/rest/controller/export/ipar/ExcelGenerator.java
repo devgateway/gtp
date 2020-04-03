@@ -2,7 +2,7 @@ package org.devgateway.toolkit.web.rest.controller.export.ipar;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.dao.indicator.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.dao.ipar.Region;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
 import org.devgateway.toolkit.persistence.dto.ipar.AgriculturalWomenDTO;
@@ -19,7 +19,7 @@ import org.devgateway.toolkit.persistence.repository.category.CategoryRepository
 import org.devgateway.toolkit.persistence.service.ipar.AOIIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.AgriculturalWomenIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.FoodLossIndicatorService;
-import org.devgateway.toolkit.persistence.service.ipar.IndicatorMetadataService;
+import org.devgateway.toolkit.persistence.service.indicator.IndicatorMetadataService;
 import org.devgateway.toolkit.persistence.service.ipar.PovertyIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.ipar.AOIFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.ipar.AOIFilterState;
@@ -32,7 +32,6 @@ import org.devgateway.toolkit.web.rest.controller.filter.ipar.PovertyFilterPagin
 import org.devgateway.toolkit.web.rest.controller.filter.ipar.PovertyFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -127,7 +126,7 @@ public class ExcelGenerator {
         List<PovertyDTO> aoi = povertyIndicatorService.findAll(filterState.getSpecification())
                 .stream().map(data -> new PovertyDTO(data, filters.getLang())).collect(Collectors.toList());
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES, REGIONS);
-        IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(POVERTY_TYPE);
+        IndicatorMetadata indicatorMetadata = null; // indicatorMetadataService.findByIndicatorType(POVERTY_TYPE);
 
         String intro = EMPTY_STRING;
         if (indicatorMetadata != null) {
@@ -155,7 +154,7 @@ public class ExcelGenerator {
                 .stream().map(data -> new AgricultureOrientationIndexDTO(data, filters.getLang()))
                 .collect(Collectors.toList());
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES);
-        IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(AOI_TYPE);
+        IndicatorMetadata indicatorMetadata = null; // indicatorMetadataService.findByIndicatorType(AOI_TYPE);
 
         String intro = EMPTY_STRING;
         if (indicatorMetadata != null) {
@@ -175,7 +174,7 @@ public class ExcelGenerator {
         List<AgriculturalWomenDTO> women = womenIndicatorService.findAll(filterState.getSpecification())
                 .stream().map(data -> new AgriculturalWomenDTO(data, filters.getLang())).collect(Collectors.toList());
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES);
-        IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(AG_WOMAN_TYPE);
+        IndicatorMetadata indicatorMetadata = null; // indicatorMetadataService.findByIndicatorType(AG_WOMAN_TYPE);
 
         String intro = EMPTY_STRING;
         if (indicatorMetadata != null) {
@@ -196,7 +195,7 @@ public class ExcelGenerator {
         List<FoodLossDTO> aoi = foodLossIndicatorService.findAll(filterState.getSpecification())
                 .stream().map(data -> new FoodLossDTO(data, filters.getLang())).collect(Collectors.toList());
         ExcelFilterDTO excelFilter = new ExcelFilterHelper(request, CATEGORIES);
-        IndicatorMetadata indicatorMetadata = indicatorMetadataService.findByIndicatorType(FOOD_LOSS_TYPE);
+        IndicatorMetadata indicatorMetadata = null; // indicatorMetadataService.findByIndicatorType(FOOD_LOSS_TYPE);
 
         String intro = EMPTY_STRING;
         if (indicatorMetadata != null) {

@@ -10,7 +10,7 @@ import org.devgateway.toolkit.persistence.dto.ipar.IndicatorMetadataDTO;
 import org.devgateway.toolkit.persistence.service.ipar.AOIIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.AgriculturalWomenIndicatorService;
 import org.devgateway.toolkit.persistence.service.ipar.FoodLossIndicatorService;
-import org.devgateway.toolkit.persistence.service.ipar.IndicatorMetadataService;
+import org.devgateway.toolkit.persistence.service.indicator.IndicatorMetadataService;
 import org.devgateway.toolkit.persistence.service.ipar.PovertyIndicatorService;
 import org.devgateway.toolkit.web.rest.controller.filter.ipar.AOIFilterPagingRequest;
 import org.devgateway.toolkit.web.rest.controller.filter.ipar.AOIFilterState;
@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.HashMap;

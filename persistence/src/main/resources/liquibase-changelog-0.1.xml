@@ -13,17 +13,17 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
     
-    <changeSet id="ANACIM-1" author="nmandrescu">
+    <changeSet id="ANACIM-1 initial org and admin" author="nmandrescu">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="person" />
             <columnExists tableName="person" columnName="organization_id" />
             <tableExists tableName="role" />
             <tableExists tableName="person_roles" />
-            <tableExists tableName="category" />
+            <tableExists tableName="organization" />
         </preConditions>
-        <insert tableName="category">
+        <insert tableName="organization">
             <column name="id" valueSequenceNext="hibernate_sequence" />
-            <column name="dtype" value="Organization" />
+            <column name="tag" value="ANACIM" />
             <column name="label" value="ANACIM" />
         </insert>
         <insert tableName="person">
@@ -48,11 +48,66 @@
         <sql><![CDATA[
             UPDATE person
             SET organization_id=org.id
-            FROM category org
+            FROM organization org
             WHERE person.username = 'admin'
-              AND org.dtype = 'Organization'
-              AND org.label = 'ANACIM';
+              AND org.tag = 'ANACIM';
         ]]></sql>
+    </changeSet>
+
+    <changeSet id="ANACIM-15 rain indicators metadata" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="indicator_metadata" />
+            <changeSetExecuted id="ANACIM-1 initial org and admin" author="nmandrescu"
+                               changeLogFile="liquibase-changelog-0.1.xml"/>
+        </preConditions>
+        <insert tableName="indicator_metadata">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Cumul de pluie" />
+            <column name="type" value="RAINFALL" />
+            <column name="organization_id" valueComputed="(SELECT id FROM organization WHERE tag='ANACIM')" />
+        </insert>
+        <insert tableName="indicator_metadata">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Démarrage de la saison des pluies" />
+            <column name="type" value="RAINFALL_SEASON" />
+            <column name="organization_id" valueComputed="(SELECT id FROM organization WHERE tag='ANACIM')" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="ANACIM-15 other organizations" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="organization" />
+        </preConditions>
+        <insert tableName="organization">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="tag" value="CSA" />
+            <column name="label" value="CSA" />
+        </insert>
+        <insert tableName="organization">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="tag" value="CSE" />
+            <column name="label" value="CSE" />
+        </insert>
+        <insert tableName="organization">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="tag" value="DGPRE" />
+            <column name="label" value="DGPRE" />
+        </insert>
+        <insert tableName="organization">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="tag" value="DPV" />
+            <column name="label" value="DPV" />
+        </insert>
+        <insert tableName="organization">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="tag" value="MAE" />
+            <column name="label" value="MAE" />
+        </insert>
+        <insert tableName="organization">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="tag" value="ME" />
+            <column name="label" value="Ministère de l'élevage" />
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

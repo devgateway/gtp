@@ -30,10 +30,10 @@ import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFor
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListIndicatorMetadataFormPage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
-import org.devgateway.toolkit.persistence.dao.ipar.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.dao.indicator.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.Indicator;
 import org.devgateway.toolkit.persistence.repository.ipar.category.IndicatorRepository;
-import org.devgateway.toolkit.persistence.service.ipar.IndicatorMetadataService;
+import org.devgateway.toolkit.persistence.service.indicator.IndicatorMetadataService;
 import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -85,12 +85,14 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
 
         // List<Indicator> indicators = indicatorRepo.findAllFetchingLocalizedLabels();
         List<Indicator> indicators = indicatorRepo.findAll();
+        /*
         Indicator currentIndicator = editForm.getModelObject().getIndicator();
         service.findAll().stream().forEach(x -> {
             if (currentIndicator == null || !currentIndicator.getId().equals(x.getIndicator().getId())) {
                 indicators.remove(x.getIndicator());
             }
         });
+         */
         ImmutableList<Indicator> indicatorList = ImmutableList.copyOf(indicators);
 
         GenericChoiceProvider<Indicator> choiceProvider = new GenericChoiceProvider<Indicator>(indicatorList) {
@@ -129,7 +131,7 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
                 IndicatorMetadata model = editForm.getModelObject();
                 redirectToSelf = false;
                 if (StringUtils.isBlank(model.getIntro())) {
-                    model.setIntro(model.getIntroFr());
+                    model.setIntro(model.getIntro());
                 }
                 jpaService.saveAndFlush(model);
                 markupCacheService.clearAllCaches();

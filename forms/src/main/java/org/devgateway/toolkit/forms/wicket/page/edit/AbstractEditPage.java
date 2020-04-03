@@ -452,4 +452,9 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
         }
     }
 
+    protected boolean isExisting() {
+        T object = editForm.getModelObject();
+        return object != null && !object.isNew();
+    }
+
 }
