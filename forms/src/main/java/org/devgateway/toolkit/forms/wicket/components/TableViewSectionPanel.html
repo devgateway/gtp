@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:extend>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pane title">
+                <h4 wicket:id="panelTitle">[[title]]</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button wicket:id="newButton" type="button" class="btn-add-output">
+                Add entity
+            </button>
+            <div wicket:id="otherButtonsOrLinks" class="otherButtonsOrLinks"></div>
+            <div wicket:id="tablePanel"></div>
+        </div>
+    </div>
+
+    <wicket:child></wicket:child>
+
+</wicket:extend>
+</body>
+</html>

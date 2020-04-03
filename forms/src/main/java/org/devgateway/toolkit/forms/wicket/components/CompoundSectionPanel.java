@@ -15,6 +15,8 @@ public class CompoundSectionPanel<T> extends GenericPanel<T> {
 
     protected IModel<String> title;
 
+    protected Boolean showTooltip = false;
+
     /**
      * @param id
      */
@@ -62,5 +64,13 @@ public class CompoundSectionPanel<T> extends GenericPanel<T> {
 
         // we wrap the self model into a CompoundModel to ease field referencing
         setModel(getCompoundSectionModel());
+    }
+
+    public Boolean getShowTooltip() {
+        return showTooltip;
+    }
+
+    public void setShowTooltip(final Boolean showTooltip) {
+        this.showTooltip = showTooltip;
     }
 }
