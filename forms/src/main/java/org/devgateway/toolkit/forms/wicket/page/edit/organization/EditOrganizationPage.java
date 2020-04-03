@@ -9,7 +9,7 @@
  * Contributors:
  * Development Gateway - initial API and implementation
  *******************************************************************************/
-package org.devgateway.toolkit.forms.wicket.page;
+package org.devgateway.toolkit.forms.wicket.page.edit.organization;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -46,5 +46,11 @@ public class EditOrganizationPage extends AbstractEditPage<Organization> {
         name.required();
         name.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(name);
+
+        OrganizationIndicatorsPanel indicators =
+                new OrganizationIndicatorsPanel("indicators", editForm.getModel());
+        indicators.setVisible(isExisting());
+        editForm.add(indicators);
     }
+
 }
