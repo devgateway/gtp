@@ -33,7 +33,7 @@ import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.indicator.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.Indicator;
 import org.devgateway.toolkit.persistence.repository.ipar.category.IndicatorRepository;
-import org.devgateway.toolkit.persistence.service.ipar.IndicatorMetadataService;
+import org.devgateway.toolkit.persistence.service.indicator.IndicatorMetadataService;
 import org.devgateway.toolkit.persistence.service.ipar.ReleaseCacheService;
 import org.wicketstuff.annotation.mount.MountPath;
 
