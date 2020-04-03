@@ -1,18 +1,12 @@
 
 
 import {FormattedMessage, injectIntl} from 'react-intl';
-import ReactDOM from 'react-dom';
-import React, {Component, createRef, useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 
 
-import { Grid, Image } from 'semantic-ui-react'
 import {Bullet} from './Charts.jsx'
-import Immutable from 'immutable'
-import messages from '../translations/messages'
 import {CustomGroupedDropDown} from '../indicators/Components'
-import {PngExport} from '../indicators/Components'
 
-var regions = require('../json/regions.json'); //with path
 
 const getOptions=(data, percents)=> {
     return data.map(d=>{return {key:d.id ,text:d.name,  leftMap:d.leftMap,rightMap:d.rightMap}})

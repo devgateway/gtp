@@ -3,92 +3,87 @@ import {
 } from 'react-intl'
 
 const messages = defineMessages({
-  //LinksBlock
+  // LinksBlock
   home_tabs_microdata_title: {
-    id: "home.tabs.microdata.title",
-    defaultMessage: "Microdata"
+    id: 'home.tabs.microdata.title',
+    defaultMessage: 'Microdata'
   },
-
 
   home_tabs_indicator_title: {
-    id: "home.tabs.indicator.title",
-    defaultMessage: "Indicators"
+    id: 'home.tabs.indicator.title',
+    defaultMessage: 'Indicators'
   },
-
 
   home_tabs_market_title: {
-    id: "home.tabs.market.title",
-    defaultMessage: "Market"
+    id: 'home.tabs.market.title',
+    defaultMessage: 'Market'
   },
-
 
   home_tabs_source: {
-    id: "home.tabs.source",
-    defaultMessage: "Source:"
+    id: 'home.tabs.source',
+    defaultMessage: 'Source:'
   },
-
-
 
   weather_title_1: {
-    id: "home.weather.title_1",
-    defaultMessage: "Main crops by zone"
+    id: 'home.weather.title_1',
+    defaultMessage: 'Main crops by zone'
   },
   weather_subtitle_1: {
-    id: "home.weather.subtitle_1",
-    defaultMessage: "This is where the short descriptive line will go here to describe the category"
+    id: 'home.weather.subtitle_1',
+    defaultMessage: 'This is where the short descriptive line will go here to describe the category'
   },
 
   weather_title_2: {
-    id: "home.weather.title_2",
-    defaultMessage: "Meteorological data"
+    id: 'home.weather.title_2',
+    defaultMessage: 'Meteorological data'
   },
 
   weather_subtitle_2: {
-    id: "home.weather.subtitle_2",
-    defaultMessage: "Weather forecast for next 10 days"
+    id: 'home.weather.subtitle_2',
+    defaultMessage: 'Weather forecast for next 10 days'
   },
 
   weather_title_3: {
-    id: "home.weather.title_3",
-    defaultMessage: "Main crops by zone"
+    id: 'home.weather.title_3',
+    defaultMessage: 'Main crops by zone'
   },
 
   weather_subtitle_3: {
-    id: "home.weather.subtitle_3",
-    defaultMessage: "This is where the short descriptive line will go here to describe the category"
+    id: 'home.weather.subtitle_3',
+    defaultMessage: 'This is where the short descriptive line will go here to describe the category'
   },
 
   weather_title_4: {
-    id: "home.weather.title_4",
-    defaultMessage: "Main crops by zone"
+    id: 'home.weather.title_4',
+    defaultMessage: 'Main crops by zone'
   },
 
   weather_subtitle_4: {
-    id: "home.weather.subtitle_4",
-    defaultMessage: "This is where the short descriptive line will go here to describe the category"
+    id: 'home.weather.subtitle_4',
+    defaultMessage: 'This is where the short descriptive line will go here to describe the category'
   },
 
   indicator_global_population_short: {
     defaultMessage: 'Proportion of population below the international poverty line',
-    id: 'indicators.global.population.short',
+    id: 'indicators.global.population.short'
   },
 
   indicator_global_women_short: {
     defaultMessage: 'Women in the Agricultural sector',
-    id: 'indicators.global.women.short',
+    id: 'indicators.global.women.short'
   },
 
   indicator_global_food_short: {
     defaultMessage: 'Post-Harvest Loss',
-    id: 'indicators.global.food.short',
+    id: 'indicators.global.food.short'
   },
 
   indicator_global_aoi_short: {
     defaultMessage: 'Agriculture orientation index for government expenditures',
-    id: 'indicators.global.aoi.short',
+    id: 'indicators.global.aoi.short'
   },
 
-  //analytic
+  // analytic
 
   indicator_poverty_chart_by_region_and_year: {
     id: 'indicators.chart.poverty.by.region.and.year',
@@ -102,29 +97,26 @@ const messages = defineMessages({
     description: '% of poor vs no poor by region chart title'
   },
 
-
   indicator_poverty_chart_historical_by_region: {
     id: 'indicators.chart.poverty.historical.by.region',
     defaultMessage: 'Historical % of population  under poverty level',
     description: 'Historical % of population  under poverty level chart title'
   },
 
-
   indicator_women_chart_distribution_by_age_tab_title: {
-    id: 'indicators.chart.women.distribution.by.age.tab.title',
+    id: 'indicators.chart.women.distribution_by_age_tab_title',
     defaultMessage: 'Distribution by age.',
     description: 'Distribution by age tab title'
   },
 
   indicator_women_chart_distribution_by_method_tab_title: {
-    id: 'indicators.chart.women.distribution.by.method.tab.title',
+    id: 'indicators.chart.women.distribution_by_method_tab_title',
     defaultMessage: 'Distribution by method of enforcement.',
     description: 'Distribution by method of enforcement tab title'
   },
 
-
   indicator_women_chart_distribution_by_gender: {
-    id: 'indicators.chart.women.distribution.by.gender',
+    id: 'indicators.chart.women.distribution_by_gender',
     defaultMessage: 'Distribution of the agricultural population by age group and gender ({year}).',
     description: 'Distribution of the agricultural population gender chart title'
   },
@@ -136,18 +128,16 @@ const messages = defineMessages({
   },
 
   indicator_women_chart_distribution_by_enforcement_method: {
-    id: 'indicators.chart.women.distribution.by.method',
+    id: 'indicators.chart.women.distribution_by_method',
     defaultMessage: 'Distribution of parcels by method of enforcement and gender ({year}).',
-    description: 'Distribution of parcels by method of enforcement and gender ({year}).',
+    description: 'Distribution of parcels by method of enforcement and gender ({year}).'
   },
-
 
   indicator_women_chart_distribution_by_enforcement_historical: {
     id: 'indicators.chart.women.distribution_by_enforcement_historical',
     defaultMessage: 'Historical female distribution of parcels by method of enforcement.',
     description: 'Historical female distribution of parcels by method of enforcement chart title'
   },
-
 
   indicator_food_chart_average_production_loss: {
     id: 'indicators.chart.food_average_production_loss',
@@ -163,15 +153,14 @@ const messages = defineMessages({
 
   },
 
-
   indicator_aoi_total_public_budget: {
-    id: "indicators.chart.aoi.total.public.budget",
-    defaultMessage: "Total public budget, expenditure on the agricultural sector.",
+    id: 'indicators.chart.aoi.total.public.budget',
+    defaultMessage: 'Total public budget, expenditure on the agricultural sector.',
     description: 'Total public budget, expenditure on the agricultural sector. chart title'
   },
   indicator_aoi_composition_of_subsidies: {
-    id: "indicators.chart.aoi.total.public.subsidies",
-    defaultMessage: "Composition of subsidies to agricultural investments.",
+    id: 'indicators.chart.aoi.total.public.subsidies',
+    defaultMessage: 'Composition of subsidies to agricultural investments.',
     description: 'Composition of subsidies to agricultural investments chart title'
   },
 
@@ -204,7 +193,6 @@ const messages = defineMessages({
     description: 'Age data field'
   },
 
-
   totals: {
     id: 'data.fields.totals',
     defaultMessage: 'Totals',
@@ -228,7 +216,6 @@ const messages = defineMessages({
     defaultMessage: 'House Hold Size ',
     description: 'House Hold Size Field'
   },
-
 
   daily_consumption: {
     id: 'data.fields.daily_consumption',
@@ -286,7 +273,6 @@ const messages = defineMessages({
     description: 'Kg Label'
   },
 
-
   market: {
     id: 'data.fields.market',
     defaultMessage: 'Market',
@@ -324,71 +310,67 @@ const messages = defineMessages({
     description: 'Quantity Data Field'
   },
 
-
-
   age: {
     id: 'data.fields.age',
     defaultMessage: 'Age',
     description: 'Age data field'
   },
 
-
   blues: {
     id: 'data.fields.blues',
-    defaultMessage: 'Blues',
+    defaultMessage: 'Blues'
   },
 
   greens: {
     id: 'data.fields.greens',
-    defaultMessage: 'Greens',
+    defaultMessage: 'Greens'
   },
 
   greys: {
     id: 'data.fields.greys',
-    defaultMessage: 'Greys',
+    defaultMessage: 'Greys'
   },
 
   oranges: {
     id: 'data.fields.oranges',
-    defaultMessage: 'Oranges',
+    defaultMessage: 'Oranges'
   },
 
   purples: {
     id: 'data.fields.purples',
-    defaultMessage: 'Purples',
+    defaultMessage: 'Purples'
   },
 
   reds: {
     id: 'data.fields.reds',
-    defaultMessage: 'Reds',
+    defaultMessage: 'Reds'
   },
   blue_to_green: {
     id: 'data.fields.blue_to_green',
-    defaultMessage: 'Blue to Green',
+    defaultMessage: 'Blue to Green'
   },
   blue_to_purple: {
     id: 'data.fields.blue_to_purple',
-    defaultMessage: 'Blue To Purple',
+    defaultMessage: 'Blue To Purple'
   },
   orange_to_red: {
     id: 'data.fields.orange_to_red',
-    defaultMessage: 'Orange To Red',
+    defaultMessage: 'Orange To Red'
   },
-
 
   table_help_unused_cols: {
     id: 'table.unsed.cols',
-    defaultMessage: 'Drag and drop elements as rows or columns',
+    defaultMessage: 'Drag and drop elements as rows or columns'
 
   },
   table_help_used_cols: {
     id: 'table.used.cols',
-    defaultMessage: 'Element used as columns',
+    defaultMessage: 'Element used as columns'
 
   },
   table_help_used_rows: {
     id: 'table.unsed.rows',
-    defaultMessage: 'Element used as Rows',
+    defaultMessage: 'Element used as Rows'
 
   },
 
@@ -504,7 +486,6 @@ const messages = defineMessages({
     description: 'Count as Fraction of Columns'
   },
 
-
   pivot_renders_table: {
     id: 'pivot.renders.table',
     defaultMessage: 'Table'
@@ -576,35 +557,40 @@ const messages = defineMessages({
 
   microdata_filters_keyword: {
     id: 'microdata.filters.keyword.label',
-    defaultMessage: "Keyword Search"
+    defaultMessage: 'Keyword Search'
   },
   microdata_filters_start_date: {
     id: 'microdata.filters.start_date.label',
-    defaultMessage: "Start Date"
+    defaultMessage: 'Start Date'
   },
   microdata_filters_end_date: {
     id: 'microdata.filters.end_date.label',
-    defaultMessage: "End Date"
+    defaultMessage: 'End Date'
   },
   microdata_filters_organization: {
     id: 'microdata.filters.organization.label',
-    defaultMessage: "Organizations"
+    defaultMessage: 'Organizations'
   },
   data_no_data_available: {
     id: 'data.no_available',
-    defaultMessage: "No data available"
+    defaultMessage: 'No data available'
   },
-
 
   national_indicators_actual: {
-    id: 'national.indicators.actual',
-    defaultMessage: "Actual"
+    id: 'national.indicator.actual',
+    defaultMessage: 'Actual'
   },
 
+  national_indicators_reference: {
+    id: 'national.indicator.reference',
+    defaultMessage: 'Reference'
+  },
 
+  national_indicators_target: {
+    id: 'national.indicator.target',
+    defaultMessage: 'Target'
+  }
 
-});
-
-
+})
 
 export default messages

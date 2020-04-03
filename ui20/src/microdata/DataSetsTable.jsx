@@ -2,10 +2,10 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { Table,Pagination } from 'semantic-ui-react'
 
-import {CustomFilterDropDown,TextInput,DateInput} from '../indicators/Components'
+import {CustomFilterDropDown,TextInput} from '../indicators/Components'
 import {items2options} from '../indicators/DataUtil'
-import {injectIntl,FormattedDate, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
-import {changeFilter,loadDatasets,changePage,cleanFilter } from '../modules/Microdata'
+import {injectIntl, FormattedMessage} from 'react-intl';
+import {changeFilter,loadDatasets,changePage } from '../modules/Microdata'
 import {connect} from 'react-redux';
 import messages from '../translations/messages'
 
@@ -52,19 +52,19 @@ class TableComponent extends Component {
   render() {
     //TODO: remove state use props
 
-    const {onChangeFilter,sortBy,sortDir,onCleanFilter, keyword, startDate, endDate, organizations=[], selectedOrganizations=[], intl, datasets={}, onChangePage ,selectedYear=[],  years} = this.props
+    const {onChangeFilter,sortBy,sortDir, keyword, organizations=[], selectedOrganizations=[], intl, onChangePage ,selectedYear=[],  years} = this.props
     const locale=intl.locale
 
     let direction=sortDir
     let column=sortBy
     //descending
 
-    const directionLong=(sortDir=='ASC')?'ascending':'descending'
+    const directionLong=(sortDir==='ASC')?'ascending':'descending'
 
     const handleSort = (clickedColumn) => () => {
 
-      if(column==clickedColumn){
-         direction = (sortDir=='ASC')?'DESC':'ASC'
+      if(column===clickedColumn){
+         direction = (sortDir==='ASC')?'DESC':'ASC'
       }else{
          direction = 'ASC'
       }
@@ -155,8 +155,8 @@ class TableComponent extends Component {
 
 const mapStateToProps = state => {
 
-  const startDate=state.getIn(['microdata','filters','datasets','realMinDate'])
-  const endDate=state.getIn(['microdata','filters','datasets','realMaxDate'])
+  //const startDate=state.getIn(['microdata','filters','datasets','realMinDate'])
+  //const endDate=state.getIn(['microdata','filters','datasets','realMaxDate'])
   const keyword=state.getIn(['microdata','filters','datasets','text'])
   const selectedOrganizations=state.getIn(['microdata','filters','datasets','organization'])
   const selectedYear=state.getIn(['microdata','filters','datasets','year'])
@@ -172,8 +172,8 @@ const mapStateToProps = state => {
 
 
   return {
-    startDate,
-    endDate,
+    //startDate,
+    //endDate,
     keyword,
     organizations,
     selectedOrganizations,
@@ -190,7 +190,7 @@ const mapActionCreators = {
   onLoadDatasets:loadDatasets,
   onChangeFilter:changeFilter,
   onChangePage:changePage,
-  onCleanFilter:cleanFilter
+
 };
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(TableComponent));

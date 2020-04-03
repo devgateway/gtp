@@ -1,24 +1,19 @@
 
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import ReactDOM from 'react-dom';
-import React, {Component, createRef, useState} from 'react'
-import './map.scss'
-import {loadGISData} from '../modules/Gis'
-import { Grid, Label , Tab} from 'semantic-ui-react'
+import React, {Component} from 'react'
 
-import Map from './Map.jsx'
+import {loadGISData} from '../modules/Gis'
+import {  Label} from 'semantic-ui-react'
+
 import PairOfMaps from './PairMaps.jsx'
 
-
-import Immutable from 'immutable'
-import messages from '../translations/messages'
 
 
 class GIS extends Component {
   constructor(props) {
     super(props);
-     this.state = { mapCount: 1, mapCount: 1 };
+     this.state = { mapCount: 1 };
      this.addnewOne=this.addnewOne.bind(this)
      this.removeLast=this.removeLast.bind(this)
   }
@@ -40,7 +35,7 @@ class GIS extends Component {
 
 
   render() {
-    const {regionalIndicator, departamentalIndicators, intl, onExport} = this.props
+    const {regionalIndicator} = this.props
 
     const {mapCount}=this.state
 
@@ -63,6 +58,11 @@ class GIS extends Component {
             <p><FormattedMessage id='gis.regional.description' defaultMessage="The GIS page will display some indicators  that have been preloaded by each responsible partner organization.
             The site will also display, non-official data sources that users can access by clicking on the links provided. Where available, a given dataset will be displaying a link that will connect the ANSD data repository when users can consult reports, studies and other metadata related to a specific dataset."/></p>
           </div>
+
+          <div className="gis description">
+            <p><FormattedMessage id='gis.usage_text' defaultMessage="Select the indicator(s) from the available options in the dropdown menus. You can also select the color scheme to display indicator variations where applicable."/></p>
+          </div>
+
           <div className="clear block">
           {range.map(n=>{
               return <PairOfMaps key={`map.region_${n}`} level="region" id={`map.region_${n}`} data={regionalIndicator}/>

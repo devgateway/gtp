@@ -1,17 +1,10 @@
-import React, {
-  Component
-} from 'react'
+import React, { Component } from 'react'
 import * as d3 from 'd3'
-import  messages from '../translations/messages'
-
-import {FormattedMessage, injectIntl} from 'react-intl';
 import './map.scss'
 
-const formatOptions = {
-  style: 'percent',
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-}
+import {FormattedMessage} from 'react-intl';
+
+
 const width = 600,
   height = 500;
 
@@ -41,43 +34,36 @@ export default class D3Map extends Component < {},
     showDetails(fid, duration) {
       let action;
       let data;
-      if (fid == null) {
+      if (fid === null) {
         data = this.props.json
         action = 'out'
       } else {
         action = 'in'
-        data = this.g.selectAll("path").filter(d => d.properties.fid == fid).data()[0]
+        data = this.g.selectAll("path").filter(d => d.properties.fid === fid).data()[0]
 
       }
 
-      this.scaleTo(data, fid, duration, (action=='in'?true:false))
+      this.scaleTo(data, fid, duration, (action==='in'?true:false))
 
-      const measure = this.props.measure
-      var text1, text2;
-      if (action == 'in') {
-            text2 = `  ${this.props.indicator.text} - ${data.properties.value? this.props.intl.formatNumber(data.properties.value) +' ('+ data.properties.measure +')':this.props.intl.formatMessage(messages.data_no_data_available)} `
-
-      }
       this.svg.selectAll('text').remove()
       this.svg.selectAll('circle').remove()
       this.svg.selectAll('rect').remove()
       this.svg.selectAll('line').remove()
 
-      if (action == 'in') {
+      if (action === 'in') {
         const self=this
             this.svg.append("text")
             .attr("x",d=>20)
             .attr("y",d=>45)
-            .attr("class", "big label")
-            .style("fill","#7b8d56")
-            .style("stroke", "#FFF")
-            .style("font-family","Open Sans")
+            .attr("fill","#7b8d56")
+            .attr("stroke", "#FFF")
+
             .style("font-weight","bold")
-            .style("stroke-width", "1px")
-            .style("font-size", "40px")
+            .style("stroke-width", "0")
+            .style("font-size", "48px")
             .style("text-transform", "uppercase")
-            .style("font-weight", "bold")
             .style("text-anchor", "start")
+            .attr("class","big label")
             .text("")
             .transition()
             .delay(100)
@@ -95,13 +81,12 @@ export default class D3Map extends Component < {},
         this.svg.append("text")
         .attr("x",d=>width -30)
         .attr("y",d=>height -25)
-        .attr("class", "medium label")
-        .style("fill","#7b8d56")
-        .style("stroke", "#FFF")
-        .style("font-family","Open Sans")
+        .attr("fill","#7b8d56")
+        .attr("stroke", "#FFF")
+        .style("font-family","Arial, Helvetica, sans-serif")
         .style("font-weight","bold")
-        .style("stroke-width", "1px")
-        .style("font-size", "40px")
+        .style("stroke-width", "0")
+        .style("font-size", "43px")
         .style("text-transform", "uppercase")
         .style("font-weight", "bold")
           .attr("text-anchor", "end")
@@ -116,17 +101,15 @@ export default class D3Map extends Component < {},
 
         this.svg.append("text")
         .attr("x",d=>width -30)
-        .attr("y",d=>height -5)
-        .attr("class", "small label")
-        .style("fill","#7b8d56")
-        .style("stroke", "#FFF")
-        .style("font-family","Open Sans")
+        .attr("y",d=>height)
+        .attr("fill","#7b8d56")
+        .attr("stroke", "#FFF")
+        .style("font-family","Arial, Helvetica, sans-serif")
         .style("font-weight","bold")
-        .style("stroke-width", "1px")
-        .style("font-size", "22px")
+        .style("stroke-width", "0")
+        .style("font-size", "32px")
         .style("text-transform", "uppercase")
         .style("font-weight", "bold")
-        .attr("fill", "black")
         .attr("text-anchor", "end")
         .text("")
         .transition()
@@ -174,14 +157,13 @@ export default class D3Map extends Component < {},
       .data(json.features)
       .enter()
       .append("text")
-      .style("font-size","8px")
-      .style("font-family","Open Sans")
-      .style("font-weight","600")
-
-      .attr("class", "label")
-      .attr("fill", "black")
+      .style("font-size","9px")
+      .style("font-family","Arial, Helvetica, sans-serif")
+      .style("font-weight","400")
+      .style("fill","#000")
       .style("text-anchor", "start")
-      .attr("class", "label")
+      .style("text-transform", "uppercase")
+
       .text(function(d) {
         var bounds=_this.path.bounds(d)
           var xwidth  = bounds[1][0] - bounds[0][0];
@@ -204,7 +186,7 @@ export default class D3Map extends Component < {},
       this.g.selectAll('path').data(json.features).enter().append('path')
       .attr('d', this.path).attr('vector-effect', 'non-scaling-stroke')
       .style('fill', (d)=>this.getFillColor(d.properties.value))
-      .on('click', this.clicked).style('stroke', '#EEE')
+      .on('click', this.clicked).style('stroke', '#898c83')
 
     }
 
@@ -336,7 +318,7 @@ export default class D3Map extends Component < {},
 
             <div className="description">{description}</div>
             <div className="source">
-              <span className="label">  <FormattedMessage id="data.field.source.label" defaultMessage="Source :"></FormattedMessage></span><span> {source?source:<FormattedMessage id="data.field.source.undefined" defaultMessage="Not specified"></FormattedMessage>}</span>
+              <span className="label">  <FormattedMessage id="data.fields.source_label" defaultMessage="Source :"></FormattedMessage></span><span> {source?source:<FormattedMessage id="data.fields.source_undefined" defaultMessage="Not specified"></FormattedMessage>}</span>
             </div>
             </div>
         </div>)

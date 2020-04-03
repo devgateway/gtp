@@ -1,19 +1,10 @@
 import "./indicators.scss"
-import ReactDOM from 'react-dom';
 import React from 'react'
 import {CustomFilterDropDown} from './Components'
 import {PngExport} from './Components'
 import {FormattedMessage,injectIntl} from 'react-intl';
 import {items2options} from './DataUtil'
-const region2options = (regions) => regions
-  ? regions.sort((r1, r2) => r1.name.localeCompare(r2.name)).map(r => ({'key': r.id, 'text': r.name, 'value': r.id}))
-  : []
 
-/*
-<div className="icon download csv"></div>
-<div className="icon download json"></div>
-
-*/
 const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChange,onApply,onReset, onExport}) => {
 
 

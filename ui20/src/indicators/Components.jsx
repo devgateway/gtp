@@ -1,21 +1,11 @@
-import React, {Component, createRef, useState} from 'react'
+import React, { useState} from 'react'
 
 import {FormattedMessage} from 'react-intl';
-import Slider, {Range} from 'rc-slider';
+import  {Range} from 'rc-slider';
 import DatePicker from "react-datepicker";
-import { toPng, toJpeg, toBlob, toPixelData, toSvgDataURL } from 'html-to-image';
+import { toPng} from 'html-to-image';
 import download from 'downloadjs'
-
-import {
-  Dropdown,
-  Menu,
-  Grid,
-  Image,
-  Rail,
-  Ref,
-  Segment,
-  Sticky
-} from 'semantic-ui-react'
+import {Dropdown} from 'semantic-ui-react'
 
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -196,7 +186,7 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
     }
   }
 
-  
+
 
   return (
 

@@ -23,6 +23,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 // @Entity
 public class Dataset extends AbstractAuditableEntity implements Serializable, Labelable, Fileable {
 
+    public static final String OUI_YES = "Oui/Yes";
+    public static final String NON_NO = "Non/No";
     private String label;
 
     private String source;
@@ -167,5 +169,10 @@ public class Dataset extends AbstractAuditableEntity implements Serializable, La
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    @JsonIgnore
+    public String getApprovedStr() {
+        return approved ? OUI_YES : NON_NO;
     }
 }

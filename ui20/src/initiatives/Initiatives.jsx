@@ -1,25 +1,17 @@
-import React, { useEffect ,Component,useState, createRef} from 'react'
+import React, { useEffect , createRef} from 'react'
 import {loadInitiativesTypes,loadInitiativesItems} from '../modules/Data'
 import {connect} from 'react-redux';
 import {FormattedMessage,FormattedDate, injectIntl} from 'react-intl';
-import Sticky from './Sticky'
 import {
-  Dropdown,
   Grid,
   Image,
-  Ref,
-  Rail,
-  Segment,
   Container,
   Label,
-  Menu,
-  Input,
   Pagination
 } from 'semantic-ui-react'
 
 import './initiatives.scss'
 
-const contextRef = createRef()
 
 const Initiatives = ({intl, onLoad, onLoadItems , types, items}) => {
 
@@ -108,7 +100,7 @@ return (<div className="initiatives container">
 
                 })}
 
-                {content== 0 &&<Grid.Column width={16}><Label   ribbon={true} className="centered" basic color="olive" inverted>This section has no data</Label></Grid.Column>}
+                {content== 0 &&<Grid.Column width={16}><Label   ribbon={true} className="centered" basic color="olive" inverted>  <FormattedMessage id="data.no_available" defaultMessage="No data available"> No data available</FormattedMessage> </Label></Grid.Column>}
               </Grid>
 
                 {content.length > 0 &&  <div className="pagination wrapper"><Pagination   {...paginationProps}/></div>}

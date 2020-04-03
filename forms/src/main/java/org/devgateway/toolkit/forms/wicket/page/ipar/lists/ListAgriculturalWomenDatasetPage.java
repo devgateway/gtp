@@ -51,7 +51,7 @@ public class ListAgriculturalWomenDatasetPage extends AbstractListPage<Agricultu
                 "organization", "organization"));
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("approved", ListAgriculturalWomenDatasetPage.this),
-                "approved", "approved"));
+                "approved", "approvedStr"));
         columns.add(new LinkBootstrapPropertyColumn(
                 new StringResourceModel("fileMetadata", ListAgriculturalWomenDatasetPage.this), "fileMetadata"));
     }
