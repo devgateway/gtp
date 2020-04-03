@@ -7,15 +7,13 @@ import {items2options} from './DataUtil'
 
 const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChange,onApply,onReset, onExport}) => {
 
-
-
   return (<div className="core-filters">
     <div className="main filter nav">
       <div className="filter nav item title">
         <FormattedMessage id="indicators.filters.title" defaultMessage="Indicator Filter"></FormattedMessage>
       </div>
       <div className="filter nav separator"></div>
-      <div className="filter nav item">
+      <div className="filter nav item year">
         <CustomFilterDropDown onChange={s=>onChange('year',s)}  selected={globalFilters&&globalFilters.get('year')?globalFilters.get('year').toJS():[]}
         text={<FormattedMessage id = "indicators.filters.year" defaultMessage = "Campaign/Years" > </FormattedMessage>}
         options={items2options(years,intl)}></CustomFilterDropDown>
