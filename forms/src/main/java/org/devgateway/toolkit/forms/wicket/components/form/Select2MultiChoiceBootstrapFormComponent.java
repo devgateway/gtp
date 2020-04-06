@@ -19,7 +19,6 @@ import org.apache.wicket.model.IModel;
 import org.devgateway.toolkit.persistence.dao.GenericPersistable;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Select2BootstrapTheme;
-import org.wicketstuff.select2.Select2Choice;
 import org.wicketstuff.select2.Select2MultiChoice;
 
 import javax.persistence.EntityManager;
