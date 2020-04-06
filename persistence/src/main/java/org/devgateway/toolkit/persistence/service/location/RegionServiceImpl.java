@@ -1,7 +1,7 @@
-package org.devgateway.toolkit.persistence.service.ipar.category;
+package org.devgateway.toolkit.persistence.service.location;
 
-import org.devgateway.toolkit.persistence.dao.ipar.Region;
-import org.devgateway.toolkit.persistence.repository.ipar.RegionRepository;
+import org.devgateway.toolkit.persistence.dao.location.Region;
+import org.devgateway.toolkit.persistence.repository.location.RegionRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Octavian Ciubotaru
  */
-// @Service
+@Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class RegionServiceImpl extends BaseJpaServiceImpl<Region> implements RegionService {

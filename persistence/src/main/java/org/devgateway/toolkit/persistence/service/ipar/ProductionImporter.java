@@ -11,11 +11,11 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
-import org.devgateway.toolkit.persistence.dao.ipar.Department;
+import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.dao.ipar.Production;
 import org.devgateway.toolkit.persistence.dao.ipar.ProductionDataset;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.CropType;
-import org.devgateway.toolkit.persistence.repository.ipar.DepartmentRepository;
+import org.devgateway.toolkit.persistence.repository.location.DepartmentRepository;
 import org.devgateway.toolkit.persistence.repository.ipar.ProductionDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.ipar.ProductionRepository;
 import org.devgateway.toolkit.persistence.repository.ipar.category.CropTypeRepository;
@@ -23,7 +23,6 @@ import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

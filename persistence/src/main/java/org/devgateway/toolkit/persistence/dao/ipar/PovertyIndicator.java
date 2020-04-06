@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.dao.ipar;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.devgateway.toolkit.persistence.dao.location.Region;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.Gender;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.LocationType;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.PovertyLevel;

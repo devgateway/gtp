@@ -1,9 +1,9 @@
 package org.devgateway.toolkit.web.rest.controller.ipar;
 
 import io.swagger.annotations.ApiOperation;
-import org.devgateway.toolkit.persistence.dao.ipar.Department;
+import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.dao.ipar.Market;
-import org.devgateway.toolkit.persistence.dao.ipar.Region;
+import org.devgateway.toolkit.persistence.dao.location.Region;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.AgeGroup;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.AgriculturalWomenGroup;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.ContentType;
@@ -25,7 +25,7 @@ import org.devgateway.toolkit.persistence.service.ipar.category.AgriculturalWome
 import org.devgateway.toolkit.persistence.service.ipar.category.ContentTypeService;
 import org.devgateway.toolkit.persistence.service.ipar.category.CropSubTypeService;
 import org.devgateway.toolkit.persistence.service.ipar.category.CropTypeService;
-import org.devgateway.toolkit.persistence.service.ipar.category.DepartmentService;
+import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.devgateway.toolkit.persistence.service.ipar.category.GenderService;
 import org.devgateway.toolkit.persistence.service.ipar.category.IndexTypeService;
 import org.devgateway.toolkit.persistence.service.ipar.category.LocationTypeService;
@@ -36,7 +36,7 @@ import org.devgateway.toolkit.persistence.service.category.OrganizationService;
 import org.devgateway.toolkit.persistence.service.ipar.category.PartnerGroupService;
 import org.devgateway.toolkit.persistence.service.ipar.category.PovertyLevelService;
 import org.devgateway.toolkit.persistence.service.ipar.category.ProfessionalActivityService;
-import org.devgateway.toolkit.persistence.service.ipar.category.RegionService;
+import org.devgateway.toolkit.persistence.service.location.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;

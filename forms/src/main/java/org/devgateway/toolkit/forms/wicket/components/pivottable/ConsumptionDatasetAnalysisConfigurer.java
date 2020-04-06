@@ -1,14 +1,14 @@
 package org.devgateway.toolkit.forms.wicket.components.pivottable;
 
-import static java.util.stream.Collectors.toMap;
+import com.google.common.collect.ImmutableList;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.CropType;
+import org.devgateway.toolkit.persistence.dao.location.Department;
+import org.devgateway.toolkit.persistence.service.ipar.category.CropTypeService;
+import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 
 import java.util.List;
 
-import com.google.common.collect.ImmutableList;
-import org.devgateway.toolkit.persistence.dao.ipar.Department;
-import org.devgateway.toolkit.persistence.dao.ipar.categories.CropType;
-import org.devgateway.toolkit.persistence.service.ipar.category.CropTypeService;
-import org.devgateway.toolkit.persistence.service.ipar.category.DepartmentService;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * @author Octavian Ciubotaru
