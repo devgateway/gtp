@@ -87,8 +87,8 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
         editForm.add(logo);
         logo.required();
 
-        TextAreaFieldBootstrapFormComponent<String> contactInfo =
-                new TextAreaFieldBootstrapFormComponent<>("contactInfo");
+        SummernoteBootstrapFormComponent contactInfo =
+                new SummernoteBootstrapFormComponent("contactInfo");
         contactInfo.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         editForm.add(contactInfo);
 
