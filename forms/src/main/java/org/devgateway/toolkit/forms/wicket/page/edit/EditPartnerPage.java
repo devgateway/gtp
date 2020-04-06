@@ -24,7 +24,6 @@ import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.SummernoteBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.components.form.TextAreaFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.util.ComponentUtil;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPartnerPage;
@@ -89,7 +88,6 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
 
         SummernoteBootstrapFormComponent contactInfo =
                 new SummernoteBootstrapFormComponent("contactInfo");
-        contactInfo.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         editForm.add(contactInfo);
 
 
