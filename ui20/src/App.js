@@ -121,7 +121,7 @@ class IntlRoutes extends Component {
             <Route exact={true} path="/:lan/gis/departmental" component={withTracker(DepartmentalLayout)}/>
             <Route exact={true} path="/:lan/partners" component={withTracker(PartnersLayout)}/>
             <Route exact={true} path="/:lan/initiatives" component={withTracker(InitiativesLayout)}/>
-            <Route exact={true} path="/:lan/national" component={withTracker(InitiativesLayout)}/>
+            <Route exact={true} path="/:lan/national" component={withTracker(NationalIndicatorsLayout)}/>
 
             <Route render={() => (<div className="not-found">Page Not Found</div>)}/>
           </Switch>
