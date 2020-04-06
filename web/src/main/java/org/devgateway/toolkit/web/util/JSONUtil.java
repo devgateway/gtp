@@ -183,8 +183,8 @@ public final class JSONUtil {
 
     public static String getCSV(List<Map<String, String>> flatJson, String separator) {
         Set<String> headers = collectHeaders(flatJson);
-        Set<String> headersFixed = headers.stream().map(h -> fixHeader(h)).collect(Collectors.toSet());
-        String csvString = StringUtils.join(headersFixed.toArray(), separator) + "\n";
+        List<String> headersFixed = headers.stream().map(h -> fixHeader(h)).collect(Collectors.toList());
+        String csvString = StringUtils.join(headersFixed, separator) + "\n";
 
         for (Map<String, String> map : flatJson) {
             csvString = csvString + getSeperatedColumns(headers, map, separator) + "\n";
