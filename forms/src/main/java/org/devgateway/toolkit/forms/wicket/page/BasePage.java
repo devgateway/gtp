@@ -170,6 +170,11 @@ public abstract class BasePage extends GenericWebPage<Void> {
         mainHeader = new Header("mainHeader", this.getPageParameters());
         add(mainHeader);
 
+        if (SecurityUtil.getCurrentAuthenticatedPerson() == null) {
+            ChangeLanguageLink changeLanguageLink = new ChangeLanguageLink(Locale.FRENCH);
+            changeLanguageLink.onClick();
+        }
+
         navbar = newNavbar("navbar");
         mainHeader.add(navbar);
 
