@@ -183,7 +183,7 @@
 	"national.indicator.name": "Indicator",
 	"national.indicators.actual": "Actual",
 	"national.page.add_row": "Add row",
-	"national.page.description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+	"national.page.description": "The National Indicators page lists the indicators which are monitored at national level by the various organizations, the latter being responsible for their entries and updates within the platform. The various graphs of this page indicate, for each indicator, a base and a target value which, together with the reference value, allow to measure the progress of an indicator towards its objective.",
 	"national.page.remove_row": "Remove last one",
 	"national.page.title": "National Indicators",
 	"partners.list.title": "Partners",

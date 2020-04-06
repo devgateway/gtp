@@ -183,7 +183,7 @@
 	"national.indicator.name": "",
 	"national.indicators.actual": "",
 	"national.page.add_row": "Ajouter une colonne",
-	"national.page.description": "",
+	"national.page.description": "La page des Indicateurs Nationaux liste les indicateurs qui sont suivis au niveau national par les différentes structures. Ces dernières sont responsables de leur saisie et de leur mise à jour au niveau de la plateforme. Les graphiques présentés sur cette page indiquent, pour chaque indicateur, une valeur de base et une valeur cible qui, avec la valeur de référence, permettent de mesure le progrès d'un indicateur vers son objectif.",
 	"national.page.remove_row": "Supprimer la dernière colonne",
 	"national.page.title": "Indicateurs Nationaux",
 	"partners.list.title": "Acteurs",
