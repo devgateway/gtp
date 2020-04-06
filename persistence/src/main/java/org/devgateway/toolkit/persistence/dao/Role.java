@@ -33,6 +33,8 @@ public class Role extends GenericPersistable implements Serializable, Comparable
 
     private String authority;
 
+    private String label;
+
     @Column(name = "authority")
     public String getAuthority() {
         return authority;
@@ -54,7 +56,7 @@ public class Role extends GenericPersistable implements Serializable, Comparable
 
     @Override
     public String toString() {
-        return authority;
+        return label;
     }
 
     @Override
@@ -64,18 +66,17 @@ public class Role extends GenericPersistable implements Serializable, Comparable
 
     @Override
     public void setLabel(final String label) {
-        setAuthority(label);
-
+        this.label = label;
     }
 
     @Override
     public String getLabel() {
-        return getAuthority();
+        return label;
     }
 
     @Override
     public String getLabel(String lang) {
-        return getAuthority();
+        return getLabel();
     }
 
 }
