@@ -58,12 +58,13 @@ public class EditIndicatorGroupPage extends AbstractEditPage<IndicatorGroup> {
         super.onInitialize();
 
         final TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("label");
-        name.required();
+
         name.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(name);
 
         final TextFieldBootstrapFormComponent<String> description =
                 new TextFieldBootstrapFormComponent<>("description");
+        description.required();
         description.getField().add(StringValidator.maximumLength(DEFA_MAX_LENGTH));
         editForm.add(description);
     }
