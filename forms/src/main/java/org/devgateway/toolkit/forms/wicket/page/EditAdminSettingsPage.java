@@ -54,10 +54,5 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
 
         rebootServer = new CheckBoxToggleBootstrapFormComponent("rebootServer");
         editForm.add(rebootServer);
-
-        TextFieldBootstrapFormComponent<Integer> startingYear = new TextFieldBootstrapFormComponent<>("startingYear");
-        startingYear.getField().add(new RangeValidator<>("2010", "2030"));
-        editForm.add(startingYear);
-        startingYear.required();
     }
 }
