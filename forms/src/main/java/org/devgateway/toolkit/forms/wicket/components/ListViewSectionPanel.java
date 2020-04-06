@@ -75,6 +75,7 @@ public abstract class ListViewSectionPanel<T extends AbstractAuditableEntity, PA
         add(listWrapper);
 
         listWrapper.add(new Label("panelTitle", title));
+        listWrapper.add(new Label("notes", new ResourceModel("notes")));
 
         listWrapper.add(new Label("totalEntries",
                 (IModel<Integer>) () -> ListViewSectionPanel.this.getModel().getObject().size()));
