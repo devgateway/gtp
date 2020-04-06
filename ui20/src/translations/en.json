@@ -165,8 +165,6 @@
 	"microdata.table.created": "Created",
 	"microdata.table.creator": "Creator",
 	"microdata.table.dataset_metadata": "Dataset Metadata",
-	"microdata.table.datasets.description": "",
-	"microdata.table.datasets.title": "",
 	"microdata.table.datasets_description": "The section displays datasets starting with the most recent ones. The table will be updated as new information is uploaded and will only show the 10 most recent datasets. Users can use the Search function or the Pagination options to retrieve hidden dataset that have been previously made available.",
 	"microdata.table.datasets_title": "Organization Dataset",
 	"microdata.table.organization": "Organization",
