@@ -14,6 +14,7 @@ package org.devgateway.toolkit.forms.wicket.page.edit;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.bean.validation.PropertyValidator;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -103,6 +104,8 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
         url.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         url.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES));
         editForm.add(url);
+        editForm.add(new Label("imageInstructions", new StringResourceModel("imageInstructions", this, null))
+                .setEscapeModelStrings(false));
 
     }
 
