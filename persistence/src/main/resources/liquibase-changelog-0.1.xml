@@ -36,6 +36,7 @@
         <insert tableName="role">
             <column name="id" valueSequenceNext="hibernate_sequence" />
             <column name="authority" value="ROLE_ADMIN" />
+            <column name="label" value="Administrateur" />
         </insert>
         <sql><![CDATA[
             INSERT INTO person_roles(person_id, roles_id)
@@ -117,6 +118,7 @@
         <insert tableName="role">
             <column name="id" valueSequenceNext="hibernate_sequence" />
             <column name="authority" value="ROLE_EDITOR" />
+            <column name="label" value="Editeur" />
         </insert>
     </changeSet>
 
