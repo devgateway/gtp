@@ -142,7 +142,7 @@ public abstract class ListViewSectionPanel<T extends AbstractAuditableEntity, PA
         listWrapper.add(totalEntriesLabel);
 
         Label showHide = new Label("showHide", new ResourceModel("showHide"));
-        listWrapper.add(showHide);
+        showHideAllEntries.add(showHide);
 
     }
 

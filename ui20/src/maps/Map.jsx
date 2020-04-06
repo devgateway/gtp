@@ -230,10 +230,9 @@ export default class D3Map extends Component < {},
 
       this.g.selectAll('path')
         .style('fill', (d) => fid && d.properties.fid === fid ? getFillColor(d.properties.value) : remark?"#FFF":getFillColor(d.properties.value) )
-        .style('stroke', (d) => fid && d.properties.fid === fid ? '#EEE' : '#EEE');
+        .style('stroke', (d) => fid && d.properties.fid === fid ? '#898c83' : '#898c83');
 
       this.g.transition().duration(duration)
-        .style("stroke-width", 1.5 / scale + "px")
         .attr("transform", "translate(" + translate + ") scale(" + scale + ")");
 
     }

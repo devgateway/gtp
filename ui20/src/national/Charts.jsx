@@ -239,29 +239,29 @@ const getCondition = (reverse, current, target, reference) => {
 }
 
 
-const CustomMarker = (props) => {
+const CustomMarker =injectIntl( (props) => {
     const { x, y,size,value,metadata, index,width,rotation,onClick, height, color, onMouseEnter, onMouseMove, onMouseLeave , intl,refData} = props
+
+    debugger;
+
     return (
 
       <g
         className="marker"
         onMouseEnter={e=>{
-
+            debugger;
             showTooltip(e,`${index==1?`${intl.formatMessage(messages.national_indicators_target)}: ${metadata.targetYear} `:`${intl.formatMessage(messages.national_indicators_reference)}: ${metadata.referenceYear}`} -  <b>${metadata.referenceValue} ${metadata.measure}</b> `,color)
         }}
         onMouseMove={e=>moveTooltip(e)}
-        onMouseLeave={hideTooltip}
-        >
+        onMouseLeave={hideTooltip}>
 
         <rect   transform={`rotate(${rotation}, ${x}, ${y})`} x={x} y={y - size / 2} width="7" height={size}
                       fill={color}
                       rx="5"
                       ry="5"/>
-
-
       </g>
   )
-}
+})
 
 
 export const Bullet =injectIntl(({ data , metadata ,refData, intl, keys,indexBy , groupMode, color}) => {

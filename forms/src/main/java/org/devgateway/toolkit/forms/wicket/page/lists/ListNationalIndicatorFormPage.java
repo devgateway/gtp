@@ -13,6 +13,7 @@ package org.devgateway.toolkit.forms.wicket.page.lists;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -51,6 +52,9 @@ public class ListNationalIndicatorFormPage extends AbstractListPage<NationalIndi
                 "name", NationalIndicator::getName));
         columns.add(new LambdaColumn<>(new StringResourceModel("source", ListNationalIndicatorFormPage.this),
                 "source", NationalIndicator::getSource));
+        columns.add(new PropertyColumn<>(
+                new StringResourceModel("approved", ListNationalIndicatorFormPage.this),
+        "approved", "approvedStr"));
         columns.add(new DirectLinkBootstrapPropertyColumn(new StringResourceModel("link",
                 ListNationalIndicatorFormPage.this), "link"));
     }

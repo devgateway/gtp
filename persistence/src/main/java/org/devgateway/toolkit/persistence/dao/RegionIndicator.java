@@ -16,6 +16,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
+import static org.devgateway.toolkit.persistence.util.Constants.NON_NO;
+import static org.devgateway.toolkit.persistence.util.Constants.OUI_YES;
+
 /**
  * Created by Daniel Oliva
  */
@@ -257,5 +260,10 @@ public class RegionIndicator extends GenericPersistable implements Serializable 
             sb.append(year);
         }
         return sb.toString();
+    }
+
+    @JsonIgnore
+    public String getApprovedStr() {
+        return approved ? OUI_YES : NON_NO;
     }
 }
