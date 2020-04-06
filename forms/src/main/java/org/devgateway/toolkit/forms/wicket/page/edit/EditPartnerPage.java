@@ -14,7 +14,6 @@ package org.devgateway.toolkit.forms.wicket.page.edit;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.bean.validation.PropertyValidator;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -24,7 +23,6 @@ import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.SummernoteBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.components.form.TextAreaFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.util.ComponentUtil;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListPartnerPage;
@@ -87,9 +85,8 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
         editForm.add(logo);
         logo.required();
 
-        TextAreaFieldBootstrapFormComponent<String> contactInfo =
-                new TextAreaFieldBootstrapFormComponent<>("contactInfo");
-        contactInfo.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
+        SummernoteBootstrapFormComponent contactInfo =
+                new SummernoteBootstrapFormComponent("contactInfo");
         editForm.add(contactInfo);
 
 
@@ -104,8 +101,6 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
         url.getField().add(StringValidator.maximumLength(LINK_MAX_LENGTH));
         url.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES));
         editForm.add(url);
-        editForm.add(new Label("imageInstructions", new StringResourceModel("imageInstructions", this, null))
-                .setEscapeModelStrings(false));
 
     }
 

@@ -99,9 +99,11 @@ public class DatasetController {
                         .collect(Collectors.toList());
             }
         }
+        int start = request.getPageNumber() * pageSize;
+        int end = start + pageSize > dtoList.size() ? dtoList.size() : start + pageSize;
+        List<DatasetDTO> ret = dtoList.subList(start, end);
 
-
-        return new PageImpl(dtoList, pageable, dtoList.size());
+        return new PageImpl(ret, pageable, dtoList.size());
     }
 
     @CrossOrigin

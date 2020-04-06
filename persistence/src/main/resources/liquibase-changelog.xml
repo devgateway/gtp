@@ -1065,4 +1065,15 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="PartnerContactInfo" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <columnExists tableName="partner" columnName="contact_info" />
+        </preConditions>
+        <sql><![CDATA[
+
+            ALTER TABLE partner ALTER COLUMN contact_info TYPE varchar(32000);
+
+        ]]></sql>
+    </changeSet>
+
 </databaseChangeLog>
