@@ -11,7 +11,7 @@ import org.devgateway.toolkit.persistence.dao.ipar.categories.CropSubType;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.CropType;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.Gender;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.IndexType;
-import org.devgateway.toolkit.persistence.dao.categories.LocationType;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.LocationType;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.LossType;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.MethodOfEnforcement;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
@@ -43,7 +43,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -13,7 +13,7 @@ import org.devgateway.toolkit.persistence.dao.ipar.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dao.ipar.Region;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.Gender;
-import org.devgateway.toolkit.persistence.dao.categories.LocationType;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.LocationType;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.PovertyLevel;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.ProfessionalActivity;
 import org.devgateway.toolkit.persistence.repository.ipar.PovertyDatasetRepository;
@@ -27,7 +27,6 @@ import org.devgateway.toolkit.persistence.util.ImportUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * Created by Daniel Oliva
