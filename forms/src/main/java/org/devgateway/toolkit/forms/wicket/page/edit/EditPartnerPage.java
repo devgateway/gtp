@@ -14,6 +14,7 @@ package org.devgateway.toolkit.forms.wicket.page.edit;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.bean.validation.PropertyValidator;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -81,7 +82,8 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
         editForm.add(groupType);
         groupType.required();
 
-        FileInputBootstrapFormComponent logo = new FileInputBootstrapFormComponent("logo").maxFiles(1);
+        FileInputBootstrapFormComponent logo = new FileInputBootstrapFormComponent("logo",
+                new ResourceModel("tooltipNote")).maxFiles(1);
         editForm.add(logo);
         logo.required();
 
