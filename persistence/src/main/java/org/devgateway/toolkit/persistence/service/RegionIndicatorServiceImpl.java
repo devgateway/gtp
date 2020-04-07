@@ -133,9 +133,46 @@ public class RegionIndicatorServiceImpl extends BaseJpaServiceImpl<RegionIndicat
         return ret;
     }
 
+    public List<GisIndicatorDTO> getFakeIndicatorDTOsMinimal(String lang) {
+        List<GisIndicatorDTO> ret = new ArrayList<>();
+
+        IndicatorUtils.fillIndicator(lang, ret, povertyRepo.findAllGisDailyConsumptionByRegion(),
+                null, 0);
+
+        //production
+        IndicatorUtils.fillIndicator(lang, ret, prodRepo.findAllGisProductionByRegion(),
+                null, PROD_PROD_TYPE);
+
+        //surface
+        IndicatorUtils.fillIndicator(lang, ret, prodRepo.findAllGisSurfaceByRegion(),
+                null, PROD_SURFACE_TYPE);
+
+        //yield
+        IndicatorUtils.fillIndicator(lang, ret, prodRepo.findAllGisYieldByRegion(),
+                null, PROD_YIELD_TYPE);
+
+        //daily
+        IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllGisDailyByRegion(),
+                null, CONS_DAILY_TYPE);
+
+        //weekly
+        IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllGisWeeklyByRegion(),
+                null, CONS_WEEKLY_TYPE);
+
+        //Size
+        IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllGisSizeByRegion(),
+                null, CONS_SIZE_TYPE);
+        return ret;
+    }
+
     @Override
     public List<RegionIndicator> findAllFake() {
         return repository.findAllFake();
+    }
+
+    @Override
+    public void deleteAllFake() {
+        repository.deleteFake();
     }
 
 }

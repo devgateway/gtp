@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.repository;
 
 import org.devgateway.toolkit.persistence.dao.RegionIndicator;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,4 +24,10 @@ public interface RegionIndicatorRepository extends BaseJpaRepository<RegionIndic
             + "from RegionIndicator r "
             + "where r.fakeIndicatorFlag = true")
     List<RegionIndicator> findAllFake();
+
+    @Transactional
+    @Modifying
+    @Query("delete from RegionIndicator r "
+            + "where r.fakeIndicatorFlag = true")
+    void deleteFake();
 }

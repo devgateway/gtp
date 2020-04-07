@@ -94,8 +94,8 @@ public class EditProductionDatasetPage extends AbstractEditDatasePage<Production
                     target.add(feedbackPanel);
                     redirectToSelf = true;
                 } else {
-                    addDepartmentsFakeIndicators();
-                    addRegionFakeIndicators();
+                    updateDepartmentsFakeIndicators();
+                    updateRegionFakeIndicators();
                     markupCacheService.clearAllCaches();
                 }
                 cacheService.releaseCache();
@@ -126,8 +126,8 @@ public class EditProductionDatasetPage extends AbstractEditDatasePage<Production
                 ProductionDataset deleteable = editForm.getModelObject();
                 try {
                     jpaService.delete(deleteable);
-                    removeRegionFakeIndicators();
-                    removeDepFakeIndicators();
+                    updateRegionFakeIndicators();
+                    updateDepartmentsFakeIndicators();
                     flushReportingCaches();
                 } catch (DataIntegrityViolationException e) {
                     error(new NotificationMessage(

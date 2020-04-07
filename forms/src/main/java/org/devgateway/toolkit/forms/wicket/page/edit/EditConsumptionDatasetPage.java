@@ -94,8 +94,8 @@ public class EditConsumptionDatasetPage extends AbstractEditDatasePage<Consumpti
                     target.add(feedbackPanel);
                     redirectToSelf = true;
                 } else {
-                    addDepartmentsFakeIndicators();
-                    addRegionFakeIndicators();
+                    updateDepartmentsFakeIndicators();
+                    updateRegionFakeIndicators();
                     markupCacheService.clearAllCaches();
                 }
                 cacheService.releaseCache();
@@ -126,8 +126,8 @@ public class EditConsumptionDatasetPage extends AbstractEditDatasePage<Consumpti
                 ConsumptionDataset deleteable = editForm.getModelObject();
                 try {
                     jpaService.delete(deleteable);
-                    removeRegionFakeIndicators();
-                    removeDepFakeIndicators();
+                    updateRegionFakeIndicators();
+                    updateDepartmentsFakeIndicators();
                     flushReportingCaches();
                 } catch (DataIntegrityViolationException e) {
                     error(new NotificationMessage(

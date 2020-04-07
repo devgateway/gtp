@@ -94,7 +94,7 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<Pove
                     target.add(feedbackPanel);
                     redirectToSelf = true;
                 } else {
-                    addRegionFakeIndicators();
+                    updateRegionFakeIndicators();
                     markupCacheService.clearAllCaches();
                 }
                 cacheService.releaseCache();
@@ -125,7 +125,7 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<Pove
                 PovertyDataset deleteable = editForm.getModelObject();
                 try {
                     jpaService.delete(deleteable);
-                    removeRegionFakeIndicators();
+                    updateRegionFakeIndicators();
                     flushReportingCaches();
                 } catch (DataIntegrityViolationException e) {
                     error(new NotificationMessage(
