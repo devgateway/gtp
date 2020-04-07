@@ -14,7 +14,10 @@
  */
 package org.devgateway.toolkit.forms.wicket.page.edit;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.StringValidator;
@@ -28,6 +31,7 @@ import org.devgateway.toolkit.persistence.dao.MicrodataLink;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.devgateway.toolkit.persistence.repository.category.OrganizationRepository;
 import org.devgateway.toolkit.persistence.service.MicrodataLinkService;
+import org.devgateway.toolkit.persistence.service.ReleaseCacheService;
 import org.devgateway.toolkit.persistence.service.TextSearchableAdapter;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -46,6 +50,9 @@ public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
 
     @SpringBean
     private OrganizationRepository orgRepo;
+
+    @SpringBean
+    private ReleaseCacheService cacheService;
 
 
     /**
@@ -89,6 +96,27 @@ public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
         linkField.getField().add(new UrlValidator(UrlValidator.ALLOW_2_SLASHES));
         linkField.required();
         editForm.add(linkField);
+    }
+
+    @Override
+    public SaveEditPageButton getSaveEditPageButton() {
+        return new SaveEditPageButton("save", new StringResourceModel("save", EditMicrodataLinkPage.this, null)) {
+            private static final long serialVersionUID = 5214537995514151323L;
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
+                MicrodataLink link = editForm.getModelObject();
+                if (StringUtils.isBlank(link.getTitle())) {
+                    link.setTitle(link.getTitleFr());
+                }
+                if (StringUtils.isBlank(link.getDescription())) {
+                    link.setDescription(link.getDescriptionFr());
+                }
+                jpaService.save(link);
+                cacheService.releaseCache();
+                setResponsePage(listPageClass);
+
+            }
+        };
     }
 
 }
