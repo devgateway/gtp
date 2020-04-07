@@ -192,6 +192,7 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
                 }
                 ri.setFakeIndicatorFlag(true);
                 ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
+                ri.setApproved(true);
                 depService.saveAndFlush(ri);
             }
         }
@@ -214,6 +215,7 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
                     ri.setNameFr(frDTO.getName());
                 }
                 ri.setFakeIndicatorFlag(true);
+                ri.setApproved(true);
                 ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
                 regionService.saveAndFlush(ri);
             }

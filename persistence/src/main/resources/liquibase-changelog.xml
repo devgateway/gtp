@@ -1076,4 +1076,16 @@
         ]]></sql>
     </changeSet>
 
+
+    <changeSet id="UpdateRegionDepartmentApproved" author="Daniel Oliva">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="department_indicator" />
+            <tableExists tableName="region_indicator" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE region_indicator set approved = true WHERE fake_indicator_flag = true;
+            UPDATE department_indicator set approved = true WHERE fake_indicator_flag = true;
+        ]]></sql>
+    </changeSet>
+
 </databaseChangeLog>
