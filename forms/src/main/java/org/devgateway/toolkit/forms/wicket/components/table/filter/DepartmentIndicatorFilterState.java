@@ -50,7 +50,7 @@ public class DepartmentIndicatorFilterState extends JpaFilterState<DepartmentInd
                 predicates.add(cb.like(cb.lower(organizationJoin.get(Organization_.label)),
                         "%" + organization.toLowerCase() + "%"));
             }
-            query.orderBy(new OrderImpl(root.get(DepartmentIndicator_.NAME), true));
+            query.orderBy(new OrderImpl(root.get(DepartmentIndicator_.NAME_FR), true));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
