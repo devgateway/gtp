@@ -55,13 +55,22 @@ public class SendEmailService {
         final SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(person.getEmail());
         msg.setFrom(recoveryProperties.getFrom());
-        msg.setSubject("Recover your password");
-        msg.setText("Dear " + person.getFirstName() + " " + person.getLastName() + ",\n\n"
+        msg.setSubject("Retrouver votre mot de passe/Recover your password");
+        msg.setText("Cher(ère) " + person.getFirstName() + " " + person.getLastName() + ",\n\n"
+                + "Veuillez utiliser ce lien pour modifier le mot de passe permettant de vous connecter à la "
+                + "plateforme Agridata: " + url + "\n"
+                + "Ce lien sera valide pour 1H\n"
+                + "Votre identifiant est: " + person.getUsername() + ".\n\n"
+                + "Merci,\n"
+                + "L'équipe Agridata"
+                + "\n"
+                + "------------------------------------------------------------------------------------------"
+                + "Dear " + person.getFirstName() + " " + person.getLastName() + ",\n\n"
                 + "Please use this link to change your password for AD3 IPAR: " + url + "\n"
                 + "This link will expire in an hour.\n"
                 + "Your username is: " + person.getUsername() + ".\n\n"
                 + "Thank you,\n"
-                + "AD3 IPAR Team");
+                + "The Agridata Team");
 
         try {
             javaMailSenderImpl.send(msg);
