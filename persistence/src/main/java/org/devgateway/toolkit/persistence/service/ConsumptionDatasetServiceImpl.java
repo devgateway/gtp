@@ -4,7 +4,7 @@ import org.devgateway.toolkit.persistence.dao.ConsumptionDataset;
 import org.devgateway.toolkit.persistence.repository.ConsumptionDatasetRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Daniel Oliva
  */
 @Service("consumptionDatasetService")
-@CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class ConsumptionDatasetServiceImpl extends BaseJpaServiceImpl<ConsumptionDataset>
         implements DatasetService<ConsumptionDataset>  {
@@ -28,6 +27,18 @@ public class ConsumptionDatasetServiceImpl extends BaseJpaServiceImpl<Consumptio
     @Override
     public ConsumptionDataset newInstance() {
         return new ConsumptionDataset();
+    }
+
+    @Override
+    @CacheEvict(value = "consumptionCache", allEntries = true)
+    public ConsumptionDataset saveAndFlush(ConsumptionDataset dataset) {
+        return super.saveAndFlush(dataset);
+    }
+
+    @Override
+    @CacheEvict(value = "consumptionCache", allEntries = true)
+    public void delete(ConsumptionDataset dataset) {
+        super.delete(dataset);
     }
 
 }

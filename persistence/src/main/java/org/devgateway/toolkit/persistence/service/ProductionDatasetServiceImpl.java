@@ -5,6 +5,7 @@ import org.devgateway.toolkit.persistence.repository.ProductionDatasetRepository
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,18 @@ public class ProductionDatasetServiceImpl extends BaseJpaServiceImpl<ProductionD
     @Override
     public ProductionDataset newInstance() {
         return new ProductionDataset();
+    }
+
+    @Override
+    @CacheEvict(value = "productionCache", allEntries = true)
+    public ProductionDataset saveAndFlush(ProductionDataset dataset) {
+        return super.saveAndFlush(dataset);
+    }
+
+    @Override
+    @CacheEvict(value = "productionCache", allEntries = true)
+    public void delete(ProductionDataset dataset) {
+        super.delete(dataset);
     }
 
 }
