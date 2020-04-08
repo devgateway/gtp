@@ -171,6 +171,11 @@ public abstract class BasePage extends GenericWebPage<Void> {
         mainHeader = new Header("mainHeader", this.getPageParameters());
         add(mainHeader);
 
+        if (SecurityUtil.getCurrentAuthenticatedPerson() == null) {
+            ChangeLanguageLink changeLanguageLink = new ChangeLanguageLink(Locale.FRENCH);
+            changeLanguageLink.onClick();
+        }
+
         navbar = newNavbar("navbar");
         mainHeader.add(navbar);
 
@@ -515,9 +520,13 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         null, new StringResourceModel("navbar.departmentIndicator", this, null))
                         .setIconType(FontAwesomeIconType.map_marker));
 
-                list.add(new MenuBookmarkablePageLink<>(EditGisSettingsPage.class,
-                        new StringResourceModel("navbar.gisSettings", BasePage.this, null))
-                        .setIconType(FontAwesomeIconType.map));
+                if (SecurityUtil.getCurrentAuthenticatedPerson() != null
+                        && SecurityUtil.getCurrentAuthenticatedPerson().getRoles().stream()
+                        .anyMatch(str -> str.getAuthority().equals(SecurityConstants.Roles.ROLE_ADMIN))) {
+                    list.add(new MenuBookmarkablePageLink<>(EditGisSettingsPage.class,
+                            new StringResourceModel("navbar.gisSettings", BasePage.this, null))
+                            .setIconType(FontAwesomeIconType.map));
+                }
 
                 return list;
             }

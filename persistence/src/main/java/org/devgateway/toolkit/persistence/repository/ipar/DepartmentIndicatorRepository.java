@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.repository.ipar;
 
 import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,4 +26,10 @@ public interface DepartmentIndicatorRepository extends BaseJpaRepository<Departm
             + "from DepartmentIndicator r "
             + "where r.fakeIndicatorFlag = true")
     List<DepartmentIndicator> findAllFake();
+
+    @Transactional
+    @Modifying
+    @Query("delete from DepartmentIndicator r "
+            + "where r.fakeIndicatorFlag = true")
+    void deleteFake();
 }

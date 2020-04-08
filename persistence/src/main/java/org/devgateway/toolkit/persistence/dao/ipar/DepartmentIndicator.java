@@ -18,6 +18,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
+import static org.devgateway.toolkit.persistence.util.Constants.NON_NO;
+import static org.devgateway.toolkit.persistence.util.Constants.OUI_YES;
+
 /**
  * TODO
  * Please consider use National, Region and Department indicators in one tables, for this project we created
@@ -263,5 +266,10 @@ public class DepartmentIndicator extends GenericPersistable implements Serializa
             sb.append(year);
         }
         return sb.toString();
+    }
+    
+    @JsonIgnore
+    public String getApprovedStr() {
+        return approved ? OUI_YES : NON_NO;
     }
 }

@@ -7,6 +7,7 @@ import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaReposit
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,18 @@ public class PovertyDatasetServiceImpl extends BaseJpaServiceImpl<PovertyDataset
     @Override
     public PovertyDataset newInstance() {
         return new PovertyDataset();
+    }
+
+    @Override
+    @CacheEvict(value = "povertyCache", allEntries = true)
+    public PovertyDataset saveAndFlush(PovertyDataset dataset) {
+        return super.saveAndFlush(dataset);
+    }
+
+    @Override
+    @CacheEvict(value = "povertyCache", allEntries = true)
+    public void delete(PovertyDataset dataset) {
+        super.delete(dataset);
     }
 
 }

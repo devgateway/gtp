@@ -84,7 +84,7 @@ public class ConsumptionImporter extends AbstractImportService<Consumption> {
                 rowNumber++;
                 Row row = rowIterator.next();
                 //Extract data
-                Double yearD = ImportUtils.getDoubleFromCell(row.getCell(1));
+                Double yearD = ImportUtils.getDoubleFromCell(row.getCell(0));
                 if (yearD == null) {
                     throw new Exception(YEAR_IS_MISSING);
                 }

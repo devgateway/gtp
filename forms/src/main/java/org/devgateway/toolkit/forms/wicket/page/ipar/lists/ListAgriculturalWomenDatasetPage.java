@@ -62,5 +62,6 @@ public class ListAgriculturalWomenDatasetPage extends AbstractListPage<Agricultu
         if (organization != null && !isAdmin()) {
             return new DatasetFilterState(organization.getLabel());
         }
-        return new DatasetFilterState();    }
+        return new DatasetFilterState();
+    }
 }

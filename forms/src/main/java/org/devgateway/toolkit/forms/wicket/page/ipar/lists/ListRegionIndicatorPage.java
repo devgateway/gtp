@@ -51,6 +51,9 @@ public class ListRegionIndicatorPage extends AbstractListPage<RegionIndicator> {
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("year", ListRegionIndicatorPage.this), "year",
                 "year"));
+        columns.add(new PropertyColumn<>(
+                new StringResourceModel("approved", ListRegionIndicatorPage.this),
+        "approved", "approvedStr"));
     }
 
     @Override

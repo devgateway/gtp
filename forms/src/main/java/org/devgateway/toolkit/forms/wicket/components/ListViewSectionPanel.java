@@ -75,6 +75,7 @@ public abstract class ListViewSectionPanel<T extends AbstractAuditableEntity, PA
         add(listWrapper);
 
         listWrapper.add(new Label("panelTitle", title));
+        listWrapper.add(new Label("notes", new ResourceModel("notes")));
 
         listWrapper.add(new Label("totalEntries",
                 (IModel<Integer>) () -> ListViewSectionPanel.this.getModel().getObject().size()));
@@ -142,7 +143,7 @@ public abstract class ListViewSectionPanel<T extends AbstractAuditableEntity, PA
         listWrapper.add(totalEntriesLabel);
 
         Label showHide = new Label("showHide", new ResourceModel("showHide"));
-        listWrapper.add(showHide);
+        showHideAllEntries.add(showHide);
 
     }
 
@@ -251,8 +252,7 @@ public abstract class ListViewSectionPanel<T extends AbstractAuditableEntity, PA
 
             @Override
             protected String getOnClickScript() {
-                return "setTimeout(function () {document.querySelectorAll('*').forEach(function(node) "
-                        + "{ node.blur();});}, 2000);";
+                return "enableFormLeavingConfirmation();";
             }
 
             @Override
@@ -262,7 +262,7 @@ public abstract class ListViewSectionPanel<T extends AbstractAuditableEntity, PA
                 ListViewSectionPanel.this.getModel().getObject().size();
                 ListViewSectionPanel.this.getModel().getObject().add(newChild);
 
-                listView.removeAll();
+                //listView.removeAll();
                 target.add(listWrapper);
             }
 

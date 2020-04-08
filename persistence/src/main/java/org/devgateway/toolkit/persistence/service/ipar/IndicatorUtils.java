@@ -37,7 +37,7 @@ public final class IndicatorUtils {
                 dto.setIndicatorGroup(dto.getName().split(" ")[0]);
                 dto.setNameEnFr(p.getNameEnFr(type));
                 String desc = null;
-                if (description.isPresent()) {
+                if (description != null && description.isPresent()) {
                     if (isFR) {
                         desc = description.get().getDescriptionFr();
                     } else {

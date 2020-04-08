@@ -51,6 +51,9 @@ public class ListDepartmentIndicatorPage extends AbstractListPage<DepartmentIndi
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("year", ListDepartmentIndicatorPage.this), "year",
                 "year"));
+        columns.add(new PropertyColumn<>(
+                new StringResourceModel("approved", ListDepartmentIndicatorPage.this),
+        "approved", "approvedStr"));
     }
 
     @Override

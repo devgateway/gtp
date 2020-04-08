@@ -45,6 +45,8 @@ public final class Constants {
     public static final int PROD_PROD_TYPE = 1;
     public static final int PROD_SURFACE_TYPE = 2;
     public static final int PROD_YIELD_TYPE = 3;
+    public static final String OUI_YES = "Oui/Yes";
+    public static final String NON_NO = "Non/No";
 
     private Constants() {
     }

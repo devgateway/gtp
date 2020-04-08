@@ -35,7 +35,13 @@
     margin-left: 0;
   }
 
+
+
+
+
+
   .ui.dropdown>.dropdown.icon:before {
+
     margin-top: 4px;
     background-size:10px 10px !important;
     }
@@ -70,8 +76,7 @@
   }
 
 
-
-
+  
   .filter.nav.download {
     .icon {
       margin-top: 15px;
@@ -157,19 +162,39 @@
     }
   }
 
+
   .filter.options {
-    columns: 3;
+    width: 400px !important;
+    display: flex !important;
+    
+   /* You can set flex-wrap and
+      flex-direction individually */
+   flex-direction: row;
+   flex-wrap: wrap;
+   /* Or do it all in one line
+     with flex flow */
+   flex-flow: row wrap;
+   /* tweak where items line
+      up on the row
+      valid values are: flex-start,
+      flex-end, space-between,
+      space-around, stretch */
+         align-content: flex-start;
+
     max-height: 500px;
-    padding: 4px 20px;
+    padding: 4px 18px;
 
     .item {
-      height: 40px;
-      line-height: 40px;
+     
+       width: auto;
+      display: block;
+      margin: 10px;
+      line-height: 28px;
       padding: 0 0 0 0 !important;
     }
 
     .checkbox {
-      margin-top: 13px;
+      margin-top: 6px;
     }
     clear: both;
   }
@@ -202,6 +227,27 @@
     padding-left: 2px;
   }
 }
+
+
+.nav{
+    .filter.options{
+      .item{
+        width: 40% !important;
+       
+      }
+    }
+    
+  }
+  .year{
+    .filter.options{
+      .item{
+        width: 20% !important;
+       
+      }
+    }
+
+  }
+  
 
 .indicators.content.fixed {
   color: #818181;

@@ -17,6 +17,7 @@ package org.devgateway.toolkit.forms.wicket.page.ipar.edit;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -118,7 +119,8 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
                 new Select2ChoiceBootstrapFormComponent<>("rapidLinkPosition", choiceProvider);
         editForm.add(rapidLinkPosition);
 
-        FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata").maxFiles(1);
+        FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata",
+                new ResourceModel("tooltipNote")).maxFiles(1);
         fileInput.getField().add((IValidator) new InputImageFileValidator(getString("fileNotAdded"),
                 getString("filenameError")));
         fileInput.required();

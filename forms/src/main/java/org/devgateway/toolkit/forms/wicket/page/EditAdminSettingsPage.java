@@ -56,8 +56,9 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
         editForm.add(rebootServer);
 
         TextFieldBootstrapFormComponent<Integer> startingYear = new TextFieldBootstrapFormComponent<>("startingYear");
-        startingYear.getField().add(new RangeValidator<>("2010", "2030"));
-        editForm.add(startingYear);
+        startingYear.getField().add(RangeValidator.range(1981, 2050));
+        startingYear.integer();
         startingYear.required();
+        editForm.add(startingYear);
     }
 }

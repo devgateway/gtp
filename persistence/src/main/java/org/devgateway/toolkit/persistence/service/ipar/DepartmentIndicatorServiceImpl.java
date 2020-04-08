@@ -130,8 +130,43 @@ public class DepartmentIndicatorServiceImpl extends BaseJpaServiceImpl<Departmen
     }
 
     @Override
+    public List<GisIndicatorDTO> getFakeIndicatorDTOsMinimal(String lang) {
+        List<GisIndicatorDTO> ret = new ArrayList<>();
+
+        //production
+        IndicatorUtils.fillIndicator(lang, ret, prodRepo.findAllGisProductionByDepartment(),
+                null, PROD_PROD_TYPE);
+
+        //surface
+        IndicatorUtils.fillIndicator(lang, ret, prodRepo.findAllGisSurfaceByDepartment(),
+                null, PROD_SURFACE_TYPE);
+
+        //yield
+        IndicatorUtils.fillIndicator(lang, ret, prodRepo.findAllGisYieldByDepartment(),
+                null, PROD_YIELD_TYPE);
+
+        //Daily Consumption
+        IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllGisDailyByDepartment(),
+                null, CONS_DAILY_TYPE);
+
+        //Weekly
+        IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllGisWeeklyByDepartment(),
+                null, CONS_WEEKLY_TYPE);
+
+        //Size
+        IndicatorUtils.fillIndicator(lang, ret, consRepo.findAllSizeByDepartment(),
+                null, CONS_SIZE_TYPE);
+        return ret;
+    }
+
+    @Override
     public List<DepartmentIndicator> findAllFake() {
         return repository.findAllFake();
+    }
+
+    @Override
+    public void deleteAllFake() {
+        repository.deleteFake();
     }
 
 

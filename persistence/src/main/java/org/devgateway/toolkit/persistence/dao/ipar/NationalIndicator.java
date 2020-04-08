@@ -20,6 +20,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.devgateway.toolkit.persistence.util.Constants.NON_NO;
+import static org.devgateway.toolkit.persistence.util.Constants.OUI_YES;
+
 /**
  * Created by Daniel Oliva
  */
@@ -234,5 +237,10 @@ public class NationalIndicator extends AbstractAuditableEntity implements Serial
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    @JsonIgnore
+    public String getApprovedStr() {
+        return approved ? OUI_YES : NON_NO;
     }
 }
