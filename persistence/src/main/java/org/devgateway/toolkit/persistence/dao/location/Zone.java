@@ -69,6 +69,11 @@ public class Zone extends AbstractAuditableEntity implements Serializable, Label
     }
 
     @Override
+    public String toString() {
+        return getLabel();
+    }
+
+    @Override
     public AbstractAuditableEntity getParent() {
         return null;
     }
