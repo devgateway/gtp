@@ -11,12 +11,12 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms;
 
-import java.util.Locale;
-import java.util.Set;
-
 import com.google.common.collect.ImmutableSet;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.devgateway.toolkit.persistence.dao.DBConstants;
+
+import java.util.Locale;
+import java.util.Set;
 
 public final class WebConstants {
 
@@ -26,6 +26,7 @@ public final class WebConstants {
 
     public static final int PAGE_SIZE = 10;
     public static final int SELECT_PAGE_SIZE = 25;
+    public static final int NO_PAGE_SIZE = 999;
 
     public static final String PARAM_VIEW_MODE = "viewMode";
 
@@ -34,6 +35,8 @@ public final class WebConstants {
     public static final String PARAM_ENTITY_CLASS = "class";
 
     public static final class StringValidators {
+        public static final StringValidator MAXIMUM_LENGTH_VALIDATOR_STD_DEFAULT_TEXT =
+                StringValidator.maximumLength(DBConstants.STD_DEFAULT_TEXT_LENGTH);
         public static final StringValidator MAXIMUM_LENGTH_VALIDATOR_ONE_LINE_TEXT =
                 StringValidator.maximumLength(DBConstants.MAX_DEFAULT_TEXT_LENGTH_ONE_LINE);
         public static final StringValidator MAXIMUM_LENGTH_VALIDATOR_ONE_LINE_TEXTAREA =
