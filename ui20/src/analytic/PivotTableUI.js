@@ -173,8 +173,8 @@ var DraggableAttribute = exports.DraggableAttribute = (function (_React$Componen
                   return _this2.props.addValuesToFilter(_this2.props.name, Object.keys(_this2.props.attrValues).filter(_this2.matchesFilter.bind(_this2)))
                 }
               },
-              'Deselect ',
-              values.length === shown.length ? 'All' : shown.length
+              _this2.props.intl.formatMessage(_messages.default.table_filter_deselect)+' ',
+              values.length === shown.length ? _this2.props.intl.formatMessage(_messages.default.table_all)+' ' : shown.length
             )
           ),
           showMenu && _react2.default.createElement(

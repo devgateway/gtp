@@ -230,7 +230,7 @@
 	"table.aggregators.sum_as_fraction_of_total": "Sum as Fraction of Total",
 	"table.aggregators.sum_over_sum": "Sum over Sum",
 	"table.all": "All",
-	"table.deselect_all": "Deselect All",
+	"table.deselect": "Deselect",
 	"table.filter_values": "Filter Values",
 	"table.select": "Select",
 	"table.select_all": "Select All",

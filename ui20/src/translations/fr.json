@@ -231,7 +231,7 @@
 	"table.aggregators.sum_as_fraction_of_total": "Somme en fraction du total",
 	"table.aggregators.sum_over_sum": "Somme totale",
 	"table.all": "Tous",
-	"table.deselect_all": "Aucun",
+	"table.deselect": "Aucun",
 	"table.filter_values": "Filtre",
 	"table.select": "Sélectionner",
 	"table.select_all": "Tous",

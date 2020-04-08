@@ -393,8 +393,8 @@ const messages = defineMessages({
     id: 'table.select_all',
     defaultMessage: 'Select All'
   },
-  table_filter_deselect_all: {
-    id: 'table.deselect_all',
+  table_filter_deselect: {
+    id: 'table.deselect',
     defaultMessage: 'Deselect All'
   },
   count: {
