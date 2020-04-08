@@ -5,6 +5,7 @@ import org.devgateway.toolkit.persistence.dao.RapidLink;
 import org.devgateway.toolkit.persistence.dao.RapidLink_;
 import org.devgateway.toolkit.persistence.dao.categories.RapidLinkPosition;
 import org.devgateway.toolkit.persistence.dao.categories.RapidLinkPosition_;
+import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Join;
@@ -26,6 +27,7 @@ public class RapidLinkFilterState extends JpaFilterState<RapidLink> {
     public Specification<RapidLink> getSpecification() {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
+            Join<RapidLink, RapidLinkPosition> join = root.join(RapidLink_.RAPID_LINK_POSITION);
             if (StringUtils.isNotBlank(title)) {
                 predicates.add(cb.like(cb.lower(root.get(RapidLink_.TITLE)), "%" + title.toLowerCase() + "%"));
             }
@@ -33,9 +35,9 @@ public class RapidLinkFilterState extends JpaFilterState<RapidLink> {
                 predicates.add(cb.like(cb.lower(root.get(RapidLink_.TITLE_FR)), "%" + titleFr.toLowerCase() + "%"));
             }
             if (StringUtils.isNotBlank(rapidLinkPosition)) {
-                Join<RapidLink, RapidLinkPosition> join = root.join(RapidLink_.RAPID_LINK_POSITION);
                 predicates.add(cb.like(join.get(RapidLinkPosition_.LABEL), "%" + rapidLinkPosition + "%"));
             }
+            query.orderBy(new OrderImpl(join.get(RapidLinkPosition_.DESCRIPTION), true));
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }

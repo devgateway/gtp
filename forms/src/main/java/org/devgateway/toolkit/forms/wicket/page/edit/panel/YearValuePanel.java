@@ -33,9 +33,9 @@ public class YearValuePanel extends ListViewSectionPanel<NationalIndicatorYearVa
     @Override
     public void populateCompoundListItem(final ListItem<NationalIndicatorYearValue> item) {
         final TextFieldBootstrapFormComponent<String> year = ComponentUtil.addTextField(item, "year");
-        year.required();
+        ComponentUtil.addRequiredFlagBootstrapFormComponent(true, item, year);
 
         final TextFieldBootstrapFormComponent<Double> value = ComponentUtil.addDoubleField(item, "value");
-        value.required();
+        ComponentUtil.addRequiredFlagBootstrapFormComponent(true, item, value);
     }
 }

@@ -17,8 +17,10 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditPartnerPage;
 import org.devgateway.toolkit.persistence.dao.Partner;
+import org.devgateway.toolkit.persistence.dao.Partner_;
 import org.devgateway.toolkit.persistence.service.PartnerService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -49,5 +51,10 @@ public class ListPartnerPage extends AbstractListPage<Partner> {
 
         // enable excel download
         //excelForm.setVisibilityAllowed(true);
+    }
+
+    @Override
+    public JpaFilterState<Partner> newFilterState() {
+        return new JpaFilterState(Partner_.NAME);
     }
 }

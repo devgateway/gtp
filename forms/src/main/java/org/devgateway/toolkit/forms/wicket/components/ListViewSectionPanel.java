@@ -252,8 +252,7 @@ public abstract class ListViewSectionPanel<T extends AbstractAuditableEntity, PA
 
             @Override
             protected String getOnClickScript() {
-                return "setTimeout(function () {document.querySelectorAll('*').forEach(function(node) "
-                        + "{ node.blur();});}, 2000);";
+                return "enableFormLeavingConfirmation();";
             }
 
             @Override
@@ -263,7 +262,7 @@ public abstract class ListViewSectionPanel<T extends AbstractAuditableEntity, PA
                 ListViewSectionPanel.this.getModel().getObject().size();
                 ListViewSectionPanel.this.getModel().getObject().add(newChild);
 
-                listView.removeAll();
+                //listView.removeAll();
                 target.add(listWrapper);
             }
 

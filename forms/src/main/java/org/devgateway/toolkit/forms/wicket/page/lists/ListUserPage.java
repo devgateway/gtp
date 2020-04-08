@@ -17,8 +17,10 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.user.EditUserPageElevated;
 import org.devgateway.toolkit.persistence.dao.Person;
+import org.devgateway.toolkit.persistence.dao.Person_;
 import org.devgateway.toolkit.persistence.service.PersonService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -53,5 +55,10 @@ public class ListUserPage extends AbstractListPage<Person> {
 
         // enable excel download
         //excelForm.setVisibilityAllowed(true);
+    }
+
+    @Override
+    public JpaFilterState<Person> newFilterState() {
+        return new JpaFilterState(Person_.USERNAME);
     }
 }
