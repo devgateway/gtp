@@ -58,6 +58,7 @@ var DraggableAttribute = exports.DraggableAttribute = (function (_React$Componen
     var _this = _possibleConstructorReturn(this, (DraggableAttribute.__proto__ || Object.getPrototypeOf(DraggableAttribute)).call(this, props))
 
     _this.state = { open: false, filterText: '' }
+    debugger;
     return _this
   }
 
@@ -139,10 +140,11 @@ var DraggableAttribute = exports.DraggableAttribute = (function (_React$Componen
             null,
             _react2.default.createElement('input', {
               type: 'text',
-              placeholder: 'Filter values',
+              placeholder:_this2.props.intl.formatMessage(_messages.default.table_filter_values),
               className: 'pvtSearch',
               value: this.state.filterText,
               onChange: function onChange (e) {
+
                 return _this2.setState({
                   filterText: e.target.value
                 })
@@ -158,8 +160,8 @@ var DraggableAttribute = exports.DraggableAttribute = (function (_React$Componen
                   return _this2.props.removeValuesFromFilter(_this2.props.name, Object.keys(_this2.props.attrValues).filter(_this2.matchesFilter.bind(_this2)))
                 }
               },
-              'Select ',
-              values.length === shown.length ? 'All' : shown.length
+              _this2.props.intl.formatMessage(_messages.default.table_select)+' ', values.length === shown.length ?
+              _this2.props.intl.formatMessage(_messages.default.table_all)+' ' : shown.length
             ),
             ' ',
             _react2.default.createElement(
@@ -223,6 +225,7 @@ var DraggableAttribute = exports.DraggableAttribute = (function (_React$Componen
   }, {
     key: 'render',
     value: function render () {
+      debugger;
       var filtered = Object.keys(this.props.valueFilter).length !== 0 ? 'pvtFilteredAttribute' : ''
       return _react2.default.createElement(
         'li',
@@ -498,7 +501,9 @@ var PivotTableUI = (function (_React$PureComponent2) {
           onChange: onChange
         },
         items.map(function (x) {
+
           return _react2.default.createElement(DraggableAttribute, {
+            intl:_this7.props.intl,
             name: x,
             key: x,
             attrValues: _this7.attrValues[x],
@@ -518,7 +523,7 @@ var PivotTableUI = (function (_React$PureComponent2) {
     key: 'render',
     value: function render () {
       var _this8 = this
-
+      debugger;
       var numValsAllowed = this.props.aggregators[this.props.aggregatorName]([])().numInputs || 0
 
       var rendererName = this.props.rendererName in this.props.renderers ? this.props.rendererName : Object.keys(this.props.renderers)[0]

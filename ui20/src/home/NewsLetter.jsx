@@ -2,11 +2,12 @@ import React, {Component,useState} from 'react';
 import {connect} from 'react-redux';
 import {injectIntl, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 import {doSubscribe} from '../modules/newsLetter'
+import messages from '../translations/messages'
 import './newsletter.scss';
 
 
-const newsLetter = injectIntl(({onSubscribe}) => {
-
+const newsLetter = injectIntl(({onSubscribe, intl}) => {
+  debugger;
   const [email, setEmail] = useState('');
   const [enabled, setEnabled] = useState(false);
 
@@ -44,8 +45,10 @@ const newsLetter = injectIntl(({onSubscribe}) => {
     </div>
     <div className="btn-group">
         <form  onSubmit={handleSubscription} action="https://gmail.us19.list-manage.com/subscribe/post?u=bf5d2580ed54286720f7ebd3c&amp;id=35d5eec81f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-            <input type="email" onChange={handleEmailChange} value={email} className="input-news-letter-suscribe" name="EMAIL"  id="mce-EMAIL" placeholder="email address" required />
-            <input className={`btn-news-letter-suscribe ${enabled?'enabled':'disabled'}`}  type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" />
+            <input type="email" onChange={handleEmailChange} value={email} className="input-news-letter-suscribe" name="EMAIL"  id="mce-EMAIL"
+             placeholder={intl.formatMessage(messages.home_newsletter_email_place_holder)} required />
+            <input className={`btn-news-letter-suscribe ${enabled?'enabled':'disabled'}`}
+            type="submit" value={intl.formatMessage(messages.home_newsletter_button_subscribe)} name="subscribe" id="mc-embedded-subscribe" />
             <input type="hidden" s name="b_bf5d2580ed54286720f7ebd3c_35d5eec81f" tabindex="-1" value=""/>
         </form>
     </div>
@@ -56,7 +59,7 @@ const newsLetter = injectIntl(({onSubscribe}) => {
 
 
 const mapStateToProps = state => {
-  
+
 return {}
 }
 
