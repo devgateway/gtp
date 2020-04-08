@@ -3,6 +3,8 @@ package org.devgateway.toolkit.persistence.repository.ipar;
 import org.devgateway.toolkit.persistence.dao.ipar.PovertyIndicator;
 import org.devgateway.toolkit.persistence.dto.ipar.GisDTOPoverty;
 import org.devgateway.toolkit.persistence.repository.norepository.AuditedEntityRepository;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +17,10 @@ import java.util.List;
  */
 @NoRepositoryBean
 @Transactional
+@CacheConfig(cacheNames = "povertyCache")
 public interface PovertyIndicatorRepository extends AuditedEntityRepository<PovertyIndicator> {
 
+    @Cacheable
     @Query("select new org.devgateway.toolkit.persistence.dto.GisDTOPoverty(p.year, r.code, "
             + "avg(p.povertyScore) as value, d.source) from PovertyIndicator p "
             + "join p.region as r "

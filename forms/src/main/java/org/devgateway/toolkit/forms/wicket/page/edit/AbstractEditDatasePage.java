@@ -22,6 +22,7 @@ import org.devgateway.toolkit.persistence.dao.ipar.Data;
 import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
 import org.devgateway.toolkit.persistence.dao.ipar.DepartmentIndicator;
 import org.devgateway.toolkit.persistence.dao.ipar.RegionIndicator;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.IndicatorGroup;
 import org.devgateway.toolkit.persistence.dto.ipar.GisIndicatorDTO;
 import org.devgateway.toolkit.persistence.repository.ipar.category.IndicatorGroupRepository;
 import org.devgateway.toolkit.persistence.service.ipar.ImportService;
@@ -176,74 +177,45 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
     }
 
     @Transactional
-    protected void addDepartmentsFakeIndicators() {
-        List<GisIndicatorDTO> listEn = depService.getFakeIndicatorDTOs(null);
-        Map<Long, GisIndicatorDTO> listFr = depService.getFakeIndicatorDTOs(Constants.LANG_FR)
+    protected void updateDepartmentsFakeIndicators() {
+        depService.deleteAllFake();
+        List<GisIndicatorDTO> listEn = depService.getFakeIndicatorDTOsMinimal(null);
+        Map<Long, GisIndicatorDTO> listFr = depService.getFakeIndicatorDTOsMinimal(Constants.LANG_FR)
                 .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
-        Map<String, DepartmentIndicator> indicatorList = depService.findAllFake().stream()
-                .collect(Collectors.toMap(DepartmentIndicator::getName, r -> r));
+        IndicatorGroup indicatorGroup = indicatorGroupRepository.findAll().get(0);
 
         for (GisIndicatorDTO enDTO : listEn) {
-            if (!indicatorList.containsKey(enDTO.getName())) {
-                DepartmentIndicator ri = new DepartmentIndicator();
-                ri.setName(enDTO.getName());
-                GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
-                if (frDTO != null) {
-                    ri.setNameFr(frDTO.getName());
-                }
-                ri.setFakeIndicatorFlag(true);
-                ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
-                depService.saveAndFlush(ri);
+            DepartmentIndicator ri = new DepartmentIndicator();
+            ri.setName(enDTO.getName());
+            GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
+            if (frDTO != null) {
+                ri.setNameFr(frDTO.getName());
             }
+            ri.setFakeIndicatorFlag(true);
+            ri.setIndicatorGroup(indicatorGroup);
+            ri.setApproved(true);
+            depService.save(ri);
         }
     }
 
     @Transactional
-    protected void addRegionFakeIndicators() {
-        List<GisIndicatorDTO> listEn = regionService.getFakeIndicatorDTOs(null);
-        Map<Long, GisIndicatorDTO> listFr = regionService.getFakeIndicatorDTOs(Constants.LANG_FR)
+    protected void updateRegionFakeIndicators() {
+        regionService.deleteAllFake();
+        List<GisIndicatorDTO> listEn = regionService.getFakeIndicatorDTOsMinimal(null);
+        Map<Long, GisIndicatorDTO> listFr = regionService.getFakeIndicatorDTOsMinimal(Constants.LANG_FR)
                 .stream().collect(Collectors.toMap(GisIndicatorDTO::getId, r -> r));
-        Map<String, RegionIndicator> indicatorList = regionService.findAllFake().stream()
-                .collect(Collectors.toMap(RegionIndicator::getName, r -> r));
-
+        IndicatorGroup indicatorGroup = indicatorGroupRepository.findAll().get(0);
         for (GisIndicatorDTO enDTO : listEn) {
-            if (!indicatorList.containsKey(enDTO.getName())) {
-                RegionIndicator ri = new RegionIndicator();
-                ri.setName(enDTO.getName());
-                GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
-                if (frDTO != null) {
-                    ri.setNameFr(frDTO.getName());
-                }
-                ri.setFakeIndicatorFlag(true);
-                ri.setIndicatorGroup(indicatorGroupRepository.findAll().get(0));
-                regionService.saveAndFlush(ri);
+            RegionIndicator ri = new RegionIndicator();
+            ri.setName(enDTO.getName());
+            GisIndicatorDTO frDTO = listFr.get(enDTO.getId());
+            if (frDTO != null) {
+                ri.setNameFr(frDTO.getName());
             }
-        }
-    }
-
-    @Transactional
-    protected void removeRegionFakeIndicators() {
-        Map<String, GisIndicatorDTO> mapFake = regionService.getFakeIndicatorDTOs(null).stream()
-                .collect(Collectors.toMap(GisIndicatorDTO::getName, r -> r));
-        List<RegionIndicator> indicatorList = regionService.findAllFake();
-
-        for (RegionIndicator ri : indicatorList) {
-            if (!mapFake.containsKey(ri.getName())) {
-                regionService.delete(ri);
-            }
-        }
-    }
-
-
-    protected void removeDepFakeIndicators() {
-        Map<String, GisIndicatorDTO> mapFake = depService.getFakeIndicatorDTOs(null).stream()
-                .collect(Collectors.toMap(GisIndicatorDTO::getName, r -> r));
-        List<DepartmentIndicator> indicatorList = depService.findAllFake();
-
-        for (DepartmentIndicator ri : indicatorList) {
-            if (!mapFake.containsKey(ri.getName())) {
-                depService.delete(ri);
-            }
+            ri.setFakeIndicatorFlag(true);
+            ri.setApproved(true);
+            ri.setIndicatorGroup(indicatorGroup);
+            regionService.save(ri);
         }
     }
 }

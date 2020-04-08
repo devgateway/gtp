@@ -15,4 +15,8 @@ public interface DepartmentIndicatorService extends BaseJpaService<DepartmentInd
     List<GisIndicatorDTO> getFakeIndicatorDTOs(String lang);
 
     List<DepartmentIndicator> findAllFake();
+
+    List<GisIndicatorDTO> getFakeIndicatorDTOsMinimal(String lang);
+
+    void deleteAllFake();
 }

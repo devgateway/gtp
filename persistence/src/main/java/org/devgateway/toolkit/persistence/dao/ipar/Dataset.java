@@ -17,14 +17,15 @@ import org.devgateway.toolkit.persistence.dao.categories.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import static org.devgateway.toolkit.persistence.util.Constants.OUI_YES;
+import static org.devgateway.toolkit.persistence.util.Constants.NON_NO;
+
 /**
  * @author Daniel Oliva
  */
 // @Entity
 public class Dataset extends AbstractAuditableEntity implements Serializable, Labelable, Fileable {
 
-    public static final String OUI_YES = "Oui/Yes";
-    public static final String NON_NO = "Non/No";
     private String label;
 
     private String source;

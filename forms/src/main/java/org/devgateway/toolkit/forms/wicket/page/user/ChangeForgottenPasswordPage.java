@@ -110,7 +110,7 @@ public class ChangeForgottenPasswordPage extends BasePage {
                 setVisibilityAllowed(false);
             }
 
-            IndicatingAjaxButton submit = new IndicatingAjaxButton("submit") {
+            IndicatingAjaxButton submit = new IndicatingAjaxButton("submit", new ResourceModel("submit")) {
 
                 @Override
                 protected void onSubmit(AjaxRequestTarget target) {

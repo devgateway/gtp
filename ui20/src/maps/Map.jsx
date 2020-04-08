@@ -186,7 +186,7 @@ export default class D3Map extends Component < {},
       this.g.selectAll('path').data(json.features).enter().append('path')
       .attr('d', this.path).attr('vector-effect', 'non-scaling-stroke')
       .style('fill', (d)=>this.getFillColor(d.properties.value))
-      .on('click', this.clicked).style('stroke', '#898c83')
+      .on('click', this.clicked).style('stroke', '#CCC')
 
     }
 
@@ -230,10 +230,9 @@ export default class D3Map extends Component < {},
 
       this.g.selectAll('path')
         .style('fill', (d) => fid && d.properties.fid === fid ? getFillColor(d.properties.value) : remark?"#FFF":getFillColor(d.properties.value) )
-        .style('stroke', (d) => fid && d.properties.fid === fid ? '#EEE' : '#EEE');
+        .style('stroke', (d) => fid && d.properties.fid === fid ? '#CCC' : '#CCC');
 
       this.g.transition().duration(duration)
-        .style("stroke-width", 1.5 / scale + "px")
         .attr("transform", "translate(" + translate + ") scale(" + scale + ")");
 
     }

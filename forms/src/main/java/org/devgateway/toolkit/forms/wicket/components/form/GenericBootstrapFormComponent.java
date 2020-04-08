@@ -74,6 +74,8 @@ public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComp
 
     private final IModel<String> labelModel;
 
+    private ResourceModel tooltipNote;
+
     public GenericBootstrapFormComponent(final String id) {
         this(id, null);
     }
@@ -128,6 +130,13 @@ public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComp
             border.add(tooltipLabel);
         } else {
             border.add(new TransparentWebMarkupContainer("tooltipLabel").setVisibilityAllowed(false));
+        }
+        if (tooltipNote != null) {
+            Label label = new Label("tooltipNote", new ResourceModel("tooltipNote"));
+            label.setEscapeModelStrings(false);
+            border.add(label);
+        } else {
+            border.add(new TransparentWebMarkupContainer("tooltipNote").setVisibilityAllowed(false));
         }
 
         add(new TransparentWebMarkupContainer("revisions").setVisibilityAllowed(false)); // this is just a placeholder
@@ -323,5 +332,13 @@ public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComp
 
     public void setShowTooltip(final Boolean showTooltip) {
         this.showTooltip = showTooltip;
+    }
+
+    public ResourceModel getTooltipNote() {
+        return tooltipNote;
+    }
+
+    public void setTooltipNote(ResourceModel tooltipNote) {
+        this.tooltipNote = tooltipNote;
     }
 }

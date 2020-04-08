@@ -38,7 +38,7 @@ public class Partner extends AbstractAuditableEntity implements Serializable {
     @Column(length = 1024)
     private String url;
 
-    @Column(length = 1024)
+    @Column(length = DBConstants.MAX_DEFAULT_TEXT_LENGTH)
     private String contactInfo;
 
     @Column(length = DBConstants.MAX_DEFAULT_TEXT_LENGTH)

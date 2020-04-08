@@ -50,7 +50,8 @@ public class DatasetDTO {
     public DatasetDTO(final MicrodataLink data, String lang) {
         boolean isFr = StringUtils.isNotBlank(lang) && lang.equalsIgnoreCase(LANG_FR);
         this.title = isFr || StringUtils.isBlank(data.getTitle()) ? data.getTitleFr() : data.getTitle();
-        this.description = isFr ? data.getDescriptionFr() : data.getDescription();
+        this.description = isFr || StringUtils.isBlank(data.getTitle()) ? data.getDescriptionFr()
+                : data.getDescription();
         this.link = data.getLink();
         this.organization = data.getOrganization() != null ? data.getOrganization().getLabel() : NOT_AVAILABLE;
     }

@@ -38,7 +38,7 @@ const LinksBlock = injectIntl((props) => {
         menuItem:  {className:'link indicator', key: 'indicator', icon: '', content: intl.formatMessage(messages.home_tabs_indicator_title)},
         render: () =>(
           <div className="links explanation">
-            <FormattedHTMLMessage id="home.tabs.indicator.text"/>
+            <FormattedHTMLMessage id="home.tabs.indicator.text"  values={{'lang':intl.locale}} />
             <Source type="indicator"/>
             </div>)
       },
@@ -46,7 +46,7 @@ const LinksBlock = injectIntl((props) => {
         {
           menuItem:  {className:'link market', key: 'market', icon: '', content: intl.formatMessage(messages.home_tabs_market_title)},
           render: () =>(<div className="links explanation">
-            <FormattedHTMLMessage id="home.tabs.market.text"/>
+            <FormattedHTMLMessage id="home.tabs.market.text"  values={{'lang':intl.locale}} />
             <Source type="market"/>
           </div>)
         },
@@ -54,7 +54,7 @@ const LinksBlock = injectIntl((props) => {
         menuItem:  {className:'link microdata', key: 'microdata', icon: '', content: intl.formatMessage(messages.home_tabs_microdata_title)},
         render: () =>(
           <div className="links explanation">
-              <FormattedHTMLMessage id="home.tabs.microdata.text"/>
+              <FormattedHTMLMessage id="home.tabs.microdata.text" values={{'lang':intl.locale}} />
               <Source type="microdata"/>
           </div>
         )

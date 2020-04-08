@@ -31,6 +31,8 @@ import java.util.Collection;
 public class Select2MultiChoiceBootstrapFormComponent<TYPE>
         extends GenericBootstrapFormComponent<Collection<TYPE>, Select2MultiChoice<TYPE>> {
     private static final long serialVersionUID = 7177558191815237814L;
+    public static final String CLICK_TO_SELECT_EN = "Click to select";
+    public static final String CLICK_TO_SELECT_FR = "Cliquez pour sélectionner";
 
     public Select2MultiChoiceBootstrapFormComponent(final String id, final IModel<String> labelModel,
                                                     final IModel<Collection<TYPE>> model,
@@ -63,7 +65,7 @@ public class Select2MultiChoiceBootstrapFormComponent<TYPE>
 
     @Override
     protected Select2MultiChoice<TYPE> inputField(final String id, final IModel<Collection<TYPE>> model) {
-        Select2MultiChoice<TYPE> multiChoice = new Select2MultiChoice<TYPE>(id, initFieldModel());
+        Select2MultiChoice<TYPE> multiChoice = new InnerSelect2MultiChoice<>(id, initFieldModel());
         multiChoice.setEscapeModelStrings(false);
         return multiChoice;
     }
@@ -82,13 +84,37 @@ public class Select2MultiChoiceBootstrapFormComponent<TYPE>
 
     @Override
     protected void onInitialize() {
-        field.getSettings().setPlaceholder("Click to select");
+        String placeholder = CLICK_TO_SELECT_EN;
+        if (this.getParent() != null && this.getParent().getLocale() != null
+                && this.getParent().getLocale().getLanguage().equalsIgnoreCase("fr")) {
+            placeholder = CLICK_TO_SELECT_FR;
+        }
+        field.getSettings().setPlaceholder(placeholder);
         field.getSettings().setAllowClear(true);
         field.getSettings().setCloseOnSelect(true);
         field.getSettings().setDropdownAutoWidth(true);
         field.getSettings().setTheme(new Select2BootstrapTheme(false));
         field.getSettings().setEscapeMarkup("function (m) {return m;}");
         super.onInitialize();
+
+    }
+
+    class InnerSelect2MultiChoice<TYPE> extends Select2MultiChoice<TYPE> {
+
+        InnerSelect2MultiChoice(String id, IModel model) {
+            super(id, model);
+        }
+
+        @Override
+        protected void onConfigure() {
+            super.onConfigure();
+            String placeholder = CLICK_TO_SELECT_EN;
+            if (this.getParent() != null && this.getParent().getLocale() != null
+                    && this.getParent().getLocale().getLanguage().equalsIgnoreCase("fr")) {
+                placeholder = CLICK_TO_SELECT_FR;
+            }
+            field.getSettings().setPlaceholder(placeholder);
+        }
 
     }
 
