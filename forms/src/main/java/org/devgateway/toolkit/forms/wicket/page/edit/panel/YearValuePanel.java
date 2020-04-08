@@ -1,6 +1,5 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.panel;
 
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.model.IModel;
 import org.devgateway.toolkit.forms.wicket.components.ListViewSectionPanel;
