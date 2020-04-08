@@ -37,11 +37,13 @@ public class OrganizationIndicatorsPanel
         columns.add(new PropertyColumn<IndicatorMetadata, String>(new StringResourceModel("name", this, null), "name"));
     }
 
+    @Override
     protected void onInitialize() {
         super.onInitialize();
         this.addButton.setVisible(false);
     }
 
+    @Override
     protected JpaFilterState<IndicatorMetadata> newFilterState() {
         List<Long> ids = this.parentModel.getObject().getIndicators()
                 .stream()
