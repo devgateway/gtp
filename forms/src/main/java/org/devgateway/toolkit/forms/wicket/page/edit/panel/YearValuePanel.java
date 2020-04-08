@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.panel;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.model.IModel;
 import org.devgateway.toolkit.forms.wicket.components.ListViewSectionPanel;
@@ -33,9 +34,9 @@ public class YearValuePanel extends ListViewSectionPanel<NationalIndicatorYearVa
     @Override
     public void populateCompoundListItem(final ListItem<NationalIndicatorYearValue> item) {
         final TextFieldBootstrapFormComponent<String> year = ComponentUtil.addTextField(item, "year");
-        year.required();
+        ComponentUtil.addRequiredFlagBootstrapFormComponent(true, item, year);
 
         final TextFieldBootstrapFormComponent<Double> value = ComponentUtil.addDoubleField(item, "value");
-        value.required();
+        ComponentUtil.addRequiredFlagBootstrapFormComponent(true, item, value);
     }
 }
