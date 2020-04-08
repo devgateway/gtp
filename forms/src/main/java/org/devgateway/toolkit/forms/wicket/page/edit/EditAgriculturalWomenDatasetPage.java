@@ -11,7 +11,10 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.page.edit;
 
+import org.apache.wicket.ajax.attributes.AjaxCallListener;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
@@ -48,6 +51,21 @@ public class EditAgriculturalWomenDatasetPage extends AbstractEditDatasePage<Agr
         this.jpaService = service;
         this.listPageClass = ListAgriculturalWomenDatasetPage.class;
         this.importer = importService;
+    }
+
+    @Override
+    public DeleteEditPageButton getDeleteEditPageButton() {
+        return new DeleteEditPageButton("delete", new StringResourceModel("deleteButton", this, null)) {
+            private static final long serialVersionUID = 5214537995514151321L;
+
+            @Override
+            protected void updateAjaxAttributes(final AjaxRequestAttributes attributes) {
+                AjaxCallListener ajaxCallListener = new AjaxCallListener();
+                ajaxCallListener.onPrecondition("return confirm('"
+                        + (new StringResourceModel("confirmDelete", this, null)).getString() + "');");
+                attributes.getAjaxCallListeners().add(ajaxCallListener);
+            }
+        };
     }
 
 
