@@ -17,8 +17,10 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.EditOrganizationPage;
 import org.devgateway.toolkit.persistence.dao.categories.Organization;
+import org.devgateway.toolkit.persistence.dao.categories.Organization_;
 import org.devgateway.toolkit.persistence.service.category.OrganizationService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -36,5 +38,10 @@ public class ListOrganizationPage extends AbstractListPage<Organization> {
         this.editPageClass = EditOrganizationPage.class;
         columns.add(new PropertyColumn<>(
                 new StringResourceModel("name", ListOrganizationPage.this, null), "label", "label"));
+    }
+
+    @Override
+    public JpaFilterState<Organization> newFilterState() {
+        return new JpaFilterState(Organization_.LABEL);
     }
 }
