@@ -39,8 +39,8 @@ public class SystemCategoriesHomePage extends BasePage {
     protected void onInitialize() {
         super.onInitialize();
 
-        BootstrapBookmarkablePageLink<SystemCategoriesHomePage> localities = new BootstrapBookmarkablePageLink<>(
-                "localities", SystemCategoriesHomePage.class, Buttons.Type.Default);
+        BootstrapBookmarkablePageLink<ListLocalitiesPage> localities = new BootstrapBookmarkablePageLink<>(
+                "localities", ListLocalitiesPage.class, Buttons.Type.Default);
         localities.setLabel(new StringResourceModel("localities"));
         add(localities);
 

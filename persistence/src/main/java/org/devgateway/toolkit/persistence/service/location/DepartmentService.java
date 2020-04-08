@@ -1,6 +1,6 @@
-package org.devgateway.toolkit.persistence.service.ipar.category;
+package org.devgateway.toolkit.persistence.service.location;
 
-import org.devgateway.toolkit.persistence.dao.ipar.Department;
+import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.service.BaseJpaService;
 
 /**

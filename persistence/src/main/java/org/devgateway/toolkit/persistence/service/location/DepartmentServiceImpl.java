@@ -1,7 +1,7 @@
-package org.devgateway.toolkit.persistence.service.ipar.category;
+package org.devgateway.toolkit.persistence.service.location;
 
-import org.devgateway.toolkit.persistence.dao.ipar.Department;
-import org.devgateway.toolkit.persistence.repository.ipar.DepartmentRepository;
+import org.devgateway.toolkit.persistence.dao.location.Department;
+import org.devgateway.toolkit.persistence.repository.location.DepartmentRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Octavian Ciubotaru
  */
-// @Service
+@Service
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class DepartmentServiceImpl extends BaseJpaServiceImpl<Department> implements DepartmentService {

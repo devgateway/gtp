@@ -122,4 +122,14 @@
         </insert>
     </changeSet>
 
+    <changeSet id="ANACIM-33 locations dataset" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="zone" />
+            <tableExists tableName="region" />
+            <tableExists tableName="department" />
+        </preConditions>
+        <sqlFile path="sql/locations.sql" />
+    </changeSet>
+
+
 </databaseChangeLog>

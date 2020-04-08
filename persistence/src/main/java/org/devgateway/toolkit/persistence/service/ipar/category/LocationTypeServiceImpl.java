@@ -1,12 +1,11 @@
 package org.devgateway.toolkit.persistence.service.ipar.category;
 
-import org.devgateway.toolkit.persistence.dao.categories.LocationType;
+import org.devgateway.toolkit.persistence.dao.ipar.categories.LocationType;
 import org.devgateway.toolkit.persistence.repository.ipar.category.LocationTypeRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

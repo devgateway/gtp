@@ -6,7 +6,6 @@ import org.devgateway.toolkit.persistence.dao.ipar.AgricultureOrientationIndexIn
 import org.devgateway.toolkit.persistence.dao.ipar.FoodLossIndicator;
 import org.devgateway.toolkit.persistence.dao.ipar.PovertyIndicator;
 // import org.devgateway.toolkit.persistence.dao.PovertyIndicator_;
-import org.devgateway.toolkit.persistence.dao.ipar.Region;
 // import org.devgateway.toolkit.persistence.dao.Region_;
 import org.devgateway.toolkit.persistence.dto.ipar.AOISummary;
 import org.devgateway.toolkit.persistence.dto.ipar.AgriculturalWomenSummary;
@@ -19,18 +18,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**

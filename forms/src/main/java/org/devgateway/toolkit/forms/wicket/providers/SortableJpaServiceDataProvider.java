@@ -11,10 +11,6 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.providers;
 
-import java.io.Serializable;
-import java.util.Iterator;
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
@@ -32,6 +28,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * @author mpostelnicu
  * <p>
@@ -44,6 +44,8 @@ public class SortableJpaServiceDataProvider<T extends GenericPersistable & Seria
 
     private JpaFilterState<T> filterState;
 
+    private int pageSize = WebConstants.PAGE_SIZE;
+
     /**
      * Always provide a proxy jpaService here! For example one coming from a {@link SpringBean}
      *
@@ -51,6 +53,10 @@ public class SortableJpaServiceDataProvider<T extends GenericPersistable & Seria
      */
     public SortableJpaServiceDataProvider(final BaseJpaService<T> jpaService) {
         this.jpaService = jpaService;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
     /**
@@ -69,8 +75,8 @@ public class SortableJpaServiceDataProvider<T extends GenericPersistable & Seria
      */
     @Override
     public Iterator<? extends T> iterator(final long first, final long count) {
-        int page = (int) ((double) first / WebConstants.PAGE_SIZE);
-        PageRequest pageRequest = PageRequest.of(page, WebConstants.PAGE_SIZE, buildSort());
+        int page = (int) ((double) first / pageSize);
+        PageRequest pageRequest = PageRequest.of(page, pageSize, buildSort());
         final Page<T> findAll = jpaService.findAll(filterState.getSpecification(), pageRequest);
         return findAll.iterator();
     }

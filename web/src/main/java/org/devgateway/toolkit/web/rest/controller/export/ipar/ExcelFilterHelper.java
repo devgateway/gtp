@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller.export.ipar;
 
 import org.apache.commons.lang3.StringUtils;
-import org.devgateway.toolkit.persistence.dao.ipar.Region;
+import org.devgateway.toolkit.persistence.dao.location.Region;
 import org.devgateway.toolkit.persistence.dao.categories.Category;
 import org.devgateway.toolkit.persistence.dto.ipar.ExcelFilterDTO;
 import org.devgateway.toolkit.web.rest.controller.filter.ipar.AOIFilterPagingRequest;
