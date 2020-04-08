@@ -9,7 +9,7 @@
  * Contributors:
  * Development Gateway - initial API and implementation
  *******************************************************************************/
-package org.devgateway.toolkit.forms.wicket.page.edit;
+package org.devgateway.toolkit.forms.wicket.page.ipar.edit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -21,6 +21,7 @@ import org.apache.wicket.validation.validator.StringValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListIndicatorGroupPage;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.IndicatorGroup;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.LocalizedCategoryLabel;
