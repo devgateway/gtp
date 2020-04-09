@@ -3,7 +3,6 @@ package org.devgateway.toolkit.forms.wicket.page.edit.category;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.validation.validator.RangeValidator;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
@@ -16,11 +15,6 @@ import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
 import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.wicketstuff.annotation.mount.MountPath;
-
-import static org.devgateway.toolkit.persistence.dao.DBConstants.MAX_LATITUDE;
-import static org.devgateway.toolkit.persistence.dao.DBConstants.MAX_LONGITUDE;
-import static org.devgateway.toolkit.persistence.dao.DBConstants.MIN_LATITUDE;
-import static org.devgateway.toolkit.persistence.dao.DBConstants.MIN_LONGITUDE;
 
 /**
  * @author Nadejda Mandrescu
@@ -52,16 +46,16 @@ public class EditPluviometricPostPage extends AbstractEditPage<PluviometricPost>
         name.getField().add(WebConstants.StringValidators.MAXIMUM_LENGTH_VALIDATOR_STD_DEFAULT_TEXT);
         editForm.add(name);
 
-        final TextFieldBootstrapFormComponent<String> latitude = new TextFieldBootstrapFormComponent<>("latitude");
+        final TextFieldBootstrapFormComponent<Double> latitude = new TextFieldBootstrapFormComponent<>("latitude");
         latitude.required();
         latitude.asDouble();
-        latitude.getField().add(RangeValidator.range(MIN_LATITUDE, MAX_LATITUDE));
+        latitude.getField().add(WebConstants.Validators.LATITUDE_RANGE);
         editForm.add(latitude);
 
-        final TextFieldBootstrapFormComponent<String> longitude = new TextFieldBootstrapFormComponent<>("longitude");
+        final TextFieldBootstrapFormComponent<Double> longitude = new TextFieldBootstrapFormComponent<>("longitude");
         longitude.required();
         longitude.asDouble();
-        longitude.getField().add(RangeValidator.range(MIN_LONGITUDE, MAX_LONGITUDE));
+        longitude.getField().add(WebConstants.Validators.LONGITUDE_RANGE);
         editForm.add(longitude);
 
         final Select2ChoiceBootstrapFormComponent<Department> department =

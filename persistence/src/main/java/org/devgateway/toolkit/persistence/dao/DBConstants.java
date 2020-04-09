@@ -22,8 +22,8 @@ public final class DBConstants {
     public static final int MAX_DEFAULT_TEXT_LENGTH_ONE_LINE = 3000;
     public static final int MAX_DEFAULT_TEXT_AREA = 10000;
 
-    public static final int MIN_LATITUDE = -90;
-    public static final int MAX_LATITUDE = 90;
-    public static final int MIN_LONGITUDE = -180;
-    public static final int MAX_LONGITUDE = 180;
+    public static final int MIN_LATITUDE = 12;
+    public static final int MAX_LATITUDE = 17;
+    public static final int MIN_LONGITUDE = -18;
+    public static final int MAX_LONGITUDE = -11;
 }
