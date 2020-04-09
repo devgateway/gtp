@@ -11,7 +11,13 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms;
 
+import static org.devgateway.toolkit.persistence.dao.DBConstants.MAX_LATITUDE;
+import static org.devgateway.toolkit.persistence.dao.DBConstants.MAX_LONGITUDE;
+import static org.devgateway.toolkit.persistence.dao.DBConstants.MIN_LATITUDE;
+import static org.devgateway.toolkit.persistence.dao.DBConstants.MIN_LONGITUDE;
+
 import com.google.common.collect.ImmutableSet;
+import org.apache.wicket.validation.validator.RangeValidator;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.devgateway.toolkit.persistence.dao.DBConstants;
 
@@ -41,6 +47,13 @@ public final class WebConstants {
                 StringValidator.maximumLength(DBConstants.MAX_DEFAULT_TEXT_LENGTH_ONE_LINE);
         public static final StringValidator MAXIMUM_LENGTH_VALIDATOR_ONE_LINE_TEXTAREA =
                 StringValidator.maximumLength(DBConstants.MAX_DEFAULT_TEXT_AREA);
+    }
+
+    public static final class Validators {
+        public static final RangeValidator<Double> LATITUDE_RANGE =
+                RangeValidator.range((double) MIN_LATITUDE, (double) MAX_LATITUDE);
+        public static final RangeValidator<Double> LONGITUDE_RANGE =
+                RangeValidator.range((double) MIN_LONGITUDE, (double) MAX_LONGITUDE);
     }
 
     // add more languages here. It is pointless to make this dynamic because the
