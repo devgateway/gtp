@@ -86,7 +86,10 @@ class Table extends Component {
     return (<PivotTableUI data={data}
         aggregators={aggregators(intl)}
         locale={intl.locale}
-        renderers={renders} {...config.pivottable} onChange={s => this.setState(s)} {...this.state}></PivotTableUI>)
+        intl={intl}
+        renderers={renders}
+        {...config.pivottable}
+        onChange={s => this.setState(s)} {...this.state}></PivotTableUI>)
   }
 }
 
