@@ -15,6 +15,8 @@ public interface TextSearchableService<T extends GenericPersistable & Serializab
 
     JpaRepository<T, Long> getRepository();
 
+    Page<T> findAll(Pageable pageable);
+
     /**
      * Retrieve results that match the term. If term is null then all results must be returned as if no filtering
      * is applied.

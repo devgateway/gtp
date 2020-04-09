@@ -26,6 +26,11 @@ public class FocalPointTextSearchable implements TextSearchableService<Person>, 
     }
 
     @Override
+    public Page<Person> findAll(Pageable pageable) {
+        return getRepository().findAll(pageable);
+    }
+
+    @Override
     public Page<Person> searchText(String term, Pageable page) {
         /*
         if (term == null) {

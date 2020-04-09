@@ -128,7 +128,7 @@ public class GenericPersistableJpaTextChoiceProvider<T extends GenericPersistabl
         final PageRequest pageRequest = sort == null
                 ? PageRequest.of(page, WebConstants.SELECT_PAGE_SIZE)
                 : PageRequest.of(page, WebConstants.SELECT_PAGE_SIZE, sort);
-        return textSearchableService.searchText(null, pageRequest);
+        return textSearchableService.findAll(pageRequest);
     }
 
     @Override
