@@ -131,5 +131,15 @@
         <sqlFile path="sql/locations.sql" />
     </changeSet>
 
+    <changeSet id="ANACIM-19 pluviometric posts" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="department" />
+            <tableExists tableName="pluviometric_post" />
+            <changeSetExecuted id="ANACIM-33 locations dataset" author="nmandrescu"
+                               changeLogFile="liquibase-changelog-0.1.xml"/>
+        </preConditions>
+        <sqlFile path="sql/pluviometric-post.sql" />
+    </changeSet>
+
 
 </databaseChangeLog>
