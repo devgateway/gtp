@@ -22,6 +22,7 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
 public class Department extends AbstractAuditableEntity implements Serializable, Labelable {
+    private static final long serialVersionUID = 5802901244304509439L;
 
     @NotNull
     @ManyToOne(optional = false)
@@ -82,6 +83,11 @@ public class Department extends AbstractAuditableEntity implements Serializable,
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     @Override

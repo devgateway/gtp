@@ -9,12 +9,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.io.Serializable;
 
 public class IndicatorMetadataTextSearchable implements TextSearchableService<Person>, Serializable {
-
-
+    private static final long serialVersionUID = 2762745187528278165L;
 
     @Override
     public JpaRepository<Person, Long> getRepository() {
         return null;
+    }
+
+    @Override
+    public Page<Person> findAll(Pageable pageable) {
+        return getRepository().findAll(pageable);
     }
 
     @Override

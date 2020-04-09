@@ -44,9 +44,9 @@ public class SystemCategoriesHomePage extends BasePage {
         localities.setLabel(new StringResourceModel("localities"));
         add(localities);
 
-        BootstrapBookmarkablePageLink<SystemCategoriesHomePage> stations = new BootstrapBookmarkablePageLink<>(
-                "stations", SystemCategoriesHomePage.class, Buttons.Type.Default);
-        stations.setLabel(new StringResourceModel("stations"));
+        BootstrapBookmarkablePageLink<ListPluviometricPostPage> stations = new BootstrapBookmarkablePageLink<>(
+                "pluviometricPosts", ListPluviometricPostPage.class, Buttons.Type.Default);
+        stations.setLabel(new StringResourceModel("pluviometricPosts"));
         add(stations);
 
         BootstrapBookmarkablePageLink<SystemCategoriesHomePage> referenceRain = new BootstrapBookmarkablePageLink<>(
