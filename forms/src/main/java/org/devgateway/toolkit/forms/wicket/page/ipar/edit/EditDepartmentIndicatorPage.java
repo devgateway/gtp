@@ -12,6 +12,8 @@
 package org.devgateway.toolkit.forms.wicket.page.ipar.edit;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxCallListener;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.ResourceModel;
@@ -237,5 +239,18 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
         };
     }
 
+    @Override
+    public DeleteEditPageButton getDeleteEditPageButton() {
+        return new DeleteEditPageButton("delete", new StringResourceModel("deleteButton", this, null)) {
+            private static final long serialVersionUID = 5214537995514151321L;
 
+            @Override
+            protected void updateAjaxAttributes(final AjaxRequestAttributes attributes) {
+                AjaxCallListener ajaxCallListener = new AjaxCallListener();
+                ajaxCallListener.onPrecondition("return confirm('"
+                        + (new StringResourceModel("confirmDelete", this, null)).getString() + "');");
+                attributes.getAjaxCallListeners().add(ajaxCallListener);
+            }
+        };
+    }
 }

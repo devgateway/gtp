@@ -373,7 +373,30 @@ const messages = defineMessages({
     defaultMessage: 'Element used as Rows'
 
   },
+  table_filter_values: {
+    id: 'table.filter_values',
+    defaultMessage: 'Filter Values'
+  },
 
+  table_select: {
+    id: 'table.select',
+    defaultMessage: 'Select'
+  },
+
+  table_all: {
+    id: 'table.all',
+    defaultMessage: 'All'
+  },
+
+
+  table_filter_select_all: {
+    id: 'table.select_all',
+    defaultMessage: 'Select All'
+  },
+  table_filter_deselect: {
+    id: 'table.deselect',
+    defaultMessage: 'Deselect All'
+  },
   count: {
     id: 'table.aggregators.count',
     defaultMessage: 'Count',
@@ -589,8 +612,18 @@ const messages = defineMessages({
   national_indicators_target: {
     id: 'national.indicator.target',
     defaultMessage: 'Target'
-  }
+  },
 
+  home_newsletter_email_place_holder: {
+    id: 'home.newsletter.email_place_holder',
+    defaultMessage: 'Email'
+  },
+
+
+  home_newsletter_button_subscribe: {
+    id: 'home.newsletter.button_subscribe',
+    defaultMessage: 'Subscribe'
+  },
 })
 
 export default messages

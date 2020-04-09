@@ -248,6 +248,7 @@
   }
 
   .pvtFilterBox {
+    min-width: 340px;
     padding: 10px;
     font-family: $font;
     font-size: 18px;
@@ -259,12 +260,12 @@
     }
 
     .pvtButton {
-      font-size: 11px;
+      font-size: 10px;
       background-color: #FFF;
       border: 1px solid #e6e7ec;
       border-radius: 4px;
       color: #364833;
-      font-weight: bold;
+      font-weight: 400;
     }
 
     a {

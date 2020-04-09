@@ -2,6 +2,7 @@ import React, { useEffect , createRef} from 'react'
 import {loadInitiativesTypes,loadInitiativesItems} from '../modules/Data'
 import {connect} from 'react-redux';
 import {FormattedMessage,FormattedDate, injectIntl} from 'react-intl';
+import messages from '../translations/messages'
 import {
   Grid,
   Image,
@@ -30,7 +31,7 @@ return (<div className="initiatives container">
 
 
     <div className="initiatives description">
-      <p>  <FormattedMessage id='initiatives.page.description' defaultMessage="The Agricultural Initiatives page presents the national policies and strategies that govern and promote the sustainable development of the agricultural sector including projects and programs, studies and research documents as well as information in the agricultural sector budget. The page will be updated with studies that are conducted and as more projects are implemented in the agricultural sector."/></p>
+      <p><FormattedMessage id='initiatives.page.description' defaultMessage="The Agricultural Initiatives page presents the national policies and strategies that govern and promote the sustainable development of the agricultural sector including projects and programs, studies and research documents as well as information in the agricultural sector budget. The page will be updated with studies that are conducted and as more projects are implemented in the agricultural sector."/></p>
     </div>
 
 
@@ -93,7 +94,10 @@ return (<div className="initiatives container">
 
                         <div className="title">  {e.link?<a href={e.link}>{e.title}</a>:<a href={`/files/download/${e.fileId}`}>{e.title}</a>}</div>
 
-                        <div className="description"> <a href={e.link}>{e.description}</a> </div> {e.fileId &&   <div className="download">  <a href={`/files/download/${e.fileId}`}>Download File</a></div>}
+                        <div className="description"> <a href={e.link}>{e.description}</a> </div> {e.fileId &&   <div className="download">
+                        <a href={`/files/download/${e.fileId}`}>
+                          <FormattedMessage id='initiatives.download_file' defaultMessage="Download File"/>
+                        </a></div>}
                       </Grid.Column>
 
               )
