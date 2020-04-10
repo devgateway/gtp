@@ -21,8 +21,8 @@ public class EditDecadalRainfallPage extends AbstractIndicatorEditPage<DecadalRa
     @SpringBean
     private DecadalRainfallService decadalRainfallService;
 
-    public EditDecadalRainfallPage(PageParameters parameters, IndicatorType indicatorType) {
-        super(parameters, indicatorType);
+    public EditDecadalRainfallPage(PageParameters parameters) {
+        super(parameters, IndicatorType.RAINFALL);
 
         this.jpaService = decadalRainfallService;
         this.listPageClass = ListDecadalRainfallPage.class;

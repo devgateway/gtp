@@ -7,4 +7,8 @@ import org.devgateway.toolkit.persistence.service.BaseJpaService;
  * @author Nadejda Mandrescu
  */
 public interface DecadalRainfallService extends BaseJpaService<DecadalRainfall> {
+
+    boolean existsByYear(Integer year);
+
+    void generate(Integer year);
 }

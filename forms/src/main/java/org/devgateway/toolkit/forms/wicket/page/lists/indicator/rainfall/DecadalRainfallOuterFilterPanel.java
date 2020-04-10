@@ -9,6 +9,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.SelectFilteredBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DecadalRainfallFilterState;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
+import org.devgateway.toolkit.persistence.service.indicator.DecadalRainfallService;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -21,6 +22,9 @@ public class DecadalRainfallOuterFilterPanel extends Panel {
 
     @SpringBean
     private AdminSettingsService adminSettingsService;
+
+    @SpringBean
+    private DecadalRainfallService decadalRainfallService;
 
     private ResettingFilterForm<DecadalRainfallFilterState> filterForm;
 
@@ -39,6 +43,10 @@ public class DecadalRainfallOuterFilterPanel extends Panel {
         Select2ChoiceBootstrapFormComponent yearChoice = yearFilter.getFilterWithLabel("year", filterForm);
         if (yearChoice.getModelObject() == null) {
             yearChoice.setDefaultModelObject(LocalDate.now().getYear());
+        }
+        Integer year = (Integer) yearChoice.getModelObject();
+        if (!decadalRainfallService.existsByYear(year)) {
+            decadalRainfallService.generate(year);
         }
         add(yearChoice);
     }

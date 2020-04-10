@@ -9,4 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface DecadalRainfallRepository extends BaseJpaRepository<DecadalRainfall, Long> {
+
+    boolean existsByYear(Integer year);
 }
