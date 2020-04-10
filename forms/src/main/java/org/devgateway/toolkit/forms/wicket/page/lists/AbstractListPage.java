@@ -23,6 +23,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColu
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterToolbar;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilteredColumn;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
@@ -136,9 +137,9 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
         });
         dataTable = new AjaxFallbackBootstrapDataTable<>("table", columns, dataProvider, WebConstants.PAGE_SIZE);
 
-        ResettingFilterForm<JpaFilterState<T>> filterForm =
-                new ResettingFilterForm<>("filterForm", dataProvider, dataTable);
+        ResettingFilterForm<JpaFilterState<T>> filterForm = getFilterForm("filterForm", dataProvider, dataTable);
         filterForm.add(dataTable);
+        filterForm.add(getOuterFilter("outerFilter", filterForm));
         add(filterForm);
 
         if (hasFilteredColumns()) {
@@ -192,6 +193,16 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
      */
     protected Component getPrintButton(final PageParameters pageParameters) {
         return new WebMarkupContainer("printButton").setVisibilityAllowed(false);
+    }
+
+    protected ResettingFilterForm<JpaFilterState<T>> getFilterForm(final String id,
+            final IFilterStateLocator locator,
+            final AjaxFallbackBootstrapDataTable<T, String> dataTable) {
+        return new ResettingFilterForm<>(id, locator, dataTable);
+    }
+
+    protected Component getOuterFilter(final String id, ResettingFilterForm<? extends JpaFilterState<T>> filterForm) {
+        return new WebMarkupContainer(id);
     }
 
     private boolean hasFilteredColumns() {

@@ -17,6 +17,7 @@ import java.util.List;
  * @since 12/20/16
  */
 public class SelectFilteredBootstrapPropertyColumn<T, Y, S> extends ChoiceFilteredPropertyColumn<T, Y, S> {
+    private static final long serialVersionUID = 8144699687674322360L;
 
     public SelectFilteredBootstrapPropertyColumn(final IModel<String> displayModel,
                                                  final S sortProperty,
@@ -33,11 +34,17 @@ public class SelectFilteredBootstrapPropertyColumn<T, Y, S> extends ChoiceFilter
 
     @Override
     public Component getFilter(final String componentId, final FilterForm<?> form) {
+        Select2ChoiceBootstrapFormComponent<Y> selectorField = getFilterWithLabel(componentId, form);
+        selectorField.hideLabel();
+        return selectorField;
+    }
+
+    public Select2ChoiceBootstrapFormComponent<Y> getFilterWithLabel(final String componentId,
+            final FilterForm<?> form) {
         final Select2ChoiceBootstrapFormComponent<Y> selectorField =
                 new Select2ChoiceBootstrapFormComponent<>(componentId,
                         new GenericChoiceProvider<>((List<Y>) getFilterChoices().getObject()),
                         getFilterModel(form));
-        selectorField.hideLabel();
         selectorField.getField().add(AttributeModifier.replace("onchange", "this.form.submit();"));
         return selectorField;
     }
