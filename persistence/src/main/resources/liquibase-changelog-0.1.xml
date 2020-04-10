@@ -141,5 +141,14 @@
         <sqlFile path="sql/pluviometric-post.sql" />
     </changeSet>
 
+    <changeSet id="ANACIM-24 starting year" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="admin_settings" />
+        </preConditions>
+        <insert tableName="admin_settings">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="starting_year" value="2019" />
+        </insert>
+    </changeSet>
 
 </databaseChangeLog>
