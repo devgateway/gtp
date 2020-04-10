@@ -29,4 +29,8 @@ public class ResettingFilterForm<T> extends FilterForm<T> {
     protected void onSubmit() {
         dataTable.setCurrentPage(0);
     }
+
+    public T getFilterState() {
+        return getStateLocator().getFilterState();
+    }
 }

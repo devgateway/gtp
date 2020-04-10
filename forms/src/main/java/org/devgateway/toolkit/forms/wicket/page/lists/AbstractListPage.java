@@ -137,7 +137,8 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
         });
         dataTable = new AjaxFallbackBootstrapDataTable<>("table", columns, dataProvider, WebConstants.PAGE_SIZE);
 
-        ResettingFilterForm<JpaFilterState<T>> filterForm = getFilterForm("filterForm", dataProvider, dataTable);
+        ResettingFilterForm<? extends JpaFilterState<T>> filterForm =
+                getFilterForm("filterForm", dataProvider, dataTable);
         filterForm.add(dataTable);
         filterForm.add(getOuterFilter("outerFilter", filterForm));
         add(filterForm);
@@ -195,7 +196,7 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
         return new WebMarkupContainer("printButton").setVisibilityAllowed(false);
     }
 
-    protected ResettingFilterForm<JpaFilterState<T>> getFilterForm(final String id,
+    protected ResettingFilterForm<? extends JpaFilterState<T>> getFilterForm(final String id,
             final IFilterStateLocator locator,
             final AjaxFallbackBootstrapDataTable<T, String> dataTable) {
         return new ResettingFilterForm<>(id, locator, dataTable);
