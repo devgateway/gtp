@@ -8,6 +8,11 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /**
  * @author idobre
  * @since 2019-03-04
@@ -29,4 +34,18 @@ public class AdminSettingsServiceImpl extends BaseJpaServiceImpl<AdminSettings> 
         return new AdminSettings();
     }
 
+    @Override
+    public AdminSettings get() {
+        return repository().findAll().get(0);
+    }
+
+    @Override
+    public Integer getStartingYear() {
+        return get().getStartingYear();
+    }
+
+    @Override
+    public List<Integer> getYears() {
+        return IntStream.rangeClosed(getStartingYear(), LocalDate.now().getYear()).boxed().collect(Collectors.toList());
+    }
 }

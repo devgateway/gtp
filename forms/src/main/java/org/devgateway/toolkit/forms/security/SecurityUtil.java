@@ -13,6 +13,7 @@ package org.devgateway.toolkit.forms.security;
 
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.devgateway.toolkit.persistence.dao.Role;
+import org.devgateway.toolkit.persistence.dao.indicator.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.spring.CustomJPAUserDetailsService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -84,5 +85,10 @@ public final class SecurityUtil {
             SecurityContextHolder.getContext().setAuthentication(
                     new PreAuthenticatedAuthenticationToken(person, null, person.getAuthorities()));
         }
+    }
+
+    public static boolean canCurrentUserAccess(IndicatorMetadata indicatorMetadata) {
+        final Person p = getCurrentAuthenticatedPerson();
+        return isUserAdmin(p) || p.getOrganization().equals(indicatorMetadata.getOrganization());
     }
 }

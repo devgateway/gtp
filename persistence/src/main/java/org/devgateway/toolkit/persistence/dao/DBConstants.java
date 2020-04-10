@@ -11,6 +11,17 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao;
 
+import static java.time.Month.AUGUST;
+import static java.time.Month.JULY;
+import static java.time.Month.JUNE;
+import static java.time.Month.MAY;
+import static java.time.Month.OCTOBER;
+import static java.time.Month.SEPTEMBER;
+
+import java.time.Month;
+import java.util.Arrays;
+import java.util.List;
+
 public final class DBConstants {
 
     private DBConstants() {
@@ -26,4 +37,6 @@ public final class DBConstants {
     public static final int MAX_LATITUDE = 17;
     public static final int MIN_LONGITUDE = -18;
     public static final int MAX_LONGITUDE = -11;
+
+    public static final List<Month> MONTHS = Arrays.asList(MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER);
 }

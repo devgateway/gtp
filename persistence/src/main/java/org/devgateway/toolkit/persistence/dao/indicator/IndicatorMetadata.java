@@ -22,6 +22,7 @@ import java.io.Serializable;
 @Entity
 @Audited
 public class IndicatorMetadata extends AbstractAuditableEntity implements Serializable {
+    private static final long serialVersionUID = 2161664837466313035L;
 
     private String name;
 

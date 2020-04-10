@@ -11,17 +11,6 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.page.lists;
 
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Deflater;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
-import javax.servlet.http.HttpServletResponse;
-
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons.Size;
@@ -34,6 +23,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColu
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterToolbar;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilteredColumn;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
@@ -63,6 +53,16 @@ import org.devgateway.toolkit.persistence.service.BaseJpaService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.Deflater;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
 /**
  * @author mpostelnicu This class can be use to display a list of Categories
  * <p>
@@ -79,9 +79,11 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
 
     protected BaseJpaService<T> jpaService;
 
-    private SortableJpaServiceDataProvider<T> dataProvider;
+    protected SortableJpaServiceDataProvider<T> dataProvider;
 
-    private BootstrapBookmarkablePageLink<T> editPageLink;
+    protected int pageSize = WebConstants.PAGE_SIZE;
+
+    protected BootstrapBookmarkablePageLink<T> editPageLink;
 
     protected Form excelForm;
 
@@ -118,6 +120,7 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
 
         dataProvider = new SortableJpaServiceDataProvider<>(jpaService);
         dataProvider.setFilterState(newFilterState());
+        dataProvider.setPageSize(pageSize);
 
         // create the excel download form; by default this form is hidden and we should make it visible only to pages
         // where we want to export entities to excel file
@@ -135,11 +138,12 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
                 cellItem.add(getActionPanel(componentId, model));
             }
         });
-        dataTable = new AjaxFallbackBootstrapDataTable<>("table", columns, dataProvider, WebConstants.PAGE_SIZE);
+        dataTable = new AjaxFallbackBootstrapDataTable<>("table", columns, dataProvider, pageSize);
 
-        ResettingFilterForm<JpaFilterState<T>> filterForm =
-                new ResettingFilterForm<>("filterForm", dataProvider, dataTable);
+        ResettingFilterForm<? extends JpaFilterState<T>> filterForm =
+                getFilterForm("filterForm", dataProvider, dataTable);
         filterForm.add(dataTable);
+        filterForm.add(getOuterFilter("outerFilter", filterForm));
         add(filterForm);
 
         if (hasFilteredColumns()) {
@@ -195,6 +199,16 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
         return new WebMarkupContainer("printButton").setVisibilityAllowed(false);
     }
 
+    protected ResettingFilterForm<? extends JpaFilterState<T>> getFilterForm(final String id,
+            final IFilterStateLocator locator,
+            final AjaxFallbackBootstrapDataTable<T, String> dataTable) {
+        return new ResettingFilterForm<>(id, locator, dataTable);
+    }
+
+    protected Component getOuterFilter(final String id, ResettingFilterForm<? extends JpaFilterState<T>> filterForm) {
+        return new WebMarkupContainer(id);
+    }
+
     private boolean hasFilteredColumns() {
         for (IColumn<?, ?> column : columns) {
             if (column instanceof IFilteredColumn) {
@@ -212,6 +226,8 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
      * A wrapper form that is used to fire the excel download action
      */
     public class ExcelDownloadForm extends Form<Void> {
+        private static final long serialVersionUID = -5313470286932341397L;
+
         public ExcelDownloadForm(final String id) {
             super(id);
         }
@@ -221,6 +237,8 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
             super.onInitialize();
 
             final AJAXDownload download = new AJAXDownload() {
+                private static final long serialVersionUID = 970961723339623013L;
+
                 @Override
                 protected IRequestHandler getHandler() {
                     return new IRequestHandler() {
@@ -295,6 +313,8 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
             final LaddaAjaxButton excelButton = new LaddaAjaxButton("excelButton",
                     new Model<>("Excel Download"),
                     Buttons.Type.Warning) {
+                private static final long serialVersionUID = -1207967121514699929L;
+
                 @Override
                 protected void onSubmit(final AjaxRequestTarget target) {
                     super.onSubmit(target);
