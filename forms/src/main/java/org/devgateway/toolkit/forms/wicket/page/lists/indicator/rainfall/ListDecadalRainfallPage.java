@@ -3,11 +3,14 @@ package org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall;
 import org.apache.wicket.Component;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.wicket.components.table.AjaxFallbackBootstrapDataTable;
+import org.devgateway.toolkit.forms.wicket.components.table.BookmarkableResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DecadalRainfallFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
@@ -48,6 +51,14 @@ public class ListDecadalRainfallPage extends AbstractIndicatorListPage<DecadalRa
         dataProvider.setPageSize(WebConstants.NO_PAGE_SIZE);
 
         editPageLink.setVisible(false);
+    }
+
+    @Override
+    protected ResettingFilterForm<? extends JpaFilterState<DecadalRainfall>> getFilterForm(final String id,
+            final IFilterStateLocator locator,
+            final AjaxFallbackBootstrapDataTable<DecadalRainfall, String> dataTable) {
+        return new BookmarkableResettingFilterForm<DecadalRainfallFilterState>(id, locator, dataTable,
+                ListDecadalRainfallPage.class, this.getPageParameters());
     }
 
     @Override
