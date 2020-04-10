@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.service.indicator;
 
+import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dao.indicator.IndicatorMetadata;
 import org.devgateway.toolkit.persistence.repository.indicator.IndicatorMetadataRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
@@ -29,5 +30,10 @@ public class IndicatorMetadataServiceImpl extends BaseJpaServiceImpl<IndicatorMe
     @Override
     public IndicatorMetadata newInstance() {
         return new IndicatorMetadata();
+    }
+
+    @Override
+    public IndicatorMetadata findOneByType(IndicatorType indicatorType) {
+        return repository.findOneByType(indicatorType);
     }
 }

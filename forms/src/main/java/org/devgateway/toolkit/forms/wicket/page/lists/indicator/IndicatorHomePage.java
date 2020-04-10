@@ -9,6 +9,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
+import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
 import org.devgateway.toolkit.forms.wicket.styles.HomeStyles;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -18,6 +19,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
 @MountPath(value = "/indicators")
 public class IndicatorHomePage extends BasePage {
+    private static final long serialVersionUID = 5979867651870077641L;
 
     /**
      * Construct.
@@ -39,8 +41,8 @@ public class IndicatorHomePage extends BasePage {
     protected void onInitialize() {
         super.onInitialize();
 
-        BootstrapBookmarkablePageLink<IndicatorHomePage> rainfall = new BootstrapBookmarkablePageLink<>(
-                "rainfall", IndicatorHomePage.class, Buttons.Type.Default);
+        BootstrapBookmarkablePageLink<ListDecadalRainfallPage> rainfall = new BootstrapBookmarkablePageLink<>(
+                "rainfall", ListDecadalRainfallPage.class, Buttons.Type.Default);
         rainfall.setLabel(new StringResourceModel("rainfall"));
         add(rainfall);
 

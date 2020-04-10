@@ -11,17 +11,6 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.page.lists;
 
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Deflater;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
-import javax.servlet.http.HttpServletResponse;
-
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons.Size;
@@ -63,6 +52,16 @@ import org.devgateway.toolkit.persistence.service.BaseJpaService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.Deflater;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
 /**
  * @author mpostelnicu This class can be use to display a list of Categories
  * <p>
@@ -79,9 +78,9 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
 
     protected BaseJpaService<T> jpaService;
 
-    private SortableJpaServiceDataProvider<T> dataProvider;
+    protected SortableJpaServiceDataProvider<T> dataProvider;
 
-    private BootstrapBookmarkablePageLink<T> editPageLink;
+    protected BootstrapBookmarkablePageLink<T> editPageLink;
 
     protected Form excelForm;
 
@@ -212,6 +211,8 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
      * A wrapper form that is used to fire the excel download action
      */
     public class ExcelDownloadForm extends Form<Void> {
+        private static final long serialVersionUID = -5313470286932341397L;
+
         public ExcelDownloadForm(final String id) {
             super(id);
         }
@@ -221,6 +222,8 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
             super.onInitialize();
 
             final AJAXDownload download = new AJAXDownload() {
+                private static final long serialVersionUID = 970961723339623013L;
+
                 @Override
                 protected IRequestHandler getHandler() {
                     return new IRequestHandler() {
@@ -295,6 +298,8 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
             final LaddaAjaxButton excelButton = new LaddaAjaxButton("excelButton",
                     new Model<>("Excel Download"),
                     Buttons.Type.Warning) {
+                private static final long serialVersionUID = -1207967121514699929L;
+
                 @Override
                 protected void onSubmit(final AjaxRequestTarget target) {
                     super.onSubmit(target);
