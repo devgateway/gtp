@@ -64,6 +64,10 @@ public class DecadalRainfall extends AbstractAuditableEntity implements Serializ
         return MonthDTO.of(month);
     }
 
+    public int lengthOfMonth() {
+        return MonthDTO.of(month).lengthOfMonth(year);
+    }
+
     public Decadal getDecadal() {
         return decadal;
     }

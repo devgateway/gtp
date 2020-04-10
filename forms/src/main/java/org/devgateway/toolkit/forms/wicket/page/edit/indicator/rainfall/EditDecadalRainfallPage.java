@@ -1,9 +1,10 @@
-package org.devgateway.toolkit.forms.wicket.page.edit.indicator;
+package org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.wicket.page.edit.indicator.AbstractIndicatorEditPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
 import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
@@ -26,5 +27,16 @@ public class EditDecadalRainfallPage extends AbstractIndicatorEditPage<DecadalRa
 
         this.jpaService = decadalRainfallService;
         this.listPageClass = ListDecadalRainfallPage.class;
+    }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+
+        DecadalRainfallTableViewPanel decadalRainfallTableViewPanel = new DecadalRainfallTableViewPanel("rainfall",
+                editForm.getModel());
+        editForm.add(decadalRainfallTableViewPanel);
+
+        deleteButton.setVisible(false);
     }
 }

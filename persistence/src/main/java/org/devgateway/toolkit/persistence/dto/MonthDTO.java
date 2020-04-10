@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.dto;
 import org.devgateway.toolkit.persistence.dao.DBConstants;
 
 import java.time.Month;
+import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,10 @@ public class MonthDTO {
     public MonthDTO(Month month) {
         this.month = month;
         MAPPING.put(month, this);
+    }
+
+    public int lengthOfMonth(int year) {
+        return YearMonth.of(year, month).lengthOfMonth();
     }
 
     @Override

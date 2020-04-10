@@ -14,7 +14,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.BookmarkableResettin
 import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DecadalRainfallFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
-import org.devgateway.toolkit.forms.wicket.page.edit.indicator.EditDecadalRainfallPage;
+import org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall.EditDecadalRainfallPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.AbstractIndicatorListPage;
 import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;

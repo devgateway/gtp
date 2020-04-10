@@ -72,6 +72,7 @@ public class Rainfall extends AbstractAuditableEntity implements Serializable {
 
     public void setDecadalRainfall(DecadalRainfall decadalRainfall) {
         this.decadalRainfall = decadalRainfall;
+        this.decadalRainfall.getRainfalls().add(this);
     }
 
     @Override
