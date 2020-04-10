@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.dao.indicator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Decadal;
+import org.devgateway.toolkit.persistence.dto.MonthDTO;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -57,6 +58,10 @@ public class DecadalRainfall extends AbstractAuditableEntity implements Serializ
 
     public void setMonth(Month month) {
         this.month = month;
+    }
+
+    public MonthDTO getDisplayMonth() {
+        return MonthDTO.of(month);
     }
 
     public Decadal getDecadal() {

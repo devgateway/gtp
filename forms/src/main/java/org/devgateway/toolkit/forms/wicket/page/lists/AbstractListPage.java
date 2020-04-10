@@ -81,6 +81,8 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
 
     protected SortableJpaServiceDataProvider<T> dataProvider;
 
+    protected int pageSize = WebConstants.PAGE_SIZE;
+
     protected BootstrapBookmarkablePageLink<T> editPageLink;
 
     protected Form excelForm;
@@ -118,6 +120,7 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
 
         dataProvider = new SortableJpaServiceDataProvider<>(jpaService);
         dataProvider.setFilterState(newFilterState());
+        dataProvider.setPageSize(pageSize);
 
         // create the excel download form; by default this form is hidden and we should make it visible only to pages
         // where we want to export entities to excel file
@@ -135,7 +138,7 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
                 cellItem.add(getActionPanel(componentId, model));
             }
         });
-        dataTable = new AjaxFallbackBootstrapDataTable<>("table", columns, dataProvider, WebConstants.PAGE_SIZE);
+        dataTable = new AjaxFallbackBootstrapDataTable<>("table", columns, dataProvider, pageSize);
 
         ResettingFilterForm<? extends JpaFilterState<T>> filterForm =
                 getFilterForm("filterForm", dataProvider, dataTable);

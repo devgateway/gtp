@@ -37,8 +37,9 @@ public class ListDecadalRainfallPage extends AbstractIndicatorListPage<DecadalRa
 
         this.jpaService = decadalRainfallService;
         this.editPageClass = EditDecadalRainfallPage.class;
+        this.pageSize = WebConstants.NO_PAGE_SIZE;
 
-        columns.add(new PropertyColumn<>(new StringResourceModel("month"), "month.name"));
+        columns.add(new PropertyColumn<>(new StringResourceModel("month"), "displayMonth"));
         columns.add(new PropertyColumn<>(new StringResourceModel("decadal"), "decadal.value"));
         // TODO if status tracking still needed
         // columns.add(new PropertyColumn<>(new StringResourceModel("status"), "status", "status"));
@@ -47,8 +48,6 @@ public class ListDecadalRainfallPage extends AbstractIndicatorListPage<DecadalRa
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
-        dataProvider.setPageSize(WebConstants.NO_PAGE_SIZE);
 
         editPageLink.setVisible(false);
     }

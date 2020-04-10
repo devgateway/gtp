@@ -10,7 +10,7 @@ public enum Decadal {
 
     private final Integer value;
 
-    private Decadal(Integer value) {
+    Decadal(Integer value) {
         this.value = value;
     }
 
