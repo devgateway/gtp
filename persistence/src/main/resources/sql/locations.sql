@@ -44,11 +44,11 @@ INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequ
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Kédougou', 'KU', id FROM region WHERE name='Kédougou';
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Kolda', 'KB', id FROM region WHERE name='Kolda';
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Koumpentoum', 'KG', id FROM region WHERE name='Tambacounda';
-INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Kounghel', 'KD', id FROM region WHERE name='Kaffrine';
+INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Koungheul', 'KD', id FROM region WHERE name='Kaffrine';
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Linguère', 'LN', id FROM region WHERE name='Louga';
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Louga', 'LG', id FROM region WHERE name='Louga';
-INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'M''bour', 'MH', id FROM region WHERE name='Thiès';
-INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Malem-Hodar', 'MT', id FROM region WHERE name='Kaffrine';
+INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Mbour', 'MH', id FROM region WHERE name='Thiès';
+INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Malem Hodar', 'MT', id FROM region WHERE name='Kaffrine';
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Matam', 'MK', id FROM region WHERE name='Matam';
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Mbacké', 'MR', id FROM region WHERE name='Diourbel';
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Médina Yoro Foulah', 'YF', id FROM region WHERE name='Kolda';
