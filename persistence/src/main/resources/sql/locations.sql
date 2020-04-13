@@ -24,7 +24,7 @@ INSERT INTO region(id, name, code, zone_id) SELECT nextval('hibernate_sequence')
 -- Departments
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Bakel', 'BK', id FROM region WHERE name='Tambacounda';
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Bambey', 'BB', id FROM region WHERE name='Diourbel';
-INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Bignogna', 'BG', id FROM region WHERE name='Ziguinchor';
+INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Bignona', 'BG', id FROM region WHERE name='Ziguinchor';
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Birkilane', 'BR', id FROM region WHERE name='Kaffrine';
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Bounkiling', 'BL', id FROM region WHERE name='Sédhiou';
 INSERT INTO department(id, name, code, region_id) SELECT nextval('hibernate_sequence'), 'Dagana', 'DG', id FROM region WHERE name='Saint-Louis';
