@@ -67,6 +67,10 @@ public class PluviometricPostRainfall extends AbstractAuditableEntity implements
         this.rainfalls = rainfalls;
     }
 
+    public Double getTotal() {
+        return rainfalls.stream().mapToDouble(r -> r.getRain() == null ? 0 : r.getRain()).sum();
+    }
+
     @Override
     public AbstractAuditableEntity getParent() {
         return null;

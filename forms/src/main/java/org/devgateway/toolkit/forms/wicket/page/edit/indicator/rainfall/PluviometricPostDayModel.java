@@ -5,7 +5,7 @@ import org.apache.wicket.model.IModel;
 /**
  * @author Nadejda Mandrescu
  */
-public class PluviometricPostDayModel implements IModel <Double> {
+public class PluviometricPostDayModel implements IModel<Double> {
     private static final long serialVersionUID = 5524323971330762504L;
 
     private PluviometricPostRainfallModel pluviometricPostRainfallModel;

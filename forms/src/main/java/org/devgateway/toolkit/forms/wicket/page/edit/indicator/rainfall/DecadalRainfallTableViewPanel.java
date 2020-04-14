@@ -1,9 +1,11 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -32,6 +34,8 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
 
     private Map<Long, PluviometricPostRainfallModel> pluviometricPostIdToPostRainfallModel = new HashMap<>();
 
+    private Map<Long, Label> totalComponent = new HashMap<>();
+
     public DecadalRainfallTableViewPanel(String id, IModel<DecadalRainfall> parentModel) {
         super(id, parentModel);
 
@@ -44,6 +48,7 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
         columns.add(new PropertyColumn<>(new StringResourceModel("department"), "department.name", "department.name"));
         columns.add(new PropertyColumn<>(new StringResourceModel("label"), "label", "label"));
         addRainColumns();
+        addTotalRainColumn();
     }
 
     private void init() {
@@ -84,11 +89,41 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
                     IModel<PluviometricPost> rowModel) {
                 Long postId = rowModel.getObject().getId();
                 PluviometricPostRainfallModel pprm = pluviometricPostIdToPostRainfallModel.get(postId);
-                TextFieldBootstrapFormComponent<Double> rain = new TextFieldBootstrapFormComponent<>(
+                TextFieldBootstrapFormComponent<Double> rain = new TextFieldBootstrapFormComponent<Double>(
                         componentId, new PluviometricPostDayModel(pprm, day));
+                rain.getField().add(new AjaxFormComponentUpdatingBehavior(rain.getUpdateEvent()) {
+                    private static final long serialVersionUID = -2696538086634114609L;
+                    @Override
+                    protected void onUpdate(final AjaxRequestTarget target) {
+                        target.add(totalComponent.get(postId));
+                    }
+                });
                 rain.asDouble();
                 rain.hideLabel();
                 cellItem.add(rain);
+            }
+        });
+    }
+
+    private void addTotalRainColumn() {
+        columns.add(new AbstractColumn<PluviometricPost, String>(new StringResourceModel("total")) {
+            private static final long serialVersionUID = 4599124013488314902L;
+
+            @Override
+            public void populateItem(Item<ICellPopulator<PluviometricPost>> cellItem, String componentId,
+                    IModel<PluviometricPost> rowModel) {
+                Long postId = rowModel.getObject().getId();
+                Label rainTotal = new Label(componentId,
+                        new IModel<Double>() {
+                            private static final long serialVersionUID = 4985144126228053340L;
+                            @Override
+                            public Double getObject() {
+                                return pluviometricPostIdToPostRainfallModel.get(postId).getObject().getTotal();
+                            }
+                        });
+                rainTotal.setOutputMarkupId(true);
+                totalComponent.put(postId, rainTotal);
+                cellItem.add(rainTotal);
             }
         });
     }

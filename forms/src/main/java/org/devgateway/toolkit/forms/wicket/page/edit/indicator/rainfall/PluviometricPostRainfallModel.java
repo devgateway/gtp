@@ -5,7 +5,6 @@ import org.apache.wicket.model.Model;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainfall;
 import org.devgateway.toolkit.persistence.dao.indicator.Rainfall;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -13,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * @author Nadejda Mandrescu
  */
-public class PluviometricPostRainfallModel implements Serializable {
+public class PluviometricPostRainfallModel implements IModel<PluviometricPostRainfall> {
     private static final long serialVersionUID = -7718022014894374705L;
 
     private IModel<PluviometricPostRainfall> pluviometricPostRainfallModel;
@@ -45,5 +44,10 @@ public class PluviometricPostRainfallModel implements Serializable {
             rainfallListModel.set(day, rainfallModel);
         }
         rainfallModel.getObject().setRain(rain);
+    }
+
+    @Override
+    public PluviometricPostRainfall getObject() {
+        return pluviometricPostRainfallModel.getObject();
     }
 }
