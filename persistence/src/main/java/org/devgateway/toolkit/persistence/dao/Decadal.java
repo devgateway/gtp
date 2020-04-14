@@ -17,4 +17,8 @@ public enum Decadal {
     public Integer getValue() {
         return value;
     }
+
+    public boolean isThird() {
+        return this.equals(THIRD);
+    }
 }

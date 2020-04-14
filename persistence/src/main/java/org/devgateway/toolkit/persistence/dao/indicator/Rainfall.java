@@ -2,7 +2,6 @@ package org.devgateway.toolkit.persistence.dao.indicator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
-import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -34,13 +33,7 @@ public class Rainfall extends AbstractAuditableEntity implements Serializable {
     @NotNull
     @ManyToOne(optional = false)
     @JsonIgnore
-    private PluviometricPost pluviometricPost;
-
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @NotNull
-    @ManyToOne(optional = false)
-    @JsonIgnore
-    private DecadalRainfall decadalRainfall;
+    private PluviometricPostRainfall pluviometricPostRainfall;
 
     public Integer getDay() {
         return day;
@@ -58,20 +51,13 @@ public class Rainfall extends AbstractAuditableEntity implements Serializable {
         this.rain = rain;
     }
 
-    public PluviometricPost getPluviometricPost() {
-        return pluviometricPost;
+    public PluviometricPostRainfall getPluviometricPostRainfall() {
+        return pluviometricPostRainfall;
     }
 
-    public void setPluviometricPost(PluviometricPost pluviometricPost) {
-        this.pluviometricPost = pluviometricPost;
-    }
-
-    public DecadalRainfall getDecadalRainfall() {
-        return decadalRainfall;
-    }
-
-    public void setDecadalRainfall(DecadalRainfall decadalRainfall) {
-        this.decadalRainfall = decadalRainfall;
+    public void setPluviometricPostRainfall(PluviometricPostRainfall pluviometricPostRainfall) {
+        this.pluviometricPostRainfall = pluviometricPostRainfall;
+        pluviometricPostRainfall.getRainfalls().add(this);
     }
 
     @Override

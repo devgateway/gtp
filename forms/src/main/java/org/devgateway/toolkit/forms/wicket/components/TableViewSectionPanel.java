@@ -54,6 +54,8 @@ public abstract class TableViewSectionPanel<T extends AbstractAuditableEntity, P
 
     protected void addActionColumn(final String sortingProperty) {
         columns.add(new AbstractColumn<T, String>(new StringResourceModel("actions", this), sortingProperty) {
+            private static final long serialVersionUID = 4183365373750733883L;
+
             @Override
             public void populateItem(final Item<ICellPopulator<T>> cellItem, final String componentId,
                                      final IModel<T> rowModel) {
@@ -86,6 +88,8 @@ public abstract class TableViewSectionPanel<T extends AbstractAuditableEntity, P
 
     protected Component getAddNewChildButton() {
         addButton = new BootstrapAddButton("newButton", new ResourceModel("newButton")) {
+            private static final long serialVersionUID = -1163665719225658381L;
+
             @Override
             protected void onSubmit(final AjaxRequestTarget target) {
                 createNewChild();
@@ -146,6 +150,8 @@ public abstract class TableViewSectionPanel<T extends AbstractAuditableEntity, P
             super(id, model);
 
             final BootstrapDeleteButton deleteButton = new BootstrapDeleteButton("deleteButton") {
+                private static final long serialVersionUID = -4209887524120372130L;
+
                 @Override
                 protected void onSubmit(final AjaxRequestTarget target) {
                     deleteChild(model, target);

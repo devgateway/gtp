@@ -4,6 +4,8 @@ import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
 
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
+import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainfall;
+import org.devgateway.toolkit.persistence.dao.indicator.Rainfall;
 import org.devgateway.toolkit.persistence.repository.indicator.DecadalRainfallRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Nadejda Mandrescu
@@ -55,5 +58,24 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
             }
         }
         decadalRainfallRepository.saveAll(rainfalls);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public <S extends DecadalRainfall> S saveAndFlush(final S entity) {
+        List<PluviometricPostRainfall> pluviometricPostRainfalls = entity.getPostRainfalls()
+                .stream()
+                .filter(pluviometricPostRainfall -> {
+                    List<Rainfall> rainfalls = pluviometricPostRainfall.getRainfalls()
+                            .stream()
+                            .filter(rainfall -> rainfall.getRain() != null)
+                            .collect(Collectors.toList());
+                    pluviometricPostRainfall.setRainfalls(rainfalls);
+                    return !rainfalls.isEmpty();
+                })
+                .collect(Collectors.toList());
+        entity.setPostRainfalls(pluviometricPostRainfalls);
+
+        return repository().saveAndFlush(entity);
     }
 }

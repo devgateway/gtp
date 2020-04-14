@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 /**
  * @author Nadejda Mandrescu
  */
-public class OrganizationIndicatorsPanel
-        extends TableViewSectionPanel<IndicatorMetadata, Organization> {
+public class OrganizationIndicatorsPanel extends TableViewSectionPanel<IndicatorMetadata, Organization> {
+    private static final long serialVersionUID = -5674279445337786717L;
 
     @SpringBean
     protected IndicatorMetadataService indicatorMetadataService;
