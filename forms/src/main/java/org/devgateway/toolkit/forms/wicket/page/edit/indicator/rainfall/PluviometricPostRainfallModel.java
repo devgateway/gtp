@@ -2,8 +2,7 @@ package org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall;
 
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
-import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
+import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainfall;
 import org.devgateway.toolkit.persistence.dao.indicator.Rainfall;
 
 import java.io.Serializable;
@@ -17,17 +16,14 @@ import java.util.stream.Stream;
 public class PluviometricPostRainfallModel implements Serializable {
     private static final long serialVersionUID = -7718022014894374705L;
 
-    private IModel<DecadalRainfall> decadalRainfallModel;
-
-    private IModel<PluviometricPost> pluviometricPostModel;
+    private IModel<PluviometricPostRainfall> pluviometricPostRainfallModel;
 
     private List<IModel<Rainfall>> rainfallListModel = Stream.generate(() -> (IModel<Rainfall>) null)
             .limit(32).collect(Collectors.toList());
 
-    public PluviometricPostRainfallModel(IModel<DecadalRainfall> decadalRainfallModel,
-            IModel<PluviometricPost> pluviometricPostModel) {
-        this.decadalRainfallModel = decadalRainfallModel;
-        this.pluviometricPostModel = pluviometricPostModel;
+    public PluviometricPostRainfallModel(IModel<PluviometricPostRainfall> pluviometricPostRainfallModel) {
+        this.pluviometricPostRainfallModel = pluviometricPostRainfallModel;
+        pluviometricPostRainfallModel.getObject().getRainfalls().forEach(this::addRainfall);
     }
 
     public void addRainfall(Rainfall rainfall) {
@@ -43,8 +39,7 @@ public class PluviometricPostRainfallModel implements Serializable {
         IModel<Rainfall> rainfallModel = rainfallListModel.get(day);
         if (rainfallModel == null) {
             Rainfall rainfall = new Rainfall();
-            rainfall.setPluviometricPost(pluviometricPostModel.getObject());
-            rainfall.setDecadalRainfall(decadalRainfallModel.getObject());
+            rainfall.setPluviometricPostRainfall(pluviometricPostRainfallModel.getObject());
             rainfall.setDay(day);
             rainfallModel = Model.of(rainfall);
             rainfallListModel.set(day, rainfallModel);

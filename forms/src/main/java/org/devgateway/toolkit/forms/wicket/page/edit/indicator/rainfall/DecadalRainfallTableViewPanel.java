@@ -15,7 +15,7 @@ import org.devgateway.toolkit.forms.wicket.providers.SortableJpaServiceDataProvi
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
-import org.devgateway.toolkit.persistence.dao.indicator.Rainfall;
+import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainfall;
 import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
 
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
     @SpringBean
     private PluviometricPostService pluviometricPostService;
 
-    private Map<Long, PluviometricPostRainfallModel> pluviometricPostRainfallModel = new HashMap<>();
+    private Map<Long, PluviometricPostRainfallModel> pluviometricPostIdToPostRainfallModel = new HashMap<>();
 
     public DecadalRainfallTableViewPanel(String id, IModel<DecadalRainfall> parentModel) {
         super(id, parentModel);
@@ -47,15 +47,21 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
     }
 
     private void init() {
-        pluviometricPostService.findAll().forEach(p -> {
-            PluviometricPostRainfallModel pm = new PluviometricPostRainfallModel(parentModel, Model.of(p));
-            pluviometricPostRainfallModel.put(p.getId(), pm);
-        });
-        parentModel.getObject().getRainfalls().forEach(this::addRainfall);
-    }
+        DecadalRainfall decadalRainfall = parentModel.getObject();
 
-    private void addRainfall(Rainfall rainfall) {
-        pluviometricPostRainfallModel.get(rainfall.getPluviometricPost().getId()).addRainfall(rainfall);
+        decadalRainfall.getPostRainfalls().forEach(pluviometricPostRainfall -> {
+            pluviometricPostIdToPostRainfallModel.put(pluviometricPostRainfall.getPluviometricPost().getId(),
+                    new PluviometricPostRainfallModel(Model.of(pluviometricPostRainfall)));
+        });
+
+        pluviometricPostService.findAll().forEach(pp -> {
+            if (!pluviometricPostIdToPostRainfallModel.containsKey(pp.getId())) {
+                PluviometricPostRainfall ppr = new PluviometricPostRainfall();
+                ppr.setDecadalRainfall(decadalRainfall);
+                ppr.setPluviometricPost(pp);
+                pluviometricPostIdToPostRainfallModel.put(pp.getId(), new PluviometricPostRainfallModel(Model.of(ppr)));
+            }
+        });
     }
 
     private void addRainColumns() {
@@ -76,7 +82,8 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
             @Override
             public void populateItem(Item<ICellPopulator<PluviometricPost>> cellItem, String componentId,
                     IModel<PluviometricPost> rowModel) {
-                PluviometricPostRainfallModel pprm = pluviometricPostRainfallModel.get(rowModel.getObject().getId());
+                Long postId = rowModel.getObject().getId();
+                PluviometricPostRainfallModel pprm = pluviometricPostIdToPostRainfallModel.get(postId);
                 TextFieldBootstrapFormComponent<Double> rain = new TextFieldBootstrapFormComponent<>(
                         componentId, new PluviometricPostDayModel(pprm, day));
                 rain.asDouble();

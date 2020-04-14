@@ -42,7 +42,7 @@ public class DecadalRainfall extends AbstractAuditableEntity implements Serializ
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "decadalRainfall")
     @JsonIgnore
-    private List<Rainfall> rainfalls = new ArrayList<>();
+    private List<PluviometricPostRainfall> postRainfalls = new ArrayList<>();
 
     public Integer getYear() {
         return year;
@@ -76,12 +76,12 @@ public class DecadalRainfall extends AbstractAuditableEntity implements Serializ
         this.decadal = decadal;
     }
 
-    public List<Rainfall> getRainfalls() {
-        return rainfalls;
+    public List<PluviometricPostRainfall> getPostRainfalls() {
+        return postRainfalls;
     }
 
-    public void setRainfalls(List<Rainfall> rainfalls) {
-        this.rainfalls = rainfalls;
+    public void setPostRainfalls(List<PluviometricPostRainfall> postRainfalls) {
+        this.postRainfalls = postRainfalls;
     }
 
     @Override
