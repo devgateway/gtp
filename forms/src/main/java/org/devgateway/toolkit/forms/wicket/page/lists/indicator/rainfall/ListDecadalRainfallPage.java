@@ -2,8 +2,13 @@ package org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -41,7 +46,15 @@ public class ListDecadalRainfallPage extends AbstractIndicatorListPage<DecadalRa
 
         columns.add(new PropertyColumn<>(new StringResourceModel("month"), "displayMonth"));
         columns.add(new PropertyColumn<>(new StringResourceModel("decadal"), "decadal.value"));
-        columns.add(new PropertyColumn<>(new StringResourceModel("formStatus"), "formStatus.name"));
+        columns.add(new AbstractColumn<DecadalRainfall, String>(new StringResourceModel("formStatus")) {
+            private static final long serialVersionUID = -5425273193416180043L;
+            @Override
+            public void populateItem(Item<ICellPopulator<DecadalRainfall>> cellItem, String componentId,
+                    IModel<DecadalRainfall> rowModel) {
+                String statusName = rowModel.getObject().getFormStatus().name();
+                cellItem.add(new Label(componentId, new StringResourceModel(statusName)));
+            }
+        });
     }
 
     @Override
