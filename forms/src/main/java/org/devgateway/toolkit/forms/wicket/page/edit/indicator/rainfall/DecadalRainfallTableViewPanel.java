@@ -35,9 +35,11 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
     public DecadalRainfallTableViewPanel(String id, IModel<DecadalRainfall> parentModel) {
         super(id, parentModel);
 
+        this.title = new StringResourceModel("title", parentModel);
+
         init();
 
-        this.dataProvider =  new SortableJpaServiceDataProvider<PluviometricPost>(pluviometricPostService);
+        this.dataProvider = new SortableJpaServiceDataProvider<PluviometricPost>(pluviometricPostService);
         ((SortableJpaServiceDataProvider) dataProvider).setFilterState(newFilterState());
         columns.add(new PropertyColumn<>(new StringResourceModel("department"), "department.name", "department.name"));
         columns.add(new PropertyColumn<>(new StringResourceModel("label"), "label", "label"));
