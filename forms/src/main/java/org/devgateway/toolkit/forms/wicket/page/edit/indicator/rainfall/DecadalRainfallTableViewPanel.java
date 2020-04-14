@@ -35,6 +35,7 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
     private Map<Long, PluviometricPostRainfallModel> pluviometricPostIdToPostRainfallModel = new HashMap<>();
 
     private Map<Long, Label> totalComponent = new HashMap<>();
+    private Map<Long, Label> rainyDaysComponent = new HashMap<>();
 
     public DecadalRainfallTableViewPanel(String id, IModel<DecadalRainfall> parentModel) {
         super(id, parentModel);
@@ -49,6 +50,7 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
         columns.add(new PropertyColumn<>(new StringResourceModel("label"), "label", "label"));
         addRainColumns();
         addTotalRainColumn();
+        addRainyDaysColumn();
     }
 
     private void init() {
@@ -96,6 +98,7 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
                     @Override
                     protected void onUpdate(final AjaxRequestTarget target) {
                         target.add(totalComponent.get(postId));
+                        target.add(rainyDaysComponent.get(postId));
                     }
                 });
                 rain.asDouble();
@@ -124,6 +127,30 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
                 rainTotal.setOutputMarkupId(true);
                 totalComponent.put(postId, rainTotal);
                 cellItem.add(rainTotal);
+            }
+        });
+    }
+
+    private void addRainyDaysColumn() {
+        columns.add(new AbstractColumn<PluviometricPost, String>(new StringResourceModel("daysWithRain")) {
+            private static final long serialVersionUID = 4599124013488314902L;
+
+            @Override
+            public void populateItem(Item<ICellPopulator<PluviometricPost>> cellItem, String componentId,
+                    IModel<PluviometricPost> rowModel) {
+                Long postId = rowModel.getObject().getId();
+                Label rainyDays = new Label(componentId,
+                        new IModel<Long>() {
+                            private static final long serialVersionUID = 4985144126228053340L;
+                            @Override
+                            public Long getObject() {
+                                return pluviometricPostIdToPostRainfallModel.get(postId).getObject()
+                                        .getRainyDaysCount();
+                            }
+                        });
+                rainyDays.setOutputMarkupId(true);
+                rainyDaysComponent.put(postId, rainyDays);
+                cellItem.add(rainyDays);
             }
         });
     }
