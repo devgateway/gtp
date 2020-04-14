@@ -41,8 +41,7 @@ public class ListDecadalRainfallPage extends AbstractIndicatorListPage<DecadalRa
 
         columns.add(new PropertyColumn<>(new StringResourceModel("month"), "displayMonth"));
         columns.add(new PropertyColumn<>(new StringResourceModel("decadal"), "decadal.value"));
-        // TODO if status tracking still needed
-        // columns.add(new PropertyColumn<>(new StringResourceModel("status"), "status", "status"));
+        columns.add(new PropertyColumn<>(new StringResourceModel("formStatus"), "formStatus.name"));
     }
 
     @Override
