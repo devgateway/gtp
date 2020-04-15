@@ -43,6 +43,9 @@ public class PluviometricPostRainfallModel implements IModel<PluviometricPostRai
             rainfallModel = Model.of(rainfall);
             rainfallListModel.set(day, rainfallModel);
         }
+        if (rain != null && rain.equals(0d)) {
+            rain = null;
+        }
         rainfallModel.getObject().setRain(rain);
     }
 
