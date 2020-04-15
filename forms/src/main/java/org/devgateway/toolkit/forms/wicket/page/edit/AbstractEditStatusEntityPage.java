@@ -60,7 +60,6 @@ public abstract class AbstractEditStatusEntityPage<T extends AbstractStatusAudit
 
     public AbstractEditStatusEntityPage(final PageParameters parameters) {
         super(parameters);
-
     }
 
     public class ButtonContentModal extends TextContentModal {
@@ -127,8 +126,12 @@ public abstract class AbstractEditStatusEntityPage<T extends AbstractStatusAudit
     @Override
     protected void onInitialize() {
         super.onInitialize();
+
         statusLabel = addStatusLabel();
         editForm.add(statusLabel);
+
+        boolean isPublished = editForm.getModelObject().getFormStatus().isPublished();
+        saveButton.setVisible(!isPublished);
 
         entityButtonsFragment = new Fragment("extraButtons", "entityButtons", this);
         editForm.replace(entityButtonsFragment);
@@ -137,6 +140,7 @@ public abstract class AbstractEditStatusEntityPage<T extends AbstractStatusAudit
         entityButtonsFragment.add(fragment);
 
         saveSubmitButton = getSaveSubmitPageButton();
+        saveSubmitButton.setVisible(!isPublished);
         entityButtonsFragment.add(saveSubmitButton);
 
         /*
@@ -145,6 +149,7 @@ public abstract class AbstractEditStatusEntityPage<T extends AbstractStatusAudit
          */
 
         revertToDraftPageButton = getRevertToDraftPageButton();
+        revertToDraftPageButton.setVisible(isPublished);
         entityButtonsFragment.add(revertToDraftPageButton);
     }
 
@@ -194,7 +199,6 @@ public abstract class AbstractEditStatusEntityPage<T extends AbstractStatusAudit
                 super.onSubmit(target);
             }
         };
-
         return button;
     }
 
