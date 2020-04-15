@@ -10,6 +10,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.convert.IConverter;
+import org.devgateway.toolkit.forms.wicket.FormattedDoubleConverter;
 import org.devgateway.toolkit.forms.wicket.components.TableViewSectionPanel;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.providers.SortableJpaServiceDataProvider;
@@ -92,7 +94,14 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
                 Long postId = rowModel.getObject().getId();
                 PluviometricPostRainfallModel pprm = pluviometricPostIdToPostRainfallModel.get(postId);
                 TextFieldBootstrapFormComponent<Double> rain = new TextFieldBootstrapFormComponent<Double>(
-                        componentId, new PluviometricPostDayModel(pprm, day));
+                        componentId, new PluviometricPostDayModel(pprm, day)) {
+                    private static final long serialVersionUID = 7475516706780292947L;
+                    @Override
+                    protected IConverter<?> createFieldConverter(Class<?> type) {
+                        return new FormattedDoubleConverter(1);
+                    }
+                };
+
                 rain.getField().add(new AjaxFormComponentUpdatingBehavior(rain.getUpdateEvent()) {
                     private static final long serialVersionUID = -2696538086634114609L;
                     @Override

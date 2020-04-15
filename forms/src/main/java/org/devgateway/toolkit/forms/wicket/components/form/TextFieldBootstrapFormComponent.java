@@ -16,6 +16,7 @@ package org.devgateway.toolkit.forms.wicket.components.form;
 
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.util.convert.IConverter;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.devgateway.toolkit.forms.WebConstants;
 
@@ -47,7 +48,14 @@ public class TextFieldBootstrapFormComponent<TYPE> extends GenericBootstrapFormC
 
     @Override
     protected TextField<TYPE> inputField(final String id, final IModel<TYPE> model) {
-        return new TextField<TYPE>(id, initFieldModel());
+        return new TextField<TYPE>(id, initFieldModel()) {
+            private static final long serialVersionUID = 401805402388919427L;
+            @Override
+            protected IConverter<?> createConverter(Class<?> type) {
+                IConverter<?> converter = createFieldConverter(type);
+                return converter == null ? super.createConverter(type) : converter;
+            }
+        };
     }
 
     public TextFieldBootstrapFormComponent<TYPE> integer() {
