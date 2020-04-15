@@ -18,6 +18,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/system-categories")
 public class SystemCategoriesHomePage extends BasePage {
+    private static final long serialVersionUID = 8435835519375264268L;
 
     /**
      * Construct.

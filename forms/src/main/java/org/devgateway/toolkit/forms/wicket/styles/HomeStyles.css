@@ -1,9 +1,11 @@
+/*
 h1.pageTitle {
     font-size: 21px;
     font-weight: 400;
     margin-top: 40px;
     padding-bottom: 20px;
 }
+*/
 .homepage-menu-wrapper {
     clear: both;
     overflow: hidden;
@@ -97,7 +99,7 @@ ul.homepage-menu li.common-admin-button button:hover {
 .btn.btn-text {
     background-color: #ffffff;
     color: #354051;
-    font-size: 13px;
+    /* font-size: 13px; */
     font-weight: 800;
     outline: none;
     text-align: center;
