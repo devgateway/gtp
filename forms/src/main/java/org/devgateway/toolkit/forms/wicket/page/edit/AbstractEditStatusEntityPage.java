@@ -17,6 +17,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIc
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
@@ -32,6 +33,7 @@ import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.GenericBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.events.EditingDisabledEvent;
 import org.devgateway.toolkit.persistence.dao.AbstractStatusAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.FormStatus;
 import org.wicketstuff.select2.Select2Choice;
@@ -151,6 +153,10 @@ public abstract class AbstractEditStatusEntityPage<T extends AbstractStatusAudit
         revertToDraftPageButton = getRevertToDraftPageButton();
         revertToDraftPageButton.setVisible(isPublished);
         entityButtonsFragment.add(revertToDraftPageButton);
+
+        if (isPublished) {
+            send(editForm, Broadcast.DEPTH, new EditingDisabledEvent());
+        }
     }
 
     private Label addStatusLabel() {
