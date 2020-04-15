@@ -3,7 +3,6 @@ package org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.Item;
@@ -41,6 +40,7 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
         super(id, parentModel);
 
         this.title = new StringResourceModel("title", parentModel);
+        this.isReadOnly = parentModel.getObject().isPublished();
 
         init();
 
@@ -83,11 +83,11 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
     }
 
     private void addRainColumn(Integer day) {
-        columns.add(new AbstractColumn<PluviometricPost, String>(Model.of(day.toString())) {
+        columns.add(new EnabelableAbstractColumn<PluviometricPost, String>(Model.of(day.toString())) {
             private static final long serialVersionUID = 4599124013488314902L;
 
             @Override
-            public void populateItem(Item<ICellPopulator<PluviometricPost>> cellItem, String componentId,
+            public void populateEnabelableItem(Item<ICellPopulator<PluviometricPost>> cellItem, String componentId,
                     IModel<PluviometricPost> rowModel) {
                 Long postId = rowModel.getObject().getId();
                 PluviometricPostRainfallModel pprm = pluviometricPostIdToPostRainfallModel.get(postId);
@@ -109,11 +109,11 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
     }
 
     private void addTotalRainColumn() {
-        columns.add(new AbstractColumn<PluviometricPost, String>(new StringResourceModel("total")) {
+        columns.add(new EnabelableAbstractColumn<PluviometricPost, String>(new StringResourceModel("total")) {
             private static final long serialVersionUID = 4599124013488314902L;
 
             @Override
-            public void populateItem(Item<ICellPopulator<PluviometricPost>> cellItem, String componentId,
+            public void populateEnabelableItem(Item<ICellPopulator<PluviometricPost>> cellItem, String componentId,
                     IModel<PluviometricPost> rowModel) {
                 Long postId = rowModel.getObject().getId();
                 Label rainTotal = new Label(componentId,
@@ -132,11 +132,11 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
     }
 
     private void addRainyDaysColumn() {
-        columns.add(new AbstractColumn<PluviometricPost, String>(new StringResourceModel("daysWithRain")) {
+        columns.add(new EnabelableAbstractColumn<PluviometricPost, String>(new StringResourceModel("daysWithRain")) {
             private static final long serialVersionUID = 4599124013488314902L;
 
             @Override
-            public void populateItem(Item<ICellPopulator<PluviometricPost>> cellItem, String componentId,
+            public void populateEnabelableItem(Item<ICellPopulator<PluviometricPost>> cellItem, String componentId,
                     IModel<PluviometricPost> rowModel) {
                 Long postId = rowModel.getObject().getId();
                 Label rainyDays = new Label(componentId,
