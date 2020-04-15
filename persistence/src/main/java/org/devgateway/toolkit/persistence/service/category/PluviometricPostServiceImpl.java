@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.service.category;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.repository.category.PluviometricPostRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.devgateway.toolkit.persistence.repository.norepository.UniquePropertyRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -43,5 +44,10 @@ public class PluviometricPostServiceImpl extends BaseJpaServiceImpl<Pluviometric
     @Override
     public Page<PluviometricPost> searchText(String term, Pageable page) {
         return pluviometricPostRepository.searchText(term, page);
+    }
+
+    @Override
+    public UniquePropertyRepository<PluviometricPost, Long> uniquePropertyRepository() {
+        return pluviometricPostRepository;
     }
 }

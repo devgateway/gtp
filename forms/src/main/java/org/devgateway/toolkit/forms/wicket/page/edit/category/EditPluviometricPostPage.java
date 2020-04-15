@@ -3,8 +3,10 @@ package org.devgateway.toolkit.forms.wicket.page.edit.category;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.lang.Objects;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.validators.UniquePropertyValidator;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
@@ -44,6 +46,8 @@ public class EditPluviometricPostPage extends AbstractEditPage<PluviometricPost>
         final TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("label");
         name.required();
         name.getField().add(WebConstants.StringValidators.MAXIMUM_LENGTH_VALIDATOR_STD_DEFAULT_TEXT);
+        name.getField().add(new UniquePropertyValidator<PluviometricPost, String>(pluviometricPostService,
+                Objects.defaultIfNull(entityId, -1L), "label", this));
         editForm.add(name);
 
         final TextFieldBootstrapFormComponent<Double> latitude = new TextFieldBootstrapFormComponent<>("latitude");
