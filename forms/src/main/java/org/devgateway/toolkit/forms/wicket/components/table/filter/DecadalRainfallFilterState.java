@@ -22,6 +22,8 @@ public class DecadalRainfallFilterState extends JpaFilterState<DecadalRainfall> 
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(cb.equal(root.get(DecadalRainfall_.year), year));
 
+            query.orderBy(cb.asc(root.get(DecadalRainfall_.month)), cb.asc(root.get(DecadalRainfall_.decadal)));
+
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
