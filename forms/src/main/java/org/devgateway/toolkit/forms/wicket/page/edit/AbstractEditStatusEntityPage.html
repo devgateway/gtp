@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:extend>
+
+    <wicket:child/>
+
+    <br/>
+    <hr class="edit-separator"/>
+    <br/>
+
+    <wicket:enclosure child="statusLabel">
+        <div class="row status-section">
+            <div class="col-md-4">
+                <div class="form-group">
+
+                </div>
+                <label class="control-label">Current Status:</label>
+                <span wicket:id="statusLabel">Status Label</span>
+            </div>
+        </div>
+    </wicket:enclosure>
+
+    <wicket:fragment wicket:id="entityButtons">
+        <span wicket:id="extraStatusEntityButtons"></span>
+        <button wicket:id="saveSubmit" type="button" class="btn btn-info btn-form-action">Save</button>
+        <!--button wicket:id="approve" type="button" class="btn btn-success btn-form-action">Save & Approve</button-->
+        <button wicket:id="revertToDraft" type="button" class="btn btn-warning btn-form-action">Revert to Draft</button>
+    </wicket:fragment>
+
+    <wicket:fragment wicket:id="noButtons"></wicket:fragment>
+</wicket:extend>
+</body>
+</html>

@@ -3,6 +3,7 @@ package org.devgateway.toolkit.forms.wicket.components;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
@@ -19,6 +20,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.BootstrapAddButton;
 import org.devgateway.toolkit.forms.wicket.components.form.BootstrapDeleteButton;
 import org.devgateway.toolkit.forms.wicket.components.table.AjaxFallbackBootstrapDataTable;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
+import org.devgateway.toolkit.forms.wicket.events.EditingDisabledEvent;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 
 import java.util.ArrayList;
@@ -161,6 +163,29 @@ public abstract class TableViewSectionPanel<T extends AbstractAuditableEntity, P
             deleteButton.setEnabled(!isReadOnly);
             add(deleteButton);
         }
+    }
+
+    protected abstract class EnabelableAbstractColumn<T, S> extends AbstractColumn<T, S> {
+        private static final long serialVersionUID = 8446403516834692799L;
+
+        public EnabelableAbstractColumn(IModel<String> displayModel, S sortProperty) {
+            super(displayModel, sortProperty);
+        }
+
+        public EnabelableAbstractColumn(IModel<String> displayModel) {
+            super(displayModel);
+        }
+
+        @Override
+        public void populateItem(Item<ICellPopulator<T>> cellItem, String componentId, IModel<T> rowModel) {
+            populateEnabelableItem(cellItem, componentId, rowModel);
+            if (isReadOnly) {
+                send(cellItem, Broadcast.DEPTH, new EditingDisabledEvent());
+            }
+        }
+
+        public abstract void populateEnabelableItem(Item<ICellPopulator<T>> cellItem, String componentId,
+                IModel<T> rowModel);
     }
 
 }

@@ -23,4 +23,8 @@ public abstract class AbstractStatusAuditableEntity extends AbstractAuditableEnt
     public void setFormStatus(final FormStatus formStatus) {
         this.formStatus = formStatus;
     }
+
+    public boolean isPublished() {
+        return formStatus != null && formStatus.isPublished();
+    }
 }

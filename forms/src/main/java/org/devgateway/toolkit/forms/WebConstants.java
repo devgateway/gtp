@@ -61,4 +61,12 @@ public final class WebConstants {
     // to change the src code anyway.
     public static final Set<Locale> AVAILABLE_LOCALES = ImmutableSet.of(Locale.ENGLISH, Locale.FRENCH);
 
+    public static final String DISABLE_FORM_LEAVING_JS
+            = "if(typeof disableFormLeavingConfirmation === 'function') disableFormLeavingConfirmation();";
+    public static final String V_POSITION = "vPosition";
+    public static final String MAX_HEIGHT = "maxPosition";
+    public static final String UNBIND_BEFOREUNLOAD_STR = "$(window).unbind('beforeunload');";
+    public static final String BIND_BEFOREUNLOAD_STR = "$(window).bind('beforeunload', "
+            + "function() { return 'Are your sure you want to leave the page without saving changes?'; });";
+
 }

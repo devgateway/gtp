@@ -36,6 +36,7 @@ import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.util.convert.IConverter;
 import org.apache.wicket.util.time.Duration;
 import org.devgateway.toolkit.forms.models.SubComponentWrapModel;
 import org.devgateway.toolkit.forms.models.ViewModeConverterModel;
@@ -340,5 +341,9 @@ public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComp
 
     public void setTooltipNote(ResourceModel tooltipNote) {
         this.tooltipNote = tooltipNote;
+    }
+
+    protected IConverter<?> createFieldConverter(Class<?> type) {
+        return null;
     }
 }
