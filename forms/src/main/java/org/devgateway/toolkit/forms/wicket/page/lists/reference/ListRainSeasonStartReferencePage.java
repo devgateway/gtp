@@ -9,7 +9,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.table.AjaxFallbackBootstrapDataTable;
-import org.devgateway.toolkit.forms.wicket.components.table.BookmarkableResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.RainSeasonStartReferenceFilterState;
@@ -33,6 +32,11 @@ public class ListRainSeasonStartReferencePage extends AbstractListPage<RainSeaso
     public ListRainSeasonStartReferencePage(PageParameters parameters) {
         super(parameters, false);
 
+        if (parameters.get("antiCache").isNull()) {
+            PageParameters antiCache = new PageParameters().set("antiCache", System.currentTimeMillis());
+            setResponsePage(ListRainSeasonStartReferencePage.class, antiCache);
+        }
+
         this.jpaService = rainSeasonStartReferenceService;
         this.editPageClass = EditRainSeasonStartReferencePage.class;
 
@@ -53,8 +57,7 @@ public class ListRainSeasonStartReferencePage extends AbstractListPage<RainSeaso
     protected ResettingFilterForm<? extends JpaFilterState<RainSeasonStartReference>> getFilterForm(final String id,
             final IFilterStateLocator locator,
             final AjaxFallbackBootstrapDataTable<RainSeasonStartReference, String> dataTable) {
-        return new BookmarkableResettingFilterForm<RainSeasonStartReferenceFilterState>(id, locator, dataTable,
-                ListRainSeasonStartReferencePage.class, this.getPageParameters());
+        return new RainSeasonStartFilterForm(id, locator, dataTable, this.getPageParameters());
     }
 
     @Override
