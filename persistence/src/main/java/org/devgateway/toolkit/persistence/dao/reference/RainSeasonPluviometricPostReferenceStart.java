@@ -58,6 +58,7 @@ public class RainSeasonPluviometricPostReferenceStart extends AbstractAuditableE
 
     public void setRainSeasonStartReference(RainSeasonStartReference rainSeasonStartReference) {
         this.rainSeasonStartReference = rainSeasonStartReference;
+        this.rainSeasonStartReference.getPostReferences().add(this);
     }
 
     @Override
