@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainseason;
 
+import nl.dries.wicket.hibernate.dozer.DozerListModel;
 import org.apache.wicket.Component;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
@@ -11,13 +12,17 @@ import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.table.AjaxFallbackBootstrapDataTable;
 import org.devgateway.toolkit.forms.wicket.components.table.BookmarkableResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
+import org.devgateway.toolkit.forms.wicket.components.table.SelectFilteredBootstrapPropertyColumn;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.PluviometricPostRainSeasonFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainseason.EditRainSeasonPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.AbstractIndicatorListPage;
 import org.devgateway.toolkit.persistence.dao.IndicatorType;
+import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainSeason;
+import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
 import org.devgateway.toolkit.persistence.service.indicator.PluviometricPostRainSeasonService;
+import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
@@ -27,6 +32,12 @@ import org.wicketstuff.annotation.mount.MountPath;
 @MountPath(value = "/rain-seasons")
 public class ListRainSeasonPage extends AbstractIndicatorListPage<PluviometricPostRainSeason> {
     private static final long serialVersionUID = 4253917551574616261L;
+
+    @SpringBean
+    private PluviometricPostService pluviometricPostService;
+
+    @SpringBean
+    private DepartmentService departmentService;
 
     @SpringBean
     private PluviometricPostRainSeasonService pluviometricPostRainSeasonService;
@@ -39,8 +50,14 @@ public class ListRainSeasonPage extends AbstractIndicatorListPage<PluviometricPo
 
         columns.add(new PropertyColumn<>(new StringResourceModel("department"),
                 "pluviometricPost.department.name", "pluviometricPost.department.name"));
-        columns.add(new PropertyColumn<>(new StringResourceModel("pluviometricPost"),
-                "pluviometricPost.label", "pluviometricPost.label"));
+        /*
+        columns.add(new SelectFilteredBootstrapPropertyColumn<PluviometricPostRainSeason, Department, String>(
+                new StringResourceModel("department"), "pluviometricPost.department.name", "pluviometricPost.department",
+                new DozerListModel(departmentService.findAll())));
+         */
+        columns.add(new SelectFilteredBootstrapPropertyColumn<PluviometricPostRainSeason, PluviometricPost, String>(
+                new StringResourceModel("pluviometricPost"), "pluviometricPost.label", "pluviometricPost",
+                new DozerListModel(pluviometricPostService.findAll())));
     }
 
     @Override
