@@ -105,6 +105,12 @@ hr.edit-separator {
     margin-bottom: 0px;
 }
 
+.month-day-picker {
+    display: inline-block;
+    width: 200px;
+}
+
+
 /* List View Styles
 -------------------------------------------------- */
 .section-bordered {
