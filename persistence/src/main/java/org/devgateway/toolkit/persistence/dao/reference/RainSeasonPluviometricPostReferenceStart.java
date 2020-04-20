@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.MonthDay;
 
 /**
  * @author Nadejda Mandrescu
@@ -22,7 +22,7 @@ import java.time.LocalDate;
 public class RainSeasonPluviometricPostReferenceStart extends AbstractAuditableEntity implements Serializable {
     private static final long serialVersionUID = 3862531669881681345L;
 
-    private LocalDate date;
+    private MonthDay monthDay;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @NotNull
@@ -36,12 +36,12 @@ public class RainSeasonPluviometricPostReferenceStart extends AbstractAuditableE
     @JsonIgnore
     private RainSeasonStartReference rainSeasonStartReference;
 
-    public LocalDate getDate() {
-        return date;
+    public MonthDay getMonthDay() {
+        return monthDay;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setMonthDay(MonthDay monthDay) {
+        this.monthDay = monthDay;
     }
 
     public PluviometricPost getPluviometricPost() {

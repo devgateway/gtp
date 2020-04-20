@@ -263,3 +263,9 @@ label {
 .rainfall .form-group .form-control {
     margin-top: -16px;
 }
+
+.start-day-month .form-group {
+    margin-bottom: 0;
+    margin-top: -16px;
+}
+
