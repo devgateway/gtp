@@ -12,7 +12,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.AjaxFallbackBootstra
 import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.RainSeasonStartReferenceFilterState;
-import org.devgateway.toolkit.forms.wicket.page.ipar.edit.reference.EditRainSeasonStartReferencePage;
+import org.devgateway.toolkit.forms.wicket.page.edit.reference.EditRainSeasonStartReferencePage;
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonStartReference;
 import org.devgateway.toolkit.persistence.service.reference.RainSeasonStartReferenceService;

@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.forms.wicket.page.ipar.edit.reference;
+package org.devgateway.toolkit.forms.wicket.page.edit.reference;
 
 import org.apache.wicket.model.IModel;
 import org.devgateway.toolkit.forms.models.MonthDayModel;

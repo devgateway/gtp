@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.forms.wicket.page.ipar.edit.reference;
+package org.devgateway.toolkit.forms.wicket.page.edit.reference;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
