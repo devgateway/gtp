@@ -4,6 +4,8 @@ import org.devgateway.toolkit.persistence.dao.indicator.RainSeason;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
  * @author Nadejda Mandrescu
  */
@@ -11,4 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface RainSeasonRepository extends BaseJpaRepository<RainSeason, Long> {
 
     boolean existsByYear(Integer year);
+
+    Optional<RainSeason> findByYear(Integer year);
 }

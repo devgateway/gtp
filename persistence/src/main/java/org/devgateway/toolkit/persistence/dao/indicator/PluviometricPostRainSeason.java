@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.dao.indicator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
+import org.devgateway.toolkit.persistence.dao.AbstractStatusAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -19,7 +20,7 @@ import java.time.LocalDate;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Audited
-public class PluviometricPostRainSeason extends AbstractAuditableEntity implements Serializable {
+public class PluviometricPostRainSeason extends AbstractStatusAuditableEntity implements Serializable {
     private static final long serialVersionUID = 781589350960096214L;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -35,6 +36,8 @@ public class PluviometricPostRainSeason extends AbstractAuditableEntity implemen
     @ManyToOne(optional = false)
     @JsonIgnore
     private RainSeason rainSeason;
+
+    private boolean deleted = false;
 
     public PluviometricPost getPluviometricPost() {
         return pluviometricPost;
@@ -58,6 +61,15 @@ public class PluviometricPostRainSeason extends AbstractAuditableEntity implemen
 
     public void setRainSeason(RainSeason rainSeason) {
         this.rainSeason = rainSeason;
+        this.rainSeason.getPostRainSeason().add(this);
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

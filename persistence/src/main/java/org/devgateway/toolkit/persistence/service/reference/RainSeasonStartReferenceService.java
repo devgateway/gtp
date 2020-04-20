@@ -8,4 +8,6 @@ import org.devgateway.toolkit.persistence.service.BaseJpaService;
  */
 public interface RainSeasonStartReferenceService extends BaseJpaService<RainSeasonStartReference> {
     void initialize(RainSeasonStartReference rainReference);
+
+    RainSeasonStartReference findByYearStartLessThanEqualAndYearEndGreaterThanEqual(Integer year);
 }

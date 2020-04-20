@@ -9,4 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface RainSeasonStartReferenceRepository extends BaseJpaRepository<RainSeasonStartReference, Long> {
+    RainSeasonStartReference findByYearStartLessThanEqualAndYearEndGreaterThanEqual(Integer yearStart,
+            Integer yearEnd);
 }

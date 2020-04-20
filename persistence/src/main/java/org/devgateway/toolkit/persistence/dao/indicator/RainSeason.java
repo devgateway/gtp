@@ -2,7 +2,6 @@ package org.devgateway.toolkit.persistence.dao.indicator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
-import org.devgateway.toolkit.persistence.dao.AbstractStatusAuditableEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -22,7 +21,7 @@ import java.util.List;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Audited
-public class RainSeason extends AbstractStatusAuditableEntity implements Serializable {
+public class RainSeason extends AbstractAuditableEntity implements Serializable {
     private static final long serialVersionUID = 2478095496695101726L;
 
     @NotNull
