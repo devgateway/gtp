@@ -11,10 +11,6 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.validators;
 
-import org.apache.wicket.validation.IValidatable;
-import org.apache.wicket.validation.IValidator;
-import org.apache.wicket.validation.ValidationError;
-
 import java.util.Date;
 
 /**
@@ -30,6 +26,7 @@ public class EarlierThanDateValidator extends AbstractEarlierThanDateValidator<D
         super(highDate);
     }
 
+    @Override
     protected boolean isBefore(Date highValue, Date currentValue) {
         return highValue.before(currentValue);
     }
