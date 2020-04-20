@@ -9,6 +9,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
+import org.devgateway.toolkit.forms.wicket.page.lists.reference.ListRainSeasonStartReferencePage;
 import org.devgateway.toolkit.forms.wicket.styles.HomeStyles;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -54,5 +55,11 @@ public class SystemCategoriesHomePage extends BasePage {
                 "referenceRain", SystemCategoriesHomePage.class, Buttons.Type.Default);
         referenceRain.setLabel(new StringResourceModel("referenceRain"));
         add(referenceRain);
+
+        BootstrapBookmarkablePageLink<ListRainSeasonStartReferencePage> referenceSeason =
+                new BootstrapBookmarkablePageLink<>(
+                        "referenceSeason", ListRainSeasonStartReferencePage.class, Buttons.Type.Default);
+        referenceSeason.setLabel(new StringResourceModel("referenceSeason"));
+        add(referenceSeason);
     }
 }

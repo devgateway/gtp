@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author Nadejda Mandrescu
  */
@@ -19,4 +21,6 @@ public interface PluviometricPostRepository extends TextSearchableRepository<Plu
     @Override
     @Query("select o from  #{#entityName} o where lower(o.label) like %:label%")
     Page<PluviometricPost> searchText(@Param("label") String label, Pageable page);
+
+    List<PluviometricPost> findAllByIdNotIn(List<Long> ids);
 }
