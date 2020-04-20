@@ -58,6 +58,7 @@ public class ListRainSeasonPage extends AbstractIndicatorListPage<PluviometricPo
         columns.add(new SelectFilteredBootstrapPropertyColumn<PluviometricPostRainSeason, PluviometricPost, String>(
                 new StringResourceModel("pluviometricPost"), "pluviometricPost.label", "pluviometricPost",
                 new DozerListModel(pluviometricPostService.findAll())));
+        columns.add(new PropertyColumn<>(new StringResourceModel("startDate"), "startDate", "startDate"));
     }
 
     @Override

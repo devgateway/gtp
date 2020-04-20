@@ -27,5 +27,6 @@ public class EditRainSeasonPage extends AbstractIndicatorEditPage<PluviometricPo
 
         this.jpaService = pluviometricPostRainSeasonService;
         this.listPageClass = ListRainSeasonPage.class;
+        // TODO do not allow edit of a deleted post
     }
 }
