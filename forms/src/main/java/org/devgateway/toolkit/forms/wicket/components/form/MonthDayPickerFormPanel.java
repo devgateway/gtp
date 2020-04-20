@@ -79,8 +79,8 @@ public class MonthDayPickerFormPanel extends Panel {
 
     private void updateDateOptions() {
         MonthDay monthDay = monthDayModel.getObject();
-        List<Integer> days = monthDay == null ? new ArrayList<>() :
-                IntStream.rangeClosed(1, monthDay.getMonth().maxLength()).boxed().collect(Collectors.toList());
+        List<Integer> days = monthDay == null ? new ArrayList<>()
+                : IntStream.rangeClosed(1, monthDay.getMonth().maxLength()).boxed().collect(Collectors.toList());
         day.provider(new GenericChoiceProvider<>(days));
         day.setEnabled(monthDayModel.getObject() != null);
     }

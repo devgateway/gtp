@@ -20,11 +20,11 @@ public class RainSeasonPostRefStartModel extends MonthDayModel {
 
     @Override
     public MonthDay getObject() {
-        return parent.getObject().getMonthDay();
+        return parent.getObject().getStartReference();
     }
 
     @Override
     public void setObject(MonthDay monthDay) {
-        parent.getObject().setMonthDay(monthDay);
+        parent.getObject().setStartReference(monthDay);
     }
 }
