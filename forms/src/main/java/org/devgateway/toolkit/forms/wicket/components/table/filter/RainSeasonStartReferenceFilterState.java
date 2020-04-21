@@ -19,6 +19,11 @@ public class RainSeasonStartReferenceFilterState extends JpaFilterState<RainSeas
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RainSeasonStartReferenceFilterState.class);
 
+    /**
+     * The data is filtered below by current year.
+     * In URL we don't have anything about year, so the filter state gets cached.
+     * This always changing filter will ensure filter is rerun and show extra data if needed on year change.
+     */
     private Long antiCache;
 
     @Override
