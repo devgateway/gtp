@@ -67,7 +67,7 @@ public class PluviometricPostRainSeasonServiceImpl extends BaseJpaServiceImpl<Pl
         RainSeason rainSeason = rainSeasonRepository.findByYear(year).orElseGet(RainSeason::new);
         boolean hasChanges = rainSeason.isNew();
         rainSeason.setYear(year);
-        for (PluviometricPostRainSeason pluviometricPostRainSeason : rainSeason.getPostRainSeason()) {
+        for (PluviometricPostRainSeason pluviometricPostRainSeason : rainSeason.getPostRainSeasons()) {
             if (allowed.contains(pluviometricPostRainSeason.getPluviometricPost())) {
                 allowed.remove(pluviometricPostRainSeason.getPluviometricPost());
                 if (pluviometricPostRainSeason.isDeleted()) {
@@ -84,7 +84,7 @@ public class PluviometricPostRainSeasonServiceImpl extends BaseJpaServiceImpl<Pl
             allowed.forEach(pluviometricPost -> {
                 PluviometricPostRainSeason pluviometricPostRainSeason = new PluviometricPostRainSeason();
                 pluviometricPostRainSeason.setPluviometricPost(pluviometricPost);
-                pluviometricPostRainSeason.setRainSeason(rainSeason);
+                rainSeason.addPostRainSeason(pluviometricPostRainSeason);
             });
         }
         if (hasChanges) {

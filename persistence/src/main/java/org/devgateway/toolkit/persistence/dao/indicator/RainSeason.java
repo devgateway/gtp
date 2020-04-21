@@ -31,7 +31,7 @@ public class RainSeason extends AbstractAuditableEntity implements Serializable 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "rainSeason")
     @JsonIgnore
-    private List<PluviometricPostRainSeason> postRainSeason = new ArrayList<>();
+    private List<PluviometricPostRainSeason> postRainSeasons = new ArrayList<>();
 
     public Integer getYear() {
         return year;
@@ -41,12 +41,17 @@ public class RainSeason extends AbstractAuditableEntity implements Serializable 
         this.year = year;
     }
 
-    public List<PluviometricPostRainSeason> getPostRainSeason() {
-        return postRainSeason;
+    public List<PluviometricPostRainSeason> getPostRainSeasons() {
+        return postRainSeasons;
     }
 
-    public void setPostRainSeason(List<PluviometricPostRainSeason> postRainSeason) {
-        this.postRainSeason = postRainSeason;
+    public void setPostRainSeason(List<PluviometricPostRainSeason> postRainSeasons) {
+        this.postRainSeasons = postRainSeasons;
+    }
+
+    public void addPostRainSeason(PluviometricPostRainSeason postRainSeason) {
+        postRainSeasons.add(postRainSeason);
+        postRainSeason.setRainSeason(this);
     }
 
     @Override

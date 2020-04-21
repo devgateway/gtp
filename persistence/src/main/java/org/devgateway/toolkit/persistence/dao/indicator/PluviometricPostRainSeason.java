@@ -61,7 +61,6 @@ public class PluviometricPostRainSeason extends AbstractStatusAuditableEntity im
 
     public void setRainSeason(RainSeason rainSeason) {
         this.rainSeason = rainSeason;
-        this.rainSeason.getPostRainSeason().add(this);
     }
 
     public boolean isDeleted() {
