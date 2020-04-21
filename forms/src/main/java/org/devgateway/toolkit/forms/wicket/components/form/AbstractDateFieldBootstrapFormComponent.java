@@ -55,6 +55,10 @@ public abstract class AbstractDateFieldBootstrapFormComponent<T>
 
     protected abstract AbstractDateTextField newDateTextField(String id, AbstractDateTextFieldConfig config);
 
+    public AbstractDateTextFieldConfig getDateSettings() {
+        return ((AbstractDateTextField) this.getField()).getConfig();
+    }
+
     @Override
     public String getUpdateEvent() {
         return "change";
