@@ -10,6 +10,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainseason.ListRainSeasonPage;
 import org.devgateway.toolkit.forms.wicket.styles.HomeStyles;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -46,8 +47,8 @@ public class IndicatorHomePage extends BasePage {
         rainfall.setLabel(new StringResourceModel("rainfall"));
         add(rainfall);
 
-        BootstrapBookmarkablePageLink<IndicatorHomePage> season = new BootstrapBookmarkablePageLink<>(
-                "season", IndicatorHomePage.class, Buttons.Type.Default);
+        BootstrapBookmarkablePageLink<ListRainSeasonPage> season = new BootstrapBookmarkablePageLink<>(
+                "season", ListRainSeasonPage.class, Buttons.Type.Default);
         season.setLabel(new StringResourceModel("season"));
         add(season);
     }

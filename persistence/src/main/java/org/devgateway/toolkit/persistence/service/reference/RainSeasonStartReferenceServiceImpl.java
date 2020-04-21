@@ -65,4 +65,9 @@ public class RainSeasonStartReferenceServiceImpl extends BaseJpaServiceImpl<Rain
             rainSeasonStartReferenceRepository.save(rainReference);
         }
     }
+
+    @Override
+    public RainSeasonStartReference findByYearStartLessThanEqualAndYearEndGreaterThanEqual(Integer year) {
+        return rainSeasonStartReferenceRepository.findByYearStartLessThanEqualAndYearEndGreaterThanEqual(year, year);
+    }
 }
