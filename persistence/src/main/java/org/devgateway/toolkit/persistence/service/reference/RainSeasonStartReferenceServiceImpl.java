@@ -59,7 +59,7 @@ public class RainSeasonStartReferenceServiceImpl extends BaseJpaServiceImpl<Rain
                 RainSeasonPluviometricPostReferenceStart postReferenceStart =
                         new RainSeasonPluviometricPostReferenceStart();
                 postReferenceStart.setPluviometricPost(pluviometricPost);
-                postReferenceStart.setRainSeasonStartReference(rainReference);
+                rainReference.addPostReference(postReferenceStart);
                 return postReferenceStart;
             }).collect(Collectors.toList());
             rainSeasonStartReferenceRepository.save(rainReference);

@@ -80,6 +80,11 @@ public class RainSeasonStartReference extends AbstractAuditableEntity implements
         this.postReferences = postReferences;
     }
 
+    public void addPostReference(RainSeasonPluviometricPostReferenceStart postReference) {
+        this.postReferences.add(postReference);
+        postReference.setRainSeasonStartReference(this);
+    }
+
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
