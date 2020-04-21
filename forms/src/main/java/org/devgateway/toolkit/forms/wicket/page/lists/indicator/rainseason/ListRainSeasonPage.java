@@ -52,7 +52,8 @@ public class ListRainSeasonPage extends AbstractIndicatorListPage<PluviometricPo
                 "pluviometricPost.department.name", "pluviometricPost.department.name"));
         /*
         columns.add(new SelectFilteredBootstrapPropertyColumn<PluviometricPostRainSeason, Department, String>(
-                new StringResourceModel("department"), "pluviometricPost.department.name", "pluviometricPost.department",
+                new StringResourceModel("department"), "pluviometricPost.department.name",
+                "pluviometricPost.department",
                 new DozerListModel(departmentService.findAll())));
          */
         columns.add(new SelectFilteredBootstrapPropertyColumn<PluviometricPostRainSeason, PluviometricPost, String>(
@@ -84,7 +85,7 @@ public class ListRainSeasonPage extends AbstractIndicatorListPage<PluviometricPo
     @Override
     protected Component getOuterFilter(final String id,
             ResettingFilterForm<? extends JpaFilterState<PluviometricPostRainSeason>> filterForm) {
-        return new RainSeasonOuterFilterPanel(id, (ResettingFilterForm<PluviometricPostRainSeasonFilterState>) filterForm);
+        return new RainSeasonOuterFilterPanel(id, filterForm);
     }
 
 }
