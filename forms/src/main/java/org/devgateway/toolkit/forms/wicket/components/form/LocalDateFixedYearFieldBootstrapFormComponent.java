@@ -2,6 +2,9 @@ package org.devgateway.toolkit.forms.wicket.components.form;
 
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.AbstractDateTextFieldConfig;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.validation.IValidatable;
+import org.apache.wicket.validation.IValidator;
+import org.apache.wicket.validation.ValidationError;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -39,5 +42,19 @@ public class LocalDateFixedYearFieldBootstrapFormComponent extends LocalDateFiel
                 .withView(AbstractDateTextFieldConfig.View.Year)
                 .withStartDate(LocalDate.of(year, Month.JANUARY, 1).atStartOfDay())
                 .withEndDate(LocalDate.of(year, Month.DECEMBER, 31).atTime(LocalTime.MAX));
+
+        getField().add(new IValidator<LocalDate>() {
+            private static final long serialVersionUID = -4324295187598133158L;
+            @Override
+            public void validate(IValidatable<LocalDate> validatable) {
+                LocalDate date = validatable.getValue();
+                if (date != null && date.getYear() != year) {
+                    ValidationError error = new ValidationError();
+                    error.addKey("invalidYear");
+                    error.setVariable("year", year);
+                    validatable.error(error);
+                }
+            }
+        });
     }
 }
