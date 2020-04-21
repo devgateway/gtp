@@ -10,8 +10,10 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.wicket.components.TableViewSectionPanel;
 import org.devgateway.toolkit.forms.wicket.components.form.MonthDayPickerFormPanel;
+import org.devgateway.toolkit.forms.wicket.components.table.AjaxFallbackBootstrapDataTable;
 import org.devgateway.toolkit.forms.wicket.providers.SortableJpaServiceDataProvider;
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonPluviometricPostReferenceStart;
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonStartReference;
@@ -48,6 +50,8 @@ public class RainSeasonStartTableViewPanel
         this.dataProvider = provider;
         provider.setFilterState(newFilterState());
         provider.setSort("pluviometricPost.department.name", SortOrder.ASCENDING);
+        provider.setPageSize(WebConstants.NO_PAGE_SIZE);
+
         columns.add(new PropertyColumn<>(new StringResourceModel("department"), "pluviometricPost.department.name",
                 "pluviometricPost.department.name"));
         columns.add(new PropertyColumn<>(new StringResourceModel("pluviometricPost"), "pluviometricPost.label",
@@ -94,5 +98,10 @@ public class RainSeasonStartTableViewPanel
 
     @Override
     protected void deleteChild(IModel<RainSeasonPluviometricPostReferenceStart> child, AjaxRequestTarget target) {
+    }
+
+    @Override
+    protected AjaxFallbackBootstrapDataTable getDataTable() {
+        return new AjaxFallbackBootstrapDataTable("table", columns, dataProvider, WebConstants.NO_PAGE_SIZE);
     }
 }
