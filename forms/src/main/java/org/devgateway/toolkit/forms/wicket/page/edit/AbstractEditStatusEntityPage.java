@@ -160,7 +160,8 @@ public abstract class AbstractEditStatusEntityPage<T extends AbstractStatusAudit
     }
 
     private Label addStatusLabel() {
-        statusLabel = new Label("statusLabel", editForm.getModelObject().getFormStatus());
+        statusLabel = new Label("statusLabel",
+                new StringResourceModel(editForm.getModelObject().getFormStatus().name()));
         statusLabel.add(new AttributeModifier("class", new Model<>("label " + getStatusLabelClass())));
         return statusLabel;
     }
