@@ -192,6 +192,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
         pageTitle = new Label("pageTitle", new ResourceModel("page.title"));
         add(pageTitle);
 
+        Label pageDescription = new Label("pageDescription", new ResourceModel("page.description"));
+        add(pageDescription);
     }
 
     protected NotificationPanel createFeedbackPanel() {
