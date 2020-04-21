@@ -134,13 +134,17 @@ public abstract class TableViewSectionPanel<T extends AbstractAuditableEntity, P
         return new TablePanel(id);
     }
 
+    protected AjaxFallbackBootstrapDataTable getDataTable() {
+        return new AjaxFallbackBootstrapDataTable("table", columns, dataProvider, rowsPerPage);
+    }
+
     protected class TablePanel extends Panel {
         private static final long serialVersionUID = -7137328047440156429L;
 
         public TablePanel(final String id) {
             super(id);
 
-            dataTable = new AjaxFallbackBootstrapDataTable("table", columns, dataProvider, rowsPerPage);
+            dataTable = getDataTable();
             add(dataTable);
         }
     }

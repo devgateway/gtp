@@ -151,4 +151,38 @@
         </insert>
     </changeSet>
 
+    <changeSet id="ANACIM-51 rain seasons references" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="rain_season_start_reference" />
+        </preConditions>
+        <insert tableName="rain_season_start_reference">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="reference_year_start" value="1981" />
+            <column name="reference_year_end" value="2010" />
+            <column name="year_start" value="1981" />
+            <column name="year_end" value="2020" />
+        </insert>
+        <insert tableName="rain_season_start_reference">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="reference_year_start" value="1991" />
+            <column name="reference_year_end" value="2020" />
+            <column name="year_start" value="2021" />
+            <column name="year_end" value="2029" />
+        </insert>
+        <insert tableName="rain_season_start_reference">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="reference_year_start" value="2001" />
+            <column name="reference_year_end" value="2030" />
+            <column name="year_start" value="2031" />
+            <column name="year_end" value="2039" />
+        </insert>
+        <insert tableName="rain_season_start_reference">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="reference_year_start" value="2011" />
+            <column name="reference_year_end" value="2040" />
+            <column name="year_start" value="2041" />
+            <column name="year_end" value="2049" />
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

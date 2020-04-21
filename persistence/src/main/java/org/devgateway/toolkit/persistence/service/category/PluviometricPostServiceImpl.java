@@ -13,6 +13,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 /**
  * @author Nadejda Mandrescu
@@ -49,5 +51,10 @@ public class PluviometricPostServiceImpl extends BaseJpaServiceImpl<Pluviometric
     @Override
     public UniquePropertyRepository<PluviometricPost, Long> uniquePropertyRepository() {
         return pluviometricPostRepository;
+    }
+
+    @Override
+    public List<PluviometricPost> findAllByIdNotIn(List<Long> ids) {
+        return pluviometricPostRepository.findAllByIdNotIn(ids);
     }
 }
