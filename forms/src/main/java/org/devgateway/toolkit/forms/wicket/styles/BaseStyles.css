@@ -111,6 +111,22 @@ hr.edit-separator {
 }
 
 
+.sleep-mode .sleep-value {
+    padding-top: 5px;
+    font-weight: bold;
+    color: #00589e;
+    font-size: 0.9em;
+}
+
+.sleep-mode {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sleep-label {
+  font-weight: bold;
+}
+
 /* List View Styles
 -------------------------------------------------- */
 .section-bordered {
