@@ -3,6 +3,7 @@ package org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainseason;
 import nl.dries.wicket.hibernate.dozer.DozerListModel;
 import org.apache.wicket.Component;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
 import org.apache.wicket.model.StringResourceModel;
@@ -66,6 +67,7 @@ public class ListRainSeasonPage extends AbstractIndicatorListPage<PluviometricPo
     protected void onInitialize() {
         super.onInitialize();
 
+        dataProvider.setSort("pluviometricPost", SortOrder.ASCENDING);
         editPageLink.setVisible(false);
     }
 
