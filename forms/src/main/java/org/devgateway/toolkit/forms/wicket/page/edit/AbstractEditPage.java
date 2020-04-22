@@ -17,12 +17,15 @@ import de.agilecoders.wicket.core.util.Attributes;
 import nl.dries.wicket.hibernate.dozer.DozerModel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.time.Duration;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
@@ -37,6 +40,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.BootstrapDeleteButton
 import org.devgateway.toolkit.forms.wicket.components.form.BootstrapSubmitButton;
 import org.devgateway.toolkit.forms.wicket.components.form.GenericBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.SummernoteBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.liveping.LivePing;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
 import org.devgateway.toolkit.persistence.dao.GenericPersistable;
 import org.devgateway.toolkit.persistence.service.BaseJpaService;
@@ -45,7 +49,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.persistence.EntityManager;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author mpostelnicu Page used to make editing easy, extend to get easy access
@@ -452,9 +459,31 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
         }
     }
 
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+
+        if(!isReadonly()) {
+            // form leaving
+            Map<String, Object> map = new HashMap<>();
+            map.put("formLeavingWarning", new StringResourceModel("formLeavingWarning", this, null).getString());
+            PackageTextTemplate formLeavingHelper = new PackageTextTemplate(LivePing.class, "formLeavingHelper.js");
+            response.render(JavaScriptHeaderItem.forScript(formLeavingHelper.asString(map), "formLeavingHelper"));
+            try {
+                formLeavingHelper.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     protected boolean isExisting() {
         T object = editForm.getModelObject();
         return object != null && !object.isNew();
+    }
+
+    protected boolean isReadonly() {
+        return ComponentUtil.isViewMode();
     }
 
 }

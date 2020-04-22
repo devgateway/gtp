@@ -157,12 +157,16 @@ public abstract class AbstractEditStatusEntityPage<T extends AbstractStatusAudit
 
     @Override
     protected void onBeforeRender() {
-        boolean isPublished = editForm.getModelObject().getFormStatus().isPublished();
-        if (isPublished) {
+        if (isReadonly()) {
             send(editForm, Broadcast.DEPTH, new EditingDisabledEvent());
         }
 
         super.onBeforeRender();
+    }
+
+    @Override
+    protected boolean isReadonly() {
+        return super.isReadonly() || editForm.getModelObject().getFormStatus().isPublished();
     }
 
     private Label addStatusLabel() {
