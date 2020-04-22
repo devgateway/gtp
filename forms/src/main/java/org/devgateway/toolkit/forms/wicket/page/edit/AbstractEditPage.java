@@ -473,7 +473,7 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
 
-        if(!isReadonly()) {
+        if (!isReadonly()) {
             // form leaving
             Map<String, Object> map = new HashMap<>();
             map.put("formLeavingWarning", new StringResourceModel("formLeavingWarning", this, null).getString());
