@@ -225,6 +225,11 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
                 private static final long serialVersionUID = -249084359200507749L;
 
                 @Override
+                protected String getOnClickScript() {
+                    return WebConstants.DISABLE_FORM_LEAVING_JS;
+                }
+
+                @Override
                 protected void onSubmit(final AjaxRequestTarget target) {
                     setResponsePage(listPageClass);
                 }
@@ -247,6 +252,11 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
 
         public SaveEditPageButton(final String id, final IModel<String> model) {
             super(id, model);
+        }
+
+        @Override
+        protected String getOnClickScript() {
+            return WebConstants.DISABLE_FORM_LEAVING_JS;
         }
 
         @Override
