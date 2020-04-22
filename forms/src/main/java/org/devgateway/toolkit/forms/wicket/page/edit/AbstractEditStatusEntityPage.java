@@ -153,14 +153,21 @@ public abstract class AbstractEditStatusEntityPage<T extends AbstractStatusAudit
         revertToDraftPageButton = getRevertToDraftPageButton();
         revertToDraftPageButton.setVisible(isPublished);
         entityButtonsFragment.add(revertToDraftPageButton);
+    }
 
+    @Override
+    protected void onBeforeRender() {
+        boolean isPublished = editForm.getModelObject().getFormStatus().isPublished();
         if (isPublished) {
             send(editForm, Broadcast.DEPTH, new EditingDisabledEvent());
         }
+
+        super.onBeforeRender();
     }
 
     private Label addStatusLabel() {
-        statusLabel = new Label("statusLabel", editForm.getModelObject().getFormStatus());
+        statusLabel = new Label("statusLabel",
+                new StringResourceModel(editForm.getModelObject().getFormStatus().name()));
         statusLabel.add(new AttributeModifier("class", new Model<>("label " + getStatusLabelClass())));
         return statusLabel;
     }
