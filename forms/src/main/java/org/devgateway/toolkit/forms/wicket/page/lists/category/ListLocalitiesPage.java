@@ -42,6 +42,7 @@ import java.util.List;
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/localities")
 public class ListLocalitiesPage extends BasePage {
+    private static final long serialVersionUID = 2157603595273363101L;
 
     private SortableJpaServiceDataProvider<Department> dataProvider;
 

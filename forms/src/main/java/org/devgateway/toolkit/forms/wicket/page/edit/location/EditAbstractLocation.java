@@ -14,6 +14,7 @@ import java.io.Serializable;
  */
 public abstract class EditAbstractLocation<T extends GenericPersistable & Serializable>
         extends AbstractExistingEntityEditPage<T> {
+    private static final long serialVersionUID = -7925855608498896685L;
 
     public EditAbstractLocation(PageParameters parameters) {
         super(parameters);

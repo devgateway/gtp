@@ -18,6 +18,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath("/region")
 public class EditRegionPage extends EditAbstractLocation<Region> {
+    private static final long serialVersionUID = -1803608505356123680L;
 
     @SpringBean
     private ZoneService zoneService;
