@@ -3,6 +3,7 @@ package org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
+import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.Item;
@@ -11,9 +12,11 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.convert.IConverter;
+import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.wicket.FormattedDoubleConverter;
 import org.devgateway.toolkit.forms.wicket.components.TableViewSectionPanel;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.components.table.AjaxFallbackBootstrapDataTable;
 import org.devgateway.toolkit.forms.wicket.providers.SortableJpaServiceDataProvider;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
@@ -46,8 +49,13 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
 
         init();
 
-        this.dataProvider = new SortableJpaServiceDataProvider<PluviometricPost>(pluviometricPostService);
-        ((SortableJpaServiceDataProvider) dataProvider).setFilterState(newFilterState());
+        SortableJpaServiceDataProvider sortableProvider =
+                new SortableJpaServiceDataProvider<PluviometricPost>(pluviometricPostService);
+        this.dataProvider = sortableProvider;
+        sortableProvider.setFilterState(newFilterState());
+        sortableProvider.setSort("label", SortOrder.ASCENDING);
+        sortableProvider.setPageSize(WebConstants.NO_PAGE_SIZE);
+
         columns.add(new PropertyColumn<>(new StringResourceModel("department"), "department.name", "department.name"));
         columns.add(new PropertyColumn<>(new StringResourceModel("label"), "label", "label"));
         addRainColumns();
@@ -169,6 +177,11 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
         super.onInitialize();
 
         addButton.setVisible(false);
+    }
+
+    @Override
+    protected AjaxFallbackBootstrapDataTable getDataTable() {
+        return new AjaxFallbackBootstrapDataTable("table", columns, dataProvider, WebConstants.NO_PAGE_SIZE);
     }
 
     @Override
