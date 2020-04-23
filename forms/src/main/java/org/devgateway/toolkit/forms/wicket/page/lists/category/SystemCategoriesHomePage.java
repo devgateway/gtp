@@ -9,6 +9,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
+import org.devgateway.toolkit.forms.wicket.page.lists.reference.ListRainLevelReferencePage;
 import org.devgateway.toolkit.forms.wicket.page.lists.reference.ListRainSeasonStartReferencePage;
 import org.devgateway.toolkit.forms.wicket.styles.HomeStyles;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -51,8 +52,8 @@ public class SystemCategoriesHomePage extends BasePage {
         stations.setLabel(new StringResourceModel("pluviometricPosts"));
         add(stations);
 
-        BootstrapBookmarkablePageLink<SystemCategoriesHomePage> referenceRain = new BootstrapBookmarkablePageLink<>(
-                "referenceRain", SystemCategoriesHomePage.class, Buttons.Type.Default);
+        BootstrapBookmarkablePageLink<ListRainLevelReferencePage> referenceRain = new BootstrapBookmarkablePageLink<>(
+                "referenceRain", ListRainLevelReferencePage.class, Buttons.Type.Default);
         referenceRain.setLabel(new StringResourceModel("referenceRain"));
         add(referenceRain);
 
