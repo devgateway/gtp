@@ -65,8 +65,5 @@ public final class WebConstants {
             = "if(typeof disableFormLeavingConfirmation === 'function') disableFormLeavingConfirmation();";
     public static final String V_POSITION = "vPosition";
     public static final String MAX_HEIGHT = "maxPosition";
-    public static final String UNBIND_BEFOREUNLOAD_STR = "$(window).unbind('beforeunload');";
-    public static final String BIND_BEFOREUNLOAD_STR = "$(window).bind('beforeunload', "
-            + "function() { return 'Are your sure you want to leave the page without saving changes?'; });";
 
 }
