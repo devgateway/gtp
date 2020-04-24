@@ -66,4 +66,6 @@ public final class WebConstants {
     public static final String V_POSITION = "vPosition";
     public static final String MAX_HEIGHT = "maxPosition";
 
+    public static final String BIND_FORM_LEAVING_CHECK = "if(typeof checkAnyChange === 'function') checkAnyChange();";
+
 }
