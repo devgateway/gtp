@@ -40,10 +40,8 @@ public class RainLevelReferenceTablePanel
 
         this.title = new StringResourceModel("panelTitle", parentModel);
 
-        columns.add(new PropertyColumn<>(new StringResourceModel("department"),
-                "pluviometricPost.department.name", "pluviometricPost.department.name"));
-        columns.add(new PropertyColumn<>(new StringResourceModel("pluviometricPost"),
-                "pluviometricPost.label", "pluviometricPost.label"));
+        addDepOrPostColumn("department", "pluviometricPost.department.name");
+        addDepOrPostColumn("pluviometricPost", "pluviometricPost.label");
         addMonthColumns();
     }
 
@@ -52,6 +50,18 @@ public class RainLevelReferenceTablePanel
         super.onInitialize();
 
         ((DefaultSortableDataProvider) dataProvider).setSort("pluviometricPost.department.name", SortOrder.ASCENDING);
+    }
+
+    protected void addDepOrPostColumn(String resourceKey, String property) {
+        columns.add(new PropertyColumn<RainLevelPluviometricPostReference, String>(
+                new StringResourceModel(resourceKey), property, property) {
+            private static final long serialVersionUID = 6750315868833036919L;
+
+            @Override
+            public String getCssClass() {
+                return "rain-reference-post-col";
+            }
+        });
     }
 
     protected void addMonthColumns() {
