@@ -4,7 +4,7 @@ module.exports = {
     es6: true
   },
   extends: [
-    'standard'
+    'react-app'
   ],
   globals: {
     Atomics: 'readonly',
