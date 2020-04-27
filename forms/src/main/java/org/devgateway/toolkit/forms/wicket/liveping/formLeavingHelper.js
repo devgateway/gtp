@@ -11,7 +11,7 @@
 // confirmation
 var shouldConfirmFormLeaving = false;
 
-$(document).ready(function () {
+function checkAnyChange() {
     $(':input').each(function () {
         $(this).on('change', function () {
             shouldConfirmFormLeaving = true;
@@ -55,7 +55,14 @@ $(document).ready(function () {
 
         shouldConfirmFormLeaving = true;
     });
-});
+}
+
+$(document).ready(function() { checkAnyChange(); });
+/*
+* Below works, but we only need to rebind on dynamic elements rendered based on some conditions.
+* Therefore better to append BIND_FORM_LEAVING_CHECK when dynamic content is loaded.
+$(document).ajaxComplete(function() { checkAnyChange(); });
+*/
 
 // confirmation modal before window unload
 $(window).on('beforeunload', function () {

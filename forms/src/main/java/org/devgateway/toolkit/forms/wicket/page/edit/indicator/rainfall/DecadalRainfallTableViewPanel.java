@@ -12,11 +12,9 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.convert.IConverter;
-import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.wicket.FormattedDoubleConverter;
 import org.devgateway.toolkit.forms.wicket.components.TableViewSectionPanel;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.components.table.AjaxFallbackBootstrapDataTable;
 import org.devgateway.toolkit.forms.wicket.providers.SortableJpaServiceDataProvider;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
@@ -54,7 +52,6 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
         this.dataProvider = sortableProvider;
         sortableProvider.setFilterState(newFilterState());
         sortableProvider.setSort("label", SortOrder.ASCENDING);
-        sortableProvider.setPageSize(WebConstants.NO_PAGE_SIZE);
 
         columns.add(new PropertyColumn<>(new StringResourceModel("department"), "department.name", "department.name"));
         columns.add(new PropertyColumn<>(new StringResourceModel("label"), "label", "label"));
@@ -177,11 +174,6 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
         super.onInitialize();
 
         addButton.setVisible(false);
-    }
-
-    @Override
-    protected AjaxFallbackBootstrapDataTable getDataTable() {
-        return new AjaxFallbackBootstrapDataTable("table", columns, dataProvider, WebConstants.NO_PAGE_SIZE);
     }
 
     @Override
