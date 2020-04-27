@@ -15,6 +15,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.util.convert.IConverter;
+import org.devgateway.toolkit.forms.wicket.FormattedDoubleConverter;
 import org.devgateway.toolkit.forms.wicket.components.PageableTablePanel;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.persistence.dao.Decadal;
@@ -137,10 +139,15 @@ public class RainLevelReferenceTablePanel
             RepeatingView values = new RepeatingView("decadalValue");
             Map<Decadal, RainLevelMonthReference> decadalRefs = postModel.getObject().getMonthReference(month);
             for (Decadal decadal : Decadal.values()) {
-                values.add(new TextFieldBootstrapFormComponent<Double>(values.newChildId(),
-                        new PropertyModel<>(decadalRefs.get(decadal), "rain"))
-                        .asDouble()
-                        .hideLabel());
+                TextFieldBootstrapFormComponent<Double> rain = new TextFieldBootstrapFormComponent<Double>(
+                        values.newChildId(), new PropertyModel<>(decadalRefs.get(decadal), "rain")) {
+                    private static final long serialVersionUID = 6567134766409820883L;
+                    @Override
+                    protected IConverter<?> createFieldConverter(Class<?> type) {
+                        return new FormattedDoubleConverter(1);
+                    }
+                };
+                values.add(rain.asDouble().hideLabel());
             }
             add(values);
         }
