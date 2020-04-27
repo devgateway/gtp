@@ -5,7 +5,7 @@ import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPostHolder;
-import org.devgateway.toolkit.persistence.dao.reference.DecadalRainLevelReference;
+import org.devgateway.toolkit.persistence.dao.reference.RainLevelMonthReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelPluviometricPostReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
@@ -54,10 +54,10 @@ public class RainLevelReferenceServiceImpl extends YearsReferenceServiceImpl<Rai
         reference.addPostReference(postLevelReference);
         for (Month month : MONTHS) {
             for (Decadal decadal : Decadal.values()) {
-                DecadalRainLevelReference decadalRainfall = new DecadalRainLevelReference();
-                decadalRainfall.setMonth(month);
-                decadalRainfall.setDecadal(decadal);
-                postLevelReference.addDecadalRainReference(decadalRainfall);
+                RainLevelMonthReference monthDecadalRainfall = new RainLevelMonthReference();
+                monthDecadalRainfall.setMonth(month);
+                monthDecadalRainfall.setDecadal(decadal);
+                postLevelReference.addRainLevelMonthReference(monthDecadalRainfall);
             }
         }
         return postLevelReference;

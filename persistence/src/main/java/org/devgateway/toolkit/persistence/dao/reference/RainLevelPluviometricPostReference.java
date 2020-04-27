@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.dao.reference;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
+import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPostHolder;
 import org.hibernate.annotations.Cache;
@@ -14,8 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Nadejda Mandrescu
@@ -30,7 +34,7 @@ public class RainLevelPluviometricPostReference extends AbstractAuditableEntity 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "rainLevelPluviometricPostReference")
     @JsonIgnore
-    private List<DecadalRainLevelReference> decadalRainReferences = new ArrayList<>();
+    private List<RainLevelMonthReference> rainLevelMonthReferences = new ArrayList<>();
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @NotNull
@@ -44,17 +48,19 @@ public class RainLevelPluviometricPostReference extends AbstractAuditableEntity 
     @JsonIgnore
     private RainLevelReference rainLevelReference;
 
-    public List<DecadalRainLevelReference> getDecadalRainReferences() {
-        return decadalRainReferences;
+    private transient Map<Month, Map<Decadal, RainLevelMonthReference>> month2Reference;
+
+    public List<RainLevelMonthReference> getRainLevelMonthReferences() {
+        return rainLevelMonthReferences;
     }
 
-    public void setDecadalRainReferences(List<DecadalRainLevelReference> decadalRainReferences) {
-        this.decadalRainReferences = decadalRainReferences;
+    public void setRainLevelMonthReferences(List<RainLevelMonthReference> rainLevelMonthReferences) {
+        this.rainLevelMonthReferences = rainLevelMonthReferences;
     }
 
-    public void addDecadalRainReference(DecadalRainLevelReference decadalRainLevelReference) {
-        this.decadalRainReferences.add(decadalRainLevelReference);
-        decadalRainLevelReference.setRainLevelPluviometricPostReference(this);
+    public void addRainLevelMonthReference(RainLevelMonthReference rainLevelMonthReference) {
+        this.rainLevelMonthReferences.add(rainLevelMonthReference);
+        rainLevelMonthReference.setRainLevelPluviometricPostReference(this);
     }
 
     @Override
@@ -72,6 +78,20 @@ public class RainLevelPluviometricPostReference extends AbstractAuditableEntity 
 
     public void setRainLevelReference(RainLevelReference rainLevelReference) {
         this.rainLevelReference = rainLevelReference;
+    }
+
+    public Map<Decadal, RainLevelMonthReference> getMonthReference(Month month) {
+        if (month2Reference == null) {
+            month2Reference = new HashMap<>();
+        }
+        if (month2Reference.isEmpty()) {
+            getRainLevelMonthReferences().forEach(reference -> {
+                Map<Decadal, RainLevelMonthReference> decadalRefs =
+                        month2Reference.computeIfAbsent(reference.getMonth(), m -> new HashMap<>());
+                decadalRefs.put(reference.getDecadal(), reference);
+            });
+        }
+        return month2Reference.get(month);
     }
 
     @Override

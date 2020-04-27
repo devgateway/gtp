@@ -24,7 +24,7 @@ import java.time.Month;
 @Audited
 @Table(uniqueConstraints = @UniqueConstraint(
         columnNames = {"month", "decadal", "rain_level_pluviometric_post_reference_id"}))
-public class DecadalRainLevelReference extends AbstractAuditableEntity implements Serializable {
+public class RainLevelMonthReference extends AbstractAuditableEntity implements Serializable {
     private static final long serialVersionUID = 1017836457479552556L;
 
     @NotNull
@@ -35,8 +35,6 @@ public class DecadalRainLevelReference extends AbstractAuditableEntity implement
     @Column(nullable = false)
     private Decadal decadal;
 
-    @NotNull
-    @Column(nullable = false)
     private Double rain;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -73,7 +71,8 @@ public class DecadalRainLevelReference extends AbstractAuditableEntity implement
         return rainLevelPluviometricPostReference;
     }
 
-    public void setRainLevelPluviometricPostReference(RainLevelPluviometricPostReference rainLevelPluviometricPostReference) {
+    public void setRainLevelPluviometricPostReference(
+            RainLevelPluviometricPostReference rainLevelPluviometricPostReference) {
         this.rainLevelPluviometricPostReference = rainLevelPluviometricPostReference;
     }
 
