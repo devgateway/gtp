@@ -64,10 +64,10 @@ return (<div className="partners container">
 
 
 const ListItems=({groups,onChangeSelection})=>{
+  // eslint-disable-next-line no-unused-vars
  const [active, setActive] = useState(groups[0].name);
+  // eslint-disable-next-line no-unused-vars
  const [selected, setSelected] = useState(groups?groups[0].partners[0].id:null);
-
-
 
   return (<Container fluid>
           {groups && groups.map(g=>{
@@ -83,7 +83,7 @@ const ListItems=({groups,onChangeSelection})=>{
                                     <Grid.Row id={"_partner_"+p.id}>
                                         <Grid.Column  width={8}>
                                         {p.base64&&  <a href={p.url} className="ui image medium padding5">
-                                            <img src={`data:image/png;base64,${p.base64}`}/>
+                                            <img src={`data:image/png;base64,${p.base64}`} alt={''}/>
                                           </a>}
                                         </Grid.Column>
                                         <Grid.Column  width={8} className="align right link">
@@ -136,7 +136,7 @@ const ListMenu=({groups,onChangeSelection})=>{
     <Menu vertical fixed fluid className="menu level1">
     {groups && groups.map(g=>{
       return (<Menu.Item fluid name='inbox' active={active === g.id}  onClick={(e)=>{
-          if(active==g.id){
+          if(active===g.id){
             setActive(null)
 
           }else{

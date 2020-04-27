@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {FormattedMessage, FormattedHTMLMessage, injectIntl} from 'react-intl';
 import { Tab } from 'semantic-ui-react'
 import messages from '../translations/messages'
@@ -22,9 +22,9 @@ const Source=({type})=>{
   return   (<div className="links source">
   <div className="source-icon"></div>
 
-    {type=='microdata'&&<FormattedMessage id="home.tabs.microdata.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
-    {type=='indicator'&&<FormattedMessage id="home.tabs.indicators.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
-    {type=='market'&&<FormattedMessage id="home.tabs.market.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
+    {type==='microdata'&&<FormattedMessage id="home.tabs.microdata.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
+    {type==='indicator'&&<FormattedMessage id="home.tabs.indicators.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
+    {type==='market'&&<FormattedMessage id="home.tabs.market.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
 
   </div>)
 

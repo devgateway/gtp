@@ -1,3 +1,4 @@
+/* eslint-disable */
 import './poverty.scss'
 import 'rc-slider/assets/index.css'
 import React, { useState,useEffect} from 'react'

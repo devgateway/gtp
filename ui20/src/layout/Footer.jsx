@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
-import {FormattedMessage,FormattedHTMLMessage} from 'react-intl';
+/* eslint-disable jsx-a11y/anchor-has-content */
+import React from 'react';
+import {FormattedHTMLMessage} from 'react-intl';
 
 import './footer.scss';
 
@@ -11,7 +12,9 @@ const Footer = (props) => {
       <div className="footer-share-bar">
         <a href="https://twitter.com/meteosenegal" className="share-icon tw"/>
         <a href="https://www.facebook.com/Anacim-Prevision-498598026887517/" className="share-icon fb"/>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a className="share-icon in"/>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a className="share-icon inst"/>
       </div>
     </div>

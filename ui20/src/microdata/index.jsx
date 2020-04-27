@@ -1,3 +1,4 @@
+/* eslint-disable */
 import "./microdata.scss"
 
 import {connect} from 'react-redux';

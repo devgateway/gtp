@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react'
 import { ResponsiveLine } from '@nivo/line'
 import { ResponsiveBullet } from '@nivo/bullet'

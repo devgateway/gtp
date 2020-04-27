@@ -1,15 +1,5 @@
-import _ from 'lodash'
-import React, { Component, createRef } from 'react'
-import {
-  Checkbox,
-  Grid,
-  Header,
-  Image,
-  Rail,
-  Ref,
-  Segment,
-  Sticky,
-} from 'semantic-ui-react'
+import React, {Component} from 'react'
+import {Sticky,} from 'semantic-ui-react'
 
 
 export default class StickyExampleActive extends Component {
@@ -19,8 +9,6 @@ export default class StickyExampleActive extends Component {
     this.setState((prevState) => ({ active: !prevState.active }))
 
   render() {
-    const { active } = this.state
-
     return (
 
       <Sticky active={true} context={this.props.context}>

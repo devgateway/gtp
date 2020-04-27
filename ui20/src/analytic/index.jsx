@@ -1,3 +1,4 @@
+/* eslint-disable */
 import 'react-pivottable/pivottable.css';
 import "./analytic.scss"
 import React, {Component} from 'react';

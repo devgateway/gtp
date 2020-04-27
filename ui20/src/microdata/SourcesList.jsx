@@ -1,3 +1,4 @@
+/* eslint-disable */
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { Table,Pagination } from 'semantic-ui-react'
@@ -53,7 +54,7 @@ class Sources extends Component {
             <FormattedMessage id="microdata.sources.description" defaultMessage="The links that are displayed in this section are non-official dataset or data sources and as such they should not be used in official communications."></FormattedMessage>
           </p>
       </div>
-      
+
         <ul>
           {content&&content.map(c=>
             <li>

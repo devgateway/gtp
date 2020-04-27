@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {injectIntl,FormattedMessage} from 'react-intl';
 import {withRouter} from "react-router";
 import { Dropdown } from 'semantic-ui-react'
-import messages from '../translations/messages'
 import {
   Link
 } from "react-router-dom";
@@ -12,6 +11,7 @@ const HeaderNav = (props) => {
   return <div className="header-nav">{props.children}</div>
 }
 
+// eslint-disable-next-line no-unused-vars
 const HeaderImage = (props) => {
   return <div className="header-main">{props.children}</div>
 }
@@ -29,16 +29,17 @@ const AnalystDropdown = withRouter(injectIntl((props) => (
   </Dropdown>
 )));
 
+// eslint-disable-next-line no-unused-vars
 const LanSwitcher = withRouter((props) => (
   <div>
     <div class="ui toggle checkbox">
-      <div className={props.match.params.lan.toUpperCase()=='FR'?'active':''}>FR</div>
+      <div className={props.match.params.lan.toUpperCase()==='FR'?'active':''}>FR</div>
         <input type="checkbox" onChange={e=>{
-              const newPath=(e.target.checked==true)? '/en' + props.location.pathname.substr(3): '/fr' + props.location.pathname.substr(3)
+              const newPath=(e.target.checked===true)? '/en' + props.location.pathname.substr(3): '/fr' + props.location.pathname.substr(3)
                props.history.push(newPath)
             }
-        } name="lan" defaultChecked={props.match.params.lan.toUpperCase()=='EN'?'checked':''}/><label></label>
-      <div className={props.match.params.lan.toUpperCase()=='EN'?'active':''}>EN</div>
+        } name="lan" defaultChecked={props.match.params.lan.toUpperCase()==='EN'?'checked':''}/><label></label>
+      <div className={props.match.params.lan.toUpperCase()==='EN'?'active':''}>EN</div>
       </div>
   </div>))
 
@@ -60,28 +61,27 @@ const HeaderNavButtons = withRouter((props) => {
       // <div className="nav link"><LanSwitcher/></div>
     }
     <div className="nav  separator"></div>
-    <div className="nav link">  <a href="/admin">  <img className="logo admin" src="/header_admin_logo.jpg"/></a></div>
-
-
+    <div className="nav link">
+      <a href="/admin">
+        <img className="logo admin" src="/header_admin_logo.jpg" alt={""}/>
+      </a>
+    </div>
   </div>)
 })
 
-const HeaderTitle = (props) => {
-  return (<div className="header-title">
+const HeaderTitle = (props) =>
+    (<div className="header-title">
     <div className="title">
       <FormattedMessage id="home.header.title" defaultMessage={"Senegal Agridata Platform"} values={""}/>
     </div>
     <div className="legend"><FormattedMessage id="home.header.sub.title" defaultMessage={"Unleashing the power of agricultural statistics"} values={""}/></div>
-  </div>)
-}
+  </div>);
 
-class Header extends React.Component {
 
-    constructor(props) {
-      super(props);
-    }
+class Header extends Component {
 
   onChangeLanguage(lan) {
+    // eslint-disable-next-line no-unused-vars
     const {location, history} = this.props;
     const newPath = '/'+lan + location.pathname.substr(3)
     this.props.history.push(newPath)

@@ -1,4 +1,4 @@
-import _ from 'lodash'
+/* eslint-disable */
 import React, { Component, createRef } from 'react'
 import {
   Checkbox,

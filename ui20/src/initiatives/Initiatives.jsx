@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect , createRef} from 'react'
 import {loadInitiativesTypes,loadInitiativesItems} from '../modules/Data'
 import {connect} from 'react-redux';

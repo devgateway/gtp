@@ -17,6 +17,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export const PngExport=({id, element, name="chart", filters=[],includes=[]})=>{
 
 
+  // eslint-disable-next-line no-unused-vars
   const changedNodes=[]
       return (<div className="icon download png" onClick={e=>{
 
@@ -94,7 +95,7 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
   }
 
   const allNone = (flag) => {
-    if (flag == false) {
+    if (flag === false) {
       onChange([])
     } else {
       const newSelection = []
@@ -107,12 +108,12 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
   return (
 
     <Dropdown className={disabled?"disabled":""} fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
-      const keepOpen = !e || !e.currentTarget || !e.currentTarget.getAttribute || e.currentTarget.getAttribute("role") != 'listbox'
+      const keepOpen = !e || !e.currentTarget || !e.currentTarget.getAttribute || e.currentTarget.getAttribute("role") !== 'listbox'
       setOpen(!keepOpen)
     }}>
 
     <Dropdown.Menu>
-    {(single==null || single==false)&&    <Dropdown.Header>
+    {(single==null || single===false)&&    <Dropdown.Header>
         <div>
 
           <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicators.filters.select_all' defaultMessage="Select All"/></span>
@@ -152,6 +153,7 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
   options.forEach(o=>o.options.forEach(i=>plainOptions.push(i)))
 
 
+          // eslint-disable-next-line no-unused-vars
   const selectedText=selected[0]
 
   const breadcrum=single?(<div className="breadcrums">{selected && selected.length > 0? plainOptions[  plainOptions.map(a=>a.key).indexOf(selected[0]) ].text:text}</div>):(<div className="breadcrums">{text} {true?<span>({selected.length} of {plainOptions.length})</span>:null}</div>)
@@ -177,7 +179,7 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
   }
 
   const allNone = (flag) => {
-    if (flag == false) {
+    if (flag === false) {
       onChange([])
     } else {
       const newSelection = []
@@ -191,12 +193,12 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
   return (
 
     <Dropdown className={disabled?"grouped dropdown disabled":"grouped dropdown"} fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
-      const keepOpen = !e || !e.currentTarget || !e.currentTarget.getAttribute || e.currentTarget.getAttribute("role") != 'listbox'
+      const keepOpen = !e || !e.currentTarget || !e.currentTarget.getAttribute || e.currentTarget.getAttribute("role") !== 'listbox'
       setOpen(!keepOpen)
     }}>
 
     <Dropdown.Menu>
-    {(single==null || single==false)&&<Dropdown.Header>
+    {(single==null || single===false)&&<Dropdown.Header>
         <div>
 
           <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicators.filters.select_all' defaultMessage="Select All"/></span>
@@ -240,12 +242,12 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
 export const ChartTableSwitcher = (props) =>(
   <div className="chart toggler view">
     <div class="ui toggle checkbox">
-      <div className={props.mode=='chart'?'active':''}>
+      <div className={props.mode==='chart'?'active':''}>
         <FormattedMessage id="indicators.chart.toggler.chart" defaultMessage="chart"></FormattedMessage>
       </div>
-      <input type="checkbox" onChange={e => null} name="view" defaultChecked={props.mode=='table'}/>
+      <input type="checkbox" onChange={e => null} name="view" defaultChecked={props.mode==='table'}/>
       <label></label>
-      <div className={props.mode=='table'?'active':''}>
+      <div className={props.mode==='table'?'active':''}>
         <FormattedMessage id="indicators.chart.toggler.table" defaultMessage="table"></FormattedMessage>
       </div>
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {Component} from 'react';
 import {injectIntl, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 

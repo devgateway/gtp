@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 
 import {FormattedMessage, injectIntl} from 'react-intl';
 import React, {useState, useEffect} from 'react'

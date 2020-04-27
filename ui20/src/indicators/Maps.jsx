@@ -2,18 +2,15 @@ import "./indicators.scss"
 
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import ReactDOM from 'react-dom';
-import React, {Component, createRef, useState} from 'react'
-import {updateGlobalFilter,updateFilter,reset,apply, exportData} from '../modules/Indicator'
-import {Grid,Segment} from 'semantic-ui-react'
+import React, {Component} from 'react'
+import {apply, exportData, reset, updateFilter, updateGlobalFilter} from '../modules/Indicator'
 
 import MainFilter from './MainFilter'
-import GlobalNumbers from './GlobalNumbers'
 import Poverty from './PovertyMaps'
 import Women from './Women'
 import Food from './GlobalFoodLoss'
 import AgriculturalIndex from './AgricutureIndex'
-import Map from '../maps/Map'
+
 class Indicators extends Component {
 
   constructor(props) {
@@ -68,6 +65,7 @@ const mapStateToProps = state => {
   const globalFilters = state.getIn(['indicator', 'filters', 'global']);
   const regions = state.getIn(['data', 'items', 'region']);
   const crops = state.getIn(['data', 'items', 'cropType']);
+  // eslint-disable-next-line no-unused-vars
   const gender = state.getIn(['data', 'items', 'gender']);
   const years = state.getIn(['data', 'items', 'year']);
   const filters = state.getIn(['indicator', 'filters'])

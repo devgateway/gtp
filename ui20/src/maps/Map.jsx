@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react'
 import * as d3 from 'd3'
 import './map.scss'
@@ -129,6 +130,7 @@ export default class D3Map extends Component < {},
 
     clicked(d) {
       let {fid } = d.properties
+      // eslint-disable-next-line no-unused-vars
       let fid1 = this.props.selection ? this.props.selection.fid : null;
       if (this.props.onClick) {
         this.props.onClick({fid})
@@ -138,15 +140,16 @@ export default class D3Map extends Component < {},
     componentDidUpdate(prevProps) {
       const newFid = this.props.selection ? this.props.selection.fid : null
       const prevFid = prevProps.selection ? prevProps.selection.fid : null
-      const colorsWereChanged=(this.props.color != prevProps.color) || (this.props.sideColor != prevProps.sideColor)
+      // eslint-disable-next-line no-unused-vars
+      const colorsWereChanged=(this.props.color !== prevProps.color) || (this.props.sideColor !== prevProps.sideColor)
 
-      if (this.props.color != prevProps.color) {
+      if (this.props.color !== prevProps.color) {
         this.updateColors();
-      }else if (newFid != prevFid )  {
+      }else if (newFid !== prevFid )  {
         this.showDetails(newFid,400);
       }
 
-      if (prevProps.json != this.props.json) {
+      if (prevProps.json !== this.props.json) {
         this.generate()
       }
     }
@@ -196,7 +199,7 @@ export default class D3Map extends Component < {},
       this.g.selectAll('path').style('fill', (d)=>{
 
         if (selection){
-          if(selection.fid==d.properties.fid){
+          if(selection.fid===d.properties.fid){
 
             return  this.getFillColor(d.properties.value)
           }else{

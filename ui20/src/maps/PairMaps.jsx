@@ -34,7 +34,7 @@ const getGroupedOptions=(data)=> {
   const groups=[...new Set(data.map(d=>d.indicatorGroup))]
 
   const level1=groups.map(g=>{
-      const level2=  data.filter(d1=>d1.indicatorGroup==g).map(d=>{return {
+      const level2=  data.filter(d1=>d1.indicatorGroup===g).map(d=>{return {
         key:d.id ,
         text:d.name,
         description:d.description ,
@@ -59,7 +59,7 @@ const getGroupedOptions=(data)=> {
 
 const getMapData=(data,id)=>{
 
-  return data.filter(d=>d.id==id)[0]
+  return data.filter(d=>d.id===id)[0]
 }
 
 
@@ -70,7 +70,7 @@ export const joinData = (json, data = [], getCode,getName) => {
 
 
 
-        var rData=data.stats.filter(s=>s.code==getCode(f))
+        var rData=data.stats.filter(s=>s.code===getCode(f))
         Object.assign(f.properties,{
             'NAME':getName(f)})
 
@@ -93,7 +93,7 @@ export const joinData = (json, data = [], getCode,getName) => {
 }
 
 const getOptionByKey=(options, key)=>{
-  return options.filter(p=>p.key==key)[0]
+  return options.filter(p=>p.key===key)[0]
 }
 //https://observablehq.com/@d3/color-schemes
 
@@ -120,8 +120,8 @@ if (data){
     const options=getOptions(data.toJS())
     const groupedOptions=getGroupedOptions(data.toJS())
 
-    const defLeft =  options.find(o=>o.leftMap==true) || options[0]
-    const defRigth=  options.find(o=>o.rightMap==true)  || options[0]
+    const defLeft =  options.find(o=>o.leftMap===true) || options[0]
+    const defRigth=  options.find(o=>o.rightMap===true)  || options[0]
 
     const [left, setLeft] = useState([defLeft.key]);
     const [right, setRight] = useState([defRigth.key]);
@@ -139,10 +139,10 @@ if (data){
     const leftData=data && left? getMapData(data.toJS(),left):null
     const rightData=data && right? getMapData(data.toJS(),right):null
 
-    const shapes=(level=='region')?regions:departments;
-    const getCode=(level=='region')?(f)=>f.properties.HASC_1.substr(3):(f)=>f.properties.HASC_2.substr(6,2)
+    const shapes=(level==='region')?regions:departments;
+    const getCode=(level==='region')?(f)=>f.properties.HASC_1.substr(3):(f)=>f.properties.HASC_2.substr(6,2)
 
-    const getName=(level=='region')?(f)=>f.properties.NAME_1:(f)=>f.properties.NAME_2
+    const getName=(level==='region')?(f)=>f.properties.NAME_1:(f)=>f.properties.NAME_2
 
 
 
@@ -206,7 +206,7 @@ if (data){
                  indicator={leftIndicator}
 
                  sideColor={rightColor}
-                 onClick={e=>setSelection(selection&&selection.fid==e.fid?null:e)}/>
+                 onClick={e=>setSelection(selection&&selection.fid===e.fid?null:e)}/>
             </div>
          </Grid.Column>
          <Grid.Column>
@@ -247,7 +247,7 @@ if (data){
                       source={rightData.source}
 
                       sideColor={leftColor}
-                      onClick={e=>setSelection(selection&&selection.fid==e.fid?null:e)}/>
+                      onClick={e=>setSelection(selection&&selection.fid===e.fid?null:e)}/>
 
             </div>
          </Grid.Column>

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {Component,useState} from 'react';
 import {connect} from 'react-redux';
 import {injectIntl, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
