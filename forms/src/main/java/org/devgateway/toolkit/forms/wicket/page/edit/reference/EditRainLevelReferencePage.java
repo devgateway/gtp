@@ -32,6 +32,8 @@ public class EditRainLevelReferencePage extends AbstractEditPage<RainLevelRefere
     protected void onInitialize() {
         super.onInitialize();
 
+        editForm.add(new RainLevelReferenceTablePanel("postRainReferences", editForm.getModel()));
+
         deleteButton.setVisible(false);
     }
 }
