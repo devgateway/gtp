@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq,no-unused-vars,array-callback-return */
 import messages from '../translations/messages'
 
 const localeSort = (a, b, lan) => {

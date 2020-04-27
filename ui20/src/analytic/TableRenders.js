@@ -1,3 +1,4 @@
+/* eslint-disable */
 'use strict'
 import messages from '../translations/messages'
 

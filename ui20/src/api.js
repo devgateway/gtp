@@ -26,6 +26,7 @@ const API_GIS_URL_DEPARTMENT = API_ROOT + '/data/gisIndicator/department/all'
 
 const xlsExportURLBuilder = (what) => {
   let subfix = ''
+  // eslint-disable-next-line default-case
   switch (what) {
     case 'POVERTY':
       subfix = 'poverty'
@@ -46,6 +47,7 @@ const xlsExportURLBuilder = (what) => {
 
 const csvExportURLBuilder = (what) => {
   let subfix = ''
+  // eslint-disable-next-line default-case
   switch (what) {
     case 'POVERTY':
       subfix = 'poverty'
@@ -64,6 +66,7 @@ const csvExportURLBuilder = (what) => {
   return `${API_ROOT}/data/${subfix}/summary/csv`
 }
 
+// eslint-disable-next-line no-unused-vars
 function queryParams (params) {
   return Object.keys(params)
     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
@@ -147,6 +150,7 @@ export const getPartners = (locale) => {
       lang: locale
     }).then((partners) => {
       const groups = Array.from(new Set(partners.map(p => p.groupType))).map(g => {
+        // eslint-disable-next-line eqeqeq
         const pps = partners.filter(p => p.groupType == g)
         return {
           name: g,
@@ -192,10 +196,13 @@ export const exportIndicators = (what, format, lang, params, options) => {
 
   return new Promise((resolve, reject) => {
     let url = ''
+    // eslint-disable-next-line eqeqeq
     const fileName = (what == 'ALL' ? 'indicator' : what) + (format == 'XLS' ? '.xlsx' : '.csv')
 
+    // eslint-disable-next-line eqeqeq
     if (format == 'XLS') {
       url = xlsExportURLBuilder(what)
+      // eslint-disable-next-line eqeqeq
     } else if (format == 'CSV') {
       url = csvExportURLBuilder(what)
     }
@@ -455,6 +462,7 @@ export const subscribeToNewsLetter = (email) => {
 
 export const getAnaliticUserCode=()=>{
    var PROD=!(document.location.href.indexOf('dgstg') > -1 || document.location.href.indexOf('localhost') > -1 || document.location.href.indexOf("127.0.0.1") > -1)
+   // eslint-disable-next-line eqeqeq
    return  (PROD==true)?'UA-162751032-1':'UA-162929851-1';
 
 }

@@ -1,6 +1,4 @@
-import { injectIntl } from 'react-intl'
-
-import { sortAs, aggregatorTemplates, localeStrings } from 'react-pivottable/Utilities'
+import { aggregatorTemplates } from 'react-pivottable/Utilities'
 
 import messages from '../translations/messages'
 
@@ -46,15 +44,15 @@ var frFmtInt = numberFormat({ digitsAfterDecimal: 0 })
 
 var frFmtPct = numberFormat({ digitsAfterDecimal: 1, scaler: 100, suffix: '%' })
 
-const getFmt = (locale) => (locale == 'fr')
+const getFmt = (locale) => (locale === 'fr')
   ? frFmt
   : usFmt
 
-const getFmtInt = (locale) => (locale == 'fr')
+const getFmtInt = (locale) => (locale === 'fr')
   ? frFmtInt
   : usFmtInt
 
-const getFmtPct = (locale) => (locale == 'fr')
+const getFmtPct = (locale) => (locale === 'fr')
   ? frFmtPct
   : usFmtPct
 

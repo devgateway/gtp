@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq,no-unused-vars */
 import {
   loadDefaultFilters,
   loadPovertyChartData,

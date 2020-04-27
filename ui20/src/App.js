@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {withRouter} from "react-router";
 import {Provider} from 'react-redux'
 import {Route, Switch, Redirect} from 'react-router' // react-router v4/v5
-import {ConnectedRouter, ConnectedRoute} from 'connected-react-router/immutable'
+import {ConnectedRouter} from 'connected-react-router/immutable'
 import configureStore, {history} from './Store'
 import {connect} from 'react-redux';
 import messages_fr from "./translations/fr.json";
@@ -12,7 +11,6 @@ import messages_en from "./translations/en.json";
 import {IntlProvider} from "react-intl";
 import {loadDataItems} from './modules/Data'
 
-import {Container} from 'semantic-ui-react'
 import Header from './layout/Header'
 import Footer from './layout/Footer'
 
@@ -102,7 +100,6 @@ class IntlRoutes extends Component {
   }
 
   render() {
-    const self=this;
     const props = this.props;
     const locale = this.props.location.pathname.split("/")[1]
     return (<IntlProvider key={locale} locale={locale} messages={messages[props.match.params.lan]}>

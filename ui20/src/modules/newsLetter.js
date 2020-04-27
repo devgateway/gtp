@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as api from '../api'
 
 import Immutable from 'immutable'
