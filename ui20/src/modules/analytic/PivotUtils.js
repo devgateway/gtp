@@ -1,6 +1,6 @@
 import { aggregatorTemplates } from 'react-pivottable/Utilities'
 
-import messages from '../translations/messages'
+import messages from '../../translations/messages'
 
 var addSeparators = function addSeparators (nStr, thousandsSep, decimalSep) {
   var x = String(nStr).split('.')

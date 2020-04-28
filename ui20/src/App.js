@@ -27,7 +27,7 @@ import withTracker from './withTracker'
 const Home = asyncComponent(() => import("./components/home/"));
 const Indicators = asyncComponent(() => import("./components/ipar/indicators/"));
 const Microdata = asyncComponent(() => import("./components/ipar/microdata/"));
-const Analytic = asyncComponent(() => import("./analytic/"));
+const Analytic = asyncComponent(() => import("./modules/analytic/"));
 const NationalIndicators = asyncComponent(() => import("./components/ipar/national/"));
 const Partners = asyncComponent(() => import("./components/ipar/partners/"));
 const Initiatives = asyncComponent(() => import("./components/ipar/initiatives/"));

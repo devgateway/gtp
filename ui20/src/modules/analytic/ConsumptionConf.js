@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react'
 import { defineMessages } from 'react-intl'
-import messages from '../translations/messages'
+import messages from '../../translations/messages'
 
 export const configurator = (intl) => {
   const labelField = (intl.locale == 'fr') ? 'labelFr' : 'label'

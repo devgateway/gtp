@@ -4,7 +4,7 @@ import "./analytic.scss"
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import {loadDataSet} from '../modules/Analytic';
+import {loadDataSet} from '../Analytic';
 import PivotTableUI from './PivotTableUI.js';
 import Plot from 'react-plotly.js';
 import { TableRenderersWithIntl} from './TableRenders';
@@ -15,7 +15,7 @@ import productionConfigurator from './ProductionConf'
 import marketPriceConfigurator from './MarketPriceConf'
 import consumptionConfigurator from './ConsumptionConf'
 
-import  messages from '../translations/messages'
+import  messages from '../../translations/messages'
 import { Label } from 'semantic-ui-react'
 
 const mapFields = (data, fields, extraFields, dataItems) => {

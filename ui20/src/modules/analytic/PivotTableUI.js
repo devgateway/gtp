@@ -13,7 +13,7 @@ var _react = require('react')
 var _react2 = _interopRequireDefault(_react)
 
 var _intl = require('react-intl')
-var _messages = require('../translations/messages')
+var _messages = require('../../translations/messages')
 
 var _propTypes = require('prop-types')
 
