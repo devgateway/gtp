@@ -289,3 +289,24 @@ label {
     margin-top: -16px;
 }
 
+.rain-reference-table .table > tbody > tr > td {
+    padding: 8px 4px;
+}
+
+.rain-reference-month-col {
+    width: 15%;
+}
+
+.rain-reference {
+    display: table-cell;
+}
+
+.rain-reference .form-group .form-control {
+    padding: 6px 1px;
+    text-align: center;
+}
+
+.rain-reference-decadal {
+    display: inline-block;
+    width: 33%;
+}
