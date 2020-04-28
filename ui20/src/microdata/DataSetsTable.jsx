@@ -27,7 +27,7 @@ class TableComponent extends Component {
 
 
 
-    componentDidMount(){
+    componentDidMount() {
       this.props.onLoadDatasets(this.props.intl.locale)
     }
 
@@ -63,7 +63,7 @@ class TableComponent extends Component {
 
     const handleSort = (clickedColumn) => () => {
 
-      if (column===clickedColumn){
+      if (column===clickedColumn) {
          direction = (sortDir==='ASC')?'DESC':'ASC'
       } else {
          direction = 'ASC'

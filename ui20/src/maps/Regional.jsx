@@ -18,17 +18,17 @@ class GIS extends Component {
      this.removeLast=this.removeLast.bind(this)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const lang=this.props.intl.locale
     this.props.onLoad(lang)
   }
 
-  addnewOne(wich){
+  addnewOne(wich) {
       this.setState({mapCount :this.state.mapCount +1})
 
   }
 
-  removeLast(wich){
+  removeLast(wich) {
       this.setState({mapCount :this.state.mapCount -1})
 
   }

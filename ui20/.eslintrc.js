@@ -21,8 +21,9 @@ module.exports = {
     'react'
   ],
   rules: {
-    'keyword-spacing': ["error", {
+    'keyword-spacing': ['error', {
       before: true, after: true
-    }]
+    }],
+    'space-before-blocks': 'error',
   }
 }

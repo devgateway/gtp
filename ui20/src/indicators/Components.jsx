@@ -27,7 +27,7 @@ export const PngExport=({id, element, name="chart", filters=[],includes=[]})=>{
 
         const doFilter=(node)=>{
 
-          if (node.classList && ([...node.classList].map(l=>filters.indexOf(l) > -1).filter(n=>n).length > 0 ) && !([...node.classList].map(l=>includes.indexOf(l) > -1).filter(n=>n).length > 0 ) ){
+          if (node.classList && ([...node.classList].map(l=>filters.indexOf(l) > -1).filter(n=>n).length > 0 ) && !([...node.classList].map(l=>includes.indexOf(l) > -1).filter(n=>n).length > 0 ) ) {
             return false
           }
           return true
@@ -79,7 +79,7 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
     if (newSelection.indexOf(key) > -1) {
       newSelection.splice(newSelection.indexOf(key), 1);
     } else {
-      if (single){
+      if (single) {
         newSelection=[key]
 
       } else {

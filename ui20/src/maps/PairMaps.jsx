@@ -74,7 +74,7 @@ export const joinData = (json, data = [], getCode,getName) => {
         Object.assign(f.properties,{
             'NAME':getName(f)})
 
-        if (rData.length >0){
+        if (rData.length >0) {
           let props=rData[0]
 
           const newProps={
@@ -103,7 +103,7 @@ const getOptionByKey=(options, key)=>{
 const PairOfMaps=({intl,id, data, selection,level})=>{
 
 
-if (data){
+if (data) {
 
     const colors=[
     {key:'Blues' ,text: intl.formatMessage(messages.blues)},
@@ -177,14 +177,14 @@ if (data){
           <div className="gis filter container  ">
               <div className="gis filter item indicator">
                 <CustomGroupedDropDown className="dropdown indicator " single options={groupedOptions} onChange={s => {
-                  if (s.length>0){
+                  if (s.length>0) {
                     setLeft(s)
                   }
                 }} selected={left} text={""}/>
                 </div>
                 <div className="gis filter item color">
                 <CustomFilterDropDown className="dropdown colors" single options={colors} onChange={s => {
-                  if (s.length>0){
+                  if (s.length>0) {
                     setLeftColor(s)
                   }
                 }} selected={leftColor} text={""}/>
@@ -216,7 +216,7 @@ if (data){
                    <div className="gis filter item indicator">
                    <CustomGroupedDropDown className="dropdown indicator" single options={groupedOptions}
                     onChange={s => {
-                      if (s.length>0){
+                      if (s.length>0) {
                         setRight(s)
                       }
                    }} selected={right} text={""}/>
@@ -225,7 +225,7 @@ if (data){
                    <div className="gis filter item color">
                    <CustomFilterDropDown className="dropdown colors"  single options={colors}
                      onChange={s => {
-                       if (s.length>0){
+                       if (s.length>0) {
                          setRightColor(s)
                        }
                       }} selected={rightColor} text={""}/>

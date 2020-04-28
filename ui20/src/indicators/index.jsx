@@ -24,7 +24,7 @@ class Indicators extends Component {
 
 
 
-  componentDidMount(){
+  componentDidMount() {
 
     this.props.onLoadMetadata(this.props.intl.locale)
   }
