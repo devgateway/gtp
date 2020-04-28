@@ -1,5 +1,5 @@
 import React, { useEffect ,useState, createRef} from 'react'
-import {loadPartners} from '../../../modules/Data'
+import {loadPartners} from '../../../redux/ipar/Data'
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import Sticky from './Sticky'

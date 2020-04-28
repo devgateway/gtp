@@ -18,10 +18,10 @@ import {
   loadAOItotalbudget,
 
   refresh
-} from './modules/Indicator'
+} from '../Indicator'
 import {
   loadDataItems
-} from './modules/Data'
+} from '../Data'
 
 const flags = []
 

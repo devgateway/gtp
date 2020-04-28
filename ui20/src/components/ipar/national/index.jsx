@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import React, {Component} from 'react'
 import './national.scss'
-import {loadNationalIndicators} from '../../../modules/National'
+import {loadNationalIndicators} from '../../../redux/ipar/National'
 import { Grid, Label } from 'semantic-ui-react'
 import BulletChartContainer from './BulletChartContainer'
 

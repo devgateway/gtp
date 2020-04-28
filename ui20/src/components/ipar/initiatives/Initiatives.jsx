@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useEffect , createRef} from 'react'
-import {loadInitiativesTypes,loadInitiativesItems} from '../../../modules/Data'
+import {loadInitiativesTypes,loadInitiativesItems} from '../../../redux/ipar/Data'
 import {connect} from 'react-redux';
 import {FormattedMessage,FormattedDate, injectIntl} from 'react-intl';
 import messages from '../../../translations/messages'

@@ -12,7 +12,7 @@ import {
   routerMiddleware
 } from 'connected-react-router/immutable'
 import Immutable from 'immutable'
-import indicatorListener from './IndicatorListener'
+import indicatorListener from './ipar/listener/IndicatorListener'
 export const history = createHashHistory()
 
 const initialState = Immutable.Map()

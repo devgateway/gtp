@@ -1,4 +1,4 @@
-import { getDataSet } from '../api'
+import { getDataSet } from '../../api'
 import Immutable from 'immutable'
 
 const initialState = Immutable.fromJS({})

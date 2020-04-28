@@ -4,7 +4,7 @@ import "./analytic.scss"
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import {loadDataSet} from '../Analytic';
+import {loadDataSet} from '../../redux/ipar/Analytic';
 import PivotTableUI from './PivotTableUI.js';
 import Plot from 'react-plotly.js';
 import { TableRenderersWithIntl} from './TableRenders';

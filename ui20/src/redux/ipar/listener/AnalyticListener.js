@@ -1,4 +1,4 @@
-import {} from './modules/Indicator'
+import {} from '../Indicator'
 /*
  *
  *  Analytic loading sequence.

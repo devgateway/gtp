@@ -5,7 +5,7 @@ import { Table,Pagination } from 'semantic-ui-react'
 import {CustomFilterDropDown,TextInput} from '../indicators/Components'
 import {items2options} from '../indicators/DataUtil'
 import {injectIntl, FormattedMessage} from 'react-intl';
-import {changeFilter,loadDatasets,changePage } from '../../../modules/Microdata'
+import {changeFilter,loadDatasets,changePage } from '../../../redux/ipar/Microdata'
 import {connect} from 'react-redux';
 import messages from '../../../translations/messages'
 

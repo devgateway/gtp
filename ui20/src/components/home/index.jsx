@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Main from './Intro'
-import {loadRapidLInks} from '../../modules/Data'
+import {loadRapidLInks} from '../../redux/ipar/Data'
 import ModuleLinksBlock from "./ModuleLink";
 
 class Home extends Component {

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import React, {Component} from 'react'
 
-import {loadGISData} from '../../../modules/Gis'
+import {loadGISData} from '../../../redux/ipar/Gis'
 import { Label} from 'semantic-ui-react'
 
 import PairOfMaps from './PairMaps.jsx'

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import * as api from '../api'
+import * as api from '../../api'
 import Immutable from 'immutable'
 
 const LOAD_DEFAULT_FILTERS_DONE = 'LOAD_DEFAULT_FILTERS_DONE'

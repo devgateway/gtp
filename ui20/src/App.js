@@ -4,12 +4,12 @@ import {withRouter} from "react-router";
 import {Provider} from 'react-redux'
 import {Route, Switch, Redirect} from 'react-router' // react-router v4/v5
 import {ConnectedRouter} from 'connected-react-router/immutable'
-import configureStore, {history} from './Store'
+import configureStore, {history} from './redux/Store'
 import {connect} from 'react-redux';
 import messages_fr from "./translations/fr.json";
 import messages_en from "./translations/en.json";
 import {IntlProvider} from "react-intl";
-import {loadDataItems} from './modules/Data'
+import {loadDataItems} from './redux/ipar/Data'
 
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'

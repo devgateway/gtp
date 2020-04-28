@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { Table,Pagination } from 'semantic-ui-react'
 import {items2options} from '../indicators/DataUtil'
 import {injectIntl,FormattedDate, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
-import {changeFilter,changePage,loadSources } from '../../../modules/Microdata'
+import {changeFilter,changePage,loadSources } from '../../../redux/ipar/Microdata'
 import {connect} from 'react-redux';
 
 
