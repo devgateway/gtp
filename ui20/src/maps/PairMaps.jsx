@@ -177,7 +177,7 @@ if (data){
           <div className="gis filter container  ">
               <div className="gis filter item indicator">
                 <CustomGroupedDropDown className="dropdown indicator " single options={groupedOptions} onChange={s => {
-                  if(s.length>0){
+                  if (s.length>0){
                     setLeft(s)
                   }
                 }} selected={left} text={""}/>
@@ -216,7 +216,7 @@ if (data){
                    <div className="gis filter item indicator">
                    <CustomGroupedDropDown className="dropdown indicator" single options={groupedOptions}
                     onChange={s => {
-                      if(s.length>0){
+                      if (s.length>0){
                         setRight(s)
                       }
                    }} selected={right} text={""}/>
@@ -255,7 +255,7 @@ if (data){
        </Grid>
 
      </div>)
-   }else{
+   } else {
      return null
    }
 

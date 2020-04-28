@@ -136,10 +136,10 @@ const ListMenu=({groups,onChangeSelection})=>{
     <Menu vertical fixed fluid className="menu level1">
     {groups && groups.map(g=>{
       return (<Menu.Item fluid name='inbox' active={active === g.id}  onClick={(e)=>{
-          if(active===g.id){
+          if (active===g.id){
             setActive(null)
 
-          }else{
+          } else {
             setActive(g.id)
           }
 

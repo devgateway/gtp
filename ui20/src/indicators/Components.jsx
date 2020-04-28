@@ -79,10 +79,10 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
     if (newSelection.indexOf(key) > -1) {
       newSelection.splice(newSelection.indexOf(key), 1);
     } else {
-      if(single){
+      if (single){
         newSelection=[key]
 
-      }else{
+      } else {
       newSelection.push(key)
       }
     }
@@ -133,7 +133,7 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
               : "")}/>
             {o.text}
 
-        < /Dropdown.Item>)}
+        </Dropdown.Item>)}
       </Dropdown.Menu>
 
       <Dropdown.Divider/>
@@ -163,10 +163,10 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
     if (newSelection.indexOf(key) > -1) {
       newSelection.splice(newSelection.indexOf(key), 1);
     } else {
-      if(single){
+      if (single) {
         newSelection=[key]
 
-      }else{
+      } else {
       newSelection.push(key)
       }
     }
@@ -279,7 +279,7 @@ export const OptionList = ({options, selected, onChange, text, disabled}) => {
     <p>{text}</p>
     {
       options.map((a) => {
-        return <div key={a.key} onClick={e => {if(!disabled) {updateSelection(a.key)}}} className={`item ${getChecked(a.key)
+        return <div key={a.key} onClick={e => {if (!disabled) {updateSelection(a.key)}}} className={`item ${getChecked(a.key)
             ? 'active'
             : ''}`}>
           <div className="checkbox"></div>

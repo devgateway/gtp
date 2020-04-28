@@ -63,9 +63,9 @@ class TableComponent extends Component {
 
     const handleSort = (clickedColumn) => () => {
 
-      if(column===clickedColumn){
+      if (column===clickedColumn){
          direction = (sortDir==='ASC')?'DESC':'ASC'
-      }else{
+      } else {
          direction = 'ASC'
       }
 

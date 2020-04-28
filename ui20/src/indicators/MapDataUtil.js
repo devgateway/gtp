@@ -24,7 +24,7 @@ export const getPovertyMapData = (json, data = [], intl) => {
 
       if (!feature) {
         console.log('No feature with region name ->' + r)
-      } else {
+      }else {
         // eslint-disable-next-line eqeqeq
         mostRecent.filter(m => m.region == r).forEach(p => {
           feature.properties[p.povertyLevel] = p.percentage * 100
