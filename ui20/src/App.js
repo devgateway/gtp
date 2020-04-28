@@ -11,10 +11,10 @@ import messages_en from "./translations/en.json";
 import {IntlProvider} from "react-intl";
 import {loadDataItems} from './modules/Data'
 
-import Header from './layout/Header'
-import Footer from './layout/Footer'
+import Header from './components/layout/Header'
+import Footer from './components/layout/Footer'
 
-import {Departmental,Regional} from './maps/index.js'
+import {Departmental,Regional} from './components/ipar/maps/index.js'
 
 
 import smoothscroll from 'smoothscroll-polyfill';
@@ -24,13 +24,13 @@ import withTracker from './withTracker'
 
 
 
-const Home = asyncComponent(() => import("./home/"));
-const Indicators = asyncComponent(() => import("./indicators/"));
-const Microdata = asyncComponent(() => import("./microdata/"));
+const Home = asyncComponent(() => import("./components/home/"));
+const Indicators = asyncComponent(() => import("./components/ipar/indicators/"));
+const Microdata = asyncComponent(() => import("./components/ipar/microdata/"));
 const Analytic = asyncComponent(() => import("./analytic/"));
-const NationalIndicators = asyncComponent(() => import("./national/"));
-const Partners = asyncComponent(() => import("./partners/"));
-const Initiatives = asyncComponent(() => import("./initiatives/"));
+const NationalIndicators = asyncComponent(() => import("./components/ipar/national/"));
+const Partners = asyncComponent(() => import("./components/ipar/partners/"));
+const Initiatives = asyncComponent(() => import("./components/ipar/initiatives/"));
 
 
 

@@ -1,0 +1,143 @@
+@import '../../../base';
+
+.initiatives {
+  font-family: $font;
+}
+
+.initiatives.container {
+  margin: auto;
+  width: $content-width;
+
+  .initiatives.title {
+    background-color: #FFF;
+    border-bottom: 2px solid $border-color;
+    height: 54px;
+    color: #73a745;
+    margin-top: 50px;
+    margin-bottom: 20px;
+
+    p {
+      font-size: 36px;
+      line-height: 36px;
+      float: left;
+      margin: 0;
+    }
+  }
+
+  .initiatives.title::before {
+    content: '';
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-right: 17px;
+    margin-left: 0;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-image: url("/page_icon_agr_initiative.svg");
+
+  }
+
+  .initiatives.type.title::before {
+    display: none;
+  }
+
+  .initiatives.subtitle {
+    margin-top: 20px;
+    background-color: #FFF;
+    height: 54px;
+
+    p {
+      font-size: 30px;
+      float: left;
+      margin: 0;
+      color: #73a745;
+    }
+  }
+
+  .initiatives.description {
+    background-color: #FFF;
+    display: block;
+    height: 100px;
+
+    p {
+      font-size: 21px;
+      float: left;
+      margin: 0;
+      color: #646464;
+    }
+  }
+
+  .initiatives.list.title {
+    height: 79px;
+
+    p {
+      color:  #497423;
+      line-height: 79px !important;
+      margin-left: 20px;
+      font-size: 24px;
+    }
+    background-color: #f6faf5;
+    border-top: 1px solid $border-color;
+    border-bottom: 0;
+  }
+
+  .initiatives.list.title::before {
+    display: none;
+  }
+
+  .initiatives.list.container {
+    width: 100%;
+    padding-left: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+
+    .grid {
+      text-align: left;
+      .column{
+        padding: 20px;
+        border-bottom: 1px solid $border-color;
+        margin-bottom: 20px;
+      }
+    }
+
+    .icon.file {
+      margin: 5px;
+      float: left;
+    }
+
+    .date {
+      font-size:10px;
+      margin: 5px;
+      float: left;
+      color: #646464;
+        font-weight: 600;
+    }
+
+    .download {
+      font-size: 11px;
+      float: right;
+      cursor: pointer;
+      margin:10px 20px 0px 0px;
+    }
+
+    .title {
+      margin: 5px 5px 5px 5px;
+      clear: both;
+      font-size: 14px;
+      text-decoration: underline;
+    }
+
+    .description {
+        font-size:12px;
+        font-weight: 600;
+      a {
+        color: #646464;
+      }
+      margin-left: 5px;
+      padding: 5px;
+
+    }
+
+
+  }
+}
