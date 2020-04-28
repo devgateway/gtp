@@ -46,15 +46,15 @@ const messages = {
   'en': messages_en
 };
 
-//const language = navigator.language.split(/[-_]/)[0]; // language without region code
-//import Home from './home/'
-//import Indicators from './indicators'
-//import Microdata from './microdata'
-//import Analytic from "./analytic/"
+// const language = navigator.language.split(/[-_]/)[0]; // language without region code
+// import Home from './home/'
+// import Indicators from './indicators'
+// import Microdata from './microdata'
+// import Analytic from "./analytic/"
 
-//import NationalIndicators from './national/index.jsx'
-//import Partners from './partners'
-//import Initiatives from './initiatives'
+// import NationalIndicators from './national/index.jsx'
+// import Partners from './partners'
+// import Initiatives from './initiatives'
 
 
 const WithDefHeader = (Component)=><div><Header/><Component/></div>
@@ -95,7 +95,7 @@ class IntlRoutes extends Component {
     this.props.onLoadFilterData('organization','filter')
     this.props.onLoadFilterData('dataset/organizations','filter')
 
-    //data/filter/dataset/organizations
+    // data/filter/dataset/organizations
 
   }
 

@@ -26,5 +26,6 @@ module.exports = {
     }],
     'space-before-blocks': 'error',
     'space-infix-ops': 'error',
+    'spaced-comment': 'error',
   }
 }

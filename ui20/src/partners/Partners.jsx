@@ -145,7 +145,7 @@ const ListMenu = ({groups,onChangeSelection})=>{
 
         setSelected(g.partners[0].name)
         onChangeSelection(g.partners[0].id)
-        //goTo(g.partners[0].id)
+        // goTo(g.partners[0].id)
 
       }}>
         <Label color='teal'>{g.partners.length}</Label>

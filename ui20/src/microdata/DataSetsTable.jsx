@@ -50,14 +50,14 @@ class TableComponent extends Component {
   }
 
   render() {
-    //TODO: remove state use props
+    // TODO: remove state use props
 
     const {onChangeFilter,sortBy,sortDir, keyword, organizations = [], selectedOrganizations = [], intl, onChangePage ,selectedYear = [],  years} = this.props
     const locale = intl.locale
 
     let direction = sortDir
     let column = sortBy
-    //descending
+    // descending
 
     const directionLong = (sortDir === 'ASC') ? 'ascending' : 'descending'
 
@@ -155,8 +155,8 @@ class TableComponent extends Component {
 
 const mapStateToProps = state => {
 
-  //const startDate=state.getIn(['microdata','filters','datasets','realMinDate'])
-  //const endDate=state.getIn(['microdata','filters','datasets','realMaxDate'])
+  // const startDate=state.getIn(['microdata','filters','datasets','realMinDate'])
+  // const endDate=state.getIn(['microdata','filters','datasets','realMaxDate'])
   const keyword = state.getIn(['microdata','filters','datasets','text'])
   const selectedOrganizations = state.getIn(['microdata','filters','datasets','organization'])
   const selectedYear = state.getIn(['microdata','filters','datasets','year'])
@@ -172,8 +172,8 @@ const mapStateToProps = state => {
 
 
   return {
-    //startDate,
-    //endDate,
+    // startDate,
+    // endDate,
     keyword,
     organizations,
     selectedOrganizations,

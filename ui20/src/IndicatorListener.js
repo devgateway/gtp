@@ -43,7 +43,7 @@ const listener = (store) => {
 
   const methodOfEnforcements = state.getIn(['data', 'items', 'methodOfEnforcement'])
 
-  //const indexType = state.getIn(['data', 'items', 'indexType'])
+  // const indexType = state.getIn(['data', 'items', 'indexType'])
   const indexType1 = state.getIn(['data', 'items', 'indexType/1'])
   const indexType2 = state.getIn(['data', 'items', 'indexType/2'])
 

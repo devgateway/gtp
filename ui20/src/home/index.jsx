@@ -17,16 +17,16 @@ class Home extends Component {
         <Main {...this.props}></Main>
         <ModuleLinksBlock {...this.props}></ModuleLinksBlock>
         {
-          //<Links {...this.props}></Links>
+          // <Links {...this.props}></Links>
         }
         {
-          //<Stories {...this.props}></Stories>
+          // <Stories {...this.props}></Stories>
         }
         {
-          //<Weather {...this.props}></Weather>
+          // <Weather {...this.props}></Weather>
         }
         {
-          //<Newsletter {...this.props}></Newsletter>
+          // <Newsletter {...this.props}></Newsletter>
         }
 
     </div>)

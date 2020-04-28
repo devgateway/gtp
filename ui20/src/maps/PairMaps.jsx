@@ -10,8 +10,8 @@ import messages from '../translations/messages'
 import {CustomGroupedDropDown, CustomFilterDropDown} from '../indicators/Components'
 import {PngExport} from '../indicators/Components'
 
-var regions = require('../json/regions.json'); //with path
-var departments = require('../json/departments.json'); //with path
+var regions = require('../json/regions.json'); // with path
+var departments = require('../json/departments.json'); // with path
 
 const getOptions = (data)=> {
 
@@ -95,7 +95,7 @@ export const joinData = (json, data = [], getCode,getName) => {
 const getOptionByKey = (options, key)=>{
   return options.filter(p=>p.key === key)[0]
 }
-//https://observablehq.com/@d3/color-schemes
+// https://observablehq.com/@d3/color-schemes
 
 
 

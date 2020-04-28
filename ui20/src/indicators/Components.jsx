@@ -144,7 +144,7 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
 
 
 
-/*---------------------------*/
+/* ---------------------------*/
 export const CustomGroupedDropDown = ({options, selected, onChange, text, disabled, single}) => {
 
   const [open, setOpen] = useState(false);
@@ -236,7 +236,7 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
   </Dropdown>)}
 
 
-  /*---------------------------*/
+  /* ---------------------------*/
 
 
 export const ChartTableSwitcher = (props) =>(
