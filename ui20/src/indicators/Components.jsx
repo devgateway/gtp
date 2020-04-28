@@ -14,18 +14,18 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 
-export const PngExport=({id, element, name="chart", filters=[],includes=[]})=>{
+export const PngExport = ({id, element, name = "chart", filters = [],includes = []})=>{
 
 
   // eslint-disable-next-line no-unused-vars
-  const changedNodes=[]
+  const changedNodes = []
       return (<div className="icon download png" onClick={e=>{
 
-        var node =id? document.getElementById(id):document[element];
+        var node = id ? document.getElementById(id) : document[element];
 
-        var exportable=id?node.getElementsByClassName("png exportable")[0]:node
+        var exportable = id ? node.getElementsByClassName("png exportable")[0] : node
 
-        const doFilter=(node)=>{
+        const doFilter = (node)=>{
 
           if (node.classList && ([...node.classList].map(l=>filters.indexOf(l) > -1).filter(n=>n).length > 0 ) && !([...node.classList].map(l=>includes.indexOf(l) > -1).filter(n=>n).length > 0 ) ) {
             return false
@@ -36,7 +36,7 @@ export const PngExport=({id, element, name="chart", filters=[],includes=[]})=>{
 
       toPng(exportable, {backgroundColor:"#FFF",filter:doFilter, style:{'border':'0px !important'}})
           .then(function (dataUrl) {
-            download(dataUrl, name+'.png');
+            download(dataUrl, name + '.png');
 
           })
           .catch(function (error) {
@@ -48,12 +48,12 @@ export const PngExport=({id, element, name="chart", filters=[],includes=[]})=>{
 }
 
 
-export const TextInput=({onChange, value, text})=>{
+export const TextInput = ({onChange, value, text})=>{
     return (<input type="text" placeholder={text} onChange={e=>onChange(e.target.value)} value={value}/>)
 }
 
 
-export const DateInput=({onChange, value, text, locale})=>{
+export const DateInput = ({onChange, value, text, locale})=>{
 
     return (<DatePicker
             locale={locale}
@@ -72,7 +72,7 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
 
   const [open, setOpen] = useState(false);
 
-  const breadcrum=single?(<div className="breadcrums">{selected && selected.length > 0? options[  options.map(a=>a.key).indexOf(selected[0]) ].text:text}</div>):(<div className="breadcrums">{text} {true?<span>({selected.length} of {options.length})</span>:null}</div>)
+  const breadcrum = single ? (<div className="breadcrums">{selected && selected.length > 0 ? options[  options.map(a=>a.key).indexOf(selected[0]) ].text : text}</div>) : (<div className="breadcrums">{text} {true ? <span>({selected.length} of {options.length})</span> : null}</div>)
 
   const updateSelection = (key) => {
     var newSelection = selected.slice(0)
@@ -80,7 +80,7 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
       newSelection.splice(newSelection.indexOf(key), 1);
     } else {
       if (single) {
-        newSelection=[key]
+        newSelection = [key]
 
       } else {
       newSelection.push(key)
@@ -107,13 +107,13 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
 
   return (
 
-    <Dropdown className={disabled?"disabled":""} fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
+    <Dropdown className={disabled ? "disabled" : ""} fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
       const keepOpen = !e || !e.currentTarget || !e.currentTarget.getAttribute || e.currentTarget.getAttribute("role") !== 'listbox'
       setOpen(!keepOpen)
     }}>
 
     <Dropdown.Menu>
-    {(single==null || single===false)&&    <Dropdown.Header>
+    {(single == null || single === false) &&    <Dropdown.Header>
         <div>
 
           <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicators.filters.select_all' defaultMessage="Select All"/></span>
@@ -149,14 +149,14 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
 
   const [open, setOpen] = useState(false);
 
-  const plainOptions=[]
+  const plainOptions = []
   options.forEach(o=>o.options.forEach(i=>plainOptions.push(i)))
 
 
           // eslint-disable-next-line no-unused-vars
-  const selectedText=selected[0]
+  const selectedText = selected[0]
 
-  const breadcrum=single?(<div className="breadcrums">{selected && selected.length > 0? plainOptions[  plainOptions.map(a=>a.key).indexOf(selected[0]) ].text:text}</div>):(<div className="breadcrums">{text} {true?<span>({selected.length} of {plainOptions.length})</span>:null}</div>)
+  const breadcrum = single ? (<div className="breadcrums">{selected && selected.length > 0 ? plainOptions[  plainOptions.map(a=>a.key).indexOf(selected[0]) ].text : text}</div>) : (<div className="breadcrums">{text} {true ? <span>({selected.length} of {plainOptions.length})</span> : null}</div>)
 
   const updateSelection = (key) => {
     var newSelection = selected.slice(0)
@@ -164,7 +164,7 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
       newSelection.splice(newSelection.indexOf(key), 1);
     } else {
       if (single) {
-        newSelection=[key]
+        newSelection = [key]
 
       } else {
       newSelection.push(key)
@@ -192,13 +192,13 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
 
   return (
 
-    <Dropdown className={disabled?"grouped dropdown disabled":"grouped dropdown"} fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
+    <Dropdown className={disabled ? "grouped dropdown disabled" : "grouped dropdown"} fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
       const keepOpen = !e || !e.currentTarget || !e.currentTarget.getAttribute || e.currentTarget.getAttribute("role") !== 'listbox'
       setOpen(!keepOpen)
     }}>
 
     <Dropdown.Menu>
-    {(single==null || single===false)&&<Dropdown.Header>
+    {(single == null || single === false) && <Dropdown.Header>
         <div>
 
           <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicators.filters.select_all' defaultMessage="Select All"/></span>
@@ -242,12 +242,12 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
 export const ChartTableSwitcher = (props) =>(
   <div className="chart toggler view">
     <div class="ui toggle checkbox">
-      <div className={props.mode==='chart'?'active':''}>
+      <div className={props.mode === 'chart' ? 'active' : ''}>
         <FormattedMessage id="indicators.chart.toggler.chart" defaultMessage="chart"></FormattedMessage>
       </div>
-      <input type="checkbox" onChange={e => null} name="view" defaultChecked={props.mode==='table'}/>
+      <input type="checkbox" onChange={e => null} name="view" defaultChecked={props.mode === 'table'}/>
       <label></label>
-      <div className={props.mode==='table'?'active':''}>
+      <div className={props.mode === 'table' ? 'active' : ''}>
         <FormattedMessage id="indicators.chart.toggler.table" defaultMessage="table"></FormattedMessage>
       </div>
     </div>
@@ -275,7 +275,7 @@ export const OptionList = ({options, selected, onChange, text, disabled}) => {
     return selected.indexOf(key) > -1
   }
 
-  return (<div className={`indicator filter ${disabled?'disabled':''} options  age`}>
+  return (<div className={`indicator filter ${disabled ? 'disabled' : ''} options  age`}>
     <p>{text}</p>
     {
       options.map((a) => {

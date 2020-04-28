@@ -57,16 +57,16 @@ const messages = {
 //import Initiatives from './initiatives'
 
 
-const WithDefHeader=(Component)=><div><Header/><Component/></div>
-const HomeLayout=(props)=>WithDefHeader(Home)
-const AnalyticLayout=(props)=>WithDefHeader(Analytic)
-const IndicatorLayout=(props) => (<div><Header className="fix" ></Header><Indicators header={e=>this.divRef} language={props.match.params.lan}></Indicators></div>)
-const RegionalLayout=(props) => WithDefHeader(Regional)
-const DepartmentalLayout=(props) => WithDefHeader(Departmental)
-const PartnersLayout=(props) => WithDefHeader(Partners)
-const InitiativesLayout=(props) => WithDefHeader(Initiatives)
-const MicrodataLayout=(props) => WithDefHeader(Microdata)
-const NationalIndicatorsLayout=(props) => WithDefHeader(NationalIndicators)
+const WithDefHeader = (Component)=><div><Header/><Component/></div>
+const HomeLayout = (props)=>WithDefHeader(Home)
+const AnalyticLayout = (props)=>WithDefHeader(Analytic)
+const IndicatorLayout = (props) => (<div><Header className="fix" ></Header><Indicators header={e=>this.divRef} language={props.match.params.lan}></Indicators></div>)
+const RegionalLayout = (props) => WithDefHeader(Regional)
+const DepartmentalLayout = (props) => WithDefHeader(Departmental)
+const PartnersLayout = (props) => WithDefHeader(Partners)
+const InitiativesLayout = (props) => WithDefHeader(Initiatives)
+const MicrodataLayout = (props) => WithDefHeader(Microdata)
+const NationalIndicatorsLayout = (props) => WithDefHeader(NationalIndicators)
 
 
 
@@ -78,7 +78,7 @@ class IntlRoutes extends Component {
      this.header = React.createRef()
    }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.onLoadFilterData('year','filter')
     this.props.onLoadFilterData('region','filter')
     this.props.onLoadFilterData('cropType','filter')

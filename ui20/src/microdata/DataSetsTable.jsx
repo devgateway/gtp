@@ -38,11 +38,11 @@ class TableComponent extends Component {
     if (this.props.datasets !== prevProps.datasets && this.props.datasets) {
 
 
-        const newState=Object.assign({},this.state,
+        const newState = Object.assign({},this.state,
           {
-          data:this.props.datasets&&this.props.datasets.get('content')?this.props.datasets.get('content').toJS():[],
+          data:this.props.datasets && this.props.datasets.get('content') ? this.props.datasets.get('content').toJS() : [],
           totalPages:this.props.datasets.getIn(['totalPages']),
-          activePage:this.props.datasets.getIn(['pageable','page'])+1,
+          activePage:this.props.datasets.getIn(['pageable','page']) + 1,
         })
 
           this.setState(newState)
@@ -52,19 +52,19 @@ class TableComponent extends Component {
   render() {
     //TODO: remove state use props
 
-    const {onChangeFilter,sortBy,sortDir, keyword, organizations=[], selectedOrganizations=[], intl, onChangePage ,selectedYear=[],  years} = this.props
-    const locale=intl.locale
+    const {onChangeFilter,sortBy,sortDir, keyword, organizations = [], selectedOrganizations = [], intl, onChangePage ,selectedYear = [],  years} = this.props
+    const locale = intl.locale
 
-    let direction=sortDir
-    let column=sortBy
+    let direction = sortDir
+    let column = sortBy
     //descending
 
-    const directionLong=(sortDir==='ASC')?'ascending':'descending'
+    const directionLong = (sortDir === 'ASC') ? 'ascending' : 'descending'
 
     const handleSort = (clickedColumn) => () => {
 
-      if (column===clickedColumn) {
-         direction = (sortDir==='ASC')?'DESC':'ASC'
+      if (column === clickedColumn) {
+         direction = (sortDir === 'ASC') ? 'DESC' : 'ASC'
       } else {
          direction = 'ASC'
       }
@@ -115,7 +115,7 @@ class TableComponent extends Component {
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  {this.state.data &&_.map(this.state.data, ({id, organization, title, source,creator, createdDate, fileId, type,year,metadata}) => (
+                  {this.state.data && _.map(this.state.data, ({id, organization, title, source,creator, createdDate, fileId, type,year,metadata}) => (
                     <Table.Row key={id}>
                      <Table.Cell width={7}> {type}</Table.Cell>
                      <Table.Cell width={7}> <a href={`/files/download/${fileId}`}>{title}</a></Table.Cell>
@@ -132,7 +132,7 @@ class TableComponent extends Component {
                   activePage={this.state.activePage}
                   boundaryRange={this.state.boundaryRange}
                   onPageChange={(e, { activePage })=>{
-                    onChangePage(['filters','datasets','pageNumber'],activePage -1,locale,'DATASETS')
+                    onChangePage(['filters','datasets','pageNumber'],activePage - 1,locale,'DATASETS')
                   }}
                   size='mini'
                   siblingRange={this.state.siblingRange}
@@ -157,18 +157,18 @@ const mapStateToProps = state => {
 
   //const startDate=state.getIn(['microdata','filters','datasets','realMinDate'])
   //const endDate=state.getIn(['microdata','filters','datasets','realMaxDate'])
-  const keyword=state.getIn(['microdata','filters','datasets','text'])
-  const selectedOrganizations=state.getIn(['microdata','filters','datasets','organization'])
-  const selectedYear=state.getIn(['microdata','filters','datasets','year'])
+  const keyword = state.getIn(['microdata','filters','datasets','text'])
+  const selectedOrganizations = state.getIn(['microdata','filters','datasets','organization'])
+  const selectedYear = state.getIn(['microdata','filters','datasets','year'])
 
-  const organizations=state.getIn(['data','items','dataset/organizations'])
+  const organizations = state.getIn(['data','items','dataset/organizations'])
 
 
-  const datasets=state.getIn(['microdata','data','datasets'])
-  const years=state.getIn(['microdata','data','years'])
+  const datasets = state.getIn(['microdata','data','datasets'])
+  const years = state.getIn(['microdata','data','years'])
 
-  const sortBy=state.getIn(['microdata','filters','datasets','sortBy'])
-  const sortDir=state.getIn(['microdata','filters','datasets','sortDir'])
+  const sortBy = state.getIn(['microdata','filters','datasets','sortBy'])
+  const sortDir = state.getIn(['microdata','filters','datasets','sortDir'])
 
 
   return {

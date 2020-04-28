@@ -63,11 +63,11 @@ return (<div className="partners container">
 }
 
 
-const ListItems=({groups,onChangeSelection})=>{
+const ListItems = ({groups,onChangeSelection})=>{
   // eslint-disable-next-line no-unused-vars
  const [active, setActive] = useState(groups[0].name);
   // eslint-disable-next-line no-unused-vars
- const [selected, setSelected] = useState(groups?groups[0].partners[0].id:null);
+ const [selected, setSelected] = useState(groups ? groups[0].partners[0].id : null);
 
   return (<Container fluid>
           {groups && groups.map(g=>{
@@ -80,9 +80,9 @@ const ListItems=({groups,onChangeSelection})=>{
                           <Container  fluid className="partners details">
                             <Grid padded fluid size={2}>
 
-                                    <Grid.Row id={"_partner_"+p.id}>
+                                    <Grid.Row id={"_partner_" + p.id}>
                                         <Grid.Column  width={8}>
-                                        {p.base64&&  <a href={p.url} className="ui image medium padding5">
+                                        {p.base64 &&  <a href={p.url} className="ui image medium padding5">
                                             <img src={`data:image/png;base64,${p.base64}`} alt={''}/>
                                           </a>}
                                         </Grid.Column>
@@ -123,12 +123,12 @@ const ListItems=({groups,onChangeSelection})=>{
 
 
 
-const ListMenu=({groups,onChangeSelection})=>{
+const ListMenu = ({groups,onChangeSelection})=>{
  const [active, setActive] = useState(groups[0].id);
- const [selected, setSelected] = useState(groups?groups[0].partners[0].name:null);
+ const [selected, setSelected] = useState(groups ? groups[0].partners[0].name : null);
 
- const goTo=(id)=>{
-   document.getElementById("_partner_"+id).scrollIntoView({behavior:  "smooth",block:    "start"});
+ const goTo = (id)=>{
+   document.getElementById("_partner_" + id).scrollIntoView({behavior:  "smooth",block:    "start"});
 
  }
 
@@ -136,7 +136,7 @@ const ListMenu=({groups,onChangeSelection})=>{
     <Menu vertical fixed fluid className="menu level1">
     {groups && groups.map(g=>{
       return (<Menu.Item fluid name='inbox' active={active === g.id}  onClick={(e)=>{
-          if (active===g.id) {
+          if (active === g.id) {
             setActive(null)
 
           } else {
@@ -152,10 +152,10 @@ const ListMenu=({groups,onChangeSelection})=>{
 
           <p>{g.name}</p>
 
-          {active === g.id &&<Menu vertical fluid className="menu level2">
+          {active === g.id && <Menu vertical fluid className="menu level2">
           { g.partners.map(p=>(
 
-            <Menu.Item fluid id={"level_2"+p.id}  active={selected === p.name} onClick={(e)=>{
+            <Menu.Item fluid id={"level_2" + p.id}  active={selected === p.name} onClick={(e)=>{
               goTo(p.id)
               setSelected(p.name)
               onChangeSelection(p.id)
@@ -173,8 +173,8 @@ const ListMenu=({groups,onChangeSelection})=>{
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const partners=state.getIn(['data','partners','data'])
-  const groups=state.getIn(['data','partners','groups'])
+  const partners = state.getIn(['data','partners','data'])
+  const groups = state.getIn(['data','partners','groups'])
 
   return {
     partners,

@@ -33,13 +33,13 @@ const AnalystDropdown = withRouter(injectIntl((props) => (
 const LanSwitcher = withRouter((props) => (
   <div>
     <div class="ui toggle checkbox">
-      <div className={props.match.params.lan.toUpperCase()==='FR'?'active':''}>FR</div>
+      <div className={props.match.params.lan.toUpperCase() === 'FR' ? 'active' : ''}>FR</div>
         <input type="checkbox" onChange={e=>{
-              const newPath=(e.target.checked===true)? '/en' + props.location.pathname.substr(3): '/fr' + props.location.pathname.substr(3)
+              const newPath = (e.target.checked === true) ? '/en' + props.location.pathname.substr(3) : '/fr' + props.location.pathname.substr(3)
                props.history.push(newPath)
             }
-        } name="lan" defaultChecked={props.match.params.lan.toUpperCase()==='EN'?'checked':''}/><label></label>
-      <div className={props.match.params.lan.toUpperCase()==='EN'?'active':''}>EN</div>
+        } name="lan" defaultChecked={props.match.params.lan.toUpperCase() === 'EN' ? 'checked' : ''}/><label></label>
+      <div className={props.match.params.lan.toUpperCase() === 'EN' ? 'active' : ''}>EN</div>
       </div>
   </div>))
 
@@ -83,12 +83,12 @@ class Header extends Component {
   onChangeLanguage(lan) {
     // eslint-disable-next-line no-unused-vars
     const {location, history} = this.props;
-    const newPath = '/'+lan + location.pathname.substr(3)
+    const newPath = '/' + lan + location.pathname.substr(3)
     this.props.history.push(newPath)
   }
 
   render() {
-    const lan=this.props.location.pathname.split("/")[1];
+    const lan = this.props.location.pathname.split("/")[1];
 
     return (<div className={`header ${this.props.className}` } ref={this.props.divRef}>
       <HeaderNav>

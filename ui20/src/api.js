@@ -460,9 +460,8 @@ export const subscribeToNewsLetter = (email) => {
 
 
 
-export const getAnaliticUserCode=()=>{
-   var PROD=!(document.location.href.indexOf('dgstg') > -1 || document.location.href.indexOf('localhost') > -1 || document.location.href.indexOf("127.0.0.1") > -1)
-   // eslint-disable-next-line eqeqeq
-   return  (PROD==true)?'UA-162751032-1':'UA-162929851-1';
+export const getAnaliticUserCode = ()=>{
+   var PROD = !(document.location.href.indexOf('dgstg') > -1 || document.location.href.indexOf('localhost') > -1 || document.location.href.indexOf("127.0.0.1") > -1)
+   return  (PROD === true) ? 'UA-162751032-1' : 'UA-162929851-1';
 
 }

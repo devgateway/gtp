@@ -13,7 +13,7 @@ import {PngExport} from '../indicators/Components'
 var regions = require('../json/regions.json'); //with path
 var departments = require('../json/departments.json'); //with path
 
-const getOptions=(data)=> {
+const getOptions = (data)=> {
 
     return data.map(d=>{return {
       key:d.id ,
@@ -30,11 +30,11 @@ const getOptions=(data)=> {
 }
 
 
-const getGroupedOptions=(data)=> {
-  const groups=[...new Set(data.map(d=>d.indicatorGroup))]
+const getGroupedOptions = (data)=> {
+  const groups = [...new Set(data.map(d=>d.indicatorGroup))]
 
-  const level1=groups.map(g=>{
-      const level2=  data.filter(d1=>d1.indicatorGroup===g).map(d=>{return {
+  const level1 = groups.map(g=>{
+      const level2 =  data.filter(d1=>d1.indicatorGroup === g).map(d=>{return {
         key:d.id ,
         text:d.name,
         description:d.description ,
@@ -57,9 +57,9 @@ const getGroupedOptions=(data)=> {
 }
 
 
-const getMapData=(data,id)=>{
+const getMapData = (data,id)=>{
 
-  return data.filter(d=>d.id===id)[0]
+  return data.filter(d=>d.id === id)[0]
 }
 
 
@@ -70,14 +70,14 @@ export const joinData = (json, data = [], getCode,getName) => {
 
 
 
-        var rData=data.stats.filter(s=>s.code===getCode(f))
+        var rData = data.stats.filter(s=>s.code === getCode(f))
         Object.assign(f.properties,{
             'NAME':getName(f)})
 
-        if (rData.length >0) {
-          let props=rData[0]
+        if (rData.length > 0) {
+          let props = rData[0]
 
-          const newProps={
+          const newProps = {
               'indicator':data.name,
               'value':props.value,
               'year':data.year,
@@ -92,20 +92,20 @@ export const joinData = (json, data = [], getCode,getName) => {
   return json;
 }
 
-const getOptionByKey=(options, key)=>{
-  return options.filter(p=>p.key===key)[0]
+const getOptionByKey = (options, key)=>{
+  return options.filter(p=>p.key === key)[0]
 }
 //https://observablehq.com/@d3/color-schemes
 
 
 
 
-const PairOfMaps=({intl,id, data, selection,level})=>{
+const PairOfMaps = ({intl,id, data, selection,level})=>{
 
 
 if (data) {
 
-    const colors=[
+    const colors = [
     {key:'Blues' ,text: intl.formatMessage(messages.blues)},
     {key:'Greens' ,text:  intl.formatMessage(messages.greens)},
     {key:'Greys' ,text:  intl.formatMessage(messages.greys)},
@@ -117,11 +117,11 @@ if (data) {
     {key:'OrRd' ,text:  intl.formatMessage(messages.orange_to_red)}]
 
 
-    const options=getOptions(data.toJS())
-    const groupedOptions=getGroupedOptions(data.toJS())
+    const options = getOptions(data.toJS())
+    const groupedOptions = getGroupedOptions(data.toJS())
 
-    const defLeft =  options.find(o=>o.leftMap===true) || options[0]
-    const defRigth=  options.find(o=>o.rightMap===true)  || options[0]
+    const defLeft =  options.find(o=>o.leftMap === true) || options[0]
+    const defRigth =  options.find(o=>o.rightMap === true)  || options[0]
 
     const [left, setLeft] = useState([defLeft.key]);
     const [right, setRight] = useState([defRigth.key]);
@@ -129,27 +129,27 @@ if (data) {
     const [leftColor, setLeftColor] = useState(['Reds']);
     const [rightColor, setRightColor] = useState(['Blues']);
 
-    const [selection, setSelection]= useState(null);
+    const [selection, setSelection] = useState(null);
 
 
 
-    const leftIndicator=getOptionByKey(options,left[0])
-    const rightIndicator=getOptionByKey(options,right[0])
+    const leftIndicator = getOptionByKey(options,left[0])
+    const rightIndicator = getOptionByKey(options,right[0])
 
-    const leftData=data && left? getMapData(data.toJS(),left):null
-    const rightData=data && right? getMapData(data.toJS(),right):null
+    const leftData = data && left ? getMapData(data.toJS(),left) : null
+    const rightData = data && right ? getMapData(data.toJS(),right) : null
 
-    const shapes=(level==='region')?regions:departments;
-    const getCode=(level==='region')?(f)=>f.properties.HASC_1.substr(3):(f)=>f.properties.HASC_2.substr(6,2)
+    const shapes = (level === 'region') ? regions : departments;
+    const getCode = (level === 'region') ? (f)=>f.properties.HASC_1.substr(3) : (f)=>f.properties.HASC_2.substr(6,2)
 
-    const getName=(level==='region')?(f)=>f.properties.NAME_1:(f)=>f.properties.NAME_2
-
-
+    const getName = (level === 'region') ? (f)=>f.properties.NAME_1 : (f)=>f.properties.NAME_2
 
 
-    const [leftGeoJson, setLeftGeoJson] = useState(leftData?joinData(Immutable.fromJS(shapes).toJS(), Immutable.fromJS(leftData).toJS(),getCode,getName):null);
 
-    const [rightGeojson, setRightGeojson] = useState(rightData?joinData(Immutable.fromJS(shapes).toJS(), Immutable.fromJS(rightData).toJS(),getCode,getName):null);
+
+    const [leftGeoJson, setLeftGeoJson] = useState(leftData ? joinData(Immutable.fromJS(shapes).toJS(), Immutable.fromJS(leftData).toJS(),getCode,getName) : null);
+
+    const [rightGeojson, setRightGeojson] = useState(rightData ? joinData(Immutable.fromJS(shapes).toJS(), Immutable.fromJS(rightData).toJS(),getCode,getName) : null);
 
 
     useEffect(() => {
@@ -177,14 +177,14 @@ if (data) {
           <div className="gis filter container  ">
               <div className="gis filter item indicator">
                 <CustomGroupedDropDown className="dropdown indicator " single options={groupedOptions} onChange={s => {
-                  if (s.length>0) {
+                  if (s.length > 0) {
                     setLeft(s)
                   }
                 }} selected={left} text={""}/>
                 </div>
                 <div className="gis filter item color">
                 <CustomFilterDropDown className="dropdown colors" single options={colors} onChange={s => {
-                  if (s.length>0) {
+                  if (s.length > 0) {
                     setLeftColor(s)
                   }
                 }} selected={leftColor} text={""}/>
@@ -206,7 +206,7 @@ if (data) {
                  indicator={leftIndicator}
 
                  sideColor={rightColor}
-                 onClick={e=>setSelection(selection&&selection.fid===e.fid?null:e)}/>
+                 onClick={e=>setSelection(selection && selection.fid === e.fid ? null : e)}/>
             </div>
          </Grid.Column>
          <Grid.Column>
@@ -216,7 +216,7 @@ if (data) {
                    <div className="gis filter item indicator">
                    <CustomGroupedDropDown className="dropdown indicator" single options={groupedOptions}
                     onChange={s => {
-                      if (s.length>0) {
+                      if (s.length > 0) {
                         setRight(s)
                       }
                    }} selected={right} text={""}/>
@@ -225,7 +225,7 @@ if (data) {
                    <div className="gis filter item color">
                    <CustomFilterDropDown className="dropdown colors"  single options={colors}
                      onChange={s => {
-                       if (s.length>0) {
+                       if (s.length > 0) {
                          setRightColor(s)
                        }
                       }} selected={rightColor} text={""}/>
@@ -247,7 +247,7 @@ if (data) {
                       source={rightData.source}
 
                       sideColor={leftColor}
-                      onClick={e=>setSelection(selection&&selection.fid===e.fid?null:e)}/>
+                      onClick={e=>setSelection(selection && selection.fid === e.fid ? null : e)}/>
 
             </div>
          </Grid.Column>

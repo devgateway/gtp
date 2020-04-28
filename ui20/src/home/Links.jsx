@@ -18,21 +18,21 @@ const PresnetedBy = (props) => {
   </div>)
 }
 
-const Source=({type})=>{
+const Source = ({type})=>{
   return   (<div className="links source">
   <div className="source-icon"></div>
 
-    {type==='microdata'&&<FormattedMessage id="home.tabs.microdata.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
-    {type==='indicator'&&<FormattedMessage id="home.tabs.indicators.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
-    {type==='market'&&<FormattedMessage id="home.tabs.market.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
+    {type === 'microdata' && <FormattedMessage id="home.tabs.microdata.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
+    {type === 'indicator' && <FormattedMessage id="home.tabs.indicators.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
+    {type === 'market' && <FormattedMessage id="home.tabs.market.source" defaultMessage={"Data comes from DAPSA, ANSD and FAO"}/>}
 
   </div>)
 
 }
 
 const LinksBlock = injectIntl((props) => {
-  const {intl}=props
-  const panes=  [
+  const {intl} = props
+  const panes =  [
 
     {
         menuItem:  {className:'link indicator', key: 'indicator', icon: '', content: intl.formatMessage(messages.home_tabs_indicator_title)},

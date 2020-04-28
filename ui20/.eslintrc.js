@@ -25,5 +25,6 @@ module.exports = {
       before: true, after: true
     }],
     'space-before-blocks': 'error',
+    'space-infix-ops': 'error',
   }
 }

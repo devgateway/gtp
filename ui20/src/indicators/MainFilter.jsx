@@ -5,7 +5,7 @@ import {PngExport} from './Components'
 import {FormattedMessage,injectIntl} from 'react-intl';
 import {items2options} from './DataUtil'
 
-const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChange,onApply,onReset, onExport}) => {
+const MainFilter = injectIntl( ({intl,regions, years, crops, globalFilters,onChange,onApply,onReset, onExport}) => {
 
   return (<div className="core-filters">
     <div className="main filter nav">
@@ -14,19 +14,19 @@ const MainFilter =injectIntl( ({intl,regions, years, crops, globalFilters,onChan
       </div>
       <div className="filter nav separator"></div>
       <div className="filter nav item year">
-        <CustomFilterDropDown onChange={s=>onChange('year',s)}  selected={globalFilters&&globalFilters.get('year')?globalFilters.get('year').toJS():[]}
+        <CustomFilterDropDown onChange={s=>onChange('year',s)}  selected={globalFilters && globalFilters.get('year') ? globalFilters.get('year').toJS() : []}
         text={<FormattedMessage id = "indicators.filters.year" defaultMessage = "Campaign/Years" > </FormattedMessage>}
         options={items2options(years,intl)}></CustomFilterDropDown>
       </div>
         <div className="filter nav separator"></div>
       <div className="filter nav item">
-        <CustomFilterDropDown onChange={s=>onChange('region',s)} selected={globalFilters&&globalFilters.get('region')?globalFilters.get('region').toJS():[]}
+        <CustomFilterDropDown onChange={s=>onChange('region',s)} selected={globalFilters && globalFilters.get('region') ? globalFilters.get('region').toJS() : []}
          text={<FormattedMessage id = "indicators.filters.regions" defaultMessage = "Regions" > </FormattedMessage>}
         options={items2options(regions,intl)}></CustomFilterDropDown>
       </div>
         <div className="filter nav separator"></div>
       <div className="filter nav item">
-        <CustomFilterDropDown onChange={s=>onChange('crop',s)} selected={globalFilters&&globalFilters.get('crop')?globalFilters.get('crop').toJS():[]}
+        <CustomFilterDropDown onChange={s=>onChange('crop',s)} selected={globalFilters && globalFilters.get('crop') ? globalFilters.get('crop').toJS() : []}
         text={<FormattedMessage id = "indicators.filters.crops" defaultMessage = "Crop Type" > </FormattedMessage>}
         options={items2options(crops,intl)}></CustomFilterDropDown>
       </div>

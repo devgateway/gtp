@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import React, {Component} from 'react'

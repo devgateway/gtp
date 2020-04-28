@@ -64,8 +64,8 @@
     "build": "react-scripts --max_old_space_size=4096  build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src/**/*.js?",
-    "lint-fix": "eslint --fix ./src/**/*.js?"
+    "lint": "eslint --ext .js --ext .jsx src",
+    "lint-fix": "eslint --fix --ext .js --ext .jsx src"
   },
   "browserslist": [
     ">0.2%",
