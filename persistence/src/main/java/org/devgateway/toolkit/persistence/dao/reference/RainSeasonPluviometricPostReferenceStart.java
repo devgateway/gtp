@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.dao.reference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
+import org.devgateway.toolkit.persistence.dao.categories.PluviometricPostHolder;
 import org.devgateway.toolkit.persistence.dao.converter.MonthDayStringAttributeConverter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -22,7 +23,8 @@ import java.time.MonthDay;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Audited
-public class RainSeasonPluviometricPostReferenceStart extends AbstractAuditableEntity implements Serializable {
+public class RainSeasonPluviometricPostReferenceStart extends AbstractAuditableEntity implements Serializable,
+        PluviometricPostHolder {
     private static final long serialVersionUID = 3862531669881681345L;
 
     @Column(columnDefinition = "varchar", length = 6)
@@ -49,6 +51,7 @@ public class RainSeasonPluviometricPostReferenceStart extends AbstractAuditableE
         this.startReference = startReference;
     }
 
+    @Override
     public PluviometricPost getPluviometricPost() {
         return pluviometricPost;
     }

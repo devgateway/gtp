@@ -6,8 +6,6 @@ import org.devgateway.toolkit.persistence.service.BaseJpaService;
 /**
  * @author Nadejda Mandrescu
  */
-public interface RainSeasonStartReferenceService extends BaseJpaService<RainSeasonStartReference> {
-    void initialize(RainSeasonStartReference rainReference);
-
-    RainSeasonStartReference findByYearStartLessThanEqualAndYearEndGreaterThanEqual(Integer year);
+public interface RainSeasonStartReferenceService extends BaseJpaService<RainSeasonStartReference>,
+        YearsReferenceService<RainSeasonStartReference> {
 }
