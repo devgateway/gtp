@@ -14,12 +14,14 @@
  */
 package org.devgateway.toolkit.persistence.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 /**
  * @author mpostelnicu
  *
  */
+@JsonIgnoreProperties("new")
 public class GenericPersistable extends AbstractPersistable<Long> {
 
 }

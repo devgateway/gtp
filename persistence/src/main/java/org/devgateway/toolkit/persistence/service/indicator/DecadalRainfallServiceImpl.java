@@ -3,8 +3,10 @@ package org.devgateway.toolkit.persistence.service.indicator;
 import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
 
 import org.devgateway.toolkit.persistence.dao.Decadal;
+import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainfall;
+import org.devgateway.toolkit.persistence.dto.rainfall.DecadalInstantRainLevel;
 import org.devgateway.toolkit.persistence.dao.indicator.Rainfall;
 import org.devgateway.toolkit.persistence.repository.indicator.DecadalRainfallRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,5 +80,20 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
         entity.setPostRainfalls(pluviometricPostRainfalls);
 
         return repository().saveAndFlush(entity);
+    }
+
+    @Override
+    public List<PluviometricPost> findPluviometricPostsWithData() {
+        return decadalRainfallRepository.findPluviometricPostsWithData();
+    }
+
+    @Override
+    public List<Integer> findYearsWithData() {
+        return decadalRainfallRepository.findYearsWithData();
+    }
+
+    @Override
+    public List<DecadalInstantRainLevel> findRainLevels(Collection<Integer> years, Long pluviometricPostId) {
+        return decadalRainfallRepository.findRainLevels(years, pluviometricPostId);
     }
 }

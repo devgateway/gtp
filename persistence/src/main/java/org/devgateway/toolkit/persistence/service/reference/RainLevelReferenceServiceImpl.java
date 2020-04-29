@@ -2,9 +2,17 @@ package org.devgateway.toolkit.persistence.service.reference;
 
 import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
 
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPostHolder;
+import org.devgateway.toolkit.persistence.dto.rainfall.MonthDecadalRainLevel;
+import org.devgateway.toolkit.persistence.dto.rainfall.ReferenceLevels;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelMonthReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelPluviometricPostReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference;
@@ -15,8 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Month;
 
 /**
  * @author Nadejda Mandrescu
@@ -63,4 +69,25 @@ public class RainLevelReferenceServiceImpl extends YearsReferenceServiceImpl<Rai
         return postLevelReference;
     }
 
+    @Override
+    public List<ReferenceLevels> findReferenceLevels(Collection<Integer> years, Long pluviometricPostId) {
+        return findApplicableReferences(years).stream()
+                .map(rlr -> findReferenceLevels(rlr, pluviometricPostId))
+                .collect(Collectors.toList());
+    }
+
+    private List<RainLevelReference> findApplicableReferences(Collection<Integer> years) {
+        List<RainLevelReference> rlRefs = new ArrayList<>();
+        for (Integer year : years) {
+            if (rlRefs.stream().noneMatch(r -> r.isApplicableTo(year))) {
+                rlRefs.add(findByYearStartLessThanEqualAndYearEndGreaterThanEqual(year));
+            }
+        }
+        return rlRefs;
+    }
+
+    private ReferenceLevels findReferenceLevels(RainLevelReference rlr, Long pluviometricPostId) {
+        List<MonthDecadalRainLevel> rainLevels = rainLevelReferenceRepository.findRainLevels(rlr, pluviometricPostId);
+        return new ReferenceLevels(rlr.getReferenceYearStart(), rlr.getReferenceYearEnd(), rainLevels);
+    }
 }

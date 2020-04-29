@@ -13,8 +13,12 @@ package org.devgateway.toolkit.web.spring;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.devgateway.toolkit.persistence.jackson.DecadalSerializer;
+import org.devgateway.toolkit.persistence.jackson.MonthAsIntSerializer;
 import org.devgateway.toolkit.web.generators.GenericExcelKeyGenerator;
 import org.devgateway.toolkit.web.generators.GenericKeyGenerator;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -62,5 +66,13 @@ public class MvcConfig implements WebMvcConfigurer {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public Module customTypes() {
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(new DecadalSerializer());
+        module.addSerializer(new MonthAsIntSerializer());
+        return module;
     }
 }
