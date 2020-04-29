@@ -60,5 +60,9 @@ public abstract class YearsReference extends AbstractAuditableEntity
         this.yearEnd = yearEnd;
     }
 
+    public boolean isApplicableTo(Integer year) {
+        return year >= yearStart && year <= yearEnd;
+    }
+
     public abstract List<? extends PluviometricPostHolder> getReferences();
 }

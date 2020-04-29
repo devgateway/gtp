@@ -1,18 +1,21 @@
 package org.devgateway.toolkit.persistence.dao.categories;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author Nadejda Mandrescu
@@ -38,7 +41,8 @@ public class PluviometricPost extends AbstractAuditableEntity implements Seriali
     @NotNull
     @ManyToOne(optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "name")
+    @JsonIdentityReference(alwaysAsId = true)
     private Department department;
 
     @Override

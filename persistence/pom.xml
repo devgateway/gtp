@@ -274,6 +274,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <compilerArgument>-proc:none</compilerArgument>
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
 
