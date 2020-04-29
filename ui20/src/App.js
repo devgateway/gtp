@@ -22,8 +22,6 @@ import smoothscroll from 'smoothscroll-polyfill';
 import asyncComponent from "./components/common/AsyncComponent";
 import withTracker from './components/common/withTracker'
 
-
-
 const Home = asyncComponent(() => import("./components/home/"));
 const Indicators = asyncComponent(() => import("./components/ipar/indicators/"));
 const Microdata = asyncComponent(() => import("./components/ipar/microdata/"));
@@ -32,14 +30,8 @@ const NationalIndicators = asyncComponent(() => import("./components/ipar/nation
 const Partners = asyncComponent(() => import("./components/ipar/partners/"));
 const Initiatives = asyncComponent(() => import("./components/ipar/initiatives/"));
 
-
-
-
 // kick off the polyfill!
 smoothscroll.polyfill();
-
-
-
 
 const messages = {
   'fr': messages_fr,
@@ -69,9 +61,7 @@ const MicrodataLayout = (props) => WithDefHeader(Microdata)
 const NationalIndicatorsLayout = (props) => WithDefHeader(NationalIndicators)
 
 
-
 class IntlRoutes extends Component {
-
 
   constructor(props) {
      super(props);
@@ -79,6 +69,7 @@ class IntlRoutes extends Component {
    }
 
   componentDidMount() {
+    /*
     this.props.onLoadFilterData('year','filter')
     this.props.onLoadFilterData('region','filter')
     this.props.onLoadFilterData('cropType','filter')
@@ -94,9 +85,8 @@ class IntlRoutes extends Component {
     this.props.onLoadFilterData('methodOfEnforcement','filter')
     this.props.onLoadFilterData('organization','filter')
     this.props.onLoadFilterData('dataset/organizations','filter')
-
+     */
     // data/filter/dataset/organizations
-
   }
 
   render() {
@@ -132,25 +122,16 @@ class IntlRoutes extends Component {
   }
 }
 
-
-
-
 const mapStateToProps = (state, ownProps) => {
-
-
   return {
-
   }
 }
 
 const mapActionCreators = {
   onLoadFilterData: loadDataItems,
-
 };
 
 const IntlRoutesRouted = connect(mapStateToProps, mapActionCreators)(withRouter(IntlRoutes))
-
-
 
 const MainRoutes = (props) => {
   return (<ConnectedRouter history={history}>

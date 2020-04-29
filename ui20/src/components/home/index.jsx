@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Main from './Intro'
-import {loadRapidLInks} from '../../redux/ipar/Data'
+// import {loadRapidLInks} from '../../redux/ipar/Data'
 import ModuleLinksBlock from "./ModuleLink";
 
 class Home extends Component {
   componentDidMount() {
-      this.props.onLoadRapidLinks()
+      // this.props.onLoadRapidLinks()
   }
 
   render() {
@@ -35,12 +35,12 @@ class Home extends Component {
 
 const mapStateToProps = state => {
 return {
-    links: state.getIn(['data','links','data'])
+    // links: state.getIn(['data','links','data'])
   }
 }
 
 const mapActionCreators = {
-  onLoadRapidLinks:loadRapidLInks
+  // onLoadRapidLinks:loadRapidLInks
 };
 
 export default connect(mapStateToProps, mapActionCreators)(Home);
