@@ -19,8 +19,8 @@ import {Departmental,Regional} from './components/ipar/maps/index.js'
 
 import smoothscroll from 'smoothscroll-polyfill';
 
-import asyncComponent from "./AsyncComponent";
-import withTracker from './withTracker'
+import asyncComponent from "./components/common/AsyncComponent";
+import withTracker from './components/common/withTracker'
 
 
 
