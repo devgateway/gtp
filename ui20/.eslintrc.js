@@ -4,7 +4,7 @@ module.exports = {
     es6: true
   },
   extends: [
-    'standard'
+    'react-app'
   ],
   globals: {
     Atomics: 'readonly',
@@ -21,5 +21,11 @@ module.exports = {
     'react'
   ],
   rules: {
+    'keyword-spacing': ['error', {
+      before: true, after: true
+    }],
+    'space-before-blocks': 'error',
+    'space-infix-ops': 'error',
+    'spaced-comment': 'error',
   }
 }
