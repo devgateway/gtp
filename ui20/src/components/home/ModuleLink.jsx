@@ -21,16 +21,13 @@ const ModuleLinksBlock = injectIntl((props) => {
   return (<div className="home-links-container">
 
     <div className="home-links-image">
-      <Grid columns={2}>
+      <Grid columns={3}>
         <GridRow>
           <GridColumn>
-            <Pane name='climateAndMeteorology' {...props}/>
+            <Pane
+              name='waterResources' {...props}
+              onClick={e=>props.history.push(`/${props.match.params.lan}/water-resources`)}/>
           </GridColumn>
-          <GridColumn>
-            <Pane name='environmentAndHydrology' {...props}/>
-          </GridColumn>
-        </GridRow>
-        <GridRow>
           <GridColumn>
             <Pane name='agricultureAndMarkets' {...props}/>
           </GridColumn>
