@@ -278,11 +278,6 @@ const messages = defineMessages({
     defaultMessage: 'Market',
     description: 'Market Data Field'
   },
-  market: {
-    id: 'data.fields.market',
-    defaultMessage: 'Market',
-    description: 'Market Data Field'
-  },
 
   whole_sale_buy_price: {
     id: 'data.fields.whole_sale_buy_price',
@@ -308,12 +303,6 @@ const messages = defineMessages({
     id: 'data.fields.quantity',
     defaultMessage: 'Quantity',
     description: 'Quantity Data Field'
-  },
-
-  age: {
-    id: 'data.fields.age',
-    defaultMessage: 'Age',
-    description: 'Age data field'
   },
 
   blues: {
@@ -387,7 +376,6 @@ const messages = defineMessages({
     id: 'table.all',
     defaultMessage: 'All'
   },
-
 
   table_filter_select_all: {
     id: 'table.select_all',
@@ -619,11 +607,10 @@ const messages = defineMessages({
     defaultMessage: 'Email'
   },
 
-
   home_newsletter_button_subscribe: {
     id: 'home.newsletter.button_subscribe',
     defaultMessage: 'Subscribe'
-  },
+  }
 })
 
 export default messages

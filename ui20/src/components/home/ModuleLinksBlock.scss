@@ -1,0 +1,22 @@
+@import "../../base";
+
+.home-links-container {
+  margin: 48px auto 48px auto;
+  width: $page-width;
+  color: #777777;
+  display: flex;
+  justify-content: center;
+  text-align: left;
+
+  .home-links-image {
+    width: 1006px;
+
+    .pane-icon {
+      display: block;
+    }
+
+    .pane-title {
+      font-weight: bold;
+    }
+  }
+}
