@@ -15,43 +15,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Octavian Ciubotaru
  */
 @RestController
-public class ChartsController {
+@RequestMapping("/api/graphics/water")
+public class WaterGraphicsController {
 
     @Autowired
     private ChartService chartService;
 
-    @GetMapping("/charts/all")
+    @GetMapping("all")
     public ChartsData getCharts() {
         return chartService.getCharts();
     }
 
-    @GetMapping("/charts/common-config")
+    @GetMapping("common-config")
     public CommonConfig getCommonConfig() {
         return chartService.getCommonConfig();
     }
 
-    @GetMapping("/charts/rain-level/config")
+    @GetMapping("rain-level/config")
     public RainLevelChartConfig getConfig() {
         return chartService.getRainLevelConfig();
     }
 
-    @PostMapping("/charts/rain-level/data")
+    @PostMapping("rain-level/data")
     public RainLevelChartData getChartData(@RequestBody @Valid RainLevelChartFilter filter) {
         return chartService.getRainLevelData(filter);
     }
 
-    @GetMapping("/charts/rain-season/config")
+    @GetMapping("rain-season/config")
     public SeasonChartConfig getRainSeasonConfig() {
         return chartService.getRainSeasonConfig();
     }
 
-    @PostMapping("/charts/rain-season/data")
+    @PostMapping("rain-season/data")
     public SeasonChartData getRainSeasonData(@RequestBody @Valid SeasonChartFilter filter) {
         return chartService.getRainSeasonData(filter);
     }
