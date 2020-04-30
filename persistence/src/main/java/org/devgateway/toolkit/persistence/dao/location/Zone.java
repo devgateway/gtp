@@ -35,6 +35,7 @@ public class Zone extends AbstractAuditableEntity implements Serializable, Label
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "zone")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnore
+    @BatchSize(size = 100)
     private List<Region> regions = new ArrayList<>();
 
     public String getName() {
