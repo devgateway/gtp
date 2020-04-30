@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.service;
+package org.devgateway.toolkit.persistence.service.testdata;
 
 import static java.util.stream.Collectors.toList;
 
@@ -23,14 +23,20 @@ import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference;
 import org.devgateway.toolkit.persistence.repository.category.PluviometricPostRepository;
 import org.devgateway.toolkit.persistence.repository.indicator.DecadalRainfallRepository;
 import org.devgateway.toolkit.persistence.repository.reference.RainLevelReferenceRepository;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * @author Octavian Ciubotaru
  */
 @Component
-public class TestDataGenerator {
+@ConditionalOnProperty("generate-test-rainfall-data")
+public class RainfallTestDataGenerator implements InitializingBean {
+
+    private final TransactionTemplate transactionTemplate;
 
     private final PluviometricPostRepository pluviometricPostRepository;
     private final DecadalRainfallRepository decadalRainfallRepository;
@@ -38,17 +44,27 @@ public class TestDataGenerator {
 
     private final List<Integer> years = ImmutableList.of(2018, 2019, 2020);
 
-    public TestDataGenerator(
+    public RainfallTestDataGenerator(
+            PlatformTransactionManager transactionManager,
             PluviometricPostRepository pluviometricPostRepository,
             DecadalRainfallRepository decadalRainfallRepository,
             RainLevelReferenceRepository rainLevelReferenceRepository) {
+        this.transactionTemplate = new TransactionTemplate(transactionManager);
         this.pluviometricPostRepository = pluviometricPostRepository;
         this.decadalRainfallRepository = decadalRainfallRepository;
         this.rainLevelReferenceRepository = rainLevelReferenceRepository;
     }
 
-    @Transactional
-    public void generate() {
+    @Override
+    public void afterPropertiesSet() {
+        transactionTemplate.execute(s -> {
+            generateActual();
+            generateRefs();
+            return null;
+        });
+    }
+
+    private void generateActual() {
         decadalRainfallRepository.deleteAll();
 
         List<PluviometricPost> pluviometricPosts = pluviometricPostRepository.findAll();
@@ -68,8 +84,7 @@ public class TestDataGenerator {
         }
     }
 
-    @Transactional
-    public void generateRefs() {
+    private void generateRefs() {
         List<PluviometricPost> pluviometricPosts = pluviometricPostRepository.findAll();
 
         RainLevelReference rainLevelReference = rainLevelReferenceRepository

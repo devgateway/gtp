@@ -3,7 +3,6 @@ package org.devgateway.toolkit.persistence.service.indicator;
 import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
 
 import org.devgateway.toolkit.persistence.dao.Decadal;
-import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainfall;
 import org.devgateway.toolkit.persistence.dto.rainfall.DecadalInstantRainLevel;
@@ -29,6 +28,7 @@ import java.util.stream.Collectors;
 @CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfall> implements DecadalRainfallService {
+
     @Autowired
     private DecadalRainfallRepository decadalRainfallRepository;
 
@@ -83,7 +83,7 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
     }
 
     @Override
-    public List<PluviometricPost> findPluviometricPostsWithData() {
+    public List<Long> findPluviometricPostsWithData() {
         return decadalRainfallRepository.findPluviometricPostsWithData();
     }
 
