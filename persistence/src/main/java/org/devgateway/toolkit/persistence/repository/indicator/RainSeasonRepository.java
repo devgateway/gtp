@@ -18,8 +18,13 @@ public interface RainSeasonRepository extends BaseJpaRepository<RainSeason, Long
 
     Optional<RainSeason> findByYear(Integer year);
 
-    @Query("select s.year from RainSeason s "
-            + "join s.postRainSeasons p "
-            + "where p.formStatus = 'PUBLISHED' and p.deleted = false")
+    @Query("select distinct s.year "
+            + "from RainSeason s join s.postRainSeasons p, "
+            + "RainSeasonStartReference rs join rs.postReferences rp "
+            + "where p.formStatus = 'PUBLISHED' "
+            + "and s.year >= rs.yearStart "
+            + "and s.year <= rs.yearEnd "
+            + "and p.pluviometricPost = rp.pluviometricPost "
+            + "and rp.startReference is not null")
     List<Integer> findYearsWithData();
 }
