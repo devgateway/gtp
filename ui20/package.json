@@ -24,6 +24,7 @@
     "npm": "^6.14.2",
     "pivottable": "^2.23.0",
     "plotly.js": "1.40.0",
+    "prop-types": "^15.7.2",
     "rc-slider": "^8.7.1",
     "react": "^16.13.0",
     "react-app-polyfill": "^1.0.6",

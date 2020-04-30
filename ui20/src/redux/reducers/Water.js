@@ -13,14 +13,14 @@ const initialState = Immutable.fromJS({
 })
 
 export default (state = initialState, action) => {
-  const { data } = action;
+  const { payload } = action;
   switch (action.type) {
     case WATER_RESOURCES_PENDING:
       return state.set('isLoading', true).set('error', null)
     case WATER_RESOURCES_FULFILLED:
-      return state.set('isLoading', false).set('isLoaded', true).set('data', data)
+      return state.set('isLoading', false).set('isLoaded', true).set('data', payload)
     case WATER_RESOURCES_REJECTED:
-      return state.set('isLoading', false).set('isLoaded', false).set('error', data)
+      return state.set('isLoading', false).set('isLoaded', false).set('error', payload)
     default: {
       return state
     }
