@@ -19,12 +19,13 @@ export const history = createHashHistory()
 const initialState = Immutable.Map()
 
 const rootReducer = createRootReducer(history)
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 export default function configureStore () {
   const store = createStore(
     rootReducer, // root reducer with router state
     initialState,
-    compose(
+    composeEnhancers(
       applyMiddleware(
         routerMiddleware(history),
         // for dispatching history actions
