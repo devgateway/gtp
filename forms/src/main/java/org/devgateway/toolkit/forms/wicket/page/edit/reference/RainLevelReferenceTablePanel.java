@@ -23,6 +23,7 @@ import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelMonthReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelPluviometricPostReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference;
+import org.devgateway.toolkit.persistence.dto.MonthDTO;
 
 import java.time.Month;
 import java.util.HashMap;
@@ -110,7 +111,7 @@ public class RainLevelReferenceTablePanel
 
             Month month = getMonth();
 
-            add(new Label("month", month.toString()));
+            add(new Label("month", MonthDTO.of(month)));
 
             RepeatingView decadals = new RepeatingView("decadal");
             for (Decadal decadal : Decadal.values()) {
