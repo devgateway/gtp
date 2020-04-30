@@ -57,7 +57,8 @@ public class SeasonTestDataGenerator implements InitializingBean {
     }
 
     private void generateRefData() {
-        List<RainSeasonStartReference> seasonReferences = rainSeasonStartReferenceRepository.findAll();
+        List<RainSeasonStartReference> seasonReferences = ImmutableList.of(rainSeasonStartReferenceRepository
+                .findByYearStartLessThanEqualAndYearEndGreaterThanEqual(2020, 2020));
 
         List<PluviometricPost> posts = pluviometricPostRepository.findAll();
 

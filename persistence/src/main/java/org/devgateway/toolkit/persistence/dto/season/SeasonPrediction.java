@@ -21,12 +21,8 @@ public class SeasonPrediction {
         this.planned = plannedMonthDay;
         this.actual = MonthDay.from(actualDate);
 
-        if (plannedMonthDay != null) {
-            LocalDate plannedDate = localDateFrom(actualDate.getYear(), plannedMonthDay);
-            difference = actualDate.toEpochDay() - plannedDate.toEpochDay();
-        } else {
-            difference = null;
-        }
+        LocalDate plannedDate = localDateFrom(actualDate.getYear(), plannedMonthDay);
+        difference = actualDate.toEpochDay() - plannedDate.toEpochDay();
     }
 
     public Long getPluviometricPostId() {

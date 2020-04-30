@@ -20,6 +20,6 @@ public interface RainSeasonRepository extends BaseJpaRepository<RainSeason, Long
 
     @Query("select s.year from RainSeason s "
             + "join s.postRainSeasons p "
-            + "where p.formStatus = 'PUBLISHED'")
+            + "where p.formStatus = 'PUBLISHED' and p.deleted = false")
     List<Integer> findYearsWithData();
 }

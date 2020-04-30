@@ -2,20 +2,20 @@ package org.devgateway.toolkit.persistence.service;
 
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 import java.time.MonthDay;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.devgateway.toolkit.persistence.dao.AbstractStatusAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainSeason;
 import org.devgateway.toolkit.persistence.dao.indicator.RainSeason;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.dao.location.Region;
 import org.devgateway.toolkit.persistence.dao.location.Zone;
+import org.devgateway.toolkit.persistence.dao.reference.RainSeasonPluviometricPostReferenceStart;
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonStartReference;
 import org.devgateway.toolkit.persistence.dto.ChartsData;
 import org.devgateway.toolkit.persistence.dto.CommonConfig;
@@ -149,10 +149,14 @@ public class ChartServiceImpl implements ChartService {
         RainSeasonStartReference seasonRef = rainSeasonStartReferenceRepository
                 .findByYearStartLessThanEqualAndYearEndGreaterThanEqual(year, year);
 
-        Map<PluviometricPost, MonthDay> referenceStartByPost = getReferenceStartByPost(seasonRef);
+        Map<PluviometricPost, MonthDay> referenceStartByPost = seasonRef.getPostReferences().stream()
+                .filter(p -> p.getStartReference() != null)
+                .collect(toMap(
+                        RainSeasonPluviometricPostReferenceStart::getPluviometricPost,
+                        RainSeasonPluviometricPostReferenceStart::getStartReference));
 
         List<SeasonPrediction> predictions = postRainSeasons.stream()
-                .filter(AbstractStatusAuditableEntity::isPublished)
+                .filter(ps -> ps.isPublished() && referenceStartByPost.containsKey(ps.getPluviometricPost()))
                 .map(ps -> newSeasonStart(ps, referenceStartByPost.get(ps.getPluviometricPost())))
                 .collect(toList());
 
@@ -160,15 +164,6 @@ public class ChartServiceImpl implements ChartService {
         Integer referenceYearEnd = seasonRef != null ? seasonRef.getReferenceYearEnd() : null;
 
         return new SeasonChartData(referenceYearStart, referenceYearEnd, predictions);
-    }
-
-    private Map<PluviometricPost, MonthDay> getReferenceStartByPost(RainSeasonStartReference seasonRef) {
-        Map<PluviometricPost, MonthDay> referenceStartByPost = new HashMap<>();
-        if (seasonRef != null) {
-            seasonRef.getPostReferences()
-                    .forEach(p -> referenceStartByPost.put(p.getPluviometricPost(), p.getStartReference()));
-        }
-        return referenceStartByPost;
     }
 
     private SeasonPrediction newSeasonStart(PluviometricPostRainSeason ps, MonthDay plannedMonthDay) {
