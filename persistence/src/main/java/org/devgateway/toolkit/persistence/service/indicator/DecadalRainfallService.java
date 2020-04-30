@@ -3,7 +3,6 @@ package org.devgateway.toolkit.persistence.service.indicator;
 import java.util.Collection;
 import java.util.List;
 
-import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.dto.rainfall.DecadalInstantRainLevel;
 
@@ -12,7 +11,7 @@ import org.devgateway.toolkit.persistence.dto.rainfall.DecadalInstantRainLevel;
  */
 public interface DecadalRainfallService extends YearIndicatorGenerator<DecadalRainfall> {
 
-    List<PluviometricPost> findPluviometricPostsWithData();
+    List<Long> findPluviometricPostsWithData();
 
     List<Integer> findYearsWithData();
 

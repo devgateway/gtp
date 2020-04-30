@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
-
 /**
  * @author Octavian Ciubotaru
  */
@@ -19,19 +17,19 @@ public class RainLevelChartConfig {
     /**
      * Pluviometric posts for which there is at least some data available.
      */
-    private final List<PluviometricPost> pluviometricPosts;
+    private final List<Long> pluviometricPostIds;
 
     public RainLevelChartConfig(List<Integer> years,
-            List<PluviometricPost> pluviometricPosts) {
+            List<Long> pluviometricPostIds) {
         this.years = new TreeSet<>(years);
-        this.pluviometricPosts = pluviometricPosts;
+        this.pluviometricPostIds = pluviometricPostIds;
     }
 
     public SortedSet<Integer> getYears() {
         return years;
     }
 
-    public List<PluviometricPost> getPluviometricPosts() {
-        return pluviometricPosts;
+    public List<Long> getPluviometricPostIds() {
+        return pluviometricPostIds;
     }
 }

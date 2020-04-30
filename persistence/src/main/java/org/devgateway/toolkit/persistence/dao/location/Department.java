@@ -1,6 +1,9 @@
 package org.devgateway.toolkit.persistence.dao.location;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.hibernate.annotations.BatchSize;
@@ -27,7 +30,8 @@ public class Department extends AbstractAuditableEntity implements Serializable,
     @NotNull
     @ManyToOne(optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Region region;
 
     @NotNull

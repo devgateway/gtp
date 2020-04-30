@@ -18,11 +18,11 @@ public interface DecadalRainfallRepository extends BaseJpaRepository<DecadalRain
 
     boolean existsByYear(Integer year);
 
-    @Query("select distinct prf.pluviometricPost "
+    @Query("select distinct prf.pluviometricPost.id "
             + "from DecadalRainfall drf "
             + "join drf.postRainfalls prf "
             + "where drf.formStatus = 'PUBLISHED'")
-    List<PluviometricPost> findPluviometricPostsWithData();
+    List<Long> findPluviometricPostsWithData();
 
     @Query("select distinct year "
             + "from DecadalRainfall "
