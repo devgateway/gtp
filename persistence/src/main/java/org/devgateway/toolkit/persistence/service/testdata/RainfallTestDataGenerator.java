@@ -38,7 +38,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 @ConditionalOnProperty("generate-test-rainfall-data")
 public class RainfallTestDataGenerator implements InitializingBean {
 
-    private final Map<Month, Integer> AVG_RAINY_DAYS = ImmutableMap.<Month, Integer> builder()
+    private static final Map<Month, Integer> AVG_RAINY_DAYS = ImmutableMap.<Month, Integer>builder()
             .put(Month.MAY, 1)
             .put(Month.JUNE, 4)
             .put(Month.JULY, 9)
@@ -47,9 +47,9 @@ public class RainfallTestDataGenerator implements InitializingBean {
             .put(Month.OCTOBER, 8)
             .build();
 
-    private final int TOTAL_AVG_RAINY_DAYS = AVG_RAINY_DAYS.values().stream().mapToInt(i -> i).sum();
+    private static final int TOTAL_AVG_RAINY_DAYS = AVG_RAINY_DAYS.values().stream().mapToInt(i -> i).sum();
 
-    private final int AVG_RAIN = 500;
+    private static final int AVG_RAIN = 500;
 
     private final TransactionTemplate transactionTemplate;
 

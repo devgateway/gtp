@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.repository.indicator;
 
 import org.devgateway.toolkit.persistence.dao.indicator.RainSeason;
+import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +15,10 @@ import java.util.Optional;
 @Transactional
 public interface RainSeasonRepository extends BaseJpaRepository<RainSeason, Long> {
 
+    @CacheHibernateQueryResult
     boolean existsByYear(Integer year);
 
+    @CacheHibernateQueryResult
     Optional<RainSeason> findByYear(Integer year);
 
     @Query("select distinct s.year "
@@ -26,5 +29,6 @@ public interface RainSeasonRepository extends BaseJpaRepository<RainSeason, Long
             + "and s.year <= rs.yearEnd "
             + "and p.pluviometricPost = rp.pluviometricPost "
             + "and rp.startReference is not null")
+    @CacheHibernateQueryResult
     List<Integer> findYearsWithData();
 }
