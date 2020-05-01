@@ -67,7 +67,7 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
         super(parameters);
 
         this.jpaService = service;
-        this.listPageClass = ListIndicatorMetadataFormPage.class;
+        setListPage(ListIndicatorMetadataFormPage.class);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class EditIndicatorMetadataPage extends AbstractEditPage<IndicatorMetadat
                     // the buttons
                     target.appendJavaScript("$.unblockUI();");
                 } else if (redirect) {
-                    setResponsePage(getResponsePage(), getParameterPage());
+                    scheduleRedirect();
                 }
             }
         };

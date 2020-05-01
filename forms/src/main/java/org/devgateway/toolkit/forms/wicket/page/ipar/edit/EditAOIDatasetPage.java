@@ -54,7 +54,7 @@ public class EditAOIDatasetPage extends AbstractEditDatasePage<AgricultureOrient
     public EditAOIDatasetPage(final PageParameters parameters) {
         super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
-        this.listPageClass = ListAOIIndicatorDatasetPage.class;
+        setListPage(ListAOIIndicatorDatasetPage.class);
         this.importer = importService;
     }
 

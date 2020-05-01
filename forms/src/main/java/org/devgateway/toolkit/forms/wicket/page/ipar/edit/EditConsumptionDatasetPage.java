@@ -46,7 +46,7 @@ public class EditConsumptionDatasetPage extends AbstractEditDatasePage<Consumpti
     public EditConsumptionDatasetPage(final PageParameters parameters) {
         super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
-        this.listPageClass = ListConsumptionDatasetPage.class;
+        setListPage(ListConsumptionDatasetPage.class);
         this.importer = importService;
     }
 

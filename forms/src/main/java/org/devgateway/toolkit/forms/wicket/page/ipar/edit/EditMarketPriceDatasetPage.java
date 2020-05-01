@@ -49,7 +49,7 @@ public class EditMarketPriceDatasetPage extends AbstractEditDatasePage<MarketDat
     public EditMarketPriceDatasetPage(final PageParameters parameters) {
         super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
-        this.listPageClass = ListMarketPriceDatasetPage.class;
+        setListPage(ListMarketPriceDatasetPage.class);
         this.importer = importService;
     }
 

@@ -35,7 +35,7 @@ public class EditOrganizationPage extends AbstractEditPage<Organization> {
     public EditOrganizationPage(final PageParameters parameters) {
         super(parameters);
         this.jpaService = organizationService;
-        this.listPageClass = ListOrganizationPage.class;
+        setListPage(ListOrganizationPage.class);
     }
 
     @Override

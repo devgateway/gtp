@@ -57,7 +57,7 @@ public class EditGisSettingsPage extends AbstractEditPage<GisSettings> {
         super(parameters);
 
         this.jpaService = service;
-        this.listPageClass = Homepage.class;
+        setListPage(Homepage.class);
 
         if (entityId == null) {
             final List<GisSettings> listSettings = service.findAll();
@@ -173,7 +173,7 @@ public class EditGisSettingsPage extends AbstractEditPage<GisSettings> {
                     // the buttons
                     target.appendJavaScript("$.unblockUI();");
                 } else if (redirect) {
-                    setResponsePage(getResponsePage(), getParameterPage());
+                    scheduleRedirect();
                 }
             }
         };

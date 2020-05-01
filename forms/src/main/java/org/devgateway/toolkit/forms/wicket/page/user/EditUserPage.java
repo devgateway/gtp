@@ -102,7 +102,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
         super(parameters);
 
         this.jpaService = personService;
-        this.listPageClass = ListUserPage.class;
+        setListPage(ListUserPage.class);
     }
 
     @Override
@@ -235,7 +235,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
                 if (!SecurityUtil.isCurrentUserAdmin()) {
                     setResponsePage(Homepage.class);
                 } else {
-                    setResponsePage(listPageClass);
+                    scheduleRedirect();
                 }
             }
         };

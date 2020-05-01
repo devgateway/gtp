@@ -21,7 +21,7 @@ public abstract class AbstractExistingEntityEditPage<T extends GenericPersistabl
         super.onInitialize();
 
         if (!isExisting()) {
-            setResponsePage(listPageClass);
+            scheduleRedirect();
         }
     }
 }

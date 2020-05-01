@@ -51,7 +51,7 @@ public class EditProductionDatasetPage extends AbstractEditDatasePage<Production
     public EditProductionDatasetPage(final PageParameters parameters) {
         super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
-        this.listPageClass = ListProductionDatasetPage.class;
+        setListPage(ListProductionDatasetPage.class);
         this.importer = importService;
     }
 
