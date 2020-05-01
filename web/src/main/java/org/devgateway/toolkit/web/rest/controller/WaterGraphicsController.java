@@ -4,6 +4,8 @@ import javax.validation.Valid;
 
 import org.devgateway.toolkit.persistence.dto.ChartsData;
 import org.devgateway.toolkit.persistence.dto.CommonConfig;
+import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartData;
+import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartConfig;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartData;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartConfig;
@@ -39,13 +41,18 @@ public class WaterGraphicsController {
     }
 
     @GetMapping("rain-level/config")
-    public RainLevelChartConfig getConfig() {
+    public RainLevelChartConfig getRainLevelConfig() {
         return chartService.getRainLevelConfig();
     }
 
     @PostMapping("rain-level/data")
-    public RainLevelChartData getChartData(@RequestBody @Valid RainLevelChartFilter filter) {
+    public RainLevelChartData getRainLevelChartData(@RequestBody @Valid RainLevelChartFilter filter) {
         return chartService.getRainLevelData(filter);
+    }
+
+    @PostMapping("dry-sequence/data")
+    public DrySequenceChartData getDrySequenceChartData(@RequestBody @Valid DrySequenceChartFilter filter) {
+        return chartService.getDrySequenceData(filter);
     }
 
     @GetMapping("rain-season/config")

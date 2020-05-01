@@ -2,6 +2,8 @@ package org.devgateway.toolkit.persistence.service;
 
 import org.devgateway.toolkit.persistence.dto.ChartsData;
 import org.devgateway.toolkit.persistence.dto.CommonConfig;
+import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartData;
+import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartConfig;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartData;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartConfig;
@@ -25,4 +27,6 @@ public interface ChartService {
     SeasonChartConfig getRainSeasonConfig();
 
     SeasonChartData getRainSeasonData(SeasonChartFilter filter);
+
+    DrySequenceChartData getDrySequenceData(DrySequenceChartFilter filter);
 }

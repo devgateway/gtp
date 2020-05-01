@@ -6,10 +6,12 @@ import java.time.Month;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import org.devgateway.toolkit.persistence.dao.DBConstants;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.FormStatus;
@@ -35,6 +37,19 @@ import org.springframework.transaction.support.TransactionTemplate;
 @Component
 @ConditionalOnProperty("generate-test-rainfall-data")
 public class RainfallTestDataGenerator implements InitializingBean {
+
+    private final Map<Month, Integer> AVG_RAINY_DAYS = ImmutableMap.<Month, Integer> builder()
+            .put(Month.MAY, 1)
+            .put(Month.JUNE, 4)
+            .put(Month.JULY, 9)
+            .put(Month.AUGUST, 15)
+            .put(Month.SEPTEMBER, 13)
+            .put(Month.OCTOBER, 8)
+            .build();
+
+    private final int TOTAL_AVG_RAINY_DAYS = AVG_RAINY_DAYS.values().stream().mapToInt(i -> i).sum();
+
+    private final int AVG_RAIN = 500;
 
     private final TransactionTemplate transactionTemplate;
 
@@ -102,14 +117,14 @@ public class RainfallTestDataGenerator implements InitializingBean {
 
     private List<RainLevelMonthReference> getRainLevelMonthReferences(
             RainLevelPluviometricPostReference ppr) {
-        Random random = new Random();
+
         List<RainLevelMonthReference> rls = new ArrayList<>();
         for (Month m : DBConstants.MONTHS) {
             for (Decadal d : Decadal.values()) {
                 RainLevelMonthReference rl = new RainLevelMonthReference();
                 rl.setMonth(m);
                 rl.setDecadal(d);
-                rl.setRain(random.nextInt(100) / 10d);
+                rl.setRain(getRandomRainFall(m));
                 rl.setRainLevelPluviometricPostReference(ppr);
                 rls.add(rl);
             }
@@ -119,7 +134,6 @@ public class RainfallTestDataGenerator implements InitializingBean {
 
     private List<PluviometricPostRainfall> generatePluviometricPostRainfalls(DecadalRainfall drf,
             List<PluviometricPost> pluviometricPosts) {
-        Random random = new Random();
         return pluviometricPosts.stream().map(pp -> {
             PluviometricPostRainfall pprf = new PluviometricPostRainfall();
             pprf.setDecadalRainfall(drf);
@@ -128,11 +142,21 @@ public class RainfallTestDataGenerator implements InitializingBean {
                 Rainfall rf = new Rainfall();
                 rf.setPluviometricPostRainfall(pprf);
                 rf.setDay(d);
-                rf.setRain(random.nextInt(100) / 10d);
+                rf.setRain(getRandomRainFall(drf.getMonth()));
                 return rf;
             }).collect(toList()));
             return pprf;
         }).collect(toList());
+    }
+
+    private double getRandomRainFall(Month month) {
+        Integer rainyDays = AVG_RAINY_DAYS.get(month);
+        if (ThreadLocalRandom.current().nextInt(month.length(false)) < rainyDays) {
+            double v = ThreadLocalRandom.current().nextDouble() * AVG_RAIN * rainyDays / TOTAL_AVG_RAINY_DAYS;
+            return ((int) (v * 10)) / 10d;
+        } else {
+            return 0;
+        }
     }
 
     private IntStream days(DecadalRainfall drf) {

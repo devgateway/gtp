@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import java.time.YearMonth;
+
 /**
  * @author Nadejda Mandrescu
  */
@@ -20,5 +22,9 @@ public enum Decadal {
 
     public boolean isThird() {
         return this.equals(THIRD);
+    }
+
+    public int length(YearMonth yearMonth) {
+        return value < 3 ? 10 : yearMonth.lengthOfMonth() - 20;
     }
 }
