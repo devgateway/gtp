@@ -16,6 +16,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.util.convert.IConverter;
+import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.wicket.FormattedDoubleConverter;
 import org.devgateway.toolkit.forms.wicket.components.PageableTablePanel;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
@@ -23,6 +24,7 @@ import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelMonthReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelPluviometricPostReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference;
+import org.devgateway.toolkit.persistence.dto.MonthDTO;
 
 import java.time.Month;
 import java.util.HashMap;
@@ -110,7 +112,7 @@ public class RainLevelReferenceTablePanel
 
             Month month = getMonth();
 
-            add(new Label("month", month.toString()));
+            add(new Label("month", MonthDTO.of(month)));
 
             RepeatingView decadals = new RepeatingView("decadal");
             for (Decadal decadal : Decadal.values()) {
@@ -147,6 +149,7 @@ public class RainLevelReferenceTablePanel
                         return new FormattedDoubleConverter(1);
                     }
                 };
+                rain.getField().add(WebConstants.Validators.NOT_NEGATIVE);
                 values.add(rain.asDouble().hideLabel());
             }
             add(values);
