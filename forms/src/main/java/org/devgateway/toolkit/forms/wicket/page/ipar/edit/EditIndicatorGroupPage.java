@@ -51,7 +51,7 @@ public class EditIndicatorGroupPage extends AbstractEditPage<IndicatorGroup> {
     public EditIndicatorGroupPage(final PageParameters parameters) {
         super(parameters);
         this.jpaService = service;
-        this.listPageClass = ListIndicatorGroupPage.class;
+        setListPage(ListIndicatorGroupPage.class);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class EditIndicatorGroupPage extends AbstractEditPage<IndicatorGroup> {
                     // the buttons
                     target.appendJavaScript("$.unblockUI();");
                 } else if (redirect) {
-                    setResponsePage(getResponsePage(), getParameterPage());
+                    scheduleRedirect();
                 }
             }
         };

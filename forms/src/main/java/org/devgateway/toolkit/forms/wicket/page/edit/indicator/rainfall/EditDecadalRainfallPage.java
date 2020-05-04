@@ -26,7 +26,7 @@ public class EditDecadalRainfallPage extends AbstractIndicatorEditPage<DecadalRa
         super(parameters, IndicatorType.RAINFALL);
 
         this.jpaService = decadalRainfallService;
-        this.listPageClass = ListDecadalRainfallPage.class;
+        setListPage(ListDecadalRainfallPage.class);
     }
 
     @Override

@@ -63,7 +63,7 @@ public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
         super(parameters);
 
         this.jpaService = service;
-        this.listPageClass = ListMicrodataLinkFormPage.class;
+        setListPage(ListMicrodataLinkFormPage.class);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class EditMicrodataLinkPage extends AbstractEditPage<MicrodataLink> {
                 }
                 jpaService.save(link);
                 cacheService.releaseCache();
-                setResponsePage(listPageClass);
+                scheduleRedirect();
 
             }
         };

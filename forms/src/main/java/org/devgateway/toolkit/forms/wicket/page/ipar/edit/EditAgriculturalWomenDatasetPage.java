@@ -50,7 +50,7 @@ public class EditAgriculturalWomenDatasetPage extends AbstractEditDatasePage<Agr
     public EditAgriculturalWomenDatasetPage(final PageParameters parameters) {
         super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
-        this.listPageClass = ListAgriculturalWomenDatasetPage.class;
+        setListPage(ListAgriculturalWomenDatasetPage.class);
         this.importer = importService;
     }
 

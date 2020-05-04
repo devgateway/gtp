@@ -29,7 +29,7 @@ public class EditRainSeasonPage extends AbstractIndicatorEditPage<PluviometricPo
         super(parameters, IndicatorType.RAINFALL_SEASON);
 
         this.jpaService = pluviometricPostRainSeasonService;
-        this.listPageClass = ListRainSeasonPage.class;
+        setListPage(ListRainSeasonPage.class);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class EditRainSeasonPage extends AbstractIndicatorEditPage<PluviometricPo
         PluviometricPostRainSeason postRainSeason = editForm.getModelObject();
 
         if (postRainSeason.isDeleted()) {
-            setResponsePage(listPageClass);
+            scheduleRedirect();
         }
         deleteButton.setVisible(false);
 

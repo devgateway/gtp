@@ -68,7 +68,7 @@ public class EditTestFormPage extends AbstractEditPage<TestForm> {
         super(parameters);
 
         this.jpaService = testFormService;
-        this.listPageClass = ListTestFormPage.class;
+        setListPage(ListTestFormPage.class);
     }
 
     @Override

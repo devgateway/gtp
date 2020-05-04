@@ -47,7 +47,7 @@ public class EditWebContentPage extends AbstractEditPage<WebContent> {
         super(parameters);
 
         this.jpaService = service;
-        this.listPageClass = ListWebContentFormPage.class;
+        setListPage(ListWebContentFormPage.class);
     }
 
     @Override

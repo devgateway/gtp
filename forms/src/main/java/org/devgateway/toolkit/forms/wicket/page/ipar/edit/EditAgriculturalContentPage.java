@@ -69,7 +69,7 @@ public class EditAgriculturalContentPage extends AbstractEditPage<AgriculturalCo
         super(parameters);
 
         this.jpaService = service;
-        this.listPageClass = ListAgriculturalContentFormPage.class;
+        setListPage(ListAgriculturalContentFormPage.class);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class EditAgriculturalContentPage extends AbstractEditPage<AgriculturalCo
                 } else {
                     jpaService.saveAndFlush(model);
                     cacheService.releaseCache();
-                    setResponsePage(listPageClass);
+                    scheduleRedirect();
                 }
                 redirect(target);
             }
@@ -149,7 +149,7 @@ public class EditAgriculturalContentPage extends AbstractEditPage<AgriculturalCo
                     // the buttons
                     target.appendJavaScript("$.unblockUI();");
                 } else if (redirect) {
-                    setResponsePage(getResponsePage(), getParameterPage());
+                    scheduleRedirect();
                 }
             }
         };

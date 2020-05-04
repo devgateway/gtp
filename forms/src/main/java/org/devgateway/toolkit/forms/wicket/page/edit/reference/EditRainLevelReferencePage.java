@@ -25,7 +25,7 @@ public class EditRainLevelReferencePage extends AbstractEditPage<RainLevelRefere
         super(parameters);
 
         this.jpaService = rainLevelReferenceService;
-        this.listPageClass = ListRainLevelReferencePage.class;
+        setListPage(ListRainLevelReferencePage.class);
     }
 
     @Override

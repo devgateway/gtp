@@ -170,7 +170,7 @@ public abstract class AbstractEditDatasePage<T extends Dataset, S extends Data> 
                     // the buttons
                     target.appendJavaScript("$.unblockUI();");
                 } else if (redirect) {
-                    setResponsePage(getResponsePage(), getParameterPage());
+                    scheduleRedirect();
                 }
             }
         };
