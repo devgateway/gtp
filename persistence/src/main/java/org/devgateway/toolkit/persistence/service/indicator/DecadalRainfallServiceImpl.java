@@ -5,6 +5,7 @@ import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainfall;
+import org.devgateway.toolkit.persistence.dto.drysequence.MonthDecadalDaysWithRain;
 import org.devgateway.toolkit.persistence.dto.rainfall.DecadalInstantRainLevel;
 import org.devgateway.toolkit.persistence.dao.indicator.Rainfall;
 import org.devgateway.toolkit.persistence.repository.indicator.DecadalRainfallRepository;
@@ -95,5 +96,10 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
     @Override
     public List<DecadalInstantRainLevel> findRainLevels(Collection<Integer> years, Long pluviometricPostId) {
         return decadalRainfallRepository.findRainLevels(years, pluviometricPostId);
+    }
+
+    @Override
+    public List<MonthDecadalDaysWithRain> findMonthDecadalDaysWithRain(Integer year, Long pluviometricPostId) {
+        return decadalRainfallRepository.findMonthDecadalDaysWithRain(year, pluviometricPostId);
     }
 }

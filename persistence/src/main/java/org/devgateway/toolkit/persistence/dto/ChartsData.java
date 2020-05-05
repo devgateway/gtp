@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dto;
 
+import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChart;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChart;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChart;
 
@@ -12,11 +13,16 @@ public class ChartsData {
 
     private final RainLevelChart rainLevelChart;
 
+    private final DrySequenceChart drySequenceChart;
+
     private final SeasonChart seasonChart;
 
-    public ChartsData(CommonConfig commonConfig, RainLevelChart rainLevelChart, SeasonChart seasonChart) {
+    public ChartsData(CommonConfig commonConfig, RainLevelChart rainLevelChart,
+            DrySequenceChart drySequenceChart,
+            SeasonChart seasonChart) {
         this.commonConfig = commonConfig;
         this.rainLevelChart = rainLevelChart;
+        this.drySequenceChart = drySequenceChart;
         this.seasonChart = seasonChart;
     }
 
@@ -26,6 +32,10 @@ public class ChartsData {
 
     public RainLevelChart getRainLevelChart() {
         return rainLevelChart;
+    }
+
+    public DrySequenceChart getDrySequenceChart() {
+        return drySequenceChart;
     }
 
     public SeasonChart getSeasonChart() {

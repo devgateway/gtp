@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.devgateway.toolkit.persistence.dto.rainfall.MonthDecadalRainLevel;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference;
+import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,5 +22,6 @@ public interface RainLevelReferenceRepository extends YearsReferenceRepository<R
             + "where prr.pluviometricPost.id = :pluviometricPostId "
             + "and rlr = :rainLevelReference "
             + "order by rlmr.month, rlmr.decadal")
+    @CacheHibernateQueryResult
     List<MonthDecadalRainLevel> findRainLevels(RainLevelReference rainLevelReference, Long pluviometricPostId);
 }

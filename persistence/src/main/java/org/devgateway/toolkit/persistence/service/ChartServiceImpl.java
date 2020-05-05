@@ -19,6 +19,9 @@ import org.devgateway.toolkit.persistence.dao.reference.RainSeasonPluviometricPo
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonStartReference;
 import org.devgateway.toolkit.persistence.dto.ChartsData;
 import org.devgateway.toolkit.persistence.dto.CommonConfig;
+import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChart;
+import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartData;
+import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChart;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartConfig;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartData;
@@ -61,9 +64,11 @@ public class ChartServiceImpl implements ChartService {
     @Override
     @Transactional(readOnly = true)
     public ChartsData getCharts() {
+        RainLevelChartConfig rainLevelChartConfig = getRainLevelConfig();
         return new ChartsData(
                 getCommonConfig(),
-                getRainLevelChart(),
+                getRainLevelChart(rainLevelChartConfig),
+                getDrySequenceChart(rainLevelChartConfig),
                 getSeasonChart());
     }
 
@@ -77,8 +82,7 @@ public class ChartServiceImpl implements ChartService {
         return new CommonConfig(posts, departments, regions, zones);
     }
 
-    private RainLevelChart getRainLevelChart() {
-        RainLevelChartConfig config = getRainLevelConfig();
+    private RainLevelChart getRainLevelChart(RainLevelChartConfig config) {
         RainLevelChartFilter filter = getRainLevelFilter(config);
 
         RainLevelChartData data = null;
@@ -115,6 +119,31 @@ public class ChartServiceImpl implements ChartService {
         return new RainLevelChartData(
                 decadalRainfallService.findRainLevels(filter.getYears(), filter.getPluviometricPostId()),
                 rainLevelReferenceService.findReferenceLevels(filter.getYears(), filter.getPluviometricPostId()));
+    }
+
+    public DrySequenceChart getDrySequenceChart(RainLevelChartConfig config) {
+        DrySequenceChartFilter filter = getDrySequenceChartFilter(config);
+
+        DrySequenceChartData data;
+        if (filter.getYear() != null && filter.getPluviometricPostId() != null) {
+            data = getDrySequenceData(filter);
+        } else {
+            data = null;
+        }
+
+        return new DrySequenceChart(filter, data);
+    }
+
+    private DrySequenceChartFilter getDrySequenceChartFilter(RainLevelChartConfig config) {
+        Integer year = config.getYears().isEmpty() ? null : config.getYears().last();
+        Long postId = config.getPluviometricPostIds().isEmpty() ? null : config.getPluviometricPostIds().get(0);
+        return new DrySequenceChartFilter(year, postId);
+    }
+
+    @Override
+    public DrySequenceChartData getDrySequenceData(DrySequenceChartFilter filter) {
+        return new DrySequenceChartData(
+                decadalRainfallService.findMonthDecadalDaysWithRain(filter.getYear(), filter.getPluviometricPostId()));
     }
 
     private SeasonChart getSeasonChart() {
@@ -160,8 +189,8 @@ public class ChartServiceImpl implements ChartService {
                 .map(ps -> newSeasonStart(ps, referenceStartByPost.get(ps.getPluviometricPost())))
                 .collect(toList());
 
-        Integer referenceYearStart = seasonRef != null ? seasonRef.getReferenceYearStart() : null;
-        Integer referenceYearEnd = seasonRef != null ? seasonRef.getReferenceYearEnd() : null;
+        Integer referenceYearStart = seasonRef.getReferenceYearStart();
+        Integer referenceYearEnd = seasonRef.getReferenceYearEnd();
 
         return new SeasonChartData(referenceYearStart, referenceYearEnd, predictions);
     }
