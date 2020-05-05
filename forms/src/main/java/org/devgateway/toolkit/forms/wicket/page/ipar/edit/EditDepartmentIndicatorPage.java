@@ -82,7 +82,7 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
     public EditDepartmentIndicatorPage(final PageParameters parameters) {
         super(parameters);
         this.jpaService = service;
-        this.listPageClass = ListDepartmentIndicatorPage.class;
+        setListPage(ListDepartmentIndicatorPage.class);
     }
 
     @Override
@@ -233,7 +233,7 @@ public class EditDepartmentIndicatorPage extends AbstractEditPage<DepartmentIndi
                     // the buttons
                     target.appendJavaScript("$.unblockUI();");
                 } else if (redirect) {
-                    setResponsePage(getResponsePage(), getParameterPage());
+                    scheduleRedirect();
                 }
             }
         };

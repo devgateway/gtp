@@ -25,7 +25,7 @@ public class EditRainSeasonStartReferencePage extends AbstractEditPage<RainSeaso
         super(parameters);
 
         this.jpaService = rainSeasonStartReferenceService;
-        this.listPageClass = ListRainSeasonStartReferencePage.class;
+        setListPage(ListRainSeasonStartReferencePage.class);
     }
 
     @Override

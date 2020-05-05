@@ -19,7 +19,7 @@ public abstract class EditAbstractLocation<T extends GenericPersistable & Serial
     public EditAbstractLocation(PageParameters parameters) {
         super(parameters);
 
-        this.listPageClass = ListLocalitiesPage.class;
+        setListPage(ListLocalitiesPage.class);
     }
 
     @Override

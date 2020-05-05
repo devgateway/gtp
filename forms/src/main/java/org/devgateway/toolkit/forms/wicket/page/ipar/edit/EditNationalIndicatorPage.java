@@ -54,7 +54,7 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
     public EditNationalIndicatorPage(PageParameters parameters) {
         super(parameters);
         this.jpaService = service;
-        this.listPageClass = ListNationalIndicatorFormPage.class;
+        setListPage(ListNationalIndicatorFormPage.class);
     }
 
     @Override
@@ -183,7 +183,7 @@ public class EditNationalIndicatorPage extends AbstractEditPage<NationalIndicato
                     // the buttons
                     target.appendJavaScript("$.unblockUI();");
                 } else if (redirect) {
-                    setResponsePage(getResponsePage(), getParameterPage());
+                    scheduleRedirect();
                 }
             }
         };

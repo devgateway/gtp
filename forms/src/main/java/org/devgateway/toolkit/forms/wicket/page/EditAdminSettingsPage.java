@@ -35,7 +35,7 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
         super(parameters);
 
         this.jpaService = adminSettingsService;
-        this.listPageClass = Homepage.class;
+        setListPage(Homepage.class);
 
         if (entityId == null) {
             final List<AdminSettings> listSettings = adminSettingsService.findAll();

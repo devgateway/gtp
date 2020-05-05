@@ -36,7 +36,7 @@ public class EditPluviometricPostPage extends AbstractEditPage<PluviometricPost>
         super(parameters);
 
         this.jpaService = pluviometricPostService;
-        this.listPageClass = ListPluviometricPostPage.class;
+        setListPage(ListPluviometricPostPage.class);
     }
 
     @Override

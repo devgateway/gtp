@@ -82,7 +82,7 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
     public EditRegionIndicatorPage(final PageParameters parameters) {
         super(parameters);
         this.jpaService = service;
-        this.listPageClass = ListRegionIndicatorPage.class;
+        setListPage(ListRegionIndicatorPage.class);
     }
 
     @Override
@@ -232,7 +232,7 @@ public class EditRegionIndicatorPage extends AbstractEditPage<RegionIndicator> {
                     // the buttons
                     target.appendJavaScript("$.unblockUI();");
                 } else if (redirect) {
-                    setResponsePage(getResponsePage(), getParameterPage());
+                    scheduleRedirect();
                 }
             }
         };

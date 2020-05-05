@@ -59,7 +59,7 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
         super(parameters);
 
         this.jpaService = partnerService;
-        this.listPageClass = ListPartnerPage.class;
+        setListPage(ListPartnerPage.class);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
                 } else {
                     jpaService.save(partner);
                     cacheService.releaseCache();
-                    setResponsePage(listPageClass);
+                    scheduleRedirect();
                 }
             }
         };

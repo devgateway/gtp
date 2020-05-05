@@ -102,7 +102,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
         super(parameters);
 
         this.jpaService = personService;
-        this.listPageClass = ListUserPage.class;
+        setListPage(ListUserPage.class);
     }
 
     @Override
@@ -218,9 +218,8 @@ public class EditUserPage extends AbstractEditPage<Person> {
 
             @Override
             protected void onSubmit(final AjaxRequestTarget target) {
-                super.onSubmit(target);
-
                 final Person person = editForm.getModelObject();
+
                 // encode the password
                 if (person.getChangeProfilePassword()) {
                     person.setPassword(passwordEncoder.encode(plainPassword.getField().getModelObject()));
@@ -231,11 +230,12 @@ public class EditUserPage extends AbstractEditPage<Person> {
                     person.setChangePasswordNextSignIn(false);
                 }
 
-                jpaService.save(person);
+                super.onSubmit(target);
+
                 if (!SecurityUtil.isCurrentUserAdmin()) {
                     setResponsePage(Homepage.class);
                 } else {
-                    setResponsePage(listPageClass);
+                    scheduleRedirect();
                 }
             }
         };
