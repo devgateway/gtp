@@ -23,6 +23,8 @@ import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.http.handler.RedirectRequestHandler;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.template.PackageTextTemplate;
@@ -49,6 +51,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -65,6 +69,8 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
     public static final int LINK_MAX_LENGTH = 1024;
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractEditPage.class);
+
+    private final String referer;
 
     /**
      * Factory method for the new instance of the entity being editing. This
@@ -86,7 +92,7 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
      * The page that is responsible for listing the entities (used here as a
      * return reference after successful save)
      */
-    protected Class<? extends BasePage> listPageClass;
+    private Class<? extends BasePage> listPageClass;
 
     /**
      * The form used by all subclasses
@@ -236,7 +242,7 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
 
             @Override
             protected void onSubmit(final AjaxRequestTarget target) {
-                setResponsePage(listPageClass);
+                    scheduleRedirect();
             }
         };
     }
@@ -285,30 +291,12 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
                 target.appendJavaScript("$.unblockUI();");
                 target.appendJavaScript("$('#" + editForm.getMarkupId() + " button').prop('disabled', false);");
             } else if (redirect) {
-                setResponsePage(getResponsePage(), getParameterPage());
+                scheduleRedirect();
             }
 
             // redirect is set back to true, which is the default behavior
             redirect = true;
             redirectToSelf = false;
-        }
-
-        /**
-         * by default, submit button returns back to listPage
-         *
-         * @return
-         */
-        protected Class<? extends BasePage> getResponsePage() {
-            return listPageClass;
-        }
-
-        /**
-         * no params by default
-         *
-         * @return
-         */
-        protected PageParameters getParameterPage() {
-            return null;
         }
 
         @Override
@@ -379,7 +367,7 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
 
                 return;
             }
-            setResponsePage(listPageClass);
+            scheduleRedirect();
         }
 
         @Override
@@ -410,6 +398,10 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
 
     public AbstractEditPage(final PageParameters parameters) {
         super(parameters);
+
+        HttpServletRequest httpServletRequest =
+                (HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest();
+        referer = httpServletRequest.getHeader("Referer");
 
         if (!parameters.get(WebConstants.PARAM_ID).isNull()) {
             entityId = parameters.get(WebConstants.PARAM_ID).toLongObject();
@@ -500,4 +492,15 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
         return ComponentUtil.isViewMode();
     }
 
+    public void setListPage(Class<? extends BasePage> listPageClass) {
+        this.listPageClass = listPageClass;
+    }
+
+    public void scheduleRedirect() {
+        if (referer != null) {
+            RequestCycle.get().scheduleRequestHandlerAfterCurrent(new RedirectRequestHandler(referer));
+        } else {
+            RequestCycle.get().setResponsePage(listPageClass);
+        }
+    }
 }

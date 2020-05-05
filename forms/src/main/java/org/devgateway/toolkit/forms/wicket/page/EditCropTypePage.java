@@ -33,7 +33,7 @@ public class EditCropTypePage extends AbstractEditPage<CropType> {
     public EditCropTypePage(final PageParameters parameters) {
         super(parameters);
         this.jpaService = cropTypeService;
-        this.listPageClass = ListCropTypePage.class;
+        setListPage(ListCropTypePage.class);
     }
 
     @Override

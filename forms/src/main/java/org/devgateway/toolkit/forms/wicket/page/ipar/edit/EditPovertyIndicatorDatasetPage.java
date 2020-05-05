@@ -50,7 +50,7 @@ public class EditPovertyIndicatorDatasetPage extends AbstractEditDatasePage<Pove
     public EditPovertyIndicatorDatasetPage(final PageParameters parameters) {
         super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
-        this.listPageClass = ListPovertyIndicatorDatasetPage.class;
+        setListPage(ListPovertyIndicatorDatasetPage.class);
         this.importer = importService;
     }
 

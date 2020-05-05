@@ -50,7 +50,7 @@ public class EditFoodLossDatasetPage extends AbstractEditDatasePage<FoodLossData
     public EditFoodLossDatasetPage(final PageParameters parameters) {
         super(parameters, TEMPLATE_XLSX);
         this.jpaService = service;
-        this.listPageClass = ListFoodLossDatasetPage.class;
+        setListPage(ListFoodLossDatasetPage.class);
         this.importer = importService;
     }
 

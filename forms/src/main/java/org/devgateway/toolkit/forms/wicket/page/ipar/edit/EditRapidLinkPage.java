@@ -72,7 +72,7 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
         super(parameters);
 
         this.jpaService = service;
-        this.listPageClass = ListRapidLinkFormPage.class;
+        setListPage(ListRapidLinkFormPage.class);
     }
 
     @Override
@@ -148,7 +148,7 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
                 } else {
                     jpaService.save(rapidLink);
                     cacheService.releaseCache();
-                    setResponsePage(listPageClass);
+                    scheduleRedirect();
                 }
             }
         };

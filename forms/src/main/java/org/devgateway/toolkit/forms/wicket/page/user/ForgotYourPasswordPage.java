@@ -89,7 +89,7 @@ public class ForgotYourPasswordPage extends BasePage {
                     }
 
                     emailAddress.setVisibilityAllowed(false);
-                    this.setVisibilityAllowed(false);
+                    setVisibilityAllowed(false);
 
                     message.setVisibilityAllowed(true);
                     goBack.setVisibilityAllowed(true);

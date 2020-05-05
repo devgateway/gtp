@@ -13,7 +13,6 @@ package org.devgateway.toolkit.forms.wicket.page.user;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.wicket.Component;
-import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -40,7 +39,6 @@ import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstra
 import org.devgateway.toolkit.forms.wicket.components.form.Select2MultiChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.util.ComponentUtil;
-import org.devgateway.toolkit.forms.wicket.page.Homepage;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
 import org.devgateway.toolkit.persistence.dao.Person;
@@ -104,7 +102,7 @@ public class EditUserPage extends AbstractEditPage<Person> {
         super(parameters);
 
         this.jpaService = personService;
-        this.listPageClass = ListUserPage.class;
+        setListPage(ListUserPage.class);
     }
 
     @Override
@@ -220,9 +218,8 @@ public class EditUserPage extends AbstractEditPage<Person> {
 
             @Override
             protected void onSubmit(final AjaxRequestTarget target) {
-                super.onSubmit(target);
-
                 final Person person = editForm.getModelObject();
+
                 // encode the password
                 if (person.getChangeProfilePassword()) {
                     person.setPassword(passwordEncoder.encode(plainPassword.getField().getModelObject()));
@@ -233,8 +230,8 @@ public class EditUserPage extends AbstractEditPage<Person> {
                     person.setChangePasswordNextSignIn(false);
                 }
 
-                jpaService.save(person);
-                setResponsePage(EditUserPage.this.getResponsePage());
+                super.onSubmit(target);
+                scheduleRedirect();
             }
         };
     }
@@ -245,17 +242,9 @@ public class EditUserPage extends AbstractEditPage<Person> {
 
             @Override
             protected void onSubmit(final AjaxRequestTarget target) {
-                setResponsePage(EditUserPage.this.getResponsePage());
+                scheduleRedirect();
             }
         };
-    }
-
-    private Class<? extends Page> getResponsePage() {
-        if (!SecurityUtil.isCurrentUserAdmin()) {
-            return Homepage.class;
-        } else {
-            return listPageClass;
-        }
     }
 
     public static class UsernamePatternValidator extends PatternValidator {
