@@ -39,6 +39,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstra
 import org.devgateway.toolkit.forms.wicket.components.form.Select2MultiChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.util.ComponentUtil;
+import org.devgateway.toolkit.forms.wicket.page.Homepage;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
 import org.devgateway.toolkit.persistence.dao.Person;
@@ -245,6 +246,15 @@ public class EditUserPage extends AbstractEditPage<Person> {
                 scheduleRedirect();
             }
         };
+    }
+
+    @Override
+    public void scheduleRedirect() {
+        if (!SecurityUtil.isCurrentUserAdmin()) {
+            setResponsePage(Homepage.class);
+        } else {
+            super.scheduleRedirect();
+        }
     }
 
     public static class UsernamePatternValidator extends PatternValidator {
