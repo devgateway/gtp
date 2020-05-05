@@ -113,6 +113,8 @@ hr.edit-separator {
 
 .sleep-mode .sleep-value {
     padding-top: 5px;
+    font-weight: bold;
+    color: #00589e;
     font-size: 0.9em;
 }
 

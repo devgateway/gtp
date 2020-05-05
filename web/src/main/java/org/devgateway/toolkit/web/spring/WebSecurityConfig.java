@@ -84,20 +84,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(final WebSecurity web) throws Exception {
         super.configure(web);
-        web.ignoring().antMatchers("/**", "/data/**", "/files/**");
+        web.ignoring().antMatchers("/admin/login");
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .expressionHandler(webExpressionHandler()) // inject role hierarchy
-                .antMatchers("/").permitAll()
-                .antMatchers("/home").permitAll()
-                .antMatchers("/dummy").permitAll()
-                .antMatchers("/data/**").permitAll()
-                .antMatchers("/files/**").permitAll()
-                .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
-                .permitAll().and().sessionManagement().and().csrf().disable();
+                .antMatchers("/monitoring**").hasRole("ADMIN")
+                .antMatchers("/admin/**").authenticated().and()
+                .formLogin().loginPage("/admin/login").and()
+                .logout().permitAll().and()
+                .csrf().disable();
         http.addFilter(securityContextPersistenceFilter());
     }
 

@@ -22,8 +22,6 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior.Size;
 import de.agilecoders.wicket.core.util.Attributes;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
-import org.apache.wicket.ajax.attributes.ThrottlingSettings;
 import org.apache.wicket.ajax.form.AjaxFormChoiceComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.event.IEvent;
@@ -37,7 +35,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.util.convert.IConverter;
-import org.apache.wicket.util.time.Duration;
 import org.devgateway.toolkit.forms.models.SubComponentWrapModel;
 import org.devgateway.toolkit.forms.models.ViewModeConverterModel;
 import org.devgateway.toolkit.forms.wicket.components.FieldPanel;
@@ -55,12 +52,6 @@ import org.hibernate.envers.query.AuditQuery;
  */
 public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComponent<TYPE>> extends FieldPanel<TYPE> {
     private static final long serialVersionUID = -7051128382707812456L;
-
-    /**
-     * prevents repainting of select boxes and other problems with triggering the update
-     * even while the component js is not done updating.
-     */
-    private static final int THROTTLE_UPDATE_DELAY_MS = 200;
 
     protected FormGroup border;
 
@@ -235,13 +226,6 @@ public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComp
     private void getAjaxFormChoiceComponentUpdatingBehavior() {
         updatingBehaviorComponent().add(new AjaxFormChoiceComponentUpdatingBehavior() {
             @Override
-            protected void updateAjaxAttributes(final AjaxRequestAttributes attributes) {
-                attributes.setThrottlingSettings(new ThrottlingSettings(
-                        Duration.milliseconds(THROTTLE_UPDATE_DELAY_MS)));
-                super.updateAjaxAttributes(attributes);
-            }
-
-            @Override
             protected void onUpdate(final AjaxRequestTarget target) {
                 GenericBootstrapFormComponent.this.onUpdate(target);
             }
@@ -267,13 +251,6 @@ public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComp
             private static final long serialVersionUID = -2696538086634114609L;
 
             @Override
-            protected void updateAjaxAttributes(final AjaxRequestAttributes attributes) {
-                attributes.setThrottlingSettings(new ThrottlingSettings(
-                        Duration.milliseconds(THROTTLE_UPDATE_DELAY_MS)));
-                super.updateAjaxAttributes(attributes);
-            }
-
-            @Override
             protected void onUpdate(final AjaxRequestTarget target) {
                 target.add(border);
                 GenericBootstrapFormComponent.this.onUpdate(target);
@@ -282,6 +259,7 @@ public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComp
             @Override
             protected void onError(final AjaxRequestTarget target, final RuntimeException e) {
                 target.add(border);
+                super.onError(target, e);
             }
         });
     }

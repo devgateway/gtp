@@ -25,7 +25,6 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import java.io.Serializable;
 import java.util.List;
 
 import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
@@ -41,7 +40,7 @@ import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 @DiscriminatorColumn(length = Category.DTYPE_COLUMN_LENGTH)
 @JsonIgnoreProperties({"new"})
 @Table(indexes = {@Index(columnList = "label"), @Index(columnList = "DTYPE")})
-public class Category extends AbstractAuditableEntity implements Serializable, Labelable {
+public class Category extends AbstractAuditableEntity implements Labelable {
 
     static final int DTYPE_COLUMN_LENGTH = 100;
 

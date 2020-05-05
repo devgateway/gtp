@@ -32,6 +32,7 @@ import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
 import org.devgateway.toolkit.forms.service.SendEmailService;
+import org.devgateway.toolkit.forms.wicket.components.form.BootstrapCancelButton;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxToggleBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.PasswordFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
@@ -231,14 +232,29 @@ public class EditUserPage extends AbstractEditPage<Person> {
                 }
 
                 super.onSubmit(target);
-
-                if (!SecurityUtil.isCurrentUserAdmin()) {
-                    setResponsePage(Homepage.class);
-                } else {
-                    scheduleRedirect();
-                }
+                scheduleRedirect();
             }
         };
+    }
+
+    @Override
+    protected BootstrapCancelButton getCancelButton(final String id) {
+        return new BootstrapCancelButton(id, new StringResourceModel("cancelButton", this, null)) {
+
+            @Override
+            protected void onSubmit(final AjaxRequestTarget target) {
+                scheduleRedirect();
+            }
+        };
+    }
+
+    @Override
+    public void scheduleRedirect() {
+        if (!SecurityUtil.isCurrentUserAdmin()) {
+            setResponsePage(Homepage.class);
+        } else {
+            super.scheduleRedirect();
+        }
     }
 
     public static class UsernamePatternValidator extends PatternValidator {

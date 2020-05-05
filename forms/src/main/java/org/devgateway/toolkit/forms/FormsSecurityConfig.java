@@ -45,11 +45,23 @@ public class FormsSecurityConfig extends WebSecurityConfig {
     @Override
     public void configure(final WebSecurity web) throws Exception {
         super.configure(web);
-        web.ignoring().antMatchers("/", "/img/**", "/css*/**", "/js*/**", "/assets*/**",
-                "/wicket/resource/**/*.js", "/wicket/resource/**/*.css",
-                "/wicket/resource/**/*.png", "/wicket/resource/**/*.jpg",
-                "/wicket/resource/**/*.gif", "/login/**", "/forgotPassword/**",
-                "/resources/**", "/resources/public/**");
+
+        web.ignoring().antMatchers("/img/**", "/css*/**", "/js*/**", "/assets*/**",
+                "/favicon.ico", "/resources/**", "/resources/public/**");
+
+        // resources imported through wicket are public
+        web.ignoring().antMatchers(
+                "/admin/wicket/resource/**/*.js",
+                "/admin/wicket/resource/**/*.css",
+                "/admin/wicket/resource/**/*.woff",
+                "/admin/wicket/resource/**/*.woff2",
+                "/admin/wicket/resource/**/*.ttf",
+                "/admin/wicket/resource/**/*.png",
+                "/admin/wicket/resource/**/*.jpg",
+                "/admin/wicket/resource/**/*.gif");
+
+        // forgot pwd page is public as well
+        web.ignoring().antMatchers("/admin/forgotPassword");
     }
 
     /**

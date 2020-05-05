@@ -16,6 +16,7 @@ package org.devgateway.toolkit.forms.wicket.page.user;
 
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.markup.html.pages.RedirectPage;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.wicketstuff.annotation.mount.MountPath;
 
 
@@ -28,7 +29,7 @@ public class LogoutPage extends RedirectPage {
     private static final long serialVersionUID = 1L;
 
     public LogoutPage() {
-        super("/admin/login");
+        super(RequestCycle.get().getRequest().getContextPath() + "/admin/login");
         AbstractAuthenticatedWebSession.get().invalidate();
     }
 }
