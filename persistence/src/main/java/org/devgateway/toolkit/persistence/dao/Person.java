@@ -11,7 +11,6 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao;
 
-import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,7 +39,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 @Audited
 @Table(indexes = {@Index(columnList = "username")})
-public class Person extends AbstractAuditableEntity implements Serializable, UserDetails, Labelable {
+public class Person extends AbstractAuditableEntity implements UserDetails, Labelable {
 
     @ExcelExport
     private String username; // TODO remove username

@@ -11,8 +11,6 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 
@@ -26,7 +24,7 @@ import org.hibernate.annotations.Type;
  */
 
 @Entity
-public class FileContent extends AbstractAuditableEntity implements Serializable {
+public class FileContent extends AbstractAuditableEntity {
 
     @Lob
     @Type(type = "org.hibernate.type.BinaryType")

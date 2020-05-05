@@ -5,7 +5,6 @@ import org.devgateway.toolkit.persistence.repository.location.ZoneRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Nadejda Mandrescu
  */
 @Service
-@CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class ZoneServiceImpl extends BaseJpaServiceImpl<Zone> implements ZoneService {
 

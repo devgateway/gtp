@@ -20,7 +20,6 @@ import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaReposit
 import org.devgateway.toolkit.persistence.repository.reference.RainLevelReferenceRepository;
 import org.devgateway.toolkit.persistence.repository.reference.YearsReferenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Nadejda Mandrescu
  */
 @Service
-@CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class RainLevelReferenceServiceImpl extends YearsReferenceServiceImpl<RainLevelReference>
         implements RainLevelReferenceService {

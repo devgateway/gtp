@@ -11,7 +11,6 @@ import org.devgateway.toolkit.persistence.repository.indicator.DecadalRainfallRe
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
  * @author Nadejda Mandrescu
  */
 @Service
-@CacheConfig(cacheNames = "servicesCache")
 @Transactional(readOnly = true)
 public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfall> implements DecadalRainfallService {
 

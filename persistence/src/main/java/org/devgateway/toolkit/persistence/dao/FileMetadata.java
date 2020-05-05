@@ -20,7 +20,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * @author idobre
@@ -32,7 +31,7 @@ import java.io.Serializable;
 @Entity
 @Audited
 @Table(indexes = {@Index(columnList = "name")})
-public class FileMetadata extends AbstractAuditableEntity implements Serializable {
+public class FileMetadata extends AbstractAuditableEntity {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)

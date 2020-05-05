@@ -19,7 +19,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * @author mpostelnicu
@@ -28,7 +27,7 @@ import java.io.Serializable;
 @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(indexes = {@Index(columnList = "authority")})
-public class Role extends GenericPersistable implements Serializable, Comparable<Role>, Labelable {
+public class Role extends GenericPersistable implements Comparable<Role>, Labelable {
     private static final long serialVersionUID = -6007958105920327142L;
 
     private String authority;
