@@ -62,5 +62,10 @@ public class SystemCategoriesHomePage extends BasePage {
                         "referenceSeason", ListRainSeasonStartReferencePage.class, Buttons.Type.Default);
         referenceSeason.setLabel(new StringResourceModel("referenceSeason"));
         add(referenceSeason);
+
+        BootstrapBookmarkablePageLink<ListRainSeasonStartReferencePage> rivers =
+                new BootstrapBookmarkablePageLink<>("rivers", ListRiversPage.class, Buttons.Type.Default);
+        rivers.setLabel(new StringResourceModel("rivers"));
+        add(rivers);
     }
 }

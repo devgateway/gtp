@@ -219,4 +219,26 @@
         </insert>
     </changeSet>
 
+    <changeSet id="ANACIM-82" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="river" />
+        </preConditions>
+        <insert tableName="river">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Fleuve Sénégal" />
+        </insert>
+        <insert tableName="river">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Fleuve Casamance" />
+        </insert>
+        <insert tableName="river">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Fleuve Gambie" />
+        </insert>
+        <insert tableName="river">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Faleme" />
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>
