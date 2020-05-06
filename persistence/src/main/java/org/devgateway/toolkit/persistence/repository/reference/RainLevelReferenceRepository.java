@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface RainLevelReferenceRepository extends YearsReferenceRepository<RainLevelReference> {
 
     @Query("select new org.devgateway.toolkit.persistence.dto.rainfall.MonthDecadalRainLevel("
-            + "rlmr.month, rlmr.decadal, rlmr.rain) "
+            + "rlmr.month, rlmr.decadal, coalesce(rlmr.rain, 0)) "
             + "from RainLevelReference rlr "
             + "join rlr.postRainReferences prr "
             + "join prr.rainLevelMonthReferences rlmr "
