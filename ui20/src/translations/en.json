@@ -116,6 +116,8 @@
 	"indicators.chart.poverty.description": "Proportion of population below the international poverty line, by sex, age, employment status and geographical location (urban/rural).",
 	"indicators.chart.poverty.historical.by.region": "Historical % of population under poverty level",
 	"indicators.chart.poverty.title": "Proportion of population below the international poverty line.",
+	"indicators.chart.rainfall.title": "Pluviometry by post",
+	"indicators.chart.rainfall.source": "ANACIM",
 	"indicators.chart.toggler.chart": "chart",
 	"indicators.chart.toggler.table": "table",
 	"indicators.chart.women.description": "Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex; and (b) share of women among owners or rights-bearers of agricultural land, by type of tenure.",
