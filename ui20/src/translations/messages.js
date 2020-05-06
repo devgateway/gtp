@@ -610,7 +610,68 @@ const messages = defineMessages({
   home_newsletter_button_subscribe: {
     id: 'home.newsletter.button_subscribe',
     defaultMessage: 'Subscribe'
-  }
+  },
+
+  month_1: {
+    id: 'all.month.1',
+    defaultMessage: 'January'
+  },
+
+  month_2: {
+    id: 'all.month.2',
+    defaultMessage: 'February'
+  },
+
+  month_3: {
+    id: 'all.month.3',
+    defaultMessage: 'March'
+  },
+
+  month_4: {
+    id: 'all.month.4',
+    defaultMessage: 'April'
+  },
+
+  month_5: {
+    id: 'all.month.5',
+    defaultMessage: 'May'
+  },
+
+  month_6: {
+    id: 'all.month.6',
+    defaultMessage: 'June'
+  },
+
+  month_7: {
+    id: 'all.month.7',
+    defaultMessage: 'July'
+  },
+
+  month_8: {
+    id: 'all.month.8',
+    defaultMessage: 'August'
+  },
+
+  month_9: {
+    id: 'all.month.9',
+    defaultMessage: 'September'
+  },
+
+  month_10: {
+    id: 'all.month.10',
+    defaultMessage: 'October'
+  },
+
+  month_11: {
+    id: 'all.month.11',
+    defaultMessage: 'November'
+  },
+
+  month_12: {
+    id: 'all.month.12',
+    defaultMessage: 'December'
+  },
+
 })
 
 export default messages
