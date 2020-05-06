@@ -34,6 +34,9 @@ public class RiverStation extends AbstractAuditableEntity implements Labelable {
     @JsonIdentityReference(alwaysAsId = true)
     private River river;
 
+    @NotNull
+    private Integer alertLevel;
+
     public String getName() {
         return name;
     }
@@ -48,6 +51,14 @@ public class RiverStation extends AbstractAuditableEntity implements Labelable {
 
     public void setRiver(River river) {
         this.river = river;
+    }
+
+    public Integer getAlertLevel() {
+        return alertLevel;
+    }
+
+    public void setAlertLevel(Integer alertLevel) {
+        this.alertLevel = alertLevel;
     }
 
     @Override

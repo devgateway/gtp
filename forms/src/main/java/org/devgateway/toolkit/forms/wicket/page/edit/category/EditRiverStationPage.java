@@ -56,6 +56,11 @@ public class EditRiverStationPage extends AbstractEditPage<RiverStation> {
                 Objects.defaultIfNull(entityId, -1L), "name", this));
         editForm.add(name);
 
+        TextFieldBootstrapFormComponent<Integer> alertLevel = new TextFieldBootstrapFormComponent<>("alertLevel");
+        alertLevel.required();
+        alertLevel.integer();
+        editForm.add(alertLevel);
+
         deleteButton.setVisible(false);
     }
 }
