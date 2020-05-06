@@ -1,4 +1,6 @@
 import Immutable from 'immutable'
+import CommonConfig from "../../modules/entities/rainfall/CommonConfig";
+import RainLevelChart from "../../modules/entities/rainfall/RainLevelChart";
 
 export const WATER_RESOURCES = 'WATER_RESOURCES';
 const WATER_RESOURCES_PENDING = 'WATER_RESOURCES_PENDING'
@@ -9,7 +11,10 @@ const initialState = Immutable.fromJS({
   isLoading: false,
   isLoaded: false,
   error: null,
-  data: {}
+  data: {
+    commonConfig: CommonConfig,
+    rainLevelChart: RainLevelChart
+  }
 })
 
 export default (state = initialState, action) => {
