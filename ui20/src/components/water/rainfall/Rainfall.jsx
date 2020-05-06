@@ -5,6 +5,7 @@ import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import messages from "../../../translations/messages"
+import DecadalTick from "./DecadalTick"
 
 class Rainfall extends Component {
   static propTypes = {
@@ -26,6 +27,7 @@ class Rainfall extends Component {
       if (value === C.NA_VALUE) return <FormattedMessage id="all.graphic.value.NA" />
       return intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 1})
     }
+    const decadalAxisBottom = { renderTick : DecadalTick, legendOffset : 62}
 
     return (<div className="png exportable chart container">
       <ResponsiveBar
@@ -50,6 +52,7 @@ class Rainfall extends Component {
           legend: intl.formatMessage(byDecadal ? messages.decadals : messages.months),
           legendPosition: 'middle',
           legendOffset: 52,
+          ...(byDecadal ? decadalAxisBottom : {}),
         }}
         axisLeft={{
           tickSize: 0,
