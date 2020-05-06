@@ -241,4 +241,30 @@
         </insert>
     </changeSet>
 
+    <changeSet id="ANACIM-83" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="river" />
+            <tableExists tableName="river_station" />
+        </preConditions>
+        <sql><![CDATA[
+            insert into river_station(id, name, river_id)
+            select nextval('hibernate_sequence'), 'Kolda', id from river where name='Fleuve Casamance';
+
+            insert into river_station(id, name, river_id)
+            select nextval('hibernate_sequence'), 'Gouloumbu', id from river where name='Fleuve Gambie';
+
+            insert into river_station(id, name, river_id)
+            select nextval('hibernate_sequence'), 'Bakel', id from river where name='Fleuve Sénégal';
+
+            insert into river_station(id, name, river_id)
+            select nextval('hibernate_sequence'), 'Matam', id from river where name='Fleuve Sénégal';
+
+            insert into river_station(id, name, river_id)
+            select nextval('hibernate_sequence'), 'Podor', id from river where name='Fleuve Sénégal';
+
+            insert into river_station(id, name, river_id)
+            select nextval('hibernate_sequence'), 'Kidira', id from river where name='Faleme';
+        ]]></sql>
+    </changeSet>
+
 </databaseChangeLog>

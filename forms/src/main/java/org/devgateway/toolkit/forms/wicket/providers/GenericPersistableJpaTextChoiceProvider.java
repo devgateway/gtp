@@ -165,9 +165,9 @@ public class GenericPersistableJpaTextChoiceProvider<T extends GenericPersistabl
     @Override
     public String getDisplayValue(final T choice) {
         if (addNewElements && choice.getId() == null) {
-            return choice.toString() + " ---> (press enter to create new element)";
+            return choice.getLabel() + " ---> (press enter to create new element)";
         }
 
-        return choice.toString();
+        return choice.getLabel();
     }
 }

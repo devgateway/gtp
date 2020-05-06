@@ -5,5 +5,6 @@ import org.devgateway.toolkit.persistence.dao.River;
 /**
  * @author Octavian Ciubotaru
  */
-public interface RiverService extends BaseJpaService<River>, UniquePropertyService<River> {
+public interface RiverService extends BaseJpaService<River>, UniquePropertyService<River>,
+        TextSearchableService<River> {
 }
