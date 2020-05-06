@@ -6,7 +6,7 @@ import {PngExport} from "../ipar/indicators/Components"
 
 class Graphic extends Component {
   static propTypes = {
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     titleId: PropTypes.string.isRequired,
     sourceId: PropTypes.string.isRequired,
   }

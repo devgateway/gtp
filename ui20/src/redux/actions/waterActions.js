@@ -34,7 +34,7 @@ export const getRain = (intl) => (dispatch, getState) => {
         const record = {}
         record[indexBy] = `${monthLabel},${decadal}`
         keys.forEach(year => {
-          record[year] = asChartValue(rainLevelChart.data.getDecadalLevel(year, month, decadal))
+          record[`${year}`] = asChartValue(rainLevelChart.data.getDecadalLevel(year, month, decadal))
         })
         barData.push(record)
       })
@@ -42,7 +42,7 @@ export const getRain = (intl) => (dispatch, getState) => {
       const record = {}
       record[indexBy] = monthLabel
       keys.forEach(year => {
-        record[year] = asChartValue(rainLevelChart.data.getMonthLevel(year, month))
+        record[`${year}`] = asChartValue(rainLevelChart.data.getMonthLevel(year, month))
       })
       barData.push(record)
     }
@@ -50,7 +50,7 @@ export const getRain = (intl) => (dispatch, getState) => {
 
   return {
     data: barData,
-    keys: keys,
+    keys: keys.map(k => `${k}`),
     groupMode: 'grouped',
     indexBy,
     colors: {
