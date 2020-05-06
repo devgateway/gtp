@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.repository.norepository;
 
+import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -28,6 +29,7 @@ import java.io.Serializable;
 public interface TextSearchableRepository<T, ID extends Serializable> extends BaseJpaRepository<T, ID> {
 
     @Override
+    @CacheHibernateQueryResult
     Page<T> findAll(Pageable pageable);
 
     Page<T> searchText(String code, Pageable page);
