@@ -17,16 +17,20 @@ const HeaderImage = (props) => {
 }
 
 
-const AnalystDropdown = withRouter(injectIntl((props) => (
-
-  <Dropdown text={<FormattedMessage id="home.header.menu.graphics" values={""}/>}>
-    <Dropdown.Menu>
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/water-resources`)} text={<FormattedMessage id="home.pane.waterResources.title" values={""}/>} />
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/agriculture-and-markets`)} text={<FormattedMessage id="home.pane.agricultureAndMarkets.title" values={""}/>} />
-      <Dropdown.Item onClick={e=>props.history.push(`/${props.match.params.lan}/livestock`)} text={<FormattedMessage id="home.pane.livestock.title" values={""}/>} />
-    </Dropdown.Menu>
-  </Dropdown>
-)));
+const AnalystDropdown = withRouter(injectIntl((props) => {
+  const { intl } = props
+  return (
+    <Dropdown text={intl.formatMessage({id: "home.header.menu.graphics"})}>
+      <Dropdown.Menu>
+        <Dropdown.Item onClick={e => props.history.push(`/${props.match.params.lan}/water-resources`)}
+                       text={<FormattedMessage id="home.pane.waterResources.title" values={""}/>}/>
+        <Dropdown.Item onClick={e => props.history.push(`/${props.match.params.lan}/agriculture-and-markets`)}
+                       text={<FormattedMessage id="home.pane.agricultureAndMarkets.title" values={""}/>}/>
+        <Dropdown.Item onClick={e => props.history.push(`/${props.match.params.lan}/livestock`)}
+                       text={<FormattedMessage id="home.pane.livestock.title" values={""}/>}/>
+      </Dropdown.Menu>
+    </Dropdown>)
+}))
 
 // eslint-disable-next-line no-unused-vars
 const LanSwitcher = withRouter((props) => (
