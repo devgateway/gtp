@@ -1,9 +1,10 @@
-import * as api from "../../modules/api/index";
-import * as C from "../../modules/entities/Constants";
-import CommonConfig from "../../modules/entities/rainfall/CommonConfig";
-import RainLevelChart from "../../modules/entities/rainfall/RainLevelChart";
-import messages from "../../translations/messages";
-import {WATER_RESOURCES} from "../reducers/Water";
+import * as api from "../../modules/api/index"
+import * as C from "../../modules/entities/Constants"
+import CommonConfig from "../../modules/entities/rainfall/CommonConfig"
+import RainLevelChart from "../../modules/entities/rainfall/RainLevelChart"
+import MonthDecadal from "../../modules/utils/MonthDecadal"
+import messages from "../../translations/messages"
+import {WATER_RESOURCES} from "../reducers/Water"
 
 export const loadAllWaterData = () => (dispatch, getState) => {
   dispatch({
@@ -26,11 +27,12 @@ export const getRain = (intl) => (dispatch, getState) => {
   const barData = []
   const { byDecadal } = rainLevelChart.setting
   const indexBy = byDecadal ? 'monthDecadal' : 'month'
+  const monthDecadal = new MonthDecadal(keys.length === 1 ? keys[0] : null, C.SEASON_MONTHS)
 
-  C.MONTHS.forEach(month => {
+  monthDecadal.getMonths().forEach(month => {
     const monthLabel = `${intl.formatMessage(messages[`month_${month}`])}`
     if (byDecadal) {
-      C.DECADALS.forEach(decadal => {
+      monthDecadal.getDecadals(month).forEach(decadal => {
         const record = {}
         record[indexBy] = `${monthLabel},${decadal}`
         keys.forEach(year => {
