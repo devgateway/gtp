@@ -612,6 +612,11 @@ const messages = defineMessages({
     defaultMessage: 'Subscribe'
   },
 
+  valueNA: {
+    id: 'all.graphic.value.NA',
+    defaultMessage: 'N/A'
+  },
+
   period: {
     id: 'all.period',
     defaultMessage: 'Time'

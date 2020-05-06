@@ -1,8 +1,9 @@
-import {ResponsiveBar} from "@nivo/bar"
+import {BarDefaultProps, ResponsiveBar} from "@nivo/bar"
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
-import {injectIntl} from "react-intl"
+import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
+import * as C from "../../../modules/entities/Constants"
 import messages from "../../../translations/messages"
 
 class Rainfall extends Component {
@@ -19,6 +20,12 @@ class Rainfall extends Component {
 
   render() {
     const {data, keys, indexBy, groupMode, colors, intl, byDecadal} = this.props
+    const formatLevel = (s) => {
+      const { value } = s;
+      if (value === C.ZERO_VALUE) return 0
+      if (value === C.NA_VALUE) return <FormattedMessage id="all.graphic.value.NA" />
+      return intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 1})
+    }
 
     return (<div className="png exportable chart container">
       <ResponsiveBar
@@ -27,6 +34,7 @@ class Rainfall extends Component {
         indexBy={indexBy}
         groupMode={groupMode}
         colors={colors}
+        barComponent={CustomBarComponent}
         minValue={0}
         margin={{ top: 50, right: 130, bottom: 80, left: 60 }}
         padding={0.3}
@@ -58,7 +66,7 @@ class Rainfall extends Component {
             <div className="color" style={{backgroundColor:s.color}} />
             <div className="label">{s.indexValue}</div>
             <div className='x'>{s.id}</div>
-            <div className='y' style={{'color':s.color}}>{s.value}</div>
+            <div className='y' style={{'color':s.color}}>{formatLevel(s)}</div>
           </div>)
         }}
 
@@ -94,6 +102,11 @@ class Rainfall extends Component {
   }
 }
 
+const CustomBarComponent = (props) => {
+  const {height, data} = props
+  const { value } = data
+  return <BarDefaultProps.barComponent  {...props} height={value > 0 ? height : 1} />
+}
 
 const mapStateToProps = state => {
   return {
