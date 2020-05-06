@@ -34,7 +34,8 @@ export const getRain = (intl) => (dispatch, getState) => {
     if (byDecadal) {
       monthDecadal.getDecadals(month).forEach(decadal => {
         const record = {}
-        record[indexBy] = `${monthLabel},${decadal}`
+        record[indexBy] = `${month},${decadal}`
+        record.indexLabel = `${decadal}`
         keys.forEach(year => {
           record[`${year}`] = asChartValue(rainLevelChart.data.getDecadalLevel(year, month, decadal))
         })
@@ -42,7 +43,8 @@ export const getRain = (intl) => (dispatch, getState) => {
       })
     } else {
       const record = {}
-      record[indexBy] = monthLabel
+      record[indexBy] = `${month}`
+      record.indexLabel = monthLabel
       keys.forEach(year => {
         record[`${year}`] = asChartValue(rainLevelChart.data.getMonthLevel(year, month))
       })
@@ -59,7 +61,8 @@ export const getRain = (intl) => (dispatch, getState) => {
       // TODO update based on mockup
       scheme: 'category10'
     },
-    byDecadal
+    byDecadal,
+    monthDecadal,
   }
 }
 

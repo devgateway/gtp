@@ -1,6 +1,8 @@
+import {useTheme} from '@nivo/core'
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
-import {useTheme} from '@nivo/core'
+import {FormattedMessage} from "react-intl"
+import MonthDecadal from "../../../modules/utils/MonthDecadal"
 
 class DecadalTick extends Component {
   static propTypes = {
@@ -8,9 +10,10 @@ class DecadalTick extends Component {
       value: PropTypes.string
     }).isRequired,
     theme: PropTypes.any.isRequired,
+    monthDecadal: PropTypes.objectOf(MonthDecadal).isRequired,
   }
 
-  renderText(str: string, dy: number) {
+  renderText(tickLabel, dy: number) {
     const { theme } = this.props
     return (
       <text
@@ -22,21 +25,27 @@ class DecadalTick extends Component {
           fill: '#333',
           fontSize: 10,
         }}>
-        {str}
+        {tickLabel}
       </text>)
+  }
+
+  _isShowMonth(month: number, decadal: number) {
+    return (this.props.monthDecadal.getDecadals(month).length < 3 && decadal === 1) || decadal === 2
   }
 
   render() {
     const { tick } = this.props
     const [month, decadal] = tick.value.split(',')
+    const showDecadal = !!decadal
+    const showMonth = !showDecadal || this._isShowMonth(+month, +decadal)
 
     return (
       <g transform={`translate(${tick.x},${tick.y + 22})`}>
-        {this.renderText(decadal, 0)}
-        {decadal == 2 ? this.renderText(month, 20) : null}
+        {showDecadal && this.renderText(decadal, 0)}
+        {showMonth && this.renderText(<FormattedMessage id={`all.month.${month}`} />, showDecadal ? 20 : 0)}
       </g>
     )
   }
 }
 
-export default (tick) => <DecadalTick tick={tick} theme={useTheme()} />
+export default (tick, monthDecadal) => <DecadalTick tick={tick} theme={useTheme()} monthDecadal={monthDecadal} />

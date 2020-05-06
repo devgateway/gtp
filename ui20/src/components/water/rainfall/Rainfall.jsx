@@ -4,8 +4,10 @@ import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
+import MonthDecadal from "../../../modules/utils/MonthDecadal"
 import messages from "../../../translations/messages"
 import DecadalTick from "./DecadalTick"
+import "./rainfall.scss"
 
 class Rainfall extends Component {
   static propTypes = {
@@ -14,20 +16,20 @@ class Rainfall extends Component {
     groupMode: PropTypes.string,
     indexBy: PropTypes.string,
     colors: PropTypes.object,
+    monthDecadal: PropTypes.objectOf(MonthDecadal).isRequired,
   }
 
   componentDidMount() {
   }
 
   render() {
-    const {data, keys, indexBy, groupMode, colors, intl, byDecadal} = this.props
+    const {data, keys, indexBy, groupMode, colors, intl, byDecadal, monthDecadal} = this.props
     const formatLevel = (s) => {
       const { value } = s;
       if (value === C.ZERO_VALUE) return 0
       if (value === C.NA_VALUE) return <FormattedMessage id="all.graphic.value.NA" />
       return intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 1})
     }
-    const decadalAxisBottom = { renderTick : DecadalTick, legendOffset : 62}
 
     return (<div className="png exportable chart container">
       <ResponsiveBar
@@ -51,8 +53,8 @@ class Rainfall extends Component {
           tickRotation: 0,
           legend: intl.formatMessage(byDecadal ? messages.decadals : messages.months),
           legendPosition: 'middle',
-          legendOffset: 52,
-          ...(byDecadal ? decadalAxisBottom : {}),
+          legendOffset: byDecadal ? 62 : 52,
+          renderTick: (tick) => DecadalTick(tick, monthDecadal)
         }}
         axisLeft={{
           tickSize: 0,
