@@ -8,6 +8,7 @@ import MonthDecadal from "../../../modules/utils/MonthDecadal"
 import messages from "../../../translations/messages"
 import DecadalTick from "./DecadalTick"
 import "./rainfall.scss"
+import RainTick from "./RainTick"
 
 class Rainfall extends Component {
   static propTypes = {
@@ -62,7 +63,8 @@ class Rainfall extends Component {
           tickRotation: 0,
           legend: intl.formatMessage(messages.rainfall),
           legendPosition: 'middle',
-          legendOffset: -40
+          legendOffset: -40,
+          renderTick: (tick) => RainTick(tick)
         }}
         enableLabel={false}
 
