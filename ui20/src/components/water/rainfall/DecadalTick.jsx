@@ -10,7 +10,7 @@ class DecadalTick extends Component {
       value: PropTypes.string
     }).isRequired,
     theme: PropTypes.any.isRequired,
-    monthDecadal: PropTypes.objectOf(MonthDecadal).isRequired,
+    monthDecadal: PropTypes.instanceOf(MonthDecadal).isRequired,
   }
 
   renderText(tickLabel, dy: number) {
