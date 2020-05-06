@@ -612,6 +612,16 @@ const messages = defineMessages({
     defaultMessage: 'Subscribe'
   },
 
+  period: {
+    id: 'all.period',
+    defaultMessage: 'Time'
+  },
+
+  months: {
+    id: 'all.months',
+    defaultMessage: 'Months'
+  },
+
   month_1: {
     id: 'all.month.1',
     defaultMessage: 'January'
@@ -672,6 +682,15 @@ const messages = defineMessages({
     defaultMessage: 'December'
   },
 
+  decadals: {
+    id: 'all.decadals',
+    defaultMessage: 'Decadals'
+  },
+
+  rainfall: {
+    id: 'water.rainfall.level',
+    defaultMessage: 'Rain (mm)'
+  },
 })
 
 export default messages

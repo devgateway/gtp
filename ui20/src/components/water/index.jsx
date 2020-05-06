@@ -5,7 +5,7 @@ import {connect} from "react-redux"
 import * as waterActions from "../../redux/actions/waterActions"
 import Graphic from "../common/Graphic"
 import "../ipar/indicators/indicators.scss"
-
+import Rainfall from "./rainfall/Rainfall"
 
 class WaterResources extends Component {
 
@@ -20,7 +20,7 @@ class WaterResources extends Component {
   }
 
   render() {
-    const {isLoaded} = this.props;
+    const {isLoaded, getRain, intl} = this.props;
     if (!isLoaded) {
       return <div></div>
     }
@@ -28,7 +28,7 @@ class WaterResources extends Component {
       <Graphic
         id="anchor.indicator.water.rainfall" titleId="indicators.chart.rainfall.title"
         sourceId="indicators.chart.rainfall.source">
-
+        <Rainfall {...getRain(intl)} />
       </Graphic>
     </div>)
   }
@@ -42,7 +42,8 @@ const mapStateToProps = state => {
 }
 
 const mapActionCreators = {
-  onLoadAll: waterActions.loadAllWaterData
+  onLoadAll: waterActions.loadAllWaterData,
+  getRain: waterActions.getRain,
 }
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(WaterResources))

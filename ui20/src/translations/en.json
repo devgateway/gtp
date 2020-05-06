@@ -1,4 +1,5 @@
 {
+	"all.decadals": "Decadals",
 	"all.month.1": "January",
 	"all.month.2": "February",
 	"all.month.3": "March",
@@ -11,6 +12,8 @@
 	"all.month.10": "October",
 	"all.month.11": "November",
 	"all.month.12": "December",
+	"all.months": "Months",
+	"all.period": "Time",
 	"analytic.description.consumption": "The objective is to visualize the national level of cereal consumption. Which can be disaggregated at regional and departmental level.",
 	"analytic.description.market": "The Market page shows the price evolution of cereals. Prices are collected in rural markets located in agricultural production areas.",
 	"analytic.description.production": "Visualize the annual production statistics. Different combinations can be made by displaying separately or combining the production figures with the yield and / or seeded area.",
@@ -250,5 +253,6 @@
 	"table.select_all": "Select All",
 	"table.unsed.cols": "Drag and drop elements as rows or columns",
 	"table.unsed.rows": "Element used as Rows",
-	"table.used.cols": "Element used as columns"
+	"table.used.cols": "Element used as columns",
+	"water.rainfall.level": "Rain (mm)"
 }
