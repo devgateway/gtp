@@ -69,8 +69,7 @@ class Rainfall extends Component {
         tooltip={(s)=>{
           return (<div className="tooltips white">
             <div className="color" style={{backgroundColor:s.color}} />
-            <div className="label">{s.indexValue}</div>
-            <div className='x'>{s.id}</div>
+            <div className="label">{s.data.indexLabel}</div>
             <div className='y' style={{'color':s.color}}>{formatLevel(s)}</div>
           </div>)
         }}
