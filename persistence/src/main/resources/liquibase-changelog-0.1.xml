@@ -267,4 +267,19 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="ANACIM-85" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="river_station" />
+        </preConditions>
+        <sql><![CDATA[
+            update river_station set alert_level=0 where name='Kolda';
+            update river_station set alert_level=1300 where name='Gouloumbu';
+            update river_station set alert_level=1000 where name='Bakel';
+            update river_station set alert_level=800 where name='Matam';
+            update river_station set alert_level=500 where name='Podor';
+            update river_station set alert_level=1000 where name='Kidira';
+            alter table river_station alter column alert_level set not null;
+        ]]></sql>
+    </changeSet>
+
 </databaseChangeLog>
