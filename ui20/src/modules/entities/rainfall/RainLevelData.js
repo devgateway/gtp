@@ -1,16 +1,17 @@
-import {getOrDefault} from "../../utils/DataUtilis"
+import {getOrDefault, getOrDefaultMap} from "../../utils/DataUtilis"
 import RainLevel from "./RainLevel"
+import RainReferenceLevelData from "./RainReferenceLevelData"
 
-const defaultMapFunc = () => new Map()
-const getOrDefaultMap = (map, key) => getOrDefault(map, key, null, defaultMapFunc)
 
 export default class RainLevelData {
   levels: Array<RainLevel>
   levelsByYearMonthDecadal: Map<number, Map<number, Map<number, number>>>
   levelsByYearMonth: Map<number, Map<number, number>>
+  referenceLevels: Array<RainReferenceLevelData>
 
-  constructor({ levels }) {
+  constructor({ levels, referenceLevels }) {
     this.levels = levels.map(level => new RainLevel(level))
+    this.referenceLevels = referenceLevels.map(refLevel => new RainReferenceLevelData(refLevel))
     this._init();
   }
 
