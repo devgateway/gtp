@@ -114,7 +114,7 @@ class Rainfall extends Component {
         animate={false}
         motionStiffness={90}
         motionDamping={15}
-        layers={['grid', 'axes', 'bars', 'markers', 'legends', ReferenceLineLayer(keysWithRefs)]}
+        layers={['grid', 'axes', 'bars', 'markers', 'legends', ReferenceLineLayer(intl, keysWithRefs)]}
       />
     </div>)
   }
