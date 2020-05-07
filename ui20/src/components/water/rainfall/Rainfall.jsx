@@ -9,10 +9,11 @@ import messages from "../../../translations/messages"
 import DecadalTick from "./DecadalTick"
 import "./rainfall.scss"
 import RainTick from "./RainTick"
+import ReferenceLineLayer from "./ReferenceLineLayer"
 
 class Rainfall extends Component {
   static propTypes = {
-    data: PropTypes.array,
+    barData: PropTypes.array,
     keys: PropTypes.array,
     groupMode: PropTypes.string,
     indexBy: PropTypes.string,
@@ -23,8 +24,17 @@ class Rainfall extends Component {
   componentDidMount() {
   }
 
+  _getMaxValue(barData: Array, keys: Array) {
+    return barData.reduce((max, r) => {
+      const lineX = Array.from(r.lineValues.values())
+      const barX = keys.map(k => r[k])
+      return Math.max(max, ...lineX, ...barX)
+    }, 0) * 1.1 || 'auto'
+  }
+
   render() {
-    const {data, keys, indexBy, groupMode, colors, intl, byDecadal, monthDecadal} = this.props
+    const {barData, keys, indexBy, groupMode, colors, intl, byDecadal, monthDecadal, keysWithRefs} = this.props
+    const maxValue = this._getMaxValue(barData, keys)
     const formatLevel = (s) => {
       const { value } = s;
       if (value === C.ZERO_VALUE) return 0
@@ -34,12 +44,13 @@ class Rainfall extends Component {
 
     return (<div className="png exportable chart container">
       <ResponsiveBar
-        data={data}
+        data={barData}
         keys={keys}
         indexBy={indexBy}
         groupMode={groupMode}
         colors={colors}
         barComponent={CustomBarComponent}
+        maxValue={maxValue}
         minValue={0}
         margin={{ top: 50, right: 130, bottom: 80, left: 60 }}
         padding={0.3}
@@ -100,9 +111,10 @@ class Rainfall extends Component {
             ]
           }
         ]}
-        animate={true}
+        animate={false}
         motionStiffness={90}
         motionDamping={15}
+        layers={['grid', 'axes', 'bars', 'markers', 'legends', ReferenceLineLayer(keysWithRefs)]}
       />
     </div>)
   }

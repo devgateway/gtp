@@ -1,9 +1,7 @@
 import * as api from "../../modules/api/index"
-import * as C from "../../modules/entities/Constants"
 import CommonConfig from "../../modules/entities/rainfall/CommonConfig"
+import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import RainLevelChart from "../../modules/entities/rainfall/RainLevelChart"
-import MonthDecadal from "../../modules/utils/MonthDecadal"
-import messages from "../../translations/messages"
 import {WATER_RESOURCES} from "../reducers/Water"
 
 export const loadAllWaterData = () => (dispatch, getState) => {
@@ -23,52 +21,21 @@ const transformAll = (allData) => {
 
 export const getRain = (intl) => (dispatch, getState) => {
   const {rainLevelChart} = getState().getIn(['water', 'data'])
-  const keys = rainLevelChart.filter.years.sort().reverse()
-  const barData = []
-  const { byDecadal } = rainLevelChart.setting
-  const indexBy = byDecadal ? 'monthDecadal' : 'month'
-  const monthDecadal = new MonthDecadal(keys.length === 1 ? keys[0] : null, C.SEASON_MONTHS)
+  const rainfallDTO = new RainfallChartBuilder(rainLevelChart, intl)
 
-  monthDecadal.getMonths().forEach(month => {
-    const monthLabel = `${intl.formatMessage(messages[`month_${month}`])}`
-    if (byDecadal) {
-      monthDecadal.getDecadals(month).forEach(decadal => {
-        const record = {}
-        record[indexBy] = `${month},${decadal}`
-        record.indexLabel = `${decadal}`
-        keys.forEach(year => {
-          record[`${year}`] = asChartValue(rainLevelChart.data.getDecadalLevel(year, month, decadal))
-        })
-        barData.push(record)
-      })
-    } else {
-      const record = {}
-      record[indexBy] = `${month}`
-      record.indexLabel = monthLabel
-      keys.forEach(year => {
-        record[`${year}`] = asChartValue(rainLevelChart.data.getMonthLevel(year, month))
-      })
-      barData.push(record)
-    }
-  })
+  rainfallDTO.build()
 
   return {
-    data: barData,
-    keys: keys.map(k => `${k}`),
+    barData: rainfallDTO.barData,
+    keys: rainfallDTO.keys.map(k => `${k}`),
+    keysWithRefs: Array.from(rainfallDTO.keyReferenceLevels.keys()),
     groupMode: 'grouped',
-    indexBy,
+    indexBy: rainfallDTO.indexBy,
     colors: {
       // TODO update based on mockup
       scheme: 'category10'
     },
-    byDecadal,
-    monthDecadal,
+    byDecadal: rainfallDTO.byDecadal,
+    monthDecadal: rainfallDTO.monthDecadal,
   }
 }
-
-const asChartValue = (value) => {
-  if (value > 0) return value
-  if (value === undefined) return C.NA_VALUE
-  return C.ZERO_VALUE
-}
-
