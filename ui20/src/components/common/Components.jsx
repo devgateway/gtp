@@ -127,9 +127,10 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
         }
       <Dropdown.Divider/>
 
-      <Dropdown.Menu scrolling="scrolling" className="filter options">
+      <Dropdown.Menu scrolling={true} className="filter options">
         {
-          options.map(o =>< Dropdown.Item onClick = {e => updateSelection(o.key)} > <div className={"checkbox " + (
+          options.map(o =>< Dropdown.Item key={o.key}
+            onClick = {e => updateSelection(o.key)} > <div className={"checkbox " + (
               getChecked(o.key)
               ? "checked"
               : "")}/>

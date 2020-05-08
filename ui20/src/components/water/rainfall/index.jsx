@@ -11,7 +11,6 @@ import RainfallProperties from "./RainfallProperties"
 class RainfallGraphic extends Component {
   static propTypes = {
     getRain: PropTypes.func.isRequired,
-    setRainPerDecadal: PropTypes.func.isRequired,
   }
 
   render() {
