@@ -1,6 +1,9 @@
 package org.devgateway.toolkit.persistence.repository.location;
 
+import java.util.List;
+
 import org.devgateway.toolkit.persistence.dao.location.Department;
+import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
 import org.devgateway.toolkit.persistence.repository.norepository.TextSearchableRepository;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -22,4 +25,7 @@ public interface DepartmentRepository extends TextSearchableRepository<Departmen
     @Query("select o from Region o where lower(o.name) like %?1%")
     Page<Department> searchText(String code, Pageable page);
 
+    @Override
+    @CacheHibernateQueryResult
+    List<Department> findAll();
 }
