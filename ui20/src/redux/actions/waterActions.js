@@ -42,7 +42,13 @@ export const getRain = (intl) => (dispatch, getState) => {
       // TODO update based on mockup
       scheme: 'category10'
     },
-    byDecadal: rainfallDTO.byDecadal,
     monthDecadal: rainfallDTO.monthDecadal,
   }
+}
+
+export const setRainPerDecadal = (byDecadal) => (dispatch, getState) => {
+  dispatch({
+    type: CHANGE_CHART_SETTING,
+    data: new RainLevelSetting(byDecadal)
+  })
 }
