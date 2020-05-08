@@ -2,11 +2,12 @@ import messages from "../../../translations/messages"
 import {asBarChartValue} from "../../utils/DataUtilis"
 import MonthDecadal from "../../utils/MonthDecadal"
 import * as C from "../../entities/Constants"
-import RainLevelChart from "../../entities/rainfall/RainLevelChart"
+import RainLevelReport from "../../entities/rainfall/RainLevelReport"
 import RainReferenceLevelData from "../../entities/rainfall/RainReferenceLevelData"
 
 export default class RainfallChartBuilder {
-  rainLevelChart: RainLevelChart
+  rainLevelChart
+  report: RainLevelReport
   intl
   barData: Array
   keys: Array<number>
@@ -15,8 +16,9 @@ export default class RainfallChartBuilder {
   indexBy: string
   monthDecadal: MonthDecadal
 
-  constructor(rainLevelChart: RainLevelChart, intl) {
+  constructor(rainLevelChart, intl) {
     this.rainLevelChart = rainLevelChart
+    this.report = rainLevelChart.report
     this.intl = intl
     this.barData = []
     this.byDecadal = rainLevelChart.setting.byDecadal
@@ -28,7 +30,7 @@ export default class RainfallChartBuilder {
     this.keys = this.rainLevelChart.filter.years.sort().reverse()
     this.keyReferenceLevels = new Map()
     let idx = 0
-    this.rainLevelChart.data.referenceLevels.sort((r1, r2) => r1.referenceYearEnd > r2.referenceYearEnd)
+    this.report.data.referenceLevels.sort((r1, r2) => r1.referenceYearEnd > r2.referenceYearEnd)
       .forEach((refLevels: RainReferenceLevelData) => {
         if (idx > this.keys.length) {
           console.error('More reference level periods than selected years')
@@ -70,9 +72,9 @@ export default class RainfallChartBuilder {
 
   _getValue(year: number, month: number, decadal: number) {
     if (this.byDecadal) {
-      return this.rainLevelChart.data.getDecadalLevel(year, month, decadal)
+      return this.report.data.getDecadalLevel(year, month, decadal)
     }
-    return this.rainLevelChart.data.getMonthLevel(year, month)
+    return this.report.data.getMonthLevel(year, month)
   }
 
   _getReferenceValue(referenceLevels: RainReferenceLevelData, month: number, decadal: number) {
@@ -81,4 +83,5 @@ export default class RainfallChartBuilder {
     }
     return referenceLevels.getMonthLevel(month)
   }
+
 }

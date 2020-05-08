@@ -1,7 +1,7 @@
 export default class RainLevelSetting {
   byDecadal: boolean
 
-  constructor() {
-    this.byDecadal = false
+  constructor(byDecadal: boolean = false) {
+    this.byDecadal = byDecadal
   }
 }

@@ -3,15 +3,13 @@ import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as waterActions from "../../redux/actions/waterActions"
-import Graphic from "../common/Graphic"
 import "../ipar/indicators/indicators.scss"
-import Rainfall from "./rainfall/Rainfall"
+import RainfallGraphic from "./rainfall"
 
 class WaterResources extends Component {
 
   static propTypes = {
     onLoadAll: PropTypes.func.isRequired,
-    getRain: PropTypes.func.isRequired,
     isLoaded: PropTypes.bool.isRequired,
   }
 
@@ -20,16 +18,12 @@ class WaterResources extends Component {
   }
 
   render() {
-    const {isLoaded, getRain, intl} = this.props;
+    const {isLoaded} = this.props;
     if (!isLoaded) {
       return <div></div>
     }
     return (<div className="indicators content fixed">
-      <Graphic
-        id="anchor.indicator.water.rainfall" titleId="indicators.chart.rainfall.title"
-        sourceId="indicators.chart.rainfall.source">
-        <Rainfall {...getRain(intl)} />
-      </Graphic>
+      <RainfallGraphic />
     </div>)
   }
 
@@ -43,7 +37,6 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   onLoadAll: waterActions.loadAllWaterData,
-  getRain: waterActions.getRain,
 }
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(WaterResources))

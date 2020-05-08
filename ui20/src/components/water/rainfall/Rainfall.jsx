@@ -18,6 +18,7 @@ class Rainfall extends Component {
     groupMode: PropTypes.string,
     indexBy: PropTypes.string,
     colors: PropTypes.object,
+    byDecadal: PropTypes.bool,
     monthDecadal: PropTypes.instanceOf(MonthDecadal).isRequired,
   }
 
