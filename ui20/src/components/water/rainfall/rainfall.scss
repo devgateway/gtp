@@ -1,0 +1,10 @@
+.indicators.content.fixed {
+  .chart.container {
+    .tooltips {
+      .label:after {
+        content: none;
+        margin: unset;
+      }
+    }
+  }
+}
