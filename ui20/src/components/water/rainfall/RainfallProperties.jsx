@@ -2,11 +2,17 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
+import RainLevelConfig from "../../../modules/entities/rainfall/RainLevelConfig"
+import RainLevelFilter from "../../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../../modules/entities/rainfall/RainLevelSetting"
 import * as waterActions from "../../../redux/actions/waterActions"
+import {CustomFilterDropDown} from "../../common/Components"
+
 
 class RainfallProperties extends Component {
   static propTypes = {
+    config: PropTypes.instanceOf(RainLevelConfig).isRequired,
+    filter: PropTypes.instanceOf(RainLevelFilter).isRequired,
     setting: PropTypes.instanceOf(RainLevelSetting).isRequired,
     setRainPerDecadal: PropTypes.func.isRequired,
   }
@@ -14,9 +20,31 @@ class RainfallProperties extends Component {
   render() {
     return (
       <div>
+        <RainfallSettings {...this.props} />
         <PeriodSetting {...this.props} />
       </div>)
   }
+}
+
+const yearsToOptions = (years) => years.sort().reverse().map(y => ({
+  key: y,
+  text: y,
+  value: y
+}))
+
+const RainfallSettings = (props) => {
+  const {config, filter} = props
+  const {years} = filter
+  const yearsOptions = yearsToOptions(config.years)
+  return (
+    <div className="indicator chart filter property">
+      <div className="filter item">
+        <CustomFilterDropDown
+          options={yearsOptions} onChange={s => {}}
+          selected={years} text={<FormattedMessage id="indicators.filters.year" defaultMessage="Years" />} />
+      </div>
+    </div>
+  )
 }
 
 const PeriodSetting = (props) => {
@@ -44,6 +72,8 @@ const PeriodSetting = (props) => {
 
 const mapStateToProps = state => {
   return {
+    config: state.getIn(['water', 'data', 'rainLevelChart', 'report']).config,
+    filter: state.getIn(['water', 'data', 'rainLevelChart', 'filter']),
     setting: state.getIn(['water', 'data', 'rainLevelChart', 'setting']),
   }
 }
