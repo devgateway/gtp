@@ -5,16 +5,19 @@ import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
 import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
-import RainLevelReport from "../../modules/entities/rainfall/RainLevelReport"
-import {CHANGE_CHART_SETTING} from "../reducers/Indicators"
-import {WATER_RESOURCES} from "../reducers/Water"
+import {CHANGE_RAINFALL_FILTER, CHANGE_RAINFALL_SETTING, FILTER_RAINFALL, WATER_RESOURCES} from "../reducers/Water"
 
-export const loadAllWaterData = () => (dispatch, getState) => {
+export const loadAllWaterData = () => (dispatch, getState) =>
   dispatch({
     type: WATER_RESOURCES,
     payload: api.getAllWaterResources().then(transformAll)
-  });
-}
+  })
+
+export const getRainfall = (rainLevelFilter) => (dispatch, getState) =>
+  dispatch({
+    type: FILTER_RAINFALL,
+    payload: api.getRainfall(rainLevelFilter).then(transformRainfall)
+  })
 
 const transformAll = (allData) => {
   const {commonConfig, rainLevelChart} = allData
@@ -28,6 +31,8 @@ const transformAll = (allData) => {
     }
   }
 }
+
+const transformRainfall = (data) => new RainLevelData(data)
 
 export const getRain = (intl) => (dispatch, getState) => {
   const {rainLevelChart} = getState().getIn(['water', 'data'])
@@ -52,7 +57,16 @@ export const getRain = (intl) => (dispatch, getState) => {
 
 export const setRainPerDecadal = (byDecadal) => (dispatch, getState) => {
   dispatch({
-    type: CHANGE_CHART_SETTING,
+    type: CHANGE_RAINFALL_SETTING,
     data: new RainLevelSetting(byDecadal)
   })
+}
+
+export const setFilter = (years: Array<number>, pluviometricPostId: number) => (dispatch, getState) => {
+  const rainLevelFilter = new RainLevelFilter(years, pluviometricPostId)
+  dispatch({
+    type: CHANGE_RAINFALL_FILTER,
+    data: rainLevelFilter
+  })
+  return getRainfall(rainLevelFilter)(dispatch, getState)
 }

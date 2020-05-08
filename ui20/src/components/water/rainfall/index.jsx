@@ -29,6 +29,7 @@ class RainfallGraphic extends Component {
 const mapStateToProps = state => {
   return {
     setting: state.getIn(['water', 'data', 'rainLevelChart', 'setting']),
+    filter: state.getIn(['water', 'data', 'rainLevelChart', 'filter']),
   }
 }
 

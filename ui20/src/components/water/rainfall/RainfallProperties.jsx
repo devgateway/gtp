@@ -13,6 +13,7 @@ class RainfallProperties extends Component {
   static propTypes = {
     config: PropTypes.instanceOf(RainLevelConfig).isRequired,
     filter: PropTypes.instanceOf(RainLevelFilter).isRequired,
+    setFilter: PropTypes.func.isRequired,
     setting: PropTypes.instanceOf(RainLevelSetting).isRequired,
     setRainPerDecadal: PropTypes.func.isRequired,
   }
@@ -20,8 +21,8 @@ class RainfallProperties extends Component {
   render() {
     return (
       <div>
-        <RainfallSettings {...this.props} />
-        <PeriodSetting {...this.props} />
+        <RainfallFilters key="filters" {...this.props} />
+        <PeriodSetting key="settings" {...this.props} />
       </div>)
   }
 }
@@ -32,15 +33,16 @@ const yearsToOptions = (years) => years.sort().reverse().map(y => ({
   value: y
 }))
 
-const RainfallSettings = (props) => {
-  const {config, filter} = props
+const RainfallFilters = (props) => {
+  const {config, filter, setFilter} = props
+  const onYearChange = (years) => setFilter(years, filter.pluviometricPostId)
   const {years} = filter
   const yearsOptions = yearsToOptions(config.years)
   return (
     <div className="indicator chart filter property">
       <div className="filter item">
         <CustomFilterDropDown
-          options={yearsOptions} onChange={s => {}}
+          options={yearsOptions} onChange={onYearChange}
           selected={years} text={<FormattedMessage id="indicators.filters.year" defaultMessage="Years" />} />
       </div>
     </div>
@@ -72,7 +74,7 @@ const PeriodSetting = (props) => {
 
 const mapStateToProps = state => {
   return {
-    config: state.getIn(['water', 'data', 'rainLevelChart', 'report']).config,
+    config: state.getIn(['water', 'data', 'rainLevelChart', 'config']),
     filter: state.getIn(['water', 'data', 'rainLevelChart', 'filter']),
     setting: state.getIn(['water', 'data', 'rainLevelChart', 'setting']),
   }
@@ -80,6 +82,7 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   setRainPerDecadal: waterActions.setRainPerDecadal,
+  setFilter: waterActions.setFilter,
 }
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(RainfallProperties))
