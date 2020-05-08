@@ -1,5 +1,7 @@
 import * as api from "../../modules/api/index"
 import CommonConfig from "../../modules/entities/rainfall/CommonConfig"
+import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
+import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
 import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
@@ -19,7 +21,8 @@ const transformAll = (allData) => {
   return {
     commonConfig: new CommonConfig(commonConfig),
     rainLevelChart: {
-      report: new RainLevelReport(rainLevelChart),
+      config: new RainLevelConfig(rainLevelChart.config),
+      data: new RainLevelData(rainLevelChart.data),
       filter: new RainLevelFilter(rainLevelChart.filter.years, rainLevelChart.filter.pluviometricPostId),
       setting: new RainLevelSetting()
     }
