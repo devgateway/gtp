@@ -1,6 +1,9 @@
 package org.devgateway.toolkit.persistence.repository.location;
 
+import java.util.List;
+
 import org.devgateway.toolkit.persistence.dao.location.Zone;
+import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.TextSearchableRepository;
 import org.springframework.cache.annotation.CacheConfig;
@@ -17,4 +20,7 @@ public interface ZoneRepository extends TextSearchableRepository<Zone, Long>, Ba
     @Query("select o from Zone o where lower(o.name) like %?1%")
     Page<Zone> searchText(String code, Pageable page);
 
+    @Override
+    @CacheHibernateQueryResult
+    List<Zone> findAll();
 }

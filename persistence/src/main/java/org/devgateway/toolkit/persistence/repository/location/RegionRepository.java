@@ -1,6 +1,9 @@
 package org.devgateway.toolkit.persistence.repository.location;
 
+import java.util.List;
+
 import org.devgateway.toolkit.persistence.dao.location.Region;
+import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.TextSearchableRepository;
 import org.springframework.data.domain.Page;
@@ -21,4 +24,8 @@ public interface RegionRepository extends TextSearchableRepository<Region, Long>
     @Override
     @Query("select o from Region o where lower(o.name) like %?1%")
     Page<Region> searchText(String code, Pageable page);
+
+    @Override
+    @CacheHibernateQueryResult
+    List<Region> findAll();
 }
