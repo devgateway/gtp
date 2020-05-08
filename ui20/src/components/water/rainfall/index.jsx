@@ -5,6 +5,8 @@ import {connect} from "react-redux"
 import * as waterActions from "../../../redux/actions/waterActions"
 import Graphic from "../../common/Graphic"
 import Rainfall from "./Rainfall"
+import RainfallProperties from "./RainfallProperties"
+
 
 class RainfallGraphic extends Component {
   static propTypes = {
@@ -18,10 +20,10 @@ class RainfallGraphic extends Component {
     return (<Graphic
       id="anchor.indicator.water.rainfall" titleId="indicators.chart.rainfall.title"
       sourceId="indicators.chart.rainfall.source" className="rainfall">
+      <RainfallProperties {...this.props} />
       <Rainfall {...getRain(intl)} byDecadal={setting.byDecadal} />
     </Graphic>)
   }
-
 }
 
 
