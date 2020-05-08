@@ -282,4 +282,48 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="ANACIM-86" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="river_station_yearly_levels_reference" />
+            <tableExists tableName="river_station" />
+        </preConditions>
+        <sql><![CDATA[
+            insert into river_station_yearly_levels_reference(id, year, station_id)
+            select nextval('hibernate_sequence'), 1984, id from river_station where name='Gouloumbu';
+
+            insert into river_station_yearly_levels_reference(id, year, station_id)
+            select nextval('hibernate_sequence'), 2003, id from river_station where name='Gouloumbu';
+
+            insert into river_station_yearly_levels_reference(id, year, station_id)
+            select nextval('hibernate_sequence'), 1987, id from river_station where name='Bakel';
+
+            insert into river_station_yearly_levels_reference(id, year, station_id)
+            select nextval('hibernate_sequence'), 1999, id from river_station where name='Bakel';
+
+            insert into river_station_yearly_levels_reference(id, year, station_id)
+            select nextval('hibernate_sequence'), 1987, id from river_station where name='Matam';
+
+            insert into river_station_yearly_levels_reference(id, year, station_id)
+            select nextval('hibernate_sequence'), 1999, id from river_station where name='Matam';
+
+            insert into river_station_yearly_levels_reference(id, year, station_id)
+            select nextval('hibernate_sequence'), 1987, id from river_station where name='Podor';
+
+            insert into river_station_yearly_levels_reference(id, year, station_id)
+            select nextval('hibernate_sequence'), 1999, id from river_station where name='Podor';
+
+            insert into river_station_yearly_levels_reference(id, year, station_id)
+            select nextval('hibernate_sequence'), 1964, id from river_station where name='Kidira';
+
+            insert into river_station_yearly_levels_reference(id, year, station_id)
+            select nextval('hibernate_sequence'), 1987, id from river_station where name='Kidira';
+
+            insert into river_station_yearly_levels_reference(id, year, station_id)
+            select nextval('hibernate_sequence'), 2004, id from river_station where name='Kolda';
+
+            insert into river_station_yearly_levels_reference(id, year, station_id)
+            select nextval('hibernate_sequence'), 2012, id from river_station where name='Kolda';
+        ]]></sql>
+    </changeSet>
+
 </databaseChangeLog>

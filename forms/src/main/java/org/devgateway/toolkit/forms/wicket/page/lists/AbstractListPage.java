@@ -103,7 +103,7 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
         }
     }
 
-    public ActionPanel getActionPanel(final String id, final IModel<T> model) {
+    public Panel getActionPanel(final String id, final IModel<T> model) {
         return new ActionPanel(id, model);
     }
 
