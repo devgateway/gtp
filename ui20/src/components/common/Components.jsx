@@ -63,16 +63,18 @@ export const DateInput = ({onChange, value, text, locale})=>{
             onChange={onChange}/>)
 }
 
-
-
-
-
+const dropdownBreadcrumb = (options, selected, text, single) => {
+  const isAnySelected = selected && selected.length > 0
+  const breadcrumbText = single ? (isAnySelected ? options[options.map(a=>a.key).indexOf(selected[0])].text : text) :
+    <span>{text} ({selected.length} of {options.length})</span>
+  return <div className="breadcrums">{breadcrumbText}</div>
+}
 
 export const CustomFilterDropDown = ({options, selected, onChange, text, disabled, single}) => {
 
   const [open, setOpen] = useState(false);
 
-  const breadcrum = single ? (<div className="breadcrums">{selected && selected.length > 0 ? options[  options.map(a=>a.key).indexOf(selected[0]) ].text : text}</div>) : (<div className="breadcrums">{text} {true ? <span>({selected.length} of {options.length})</span> : null}</div>)
+  const breadcrum = dropdownBreadcrumb(options, selected, text, single)
 
   const updateSelection = (key) => {
     var newSelection = selected.slice(0)
@@ -156,7 +158,7 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
           // eslint-disable-next-line no-unused-vars
   const selectedText = selected[0]
 
-  const breadcrum = single ? (<div className="breadcrums">{selected && selected.length > 0 ? plainOptions[  plainOptions.map(a=>a.key).indexOf(selected[0]) ].text : text}</div>) : (<div className="breadcrums">{text} {true ? <span>({selected.length} of {plainOptions.length})</span> : null}</div>)
+  const breadcrum = dropdownBreadcrumb(options, selected, text, single)
 
   const updateSelection = (key) => {
     var newSelection = selected.slice(0)

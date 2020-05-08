@@ -7,8 +7,8 @@ import { Grid} from 'semantic-ui-react'
 import Map from './Map.jsx'
 import Immutable from 'immutable'
 import messages from '../../../translations/messages'
-import {CustomGroupedDropDown, CustomFilterDropDown} from '../indicators/Components'
-import {PngExport} from '../indicators/Components'
+import {CustomGroupedDropDown, CustomFilterDropDown} from '../../common/Components'
+import {PngExport} from '../../common/Components'
 
 var regions = require('../../../json/regions.json'); // with path
 var departments = require('../../../json/departments.json'); // with path

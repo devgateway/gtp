@@ -2,7 +2,7 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
-import {PngExport} from "../ipar/indicators/Components"
+import {PngExport} from "./Components"
 
 class Graphic extends Component {
   static propTypes = {
