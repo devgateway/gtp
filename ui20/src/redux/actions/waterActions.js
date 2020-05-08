@@ -1,7 +1,10 @@
 import * as api from "../../modules/api/index"
 import CommonConfig from "../../modules/entities/rainfall/CommonConfig"
+import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
+import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
-import RainLevelChart from "../../modules/entities/rainfall/RainLevelChart"
+import RainLevelReport from "../../modules/entities/rainfall/RainLevelReport"
+import {CHANGE_CHART_SETTING} from "../reducers/Indicators"
 import {WATER_RESOURCES} from "../reducers/Water"
 
 export const loadAllWaterData = () => (dispatch, getState) => {
@@ -15,7 +18,11 @@ const transformAll = (allData) => {
   const {commonConfig, rainLevelChart} = allData
   return {
     commonConfig: new CommonConfig(commonConfig),
-    rainLevelChart: new RainLevelChart(rainLevelChart)
+    rainLevelChart: {
+      report: new RainLevelReport(rainLevelChart),
+      filter: new RainLevelFilter(rainLevelChart.filter),
+      setting: new RainLevelSetting()
+    }
   }
 }
 

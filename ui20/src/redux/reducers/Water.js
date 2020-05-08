@@ -1,6 +1,9 @@
 import Immutable from 'immutable'
 import CommonConfig from "../../modules/entities/rainfall/CommonConfig";
-import RainLevelChart from "../../modules/entities/rainfall/RainLevelChart";
+import RainLevelReport from "../../modules/entities/rainfall/RainLevelReport";
+import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
+import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
+import {CHANGE_CHART_SETTING} from "./Indicators"
 
 export const WATER_RESOURCES = 'WATER_RESOURCES';
 const WATER_RESOURCES_PENDING = 'WATER_RESOURCES_PENDING'
@@ -13,7 +16,11 @@ const initialState = Immutable.fromJS({
   error: null,
   data: {
     commonConfig: CommonConfig,
-    rainLevelChart: RainLevelChart
+    rainLevelChart: {
+      report: RainLevelReport,
+      filter: RainLevelFilter,
+      setting: RainLevelSetting,
+    }
   }
 })
 
