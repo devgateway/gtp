@@ -20,7 +20,7 @@ const transformAll = (allData) => {
     commonConfig: new CommonConfig(commonConfig),
     rainLevelChart: {
       report: new RainLevelReport(rainLevelChart),
-      filter: new RainLevelFilter(rainLevelChart.filter),
+      filter: new RainLevelFilter(rainLevelChart.filter.years, rainLevelChart.filter.pluviometricPostId),
       setting: new RainLevelSetting()
     }
   }
@@ -42,6 +42,7 @@ export const getRain = (intl) => (dispatch, getState) => {
       // TODO update based on mockup
       scheme: 'category10'
     },
+    byDecadal: rainfallDTO.byDecadal,
     monthDecadal: rainfallDTO.monthDecadal,
   }
 }

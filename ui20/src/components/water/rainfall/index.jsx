@@ -15,13 +15,13 @@ class RainfallGraphic extends Component {
   }
 
   render() {
-    const {getRain, intl, setting} = this.props;
+    const {getRain, intl} = this.props;
 
     return (<Graphic
       id="anchor.indicator.water.rainfall" titleId="indicators.chart.rainfall.title"
       sourceId="indicators.chart.rainfall.source" className="rainfall">
-      <RainfallProperties {...this.props} />
-      <Rainfall {...getRain(intl)} byDecadal={setting.byDecadal} />
+      <RainfallProperties />
+      <Rainfall {...getRain(intl)} />
     </Graphic>)
   }
 }
@@ -35,7 +35,6 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   getRain: waterActions.getRain,
-  setRainPerDecadal: waterActions.setRainPerDecadal,
 }
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(RainfallGraphic))
