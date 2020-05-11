@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { Table,Pagination } from 'semantic-ui-react'
 
-import {CustomFilterDropDown,TextInput} from '../indicators/Components'
+import {CustomFilterDropDown,TextInput} from '../../common/Components'
 import {items2options} from '../indicators/DataUtil'
 import {injectIntl, FormattedMessage} from 'react-intl';
 import {changeFilter,loadDatasets,changePage } from '../../../redux/ipar/Microdata'

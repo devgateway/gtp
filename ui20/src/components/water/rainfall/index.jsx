@@ -11,17 +11,16 @@ import RainfallProperties from "./RainfallProperties"
 class RainfallGraphic extends Component {
   static propTypes = {
     getRain: PropTypes.func.isRequired,
-    setRainPerDecadal: PropTypes.func.isRequired,
   }
 
   render() {
-    const {getRain, intl, setting} = this.props;
+    const {getRain, intl} = this.props;
 
     return (<Graphic
       id="anchor.indicator.water.rainfall" titleId="indicators.chart.rainfall.title"
       sourceId="indicators.chart.rainfall.source" className="rainfall">
-      <RainfallProperties {...this.props} />
-      <Rainfall {...getRain(intl)} byDecadal={setting.byDecadal} />
+      <RainfallProperties />
+      <Rainfall {...getRain(intl)} />
     </Graphic>)
   }
 }
@@ -30,12 +29,12 @@ class RainfallGraphic extends Component {
 const mapStateToProps = state => {
   return {
     setting: state.getIn(['water', 'data', 'rainLevelChart', 'setting']),
+    data: state.getIn(['water', 'data', 'rainLevelChart', 'data']),
   }
 }
 
 const mapActionCreators = {
   getRain: waterActions.getRain,
-  setRainPerDecadal: waterActions.setRainPerDecadal,
 }
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(RainfallGraphic))

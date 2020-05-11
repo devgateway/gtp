@@ -1,9 +1,10 @@
+import {BoxLegendSvg} from "@nivo/legends"
 import {line} from "d3-shape"
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {Tooltip} from 'react-svg-tooltip'
 
-class ReferenceLineLayer extends Component {
+class ReferenceLine extends Component {
   static propTypes = {
     bars: PropTypes.array.isRequired,
     xScale: PropTypes.func.isRequired,
@@ -50,15 +51,35 @@ class ReferenceLineLayer extends Component {
 
 const rgba = ["rgba(150, 3, 15, 1)", "rgba(300, 3, 15, 1)", "rgba(10, 3, 15, 1)"]
 
-export default (intl, keysWithRefs) => ({ bars, xScale, yScale }) => {
+export const ReferenceLineLayer = (intl, keysWithRefs) => ({ bars, xScale, yScale }) => {
   let idx = 0
   return (
     <svg>
-      {keysWithRefs.length && keysWithRefs.map(key => {
-        const useBars = bars.filter(b => b.data.id == key)
+      {keysWithRefs.length && keysWithRefs.map(([key, ]) => {
+        const useBars = bars.filter(b => b.data.id === key)
         return (
-          <ReferenceLineLayer
+          <ReferenceLine
             key={idx} bars={useBars} xScale={xScale} yScale={yScale} rgba={rgba[idx++]} intl={intl} />)
       })}
   </svg>)
 }
+
+export const keysWithRefsToLegendData = (keysWithRefs) => keysWithRefs.map(([k, ref], index) => ({
+  color: rgba[index],
+  id: k,
+  label: ref
+}))
+
+
+export const ReferenceLineLegend = (referenceLineLegend) => ({ height, legends, width }) => {
+  const keys = JSON.stringify(referenceLineLegend.data.map(({id}) => id))
+  return (
+    <React.Fragment>
+      <BoxLegendSvg
+        key={keys}
+        {...referenceLineLegend}
+        containerHeight={height}
+        containerWidth={width}
+      />
+    </React.Fragment>
+  )}
