@@ -27,13 +27,18 @@ public class BookmarkableResettingFilterForm<T extends JpaFilterState> extends R
     public BookmarkableResettingFilterForm(final String id, final IFilterStateLocator<T> locator,
             final DataTable<?, ?> dataTable, final Class<? extends AbstractListPage> responseClass,
             final PageParameters pageParameters) {
-        super(id, locator, dataTable);
-        this.responseClass = responseClass;
-        configureRequest(pageParameters);
+        this(id, locator, dataTable, responseClass);
+        locator.setFilterState(configureRequest(pageParameters, locator.getFilterState()));
     }
 
-    private void configureRequest(final PageParameters pageParameters) {
-        JSONObject jsonState = getFilterStateAsJson();
+    public BookmarkableResettingFilterForm(final String id, final IFilterStateLocator<T> locator,
+            final DataTable<?, ?> dataTable, final Class<? extends AbstractListPage> responseClass) {
+        super(id, locator, dataTable);
+        this.responseClass = responseClass;
+    }
+
+    public static <Y> Y configureRequest(final PageParameters pageParameters, Y state) {
+        JSONObject jsonState = getFilterStateAsJson(state);
         pageParameters.getNamedKeys().forEach(key -> {
             StringValue stringValue = pageParameters.get(key);
             if (!stringValue.isNull() && !stringValue.isEmpty()) {
@@ -46,11 +51,10 @@ public class BookmarkableResettingFilterForm<T extends JpaFilterState> extends R
         });
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            Class<T> filterStateClass = (Class<T>) getStateLocator().getFilterState().getClass();
-            T newFilterState = objectMapper.readValue(jsonState.toString(), filterStateClass);
-            getStateLocator().setFilterState(newFilterState);
+            return objectMapper.readValue(jsonState.toString(), (Class<Y>) state.getClass());
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
+            return state;
         }
     }
 
@@ -67,7 +71,11 @@ public class BookmarkableResettingFilterForm<T extends JpaFilterState> extends R
     }
 
     private JSONObject getFilterStateAsJson() {
-        JSONObject jsonState = new JSONObject(getStateLocator().getFilterState());
+        return getFilterStateAsJson(getStateLocator().getFilterState());
+    }
+
+    private static JSONObject getFilterStateAsJson(Object obj) {
+        JSONObject jsonState = new JSONObject(obj);
         // JSONObject doesn't handle JsonIgnore
         jsonState.remove("specification");
         return jsonState;

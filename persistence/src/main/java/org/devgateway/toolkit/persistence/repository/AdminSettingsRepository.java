@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.repository;
 
+import java.util.List;
+
 import org.devgateway.toolkit.persistence.dao.AdminSettings;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,4 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface AdminSettingsRepository extends BaseJpaRepository<AdminSettings, Long> {
 
+    @Override
+    @CacheHibernateQueryResult
+    List<AdminSettings> findAll();
 }

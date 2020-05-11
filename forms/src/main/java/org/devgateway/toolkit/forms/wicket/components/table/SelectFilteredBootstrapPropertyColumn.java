@@ -5,6 +5,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.ChoiceFilteredPropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterForm;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.PropertyModel;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 
@@ -19,17 +20,22 @@ import java.util.List;
 public class SelectFilteredBootstrapPropertyColumn<T, Y, S> extends ChoiceFilteredPropertyColumn<T, Y, S> {
     private static final long serialVersionUID = 8144699687674322360L;
 
+    private final String filterFormPropertyExpression;
+
     public SelectFilteredBootstrapPropertyColumn(final IModel<String> displayModel,
-                                                 final S sortProperty,
-                                                 final String propertyExpression,
-                                                 final IModel<? extends List<? extends Y>> filterChoices) {
-        super(displayModel, sortProperty, propertyExpression, filterChoices);
+            final S sortProperty,
+            final String propertyExpression,
+            final IModel<? extends List<? extends Y>> filterChoices) {
+        this(displayModel, sortProperty, propertyExpression, propertyExpression, filterChoices);
     }
 
     public SelectFilteredBootstrapPropertyColumn(final IModel<String> displayModel,
+                                                 final S sortProperty,
                                                  final String propertyExpression,
+                                                 final String filterFormPropertyExpression,
                                                  final IModel<? extends List<? extends Y>> filterChoices) {
-        super(displayModel, propertyExpression, filterChoices);
+        super(displayModel, sortProperty, propertyExpression, filterChoices);
+        this.filterFormPropertyExpression = filterFormPropertyExpression;
     }
 
     @Override
@@ -47,5 +53,10 @@ public class SelectFilteredBootstrapPropertyColumn<T, Y, S> extends ChoiceFilter
                         getFilterModel(form));
         selectorField.getField().add(AttributeModifier.replace("onchange", "this.form.submit();"));
         return selectorField;
+    }
+
+    @Override
+    protected IModel<Y> getFilterModel(FilterForm form) {
+        return new PropertyModel<>(form.getDefaultModel(), filterFormPropertyExpression);
     }
 }
