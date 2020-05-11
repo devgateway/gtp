@@ -5,7 +5,7 @@ import 'rc-slider/assets/index.css'
 import {connect} from 'react-redux';
 import React from 'react'
 import {FormattedMessage} from 'react-intl';
-import {ChartTableSwitcher, CustomFilterDropDown} from './Components'
+import {ChartTableSwitcher, CustomFilterDropDown} from '../../common/Components'
 import { Tab, Label } from 'semantic-ui-react'
 import {items2options} from './DataUtil'
 import './globalFoodLoss.scss'
@@ -13,7 +13,7 @@ import {BarChart} from './GlobalFoodLossCharts'
 import {getAverageProductionLossData} from './DataUtil'
 import {injectIntl} from 'react-intl';
 import messages from '../../../translations/messages'
-import {PngExport} from './Components'
+import {PngExport} from '../../common/Components'
 
 
 const  Filters=injectIntl(({intl,lossTypes,filters,onChange, options})=>{

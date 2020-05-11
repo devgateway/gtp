@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import GoogleAnalytics from "react-ga";
-import {getAnaliticUserCode} from '../../modules/api'
+import {getAnaliticUserCode} from '../../modules/api/ipar/api'
 
 
 GoogleAnalytics.initialize(getAnaliticUserCode());

@@ -4,7 +4,7 @@ import 'rc-slider/assets/index.css'
 import React, { useState,useEffect} from 'react'
 import {connect} from 'react-redux';
 import {FormattedMessage,injectIntl} from 'react-intl';
-import {ChartTableSwitcher, CustomFilterDropDown,OptionList} from './Components'
+import {ChartTableSwitcher, CustomFilterDropDown,OptionList} from '../../common/Components'
 
 import { Tab, Label } from 'semantic-ui-react'
 import {items2options} from './DataUtil'
@@ -12,7 +12,7 @@ import './women.scss'
 import  {getWomenDistributionByGroup, getWomenHistoricalDistribution} from './DataUtil'
 import {BarChart,LineChart} from './WomenCharts'
 import messages from '../../../translations/messages'
-import {PngExport} from './Components'
+import {PngExport} from '../../common/Components'
 
 const  Filters=injectIntl(({intl,genders,ageGroups,methodOfEnforcements,filters,onChange, options})=>{
   const genderSelection = filters && filters.getIn(['women', 'gender'])? filters.getIn(['women', 'gender']).toJS(): []

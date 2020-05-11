@@ -4,14 +4,14 @@ import 'rc-slider/assets/index.css'
 import {connect} from 'react-redux';
 import React, {Component} from 'react'
 import {FormattedMessage,injectIntl} from 'react-intl';
-import {ChartTableSwitcher, CustomFilterDropDown, RangeSlider} from './Components'
+import {ChartTableSwitcher, CustomFilterDropDown, RangeSlider} from '../../common/Components'
 import {BarChart,LineChart} from './PovertyCharts'
 
 import { Tab , Label} from 'semantic-ui-react'
 import {getPovertyRegionalYearly,getPovertyRegionalStackedByPovertyLevel, getPovertyTimeLine, items2options} from './DataUtil'
 import messages from '../../../translations/messages'
 import './poverty.scss'
-import {PngExport} from './Components'
+import {PngExport} from '../../common/Components'
 
 
 const PovertyFitlers=injectIntl((props)=>{

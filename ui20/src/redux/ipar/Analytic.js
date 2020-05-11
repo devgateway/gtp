@@ -1,4 +1,4 @@
-import { getDataSet } from '../../modules/api'
+import { getDataSet } from '../../modules/api/ipar/api'
 import Immutable from 'immutable'
 
 const initialState = Immutable.fromJS({})

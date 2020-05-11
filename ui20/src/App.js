@@ -14,23 +14,25 @@ import {loadDataItems} from './redux/ipar/Data'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 
-import {Departmental,Regional} from './components/ipar/maps/index.js'
+// import {Departmental,Regional} from './components/ipar/maps/index.js'
 
 
 import smoothscroll from 'smoothscroll-polyfill';
 
 import asyncComponent from "./components/common/AsyncComponent";
-import withTracker from './components/common/withTracker'
+// import withTracker from './components/common/withTracker'
 
 const Home = asyncComponent(() => import("./components/home/"));
 const Water = asyncComponent(() => import("./components/water/"));
 
+/*
 const Indicators = asyncComponent(() => import("./components/ipar/indicators/"));
 const Microdata = asyncComponent(() => import("./components/ipar/microdata/"));
 const Analytic = asyncComponent(() => import("./modules/analytic/"));
 const NationalIndicators = asyncComponent(() => import("./components/ipar/national/"));
 const Partners = asyncComponent(() => import("./components/ipar/partners/"));
 const Initiatives = asyncComponent(() => import("./components/ipar/initiatives/"));
+ */
 
 // kick off the polyfill!
 smoothscroll.polyfill();
@@ -54,6 +56,7 @@ const messages = {
 const WithDefHeader = (Component)=><div><Header/><Component/></div>
 const HomeLayout = (props)=>WithDefHeader(Home)
 const WaterLayout = (props)=>WithDefHeader(Water)
+/*
 const AnalyticLayout = (props)=>WithDefHeader(Analytic)
 const IndicatorLayout = (props) => (<div><Header className="fix" ></Header><Indicators header={e=>this.divRef} language={props.match.params.lan}></Indicators></div>)
 const RegionalLayout = (props) => WithDefHeader(Regional)
@@ -62,6 +65,7 @@ const PartnersLayout = (props) => WithDefHeader(Partners)
 const InitiativesLayout = (props) => WithDefHeader(Initiatives)
 const MicrodataLayout = (props) => WithDefHeader(Microdata)
 const NationalIndicatorsLayout = (props) => WithDefHeader(NationalIndicators)
+ */
 
 
 class IntlRoutes extends Component {
@@ -103,7 +107,7 @@ class IntlRoutes extends Component {
             <Route exact={true} path="/:lan/home"  component={HomeLayout}/>
 
             <Route exact={true} path="/:lan/water-resources"  component={WaterLayout}/>
-
+            {/*
             <Route exact={true} path="/:lan/analytic/production" component={withTracker(AnalyticLayout)}/>
             <Route exact={true} path="/:lan/analytic/marketPrice" component={withTracker(AnalyticLayout)}/>
             <Route exact={true} path="/:lan/analytic/consumption" component={withTracker(AnalyticLayout)}/>
@@ -114,6 +118,7 @@ class IntlRoutes extends Component {
             <Route exact={true} path="/:lan/partners" component={withTracker(PartnersLayout)}/>
             <Route exact={true} path="/:lan/initiatives" component={withTracker(InitiativesLayout)}/>
             <Route exact={true} path="/:lan/national" component={withTracker(NationalIndicatorsLayout)}/>
+            */}
 
             <Route render={() => (<div>
                 <Header></Header>

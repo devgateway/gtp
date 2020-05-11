@@ -5,7 +5,7 @@ import React, {useState, useEffect} from 'react'
 
 
 import {Bullet} from './Charts.jsx'
-import {CustomGroupedDropDown} from '../indicators/Components'
+import {CustomGroupedDropDown} from '../../common/Components'
 
 
 const getOptions=(data, percents)=> {
