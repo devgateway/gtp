@@ -20,7 +20,7 @@ class RainfallProperties extends Component {
 
   render() {
     return (
-      <div>
+      <div className="rainfall">
         <RainfallFilters key="filters" {...this.props} />
         <PeriodSetting key="settings" {...this.props} />
       </div>)
@@ -39,10 +39,11 @@ const RainfallFilters = (props) => {
   const {years} = filter
   const yearsOptions = yearsToOptions(config.years)
   return (
-    <div className="indicator chart filter property">
+    <div className="indicator chart filter">
       <div className="filter item">
         <CustomFilterDropDown
           options={yearsOptions} onChange={onYearChange}
+          min={1} max={3}
           selected={years} text={<FormattedMessage id="indicators.filters.year" defaultMessage="Years" />} />
       </div>
     </div>
@@ -57,13 +58,13 @@ const PeriodSetting = (props) => {
         <div className="chart toggler view">
           { /* <label><FormattedMessage id="indicators.settings.periodicity" /></label> */}
           <div className="ui toggle checkbox">
-            <div className={!byDecadal ? 'active' : ''} onClick={() => onChange(false)}>
+            <div className={!byDecadal ? 'active' : ''}>
               <FormattedMessage id="indicators.settings.months"/>
             </div>
             <input id="period" type="checkbox" onChange={e => onChange(e.target.checked)}
                    defaultChecked={byDecadal ? 'checked' : ''}/>
             <label className={byDecadal ? 'active' : ''}></label>
-            <div className={byDecadal ? 'active' : ''} onClick={() => onChange(true)}>
+            <div className={byDecadal ? 'active' : ''}>
               <FormattedMessage id="indicators.settings.decadals"/>
             </div>
           </div>
