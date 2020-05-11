@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
 import org.apache.poi.ss.usermodel.CellType;
@@ -22,7 +21,6 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.RiverLevelReference;
 
 /**
@@ -32,7 +30,7 @@ public class RiverLevelReader {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
 
-    public Collection<RiverLevelReference> read(HydrologicalYear year, InputStream is,
+    public Collection<RiverLevelReference> read(InputStream is,
             Supplier<RiverLevelReference> creator) throws RiverLevelReaderException {
 
         XSSFWorkbook sheets;
@@ -54,12 +52,21 @@ public class RiverLevelReader {
             RiverLevelReference level = creator.get();
 
             XSSFCell dateCell = row.getCell(0);
-            MonthDay monthDay;
-            if (dateCell == null || dateCell.getRawValue() == null) {
+            XSSFCell levelCell = row.getCell(1);
+
+            boolean dateIsMissing = (dateCell == null || dateCell.getRawValue() == null);
+            boolean levelIsMissing = (levelCell == null || levelCell.getRawValue() == null);
+
+            if (dateIsMissing && levelIsMissing) {
+                continue;
+            }
+            if (dateIsMissing) {
+                errors.add(String.format("Date not specified on row %d.", (r + 1)));
                 continue;
             }
 
             try {
+                MonthDay monthDay;
                 if (dateCell.getCellType() == CellType.STRING) {
                     String strVal = dateCell.getStringCellValue();
                     monthDay = MonthDay.from(formatter.parse(strVal.substring(0, Math.min(strVal.length(), 5))));
@@ -73,27 +80,25 @@ public class RiverLevelReader {
                 continue;
             }
 
-            XSSFCell levelCell = row.getCell(1);
-            if (levelCell == null) {
-                continue;
-            }
-            try {
-                double levelAsDouble = levelCell.getNumericCellValue();
-                if (levelAsDouble < 0) {
+            if (!levelIsMissing) {
+                try {
+                    double levelAsDouble = levelCell.getNumericCellValue();
+                    if (levelAsDouble < 0) {
+                        errors.add(String.format("Invalid river level on row %d.", (r + 1)));
+                        continue;
+                    }
+
+                    level.setLevel(new BigDecimal(String.format("%.1f", levelAsDouble)));
+                } catch (IllegalStateException | NumberFormatException e) {
                     errors.add(String.format("Invalid river level on row %d.", (r + 1)));
                     continue;
                 }
-
-                level.setLevel(new BigDecimal(String.format("%.1f", levelAsDouble)));
-            } catch (IllegalStateException | NumberFormatException e) {
-                errors.add(String.format("Invalid river level on row %d.", (r + 1)));
-                continue;
             }
 
             if (data.contains(level)) {
                 errors.add(String.format("Duplicate date %s on row %d.", formatter.format(level.getMonthDay()),
                         (r + 1)));
-            } else {
+            } else if (level.getLevel() != null) {
                 data.add(level);
             }
         }
@@ -101,19 +106,6 @@ public class RiverLevelReader {
         if (!errors.isEmpty()) {
             throw new RiverLevelReaderException(errors);
         }
-
-        Set<MonthDay> monthDaysInFile = data.stream()
-                .map(RiverLevelReference::getMonthDay)
-                .collect(Collectors.toSet());
-
-        year.getMonthDays().forEach(d -> {
-            if (!monthDaysInFile.contains(d)) {
-                RiverLevelReference riverLevel = creator.get();
-                riverLevel.setMonthDay(d);
-                riverLevel.setLevel(BigDecimal.ZERO);
-                data.add(riverLevel);
-            }
-        });
 
         return data;
     }

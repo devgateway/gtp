@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
@@ -147,10 +147,10 @@ public class ListRiverStationYearlyLevelsReferencesPage extends AbstractListPage
             };
             add(download);
 
-            BootstrapAjaxButton downloadButton = new BootstrapAjaxButton("download", Buttons.Type.Info) {
+            BootstrapAjaxLink<Void> downloadButton = new BootstrapAjaxLink<Void>("download", Buttons.Type.Info) {
 
                 @Override
-                protected void onSubmit(AjaxRequestTarget target) {
+                public void onClick(AjaxRequestTarget target) {
                     download.initiate(target);
                 }
             };

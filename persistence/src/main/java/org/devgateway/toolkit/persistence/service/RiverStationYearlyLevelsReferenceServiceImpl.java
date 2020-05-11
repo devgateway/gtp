@@ -30,6 +30,6 @@ public class RiverStationYearlyLevelsReferenceServiceImpl extends BaseJpaService
 
     @Override
     public boolean exists(RiverStation station, HydrologicalYear year, Long exceptId) {
-        return riverStationYearlyLevelsReferenceRepository.count(station, year, exceptId) > 0;
+        return riverStationYearlyLevelsReferenceRepository.existsByStationAndYearAndIdNot(station, year, exceptId);
     }
 }

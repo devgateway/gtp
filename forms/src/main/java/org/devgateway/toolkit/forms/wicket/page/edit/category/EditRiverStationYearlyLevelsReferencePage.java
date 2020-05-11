@@ -18,6 +18,7 @@ import org.apache.wicket.validation.ValidationError;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.category.ListRiverStationYearlyLevelsReferencesPage;
 import org.devgateway.toolkit.forms.wicket.providers.HydrologicalYearRangeChoiceProvider;
@@ -60,6 +61,14 @@ public class EditRiverStationYearlyLevelsReferencePage extends AbstractEditPage<
         super.onInitialize();
 
         pageTitle.setDefaultModel(new StringResourceModel("page.title", this, editForm.getModel()));
+
+        TextFieldBootstrapFormComponent<String> river = new TextFieldBootstrapFormComponent<>("station.river.name");
+        river.getField().setEnabled(false);
+        editForm.add(river);
+
+        TextFieldBootstrapFormComponent<String> station = new TextFieldBootstrapFormComponent<>("station.name");
+        station.getField().setEnabled(false);
+        editForm.add(station);
 
         Select2ChoiceBootstrapFormComponent<HydrologicalYear> year =
                 new Select2ChoiceBootstrapFormComponent<>("year",
@@ -115,9 +124,7 @@ public class EditRiverStationYearlyLevelsReferencePage extends AbstractEditPage<
                 try {
                     RiverLevelReader reader = new RiverLevelReader();
 
-                    HydrologicalYear year = editForm.getModelObject().getYear();
-
-                    Collection<RiverLevelReference> levels = reader.read(year, inputStream, RiverLevelReference::new);
+                    Collection<RiverLevelReference> levels = reader.read(inputStream, RiverLevelReference::new);
 
                     RiverStationYearlyLevelsReference entity = editForm.getModelObject();
                     entity.getLevels().clear();
