@@ -163,6 +163,7 @@
 	"indicators.filters.enforcement_method": "Mode de Faire Valoir",
 	"indicators.filters.gender": "Genre",
 	"indicators.filters.index_type": "Type d'Indice",
+	"indicators.filters.location": "Localisation",
 	"indicators.filters.losstype": "Répartition de la Production",
 	"indicators.filters.regions": "Régions",
 	"indicators.filters.reset": "Réinitialiser",

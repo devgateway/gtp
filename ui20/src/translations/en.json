@@ -151,6 +151,7 @@
 	"indicators.filters.enforcement_method": "Enforcement Method",
 	"indicators.filters.gender": "Gender",
 	"indicators.filters.index_type": "Index Type",
+	"indicators.filters.location": "Location",
 	"indicators.filters.losstype": "Loss Type",
 	"indicators.filters.regions": "Regions",
 	"indicators.filters.reset": "Reset All",

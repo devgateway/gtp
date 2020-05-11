@@ -2,6 +2,7 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
+import CommonConfig from "../../../modules/entities/rainfall/CommonConfig"
 import RainLevelConfig from "../../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelFilter from "../../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../../modules/entities/rainfall/RainLevelSetting"
@@ -11,6 +12,7 @@ import {CustomFilterDropDown} from "../../common/Components"
 
 class RainfallProperties extends Component {
   static propTypes = {
+    commonConfig: PropTypes.instanceOf(CommonConfig).isRequired,
     config: PropTypes.instanceOf(RainLevelConfig).isRequired,
     filter: PropTypes.instanceOf(RainLevelFilter).isRequired,
     setFilter: PropTypes.func.isRequired,
@@ -33,18 +35,33 @@ const yearsToOptions = (years) => years.sort().reverse().map(y => ({
   value: y
 }))
 
+const postIdsToOptions = (postIds, commonConfig: CommonConfig) => postIds.map(id => {
+  const post = commonConfig.posts.get(id)
+  const dep = commonConfig.departments.get(post.department)
+  return ({
+  key: id,
+  text: `${post.label} (${dep.name})`,
+  value: id
+})}).sort((p1, p2) => p1.text.localeCompare(p2.text))
+
 const RainfallFilters = (props) => {
-  const {config, filter, setFilter} = props
+  const {config, filter, setFilter, commonConfig} = props
   const onYearChange = (years) => setFilter(years, filter.pluviometricPostId)
-  const {years} = filter
-  const yearsOptions = yearsToOptions(config.years)
+  const onPostChange = (postIds) => setFilter(filter.years, postIds[0])
+  const {years, pluviometricPostId} = filter
   return (
     <div className="indicator chart filter">
       <div className="filter item">
         <CustomFilterDropDown
-          options={yearsOptions} onChange={onYearChange}
+          options={yearsToOptions(config.years)} onChange={onYearChange}
           min={1} max={3}
           selected={years} text={<FormattedMessage id="indicators.filters.year" defaultMessage="Years" />} />
+      </div>
+      <div className="filter item">
+        <CustomFilterDropDown
+          options={postIdsToOptions(config.pluviometricPostIds, commonConfig)} onChange={onPostChange}
+          single={true} max={1}
+          selected={[pluviometricPostId]} text={<FormattedMessage id="indicators.filters.location" defaultMessage="Location" />} />
       </div>
     </div>
   )
@@ -75,6 +92,7 @@ const PeriodSetting = (props) => {
 
 const mapStateToProps = state => {
   return {
+    commonConfig: state.getIn(['water', 'data', 'commonConfig']),
     config: state.getIn(['water', 'data', 'rainLevelChart', 'config']),
     filter: state.getIn(['water', 'data', 'rainLevelChart', 'filter']),
     setting: state.getIn(['water', 'data', 'rainLevelChart', 'setting']),

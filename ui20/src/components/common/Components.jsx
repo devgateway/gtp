@@ -65,7 +65,7 @@ export const DateInput = ({onChange, value, text, locale})=>{
 
 const dropdownBreadcrumb = (options, selected, text, single) => {
   const isAnySelected = selected && selected.length > 0
-  const breadcrumbText = single ? (isAnySelected ? options[options.map(a=>a.key).indexOf(selected[0])].text : text) :
+  const breadcrumbText = single ? (isAnySelected ? options.find(a=>a.key === selected[0]).text : text) :
     <span>{text} ({selected.length} of {options.length})</span>
   return <div className="breadcrums">{breadcrumbText}</div>
 }
@@ -106,10 +106,11 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
     }
   }
 
-  const allowSelectNone = (single == null || single === false) && !min
-  const allowSelectAll = (single == null || single === false) && (!max || max >= options.length)
+  const isSingle = single === true
+  const allowSelectNone = !isSingle && !min
+  const allowSelectAll = !isSingle && (!max || max >= options.length)
   const allowDeselect = !!min && selected.length > min
-  const allowSelect = !!max && selected.length < max
+  const allowSelect = isSingle || (!!max && selected.length < max)
 
   return (
 
