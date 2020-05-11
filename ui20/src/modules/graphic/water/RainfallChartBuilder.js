@@ -84,4 +84,11 @@ export default class RainfallChartBuilder {
     return referenceLevels.getMonthLevel(month)
   }
 
+  get keyWithReferences() {
+    const keyWithRefs = []
+    this.keyReferenceLevels.forEach((ref, key: RainReferenceLevelData) => {
+      keyWithRefs.push([`${key}`, `${ref.referenceYearStart} - ${ref.referenceYearEnd}`])
+    })
+    return keyWithRefs.sort(([k1, ], [k2, ]) => k1.localeCompare(k2)).reverse()
+  }
 }

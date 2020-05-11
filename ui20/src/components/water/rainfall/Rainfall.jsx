@@ -9,7 +9,7 @@ import messages from "../../../translations/messages"
 import DecadalTick from "./DecadalTick"
 import "./rainfall.scss"
 import RainTick from "./RainTick"
-import ReferenceLineLayer from "./ReferenceLineLayer"
+import {keysWithRefsToLegendData, ReferenceLineLayer, ReferenceLineLegend} from "./ReferenceLineLayer"
 
 class Rainfall extends Component {
   static propTypes = {
@@ -41,6 +41,30 @@ class Rainfall extends Component {
       if (value === C.ZERO_VALUE) return 0
       if (value === C.NA_VALUE) return <FormattedMessage id="all.graphic.value.NA" />
       return intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 1})
+    }
+
+    const referenceLineLegend = {
+      data: keysWithRefsToLegendData(keysWithRefs),
+      anchor: 'top-right',
+      direction: 'row',
+      justify: false,
+      translateX: 0,
+      translateY: -30,
+      itemsSpacing: 2,
+      itemWidth: 100,
+      itemHeight: 20,
+      itemDirection: 'right-to-left',
+      itemOpacity: 1,
+      symbolShape: 'circle',
+      symbolSize: 20,
+      effects: [
+        {
+          on: 'hover',
+          style: {
+            itemOpacity: 1
+          }
+        }
+      ]
     }
 
     return (<div className="png exportable chart container">
@@ -94,7 +118,7 @@ class Rainfall extends Component {
             anchor: 'top-right',
             direction: 'row',
             justify: false,
-            translateX: 120,
+            translateX: -120,
             translateY: -30,
             itemsSpacing: 2,
             itemWidth: 100,
@@ -115,7 +139,7 @@ class Rainfall extends Component {
         animate={false}
         motionStiffness={90}
         motionDamping={15}
-        layers={['grid', 'axes', 'bars', 'markers', 'legends', ReferenceLineLayer(intl, keysWithRefs)]}
+        layers={['grid', 'axes', 'bars', 'legends', 'markers', ReferenceLineLayer(intl, keysWithRefs), ReferenceLineLegend(referenceLineLegend)]}
       />
     </div>)
   }

@@ -43,7 +43,7 @@ export const getRain = (intl) => (dispatch, getState) => {
   return {
     barData: rainfallDTO.barData,
     keys: rainfallDTO.keys.map(k => `${k}`),
-    keysWithRefs: Array.from(rainfallDTO.keyReferenceLevels.keys()),
+    keysWithRefs: rainfallDTO.keyWithReferences,
     groupMode: 'grouped',
     indexBy: rainfallDTO.indexBy,
     colors: {
