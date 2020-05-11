@@ -70,7 +70,7 @@ const dropdownBreadcrumb = (options, selected, text, single) => {
   return <div className="breadcrums">{breadcrumbText}</div>
 }
 
-export const CustomFilterDropDown = ({options, selected, onChange, text, disabled, single}) => {
+export const CustomFilterDropDown = ({options, selected, onChange, text, disabled, single, min, max}) => {
 
   const [open, setOpen] = useState(false);
 
@@ -106,6 +106,10 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
     }
   }
 
+  const allowSelectNone = (single == null || single === false) && !min
+  const allowSelectAll = (single == null || single === false) && (!max || max >= options.length)
+  const allowDeselect = !!min && selected.length > min
+  const allowSelect = !!max && selected.length < max
 
   return (
 
@@ -115,28 +119,28 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
     }}>
 
     <Dropdown.Menu>
-    {(single == null || single === false) &&    <Dropdown.Header>
+      {(allowSelectNone || allowSelectAll) &&
+      <Dropdown.Header>
         <div>
-
-          <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicators.filters.select_all' defaultMessage="Select All"/></span>
-          <span> | </span>
-          <span className="none" onClick={e=>allNone(false)}><FormattedMessage id='indicators.filters.select_none' defaultMessage="Select None"/></span>
+          {allowSelectAll && <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicators.filters.select_all' defaultMessage="Select All"/></span>}
+          {allowSelectNone && allowSelectAll && <span> | </span>}
+          {allowSelectNone && <span className="none" onClick={e=>allNone(false)}><FormattedMessage id='indicators.filters.select_none' defaultMessage="Select None"/></span>}
         </div>
 
-      </Dropdown.Header>
-        }
+      </Dropdown.Header>}
       <Dropdown.Divider/>
 
       <Dropdown.Menu scrolling={true} className="filter options">
         {
-          options.map(o =>< Dropdown.Item key={o.key}
-            onClick = {e => updateSelection(o.key)} > <div className={"checkbox " + (
-              getChecked(o.key)
-              ? "checked"
-              : "")}/>
-            {o.text}
-
-        </Dropdown.Item>)}
+          options.map(o => {
+            const isChecked = getChecked(o.key)
+            const isDisabled = (isChecked && !allowDeselect) || (!isChecked && !allowSelect)
+            return (
+              <Dropdown.Item key={o.key} disabled={isDisabled} onClick={e => updateSelection(o.key)}>
+                <div className={"checkbox " + (isChecked ? "checked" : "")}/>
+                {o.text}
+              </Dropdown.Item>)
+          })}
       </Dropdown.Menu>
 
       <Dropdown.Divider/>
