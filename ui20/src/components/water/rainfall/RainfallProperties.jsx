@@ -101,7 +101,7 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   setRainPerDecadal: waterActions.setRainPerDecadal,
-  setFilter: waterActions.setFilter,
+  setFilter: waterActions.setRainfallFilter,
 }
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(RainfallProperties))

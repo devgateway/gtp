@@ -5,6 +5,7 @@ import {connect} from "react-redux"
 import * as waterActions from "../../redux/actions/waterActions"
 import "../ipar/indicators/indicators.scss"
 import RainfallGraphic from "./rainfall"
+import RainSeasonGraphic from "./rainseason"
 
 class WaterResources extends Component {
 
@@ -22,9 +23,11 @@ class WaterResources extends Component {
     if (!isLoaded) {
       return <div></div>
     }
-    return (<div className="indicators content fixed">
-      <RainfallGraphic />
-    </div>)
+    return (
+      <div className="indicators content fixed">
+        <RainfallGraphic/>
+        <RainSeasonGraphic/>
+      </div>)
   }
 
 }

@@ -21,9 +21,11 @@ class Graphic extends Component {
               <FormattedMessage id={titleId} />
             </p>
             <div className="indicator chart icon group">
-              <PngExport name={intl.formatMessage({id: titleId})}
-                         id="anchor.indicator.water.rainfall" filters={['filter', 'item', 'download']}
-                         includes={['active']}/>
+              <PngExport
+                name={intl.formatMessage({id: titleId})}
+                id={id}
+                filters={['filter', 'item', 'download']}
+                includes={['active']}/>
             </div>
           </div>
           {children}
