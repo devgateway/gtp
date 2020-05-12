@@ -40,7 +40,9 @@ public class RiverLevelWriter {
 
             row.createCell(0).setCellValue(formatter.format(level.getMonthDay()));
 
-            row.createCell(1).setCellValue(level.getLevel().doubleValue());
+            if (level.getLevel() != null) {
+                row.createCell(1).setCellValue(level.getLevel().doubleValue());
+            }
         }
 
         workbook.write(outputStream);

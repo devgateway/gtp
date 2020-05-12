@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
 import org.apache.wicket.model.StringResourceModel;
@@ -20,6 +22,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFor
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.category.DownloadRiverLevelsLink;
 import org.devgateway.toolkit.forms.wicket.page.lists.category.ListRiverStationYearlyLevelsReferencesPage;
 import org.devgateway.toolkit.forms.wicket.providers.HydrologicalYearRangeChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
@@ -83,6 +86,13 @@ public class EditRiverStationYearlyLevelsReferencePage extends AbstractEditPage<
         editForm.add(upload);
 
         deleteButton.setVisible(false);
+
+        Fragment extraButtons = new Fragment("extraButtons", "rsExtraButtons", this);
+        editForm.replace(extraButtons);
+
+        DownloadRiverLevelsLink downloadButton = new DownloadRiverLevelsLink("download", editForm.getModel());
+        downloadButton.setSize(Buttons.Size.Medium);
+        extraButtons.add(downloadButton);
     }
 
     private class UniqueValidator implements IValidator<HydrologicalYear> {

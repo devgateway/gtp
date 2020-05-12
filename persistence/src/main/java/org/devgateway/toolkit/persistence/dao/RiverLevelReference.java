@@ -44,6 +44,13 @@ public class RiverLevelReference extends AbstractAuditableEntity implements Comp
     @Column(scale = 1, precision = 10, nullable = false)
     private BigDecimal level;
 
+    public RiverLevelReference() {
+    }
+
+    public RiverLevelReference(MonthDay monthDay) {
+        this.monthDay = monthDay;
+    }
+
     public RiverStationYearlyLevelsReference getRiverStationYearlyLevelsReference() {
         return riverStationYearlyLevelsReference;
     }

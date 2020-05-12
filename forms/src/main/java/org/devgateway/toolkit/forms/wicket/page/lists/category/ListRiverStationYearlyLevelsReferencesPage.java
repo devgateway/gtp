@@ -1,16 +1,11 @@
 package org.devgateway.toolkit.forms.wicket.page.lists.category;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletResponse;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
@@ -19,14 +14,10 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.model.util.ListModel;
-import org.apache.wicket.request.IRequestCycle;
-import org.apache.wicket.request.IRequestHandler;
-import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
-import org.devgateway.toolkit.forms.wicket.components.form.AJAXDownload;
 import org.devgateway.toolkit.forms.wicket.components.table.AjaxFallbackBootstrapDataTable;
 import org.devgateway.toolkit.forms.wicket.components.table.BookmarkableResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
@@ -34,13 +25,11 @@ import org.devgateway.toolkit.forms.wicket.components.table.SelectFilteredBootst
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.RiverStationYearlyLevelsReferenceFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.category.EditRiverStationYearlyLevelsReferencePage;
-import org.devgateway.toolkit.forms.wicket.page.edit.category.RiverLevelWriter;
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
 import org.devgateway.toolkit.persistence.dao.RiverStation;
 import org.devgateway.toolkit.persistence.dao.RiverStationYearlyLevelsReference;
 import org.devgateway.toolkit.persistence.service.RiverStationService;
 import org.devgateway.toolkit.persistence.service.RiverStationYearlyLevelsReferenceService;
-import org.springframework.http.ContentDisposition;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
@@ -106,56 +95,8 @@ public class ListRiverStationYearlyLevelsReferencesPage extends AbstractListPage
                     .setLabel(new StringResourceModel(editResourceKey, this, null));
             add(editPageLink);
 
-            AJAXDownload download = new AJAXDownload() {
-
-                @Override
-                protected IRequestHandler getHandler() {
-                    return new IRequestHandler() {
-                        @Override
-                        public void respond(final IRequestCycle requestCycle) {
-                            final HttpServletResponse response =
-                                    (HttpServletResponse) requestCycle.getResponse().getContainerResponse();
-
-                            try {
-                                RiverStationYearlyLevelsReference entity = model.getObject();
-
-                                String fileName = String.format("%s - %s.xlsx", entity.getStation().getName(),
-                                        entity.getYear());
-
-                                response.setContentType(
-                                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-                                response.setHeader("Content-Disposition", ContentDisposition.builder("attachment")
-                                        .filename(fileName)
-                                        .build()
-                                        .toString());
-
-                                RiverLevelWriter writer = new RiverLevelWriter();
-                                writer.write(entity.getYear(), entity.getLevels(), response.getOutputStream());
-                            } catch (IOException e) {
-                                logger.error("Download error", e);
-                            }
-
-                            RequestCycle.get().scheduleRequestHandlerAfterCurrent(null);
-                        }
-
-                        @Override
-                        public void detach(final IRequestCycle requestCycle) {
-                            // do nothing;
-                        }
-                    };
-                }
-            };
-            add(download);
-
-            BootstrapAjaxLink<Void> downloadButton = new BootstrapAjaxLink<Void>("download", Buttons.Type.Info) {
-
-                @Override
-                public void onClick(AjaxRequestTarget target) {
-                    download.initiate(target);
-                }
-            };
-            downloadButton.setIconType(FontAwesomeIconType.download).setSize(Buttons.Size.Small)
-                    .setLabel(new StringResourceModel("download", this));
+            DownloadRiverLevelsLink downloadButton = new DownloadRiverLevelsLink("download", model);
+            downloadButton.setSize(Buttons.Size.Small);
             downloadButton.setVisibilityAllowed(!entity.getLevels().isEmpty());
             add(downloadButton);
 
