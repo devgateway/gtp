@@ -28,6 +28,7 @@ import java.util.List;
 @Entity
 @BatchSize(size = 100)
 public class Region extends AbstractAuditableEntity implements Serializable, Labelable {
+    private static final long serialVersionUID = -6891830924297855642L;
 
     @NotNull
     @Column(nullable = false, unique = true)
@@ -42,6 +43,7 @@ public class Region extends AbstractAuditableEntity implements Serializable, Lab
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("zoneId")
     private Zone zone;
 
     @NotNull
