@@ -1,4 +1,4 @@
-import * as api from '../../modules/api'
+import * as api from '../../modules/api/ipar/api'
 
 import Immutable from 'immutable'
 

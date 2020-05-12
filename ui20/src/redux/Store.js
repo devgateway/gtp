@@ -3,6 +3,7 @@ import {
   compose,
   createStore
 } from 'redux'
+import promise from 'redux-promise-middleware'
 import thunk from 'redux-thunk'
 import {
   createHashHistory
@@ -18,14 +19,18 @@ export const history = createHashHistory()
 const initialState = Immutable.Map()
 
 const rootReducer = createRootReducer(history)
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 export default function configureStore () {
   const store = createStore(
     rootReducer, // root reducer with router state
     initialState,
-    compose(
+    composeEnhancers(
       applyMiddleware(
-        routerMiddleware(history), thunk // for dispatching history actions
+        routerMiddleware(history),
+        // for dispatching history actions
+        thunk,
+        promise
         // ... other middlewares ...
       )
     )

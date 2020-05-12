@@ -1,7 +1,7 @@
 import "./indicators.scss"
 import React from 'react'
-import {CustomFilterDropDown} from './Components'
-import {PngExport} from './Components'
+import {CustomFilterDropDown} from '../../common/Components'
+import {PngExport} from '../../common/Components'
 import {FormattedMessage,injectIntl} from 'react-intl';
 import {items2options} from './DataUtil'
 

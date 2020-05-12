@@ -63,16 +63,18 @@ export const DateInput = ({onChange, value, text, locale})=>{
             onChange={onChange}/>)
 }
 
+const dropdownBreadcrumb = (options, selected, text, single) => {
+  const isAnySelected = selected && selected.length > 0
+  const breadcrumbText = single ? (isAnySelected ? options.find(a=>a.key === selected[0]).text : text) :
+    <span>{text} ({selected.length} of {options.length})</span>
+  return <div className="breadcrums">{breadcrumbText}</div>
+}
 
-
-
-
-
-export const CustomFilterDropDown = ({options, selected, onChange, text, disabled, single}) => {
+export const CustomFilterDropDown = ({options, selected, onChange, text, disabled, single, min, max}) => {
 
   const [open, setOpen] = useState(false);
 
-  const breadcrum = single ? (<div className="breadcrums">{selected && selected.length > 0 ? options[  options.map(a=>a.key).indexOf(selected[0]) ].text : text}</div>) : (<div className="breadcrums">{text} {true ? <span>({selected.length} of {options.length})</span> : null}</div>)
+  const breadcrum = dropdownBreadcrumb(options, selected, text, single)
 
   const updateSelection = (key) => {
     var newSelection = selected.slice(0)
@@ -104,6 +106,11 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
     }
   }
 
+  const isSingle = single === true
+  const allowSelectNone = !isSingle && !min
+  const allowSelectAll = !isSingle && (!max || max >= options.length)
+  const allowDeselect = !!min && selected.length > min
+  const allowSelect = isSingle || (!!max && selected.length < max)
 
   return (
 
@@ -113,27 +120,28 @@ export const CustomFilterDropDown = ({options, selected, onChange, text, disable
     }}>
 
     <Dropdown.Menu>
-    {(single == null || single === false) &&    <Dropdown.Header>
+      {(allowSelectNone || allowSelectAll) &&
+      <Dropdown.Header>
         <div>
-
-          <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicators.filters.select_all' defaultMessage="Select All"/></span>
-          <span> | </span>
-          <span className="none" onClick={e=>allNone(false)}><FormattedMessage id='indicators.filters.select_none' defaultMessage="Select None"/></span>
+          {allowSelectAll && <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicators.filters.select_all' defaultMessage="Select All"/></span>}
+          {allowSelectNone && allowSelectAll && <span> | </span>}
+          {allowSelectNone && <span className="none" onClick={e=>allNone(false)}><FormattedMessage id='indicators.filters.select_none' defaultMessage="Select None"/></span>}
         </div>
 
-      </Dropdown.Header>
-        }
+      </Dropdown.Header>}
       <Dropdown.Divider/>
 
-      <Dropdown.Menu scrolling="scrolling" className="filter options">
+      <Dropdown.Menu scrolling={true} className="filter options">
         {
-          options.map(o =>< Dropdown.Item onClick = {e => updateSelection(o.key)} > <div className={"checkbox " + (
-              getChecked(o.key)
-              ? "checked"
-              : "")}/>
-            {o.text}
-
-        </Dropdown.Item>)}
+          options.map(o => {
+            const isChecked = getChecked(o.key)
+            const isDisabled = (isChecked && !allowDeselect) || (!isChecked && !allowSelect)
+            return (
+              <Dropdown.Item key={o.key} disabled={isDisabled} onClick={e => updateSelection(o.key)}>
+                <div className={"checkbox " + (isChecked ? "checked" : "")}/>
+                {o.text}
+              </Dropdown.Item>)
+          })}
       </Dropdown.Menu>
 
       <Dropdown.Divider/>
@@ -156,7 +164,7 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
           // eslint-disable-next-line no-unused-vars
   const selectedText = selected[0]
 
-  const breadcrum = single ? (<div className="breadcrums">{selected && selected.length > 0 ? plainOptions[  plainOptions.map(a=>a.key).indexOf(selected[0]) ].text : text}</div>) : (<div className="breadcrums">{text} {true ? <span>({selected.length} of {plainOptions.length})</span> : null}</div>)
+  const breadcrum = dropdownBreadcrumb(options, selected, text, single)
 
   const updateSelection = (key) => {
     var newSelection = selected.slice(0)
