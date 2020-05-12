@@ -72,5 +72,11 @@ public class SystemCategoriesHomePage extends BasePage {
                 new BootstrapBookmarkablePageLink<>("riverStations", ListRiverStationsPage.class, Buttons.Type.Default);
         riverStations.setLabel(new StringResourceModel("riverStations"));
         add(riverStations);
+
+        BootstrapBookmarkablePageLink<ListRiverStationYearlyLevelsReferencesPage> riverLevelRefs =
+                new BootstrapBookmarkablePageLink<>("riverLevelRefs",
+                        ListRiverStationYearlyLevelsReferencesPage.class, Buttons.Type.Default);
+        riverLevelRefs.setLabel(new StringResourceModel("riverLevelRefs"));
+        add(riverLevelRefs);
     }
 }
