@@ -18,7 +18,7 @@ class RainSeasonGraphic extends Component {
     return (<Graphic
       id="anchor.indicator.water.rainseason" titleId="indicators.table.rainseason.title"
       sourceId="indicators.table.rainseason.source" className="rainseason">
-      <RainSeasonTable {...getRainSeason()} />
+      <RainSeasonTable {...getRainSeason()} {...this.props}/>
     </Graphic>)
   }
 }
@@ -26,6 +26,8 @@ class RainSeasonGraphic extends Component {
 
 const mapStateToProps = state => {
   return {
+    sortedBy: state.getIn(['water', 'data', 'rainSeasonChart', 'sortedBy']),
+    sortedAsc: state.getIn(['water', 'data', 'rainSeasonChart', 'sortedAsc']),
   }
 }
 

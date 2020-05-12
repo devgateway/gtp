@@ -6,16 +6,22 @@ import {Table} from "semantic-ui-react"
 import {RainSeasonPredictionDTO} from "../../../modules/graphic/water/rainSeason/RainSeasonPredictionDTO"
 import * as C from "../../../modules/graphic/water/rainSeason/RainSeasonConstants"
 import {toSignedNumberLocaleString} from "../../../modules/utils/DataUtilis"
+import * as waterActions from "../../../redux/actions/waterActions"
 import "../../ipar/microdata/microdata.scss"
 
 
 class RainSeasonTable extends Component {
   static propTypes = {
     data: PropTypes.arrayOf(PropTypes.instanceOf(RainSeasonPredictionDTO)).isRequired,
+    handleSort: PropTypes.func.isRequired,
+    sortedBy: PropTypes.string,
+    sortedAsc: PropTypes.bool,
   }
 
   render() {
-    const {data, intl} = this.props
+    const {data, intl, sortedBy, sortedAsc, handleSort} = this.props
+    const directionLong = sortedAsc ? 'ascending' : 'descending'
+    const headerCell = headerCellBuilder(sortedBy, sortedAsc, directionLong, handleSort)
     return (
       <div className="microdata container">
         <div className="png exportable table">
@@ -45,11 +51,14 @@ class RainSeasonTable extends Component {
   }
 }
 
-const headerCell = (name) => (
-  <Table.HeaderCell>
-    <FormattedMessage id={C.COLUMN_MESSAGE_KEY[name]} defaultMessage={name}/>
-  </Table.HeaderCell>
-)
+const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort) => (name) => {
+  const isSorted = sortedBy === name
+  const applySort = () => handleSort(name, isSorted ? !sortedAsc : true)
+  return (
+    <Table.HeaderCell key={name} sorted={isSorted ? directionLong : null} onClick={applySort}>
+      <FormattedMessage id={C.COLUMN_MESSAGE_KEY[name]} defaultMessage={name}/>
+    </Table.HeaderCell>)
+}
 
 
 const mapStateToProps = state => {
@@ -58,6 +67,7 @@ const mapStateToProps = state => {
 }
 
 const mapActionCreators = {
+  handleSort: waterActions.sortRainSeason
 }
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(RainSeasonTable))

@@ -7,7 +7,13 @@ import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
 import {rainSeasonChartFromApi} from "../../modules/entities/rainSeason/RainSeasonChart"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
-import {CHANGE_RAINFALL_FILTER, CHANGE_RAINFALL_SETTING, FILTER_RAINFALL, WATER_RESOURCES} from "../reducers/Water"
+import {
+  CHANGE_RAINFALL_FILTER,
+  CHANGE_RAINFALL_SETTING,
+  FILTER_RAINFALL,
+  SORT_RAIN_SEASON,
+  WATER_RESOURCES
+} from "../reducers/Water"
 
 export const loadAllWaterData = () => (dispatch, getState) =>
   dispatch({
@@ -88,3 +94,9 @@ export const getRainSeason = () => (dispatch, getState) => {
     data: builder.data
   }
 }
+
+export const sortRainSeason = (sortedBy, sortedAsc) => (dispatch, getState) =>
+  dispatch({
+    type: SORT_RAIN_SEASON,
+    data: {sortedBy, sortedAsc}
+  })
