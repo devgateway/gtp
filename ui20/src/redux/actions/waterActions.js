@@ -4,6 +4,7 @@ import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
 import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
+import {rainSeasonChartFromApi} from "../../modules/entities/rainSeason/RainSeasonChart"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import {CHANGE_RAINFALL_FILTER, CHANGE_RAINFALL_SETTING, FILTER_RAINFALL, WATER_RESOURCES} from "../reducers/Water"
 
@@ -20,7 +21,7 @@ export const getRainfall = (rainLevelFilter) => (dispatch, getState) =>
   })
 
 const transformAll = (allData) => {
-  const {commonConfig, rainLevelChart} = allData
+  const {commonConfig, rainLevelChart, seasonChart} = allData
   return {
     commonConfig: new CommonConfig(commonConfig),
     rainLevelChart: {
@@ -28,7 +29,8 @@ const transformAll = (allData) => {
       data: new RainLevelData(rainLevelChart.data),
       filter: new RainLevelFilter(rainLevelChart.filter.years, rainLevelChart.filter.pluviometricPostId),
       setting: new RainLevelSetting()
-    }
+    },
+    rainSeasonChart: rainSeasonChartFromApi(seasonChart)
   }
 }
 

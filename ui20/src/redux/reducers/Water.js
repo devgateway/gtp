@@ -4,6 +4,7 @@ import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
 import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
+import RainSeasonChart from "../../modules/entities/rainSeason/RainSeasonChart"
 
 
 export const WATER_RESOURCES = 'WATER_RESOURCES';
@@ -28,7 +29,8 @@ const initialState = Immutable.fromJS({
       data: RainLevelData,
       filter: RainLevelFilter,
       setting: RainLevelSetting,
-    }
+    },
+    rainSeasonChart: RainSeasonChart,
   },
   isFilteringRainfall: false,
   isFilteredRainfall: false,
