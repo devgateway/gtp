@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Octavian on 01.07.2016.
@@ -20,4 +21,8 @@ public interface BaseJpaRepository<T, ID extends Serializable>
     @Override
     @CacheHibernateQueryResult
     Page<T> findAll(Specification<T> spec, Pageable pageable);
+
+    @Override
+    @CacheHibernateQueryResult
+    List<T> findAll();
 }
