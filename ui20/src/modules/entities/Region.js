@@ -1,8 +1,11 @@
+import Zone from "./Zone"
+
 export default class Region {
-  id
-  label
-  code
-  zone
+  id: number
+  label: string
+  code: string
+  zoneId: number
+  zone: Zone
 
   constructor(props) {
     Object.assign(this, props)
