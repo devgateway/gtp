@@ -33,7 +33,7 @@ public abstract class MonthDayModel implements IModel<MonthDay> {
 
     public void setDay(Integer day) {
         MonthDay monthDay = getObject();
-        if (monthDay != null) {
+        if (monthDay != null && day != null) {
             setObject(MonthDay.of(monthDay.getMonth(), day));
         }
     }
