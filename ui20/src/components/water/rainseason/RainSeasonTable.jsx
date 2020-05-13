@@ -2,7 +2,7 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
-import {Table} from "semantic-ui-react"
+import {Pagination, Table} from "semantic-ui-react"
 import {RainSeasonPredictionDTO} from "../../../modules/graphic/water/rainSeason/RainSeasonPredictionDTO"
 import * as C from "../../../modules/graphic/water/rainSeason/RainSeasonConstants"
 import {toSignedNumberLocaleString} from "../../../modules/utils/DataUtilis"
@@ -18,10 +18,35 @@ class RainSeasonTable extends Component {
     sortedAsc: PropTypes.bool,
   }
 
+  constructor(props) {
+    super(props)
+    const {data} = props
+    this.state = {
+      activePage: 1,
+      totalPages: Math.floor(data.length / C.PAGE_SIZE) + Math.min(1, data.length % C.PAGE_SIZE)
+    }
+  }
+
+  onPageChange(activePage: number) {
+    this.setState({
+      activePage
+    })
+  }
+
+  _getData() {
+    const {data} = this.props
+    const {activePage} = this.state
+    const begin = (activePage - 1) * C.PAGE_SIZE
+    const end = Math.min(begin + C.PAGE_SIZE, data.length)
+    return data.slice(begin, end)
+  }
+
   render() {
-    const {data, intl, sortedBy, sortedAsc, handleSort} = this.props
+    const {intl, sortedBy, sortedAsc, handleSort} = this.props
+    const data = this._getData()
     const directionLong = sortedAsc ? 'ascending' : 'descending'
     const headerCell = headerCellBuilder(sortedBy, sortedAsc, directionLong, handleSort)
+
     return (
       <div className="microdata container">
         <div className="png exportable table">
@@ -45,6 +70,13 @@ class RainSeasonTable extends Component {
               ))}
             </Table.Body>
           </Table>
+          <div className="pagination wrapper">
+            <Pagination
+              activePage={this.state.activePage}
+              totalPages={this.state.totalPages}
+              onPageChange={(e, { activePage })=> this.onPageChange(activePage)}
+            />
+          </div>
         </div>
       </div>
     )

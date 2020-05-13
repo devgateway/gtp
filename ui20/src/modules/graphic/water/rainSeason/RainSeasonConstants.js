@@ -1,3 +1,5 @@
+export const PAGE_SIZE = 10
+
 export const ZONE = 'zone'
 export const REGION = 'region'
 export const DEPARTMENT = 'department'
