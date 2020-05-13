@@ -4,8 +4,16 @@ import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
 import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
+import {rainSeasonChartFromApi} from "../../modules/entities/rainSeason/RainSeasonChart"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
-import {CHANGE_RAINFALL_FILTER, CHANGE_RAINFALL_SETTING, FILTER_RAINFALL, WATER_RESOURCES} from "../reducers/Water"
+import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
+import {
+  CHANGE_RAINFALL_FILTER,
+  CHANGE_RAINFALL_SETTING,
+  FILTER_RAINFALL,
+  SORT_RAIN_SEASON,
+  WATER_RESOURCES
+} from "../reducers/Water"
 
 export const loadAllWaterData = () => (dispatch, getState) =>
   dispatch({
@@ -20,7 +28,7 @@ export const getRainfall = (rainLevelFilter) => (dispatch, getState) =>
   })
 
 const transformAll = (allData) => {
-  const {commonConfig, rainLevelChart} = allData
+  const {commonConfig, rainLevelChart, seasonChart} = allData
   return {
     commonConfig: new CommonConfig(commonConfig),
     rainLevelChart: {
@@ -28,9 +36,12 @@ const transformAll = (allData) => {
       data: new RainLevelData(rainLevelChart.data),
       filter: new RainLevelFilter(rainLevelChart.filter.years, rainLevelChart.filter.pluviometricPostId),
       setting: new RainLevelSetting()
-    }
+    },
+    rainSeasonChart: rainSeasonChartFromApi(seasonChart)
   }
 }
+
+/*      RAINFALL          */
 
 const transformRainfall = (data) => new RainLevelData(data)
 
@@ -62,7 +73,7 @@ export const setRainPerDecadal = (byDecadal) => (dispatch, getState) => {
   })
 }
 
-export const setFilter = (years: Array<number>, pluviometricPostId: number) => (dispatch, getState) => {
+export const setRainfallFilter = (years: Array<number>, pluviometricPostId: number) => (dispatch, getState) => {
   const rainLevelFilter = new RainLevelFilter(years, pluviometricPostId)
   dispatch({
     type: CHANGE_RAINFALL_FILTER,
@@ -70,3 +81,22 @@ export const setFilter = (years: Array<number>, pluviometricPostId: number) => (
   })
   return getRainfall(rainLevelFilter)(dispatch, getState)
 }
+
+/*      RAIN SEASON          */
+
+export const getRainSeason = () => (dispatch, getState) => {
+  const { rainSeasonChart, commonConfig } = getState().getIn(['water', 'data'])
+  const builder = new RainSeasonTableBuilder(rainSeasonChart, commonConfig)
+
+  builder.build()
+
+  return {
+    data: builder.data
+  }
+}
+
+export const sortRainSeason = (sortedBy, sortedAsc) => (dispatch, getState) =>
+  dispatch({
+    type: SORT_RAIN_SEASON,
+    data: {sortedBy, sortedAsc}
+  })

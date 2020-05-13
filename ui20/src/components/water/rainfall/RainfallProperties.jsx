@@ -37,7 +37,7 @@ const yearsToOptions = (years) => years.sort().reverse().map(y => ({
 
 const postIdsToOptions = (postIds, commonConfig: CommonConfig) => postIds.map(id => {
   const post = commonConfig.posts.get(id)
-  const dep = commonConfig.departments.get(post.department)
+  const dep = post.department
   return ({
   key: id,
   text: `${post.label} (${dep.name})`,
@@ -101,7 +101,7 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   setRainPerDecadal: waterActions.setRainPerDecadal,
-  setFilter: waterActions.setFilter,
+  setFilter: waterActions.setRainfallFilter,
 }
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(RainfallProperties))

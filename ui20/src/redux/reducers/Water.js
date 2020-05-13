@@ -4,6 +4,7 @@ import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
 import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
+import RainSeasonChart from "../../modules/entities/rainSeason/RainSeasonChart"
 
 
 export const WATER_RESOURCES = 'WATER_RESOURCES';
@@ -16,6 +17,7 @@ const FILTER_RAINFALL_FULFILLED = 'FILTER_RAINFALL_FULFILLED'
 const FILTER_RAINFALL_REJECTED = 'FILTER_RAINFALL_REJECTED'
 export const CHANGE_RAINFALL_FILTER = 'CHANGE_RAINFALL_FILTER'
 export const CHANGE_RAINFALL_SETTING = 'CHANGE_RAINFALL_SETTING'
+export const SORT_RAIN_SEASON = 'SORT_RAIN_SEASON'
 
 const initialState = Immutable.fromJS({
   isLoading: false,
@@ -28,7 +30,8 @@ const initialState = Immutable.fromJS({
       data: RainLevelData,
       filter: RainLevelFilter,
       setting: RainLevelSetting,
-    }
+    },
+    rainSeasonChart: RainSeasonChart,
   },
   isFilteringRainfall: false,
   isFilteredRainfall: false,
@@ -54,6 +57,11 @@ export default (state = initialState, action) => {
       return state.setIn(['data', 'rainLevelChart', 'filter'], data)
     case CHANGE_RAINFALL_SETTING:
       return state.setIn(['data', 'rainLevelChart', 'setting'], data)
+    case SORT_RAIN_SEASON: {
+      const {sortedBy, sortedAsc} = data
+      return state.setIn(['data', 'rainSeasonChart', 'sortedBy'], sortedBy)
+        .setIn(['data', 'rainSeasonChart', 'sortedAsc'], sortedAsc)
+    }
     default: {
       return state
     }
