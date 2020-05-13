@@ -1,10 +1,7 @@
 const RainSeasonFilter: {
-  year: number,
-  zoneId: number,
-  regionId: number,
-  departmentId: number,
-  postId: number,
+  year: Array<number>,
 } = {
+  year: [],
 }
 
 export default RainSeasonFilter
