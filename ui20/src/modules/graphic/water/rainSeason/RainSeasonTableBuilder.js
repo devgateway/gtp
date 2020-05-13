@@ -1,5 +1,7 @@
 import CommonConfig from "../../../entities/rainfall/CommonConfig"
 import RainSeasonChart from "../../../entities/rainSeason/RainSeasonChart"
+import RainSeasonConfig from "../../../entities/rainSeason/RainSeasonConfig"
+import RainSeasonConfigDTO from "./RainSeasonConfigDTO"
 import {RainSeasonPredictionDTO} from "./RainSeasonPredictionDTO"
 import * as C from './RainSeasonConstants'
 
@@ -7,6 +9,7 @@ export default class RainSeasonTableBuilder {
   rainSeasonChart: RainSeasonChart
   commonConfig: CommonConfig
   data: Array<RainSeasonPredictionDTO>
+  config: RainSeasonConfig
 
   constructor(rainSeasonChart: RainSeasonChart, commonConfig: CommonConfig) {
     this.rainSeasonChart = rainSeasonChart
@@ -36,6 +39,9 @@ export default class RainSeasonTableBuilder {
       }
     }
     this.data = data
+    this.config = new RainSeasonConfigDTO({
+      years: this.rainSeasonChart.config.years
+    })
   }
 }
 

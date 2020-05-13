@@ -24,18 +24,6 @@ export const loadAllWaterData = () => (dispatch, getState) =>
     payload: api.getAllWaterResources().then(transformAll)
   })
 
-export const getRainfall = (rainLevelFilter) => (dispatch, getState) =>
-  dispatch({
-    type: FILTER_RAINFALL,
-    payload: api.getRainfall(rainLevelFilter).then(transformRainfall)
-  })
-
-export const getRainSeasonByYear = (year: number) => (dispatch, getState) =>
-  dispatch({
-    type: FILTER_RAIN_SEASON,
-    payload: api.getRainSeason(year).then((data) => transformRainSeason(data, year))
-  })
-
 const transformAll = (allData) => {
   const {commonConfig, rainLevelChart, seasonChart} = allData
   return {
@@ -51,6 +39,12 @@ const transformAll = (allData) => {
 }
 
 /*      RAINFALL          */
+
+export const getRainfall = (rainLevelFilter) => (dispatch, getState) =>
+  dispatch({
+    type: FILTER_RAINFALL,
+    payload: api.getRainfall(rainLevelFilter).then(transformRainfall)
+  })
 
 const transformRainfall = (data) => new RainLevelData(data)
 
@@ -92,6 +86,12 @@ export const setRainfallFilter = (years: Array<number>, pluviometricPostId: numb
 }
 
 /*      RAIN SEASON          */
+
+export const getRainSeasonByYear = (year: number) => (dispatch, getState) =>
+  dispatch({
+    type: FILTER_RAIN_SEASON,
+    payload: api.getRainSeason(year).then((data) => transformRainSeason(data, year))
+  })
 
 const transformRainSeason = (data, year)  => new RainSeasonData(data, year)
 
