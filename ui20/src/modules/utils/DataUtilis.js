@@ -17,3 +17,8 @@ export const asBarChartValue = (value) => {
   return C.ZERO_VALUE
 }
 
+export const toSignedNumberLocaleString = (intl, value: number, defaultNullOrUndefined = '') => {
+  if (value === null || value === undefined) return defaultNullOrUndefined
+  const sign = value > 0 ? '+' : ''
+  return `${sign}${intl.formatNumber(value)}`
+}

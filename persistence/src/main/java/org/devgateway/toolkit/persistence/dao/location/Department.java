@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.dao.location;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
@@ -32,6 +33,7 @@ public class Department extends AbstractAuditableEntity implements Serializable,
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("regionId")
     private Region region;
 
     @NotNull
