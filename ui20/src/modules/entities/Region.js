@@ -14,4 +14,8 @@ export default class Region {
   static newInstance(props) {
     return new Region(props)
   }
+
+  static localeCompare(r1: Region, r2: Region) {
+    return r1.label.localeCompare(r2.label)
+  }
 }

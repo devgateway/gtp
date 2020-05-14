@@ -3,16 +3,20 @@ import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import {Pagination, Table} from "semantic-ui-react"
-import {RainSeasonPredictionDTO} from "../../../modules/graphic/water/rainSeason/RainSeasonPredictionDTO"
+import RainSeasonConfigDTO from "../../../modules/graphic/water/rainSeason/RainSeasonConfigDTO"
 import * as C from "../../../modules/graphic/water/rainSeason/RainSeasonConstants"
+import {RainSeasonPredictionDTO} from "../../../modules/graphic/water/rainSeason/RainSeasonPredictionDTO"
 import {toSignedNumberLocaleString} from "../../../modules/utils/DataUtilis"
 import * as waterActions from "../../../redux/actions/waterActions"
 import "../../ipar/microdata/microdata.scss"
+import RainSeasonTableFilter from "./RainSeasonTableFilter"
 
 
 class RainSeasonTable extends Component {
   static propTypes = {
     data: PropTypes.arrayOf(PropTypes.instanceOf(RainSeasonPredictionDTO)).isRequired,
+    config: PropTypes.instanceOf(RainSeasonConfigDTO).isRequired,
+    filter: PropTypes.object.isRequired,
     handleSort: PropTypes.func.isRequired,
     sortedBy: PropTypes.string,
     sortedAsc: PropTypes.bool,
@@ -20,8 +24,20 @@ class RainSeasonTable extends Component {
 
   constructor(props) {
     super(props)
-    const {data} = props
     this.state = {
+      isLocalStateChange: false,
+    }
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const {data} = props
+    const {isLocalStateChange} = state
+    if (isLocalStateChange) {
+      return {
+        isLocalStateChange: false
+      }
+    }
+    return {
       activePage: 1,
       totalPages: Math.floor(data.length / C.PAGE_SIZE) + Math.min(1, data.length % C.PAGE_SIZE)
     }
@@ -29,7 +45,8 @@ class RainSeasonTable extends Component {
 
   onPageChange(activePage: number) {
     this.setState({
-      activePage
+      activePage,
+      isLocalStateChange: true
     })
   }
 
@@ -42,10 +59,10 @@ class RainSeasonTable extends Component {
   }
 
   render() {
-    const {intl, sortedBy, sortedAsc, handleSort} = this.props
+    const {intl, sortedBy, sortedAsc, handleSort, filter, config} = this.props
     const data = this._getData()
     const directionLong = sortedAsc ? 'ascending' : 'descending'
-    const headerCell = headerCellBuilder(sortedBy, sortedAsc, directionLong, handleSort)
+    const headerCell = headerCellBuilder(sortedBy, sortedAsc, directionLong, handleSort, filter, config)
 
     return (
       <div className="microdata container">
@@ -74,6 +91,7 @@ class RainSeasonTable extends Component {
             <Pagination
               activePage={this.state.activePage}
               totalPages={this.state.totalPages}
+              size='mini'
               onPageChange={(e, { activePage })=> this.onPageChange(activePage)}
             />
           </div>
@@ -83,15 +101,19 @@ class RainSeasonTable extends Component {
   }
 }
 
-const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort) => (name) => {
+const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort, filter, config) => (name) => {
   const isSorted = sortedBy === name
   const applySort = () => handleSort(name, isSorted ? !sortedAsc : true)
   return (
     <Table.HeaderCell key={name} sorted={isSorted ? directionLong : null} onClick={applySort}>
-      <FormattedMessage id={C.COLUMN_MESSAGE_KEY[name]} defaultMessage={name}/>
+      {C.FILTER_MESSAGE_KEY[name] &&
+      (<div className="indicator chart filter">
+        <RainSeasonTableFilter columnName={name} filter={filter} config={config} min={0}/>
+      </div>)}
+      {!C.FILTER_MESSAGE_KEY[name] &&
+      <FormattedMessage id={C.COLUMN_MESSAGE_KEY[name]} defaultMessage={name}/>}
     </Table.HeaderCell>)
 }
-
 
 const mapStateToProps = state => {
   return {

@@ -1,0 +1,34 @@
+@import '../../base';
+
+.indicator.chart.filter {
+  .text {
+    .breadcrums {
+      .filterName {
+        font-weight: 600;
+        font-size: 12px !important;
+      }
+    }
+  }
+}
+th {
+  .indicator.chart.filter {
+    display: unset;
+    border: 0 !important;
+
+    .filter.item {
+      margin-left: unset !important;
+      width: 90%;
+
+
+      .ui.fluid.dropdown {
+        margin-left: unset !important;
+        min-width: unset !important;
+
+        .dropdown.icon::before {
+          background-image: unset !important;
+        }
+
+      }
+    }
+  }
+}

@@ -17,6 +17,11 @@ const FILTER_RAINFALL_FULFILLED = 'FILTER_RAINFALL_FULFILLED'
 const FILTER_RAINFALL_REJECTED = 'FILTER_RAINFALL_REJECTED'
 export const CHANGE_RAINFALL_FILTER = 'CHANGE_RAINFALL_FILTER'
 export const CHANGE_RAINFALL_SETTING = 'CHANGE_RAINFALL_SETTING'
+export const FILTER_RAIN_SEASON = 'FILTER_RAIN_SEASON'
+const FILTER_RAIN_SEASON_PENDING = 'FILTER_RAIN_SEASON_PENDING'
+const FILTER_RAIN_SEASON_FULFILLED = 'FILTER_RAIN_SEASON_FULFILLED'
+const FILTER_RAIN_SEASON_REJECTED = 'FILTER_RAIN_SEASON_REJECTED'
+export const CHANGE_RAIN_SEASON_FILTER = 'CHANGE_RAIN_SEASON_FILTER'
 export const SORT_RAIN_SEASON = 'SORT_RAIN_SEASON'
 
 const initialState = Immutable.fromJS({
@@ -35,10 +40,12 @@ const initialState = Immutable.fromJS({
   },
   isFilteringRainfall: false,
   isFilteredRainfall: false,
+  isFilteringRainSeason: false,
+  isFilteredRainSeason: false,
 })
 
 export default (state = initialState, action) => {
-  const { payload, data } = action;
+  const { payload, data, path } = action;
   switch (action.type) {
     case WATER_RESOURCES_PENDING:
       return state.set('isLoading', true).set('error', null)
@@ -57,6 +64,15 @@ export default (state = initialState, action) => {
       return state.setIn(['data', 'rainLevelChart', 'filter'], data)
     case CHANGE_RAINFALL_SETTING:
       return state.setIn(['data', 'rainLevelChart', 'setting'], data)
+    case FILTER_RAIN_SEASON_PENDING:
+      return state.set('isFilteringRainSeason', true).set('isFilteredRainSeason', false).set('error', null)
+    case FILTER_RAIN_SEASON_FULFILLED:
+      return state.set('isFilteringRainSeason', false).set('isFilteredRainSeason', true)
+        .setIn(['data', 'rainSeasonChart'], payload)
+    case FILTER_RAIN_SEASON_REJECTED:
+      return state.set('isFilteringRainSeason', false).set('isFilteredRainSeason', false).set('error', payload)
+    case CHANGE_RAIN_SEASON_FILTER:
+      return state.setIn(path, data)
     case SORT_RAIN_SEASON: {
       const {sortedBy, sortedAsc} = data
       return state.setIn(['data', 'rainSeasonChart', 'sortedBy'], sortedBy)
