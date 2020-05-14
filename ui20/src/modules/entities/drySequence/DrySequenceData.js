@@ -1,6 +1,8 @@
 import {getOrDefaultMap} from "../../utils/DataUtilis"
 import {DecadalDaysRain, MonthDaysRain} from "./DaysRain"
 
+const MISSING_DATA = undefined
+
 export default class DrySequenceData {
   decadalDaysWithRain: Map<number, Map<number, DecadalDaysRain>>
   monthDaysWithRain: Map<number, MonthDaysRain>
@@ -26,12 +28,12 @@ export default class DrySequenceData {
 
   getMonthLevel(month: number, isDaysWithRain: boolean) {
     const monthDaysRain: MonthDaysRain = this.monthDaysWithRain.get(month)
-    return !monthDaysRain ? undefined : monthDaysRain.daysRain.getRain(isDaysWithRain)
+    return !monthDaysRain ? MISSING_DATA : monthDaysRain.daysRain.getRain(isDaysWithRain)
   }
 
   getDecadalLevel(month: number, decadal: number, isDaysWithRain: boolean) {
     const decadalDaysRain: DecadalDaysRain = getOrDefaultMap(this.decadalDaysWithRain, month).get(decadal)
-    return !decadalDaysRain ? undefined : decadalDaysRain.daysRain.getRain(isDaysWithRain)
+    return !decadalDaysRain ? MISSING_DATA : decadalDaysRain.daysRain.getRain(isDaysWithRain)
   }
 }
 

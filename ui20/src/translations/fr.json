@@ -1,5 +1,6 @@
 {
 	"all.decadals": "Décadaires",
+	"all.decadalsPerMonth": "Décadaires par mois",
 	"all.graphic.value.NA": "N/A",
 	"all.month.1": "janvier",
 	"all.month.2": "février",
@@ -283,5 +284,6 @@
 	"table.unsed.cols": "Faites glisser les lignes ou les colonnes",
 	"table.unsed.rows": "Elément des lignes",
 	"table.used.cols": "Eléments des colonnes",
+	"water.drysequence.days": "Nombre de jours",
 	"water.rainfall.level": "Pluie (mm)"
 }

@@ -31,21 +31,16 @@ export default class DrySequenceChartBuilder {
   build() {
     this.monthDecadal.getMonths().forEach(month => {
       const monthLabel = `${this.intl.formatMessage(messages[`month_${month}`])}`
+      const record = {}
       this.monthDecadal.getDecadals(month).forEach(decadal => {
-        this._buildRecord(month, monthLabel, decadal)
+        record[`${decadal}`] = asBarChartValue(this._getValue(month, decadal))
       })
+      record[this.indexBy] = monthLabel
+      this.barData.push(record)
     })
-    return new DrySequenceChartDTO(this.indexBy, this.keys, this.barData)
-  }
-
-  _buildRecord(month: number, monthLabel: string, decadal: number) {
-    const record = {}
-    record[this.indexBy] = month
-    record.indexLabel = monthLabel
-    this.keys.forEach(decadal => {
-      record[`${decadal}`] = asBarChartValue(this._getValue(month, decadal))
-    })
-    this.barData.push(record)
+    return {
+      drySequenceChartDTO: new DrySequenceChartDTO(this.indexBy, this.keys.map(k => `${k}`), this.barData)
+    }
   }
 
   _getValue(month: number, decadal: number) {
