@@ -23,6 +23,16 @@ export default class DrySequenceData {
       this.monthDaysWithRain.set(month, new MonthDaysRain(month, withRain, withoutRain))
     }
   }
+
+  getMonthLevel(month: number, isDaysWithRain: boolean) {
+    const monthDaysRain: MonthDaysRain = this.monthDaysWithRain.get(month)
+    return !monthDaysRain ? undefined : monthDaysRain.daysRain.getRain(isDaysWithRain)
+  }
+
+  getDecadalLevel(month: number, decadal: number, isDaysWithRain: boolean) {
+    const decadalDaysRain: DecadalDaysRain = getOrDefaultMap(this.decadalDaysWithRain, month).get(decadal)
+    return !decadalDaysRain ? undefined : decadalDaysRain.daysRain.getRain(isDaysWithRain)
+  }
 }
 
 

@@ -6,6 +6,10 @@ export default class DaysRain {
     this.withRain = withRain
     this.withoutRain = withoutRain
   }
+
+  getRain(isDaysWithRain: boolean) {
+    return isDaysWithRain ? this.withRain : this.withoutRain
+  }
 }
 
 export class MonthDaysRain {
