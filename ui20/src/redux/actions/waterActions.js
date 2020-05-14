@@ -1,10 +1,12 @@
 import * as api from "../../modules/api/index"
+import DrySequenceChart, {drySequenceChartFromApi} from "../../modules/entities/drySequence/DrySequenceChart"
 import CommonConfig from "../../modules/entities/rainfall/CommonConfig"
 import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
 import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
 import {rainSeasonChartFromApi, rainSeasonDataFromApi} from "../../modules/entities/rainSeason/RainSeasonChart"
+import DrySequenceChartBuilder from "../../modules/graphic/water/drySequence/DrySequenceChartBuilder"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
 import {
@@ -24,7 +26,7 @@ export const loadAllWaterData = () => (dispatch, getState) =>
   })
 
 const transformAll = (allData) => {
-  const {rainLevelChart, seasonChart} = allData
+  const {rainLevelChart, drySequenceChart, seasonChart} = allData
   const commonConfig = new CommonConfig(allData.commonConfig)
   return {
     commonConfig,
@@ -34,6 +36,7 @@ const transformAll = (allData) => {
       filter: new RainLevelFilter(rainLevelChart.filter.years, rainLevelChart.filter.pluviometricPostId),
       setting: new RainLevelSetting()
     },
+    drySequenceChart: drySequenceChartFromApi(drySequenceChart),
     rainSeasonChart: rainSeasonChartFromApi(commonConfig, seasonChart)
   }
 }
@@ -83,6 +86,14 @@ export const setRainfallFilter = (years: Array<number>, pluviometricPostId: numb
     data: rainLevelFilter
   })
   return getRainfall(rainLevelFilter)(dispatch, getState)
+}
+
+/*      DRY SEQUENCE          */
+export const getDrySequence = (intl) => (dispatch, getState) => {
+  const {drySequenceChart} = getState().getIn(['water', 'data'])
+  const builder = new DrySequenceChartBuilder(drySequenceChart, intl)
+
+  return builder.build()
 }
 
 /*      RAIN SEASON          */

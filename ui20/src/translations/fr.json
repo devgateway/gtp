@@ -1,5 +1,6 @@
 {
 	"all.decadals": "Décadaires",
+	"all.decadalsPerMonth": "Décadaires par mois",
 	"all.graphic.value.NA": "N/A",
 	"all.month.1": "janvier",
 	"all.month.2": "février",
@@ -148,6 +149,8 @@
 	"indicators.chart.poverty.description": "Proportion de la population en-deça du seuil international de pauvreté, selon le sexe, l’âge, le statut professionnel et la situation géographique (urbaine/rurale).",
 	"indicators.chart.poverty.historical.by.region": "% population en-deça du seuil de pauvreté",
 	"indicators.chart.poverty.title": "Proportion de la population en-deça du seuil international de pauvreté ",
+	"indicators.chart.dryseason.title": "Séquence sèche",
+	"indicators.chart.dryseason.source": "ANACIM",
 	"indicators.chart.rainfall.title": "Pluviométrie par Poste pluviométrique",
 	"indicators.chart.rainfall.source": "ANACIM",
 	"indicators.table.rainseason.title": "Prévisions saisonnières",
@@ -281,5 +284,6 @@
 	"table.unsed.cols": "Faites glisser les lignes ou les colonnes",
 	"table.unsed.rows": "Elément des lignes",
 	"table.used.cols": "Eléments des colonnes",
+	"water.drysequence.days": "Nombre de jours",
 	"water.rainfall.level": "Pluie (mm)"
 }

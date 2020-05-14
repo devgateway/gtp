@@ -696,6 +696,11 @@ const messages = defineMessages({
     id: 'water.rainfall.level',
     defaultMessage: 'Rain (mm)'
   },
+
+  noOfDays: {
+    id: 'water.drysequence.days',
+    defaultMessage: 'Number of days'
+  },
 })
 
 export default messages
