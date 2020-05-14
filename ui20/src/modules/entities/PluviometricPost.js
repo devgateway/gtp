@@ -15,4 +15,8 @@ export default class PluviometricPost {
   static newInstance(props) {
     return new PluviometricPost(props)
   }
+
+  static localeCompare(p1: PluviometricPost, p2: PluviometricPost) {
+    return p1.label.localeCompare(p2.label)
+  }
 }

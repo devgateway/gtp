@@ -68,7 +68,7 @@ export default (state = initialState, action) => {
       return state.set('isFilteringRainSeason', true).set('isFilteredRainSeason', false).set('error', null)
     case FILTER_RAIN_SEASON_FULFILLED:
       return state.set('isFilteringRainSeason', false).set('isFilteredRainSeason', true)
-        .setIn(['data', 'rainSeasonChart', 'data'], payload)
+        .setIn(['data', 'rainSeasonChart'], payload)
     case FILTER_RAIN_SEASON_REJECTED:
       return state.set('isFilteringRainSeason', false).set('isFilteredRainSeason', false).set('error', payload)
     case CHANGE_RAIN_SEASON_FILTER:

@@ -4,7 +4,7 @@ import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
 import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
-import {rainSeasonChartFromApi} from "../../modules/entities/rainSeason/RainSeasonChart"
+import {rainSeasonChartFromApi, rainSeasonDataFromApi} from "../../modules/entities/rainSeason/RainSeasonChart"
 import RainSeasonData from "../../modules/entities/rainSeason/RainSeasonData"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
@@ -25,16 +25,17 @@ export const loadAllWaterData = () => (dispatch, getState) =>
   })
 
 const transformAll = (allData) => {
-  const {commonConfig, rainLevelChart, seasonChart} = allData
+  const {rainLevelChart, seasonChart} = allData
+  const commonConfig = new CommonConfig(allData.commonConfig)
   return {
-    commonConfig: new CommonConfig(commonConfig),
+    commonConfig,
     rainLevelChart: {
       config: new RainLevelConfig(rainLevelChart.config),
       data: new RainLevelData(rainLevelChart.data),
       filter: new RainLevelFilter(rainLevelChart.filter.years, rainLevelChart.filter.pluviometricPostId),
       setting: new RainLevelSetting()
     },
-    rainSeasonChart: rainSeasonChartFromApi(seasonChart)
+    rainSeasonChart: rainSeasonChartFromApi(commonConfig, seasonChart)
   }
 }
 
@@ -87,13 +88,17 @@ export const setRainfallFilter = (years: Array<number>, pluviometricPostId: numb
 
 /*      RAIN SEASON          */
 
-export const getRainSeasonByYear = (year: number) => (dispatch, getState) =>
-  dispatch({
+export const getRainSeasonByYear = (year: number) => (dispatch, getState) => {
+  const rainSeasonChart = getState().getIn(['water', 'data', 'rainSeasonChart'])
+  const commonConfig = getState().getIn(['water', 'data', 'commonConfig'])
+  return dispatch({
     type: FILTER_RAIN_SEASON,
-    payload: api.getRainSeason(year).then((data) => transformRainSeason(data, year))
+    payload: api.getRainSeason(year).then((data) => transformRainSeason(rainSeasonChart, commonConfig, data))
   })
+}
 
-const transformRainSeason = (data, year)  => new RainSeasonData(data, year)
+const transformRainSeason = (rainSeasonChart, commonConfig, data) =>
+  rainSeasonDataFromApi(rainSeasonChart, commonConfig, rainSeasonChart.config, data)
 
 export const getRainSeason = () => (dispatch, getState) => {
   const { rainSeasonChart, commonConfig } = getState().getIn(['water', 'data'])

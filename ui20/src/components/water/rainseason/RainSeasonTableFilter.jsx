@@ -14,17 +14,17 @@ class RainSeasonTableFilter extends Component {
     config: PropTypes.instanceOf(RainSeasonConfigDTO).isRequired,
     columnName: PropTypes.string.isRequired,
     filter: PropTypes.object.isRequired,
-    filterName: PropTypes.string.isRequired,
     setFilter: PropTypes.func.isRequired,
     min: PropTypes.number.isRequired,
     max: PropTypes.number,
   }
 
   render() {
-    const {config, columnName, filter, filterName, setFilter, min, max} = this.props
-    const options = config[`${filterName}s`]
+    const {config, columnName, filter, setFilter, min, max} = this.props
+    const options = config[`${columnName}s`]
+    const filterName = `${columnName}Ids`
     const path = [...filterPath, filterName]
-    const onSetFilter = (value) => setFilter(path, value, filterName === C.YEAR)
+    const onSetFilter = (value) => setFilter(path, value, columnName === C.YEAR)
     return (
       <div className="filter item">
         <CustomFilterDropDown

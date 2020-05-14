@@ -2,18 +2,26 @@ import CommonConfig from "../../../entities/rainfall/CommonConfig"
 import RainSeasonChart from "../../../entities/rainSeason/RainSeasonChart"
 import RainSeasonConfig from "../../../entities/rainSeason/RainSeasonConfig"
 import RainSeasonConfigDTO from "./RainSeasonConfigDTO"
-import {RainSeasonPredictionDTO} from "./RainSeasonPredictionDTO"
 import * as C from './RainSeasonConstants'
+import {RainSeasonPredictionDTO} from "./RainSeasonPredictionDTO"
 
 export default class RainSeasonTableBuilder {
   rainSeasonChart: RainSeasonChart
   commonConfig: CommonConfig
   data: Array<RainSeasonPredictionDTO>
   config: RainSeasonConfig
+  zoneIds: Set<number>
+  regionIds: Set<number>
+  departmentIds: Set<number>
+  postIds: Set<number>
 
   constructor(rainSeasonChart: RainSeasonChart, commonConfig: CommonConfig) {
     this.rainSeasonChart = rainSeasonChart
     this.commonConfig = commonConfig
+    this.zoneIds = new Set(rainSeasonChart.filter.zoneIds)
+    this.regionIds = new Set(rainSeasonChart.filter.regionIds)
+    this.departmentIds = new Set(rainSeasonChart.filter.departmentIds)
+    this.postIds = new Set(rainSeasonChart.filter.postIds)
   }
 
   build() {
@@ -39,9 +47,19 @@ export default class RainSeasonTableBuilder {
       }
     }
     this.data = data
+    this._prepareConfig()
+  }
+
+  _prepareConfig() {
+    const {years, zones, regions, departments, posts} = this.rainSeasonChart.config
     this.config = new RainSeasonConfigDTO({
-      years: this.rainSeasonChart.config.years
+      years,
+      zones: Array.from(zones),
+      regions: Array.from(regions),
+      departments: Array.from(departments),
+      posts: Array.from(posts),
     })
   }
+
 }
 

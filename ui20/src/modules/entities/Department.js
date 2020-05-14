@@ -14,4 +14,8 @@ export default class Department {
   static newInstance(props) {
     return new Department(props)
   }
+
+  static localeCompare(d1: Department, d2: Department) {
+    return d1.name.localeCompare(d2.name)
+  }
 }

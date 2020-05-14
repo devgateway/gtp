@@ -23,8 +23,7 @@ class RainSeasonGraphic extends Component {
       id="anchor.indicator.water.rainseason" titleId="indicators.table.rainseason.title"
       sourceId="indicators.table.rainseason.source" className="rainseason">
       <div className="indicator chart filter">
-        <RainSeasonTableFilter
-          columnName={C.YEAR} filter={filter} config={builderData.config} filterName="year" max={1} min={1} />
+        <RainSeasonTableFilter columnName={C.YEAR} filter={filter} config={builderData.config} max={1} min={1} />
       </div>
       <RainSeasonTable {...builderData} {...this.props}/>
     </Graphic>)
