@@ -1,4 +1,5 @@
 import Immutable from 'immutable'
+import DrySequenceChart from "../../modules/entities/drySequence/DrySequenceChart"
 import CommonConfig from "../../modules/entities/rainfall/CommonConfig";
 import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
@@ -36,6 +37,7 @@ const initialState = Immutable.fromJS({
       filter: RainLevelFilter,
       setting: RainLevelSetting,
     },
+    drySequenceChart: DrySequenceChart,
     rainSeasonChart: RainSeasonChart,
   },
   isFilteringRainfall: false,

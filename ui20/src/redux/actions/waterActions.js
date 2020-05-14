@@ -1,4 +1,5 @@
 import * as api from "../../modules/api/index"
+import DrySequenceChart, {drySequenceChartFromApi} from "../../modules/entities/drySequence/DrySequenceChart"
 import CommonConfig from "../../modules/entities/rainfall/CommonConfig"
 import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
@@ -24,7 +25,7 @@ export const loadAllWaterData = () => (dispatch, getState) =>
   })
 
 const transformAll = (allData) => {
-  const {rainLevelChart, seasonChart} = allData
+  const {rainLevelChart, drySequenceChart, seasonChart} = allData
   const commonConfig = new CommonConfig(allData.commonConfig)
   return {
     commonConfig,
@@ -34,6 +35,7 @@ const transformAll = (allData) => {
       filter: new RainLevelFilter(rainLevelChart.filter.years, rainLevelChart.filter.pluviometricPostId),
       setting: new RainLevelSetting()
     },
+    drySequenceChart: drySequenceChartFromApi(drySequenceChart),
     rainSeasonChart: rainSeasonChartFromApi(commonConfig, seasonChart)
   }
 }
