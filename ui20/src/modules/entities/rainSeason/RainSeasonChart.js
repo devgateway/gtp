@@ -26,7 +26,16 @@ export const rainSeasonDataFromApi: RainSeasonChart = (rainSeasonChart: RainSeas
   rainSeasonChart.data = new RainSeasonData(data, rainSeasonChart.filter.yearIds)
   const posts = rainSeasonChart.data.predictions.map(p => commonConfig.posts.get(p.pluviometricPostId))
   rainSeasonChart.config = new RainSeasonConfig(config.years, posts)
+  removeNotApplicableFilters(rainSeasonChart.filter, rainSeasonChart.config)
   return rainSeasonChart
+}
+
+const removeNotApplicableFilters = (rainSeasonFilter: RainSeasonFilter, rainSeasonConfig: RainSeasonConfig) => {
+  const filter = (ids: Array<number>, options: Map) => ids.filter(id => options.has(id))
+  rainSeasonFilter.postIds = filter(rainSeasonFilter.postIds, rainSeasonConfig.posts)
+  rainSeasonFilter.departmentIds = filter(rainSeasonFilter.departmentIds, rainSeasonConfig.departments)
+  rainSeasonFilter.regionIds = filter(rainSeasonFilter.regionIds, rainSeasonConfig.regions)
+  rainSeasonFilter.zoneIds = filter(rainSeasonFilter.zoneIds, rainSeasonConfig.zones)
 }
 
 export default RainSeasonChart

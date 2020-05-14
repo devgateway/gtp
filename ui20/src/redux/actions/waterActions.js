@@ -5,7 +5,6 @@ import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
 import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
 import {rainSeasonChartFromApi, rainSeasonDataFromApi} from "../../modules/entities/rainSeason/RainSeasonChart"
-import RainSeasonData from "../../modules/entities/rainSeason/RainSeasonData"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
 import {

@@ -5,16 +5,18 @@ import Zone from "../Zone"
 
 export default class RainSeasonConfig {
   years: Array<number>
-  zones: Set<Zone>
-  regions: Set<Region>
-  departments: Set<Department>
-  posts: Set<PluviometricPost>
+  zones: Map<number, Zone>
+  regions: Map<number, Region>
+  departments: Map<number, Department>
+  posts: Map<number, PluviometricPost>
 
   constructor(years: Array<number>, posts: Array<PluviometricPost>) {
     this.years = years
-    this.posts = new Set(posts)
-    this.departments = new Set(posts.map(p => p.department))
-    this.regions = new Set(posts.map(p => p.department.region))
-    this.zones = new Set(posts.map(p => p.department.region.zone))
+    this.posts = posts.reduce((map:Map, p) => map.set(p.id, p), new Map())
+    this.departments = posts.map(p => p.department).reduce((map:Map, d) => map.set(d.id, d), new Map())
+    this.regions = Array.from(this.departments.values()).map(d => d.region)
+      .reduce((map:Map, r) => map.set(r.id, r), new Map())
+    this.zones = Array.from(this.regions.values()).map(r => r.zone)
+      .reduce((map:Map, z) => map.set(z.id, z), new Map())
   }
 }

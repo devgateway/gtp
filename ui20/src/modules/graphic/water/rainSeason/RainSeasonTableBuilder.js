@@ -65,10 +65,10 @@ export default class RainSeasonTableBuilder {
     const {years, zones, regions, departments, posts} = this.rainSeasonChart.config
     this.config = new RainSeasonConfigDTO({
       years,
-      zones: Array.from(zones),
-      regions: Array.from(regions),
-      departments: Array.from(departments),
-      posts: Array.from(posts),
+      zones: Array.from(zones.values()),
+      regions: Array.from(regions.values()),
+      departments: Array.from(departments.values()),
+      posts: Array.from(posts.values()),
     })
   }
 
