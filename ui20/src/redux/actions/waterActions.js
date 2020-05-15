@@ -1,5 +1,5 @@
 import * as api from "../../modules/api/index"
-import DrySequenceChart, {drySequenceChartFromApi} from "../../modules/entities/drySequence/DrySequenceChart"
+import {drySequenceChartFromApi} from "../../modules/entities/drySequence/DrySequenceChart"
 import CommonConfig from "../../modules/entities/rainfall/CommonConfig"
 import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
