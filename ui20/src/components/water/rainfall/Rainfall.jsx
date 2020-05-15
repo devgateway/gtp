@@ -7,7 +7,6 @@ import * as C from "../../../modules/entities/Constants"
 import MonthDecadal from "../../../modules/utils/MonthDecadal"
 import messages from "../../../translations/messages"
 import DecadalTick from "./DecadalTick"
-import "./rainfall.scss"
 import RainTick from "./RainTick"
 import {keysWithRefsToLegendData, ReferenceLineLayer, ReferenceLineLegend} from "./ReferenceLineLayer"
 

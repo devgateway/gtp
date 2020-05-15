@@ -24,7 +24,7 @@ const DrySeasonSetting = (props) => {
   const checked = !isDaysWithRain
   const onChange = (isDaysWithRain) => showDaysWithRain(isDaysWithRain)
   return (
-    <div className="period">
+    <div className="daysWithOrWithoutRain">
       <div className="chart toggler view">
         <div className="ui toggle checkbox">
           <div className={!checked ? 'active' : ''}>
