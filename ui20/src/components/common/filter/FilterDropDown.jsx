@@ -26,6 +26,7 @@ export default class FilterDropDown extends Component {
     super(props)
     this.state = {
       open: false,
+      id: `dropdown_${Math.random()}`,
     }
   }
 
@@ -61,7 +62,7 @@ export default class FilterDropDown extends Component {
 
   render() {
     const {options, selected, text, disabled, single, min, max} = this.props
-    const {open} = this.state
+    const {open, id} = this.state
 
     const breadcrum = DropdownBreadcrumb(options, selected, text, single)
     const allowSelectNone = !single && !min
@@ -69,11 +70,12 @@ export default class FilterDropDown extends Component {
     const allowDeselect = !min || (!!min && selected.length > min)
     const allowSelect = single || !max || (!!max && selected.length < max)
 
-    const isKeepOpen = (e: Event) => e && e.currentTarget && e.currentTarget.getAttribute &&
-        e.currentTarget.getAttribute("role") === "listbox"
+    const isKeepOpen = (e: Event) => !!(e && e.currentTarget && e.currentTarget.getAttribute &&
+        e.currentTarget.getAttribute("role") === "listbox" && e.target.id && e.target.id !== id)
 
     return (
       <Dropdown
+        id={id}
         className={disabled ? "disabled" : ""} fluid text={breadcrum}
         open={open}
         onOpen={() => this.setOpen(true)}
@@ -97,6 +99,7 @@ export default class FilterDropDown extends Component {
                 const isDisabled = (isChecked && !allowDeselect) || (!isChecked && !allowSelect)
                 return (
                   <Dropdown.Item
+                    id={`${id}_item_${o.key}`}
                     key={o.key} disabled={isDisabled} onClick={e => this.updateSelection(o.key)}>
                     <div className={"checkbox " + (isChecked ? "checked" : "")}/>
                     {o.text}

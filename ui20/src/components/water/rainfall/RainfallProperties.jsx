@@ -45,7 +45,7 @@ const postIdsToOptions = (postIds, commonConfig: CommonConfig) => postIds.map(id
 })}).sort((p1, p2) => p1.text.localeCompare(p2.text))
 
 const RainfallFilters = (props) => {
-  const {config, filter, setFilter, commonConfig, intl} = props
+  const {config, filter, setFilter, commonConfig} = props
   const onYearChange = (years) => setFilter(years, filter.pluviometricPostId)
   const onPostChange = (postIds) => setFilter(filter.years, postIds[0])
   const {years, pluviometricPostId} = filter
