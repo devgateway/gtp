@@ -16,7 +16,7 @@ export default class DrySequenceChartBuilder {
     this.drySequenceChart = drySequenceChart
     this.intl = intl
     this.barData = []
-    this.isDaysWithRain = true
+    this.isDaysWithRain = drySequenceChart.settings.isDaysWithRain
     this.indexBy = 'month'
     // always by decadal, may be in future we'll want to change
     this.byDecadal = true
@@ -39,7 +39,11 @@ export default class DrySequenceChartBuilder {
       this.barData.push(record)
     })
     return {
-      drySequenceChartDTO: new DrySequenceChartDTO(this.indexBy, this.keys.map(k => `${k}`), this.barData)
+      drySequenceChartDTO: new DrySequenceChartDTO(
+        this.indexBy,
+        this.keys.map(k => `${k}`),
+        this.barData,
+        this.isDaysWithRain)
     }
   }
 

@@ -29,7 +29,7 @@ class DrySeason extends Component {
           indexBy={drySequenceChartDTO.indexBy}
           groupMode={drySequenceChartDTO.groupMode}
           colors={["#3C7EBB", "#3C7EBB", "#3C7EBB"]}
-          minValue={C.NA_VALUE}
+          minValue={0}
           margin={{top: 50, right: 130, bottom: 80, left: 60}}
           padding={0.3}
           innerPadding={3}

@@ -185,6 +185,8 @@
 	"indicators.settings.decadals": "Décadaires",
 	"indicators.settings.months": "Mois",
 	"indicators.settings.periodicity": "Périodicité",
+	"indicators.settings.withRain": "Avec pluie",
+	"indicators.settings.withoutRain": "Sans pluie",
 	"indicators.global.aoi.short": "Indice de l'orientation des dépenses du gouvernement en faveur de l'agriculture",
 	"indicators.global.food.short": "Ratio de Perte Alimentaire",
 	"indicators.global.intro": "La page Indicateurs présente l’alignement des indicateurs agricoles du Sénégal par rapport aux ODD et à ceux gérés par le Système International pour la Science et la Technologie Agricoles (AGRIS). Tous les tableaux et graphiques sont automatiquement mis à jour à mesure que de nouvelles informations sont entrées dans le système. Les utilisateurs peuvent utiliser les filtres de date et de localité pour affiner leurs critères de recherche.",
