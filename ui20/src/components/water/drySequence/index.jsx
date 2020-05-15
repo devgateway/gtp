@@ -5,6 +5,7 @@ import {connect} from "react-redux"
 import * as waterActions from "../../../redux/actions/waterActions"
 import Graphic from "../../common/Graphic"
 import DrySeason from "./DrySeason"
+import DrySequenceProperties from "./DrySequenceProperties"
 
 
 class DrySeasonGraphic extends Component {
@@ -14,11 +15,13 @@ class DrySeasonGraphic extends Component {
 
   render() {
     const {getDrySequence, intl} = this.props;
+    const builderResult = getDrySequence(intl)
 
     return (<Graphic
       id="anchor.indicator.water.dryseason" titleId="indicators.chart.dryseason.title"
       sourceId="indicators.chart.dryseason.source" className="rainfall">
-      <DrySeason {...getDrySequence(intl)} />
+      <DrySequenceProperties isDaysWithRain={builderResult.drySequenceChartDTO.isDaysWithRain} />
+      <DrySeason {...builderResult} />
     </Graphic>)
   }
 }
@@ -26,8 +29,8 @@ class DrySeasonGraphic extends Component {
 
 const mapStateToProps = state => {
   return {
-    setting: state.getIn(['water', 'data', 'rainLevelChart', 'setting']),
-    data: state.getIn(['water', 'data', 'rainLevelChart', 'data']),
+    settings: state.getIn(['water', 'data', 'drySequenceChart', 'settings']),
+    data: state.getIn(['water', 'data', 'drySequenceChart', 'data']),
   }
 }
 

@@ -13,8 +13,12 @@
     .toggler.view {
       display: unset;
     }
-    .period {
-      display: flow-root;
+    display: flow-root;
+    .daysWithOrWithoutRain {
+      display: block;
+      label {
+        margin-left: 50px;
+      }
     }
   }
 }

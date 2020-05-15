@@ -1,11 +1,12 @@
 import {ResponsiveBar} from "@nivo/bar"
-import React, {Component} from "react"
 import PropTypes from "prop-types"
+import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import DrySequenceChartDTO from "../../../modules/graphic/water/drySequence/DrySequenceChartDTO"
 import messages from "../../../translations/messages"
+import DefaultBarOrNegativeValueAsZeroBar from "../../common/DefaultBarOrNegativeValueAsZeroBar"
 
 class DrySeason extends Component {
   static propTypes = {
@@ -29,7 +30,8 @@ class DrySeason extends Component {
           indexBy={drySequenceChartDTO.indexBy}
           groupMode={drySequenceChartDTO.groupMode}
           colors={["#3C7EBB", "#3C7EBB", "#3C7EBB"]}
-          minValue={C.NA_VALUE}
+          barComponent={DefaultBarOrNegativeValueAsZeroBar}
+          minValue={0}
           margin={{top: 50, right: 130, bottom: 80, left: 60}}
           padding={0.3}
           innerPadding={3}
@@ -45,6 +47,8 @@ class DrySeason extends Component {
             legendPosition: 'middle',
             legendOffset: 52,
           }}
+          maxValue={11}
+          gridYValues={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}
           axisLeft={{
             tickSize: 0,
             tickPadding: 5,

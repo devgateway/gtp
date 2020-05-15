@@ -1,5 +1,5 @@
 import * as api from "../../modules/api/index"
-import DrySequenceChart, {drySequenceChartFromApi} from "../../modules/entities/drySequence/DrySequenceChart"
+import {drySequenceChartFromApi} from "../../modules/entities/drySequence/DrySequenceChart"
 import CommonConfig from "../../modules/entities/rainfall/CommonConfig"
 import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
@@ -10,6 +10,7 @@ import DrySequenceChartBuilder from "../../modules/graphic/water/drySequence/Dry
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
 import {
+  CHANGE_DRY_SEQUENCE_SETTING,
   CHANGE_RAIN_SEASON_FILTER,
   CHANGE_RAINFALL_FILTER,
   CHANGE_RAINFALL_SETTING,
@@ -95,6 +96,14 @@ export const getDrySequence = (intl) => (dispatch, getState) => {
 
   return builder.build()
 }
+
+export const showDaysWithRain = (isDaysWithRain) => (dispatch, getState) => {
+  dispatch({
+    type: CHANGE_DRY_SEQUENCE_SETTING,
+    data: isDaysWithRain
+  })
+}
+
 
 /*      RAIN SEASON          */
 

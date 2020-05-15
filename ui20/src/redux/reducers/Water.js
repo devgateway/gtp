@@ -18,6 +18,7 @@ const FILTER_RAINFALL_FULFILLED = 'FILTER_RAINFALL_FULFILLED'
 const FILTER_RAINFALL_REJECTED = 'FILTER_RAINFALL_REJECTED'
 export const CHANGE_RAINFALL_FILTER = 'CHANGE_RAINFALL_FILTER'
 export const CHANGE_RAINFALL_SETTING = 'CHANGE_RAINFALL_SETTING'
+export const CHANGE_DRY_SEQUENCE_SETTING = 'CHANGE_DRY_SEQUENCE_SETTING'
 export const FILTER_RAIN_SEASON = 'FILTER_RAIN_SEASON'
 const FILTER_RAIN_SEASON_PENDING = 'FILTER_RAIN_SEASON_PENDING'
 const FILTER_RAIN_SEASON_FULFILLED = 'FILTER_RAIN_SEASON_FULFILLED'
@@ -66,6 +67,8 @@ export default (state = initialState, action) => {
       return state.setIn(['data', 'rainLevelChart', 'filter'], data)
     case CHANGE_RAINFALL_SETTING:
       return state.setIn(['data', 'rainLevelChart', 'setting'], data)
+    case CHANGE_DRY_SEQUENCE_SETTING:
+      return state.setIn(['data', 'drySequenceChart', 'settings', 'isDaysWithRain'], data)
     case FILTER_RAIN_SEASON_PENDING:
       return state.set('isFilteringRainSeason', true).set('isFilteredRainSeason', false).set('error', null)
     case FILTER_RAIN_SEASON_FULFILLED:
