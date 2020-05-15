@@ -5,7 +5,7 @@ import {connect} from "react-redux"
 import RainSeasonConfigDTO from "../../../modules/graphic/water/rainSeason/RainSeasonConfigDTO"
 import * as C from "../../../modules/graphic/water/rainSeason/RainSeasonConstants"
 import * as waterActions from "../../../redux/actions/waterActions"
-import {CustomFilterDropDown} from "../../common/Components"
+import FilterDropDown from "../../common/filter/FilterDropDown"
 
 const filterPath = ['data', 'rainSeasonChart', 'filter']
 
@@ -27,7 +27,7 @@ class RainSeasonTableFilter extends Component {
     const onSetFilter = (value) => setFilter(path, value, columnName === C.YEAR)
     return (
       <div className="filter item">
-        <CustomFilterDropDown
+        <FilterDropDown
           options={options} onChange={onSetFilter}
           single={max === 1} max={max} min={min}
           selected={filter[filterName]}

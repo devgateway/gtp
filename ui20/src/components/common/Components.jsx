@@ -1,17 +1,13 @@
 import React, { useState} from 'react'
-
 import {FormattedMessage} from 'react-intl';
 import  {Range} from 'rc-slider';
 import DatePicker from "react-datepicker";
 import { toPng} from 'html-to-image';
 import download from 'downloadjs'
 import {Dropdown} from 'semantic-ui-react'
-
-
 import "react-datepicker/dist/react-datepicker.css";
-
-
-
+import DropdownBreadcrumb from "./filter/DropdownBreadcrubmb"
+import FilterDropDown from "./filter/FilterDropDown"
 
 
 export const PngExport = ({id, element, name = "chart", filters = [],includes = []})=>{
@@ -63,97 +59,8 @@ export const DateInput = ({onChange, value, text, locale})=>{
             onChange={onChange}/>)
 }
 
-const dropdownBreadcrumb = (options, selected, text, single) => {
-  const isAnySelected = selected && selected.length > 0
-  const selectedVsTotal = `(${selected.length}/${options.length})`
-  const details = single ? (isAnySelected ? options.find(a=>a.key === selected[0]).text : text) : selectedVsTotal
-  return (
-    <div className="breadcrums">
-      <span className="filterName">{text} </span>
-      <span>{details}</span>
-    </div>)
-}
 
-export const CustomFilterDropDown = ({options, selected, onChange, text, disabled, single, min, max}) => {
-
-  const [open, setOpen] = useState(false);
-
-  const breadcrum = dropdownBreadcrumb(options, selected, text, single)
-
-  const updateSelection = (key) => {
-    var newSelection = selected.slice(0)
-    if (newSelection.indexOf(key) > -1) {
-      newSelection.splice(newSelection.indexOf(key), 1);
-    } else {
-      if (single) {
-        newSelection = [key]
-
-      } else {
-      newSelection.push(key)
-      }
-    }
-    onChange(newSelection)
-  }
-
-  const getChecked = (key) => {
-
-    return selected.indexOf(key) > -1
-  }
-
-  const allNone = (flag) => {
-    if (flag === false) {
-      onChange([])
-    } else {
-      const newSelection = []
-      options.map(o => newSelection.push(o.key))
-      onChange(newSelection)
-    }
-  }
-
-  const isSingle = single === true
-  const allowSelectNone = !isSingle && !min
-  const allowSelectAll = !isSingle && (!max || max >= options.length)
-  const allowDeselect = !min || (!!min && selected.length > min)
-  const allowSelect = isSingle || !max || (!!max && selected.length < max)
-
-  return (
-
-    <Dropdown className={disabled ? "disabled" : ""} fluid text={breadcrum} open={open} onOpen={() => setOpen(true)} onClose={(e) => {
-      const keepOpen = !e || !e.currentTarget || !e.currentTarget.getAttribute || e.currentTarget.getAttribute("role") !== 'listbox'
-      setOpen(!keepOpen)
-    }}>
-
-    <Dropdown.Menu>
-      {(allowSelectNone || allowSelectAll) &&
-      <Dropdown.Header>
-        <div>
-          {allowSelectAll && <span className="all" onClick={e=>allNone(true)}><FormattedMessage id='indicators.filters.select_all' defaultMessage="Select All"/></span>}
-          {allowSelectNone && allowSelectAll && <span> | </span>}
-          {allowSelectNone && <span className="none" onClick={e=>allNone(false)}><FormattedMessage id='indicators.filters.select_none' defaultMessage="Select None"/></span>}
-        </div>
-
-      </Dropdown.Header>}
-      <Dropdown.Divider/>
-
-      <Dropdown.Menu scrolling={true} className="filter options">
-        {
-          options.map(o => {
-            const isChecked = getChecked(o.key)
-            const isDisabled = (isChecked && !allowDeselect) || (!isChecked && !allowSelect)
-            return (
-              <Dropdown.Item key={o.key} disabled={isDisabled} onClick={e => updateSelection(o.key)}>
-                <div className={"checkbox " + (isChecked ? "checked" : "")}/>
-                {o.text}
-              </Dropdown.Item>)
-          })}
-      </Dropdown.Menu>
-
-      <Dropdown.Divider/>
-
-    </Dropdown.Menu>
-
-  </Dropdown>)}
-
+export const CustomFilterDropDown = (props) => (<FilterDropDown {...props} />)
 
 
 /* ---------------------------*/
@@ -168,7 +75,7 @@ export const CustomGroupedDropDown = ({options, selected, onChange, text, disabl
           // eslint-disable-next-line no-unused-vars
   const selectedText = selected[0]
 
-  const breadcrum = dropdownBreadcrumb(options, selected, text, single)
+  const breadcrum = DropdownBreadcrumb(options, selected, text, single)
 
   const updateSelection = (key) => {
     var newSelection = selected.slice(0)

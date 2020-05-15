@@ -7,7 +7,7 @@ import RainLevelConfig from "../../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelFilter from "../../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../../modules/entities/rainfall/RainLevelSetting"
 import * as waterActions from "../../../redux/actions/waterActions"
-import {CustomFilterDropDown} from "../../common/Components"
+import FilterDropDown from "../../common/filter/FilterDropDown"
 
 
 class RainfallProperties extends Component {
@@ -45,22 +45,22 @@ const postIdsToOptions = (postIds, commonConfig: CommonConfig) => postIds.map(id
 })}).sort((p1, p2) => p1.text.localeCompare(p2.text))
 
 const RainfallFilters = (props) => {
-  const {config, filter, setFilter, commonConfig} = props
+  const {config, filter, setFilter, commonConfig, intl} = props
   const onYearChange = (years) => setFilter(years, filter.pluviometricPostId)
   const onPostChange = (postIds) => setFilter(filter.years, postIds[0])
   const {years, pluviometricPostId} = filter
   return (
     <div className="indicator chart filter">
       <div className="filter item">
-        <CustomFilterDropDown
+        <FilterDropDown
           options={yearsToOptions(config.years)} onChange={onYearChange}
           min={1} max={3}
           selected={years} text={<FormattedMessage id="indicators.filters.year" defaultMessage="Years" />} />
       </div>
       <div className="filter item">
-        <CustomFilterDropDown
+        <FilterDropDown
           options={postIdsToOptions(config.pluviometricPostIds, commonConfig)} onChange={onPostChange}
-          single={true} max={1}
+          single={true} min={1} max={1} search={true}
           selected={[pluviometricPostId]} text={<FormattedMessage id="indicators.filters.location" defaultMessage="Location" />} />
       </div>
     </div>
