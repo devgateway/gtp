@@ -1,4 +1,4 @@
-import {BarDefaultProps, ResponsiveBar} from "@nivo/bar"
+import {ResponsiveBar} from "@nivo/bar"
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
@@ -6,6 +6,7 @@ import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import MonthDecadal from "../../../modules/utils/MonthDecadal"
 import messages from "../../../translations/messages"
+import DefaultBarOrNegativeValueAsZeroBar from "../../common/DefaultBarOrNegativeValueAsZeroBar"
 import DecadalTick from "./DecadalTick"
 import RainTick from "./RainTick"
 import {keysWithRefsToLegendData, ReferenceLineLayer, ReferenceLineLegend} from "./ReferenceLineLayer"
@@ -73,7 +74,7 @@ class Rainfall extends Component {
         indexBy={indexBy}
         groupMode={groupMode}
         colors={colors}
-        barComponent={CustomBarComponent}
+        barComponent={DefaultBarOrNegativeValueAsZeroBar}
         maxValue={maxValue}
         minValue={0}
         margin={{ top: 50, right: 130, bottom: 80, left: 60 }}
@@ -144,11 +145,6 @@ class Rainfall extends Component {
   }
 }
 
-const CustomBarComponent = (props) => {
-  const {height, data} = props
-  const { value } = data
-  return <BarDefaultProps.barComponent  {...props} height={value > 0 ? height : 1} />
-}
 
 const mapStateToProps = state => {
   return {
