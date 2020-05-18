@@ -18,6 +18,11 @@ const FILTER_RAINFALL_FULFILLED = 'FILTER_RAINFALL_FULFILLED'
 const FILTER_RAINFALL_REJECTED = 'FILTER_RAINFALL_REJECTED'
 export const CHANGE_RAINFALL_FILTER = 'CHANGE_RAINFALL_FILTER'
 export const CHANGE_RAINFALL_SETTING = 'CHANGE_RAINFALL_SETTING'
+export const FILTER_DRY_SEQUENCE = 'FILTER_DRY_SEQUENCE'
+const FILTER_DRY_SEQUENCE_PENDING = 'FILTER_DRY_SEQUENCE_PENDING'
+const FILTER_DRY_SEQUENCE_FULFILLED = 'FILTER_DRY_SEQUENCE_FULFILLED'
+const FILTER_DRY_SEQUENCE_REJECTED = 'FILTER_DRY_SEQUENCE_REJECTED'
+export const CHANGE_DRY_SEQUENCE_FILTER = 'CHANGE_DRY_SEQUENCE_FILTER'
 export const CHANGE_DRY_SEQUENCE_SETTING = 'CHANGE_DRY_SEQUENCE_SETTING'
 export const FILTER_RAIN_SEASON = 'FILTER_RAIN_SEASON'
 const FILTER_RAIN_SEASON_PENDING = 'FILTER_RAIN_SEASON_PENDING'
@@ -43,6 +48,8 @@ const initialState = Immutable.fromJS({
   },
   isFilteringRainfall: false,
   isFilteredRainfall: false,
+  isFilteringDrySequence: false,
+  isFilteredDrySequence: false,
   isFilteringRainSeason: false,
   isFilteredRainSeason: false,
 })
@@ -67,6 +74,15 @@ export default (state = initialState, action) => {
       return state.setIn(['data', 'rainLevelChart', 'filter'], data)
     case CHANGE_RAINFALL_SETTING:
       return state.setIn(['data', 'rainLevelChart', 'setting'], data)
+    case FILTER_DRY_SEQUENCE_PENDING:
+      return state.set('isFilteringDrySequence', true).set('isFilteredDrySequence', false).set('error', null)
+    case FILTER_DRY_SEQUENCE_FULFILLED:
+      return state.set('isFilteringDrySequence', false).set('isFilteredDrySequence', true)
+        .setIn(['data', 'drySequenceChart', 'data'], payload)
+    case FILTER_DRY_SEQUENCE_REJECTED:
+      return state.set('isFilteringDrySequence', false).set('isFilteredDrySequence', false).set('error', payload)
+    case CHANGE_DRY_SEQUENCE_FILTER:
+      return state.setIn(['data', 'drySequenceChart', 'filter'], data)
     case CHANGE_DRY_SEQUENCE_SETTING:
       return state.setIn(['data', 'drySequenceChart', 'settings', 'isDaysWithRain'], data)
     case FILTER_RAIN_SEASON_PENDING:

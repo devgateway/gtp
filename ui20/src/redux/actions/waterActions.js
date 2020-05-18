@@ -1,5 +1,7 @@
 import * as api from "../../modules/api/index"
 import {drySequenceChartFromApi} from "../../modules/entities/drySequence/DrySequenceChart"
+import DrySequenceData from "../../modules/entities/drySequence/DrySequenceData"
+import DrySequenceFilter from "../../modules/entities/drySequence/DrySequenceFilter"
 import CommonConfig from "../../modules/entities/rainfall/CommonConfig"
 import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
@@ -14,10 +16,11 @@ import DrySequenceChartBuilder from "../../modules/graphic/water/drySequence/Dry
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
 import {
+  CHANGE_DRY_SEQUENCE_FILTER,
   CHANGE_DRY_SEQUENCE_SETTING,
   CHANGE_RAIN_SEASON_FILTER,
   CHANGE_RAINFALL_FILTER,
-  CHANGE_RAINFALL_SETTING,
+  CHANGE_RAINFALL_SETTING, FILTER_DRY_SEQUENCE,
   FILTER_RAIN_SEASON,
   FILTER_RAINFALL,
   SORT_RAIN_SEASON,
@@ -94,6 +97,12 @@ export const setRainfallFilter = (years: Array<number>, pluviometricPostId: numb
 }
 
 /*      DRY SEQUENCE          */
+export const getLengthOfDrySequence = (drySequenceFilter: DrySequenceFilter) => (dispatch, getState) =>
+  dispatch({
+    type: FILTER_DRY_SEQUENCE,
+    payload: api.getLengthOfDrySequence(drySequenceFilter).then(data => new DrySequenceData(data))
+  })
+
 export const getDrySequence = (intl) => (dispatch, getState) => {
   const {drySequenceChart} = getState().getIn(['water', 'data'])
   const builder = new DrySequenceChartBuilder(drySequenceChart, intl)
@@ -108,6 +117,14 @@ export const showDaysWithRain = (isDaysWithRain) => (dispatch, getState) => {
   })
 }
 
+export const setDrySequenceFilter = (year: number, pluviometricPostId: number) => (dispatch, getState) => {
+  const data = {year, pluviometricPostId}
+  dispatch({
+    type: CHANGE_DRY_SEQUENCE_FILTER,
+    data
+  })
+  return getLengthOfDrySequence(data)(dispatch, getState)
+}
 
 /*      RAIN SEASON          */
 
