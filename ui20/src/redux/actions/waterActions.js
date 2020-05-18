@@ -5,7 +5,11 @@ import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
 import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
-import {rainSeasonChartFromApi, rainSeasonDataFromApi} from "../../modules/entities/rainSeason/RainSeasonChart"
+import {
+  handleFilter,
+  rainSeasonChartFromApi,
+  rainSeasonDataFromApi
+} from "../../modules/entities/rainSeason/RainSeasonChart"
 import DrySequenceChartBuilder from "../../modules/graphic/water/drySequence/DrySequenceChartBuilder"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
@@ -145,5 +149,12 @@ export const setRainSeasonFilter = (path: Array<string>, value, isYearFilter: bo
   })
   if (isYearFilter) {
     return getRainSeasonByYear(value[0])(dispatch, getState)
+  } else {
+    const rainSeasonChart = getState().getIn(['water', 'data', 'rainSeasonChart'])
+    const commonConfig = getState().getIn(['water', 'data', 'commonConfig'])
+    return dispatch({
+      type: FILTER_RAIN_SEASON,
+      payload: handleFilter(rainSeasonChart, commonConfig)
+    })
   }
 }
