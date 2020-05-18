@@ -24,11 +24,12 @@ class RainSeasonTableFilter extends Component {
     const options = config[`${columnName}s`]
     const filterName = `${columnName}Ids`
     const path = [...filterPath, filterName]
-    const onSetFilter = (value) => setFilter(path, value, columnName === C.YEAR)
+    const isYearFilter = columnName === C.YEAR
+    const onSetFilter = (value) => setFilter(path, value, isYearFilter)
     return (
       <div className="filter item">
         <FilterDropDown
-          options={options} onChange={onSetFilter}
+          options={options} onChange={onSetFilter} withSearch={!isYearFilter}
           single={max === 1} max={max} min={min}
           selected={filter[filterName]}
           text={<FormattedMessage id={C.FILTER_MESSAGE_KEY[columnName]} defaultMessage={columnName}/>}/>
