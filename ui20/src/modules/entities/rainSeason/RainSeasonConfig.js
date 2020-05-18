@@ -10,13 +10,15 @@ export default class RainSeasonConfig {
   departments: Map<number, Department>
   posts: Map<number, PluviometricPost>
 
-  constructor(years: Array<number>, posts: Array<PluviometricPost>) {
-    this.years = years
-    this.posts = posts.reduce((map:Map, p) => map.set(p.id, p), new Map())
-    this.departments = posts.map(p => p.department).reduce((map:Map, d) => map.set(d.id, d), new Map())
-    this.regions = Array.from(this.departments.values()).map(d => d.region)
+  static from(years: Array<number>, posts: Array<PluviometricPost>) {
+    const config = new RainSeasonConfig()
+    config.years = years
+    config.posts = posts.reduce((map:Map, p) => map.set(p.id, p), new Map())
+    config.departments = posts.map(p => p.department).reduce((map:Map, d) => map.set(d.id, d), new Map())
+    config.regions = Array.from(config.departments.values()).map(d => d.region)
       .reduce((map:Map, r) => map.set(r.id, r), new Map())
-    this.zones = Array.from(this.regions.values()).map(r => r.zone)
+    config.zones = Array.from(config.regions.values()).map(r => r.zone)
       .reduce((map:Map, z) => map.set(z.id, z), new Map())
+    return config
   }
 }
