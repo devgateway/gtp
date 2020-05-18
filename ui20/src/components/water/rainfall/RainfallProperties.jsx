@@ -6,6 +6,7 @@ import CommonConfig from "../../../modules/entities/rainfall/CommonConfig"
 import RainLevelConfig from "../../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelFilter from "../../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../../modules/entities/rainfall/RainLevelSetting"
+import {postIdsToOptions, yearsToOptions} from "../../../modules/graphic/water/CommonDTO"
 import * as waterActions from "../../../redux/actions/waterActions"
 import FilterDropDown from "../../common/filter/FilterDropDown"
 
@@ -28,21 +29,6 @@ class RainfallProperties extends Component {
       </div>)
   }
 }
-
-const yearsToOptions = (years) => years.sort().reverse().map(y => ({
-  key: y,
-  text: y,
-  value: y
-}))
-
-const postIdsToOptions = (postIds, commonConfig: CommonConfig) => postIds.map(id => {
-  const post = commonConfig.posts.get(id)
-  const dep = post.department
-  return ({
-  key: id,
-  text: `${post.label} (${dep.name})`,
-  value: id
-})}).sort((p1, p2) => p1.text.localeCompare(p2.text))
 
 const RainfallFilters = (props) => {
   const {config, filter, setFilter, commonConfig} = props

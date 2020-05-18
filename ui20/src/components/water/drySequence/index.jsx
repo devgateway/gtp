@@ -14,13 +14,13 @@ class DrySeasonGraphic extends Component {
   }
 
   render() {
-    const {getDrySequence, intl} = this.props;
+    const {filter, getDrySequence, intl} = this.props;
     const builderResult = getDrySequence(intl)
 
     return (<Graphic
       id="anchor.indicator.water.dryseason" titleId="indicators.chart.dryseason.title"
       sourceId="indicators.chart.dryseason.source" className="rainfall">
-      <DrySequenceProperties isDaysWithRain={builderResult.drySequenceChartDTO.isDaysWithRain} />
+      <DrySequenceProperties isDaysWithRain={builderResult.drySequenceChartDTO.isDaysWithRain} filter={filter} />
       <DrySeason {...builderResult} />
     </Graphic>)
   }
@@ -30,6 +30,7 @@ class DrySeasonGraphic extends Component {
 const mapStateToProps = state => {
   return {
     settings: state.getIn(['water', 'data', 'drySequenceChart', 'settings']),
+    filter: state.getIn(['water', 'data', 'drySequenceChart', 'filter']),
     data: state.getIn(['water', 'data', 'drySequenceChart', 'data']),
   }
 }
