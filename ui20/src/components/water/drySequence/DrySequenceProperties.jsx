@@ -2,7 +2,6 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
-import DrySequenceFilter from "../../../modules/entities/drySequence/DrySequenceFilter"
 import {postIdsToOptions, yearsToOptions} from "../../../modules/graphic/water/CommonDTO"
 import * as waterActions from "../../../redux/actions/waterActions"
 import FilterDropDown from "../../common/filter/FilterDropDown"
@@ -11,7 +10,7 @@ class DrySequenceProperties extends Component {
   static propTypes = {
     isDaysWithRain: PropTypes.bool.isRequired,
     showDaysWithRain: PropTypes.func.isRequired,
-    filter: PropTypes.objectOf(DrySequenceFilter).isRequired,
+    filter: PropTypes.object.isRequired,
   }
 
   render() {

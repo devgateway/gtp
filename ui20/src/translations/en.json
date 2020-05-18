@@ -170,6 +170,7 @@
 	"indicators.filters.slider.score": "Score Range",
 	"indicators.filters.title": "Indicator Filter",
 	"indicators.filters.year": "Years",
+	"indicators.filters.year.description": "Please select up to 3 years",
 	"indicators.settings.decadals": "Decadals",
 	"indicators.settings.months": "Months",
 	"indicators.settings.periodicity": "Periodicity",

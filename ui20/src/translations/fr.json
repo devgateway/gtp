@@ -182,6 +182,7 @@
 	"indicators.filters.slider.score": "Plage d'indices",
 	"indicators.filters.title": "Filtre Indicateur",
 	"indicators.filters.year": "Années",
+	"indicators.filters.year.description": "Please select up to 3 years",
 	"indicators.settings.decadals": "Décadaires",
 	"indicators.settings.months": "Mois",
 	"indicators.settings.periodicity": "Périodicité",

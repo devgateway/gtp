@@ -30,7 +30,7 @@ class Rainfall extends Component {
       const lineX = Array.from(r.lineValues.values())
       const barX = keys.map(k => r[k])
       return Math.max(max, ...lineX, ...barX)
-    }, 0) * 1.1 || 'auto'
+    }, 1) * 1.1 || 'auto'
   }
 
   render() {
