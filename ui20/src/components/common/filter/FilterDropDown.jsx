@@ -10,6 +10,7 @@ export default class FilterDropDown extends Component {
     selected: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired,
     text: PropTypes.any.isRequired,
+    description: PropTypes.any,
     disabled: PropTypes.bool,
     single: PropTypes.bool,
     min: PropTypes.number,
@@ -94,7 +95,7 @@ export default class FilterDropDown extends Component {
   }
 
   render() {
-    const {selected, text, disabled, single, min, max, withSearch} = this.props
+    const {selected, text, description, disabled, single, min, max, withSearch} = this.props
     const {open, id, options, defaultOptions} = this.state
 
     const breadcrum = DropdownBreadcrumb(defaultOptions, selected, text, single)
@@ -129,6 +130,10 @@ export default class FilterDropDown extends Component {
               {allowSelectNone && allowSelectAll && <span> | </span>}
               {allowSelectNone && <span className="none" onClick={e => this.allNone(false)}><FormattedMessage id='indicators.filters.select_none' defaultMessage="Select None"/></span>}
             </div>
+          </Dropdown.Header>}
+          {description &&
+          <Dropdown.Header>
+            <div className="description">{description}</div>
           </Dropdown.Header>}
           <Dropdown.Divider/>
 
