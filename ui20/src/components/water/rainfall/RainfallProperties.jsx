@@ -60,7 +60,7 @@ const RainfallFilters = (props) => {
       <div className="filter item">
         <FilterDropDown
           options={postIdsToOptions(config.pluviometricPostIds, commonConfig)} onChange={onPostChange}
-          single={true} min={1} max={1} search={true}
+          single={true} min={1} max={1} withSearch
           selected={[pluviometricPostId]} text={<FormattedMessage id="indicators.filters.location" defaultMessage="Location" />} />
       </div>
     </div>
