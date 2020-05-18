@@ -32,14 +32,13 @@ export default class RainSeasonFilterHandler {
     this.departmentIds = new Set(rainSeasonFilter.departmentIds)
     this.postIds = new Set(rainSeasonFilter.postIds)
     this._filter = this._filter.bind(this)
-    this._removeNotApplicableFilters = this._removeNotApplicableFilters.bind(this)
   }
 
   applyFilter() {
     this.filteredData.predictions = this._filter(this.data.predictions)
     this.filteredPosts = this.filteredData.predictions.map(p => this.commonConfig.posts.get(p.pluviometricPostId))
     this._filteredConfig = RainSeasonConfig.from(this.fullConfig.years, this.filteredPosts)
-    this._removeNotApplicableFilters()
+    this.constructor.removeNotApplicableFilters(this.rainSeasonFilter, this._filteredConfig)
     this.actualConfig = this._getOptions(this.fullConfig, this._filteredConfig)
   }
 
@@ -53,12 +52,12 @@ export default class RainSeasonFilterHandler {
     })
   }
 
-  _removeNotApplicableFilters() {
+  static removeNotApplicableFilters(rainSeasonFilter: RainSeasonFilter, config: RainSeasonConfig) {
     const filter = (ids: Array<number>, options: Map) => ids.filter(id => options.has(id))
-    this.rainSeasonFilter.postIds = filter(this.rainSeasonFilter.postIds, this._filteredConfig.posts)
-    this.rainSeasonFilter.departmentIds = filter(this.rainSeasonFilter.departmentIds, this._filteredConfig.departments)
-    this.rainSeasonFilter.regionIds = filter(this.rainSeasonFilter.regionIds, this._filteredConfig.regions)
-    this.rainSeasonFilter.zoneIds = filter(this.rainSeasonFilter.zoneIds, this._filteredConfig.zones)
+    rainSeasonFilter.postIds = filter(rainSeasonFilter.postIds, config.posts)
+    rainSeasonFilter.departmentIds = filter(rainSeasonFilter.departmentIds, config.departments)
+    rainSeasonFilter.regionIds = filter(rainSeasonFilter.regionIds, config.regions)
+    rainSeasonFilter.zoneIds = filter(rainSeasonFilter.zoneIds, config.zones)
   }
 
   _getOptions(fullConfig: RainSeasonConfig, filteredConfig: RainSeasonConfig) {
