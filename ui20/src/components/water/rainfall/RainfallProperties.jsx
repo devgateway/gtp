@@ -41,6 +41,7 @@ const RainfallFilters = (props) => {
         <FilterDropDown
           options={yearsToOptions(config.years)} onChange={onYearChange}
           min={1} max={3}
+          description={<FormattedMessage id="indicators.filters.year.description" defaultMessage="Years" />}
           selected={years} text={<FormattedMessage id="indicators.filters.year" defaultMessage="Years" />} />
       </div>
       <div className="filter item">
