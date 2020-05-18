@@ -1,7 +1,7 @@
-import React, {Component} from "react"
 import PropTypes from "prop-types"
+import React, {Component} from "react"
 import {FormattedMessage} from "react-intl"
-import {Dropdown} from "semantic-ui-react"
+import {Dropdown, Input} from "semantic-ui-react"
 import DropdownBreadcrumb from "./DropdownBreadcrubmb"
 
 export default class FilterDropDown extends Component {
@@ -14,12 +14,14 @@ export default class FilterDropDown extends Component {
     single: PropTypes.bool,
     min: PropTypes.number,
     max: PropTypes.number,
+    withSearch: PropTypes.bool,
   }
 
   static defaultProps = {
     disabled: false,
     single: false,
     min: 0,
+    withSearch: false,
   }
 
   constructor(props) {
@@ -27,11 +29,32 @@ export default class FilterDropDown extends Component {
     this.state = {
       open: false,
       id: `dropdown_${Math.random()}`,
+      isLocalStateChange: false,
     }
   }
 
+  static getDerivedStateFromProps(props, state) {
+    const {isLocalStateChange} = state
+    if (isLocalStateChange) {
+      return {
+        isLocalStateChange: false
+      }
+    }
+
+    const {options} = props
+    options.forEach(o => o.lowerText = `${o.text}`.toLowerCase())
+    return {
+      options,
+      defaultOptions: options
+    }
+  }
+
+  setFilterState(state) {
+    this.setState({...state, isLocalStateChange: true})
+  }
+
   setOpen(open) {
-    this.setState({ open })
+    this.setFilterState({ open })
   }
 
   updateSelection(key) {
@@ -60,11 +83,21 @@ export default class FilterDropDown extends Component {
     }
   }
 
-  render() {
-    const {options, selected, text, disabled, single, min, max} = this.props
-    const {open, id} = this.state
+  onSearchChange(value) {
+    const {defaultOptions} = this.state
+    value = value && value.trim().toLowerCase()
+    if (!value) {
+      this.setFilterState({ options: defaultOptions })
+    } else {
+      this.setFilterState({options: defaultOptions.filter(({ lowerText }) => lowerText.includes(value) )})
+    }
+  }
 
-    const breadcrum = DropdownBreadcrumb(options, selected, text, single)
+  render() {
+    const {selected, text, disabled, single, min, max, withSearch} = this.props
+    const {open, id, options, defaultOptions} = this.state
+
+    const breadcrum = DropdownBreadcrumb(defaultOptions, selected, text, single)
     const allowSelectNone = !single && !min
     const allowSelectAll = !single && (!max || max >= options.length)
     const allowDeselect = !min || (!!min && selected.length > min)
@@ -82,6 +115,13 @@ export default class FilterDropDown extends Component {
         onClose={(e) => this.setOpen(isKeepOpen(e))}>
 
         <Dropdown.Menu scrolling={false}>
+          {withSearch &&
+          <Input
+            className='search'
+            placerholder='Search...'
+            onClick={(e) => {e.stopPropagation()}}
+            onChange={(e: Event) => this.onSearchChange(e.target.value)} />}
+
           {(allowSelectNone || allowSelectAll) &&
           <Dropdown.Header>
             <div>
