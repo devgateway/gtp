@@ -5,7 +5,7 @@ import {connect} from "react-redux"
 import RainSeasonConfigDTO from "../../../modules/graphic/water/rainSeason/RainSeasonConfigDTO"
 import * as C from "../../../modules/graphic/water/rainSeason/RainSeasonConstants"
 import * as waterActions from "../../../redux/actions/waterActions"
-import {CustomFilterDropDown} from "../../common/Components"
+import FilterDropDown from "../../common/filter/FilterDropDown"
 
 const filterPath = ['data', 'rainSeasonChart', 'filter']
 
@@ -24,11 +24,12 @@ class RainSeasonTableFilter extends Component {
     const options = config[`${columnName}s`]
     const filterName = `${columnName}Ids`
     const path = [...filterPath, filterName]
-    const onSetFilter = (value) => setFilter(path, value, columnName === C.YEAR)
+    const isYearFilter = columnName === C.YEAR
+    const onSetFilter = (value) => setFilter(path, value, isYearFilter)
     return (
       <div className="filter item">
-        <CustomFilterDropDown
-          options={options} onChange={onSetFilter}
+        <FilterDropDown
+          options={options} onChange={onSetFilter} withSearch={!isYearFilter}
           single={max === 1} max={max} min={min}
           selected={filter[filterName]}
           text={<FormattedMessage id={C.FILTER_MESSAGE_KEY[columnName]} defaultMessage={columnName}/>}/>
