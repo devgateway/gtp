@@ -2,7 +2,9 @@ import {BoxLegendSvg} from "@nivo/legends"
 import {line} from "d3-shape"
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
+import {FormattedMessage} from "react-intl"
 import {Tooltip} from 'react-svg-tooltip'
+import * as C from "../../../modules/entities/Constants"
 
 class ReferenceLine extends Component {
   static propTypes = {
@@ -14,9 +16,10 @@ class ReferenceLine extends Component {
 
   render() {
     const {bars, xScale, yScale, rgba, intl} = this.props
-    const lineGenerator = line()
-      .x(b => xScale(b.data.indexValue) + b.width / 2)
-      .y(b => yScale(b.data.data.lineValues.get(b.data.id)))
+    const undefinedToZero = (value) => value === undefined ? 0 : value
+    const xScaleByBar = b => xScale(b.data.indexValue) + b.width / 2
+    const yScaleByBar = b => yScale(undefinedToZero(b.data.data.lineValues.get(b.data.id)))
+    const lineGenerator = line().x(xScaleByBar).y(yScaleByBar)
 
     return (
       <g>
@@ -26,14 +29,16 @@ class ReferenceLine extends Component {
         <g stroke={rgba} strokeWidth="3" fill={rgba}>
           {bars.map(b => {
             const circleRef = React.createRef()
-            const xValue = intl.formatNumber(b.data.data.lineValues.get(b.data.id), {minimumFractionDigits: 0, maximumFractionDigits: 1})
+            const value = b.data.data.lineValues.get(b.data.id)
+            const xValue = value === undefined ? intl.formatMessage({ id: "all.graphic.value.NA" }) :
+              intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 1})
             return (
               <g key={b.data.index}>
                 <circle
                   ref={circleRef}
                   id="pointA"
-                  cx={xScale(b.data.indexValue) + b.width / 2}
-                  cy={yScale(b.data.data.lineValues.get(b.data.id))}
+                  cx={xScaleByBar(b)}
+                  cy={yScaleByBar(b)}
                   r="3"/>
                 <Tooltip triggerRef={circleRef}>
                   <rect x={2} y={2} width={100} height={30} rx={.5} ry={.5} fill='white' stroke={rgba}/>
