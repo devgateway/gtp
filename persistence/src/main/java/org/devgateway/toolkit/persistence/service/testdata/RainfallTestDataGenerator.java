@@ -73,6 +73,15 @@ public class RainfallTestDataGenerator implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
         transactionTemplate.execute(s -> {
+            decadalRainfallRepository.deleteAll();
+
+            RainLevelReference rainLevelReference = rainLevelReferenceRepository
+                    .findByYearStartLessThanEqualAndYearEndGreaterThanEqual(2018, 2002);
+            rainLevelReference.getPostRainReferences().clear();
+
+            return null;
+        });
+        transactionTemplate.execute(s -> {
             generateActual();
             generateRefs();
             return null;
@@ -80,8 +89,6 @@ public class RainfallTestDataGenerator implements InitializingBean {
     }
 
     private void generateActual() {
-        decadalRainfallRepository.deleteAll();
-
         List<PluviometricPost> pluviometricPosts = pluviometricPostRepository.findAll();
 
         for (Integer year : years) {
@@ -105,7 +112,6 @@ public class RainfallTestDataGenerator implements InitializingBean {
         RainLevelReference rainLevelReference = rainLevelReferenceRepository
                 .findByYearStartLessThanEqualAndYearEndGreaterThanEqual(2018, 2002);
 
-        rainLevelReference.getPostRainReferences().clear();
         rainLevelReference.getPostRainReferences().addAll(pluviometricPosts.stream().map(pp -> {
             RainLevelPluviometricPostReference ppr = new RainLevelPluviometricPostReference();
             ppr.setPluviometricPost(pp);
