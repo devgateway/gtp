@@ -327,4 +327,16 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="ANACIM-104" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="rain_level_month_reference" />
+            <tableExists tableName="rain_level_pluviometric_post_reference" />
+        </preConditions>
+        <comment>Removing possible duplicates in rain_level_pluviometric_post_reference.</comment>
+        <sql><![CDATA[
+            delete from rain_level_month_reference;
+            delete from rain_level_pluviometric_post_reference;
+        ]]></sql>
+    </changeSet>
+
 </databaseChangeLog>
