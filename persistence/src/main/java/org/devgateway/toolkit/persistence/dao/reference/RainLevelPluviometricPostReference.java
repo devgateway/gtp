@@ -13,6 +13,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Month;
@@ -27,6 +29,8 @@ import java.util.Map;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Audited
+@Table(uniqueConstraints = @UniqueConstraint(name = "u_rain_level_pp_ref",
+        columnNames = {"rain_level_reference_id", "pluviometric_post_id"}))
 public class RainLevelPluviometricPostReference extends AbstractAuditableEntity implements Serializable,
         PluviometricPostHolder {
     private static final long serialVersionUID = 2349382633920882594L;
