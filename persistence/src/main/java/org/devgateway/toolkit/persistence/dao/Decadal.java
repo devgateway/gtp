@@ -27,4 +27,14 @@ public enum Decadal {
     public int length(YearMonth yearMonth) {
         return value < 3 ? 10 : yearMonth.lengthOfMonth() - 20;
     }
+
+    public static Decadal fromDayOfMonth(int dayOfMonth) {
+        if (dayOfMonth <= 10) {
+            return FIRST;
+        } else if (dayOfMonth <= 20) {
+            return SECOND;
+        } else {
+            return THIRD;
+        }
+    }
 }
