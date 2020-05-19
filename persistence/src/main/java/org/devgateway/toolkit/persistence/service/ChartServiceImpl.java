@@ -5,7 +5,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 import java.time.MonthDay;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -94,10 +94,10 @@ public class ChartServiceImpl implements ChartService {
     }
 
     private RainLevelChartFilter getRainLevelFilter(RainLevelChartConfig config) {
-        List<Integer> years = new ArrayList<>();
-        if (!config.getYears().isEmpty()) {
-            years.add(config.getYears().last());
-        }
+        List<Integer> years = config.getYears().stream()
+                .sorted(Comparator.reverseOrder())
+                .limit(2)
+                .collect(toList());
 
         List<Long> posts = config.getPluviometricPostIds();
         Long postId = posts.isEmpty() ? null : posts.get(0);
