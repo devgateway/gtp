@@ -27,7 +27,7 @@ class Rainfall extends Component {
 
   _getMaxValue(barData: Array, keys: Array) {
     return barData.reduce((max, r) => {
-      const lineX = Array.from(r.lineValues.values())
+      const lineX = Array.from(r.lineValues.values()).map(v => v || 0)
       const barX = keys.map(k => r[k])
       return Math.max(max, ...lineX, ...barX)
     }, 1) * 1.1 || 'auto'
