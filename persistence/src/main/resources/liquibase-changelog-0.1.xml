@@ -373,6 +373,18 @@
         ]]></sql>
     </changeSet>
 
+    <changeSet id="ANACIM-102-1" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="indicator_metadata" />
+        </preConditions>
+        <insert tableName="indicator_metadata">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Niveau Fleuves" />
+            <column name="type" value="RIVER_LEVEL" />
+            <column name="organization_id" valueComputed="(SELECT id FROM organization WHERE tag='DGPRE')" />
+        </insert>
+    </changeSet>
+
     <!-- placeholder 2 -->
 
     <!-- placeholder 3 -->
