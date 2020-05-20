@@ -351,7 +351,27 @@
         ]]></sql>
     </changeSet>
 
-    <!-- placeholder 1 -->
+    <changeSet id="ANACIM-102" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="river_level_reference" />
+            <tableExists tableName="river_level" />
+        </preConditions>
+        <sql><![CDATA[
+            alter table river_level_reference
+                drop constraint if exists uk3428pvmupokhtwj1x5h3o29yt;
+
+            alter table river_level_reference
+                add constraint uk3428pvmupokhtwj1x5h3o29yt
+                    unique (river_station_yearly_levels_reference_id, month_day) INITIALLY DEFERRED;
+
+            alter table river_level
+                drop constraint if exists ukq9qeql8b83n8i3y26m7iblry2;
+
+            alter table river_level
+                add constraint ukq9qeql8b83n8i3y26m7iblry2
+                    unique (river_station_yearly_levels_id, month_day) INITIALLY DEFERRED;
+        ]]></sql>
+    </changeSet>
 
     <!-- placeholder 2 -->
 

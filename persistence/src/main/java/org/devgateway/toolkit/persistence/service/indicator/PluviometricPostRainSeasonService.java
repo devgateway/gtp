@@ -5,5 +5,5 @@ import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainSeas
 /**
  * @author Nadejda Mandrescu
  */
-public interface PluviometricPostRainSeasonService extends YearIndicatorGenerator<PluviometricPostRainSeason> {
+public interface PluviometricPostRainSeasonService extends YearIndicatorGenerator<PluviometricPostRainSeason, Integer> {
 }

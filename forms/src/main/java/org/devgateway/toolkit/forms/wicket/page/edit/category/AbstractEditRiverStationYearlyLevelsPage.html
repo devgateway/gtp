@@ -6,9 +6,11 @@
 </head>
 <body>
 <wicket:extend>
-    <div wicket:id="station.river.name"></div>
-    <div wicket:id="station.name"></div>
-    <div wicket:id="year"></div>
+    <div class="row">
+        <div class="col-md-4" wicket:id="station.river.name"></div>
+        <div class="col-md-4" wicket:id="station.name"></div>
+        <div class="col-md-4" wicket:id="year"></div>
+    </div>
     <div wicket:id="upload"></div>
     <wicket:fragment wicket:id="rsExtraButtons">
         <a wicket:id="download">Download</a>

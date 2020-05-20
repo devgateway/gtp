@@ -5,5 +5,6 @@ package org.devgateway.toolkit.persistence.dao;
  */
 public enum IndicatorType {
     RAINFALL,
-    RAINFALL_SEASON;
+    RAINFALL_SEASON,
+    RIVER_LEVEL;
 }

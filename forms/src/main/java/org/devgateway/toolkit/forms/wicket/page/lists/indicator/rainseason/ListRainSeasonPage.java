@@ -25,7 +25,8 @@ import org.devgateway.toolkit.forms.wicket.components.table.SelectFilteredBootst
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.PluviometricPostRainSeasonFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainseason.EditRainSeasonPage;
-import org.devgateway.toolkit.forms.wicket.page.lists.indicator.AbstractIndicatorListPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.indicator.AbstractIndicatorWithStatusListPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.indicator.YearFilterPanel;
 import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainSeason;
@@ -44,7 +45,7 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
 @MountPath(value = "/rain-seasons")
-public class ListRainSeasonPage extends AbstractIndicatorListPage<PluviometricPostRainSeason> {
+public class ListRainSeasonPage extends AbstractIndicatorWithStatusListPage<PluviometricPostRainSeason> {
     private static final long serialVersionUID = 4253917551574616261L;
 
     @SpringBean
@@ -133,7 +134,7 @@ public class ListRainSeasonPage extends AbstractIndicatorListPage<PluviometricPo
     @Override
     protected Component getOuterFilter(final String id,
             ResettingFilterForm<? extends JpaFilterState<PluviometricPostRainSeason>> filterForm) {
-        return new RainSeasonOuterFilterPanel(id, filterForm);
+        return new YearFilterPanel<>(id, filterForm, pluviometricPostRainSeasonService);
     }
 
 }

@@ -12,10 +12,10 @@ import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFor
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.category.ListRiverStationsPage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
-import org.devgateway.toolkit.persistence.dao.River;
-import org.devgateway.toolkit.persistence.dao.RiverStation;
-import org.devgateway.toolkit.persistence.service.RiverService;
-import org.devgateway.toolkit.persistence.service.RiverStationService;
+import org.devgateway.toolkit.persistence.dao.categories.River;
+import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
+import org.devgateway.toolkit.persistence.service.category.RiverService;
+import org.devgateway.toolkit.persistence.service.category.RiverStationService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

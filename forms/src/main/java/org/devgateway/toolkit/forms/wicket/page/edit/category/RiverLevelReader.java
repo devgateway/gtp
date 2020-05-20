@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 import com.google.common.collect.ImmutableList;
 import org.apache.poi.ss.usermodel.CellType;
@@ -21,7 +21,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.devgateway.toolkit.persistence.dao.RiverLevelReference;
+import org.devgateway.toolkit.persistence.dao.IRiverLevel;
 
 /**
  * @author Octavian Ciubotaru
@@ -30,8 +30,8 @@ public class RiverLevelReader {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
 
-    public Collection<RiverLevelReference> read(InputStream is,
-            Supplier<RiverLevelReference> creator) throws RiverLevelReaderException {
+    public <L extends IRiverLevel> Collection<L> read(InputStream is,
+            BiFunction<MonthDay, BigDecimal, L> creator) throws RiverLevelReaderException {
 
         XSSFWorkbook sheets;
         try {
@@ -40,7 +40,7 @@ public class RiverLevelReader {
             throw new RiverLevelReaderException(ImmutableList.of("Invalid XLSX file format."), e);
         }
 
-        Set<RiverLevelReference> data = new TreeSet<>();
+        Set<L> data = new TreeSet<>();
 
         List<String> errors = new ArrayList<>();
 
@@ -48,8 +48,6 @@ public class RiverLevelReader {
         int lastRowNum = sheet.getLastRowNum();
         for (int r = 1; r < lastRowNum; r++) {
             XSSFRow row = sheet.getRow(r);
-
-            RiverLevelReference level = creator.get();
 
             XSSFCell dateCell = row.getCell(0);
             XSSFCell levelCell = row.getCell(1);
@@ -65,8 +63,8 @@ public class RiverLevelReader {
                 continue;
             }
 
+            MonthDay monthDay;
             try {
-                MonthDay monthDay;
                 if (dateCell.getCellType() == CellType.STRING) {
                     String strVal = dateCell.getStringCellValue();
                     monthDay = MonthDay.from(formatter.parse(strVal.substring(0, Math.min(strVal.length(), 5))));
@@ -74,12 +72,12 @@ public class RiverLevelReader {
                     Date dateCellValue = dateCell.getDateCellValue();
                     monthDay = MonthDay.from(dateCellValue.toInstant().atZone(ZoneId.systemDefault()));
                 }
-                level.setMonthDay(monthDay);
             } catch (DateTimeException | NumberFormatException e) {
                 errors.add(String.format("Invalid date on row %d.", (r + 1)));
                 continue;
             }
 
+            BigDecimal level = null;
             if (!levelIsMissing) {
                 try {
                     double levelAsDouble = levelCell.getNumericCellValue();
@@ -88,18 +86,19 @@ public class RiverLevelReader {
                         continue;
                     }
 
-                    level.setLevel(new BigDecimal(String.format("%.1f", levelAsDouble)));
+                    level = new BigDecimal(String.format("%.1f", levelAsDouble));
                 } catch (IllegalStateException | NumberFormatException e) {
                     errors.add(String.format("Invalid river level on row %d.", (r + 1)));
                     continue;
                 }
             }
 
-            if (data.contains(level)) {
-                errors.add(String.format("Duplicate date %s on row %d.", formatter.format(level.getMonthDay()),
-                        (r + 1)));
-            } else if (level.getLevel() != null) {
-                data.add(level);
+            L monthDayLevel = creator.apply(monthDay, level);
+
+            if (data.contains(monthDayLevel)) {
+                errors.add(String.format("Duplicate date %s on row %d.", formatter.format(monthDay), (r + 1)));
+            } else if (level != null) {
+                data.add(monthDayLevel);
             }
         }
 

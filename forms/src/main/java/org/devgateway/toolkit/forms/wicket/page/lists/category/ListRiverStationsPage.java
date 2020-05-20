@@ -9,8 +9,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.edit.category.EditRiverStationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
-import org.devgateway.toolkit.persistence.dao.RiverStation;
-import org.devgateway.toolkit.persistence.service.RiverStationService;
+import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
+import org.devgateway.toolkit.persistence.service.category.RiverStationService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

@@ -1,11 +1,8 @@
-package org.devgateway.toolkit.forms.wicket.page.lists.category;
+package org.devgateway.toolkit.forms.wicket.page.lists.reference;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
@@ -16,7 +13,6 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.table.AjaxFallbackBootstrapDataTable;
 import org.devgateway.toolkit.forms.wicket.components.table.BookmarkableResettingFilterForm;
@@ -26,10 +22,12 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterStat
 import org.devgateway.toolkit.forms.wicket.components.table.filter.RiverStationYearlyLevelsReferenceFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.category.EditRiverStationYearlyLevelsReferencePage;
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
-import org.devgateway.toolkit.persistence.dao.RiverStation;
-import org.devgateway.toolkit.persistence.dao.RiverStationYearlyLevelsReference;
-import org.devgateway.toolkit.persistence.service.RiverStationService;
-import org.devgateway.toolkit.persistence.service.RiverStationYearlyLevelsReferenceService;
+import org.devgateway.toolkit.forms.wicket.page.lists.panel.RiverStationYearlyLevelsActionPanel;
+import org.devgateway.toolkit.persistence.dao.reference.RiverLevelReference;
+import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
+import org.devgateway.toolkit.persistence.dao.reference.RiverStationYearlyLevelsReference;
+import org.devgateway.toolkit.persistence.service.category.RiverStationService;
+import org.devgateway.toolkit.persistence.service.reference.RiverStationYearlyLevelsReferenceService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
@@ -74,34 +72,7 @@ public class ListRiverStationYearlyLevelsReferencesPage extends AbstractListPage
 
     @Override
     public Panel getActionPanel(String id, IModel<RiverStationYearlyLevelsReference> model) {
-        return new ActionPanel(id, model);
-    }
-
-    public class ActionPanel extends Panel {
-
-        public ActionPanel(final String id, final IModel<RiverStationYearlyLevelsReference> model) {
-            super(id, model);
-
-            RiverStationYearlyLevelsReference entity = model.getObject();
-
-            final PageParameters pageParameters = new PageParameters();
-            pageParameters.set(WebConstants.PARAM_ID, entity.getId());
-
-            BootstrapBookmarkablePageLink<RiverStationYearlyLevelsReference> editPageLink =
-                    new BootstrapBookmarkablePageLink<>("edit", editPageClass, pageParameters, Buttons.Type.Info);
-
-            String editResourceKey = entity.getLevels().isEmpty() ? "import" : "reimport";
-            editPageLink.setIconType(FontAwesomeIconType.edit).setSize(Buttons.Size.Small)
-                    .setLabel(new StringResourceModel(editResourceKey, this, null));
-            add(editPageLink);
-
-            DownloadRiverLevelsLink downloadButton = new DownloadRiverLevelsLink("download", model);
-            downloadButton.setSize(Buttons.Size.Small);
-            downloadButton.setVisibilityAllowed(!entity.getLevels().isEmpty());
-            add(downloadButton);
-
-            add(getPrintButton(pageParameters));
-        }
+        return new RiverStationYearlyLevelsActionPanel<>(id, model, RiverLevelReference::new, editPageClass);
     }
 
     @Override

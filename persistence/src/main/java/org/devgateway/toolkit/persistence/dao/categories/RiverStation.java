@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.dao;
+package org.devgateway.toolkit.persistence.dao.categories;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
+import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

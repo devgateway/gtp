@@ -10,7 +10,7 @@ import org.devgateway.toolkit.persistence.dto.rainfall.DecadalInstantRainLevel;
 /**
  * @author Nadejda Mandrescu
  */
-public interface DecadalRainfallService extends YearIndicatorGenerator<DecadalRainfall> {
+public interface DecadalRainfallService extends YearIndicatorGenerator<DecadalRainfall, Integer> {
 
     List<Long> findPluviometricPostsWithData();
 

@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.repository;
 
-import org.devgateway.toolkit.persistence.dao.River;
+import org.devgateway.toolkit.persistence.dao.categories.River;
 import org.devgateway.toolkit.persistence.repository.norepository.TextSearchableRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.UniquePropertyRepository;
 import org.springframework.data.domain.Page;

@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.forms.wicket.components.table;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.openjson.JSONArray;
 import com.github.openjson.JSONObject;
@@ -75,10 +76,13 @@ public class BookmarkableResettingFilterForm<T extends JpaFilterState> extends R
     }
 
     private static JSONObject getFilterStateAsJson(Object obj) {
-        JSONObject jsonState = new JSONObject(obj);
-        // JSONObject doesn't handle JsonIgnore
-        jsonState.remove("specification");
-        return jsonState;
+        try {
+            ObjectMapper om = new ObjectMapper();
+            String strVal = om.writeValueAsString(obj);
+            return new JSONObject(strVal);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to convert filter state to JSONObject.");
+        }
     }
 
     @Override

@@ -1,17 +1,13 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.indicator;
 
 
+import java.io.Serializable;
+
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.devgateway.toolkit.forms.security.SecurityUtil;
-import org.devgateway.toolkit.forms.wicket.page.Homepage;
+import org.devgateway.toolkit.forms.wicket.behaviors.AuthorizeIndicatorTypeBehavior;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditStatusEntityPage;
 import org.devgateway.toolkit.persistence.dao.AbstractStatusAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.IndicatorType;
-import org.devgateway.toolkit.persistence.dao.indicator.IndicatorMetadata;
-import org.devgateway.toolkit.persistence.service.indicator.IndicatorMetadataService;
-
-import java.io.Serializable;
 
 /**
  * @author Nadejda Mandrescu
@@ -19,9 +15,6 @@ import java.io.Serializable;
 public abstract class AbstractIndicatorEditPage<T extends AbstractStatusAuditableEntity & Serializable>
         extends AbstractEditStatusEntityPage<T> {
     private static final long serialVersionUID = 4591261587496430745L;
-
-    @SpringBean
-    protected IndicatorMetadataService indicatorMetadataService;
 
     protected IndicatorType indicatorType;
 
@@ -34,9 +27,6 @@ public abstract class AbstractIndicatorEditPage<T extends AbstractStatusAuditabl
     protected void onInitialize() {
         super.onInitialize();
 
-        IndicatorMetadata indicatorMetadata = indicatorMetadataService.findOneByType(indicatorType);
-        if (!SecurityUtil.canCurrentUserAccess(indicatorMetadata)) {
-            setResponsePage(Homepage.class);
-        }
+        add(new AuthorizeIndicatorTypeBehavior(indicatorType));
     }
 }
