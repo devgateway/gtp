@@ -35,6 +35,8 @@ public class AbstractEditRiverStationYearlyLevelsPage
         <T extends GenericPersistable & IRiverStationYearlyLevels<L>, L extends IRiverLevel>
         extends AbstractEditPage<T> {
 
+    private static final int MAX_ERRORS = 5;
+
     private final Logger logger = LoggerFactory.getLogger(AbstractEditRiverStationYearlyLevelsPage.class);
 
     private List<FileMetadata> uploads = new ArrayList<>();
@@ -112,7 +114,10 @@ public class AbstractEditRiverStationYearlyLevelsPage
                     levels.forEach(l -> entity.addLevel(l));
                 } catch (RiverLevelReaderException e) {
                     logger.warn("Could not parse river levels.", e);
-                    e.getErrors().forEach(upload::error);
+                    e.getErrors().stream().limit(MAX_ERRORS).forEach(upload::error);
+                    if (e.getErrors().size() > MAX_ERRORS) {
+                        upload.error("Other " + (e.getErrors().size() - MAX_ERRORS) + " errors are not displayed.");
+                    }
                 }
             }
         }

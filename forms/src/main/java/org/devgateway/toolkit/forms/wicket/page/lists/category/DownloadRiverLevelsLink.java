@@ -73,7 +73,7 @@ public class DownloadRiverLevelsLink<T extends IRiverStationYearlyLevels<L>, L e
                                     : entity.getLevels();
 
                             RiverLevelWriter writer = new RiverLevelWriter();
-                            writer.write(entity.getYear(), levels, response.getOutputStream());
+                            writer.write(entity.getYear(), levels, response.getOutputStream(), creator);
                         } catch (IOException e) {
                             throw new WicketRuntimeException("Download error", e);
                         }

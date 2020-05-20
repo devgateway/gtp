@@ -2,10 +2,14 @@ package org.devgateway.toolkit.forms.wicket.page.edit.category;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.function.BiFunction;
 
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -20,12 +24,16 @@ public class RiverLevelWriter {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
 
-    public <T extends IRiverLevel> void write(HydrologicalYear year, List<T> levels, OutputStream outputStream)
-            throws IOException {
+    public <T extends IRiverLevel> void write(HydrologicalYear year, List<T> levels, OutputStream outputStream,
+            BiFunction<MonthDay, BigDecimal, T> creator) throws IOException {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
 
+        TreeSet<MonthDay> monthDays = new TreeSet<>(year.getMonthDays());
+        levels.forEach(l -> monthDays.remove(l.getMonthDay()));
+
         List<T> sortedLevels = new ArrayList<>(levels);
+        monthDays.forEach(md -> sortedLevels.add(creator.apply(md, null)));
         Collections.sort(sortedLevels);
 
         XSSFSheet sheet = workbook.createSheet();

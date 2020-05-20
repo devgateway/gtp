@@ -9,19 +9,20 @@
  ******************************************************************************/
 // if nothing has changed that the user can leave the page without any
 // confirmation
-var shouldConfirmFormLeaving = false;
+var shouldConfirmFormLeaving = true;
+var formChanged = false;
 
 function checkAnyChange() {
     $(':input').each(function () {
         $(this).on('change', function () {
-            shouldConfirmFormLeaving = true;
+            formChanged = true;
         });
     });
 
-    // set shouldConfirmFormLeaving when input has focus
+    // set formChanged when input has focus
     $(':input').each(function () {
         $(this).on('keyup', function () {
-            shouldConfirmFormLeaving = true;
+            formChanged = true;
         });
     });
 
@@ -38,7 +39,7 @@ function checkAnyChange() {
             that.trigger('change');
         }, 50);
 
-        shouldConfirmFormLeaving = true;
+        formChanged = true;
     });
 
     $(document).on('drop', ':input', function (e) {
@@ -53,7 +54,7 @@ function checkAnyChange() {
             that.trigger('change');
         }, 50);
 
-        shouldConfirmFormLeaving = true;
+        formChanged = true;
     });
 }
 
@@ -66,7 +67,7 @@ $(document).ajaxComplete(function() { checkAnyChange(); });
 
 // confirmation modal before window unload
 $(window).on('beforeunload', function () {
-    if (shouldConfirmFormLeaving) {
+    if (shouldConfirmFormLeaving && formChanged) {
         return "${formLeavingWarning}";
     }
 });
@@ -77,4 +78,8 @@ function enableFormLeavingConfirmation() {
 
 function disableFormLeavingConfirmation() {
     shouldConfirmFormLeaving = false;
+}
+
+function markFormAsChanged() {
+    formChanged = true;
 }
