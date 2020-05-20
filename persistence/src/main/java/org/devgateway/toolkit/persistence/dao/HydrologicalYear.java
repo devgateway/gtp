@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * <p>Hydrological year. For Senegal it starts on 1 May and ends on 30 April.</p>
  *
@@ -30,7 +33,13 @@ public class HydrologicalYear implements Serializable {
         return sign * l.compareTo(r);
     };
 
+    @JsonValue
     private final Integer year;
+
+    @JsonCreator
+    public HydrologicalYear(String year) {
+        this(Integer.valueOf(year));
+    }
 
     public HydrologicalYear(Integer year) {
         this.year = year;
@@ -56,5 +65,16 @@ public class HydrologicalYear implements Serializable {
             it = it.plus(1, ChronoUnit.DAYS);
         }
         return monthDays;
+    }
+
+    public static HydrologicalYear now() {
+        LocalDate now = LocalDate.now();
+        int designatedYear;
+        if (MonthDay.from(now).compareTo(HYDROLOGICAL_YEAR_START) < 0) {
+            designatedYear = now.getYear() - 1;
+        } else {
+            designatedYear = now.getYear();
+        }
+        return new HydrologicalYear(designatedYear);
     }
 }

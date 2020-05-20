@@ -1,16 +1,21 @@
-package org.devgateway.toolkit.persistence.dao;
+package org.devgateway.toolkit.persistence.dao.indicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
+import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
+import org.devgateway.toolkit.persistence.dao.IRiverStationYearlyLevels;
+import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.dao.converter.HydrologicalYearConverter;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
@@ -24,7 +29,8 @@ import org.hibernate.envers.Audited;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
-public class RiverStationYearlyLevelsReference extends AbstractAuditableEntity {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"station_id", "year"}))
+public class RiverStationYearlyLevels extends AbstractAuditableEntity implements IRiverStationYearlyLevels<RiverLevel> {
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @NotNull
@@ -32,13 +38,22 @@ public class RiverStationYearlyLevelsReference extends AbstractAuditableEntity {
     private RiverStation station;
 
     @NotNull
-    @Column(nullable = false)
     @Convert(converter = HydrologicalYearConverter.class)
     private HydrologicalYear year;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "riverStationYearlyLevelsReference")
-    private List<RiverLevelReference> levels = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "riverStationYearlyLevels")
+    private List<RiverLevel> levels = new ArrayList<>();
+
+    public RiverStationYearlyLevels() {
+    }
+
+    public RiverStationYearlyLevels(
+            @NotNull RiverStation station,
+            @NotNull HydrologicalYear year) {
+        this.station = station;
+        this.year = year;
+    }
 
     public RiverStation getStation() {
         return station;
@@ -56,16 +71,16 @@ public class RiverStationYearlyLevelsReference extends AbstractAuditableEntity {
         this.year = year;
     }
 
-    public List<RiverLevelReference> getLevels() {
+    public List<RiverLevel> getLevels() {
         return levels;
     }
 
-    public void setLevels(List<RiverLevelReference> levels) {
+    public void setLevels(List<RiverLevel> levels) {
         this.levels = levels;
     }
 
-    public void addLevel(RiverLevelReference level) {
-        level.setRiverStationYearlyLevelsReference(this);
+    public void addLevel(RiverLevel level) {
+        level.setRiverStationYearlyLevels(this);
         levels.add(level);
     }
 

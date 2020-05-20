@@ -15,7 +15,8 @@ import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DecadalRainfallFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall.EditDecadalRainfallPage;
-import org.devgateway.toolkit.forms.wicket.page.lists.indicator.AbstractIndicatorListPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.indicator.AbstractIndicatorWithStatusListPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.indicator.YearFilterPanel;
 import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.service.indicator.DecadalRainfallService;
@@ -26,7 +27,7 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
 @MountPath(value = "/rainfalls")
-public class ListDecadalRainfallPage extends AbstractIndicatorListPage<DecadalRainfall> {
+public class ListDecadalRainfallPage extends AbstractIndicatorWithStatusListPage<DecadalRainfall> {
     private static final long serialVersionUID = 395649903982652614L;
 
     @SpringBean
@@ -61,7 +62,7 @@ public class ListDecadalRainfallPage extends AbstractIndicatorListPage<DecadalRa
     @Override
     protected Component getOuterFilter(final String id,
             ResettingFilterForm<? extends JpaFilterState<DecadalRainfall>> filterForm) {
-        return new DecadalRainfallOuterFilterPanel(id, (ResettingFilterForm<DecadalRainfallFilterState>) filterForm);
+        return new YearFilterPanel<>(id, filterForm, decadalRainfallService);
     }
 
     @Override

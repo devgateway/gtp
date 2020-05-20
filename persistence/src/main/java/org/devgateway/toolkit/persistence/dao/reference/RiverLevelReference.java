@@ -1,16 +1,19 @@
-package org.devgateway.toolkit.persistence.dao;
+package org.devgateway.toolkit.persistence.dao.reference;
 
 import java.math.BigDecimal;
 import java.time.MonthDay;
-import java.util.Comparator;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
+import org.devgateway.toolkit.persistence.dao.IRiverLevel;
 import org.devgateway.toolkit.persistence.dao.converter.MonthDayStringAttributeConverter;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
@@ -24,31 +27,30 @@ import org.hibernate.envers.Audited;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 1000)
-public class RiverLevelReference extends AbstractAuditableEntity implements Comparable<RiverLevelReference> {
-
-    private static final Comparator<RiverLevelReference> HYDROLOGICAL =
-            Comparator.comparing(RiverLevelReference::getMonthDay,
-                    HydrologicalYear.HYDROLOGICAL_MONTH_DAY_COMPARATOR);
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"river_station_yearly_levels_reference_id", "monthDay"}))
+public class RiverLevelReference extends AbstractAuditableEntity implements IRiverLevel {
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @NotNull
     @ManyToOne(optional = false)
     private RiverStationYearlyLevelsReference riverStationYearlyLevelsReference;
 
-    @Column(columnDefinition = "varchar", length = 6, nullable = false)
+    @NotNull
+    @Column(columnDefinition = "varchar", length = 6)
     @Convert(converter = MonthDayStringAttributeConverter.class)
     private MonthDay monthDay;
 
     @NotNull
     @Min(0)
-    @Column(scale = 1, precision = 10, nullable = false)
+    @Column(scale = 1, precision = 10)
     private BigDecimal level;
 
     public RiverLevelReference() {
     }
 
-    public RiverLevelReference(MonthDay monthDay) {
+    public RiverLevelReference(MonthDay monthDay, BigDecimal level) {
         this.monthDay = monthDay;
+        this.level = level;
     }
 
     public RiverStationYearlyLevelsReference getRiverStationYearlyLevelsReference() {
@@ -79,10 +81,5 @@ public class RiverLevelReference extends AbstractAuditableEntity implements Comp
     @Override
     public AbstractAuditableEntity getParent() {
         return riverStationYearlyLevelsReference;
-    }
-
-    @Override
-    public int compareTo(RiverLevelReference o) {
-        return HYDROLOGICAL.compare(this, o);
     }
 }

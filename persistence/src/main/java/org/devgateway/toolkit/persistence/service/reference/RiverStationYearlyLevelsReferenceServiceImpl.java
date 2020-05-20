@@ -1,10 +1,11 @@
-package org.devgateway.toolkit.persistence.service;
+package org.devgateway.toolkit.persistence.service.reference;
 
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
-import org.devgateway.toolkit.persistence.dao.RiverStation;
-import org.devgateway.toolkit.persistence.dao.RiverStationYearlyLevelsReference;
-import org.devgateway.toolkit.persistence.repository.RiverStationYearlyLevelsReferenceRepository;
+import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
+import org.devgateway.toolkit.persistence.dao.reference.RiverStationYearlyLevelsReference;
+import org.devgateway.toolkit.persistence.repository.reference.RiverStationYearlyLevelsReferenceRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

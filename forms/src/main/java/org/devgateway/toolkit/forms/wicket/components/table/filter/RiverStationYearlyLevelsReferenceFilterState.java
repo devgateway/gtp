@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.persistence.criteria.Predicate;
 
-import org.devgateway.toolkit.persistence.dao.RiverStationYearlyLevelsReference;
-import org.devgateway.toolkit.persistence.dao.RiverStationYearlyLevelsReference_;
-import org.devgateway.toolkit.persistence.dao.RiverStation_;
+import org.devgateway.toolkit.persistence.dao.reference.RiverStationYearlyLevelsReference;
+import org.devgateway.toolkit.persistence.dao.reference.RiverStationYearlyLevelsReference_;
+import org.devgateway.toolkit.persistence.dao.categories.RiverStation_;
 import org.springframework.data.jpa.domain.Specification;
 
 /**

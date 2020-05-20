@@ -5,6 +5,6 @@ import org.devgateway.toolkit.persistence.dao.indicator.RainSeason;
 /**
  * @author Nadejda Mandrescu
  */
-public interface RainSeasonService extends YearIndicatorGenerator<RainSeason> {
+public interface RainSeasonService extends YearIndicatorGenerator<RainSeason, Integer> {
 
 }

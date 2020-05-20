@@ -11,6 +11,7 @@ import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainseason.ListRainSeasonPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.indicator.riverlevel.ListRiverStationYearlyLevelsPage;
 import org.devgateway.toolkit.forms.wicket.styles.HomeStyles;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -51,5 +52,11 @@ public class IndicatorHomePage extends BasePage {
                 "season", ListRainSeasonPage.class, Buttons.Type.Default);
         season.setLabel(new StringResourceModel("season"));
         add(season);
+
+        BootstrapBookmarkablePageLink<ListRiverStationYearlyLevelsPage> riverLevels =
+                new BootstrapBookmarkablePageLink<>("riverLevels", ListRiverStationYearlyLevelsPage.class,
+                        Buttons.Type.Default);
+        riverLevels.setLabel(new StringResourceModel("riverLevels"));
+        add(riverLevels);
     }
 }

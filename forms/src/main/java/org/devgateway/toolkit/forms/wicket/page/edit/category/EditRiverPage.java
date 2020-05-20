@@ -10,8 +10,8 @@ import org.devgateway.toolkit.forms.validators.UniquePropertyValidator;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.category.ListRiversPage;
-import org.devgateway.toolkit.persistence.dao.River;
-import org.devgateway.toolkit.persistence.service.RiverService;
+import org.devgateway.toolkit.persistence.dao.categories.River;
+import org.devgateway.toolkit.persistence.service.category.RiverService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

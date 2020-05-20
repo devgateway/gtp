@@ -6,11 +6,14 @@ import org.devgateway.toolkit.persistence.service.BaseJpaService;
 import java.io.Serializable;
 
 /**
+ * @param <T> Entity type
+ * @param <Y> Year object type
  * @author Nadejda Mandrescu
  */
-public interface YearIndicatorGenerator<T extends GenericPersistable & Serializable> extends BaseJpaService<T> {
+public interface YearIndicatorGenerator<T extends GenericPersistable & Serializable, Y extends Serializable>
+        extends BaseJpaService<T> {
 
-    boolean existsByYear(Integer year);
+    boolean existsByYear(Y year);
 
-    void generate(Integer year);
+    void generate(Y year);
 }

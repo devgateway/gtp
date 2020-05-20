@@ -1,9 +1,10 @@
-package org.devgateway.toolkit.persistence.service;
+package org.devgateway.toolkit.persistence.service.category;
 
-import org.devgateway.toolkit.persistence.dao.River;
+import org.devgateway.toolkit.persistence.dao.categories.River;
 import org.devgateway.toolkit.persistence.repository.RiverRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.UniquePropertyRepository;
+import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

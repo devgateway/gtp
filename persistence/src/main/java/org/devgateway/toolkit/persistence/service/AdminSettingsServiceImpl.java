@@ -1,6 +1,9 @@
 package org.devgateway.toolkit.persistence.service;
 
+import static java.util.stream.Collectors.toList;
+
 import org.devgateway.toolkit.persistence.dao.AdminSettings;
+import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.repository.AdminSettingsRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +48,12 @@ public class AdminSettingsServiceImpl extends BaseJpaServiceImpl<AdminSettings> 
     @Override
     public List<Integer> getYears() {
         return IntStream.rangeClosed(getStartingYear(), LocalDate.now().getYear()).boxed().collect(Collectors.toList());
+    }
+
+    @Override
+    public List<HydrologicalYear> getHydrologicalYears() {
+        return IntStream.rangeClosed(getStartingYear(), HydrologicalYear.now().getYear()).boxed()
+                .map(HydrologicalYear::new)
+                .collect(toList());
     }
 }

@@ -1,16 +1,6 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.category;
 
-import java.io.ByteArrayInputStream;
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.markup.html.panel.Fragment;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LambdaModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -18,21 +8,12 @@ import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
-import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
-import org.devgateway.toolkit.forms.wicket.page.lists.category.DownloadRiverLevelsLink;
-import org.devgateway.toolkit.forms.wicket.page.lists.category.ListRiverStationYearlyLevelsReferencesPage;
-import org.devgateway.toolkit.forms.wicket.providers.HydrologicalYearRangeChoiceProvider;
-import org.devgateway.toolkit.persistence.dao.FileMetadata;
+import org.devgateway.toolkit.forms.wicket.page.lists.reference.ListRiverStationYearlyLevelsReferencesPage;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
-import org.devgateway.toolkit.persistence.dao.RiverLevelReference;
-import org.devgateway.toolkit.persistence.dao.RiverStation;
-import org.devgateway.toolkit.persistence.dao.RiverStationYearlyLevelsReference;
-import org.devgateway.toolkit.persistence.service.RiverStationYearlyLevelsReferenceService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.devgateway.toolkit.persistence.dao.reference.RiverLevelReference;
+import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
+import org.devgateway.toolkit.persistence.dao.reference.RiverStationYearlyLevelsReference;
+import org.devgateway.toolkit.persistence.service.reference.RiverStationYearlyLevelsReferenceService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
@@ -40,19 +21,14 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/reference-river-levels-upload")
-public class EditRiverStationYearlyLevelsReferencePage extends AbstractEditPage<RiverStationYearlyLevelsReference> {
-
-    private static final Logger logger = LoggerFactory.getLogger(EditRiverStationYearlyLevelsReferencePage.class);
+public class EditRiverStationYearlyLevelsReferencePage
+        extends AbstractEditRiverStationYearlyLevelsPage<RiverStationYearlyLevelsReference, RiverLevelReference> {
 
     @SpringBean
     private RiverStationYearlyLevelsReferenceService riverStationYearlyLevelsReferenceService;
 
-    private List<FileMetadata> uploads = new ArrayList<>();
-
-    private FileInputBootstrapFormComponent upload;
-
     public EditRiverStationYearlyLevelsReferencePage(PageParameters parameters) {
-        super(parameters);
+        super(parameters, RiverLevelReference::new);
 
         jpaService = riverStationYearlyLevelsReferenceService;
 
@@ -65,34 +41,10 @@ public class EditRiverStationYearlyLevelsReferencePage extends AbstractEditPage<
 
         pageTitle.setDefaultModel(new StringResourceModel("page.title", this, editForm.getModel()));
 
-        TextFieldBootstrapFormComponent<String> river = new TextFieldBootstrapFormComponent<>("station.river.name");
-        river.getField().setEnabled(false);
-        editForm.add(river);
+        onInitialize(1964);
 
-        TextFieldBootstrapFormComponent<String> station = new TextFieldBootstrapFormComponent<>("station.name");
-        station.getField().setEnabled(false);
-        editForm.add(station);
-
-        Select2ChoiceBootstrapFormComponent<HydrologicalYear> year =
-                new Select2ChoiceBootstrapFormComponent<>("year",
-                        new HydrologicalYearRangeChoiceProvider(1964, Year.now().getValue()));
-        year.required();
         year.getField().add(new UniqueValidator());
-        editForm.add(year);
-
-        upload = new FileInputBootstrapFormComponent("upload", LambdaModel.of(this::getUploads, this::setUploads));
-        upload.maxFiles(1);
-        upload.required();
-        editForm.add(upload);
-
-        deleteButton.setVisible(false);
-
-        Fragment extraButtons = new Fragment("extraButtons", "rsExtraButtons", this);
-        editForm.replace(extraButtons);
-
-        DownloadRiverLevelsLink downloadButton = new DownloadRiverLevelsLink("download", editForm.getModel());
-        downloadButton.setSize(Buttons.Size.Medium);
-        extraButtons.add(downloadButton);
+        year.required();
     }
 
     private class UniqueValidator implements IValidator<HydrologicalYear> {
@@ -108,50 +60,5 @@ public class EditRiverStationYearlyLevelsReferencePage extends AbstractEditPage<
                 validatable.error(error);
             }
         }
-    }
-
-    @Override
-    public SaveEditPageButton getSaveEditPageButton() {
-        return new CustomSaveEditPageButton("save",
-                new StringResourceModel("saveButton", this, null));
-    }
-
-    private class CustomSaveEditPageButton extends SaveEditPageButton {
-
-        CustomSaveEditPageButton(String id, IModel<String> model) {
-            super(id, model);
-        }
-
-        @Override
-        public void validate() {
-            super.validate();
-
-            if (uploads.size() == 1) {
-                FileMetadata fileMetadata = uploads.get(0);
-
-                ByteArrayInputStream inputStream = new ByteArrayInputStream(fileMetadata.getContent().getBytes());
-
-                try {
-                    RiverLevelReader reader = new RiverLevelReader();
-
-                    Collection<RiverLevelReference> levels = reader.read(inputStream, RiverLevelReference::new);
-
-                    RiverStationYearlyLevelsReference entity = editForm.getModelObject();
-                    entity.getLevels().clear();
-                    levels.forEach(entity::addLevel);
-                } catch (RiverLevelReaderException e) {
-                    logger.warn("Could not parse river levels.", e);
-                    e.getErrors().forEach(upload::error);
-                }
-            }
-        }
-    }
-
-    public Collection<FileMetadata> getUploads() {
-        return uploads;
-    }
-
-    public void setUploads(Collection<FileMetadata> uploads) {
-        this.uploads = new ArrayList<>(uploads);
     }
 }
