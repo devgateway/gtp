@@ -8,10 +8,14 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.RangeValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxToggleBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
+import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.AdminSettings;
+import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
+import org.devgateway.toolkit.persistence.service.category.RiverStationService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.List;
@@ -30,6 +34,9 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
 
     @SpringBean
     private AdminSettingsService adminSettingsService;
+
+    @SpringBean
+    private RiverStationService riverStationService;
 
     public EditAdminSettingsPage(final PageParameters parameters) {
         super(parameters);
@@ -62,5 +69,11 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
         startingYear.integer();
         startingYear.required();
         editForm.add(startingYear);
+
+        Select2ChoiceBootstrapFormComponent<RiverStation> defaultRiverStation =
+                new Select2ChoiceBootstrapFormComponent<>("defaultRiverStation",
+                        new GenericPersistableJpaTextChoiceProvider<>(riverStationService));
+        defaultRiverStation.required();
+        editForm.add(defaultRiverStation);
     }
 }

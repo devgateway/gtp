@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.dto;
 
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChart;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChart;
+import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChart;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChart;
 
 /**
@@ -17,13 +18,16 @@ public class ChartsData {
 
     private final SeasonChart seasonChart;
 
+    private final RiverLevelChart riverLevelChart;
+
     public ChartsData(CommonConfig commonConfig, RainLevelChart rainLevelChart,
             DrySequenceChart drySequenceChart,
-            SeasonChart seasonChart) {
+            SeasonChart seasonChart, RiverLevelChart riverLevelChart) {
         this.commonConfig = commonConfig;
         this.rainLevelChart = rainLevelChart;
         this.drySequenceChart = drySequenceChart;
         this.seasonChart = seasonChart;
+        this.riverLevelChart = riverLevelChart;
     }
 
     public CommonConfig getCommonConfig() {
@@ -40,5 +44,9 @@ public class ChartsData {
 
     public SeasonChart getSeasonChart() {
         return seasonChart;
+    }
+
+    public RiverLevelChart getRiverLevelChart() {
+        return riverLevelChart;
     }
 }

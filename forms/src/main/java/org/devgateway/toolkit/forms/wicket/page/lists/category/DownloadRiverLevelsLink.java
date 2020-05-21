@@ -1,11 +1,12 @@
 package org.devgateway.toolkit.forms.wicket.page.lists.category;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toCollection;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.MonthDay;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.function.BiFunction;
 
 import javax.servlet.http.HttpServletResponse;
@@ -68,7 +69,7 @@ public class DownloadRiverLevelsLink<T extends IRiverStationYearlyLevels<L>, L e
                                     .build()
                                     .toString());
 
-                            List<L> levels = empty
+                            SortedSet<L> levels = empty
                                     ? getLevelForTemplate(entity, creator)
                                     : entity.getLevels();
 
@@ -92,10 +93,10 @@ public class DownloadRiverLevelsLink<T extends IRiverStationYearlyLevels<L>, L e
         add(download);
     }
 
-    private List<L> getLevelForTemplate(T entity, BiFunction<MonthDay, BigDecimal, L> creator) {
+    private SortedSet<L> getLevelForTemplate(T entity, BiFunction<MonthDay, BigDecimal, L> creator) {
         return entity.getYear().getMonthDays().stream()
                 .map(md -> creator.apply(md, null))
-                .collect(toList());
+                .collect(toCollection(TreeSet::new));
     }
 
     @Override

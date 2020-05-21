@@ -12,6 +12,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.IRiverLevel;
 import org.devgateway.toolkit.persistence.dao.converter.MonthDayStringAttributeConverter;
@@ -28,11 +30,13 @@ import org.hibernate.envers.Audited;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 1000)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"river_station_yearly_levels_reference_id", "monthDay"}))
+@JsonIgnoreProperties({"id", "parent", "new"})
 public class RiverLevelReference extends AbstractAuditableEntity implements IRiverLevel {
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @NotNull
     @ManyToOne(optional = false)
+    @JsonIgnore
     private RiverStationYearlyLevelsReference riverStationYearlyLevelsReference;
 
     @NotNull

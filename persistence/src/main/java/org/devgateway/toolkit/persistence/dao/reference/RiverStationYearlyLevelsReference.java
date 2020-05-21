@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.dao.reference;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.IRiverStationYearlyLevels;
@@ -21,6 +23,7 @@ import org.devgateway.toolkit.persistence.dao.converter.HydrologicalYearConverte
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.SortNatural;
 import org.hibernate.envers.Audited;
 
 /**
@@ -31,12 +34,14 @@ import org.hibernate.envers.Audited;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"station_id", "year"}))
+@JsonIgnoreProperties({"id", "parent", "new"})
 public class RiverStationYearlyLevelsReference extends AbstractAuditableEntity
         implements IRiverStationYearlyLevels<RiverLevelReference> {
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @NotNull
     @ManyToOne(optional = false)
+    @JsonIgnore
     private RiverStation station;
 
     @NotNull
@@ -46,7 +51,8 @@ public class RiverStationYearlyLevelsReference extends AbstractAuditableEntity
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "riverStationYearlyLevelsReference")
-    private List<RiverLevelReference> levels = new ArrayList<>();
+    @SortNatural
+    private SortedSet<RiverLevelReference> levels = new TreeSet<>();
 
     public RiverStation getStation() {
         return station;
@@ -64,11 +70,12 @@ public class RiverStationYearlyLevelsReference extends AbstractAuditableEntity
         this.year = year;
     }
 
-    public List<RiverLevelReference> getLevels() {
+    @Override
+    public SortedSet<RiverLevelReference> getLevels() {
         return levels;
     }
 
-    public void setLevels(List<RiverLevelReference> levels) {
+    public void setLevels(SortedSet<RiverLevelReference> levels) {
         this.levels = levels;
     }
 

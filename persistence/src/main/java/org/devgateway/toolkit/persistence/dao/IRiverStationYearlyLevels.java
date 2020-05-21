@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.dao;
 
-import java.util.List;
+import java.util.SortedSet;
 
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 
@@ -17,7 +17,7 @@ public interface IRiverStationYearlyLevels<T extends IRiverLevel> {
 
     void setYear(HydrologicalYear year);
 
-    List<T> getLevels();
+    SortedSet<T> getLevels();
 
     void addLevel(T level);
 }

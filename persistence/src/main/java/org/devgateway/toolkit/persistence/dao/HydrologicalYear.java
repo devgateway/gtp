@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  *
  * @author Octavian Ciubotaru
  */
-public class HydrologicalYear implements Serializable {
+public class HydrologicalYear implements Serializable, Comparable<HydrologicalYear> {
 
     public static final MonthDay HYDROLOGICAL_YEAR_START = MonthDay.of(Month.MAY, 1);
 
@@ -33,19 +33,16 @@ public class HydrologicalYear implements Serializable {
         return sign * l.compareTo(r);
     };
 
+    private static final Comparator<HydrologicalYear> NATURAL = Comparator.comparingInt(HydrologicalYear::getYear);
+
     @JsonValue
-    private final Integer year;
+    private final int year;
 
-    @JsonCreator
-    public HydrologicalYear(String year) {
-        this(Integer.valueOf(year));
-    }
-
-    public HydrologicalYear(Integer year) {
+    public HydrologicalYear(int year) {
         this.year = year;
     }
 
-    public Integer getYear() {
+    public int getYear() {
         return year;
     }
 
@@ -65,6 +62,21 @@ public class HydrologicalYear implements Serializable {
             it = it.plus(1, ChronoUnit.DAYS);
         }
         return monthDays;
+    }
+
+    @Override
+    public int compareTo(HydrologicalYear o) {
+        return NATURAL.compare(this, o);
+    }
+
+    @JsonCreator
+    public static HydrologicalYear fromString(String str) {
+        return new HydrologicalYear(Integer.parseInt(str));
+    }
+
+    @JsonCreator
+    public static HydrologicalYear fromInt(int val) {
+        return new HydrologicalYear(val);
     }
 
     public static HydrologicalYear now() {

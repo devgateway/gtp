@@ -14,7 +14,7 @@ public class HydrologicalYearConverter implements IConverter<HydrologicalYear> {
     @Override
     public HydrologicalYear convertToObject(String value, Locale locale) throws ConversionException {
         try {
-            return new HydrologicalYear(Integer.valueOf(value.substring(0, 4)));
+            return new HydrologicalYear(Integer.parseInt(value.substring(0, 4)));
         } catch (IndexOutOfBoundsException e) {
             throw new ConversionException(e);
         }

@@ -59,4 +59,19 @@ public class RiverStationYearlyLevelsServiceImpl extends BaseJpaServiceImpl<Rive
     public RiverStationYearlyLevels newInstance() {
         return new RiverStationYearlyLevels();
     }
+
+    @Override
+    public List<HydrologicalYear> findYearsWithLevels() {
+        return repository.findYearsWithLevels();
+    }
+
+    @Override
+    public List<RiverStation> findStationsWithLevels() {
+        return repository.findStationsWithLevels();
+    }
+
+    @Override
+    public List<RiverStationYearlyLevels> findByYearInAndStationId(Set<HydrologicalYear> years, Long riverStationId) {
+        return repository.findByYearInAndStationId(years, riverStationId);
+    }
 }

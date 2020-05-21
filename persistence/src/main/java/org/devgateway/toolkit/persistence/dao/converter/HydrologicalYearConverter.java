@@ -16,6 +16,6 @@ public class HydrologicalYearConverter implements AttributeConverter<Hydrologica
 
     @Override
     public HydrologicalYear convertToEntityAttribute(Integer dbData) {
-        return dbData == null ? null : new HydrologicalYear(dbData);
+        return dbData == null ? null : HydrologicalYear.fromInt(dbData);
     }
 }
