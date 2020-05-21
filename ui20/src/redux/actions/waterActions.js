@@ -12,6 +12,7 @@ import {
   rainSeasonChartFromApi,
   rainSeasonDataFromApi
 } from "../../modules/entities/rainSeason/RainSeasonChart"
+import {riverLevelFromApi} from "../../modules/entities/river/RiverLevelChart"
 import DrySequenceChartBuilder from "../../modules/graphic/water/drySequence/DrySequenceChartBuilder"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
@@ -34,7 +35,7 @@ export const loadAllWaterData = () => (dispatch, getState) =>
   })
 
 const transformAll = (allData) => {
-  const {rainLevelChart, drySequenceChart, seasonChart} = allData
+  const {rainLevelChart, drySequenceChart, seasonChart, riverLevelChart} = allData
   const commonConfig = new CommonConfig(allData.commonConfig)
   return {
     commonConfig,
@@ -45,7 +46,8 @@ const transformAll = (allData) => {
       setting: new RainLevelSetting()
     },
     drySequenceChart: drySequenceChartFromApi(drySequenceChart),
-    rainSeasonChart: rainSeasonChartFromApi(commonConfig, seasonChart)
+    rainSeasonChart: rainSeasonChartFromApi(commonConfig, seasonChart),
+    riverLevelChart: riverLevelFromApi(riverLevelChart),
   }
 }
 
