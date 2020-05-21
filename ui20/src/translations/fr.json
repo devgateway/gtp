@@ -155,6 +155,8 @@
 	"indicators.chart.rainfall.source": "ANACIM",
 	"indicators.table.rainseason.title": "Prévisions saisonnières",
 	"indicators.table.rainseason.source": "ANACIM",
+	"indicators.chart.riverlevel.title": "Variation du niveau du fleuve",
+	"indicators.chart.riverlevel.source": "DGPRE",
 	"indicators.chart.toggler.chart": "graphique",
 	"indicators.chart.toggler.table": "tableau ",
 	"indicators.chart.women.description": "Proportion de la population agricole totale propriétaire ou ayants droits sur les terres agricoles, selon le sexe; b) la part des femmes parmi les propriétaires ou les ayants droit des terres agricoles, selon le mode de tenure.",
