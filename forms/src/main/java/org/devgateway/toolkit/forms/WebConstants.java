@@ -64,6 +64,8 @@ public final class WebConstants {
 
     public static final String DISABLE_FORM_LEAVING_JS
             = "if(typeof disableFormLeavingConfirmation === 'function') disableFormLeavingConfirmation();";
+    public static final String ENABLE_FORM_LEAVING_JS
+            = "if(typeof enableFormLeavingConfirmation === 'function') enableFormLeavingConfirmation();";
     public static final String V_POSITION = "vPosition";
     public static final String MAX_HEIGHT = "maxPosition";
 

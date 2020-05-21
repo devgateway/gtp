@@ -252,7 +252,7 @@ public abstract class ListViewSectionPanel<T extends AbstractAuditableEntity, PA
 
             @Override
             protected String getOnClickScript() {
-                return "enableFormLeavingConfirmation();";
+                return "markFormAsChanged();";
             }
 
             @Override

@@ -16,6 +16,7 @@ import java.util.TreeSet;
 import java.util.function.BiFunction;
 
 import com.google.common.collect.ImmutableList;
+import org.apache.poi.UnsupportedFileFormatException;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -37,7 +38,10 @@ public class RiverLevelReader {
         try {
             sheets = new XSSFWorkbook(is);
         } catch (IOException e) {
-            throw new RiverLevelReaderException(ImmutableList.of("Invalid XLSX file format."), e);
+            throw new RiverLevelReaderException(ImmutableList.of("I/O error."), e);
+        } catch (UnsupportedFileFormatException e) {
+            throw new RiverLevelReaderException(ImmutableList.of("Unsupported file format. Please use a "
+                    + "Microsoft Excel Open XML Format Spreadsheet (XLSX) file."), e);
         }
 
         Set<L> data = new TreeSet<>();
