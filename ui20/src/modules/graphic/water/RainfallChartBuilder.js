@@ -35,7 +35,7 @@ export default class RainfallChartBuilder {
         if (idx > this.keys.length) {
           console.error('More reference level periods than selected years')
         } else {
-          this.keyReferenceLevels.set(this.keys[idx], refLevels)
+          this.keyReferenceLevels.set(this.keys[idx++], refLevels)
         }
       })
     this.monthDecadal = new MonthDecadal(this.keys.length === 1 ? this.keys[0] : null, C.SEASON_MONTHS)
