@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.repository.reference;
 
+import java.util.List;
+
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.dao.reference.RiverStationYearlyLevelsReference;
@@ -14,4 +16,7 @@ public interface RiverStationYearlyLevelsReferenceRepository
 
     @CacheHibernateQueryResult
     boolean existsByStationAndYearAndIdNot(RiverStation station, HydrologicalYear year, Long exceptId);
+
+    @CacheHibernateQueryResult
+    List<RiverStationYearlyLevelsReference> findByStationId(Long riverStationId);
 }

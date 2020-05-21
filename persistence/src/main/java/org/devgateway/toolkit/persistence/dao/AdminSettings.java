@@ -1,10 +1,12 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * @author idobre
@@ -17,7 +19,11 @@ public class AdminSettings extends AbstractAuditableEntity {
 
     private static final long serialVersionUID = -1051140524022133178L;
     private Boolean rebootServer = false;
+
     private Integer startingYear;
+
+    @ManyToOne
+    private RiverStation defaultRiverStation;
 
     @Override
     public AbstractAuditableEntity getParent() {
@@ -38,5 +44,13 @@ public class AdminSettings extends AbstractAuditableEntity {
 
     public void setStartingYear(Integer startingYear) {
         this.startingYear = startingYear;
+    }
+
+    public RiverStation getDefaultRiverStation() {
+        return defaultRiverStation;
+    }
+
+    public void setDefaultRiverStation(RiverStation defaultRiverStation) {
+        this.defaultRiverStation = defaultRiverStation;
     }
 }

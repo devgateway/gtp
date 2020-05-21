@@ -52,8 +52,8 @@ public class AdminSettingsServiceImpl extends BaseJpaServiceImpl<AdminSettings> 
 
     @Override
     public List<HydrologicalYear> getHydrologicalYears() {
-        return IntStream.rangeClosed(getStartingYear(), HydrologicalYear.now().getYear()).boxed()
-                .map(HydrologicalYear::new)
+        return IntStream.rangeClosed(getStartingYear(), HydrologicalYear.now().getYear())
+                .mapToObj(HydrologicalYear::new)
                 .collect(toList());
     }
 }

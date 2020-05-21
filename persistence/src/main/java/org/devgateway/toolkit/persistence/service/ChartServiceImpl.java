@@ -8,20 +8,32 @@ import java.time.MonthDay;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
+import com.google.common.collect.ImmutableSet;
+import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
+import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainSeason;
 import org.devgateway.toolkit.persistence.dao.indicator.RainSeason;
+import org.devgateway.toolkit.persistence.dao.indicator.RiverStationYearlyLevels;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.dao.location.Region;
 import org.devgateway.toolkit.persistence.dao.location.Zone;
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonPluviometricPostReferenceStart;
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonStartReference;
+import org.devgateway.toolkit.persistence.dao.reference.RiverStationYearlyLevelsReference;
 import org.devgateway.toolkit.persistence.dto.ChartsData;
 import org.devgateway.toolkit.persistence.dto.CommonConfig;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChart;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartData;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartFilter;
+import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChart;
+import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartConfig;
+import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartData;
+import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChart;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartConfig;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartData;
@@ -35,7 +47,9 @@ import org.devgateway.toolkit.persistence.repository.category.PluviometricPostRe
 import org.devgateway.toolkit.persistence.repository.indicator.RainSeasonRepository;
 import org.devgateway.toolkit.persistence.repository.reference.RainSeasonStartReferenceRepository;
 import org.devgateway.toolkit.persistence.service.indicator.DecadalRainfallService;
+import org.devgateway.toolkit.persistence.service.indicator.RiverStationYearlyLevelsService;
 import org.devgateway.toolkit.persistence.service.reference.RainLevelReferenceService;
+import org.devgateway.toolkit.persistence.service.reference.RiverStationYearlyLevelsReferenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,6 +75,15 @@ public class ChartServiceImpl implements ChartService {
     @Autowired
     private PluviometricPostRepository pluviometricPostRepository;
 
+    @Autowired
+    private AdminSettingsService adminSettingsService;
+
+    @Autowired
+    private RiverStationYearlyLevelsService riverStationYearlyLevelsService;
+
+    @Autowired
+    private RiverStationYearlyLevelsReferenceService riverStationYearlyLevelsReferenceService;
+
     @Override
     @Transactional(readOnly = true)
     public ChartsData getCharts() {
@@ -69,7 +92,8 @@ public class ChartServiceImpl implements ChartService {
                 getCommonConfig(),
                 getRainLevelChart(rainLevelChartConfig),
                 getDrySequenceChart(rainLevelChartConfig),
-                getSeasonChart());
+                getSeasonChart(),
+                getRiverLevelChart());
     }
 
     @Override
@@ -197,5 +221,45 @@ public class ChartServiceImpl implements ChartService {
 
     private SeasonPrediction newSeasonStart(PluviometricPostRainSeason ps, MonthDay plannedMonthDay) {
         return new SeasonPrediction(ps.getPluviometricPost().getId(), plannedMonthDay, ps.getStartDate());
+    }
+
+    private RiverLevelChart getRiverLevelChart() {
+        RiverLevelChartConfig config = getRiverLevelConfig();
+        RiverLevelChartFilter filter = getRiverLevelFilter();
+        RiverLevelChartData data = getRiverLevelData(filter);
+
+        return new RiverLevelChart(config, filter, data);
+    }
+
+    private RiverLevelChartFilter getRiverLevelFilter() {
+        Set<HydrologicalYear> years = ImmutableSet.of(HydrologicalYear.now());
+
+        Long riverStationId = adminSettingsService.get().getDefaultRiverStation().getId();
+
+        return new RiverLevelChartFilter(years, riverStationId);
+    }
+
+    @Override
+    @Transactional
+    public RiverLevelChartConfig getRiverLevelConfig() {
+        SortedSet<HydrologicalYear> years = new TreeSet<>(riverStationYearlyLevelsService.findYearsWithLevels());
+        List<RiverStation> riverStations = riverStationYearlyLevelsService.findStationsWithLevels();
+        return new RiverLevelChartConfig(years, riverStations);
+    }
+
+    @Override
+    @Transactional
+    public RiverLevelChartData getRiverLevelData(RiverLevelChartFilter filter) {
+        List<RiverStationYearlyLevels> yearlyLevels = riverStationYearlyLevelsService
+                .findByYearInAndStationId(filter.getYears(), filter.getRiverStationId()).stream()
+                .filter(yl -> !yl.getLevels().isEmpty())
+                .collect(toList());
+
+        List<RiverStationYearlyLevelsReference> referenceYearlyLevels = riverStationYearlyLevelsReferenceService
+                .findByStationId(filter.getRiverStationId()).stream()
+                .filter(yl -> !yl.getLevels().isEmpty())
+                .collect(toList());
+
+        return new RiverLevelChartData(yearlyLevels, referenceYearlyLevels);
     }
 }

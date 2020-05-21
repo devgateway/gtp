@@ -385,7 +385,17 @@
         </insert>
     </changeSet>
 
-    <!-- placeholder 2 -->
+    <changeSet id="ANACIM-88" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <columnExists tableName="admin_settings" columnName="default_river_station_id" />
+        </preConditions>
+        <sql><![CDATA[
+            update admin_settings
+            set default_river_station_id=rs.id
+            from river_station rs
+            where rs.name='Bakel';
+        ]]></sql>
+    </changeSet>
 
     <!-- placeholder 3 -->
 

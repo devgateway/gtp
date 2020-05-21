@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.service.reference;
 
+import java.util.List;
+
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.dao.reference.RiverStationYearlyLevelsReference;
@@ -17,11 +19,11 @@ public class RiverStationYearlyLevelsReferenceServiceImpl extends BaseJpaService
         implements RiverStationYearlyLevelsReferenceService {
 
     @Autowired
-    private RiverStationYearlyLevelsReferenceRepository riverStationYearlyLevelsReferenceRepository;
+    private RiverStationYearlyLevelsReferenceRepository repository;
 
     @Override
     protected BaseJpaRepository<RiverStationYearlyLevelsReference, Long> repository() {
-        return riverStationYearlyLevelsReferenceRepository;
+        return repository;
     }
 
     @Override
@@ -31,6 +33,11 @@ public class RiverStationYearlyLevelsReferenceServiceImpl extends BaseJpaService
 
     @Override
     public boolean exists(RiverStation station, HydrologicalYear year, Long exceptId) {
-        return riverStationYearlyLevelsReferenceRepository.existsByStationAndYearAndIdNot(station, year, exceptId);
+        return repository.existsByStationAndYearAndIdNot(station, year, exceptId);
+    }
+
+    @Override
+    public List<RiverStationYearlyLevelsReference> findByStationId(Long riverStationId) {
+        return repository.findByStationId(riverStationId);
     }
 }

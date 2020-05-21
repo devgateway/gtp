@@ -29,7 +29,7 @@ public class HydrologicalYearRangeChoiceProvider extends ChoiceProvider<Hydrolog
 
     @Override
     public String getIdValue(HydrologicalYear object) {
-        return object.getYear().toString();
+        return Integer.toString(object.getYear());
     }
 
     @Override
@@ -43,8 +43,8 @@ public class HydrologicalYearRangeChoiceProvider extends ChoiceProvider<Hydrolog
 
     @Override
     public Collection<HydrologicalYear> toChoices(Collection<String> ids) {
-        return ids.stream().map(Integer::parseInt)
-                .map(HydrologicalYear::new)
+        return ids.stream()
+                .map(HydrologicalYear::fromString)
                 .collect(toList());
     }
 }
