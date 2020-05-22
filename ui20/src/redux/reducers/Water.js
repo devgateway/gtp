@@ -31,6 +31,7 @@ const FILTER_RAIN_SEASON_FULFILLED = 'FILTER_RAIN_SEASON_FULFILLED'
 const FILTER_RAIN_SEASON_REJECTED = 'FILTER_RAIN_SEASON_REJECTED'
 export const CHANGE_RAIN_SEASON_FILTER = 'CHANGE_RAIN_SEASON_FILTER'
 export const SORT_RAIN_SEASON = 'SORT_RAIN_SEASON'
+export const CHANGE_RIVER_LEVEL_SETTING = 'CHANGE_RIVER_LEVEL_SETTING'
 
 const initialState = Immutable.fromJS({
   isLoading: false,
@@ -101,6 +102,8 @@ export default (state = initialState, action) => {
       return state.setIn(['data', 'rainSeasonChart', 'sortedBy'], sortedBy)
         .setIn(['data', 'rainSeasonChart', 'sortedAsc'], sortedAsc)
     }
+    case CHANGE_RIVER_LEVEL_SETTING:
+      return state.setIn(['data', 'riverLevelChart', 'setting', 'showAlert'], data)
     default: {
       return state
     }

@@ -9,10 +9,20 @@ import {ALERT_COLOR, AlertLevelLegend} from "./AlertLevelLegend"
 class RiverLevel extends Component {
   static propTypes = {
     data: PropTypes.instanceOf(RiverLevelChartDTO).isRequired,
+    setting: PropTypes.object.isRequired,
   }
 
   render() {
-    const { data, intl } = this.props
+    const { data, intl, setting } = this.props
+
+    const alertMarker = {
+      axis: 'y',
+      value: data.alertLevel,
+      lineStyle: {
+        stroke: ALERT_COLOR,
+        strokeWidth: 2
+      },
+    }
 
     return (
       <div className="png exportable chart container">
@@ -55,14 +65,7 @@ class RiverLevel extends Component {
           colors={{ scheme: 'category10' }}
           animate={true}
 
-          markers={[{
-            axis: 'y',
-            value: data.alertLevel,
-            lineStyle: {
-              stroke: ALERT_COLOR,
-              strokeWidth: 2
-            },
-          }]}
+          markers={setting.showAlert ? [alertMarker] : null}
 
           legends={[
             {
@@ -98,6 +101,7 @@ class RiverLevel extends Component {
 
 const mapStateToProps = state => {
   return {
+    setting: state.getIn(['water', 'data', 'riverLevelChart', 'setting']),
   }
 }
 

@@ -23,7 +23,9 @@ import {
   CHANGE_DRY_SEQUENCE_SETTING,
   CHANGE_RAIN_SEASON_FILTER,
   CHANGE_RAINFALL_FILTER,
-  CHANGE_RAINFALL_SETTING, FILTER_DRY_SEQUENCE,
+  CHANGE_RAINFALL_SETTING,
+  CHANGE_RIVER_LEVEL_SETTING,
+  FILTER_DRY_SEQUENCE,
   FILTER_RAIN_SEASON,
   FILTER_RAINFALL,
   SORT_RAIN_SEASON,
@@ -189,3 +191,8 @@ export const getRiverLevel = (): RiverLevelChartDTO => (dispatch, getState) => {
     data: builder.build(),
   }
 }
+
+export const showAlert = (isShow: boolean) => (dispatch, getState) => dispatch({
+  type: CHANGE_RIVER_LEVEL_SETTING,
+  data: isShow
+})

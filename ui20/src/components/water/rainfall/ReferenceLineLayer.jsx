@@ -2,9 +2,7 @@ import {BoxLegendSvg} from "@nivo/legends"
 import {line} from "d3-shape"
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
-import {FormattedMessage} from "react-intl"
 import {Tooltip} from 'react-svg-tooltip'
-import * as C from "../../../modules/entities/Constants"
 
 class ReferenceLine extends Component {
   static propTypes = {
