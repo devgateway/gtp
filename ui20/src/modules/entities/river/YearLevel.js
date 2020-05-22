@@ -5,9 +5,9 @@ export default class YearLevel {
   year: HydrologicalYear
   levels: Array<RiverLevel>
 
-  constructor({ year, levels }) {
+  constructor({ year, levels }, normalizedYear: HydrologicalYear) {
     this.year = new HydrologicalYear(year)
-    this.levels = levels.map(({ monthDay, level}) => new RiverLevel(monthDay, level, this.year))
+    this.levels = levels.map(({ monthDay, level}) => new RiverLevel(monthDay, level, this.year, normalizedYear))
   }
 
 }

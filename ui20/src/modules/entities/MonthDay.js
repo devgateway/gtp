@@ -12,7 +12,7 @@ export default class MonthDay {
     const month = +monthStr
     const day = +dayStr
     if (yearStart) {
-      const startMonth = yearStart.date.getMonth()
+      const startMonth = yearStart.date.getMonth() + 1
       if (startMonth > month || (startMonth === month && day < yearStart.date.getDate())) {
         year += 1
       }
