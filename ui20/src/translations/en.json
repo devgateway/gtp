@@ -277,5 +277,7 @@
 	"table.unsed.rows": "Element used as Rows",
 	"table.used.cols": "Element used as columns",
 	"water.drysequence.days": "Number of days",
-	"water.rainfall.level": "Rain (mm)"
+	"water.rainfall.level": "Rain (mm)",
+	"water.rainlevel.period": "days",
+	"water.rainlevel.level": "Daily level (cm)"
 }

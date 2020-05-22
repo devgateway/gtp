@@ -290,5 +290,7 @@
 	"table.unsed.rows": "Elément des lignes",
 	"table.used.cols": "Eléments des colonnes",
 	"water.drysequence.days": "Nombre de jours",
-	"water.rainfall.level": "Pluie (mm)"
+	"water.rainfall.level": "Pluie (mm)",
+	"water.rainlevel.period": "jours",
+	"water.rainlevel.level": "Côte journalière (en cm)"
 }
