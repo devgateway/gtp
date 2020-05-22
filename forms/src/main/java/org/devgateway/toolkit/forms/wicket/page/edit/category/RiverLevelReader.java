@@ -3,6 +3,7 @@ package org.devgateway.toolkit.forms.wicket.page.edit.category;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.DateTimeException;
 import java.time.MonthDay;
 import java.time.ZoneId;
@@ -83,15 +84,8 @@ public class RiverLevelReader {
 
             BigDecimal level = null;
             if (!levelIsMissing) {
-                try {
-                    double levelAsDouble = levelCell.getNumericCellValue();
-                    if (levelAsDouble < 0) {
-                        errors.add(String.format("Invalid river level on row %d.", (r + 1)));
-                        continue;
-                    }
-
-                    level = new BigDecimal(String.format("%.1f", levelAsDouble));
-                } catch (IllegalStateException | NumberFormatException e) {
+                level = readLevel(levelCell);
+                if (level == null) {
                     errors.add(String.format("Invalid river level on row %d.", (r + 1)));
                     continue;
                 }
@@ -111,5 +105,22 @@ public class RiverLevelReader {
         }
 
         return data;
+    }
+
+    private BigDecimal readLevel(XSSFCell cell) {
+        try {
+            double levelAsDouble = cell.getNumericCellValue();
+            if (levelAsDouble < 0) {
+                return null;
+            }
+
+            BigDecimal level = new BigDecimal(levelAsDouble).setScale(1, RoundingMode.HALF_EVEN);
+            if (level.precision() > 10) {
+                return null;
+            }
+            return level;
+        } catch (IllegalStateException | NumberFormatException e) {
+            return null;
+        }
     }
 }

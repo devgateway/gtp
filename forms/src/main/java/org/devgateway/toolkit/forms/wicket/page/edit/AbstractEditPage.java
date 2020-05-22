@@ -33,6 +33,7 @@ import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.toolkit.forms.WebConstants;
+import org.devgateway.toolkit.forms.exceptions.EntityNotFoundException;
 import org.devgateway.toolkit.forms.exceptions.NullJpaServiceException;
 import org.devgateway.toolkit.forms.exceptions.NullListPageClassException;
 import org.devgateway.toolkit.forms.util.MarkupCacheService;
@@ -452,7 +453,7 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
         IModel<T> model = null;
 
         if (entityId != null) {
-            model = new DozerModel<>(jpaService.findById(entityId).orElse(null));
+            model = new DozerModel<>(jpaService.findById(entityId).orElseThrow(EntityNotFoundException::new));
         } else {
             T instance = newInstance();
             if (instance != null) {
