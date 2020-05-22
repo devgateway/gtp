@@ -12,15 +12,20 @@ import {
   rainSeasonChartFromApi,
   rainSeasonDataFromApi
 } from "../../modules/entities/rainSeason/RainSeasonChart"
+import {riverLevelFromApi} from "../../modules/entities/river/RiverLevelChart"
 import DrySequenceChartBuilder from "../../modules/graphic/water/drySequence/DrySequenceChartBuilder"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
+import RiverLevelChartBuilder from "../../modules/graphic/water/river/RiverLevelChartBuilder"
+import RiverLevelChartDTO from "../../modules/graphic/water/river/RiverLevelChartDTO"
 import {
   CHANGE_DRY_SEQUENCE_FILTER,
   CHANGE_DRY_SEQUENCE_SETTING,
   CHANGE_RAIN_SEASON_FILTER,
   CHANGE_RAINFALL_FILTER,
-  CHANGE_RAINFALL_SETTING, FILTER_DRY_SEQUENCE,
+  CHANGE_RAINFALL_SETTING,
+  CHANGE_RIVER_LEVEL_SETTING,
+  FILTER_DRY_SEQUENCE,
   FILTER_RAIN_SEASON,
   FILTER_RAINFALL,
   SORT_RAIN_SEASON,
@@ -34,7 +39,7 @@ export const loadAllWaterData = () => (dispatch, getState) =>
   })
 
 const transformAll = (allData) => {
-  const {rainLevelChart, drySequenceChart, seasonChart} = allData
+  const {rainLevelChart, drySequenceChart, seasonChart, riverLevelChart} = allData
   const commonConfig = new CommonConfig(allData.commonConfig)
   return {
     commonConfig,
@@ -45,7 +50,8 @@ const transformAll = (allData) => {
       setting: new RainLevelSetting()
     },
     drySequenceChart: drySequenceChartFromApi(drySequenceChart),
-    rainSeasonChart: rainSeasonChartFromApi(commonConfig, seasonChart)
+    rainSeasonChart: rainSeasonChartFromApi(commonConfig, seasonChart),
+    riverLevelChart: riverLevelFromApi(riverLevelChart),
   }
 }
 
@@ -175,3 +181,18 @@ export const setRainSeasonFilter = (path: Array<string>, value, isYearFilter: bo
     })
   }
 }
+
+/*      RAINFALL          */
+export const getRiverLevel = (): RiverLevelChartDTO => (dispatch, getState) => {
+  const { riverLevelChart } = getState().getIn(['water', 'data'])
+  const builder = new RiverLevelChartBuilder(riverLevelChart)
+
+  return {
+    data: builder.build(),
+  }
+}
+
+export const showAlert = (isShow: boolean) => (dispatch, getState) => dispatch({
+  type: CHANGE_RIVER_LEVEL_SETTING,
+  data: isShow
+})

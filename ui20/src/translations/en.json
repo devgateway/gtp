@@ -1,4 +1,5 @@
 {
+	"all.alertLevel": "Alert level",
 	"all.decadals": "Decadals",
 	"all.decadalsPerMonth": "Decadals per month",
 	"all.graphic.value.NA": "N/A",
@@ -143,6 +144,8 @@
 	"indicators.chart.rainfall.source": "ANACIM",
 	"indicators.table.rainseason.title": "Seasonal predictions",
 	"indicators.table.rainseason.source": "ANACIM",
+	"indicators.chart.riverlevel.title": "Variation of the river level",
+	"indicators.chart.riverlevel.source": "DGPRE",
 	"indicators.chart.toggler.chart": "chart",
 	"indicators.chart.toggler.table": "table",
 	"indicators.chart.women.description": "Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex; and (b) share of women among owners or rights-bearers of agricultural land, by type of tenure.",
@@ -275,5 +278,7 @@
 	"table.unsed.rows": "Element used as Rows",
 	"table.used.cols": "Element used as columns",
 	"water.drysequence.days": "Number of days",
-	"water.rainfall.level": "Rain (mm)"
+	"water.rainfall.level": "Rain (mm)",
+	"water.rainlevel.period": "days",
+	"water.rainlevel.level": "Daily level (cm)"
 }

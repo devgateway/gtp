@@ -15,3 +15,8 @@ export const postIdsToOptions = (postIds, commonConfig: CommonConfig) => postIds
     value: id
   })}).sort((p1, p2) => p1.text.localeCompare(p2.text))
 
+export const hydrologicalYearToString = (year: number) => {
+  const nextYearPart = (year + 1) % 100
+  const nextYearStr = nextYearPart < 10 ? `0${nextYearPart}` : nextYearPart
+  return `${year}-${nextYearStr}`
+}
