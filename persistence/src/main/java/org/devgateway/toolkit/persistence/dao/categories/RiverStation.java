@@ -3,6 +3,8 @@ package org.devgateway.toolkit.persistence.dao.categories;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -25,6 +27,8 @@ import org.hibernate.envers.Audited;
 @BatchSize(size = 100)
 public class RiverStation extends AbstractAuditableEntity implements Labelable {
 
+    public static final int MAX_RIVER_DEPTH_IN_CM = 10000;
+
     @NotNull
     @Column(nullable = false, unique = true)
     private String name;
@@ -37,6 +41,8 @@ public class RiverStation extends AbstractAuditableEntity implements Labelable {
     private River river;
 
     @NotNull
+    @Min(0)
+    @Max(MAX_RIVER_DEPTH_IN_CM)
     private Integer alertLevel;
 
     public String getName() {

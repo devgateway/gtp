@@ -4,6 +4,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.lang.Objects;
+import org.apache.wicket.validation.validator.RangeValidator;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.validators.UniquePropertyValidator;
@@ -59,6 +60,7 @@ public class EditRiverStationPage extends AbstractEditPage<RiverStation> {
         TextFieldBootstrapFormComponent<Integer> alertLevel = new TextFieldBootstrapFormComponent<>("alertLevel");
         alertLevel.required();
         alertLevel.integer();
+        alertLevel.getField().add(new RangeValidator<>(0, RiverStation.MAX_RIVER_DEPTH_IN_CM));
         editForm.add(alertLevel);
 
         deleteButton.setVisible(false);
