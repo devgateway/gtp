@@ -23,5 +23,8 @@ public final class SecurityConstants {
     public static final class Roles {
         public static final String ROLE_ADMIN = "ROLE_ADMIN";
         public static final String ROLE_EDITOR = "ROLE_EDITOR";
+        public static final String ROLE_RAINFALL_EDITOR = "ROLE_RAINFALL_EDITOR";
+        public static final String ROLE_RAINFALL_SEASON_EDITOR = "ROLE_RAINFALL_SEASON_EDITOR";
+        public static final String ROLE_RIVER_LEVEL_EDITOR = "ROLE_RIVER_LEVEL_EDITOR";
     }
 }

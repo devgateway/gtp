@@ -1,7 +1,10 @@
 package org.devgateway.toolkit.forms.wicket.page.lists.indicator;
 
+import static org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy.authorize;
+
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import org.apache.wicket.Component;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -46,17 +49,20 @@ public class IndicatorHomePage extends BasePage {
         BootstrapBookmarkablePageLink<ListDecadalRainfallPage> rainfall = new BootstrapBookmarkablePageLink<>(
                 "rainfall", ListDecadalRainfallPage.class, Buttons.Type.Default);
         rainfall.setLabel(new StringResourceModel("rainfall"));
+        authorize(rainfall, Component.RENDER, SecurityConstants.Roles.ROLE_RAINFALL_EDITOR);
         add(rainfall);
 
         BootstrapBookmarkablePageLink<ListRainSeasonPage> season = new BootstrapBookmarkablePageLink<>(
                 "season", ListRainSeasonPage.class, Buttons.Type.Default);
         season.setLabel(new StringResourceModel("season"));
+        authorize(season, Component.RENDER, SecurityConstants.Roles.ROLE_RAINFALL_SEASON_EDITOR);
         add(season);
 
         BootstrapBookmarkablePageLink<ListRiverStationYearlyLevelsPage> riverLevels =
                 new BootstrapBookmarkablePageLink<>("riverLevels", ListRiverStationYearlyLevelsPage.class,
                         Buttons.Type.Default);
         riverLevels.setLabel(new StringResourceModel("riverLevels"));
+        authorize(riverLevels, Component.RENDER, SecurityConstants.Roles.ROLE_RIVER_LEVEL_EDITOR);
         add(riverLevels);
     }
 }

@@ -219,6 +219,7 @@ public class LoginPage extends BasePage {
         private void changeSessionId() {
             HttpServletRequest request = (HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest();
             request.changeSessionId();
+            SSAuthenticatedWebSession.getSSAuthenticatedWebSession().clearCachedRoles();
         }
     }
 }
