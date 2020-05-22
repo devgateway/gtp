@@ -14,6 +14,7 @@ package org.devgateway.toolkit.forms.wicket;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
@@ -21,6 +22,9 @@ import org.apache.wicket.injection.Injector;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.toolkit.forms.security.SecurityUtil;
+import org.devgateway.toolkit.persistence.dao.Person;
+import org.devgateway.toolkit.persistence.service.indicator.IndicatorMetadataService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -29,10 +33,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.RememberMeServices;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * AuthenticatedWebSession implementation using Spring Security.
@@ -46,6 +52,8 @@ public class SSAuthenticatedWebSession extends AuthenticatedWebSession {
 
     private static final long serialVersionUID = 7496424885650965870L;
 
+    private static final MetaDataKey<Roles> ROLES_KEY = new MetaDataKey<Roles>() { };
+
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private AuthenticationException ae;
@@ -58,6 +66,9 @@ public class SSAuthenticatedWebSession extends AuthenticatedWebSession {
 
     @SpringBean
     private RoleHierarchy roleHierarchy;
+
+    @SpringBean
+    private IndicatorMetadataService indicatorMetadataService;
 
     public SSAuthenticatedWebSession(final Request request) {
         super(request);
@@ -121,8 +132,12 @@ public class SSAuthenticatedWebSession extends AuthenticatedWebSession {
     // roles were returned
     @Override
     public Roles getRoles() {
-        Roles roles = new Roles();
-        getRolesIfSignedIn(roles);
+        Roles roles = getMetaData(ROLES_KEY);
+        if (roles == null) {
+            roles = new Roles();
+            getRolesIfSignedIn(roles);
+            setMetaData(ROLES_KEY, roles);
+        }
         return roles;
     }
 
@@ -131,13 +146,13 @@ public class SSAuthenticatedWebSession extends AuthenticatedWebSession {
      * only if the user is signed in
      * 
      * @see {@link #isSignedIn()}
-     * @see #addRolesFromAuthentication(Roles, Authentication)
+     * @see #addRolesFromAuthentication(Roles, Person)
      * @param roles
      */
     private void getRolesIfSignedIn(final Roles roles) {
         if (isSignedIn()) {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            addRolesFromAuthentication(roles, authentication);
+            Person person = SecurityUtil.getCurrentAuthenticatedPerson();
+            addRolesFromAuthentication(roles, person);
         }
     }
 
@@ -147,10 +162,16 @@ public class SSAuthenticatedWebSession extends AuthenticatedWebSession {
      * building effective roles list by taking in account role hierarchy.
      *
      * @param roles
-     * @param authentication
+     * @param person
      */
-    private void addRolesFromAuthentication(final Roles roles, final Authentication authentication) {
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+    private void addRolesFromAuthentication(final Roles roles, final Person person) {
+        List<GrantedAuthority> authorities = new ArrayList<>(person.getAuthorities());
+
+        if (person.getOrganization() != null) {
+            indicatorMetadataService.findIndicatorTypes(person.getOrganization())
+                    .forEach(it -> authorities.add(new SimpleGrantedAuthority("ROLE_" + it + "_EDITOR")));
+        }
+
         for (GrantedAuthority authority : roleHierarchy.getReachableGrantedAuthorities(authorities)) {
             roles.add(authority.getAuthority());
         }
@@ -164,4 +185,7 @@ public class SSAuthenticatedWebSession extends AuthenticatedWebSession {
         this.ae = ae;
     }
 
+    public void clearCachedRoles() {
+        setMetaData(ROLES_KEY, null);
+    }
 }

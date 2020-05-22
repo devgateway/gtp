@@ -9,17 +9,17 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
 import org.devgateway.toolkit.persistence.dao.AbstractStatusAuditableEntity;
-import org.devgateway.toolkit.persistence.dao.IndicatorType;
 
 /**
  * @author Octavian Ciubotaru
  */
 public abstract class AbstractIndicatorWithStatusListPage<T extends AbstractStatusAuditableEntity & Serializable>
-        extends AbstractIndicatorListPage<T> {
+        extends AbstractListPage<T> {
 
-    public AbstractIndicatorWithStatusListPage(PageParameters parameters, IndicatorType indicatorType) {
-        super(parameters, indicatorType);
+    public AbstractIndicatorWithStatusListPage(PageParameters parameters) {
+        super(parameters);
     }
 
     @Override

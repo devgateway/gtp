@@ -7,9 +7,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.GenericSleepFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.LocalDateFixedYearFieldBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.page.edit.indicator.AbstractIndicatorEditPage;
+import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditStatusEntityPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainseason.ListRainSeasonPage;
-import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainSeason;
 import org.devgateway.toolkit.persistence.service.indicator.PluviometricPostRainSeasonService;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -17,16 +16,16 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Nadejda Mandrescu
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_SEASON_EDITOR)
 @MountPath(value = "/rain-season")
-public class EditRainSeasonPage extends AbstractIndicatorEditPage<PluviometricPostRainSeason> {
+public class EditRainSeasonPage extends AbstractEditStatusEntityPage<PluviometricPostRainSeason> {
     private static final long serialVersionUID = -7281354183801334756L;
 
     @SpringBean
     private PluviometricPostRainSeasonService pluviometricPostRainSeasonService;
 
     public EditRainSeasonPage(PageParameters parameters) {
-        super(parameters, IndicatorType.RAINFALL_SEASON);
+        super(parameters);
 
         this.jpaService = pluviometricPostRainSeasonService;
         setListPage(ListRainSeasonPage.class);

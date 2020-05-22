@@ -17,10 +17,9 @@ import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.RiverStationYearlyLevelsFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.indicator.riverlevel.EditRiverStationYearlyLevelsPage;
-import org.devgateway.toolkit.forms.wicket.page.lists.indicator.AbstractIndicatorListPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.HydrologicalYearFilterPanel;
 import org.devgateway.toolkit.forms.wicket.page.lists.panel.RiverStationYearlyLevelsActionPanel;
-import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverLevel;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverStationYearlyLevels;
 import org.devgateway.toolkit.persistence.service.indicator.RiverStationYearlyLevelsService;
@@ -29,15 +28,15 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RIVER_LEVEL_EDITOR)
 @MountPath(value = "/river-levels")
-public class ListRiverStationYearlyLevelsPage extends AbstractIndicatorListPage<RiverStationYearlyLevels> {
+public class ListRiverStationYearlyLevelsPage extends AbstractListPage<RiverStationYearlyLevels> {
 
     @SpringBean
     private RiverStationYearlyLevelsService riverStationYearlyLevelsService;
 
     public ListRiverStationYearlyLevelsPage(PageParameters parameters) {
-        super(parameters, IndicatorType.RIVER_LEVEL);
+        super(parameters);
 
         this.jpaService = riverStationYearlyLevelsService;
         this.editPageClass = EditRiverStationYearlyLevelsPage.class;

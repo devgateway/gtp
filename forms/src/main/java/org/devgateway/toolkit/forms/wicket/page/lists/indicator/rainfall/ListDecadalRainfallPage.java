@@ -17,7 +17,6 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterStat
 import org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall.EditDecadalRainfallPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.AbstractIndicatorWithStatusListPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.YearFilterPanel;
-import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.service.indicator.DecadalRainfallService;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -25,7 +24,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Nadejda Mandrescu
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_EDITOR)
 @MountPath(value = "/rainfalls")
 public class ListDecadalRainfallPage extends AbstractIndicatorWithStatusListPage<DecadalRainfall> {
     private static final long serialVersionUID = 395649903982652614L;
@@ -34,7 +33,7 @@ public class ListDecadalRainfallPage extends AbstractIndicatorWithStatusListPage
     private DecadalRainfallService decadalRainfallService;
 
     public ListDecadalRainfallPage(PageParameters parameters) {
-        super(parameters, IndicatorType.RAINFALL);
+        super(parameters);
 
         this.jpaService = decadalRainfallService;
         this.editPageClass = EditDecadalRainfallPage.class;
