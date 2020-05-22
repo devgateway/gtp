@@ -1,8 +1,11 @@
 package org.devgateway.toolkit.persistence.service.indicator;
 
+import static java.util.stream.Collectors.toList;
 import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
 
+import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.Decadal;
+import org.devgateway.toolkit.persistence.dao.FormStatus;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainfall;
 import org.devgateway.toolkit.persistence.dto.drysequence.MonthDecadalDaysWithRain;
@@ -19,7 +22,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Nadejda Mandrescu
@@ -71,11 +73,11 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
                     List<Rainfall> rainfalls = pluviometricPostRainfall.getRainfalls()
                             .stream()
                             .filter(rainfall -> rainfall.getRain() != null)
-                            .collect(Collectors.toList());
+                            .collect(toList());
                     pluviometricPostRainfall.setRainfalls(rainfalls);
                     return !rainfalls.isEmpty();
                 })
-                .collect(Collectors.toList());
+                .collect(toList());
         entity.setPostRainfalls(pluviometricPostRainfalls);
 
         return repository().saveAndFlush(entity);
@@ -93,11 +95,43 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
 
     @Override
     public List<DecadalInstantRainLevel> findRainLevels(Collection<Integer> years, Long pluviometricPostId) {
-        return decadalRainfallRepository.findRainLevels(years, pluviometricPostId);
+        List<DecadalRainfall> decadalRainfalls = decadalRainfallRepository
+                .findByFormStatusAndYearIn(FormStatus.PUBLISHED, years);
+
+        return decadalRainfalls.stream()
+                .map(drf -> getRainLevelForPost(drf, pluviometricPostId))
+                .sorted()
+                .collect(toList());
+    }
+
+    private DecadalInstantRainLevel getRainLevelForPost(DecadalRainfall drf, Long pluviometricPostId) {
+        double val = drf.getPostRainfalls().stream()
+                .filter(prf -> prf.getPluviometricPost().getId().equals(pluviometricPostId))
+                .findFirst()
+                .map(prf -> prf.getRainfalls().stream().mapToDouble(Rainfall::getRain).sum())
+                .orElse(0d);
+
+        return new DecadalInstantRainLevel(drf.getYear(), drf.getMonth(), drf.getDecadal(), val);
     }
 
     @Override
     public List<MonthDecadalDaysWithRain> findMonthDecadalDaysWithRain(Integer year, Long pluviometricPostId) {
-        return decadalRainfallRepository.findMonthDecadalDaysWithRain(year, pluviometricPostId);
+        List<DecadalRainfall> decadalRainfalls = decadalRainfallRepository
+                .findByFormStatusAndYearIn(FormStatus.PUBLISHED, ImmutableList.of(year));
+
+        return decadalRainfalls.stream()
+                .map(drf -> getDaysWithRainForPost(drf, pluviometricPostId))
+                .sorted()
+                .collect(toList());
+    }
+
+    private MonthDecadalDaysWithRain getDaysWithRainForPost(DecadalRainfall drf, Long pluviometricPostId) {
+        long days = drf.getPostRainfalls().stream()
+                .filter(prf -> prf.getPluviometricPost().getId().equals(pluviometricPostId))
+                .findFirst()
+                .map(prf -> prf.getRainfalls().stream().filter(rf -> rf.getRain() > 0).count())
+                .orElse(0L);
+
+        return new MonthDecadalDaysWithRain(drf.getYear(), drf.getMonth(), drf.getDecadal(), days);
     }
 }

@@ -2,13 +2,18 @@ package org.devgateway.toolkit.persistence.dto.drysequence;
 
 import java.time.Month;
 import java.time.YearMonth;
+import java.util.Comparator;
 
 import org.devgateway.toolkit.persistence.dao.Decadal;
 
 /**
  * @author Octavian Ciubotaru
  */
-public class MonthDecadalDaysWithRain {
+public class MonthDecadalDaysWithRain implements Comparable<MonthDecadalDaysWithRain> {
+
+    private static final Comparator<MonthDecadalDaysWithRain> NATURAL =
+            Comparator.comparing(MonthDecadalDaysWithRain::getMonth)
+            .thenComparing(MonthDecadalDaysWithRain::getDecadal);
 
     private final Month month;
     private final Decadal decadal;
@@ -36,5 +41,10 @@ public class MonthDecadalDaysWithRain {
 
     public int getDaysWithoutRain() {
         return daysWithoutRain;
+    }
+
+    @Override
+    public int compareTo(MonthDecadalDaysWithRain o) {
+        return NATURAL.compare(this, o);
     }
 }
