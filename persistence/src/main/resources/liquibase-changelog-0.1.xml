@@ -397,7 +397,20 @@
         ]]></sql>
     </changeSet>
 
-    <!-- placeholder 3 -->
+    <changeSet id="ANACIM-81" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="rain_level_reference" />
+            <tableExists tableName="rain_season_start_reference" />
+        </preConditions>
+        <sql><![CDATA[
+            UPDATE rain_level_reference SET year_end = 2030 WHERE year_end = 2029;
+            UPDATE rain_level_reference SET year_end = 2040 WHERE year_end = 2039;
+            UPDATE rain_level_reference SET year_end = 2050 WHERE year_end = 2049;
+            UPDATE rain_season_start_reference SET year_end = 2030 WHERE year_end = 2029;
+            UPDATE rain_season_start_reference SET year_end = 2040 WHERE year_end = 2039;
+            UPDATE rain_season_start_reference SET year_end = 2050 WHERE year_end = 2049;
+        ]]></sql>
+    </changeSet>
 
     <!-- placeholder 4 -->
 
