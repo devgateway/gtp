@@ -16,6 +16,8 @@ import {riverLevelFromApi} from "../../modules/entities/river/RiverLevelChart"
 import DrySequenceChartBuilder from "../../modules/graphic/water/drySequence/DrySequenceChartBuilder"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
+import RiverLevelChartBuilder from "../../modules/graphic/water/river/RiverLevelChartBuilder"
+import RiverLevelChartDTO from "../../modules/graphic/water/river/RiverLevelChartDTO"
 import {
   CHANGE_DRY_SEQUENCE_FILTER,
   CHANGE_DRY_SEQUENCE_SETTING,
@@ -175,5 +177,15 @@ export const setRainSeasonFilter = (path: Array<string>, value, isYearFilter: bo
       type: FILTER_RAIN_SEASON,
       payload: handleFilter(rainSeasonChart, commonConfig)
     })
+  }
+}
+
+/*      RAINFALL          */
+export const getRiverLevel = (): RiverLevelChartDTO => (dispatch, getState) => {
+  const { riverLevelChart } = getState().getIn(['water', 'data'])
+  const builder = new RiverLevelChartBuilder(riverLevelChart)
+
+  return {
+    data: builder.build(),
   }
 }
