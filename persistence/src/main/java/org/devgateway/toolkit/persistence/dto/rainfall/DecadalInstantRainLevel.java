@@ -1,13 +1,19 @@
 package org.devgateway.toolkit.persistence.dto.rainfall;
 
 import java.time.Month;
+import java.util.Comparator;
 
 import org.devgateway.toolkit.persistence.dao.Decadal;
 
 /**
  * @author Octavian Ciubotaru
  */
-public class DecadalInstantRainLevel extends AbstractRainLevel {
+public class DecadalInstantRainLevel extends AbstractRainLevel implements Comparable<DecadalInstantRainLevel> {
+
+    private static final Comparator<DecadalInstantRainLevel> NATURAL =
+            Comparator.comparingInt(DecadalInstantRainLevel::getYear)
+            .thenComparing(DecadalInstantRainLevel::getMonth)
+            .thenComparing(DecadalInstantRainLevel::getDecadal);
 
     private final int year;
 
@@ -32,5 +38,10 @@ public class DecadalInstantRainLevel extends AbstractRainLevel {
 
     public Decadal getDecadal() {
         return decadal;
+    }
+
+    @Override
+    public int compareTo(DecadalInstantRainLevel o) {
+        return NATURAL.compare(this, o);
     }
 }
