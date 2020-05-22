@@ -1,9 +1,11 @@
 import {ResponsiveLine} from "@nivo/line"
+import {TableTooltip} from '@nivo/tooltip';
 import PropTypes from "prop-types"
 import React, {Component} from "react"
-import {injectIntl} from "react-intl"
+import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import RiverLevelChartDTO from "../../../modules/graphic/water/river/RiverLevelChartDTO"
+import Chip from "../../common/Chip"
 import {ALERT_COLOR, AlertLevelLegend} from "./AlertLevelLegend"
 
 class RiverLevel extends Component {
@@ -43,6 +45,7 @@ class RiverLevel extends Component {
             stacked: false,
           }}
           enableSlices='x'
+          sliceTooltip={CustomSliceTooltip}
 
           axisLeft={{
             legendPosition: 'middle',
@@ -96,6 +99,23 @@ class RiverLevel extends Component {
         />
       </div>);
   }
+}
+
+
+const CustomSliceTooltip = ({slice, axis}) => {
+  const otherAxis = axis === 'x' ? 'y' : 'x';
+  const dataProp = "".concat(otherAxis, "Formatted")
+  const rows = slice.points.map((point) => {
+    return [
+      <Chip key="chip" color={point.serieColor}/>,
+      point.serieId,
+      <span><strong key="value">{point.data[dataProp]}</strong> cm</span>,
+    ];
+  })
+  const date:Date = slice.points[0].data.actualDate
+  const month = date.getMonth() + 1
+  const title = <strong><FormattedMessage id={`all.month.${month}`} /> {date.getDate()}</strong>
+  return <TableTooltip title={title} rows={rows}/>
 }
 
 
