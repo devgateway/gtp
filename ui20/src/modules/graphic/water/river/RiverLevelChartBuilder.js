@@ -1,5 +1,6 @@
 import RiverLevel from "../../../entities/river/RiverLevel"
 import RiverLevelChart from "../../../entities/river/RiverLevelChart"
+import RiverStation from "../../../entities/river/RiverStation"
 import YearLevel from "../../../entities/river/YearLevel"
 import {hydrologicalYearToString} from "../CommonDTO"
 import RiverLevelChartDTO from "./RiverLevelChartDTO"
@@ -19,7 +20,7 @@ export default class RiverLevelChartBuilder {
     const yearlyLines = this._transformYearlyLevels(yearlyLevels, false)
     const refLines = this._transformYearlyLevels(referenceYearlyLevels, true)
     this.lines = yearlyLines.concat(refLines)
-    return new RiverLevelChartDTO(this.lines)
+    return new RiverLevelChartDTO(this.lines, this._getAlertLevel())
   }
 
   _transformYearlyLevels(yearlyLevels: Array<YearLevel>, isReference: boolean) {
@@ -27,6 +28,12 @@ export default class RiverLevelChartBuilder {
       const points = levels.map((l: RiverLevel) => new RiverLevelPoint(l.normalizedDate, l.level, l.monthDay.date))
       return new RiverLevelLine(hydrologicalYearToString(year.year), points, isReference)
     })
+  }
+
+  _getAlertLevel() {
+    const riverStation:RiverStation = this.riverLevelChart.config.riverStations
+      .find(r => r.id === this.riverLevelChart.filter.riverStationId)
+    return riverStation.alertLevel
   }
 
 }

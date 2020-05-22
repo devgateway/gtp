@@ -4,6 +4,7 @@ import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import RiverLevelChartDTO from "../../../modules/graphic/water/river/RiverLevelChartDTO"
+import {ALERT_COLOR, AlertLevelLegend} from "./AlertLevelLegend"
 
 class RiverLevel extends Component {
   static propTypes = {
@@ -54,13 +55,22 @@ class RiverLevel extends Component {
           colors={{ scheme: 'category10' }}
           animate={true}
 
+          markers={[{
+            axis: 'y',
+            value: data.alertLevel,
+            lineStyle: {
+              stroke: ALERT_COLOR,
+              strokeWidth: 2
+            },
+          }]}
+
           legends={[
             {
-              anchor: 'bottom-left',
+              anchor: 'top-right',
               direction: 'row',
               justify: false,
-              translateX: -11,
-              translateY: 70,
+              translateX: -130,
+              translateY: -30,
               itemsSpacing: 0,
               itemWidth: 120,
               itemHeight: 20,
@@ -79,6 +89,7 @@ class RiverLevel extends Component {
               ]
             }
           ]}
+          layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends', AlertLevelLegend]}
         />
       </div>);
   }
