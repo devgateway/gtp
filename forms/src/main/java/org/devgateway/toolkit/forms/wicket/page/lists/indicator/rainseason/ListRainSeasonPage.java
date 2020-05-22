@@ -27,7 +27,6 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.PluviometricP
 import org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainseason.EditRainSeasonPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.AbstractIndicatorWithStatusListPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.YearFilterPanel;
-import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainSeason;
 import org.devgateway.toolkit.persistence.dao.location.Department;
@@ -43,7 +42,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Nadejda Mandrescu
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_SEASON_EDITOR)
 @MountPath(value = "/rain-seasons")
 public class ListRainSeasonPage extends AbstractIndicatorWithStatusListPage<PluviometricPostRainSeason> {
     private static final long serialVersionUID = 4253917551574616261L;
@@ -66,7 +65,7 @@ public class ListRainSeasonPage extends AbstractIndicatorWithStatusListPage<Pluv
     private PluviometricPostRainSeasonFilterState filterState = new PluviometricPostRainSeasonFilterState();
 
     public ListRainSeasonPage(PageParameters parameters) {
-        super(parameters, IndicatorType.RAINFALL_SEASON);
+        super(parameters);
 
         this.jpaService = pluviometricPostRainSeasonService;
         this.editPageClass = EditRainSeasonPage.class;

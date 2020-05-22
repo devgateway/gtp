@@ -5,10 +5,8 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
-import org.devgateway.toolkit.forms.wicket.behaviors.AuthorizeIndicatorTypeBehavior;
 import org.devgateway.toolkit.forms.wicket.page.edit.category.AbstractEditRiverStationYearlyLevelsPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.riverlevel.ListRiverStationYearlyLevelsPage;
-import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverLevel;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverStationYearlyLevels;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
@@ -18,7 +16,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_EDITOR)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RIVER_LEVEL_EDITOR)
 @MountPath(value = "/river-levels-upload")
 public class EditRiverStationYearlyLevelsPage
         extends AbstractEditRiverStationYearlyLevelsPage<RiverStationYearlyLevels, RiverLevel> {
@@ -31,8 +29,6 @@ public class EditRiverStationYearlyLevelsPage
 
     public EditRiverStationYearlyLevelsPage(PageParameters parameters) {
         super(parameters, RiverLevel::new);
-
-        add(new AuthorizeIndicatorTypeBehavior(IndicatorType.RIVER_LEVEL));
 
         this.jpaService = riverStationYearlyLevelsService;
 
