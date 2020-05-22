@@ -1,5 +1,6 @@
+import {categoricalColorSchemes} from '@nivo/colors'
 import {ResponsiveLine} from "@nivo/line"
-import {TableTooltip} from '@nivo/tooltip';
+import {TableTooltip} from '@nivo/tooltip'
 import PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
@@ -12,10 +13,56 @@ class RiverLevel extends Component {
   static propTypes = {
     data: PropTypes.instanceOf(RiverLevelChartDTO).isRequired,
     setting: PropTypes.object.isRequired,
+    filter: PropTypes.object.isRequired,
   }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLocalStateChange: false
+    }
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const {isLocalStateChange, riverStationId} = state
+    if (isLocalStateChange) {
+      return {
+        isLocalStateChange: false
+      }
+    }
+    if (riverStationId !== props.filter.riverStationId) {
+      return {
+        hideReferenceYears: new Set(),
+        riverStationId: props.filter.riverStationId,
+      }
+    }
+    return null
+  }
+
+  levelLineToggle({riverLevelYear}) {
+    const {year, isReference} = riverLevelYear
+    if (isReference) {
+      const {hideReferenceYears} = this.state
+      if (!hideReferenceYears.delete(year)) {
+        hideReferenceYears.add(year)
+      }
+      this.setState({
+        hideReferenceYears,
+        isLocalStateChange: true
+      })
+    }
+  }
+
 
   render() {
     const { data, intl, setting } = this.props
+    const { hideReferenceYears } = this.state
+    const { category10 } = categoricalColorSchemes
+
+    const lineColor = (line) => {
+      const isHide = hideReferenceYears.has(line.riverLevelYear.year)
+      return isHide ? 'rgba(0, 0, 0, .0)' : category10[line.index]
+    }
 
     const alertMarker = {
       axis: 'y',
@@ -65,13 +112,19 @@ class RiverLevel extends Component {
           curve="monotoneX"
           enablePoints={false}
           useMesh={true}
-          colors={{ scheme: 'category10' }}
+          colors={lineColor}
           animate={true}
 
           markers={setting.showAlert ? [alertMarker] : null}
 
           legends={[
             {
+              data: data.lines.map(({id, riverLevelYear, isReference}, index) => ({
+                id: index,
+                label: id,
+                color: category10[index],
+                riverLevelYear,
+              })),
               anchor: 'top-right',
               direction: 'row',
               justify: false,
@@ -84,6 +137,7 @@ class RiverLevel extends Component {
               symbolSize: 12,
               symbolShape: 'circle',
               symbolBorderColor: 'rgba(0, 0, 0, .5)',
+              onClick: this.levelLineToggle.bind(this),
               effects: [
                 {
                   on: 'hover',
@@ -122,6 +176,7 @@ const CustomSliceTooltip = ({slice, axis}) => {
 const mapStateToProps = state => {
   return {
     setting: state.getIn(['water', 'data', 'riverLevelChart', 'setting']),
+    filter: state.getIn(['water', 'data', 'riverLevelChart', 'filter']),
   }
 }
 
