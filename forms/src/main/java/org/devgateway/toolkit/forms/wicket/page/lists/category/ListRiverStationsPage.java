@@ -32,6 +32,7 @@ public class ListRiverStationsPage extends AbstractListPage<RiverStation> {
 
         columns.add(new PropertyColumn<>(new StringResourceModel("river"), "river.name", "river.name"));
         columns.add(new PropertyColumn<>(new StringResourceModel("name"), "name", "name"));
+        columns.add(new PropertyColumn<>(new StringResourceModel("alertLevel"), "alertLevel", "alertLevel"));
     }
 
     @Override
