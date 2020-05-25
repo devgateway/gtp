@@ -1,8 +1,15 @@
 package org.devgateway.toolkit.persistence.service.indicator;
 
+import static java.util.Collections.emptyList;
+
+import java.util.Collection;
+import java.util.List;
+
+import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainSeason;
 import org.devgateway.toolkit.persistence.dao.indicator.RainSeason;
 import org.devgateway.toolkit.persistence.repository.indicator.RainSeasonRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +24,9 @@ public class RainSeasonServiceImpl extends BaseJpaServiceImpl<RainSeason> implem
 
     @Autowired
     private RainSeasonRepository rainSeasonRepository;
+
+    @Autowired
+    private AdminSettingsService adminSettingsService;
 
     @Override
     public RainSeason newInstance() {
@@ -39,5 +49,17 @@ public class RainSeasonServiceImpl extends BaseJpaServiceImpl<RainSeason> implem
         RainSeason rainSeason = new RainSeason();
         rainSeason.setYear(year);
         rainSeasonRepository.saveAndFlush(rainSeason);
+    }
+
+    @Override
+    public Collection<Integer> findYearsWithData() {
+        return rainSeasonRepository.findYearsWithData(adminSettingsService.getStartingYear());
+    }
+
+    @Override
+    public List<PluviometricPostRainSeason> findByYear(Integer year) {
+        return rainSeasonRepository.findByYear(year)
+                .map(RainSeason::getPostRainSeasons)
+                .orElse(emptyList());
     }
 }

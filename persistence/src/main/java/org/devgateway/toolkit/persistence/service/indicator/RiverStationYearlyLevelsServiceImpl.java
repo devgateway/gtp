@@ -12,6 +12,7 @@ import org.devgateway.toolkit.persistence.dao.indicator.RiverStationYearlyLevels
 import org.devgateway.toolkit.persistence.repository.RiverStationRepository;
 import org.devgateway.toolkit.persistence.repository.indicator.RiverStationYearlyLevelsRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,9 @@ public class RiverStationYearlyLevelsServiceImpl extends BaseJpaServiceImpl<Rive
 
     @Autowired
     private RiverStationRepository riverStationRepository;
+
+    @Autowired
+    private AdminSettingsService adminSettingsService;
 
     @Override
     protected BaseJpaRepository<RiverStationYearlyLevels, Long> repository() {
@@ -62,7 +66,8 @@ public class RiverStationYearlyLevelsServiceImpl extends BaseJpaServiceImpl<Rive
 
     @Override
     public List<HydrologicalYear> findYearsWithLevels() {
-        return repository.findYearsWithLevels();
+        HydrologicalYear minYear = new HydrologicalYear(adminSettingsService.getStartingYear());
+        return repository.findYearsWithLevels(minYear);
     }
 
     @Override
