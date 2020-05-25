@@ -1,6 +1,5 @@
 import RiverLevel from "../../../entities/river/RiverLevel"
 import RiverLevelChart from "../../../entities/river/RiverLevelChart"
-import RiverStation from "../../../entities/river/RiverStation"
 import YearLevel from "../../../entities/river/YearLevel"
 import RiverLevelChartDTO from "./RiverLevelChartDTO"
 import RiverLevelLine from "./RiverLevelLine"
@@ -31,9 +30,7 @@ export default class RiverLevelChartBuilder {
   }
 
   _getAlertLevel() {
-    const riverStation:RiverStation = this.riverLevelChart.config.riverStations
-      .find(r => r.id === this.riverLevelChart.filter.riverStationId)
-    return riverStation.alertLevel
+    return this.riverLevelChart.config.riverStations.get(this.riverLevelChart.filter.riverStationId).alertLevel
   }
 
 }

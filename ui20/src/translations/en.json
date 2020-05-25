@@ -167,6 +167,8 @@
 	"indicators.filters.losstype": "Loss Type",
 	"indicators.filters.regions": "Regions",
 	"indicators.filters.reset": "Reset All",
+	"indicators.filters.river_station": "River",
+	"indicators.filters.river_station.option": "{river} - {station} station",
 	"indicators.filters.select_all": "Select All",
 	"indicators.filters.select_none": "Select None",
 	"indicators.filters.slider.age": "Age Range",

@@ -31,6 +31,11 @@ const FILTER_RAIN_SEASON_FULFILLED = 'FILTER_RAIN_SEASON_FULFILLED'
 const FILTER_RAIN_SEASON_REJECTED = 'FILTER_RAIN_SEASON_REJECTED'
 export const CHANGE_RAIN_SEASON_FILTER = 'CHANGE_RAIN_SEASON_FILTER'
 export const SORT_RAIN_SEASON = 'SORT_RAIN_SEASON'
+export const FILTER_RIVER_LEVEL = 'FILTER_RIVER_LEVEL'
+const FILTER_RIVER_LEVEL_PENDING = 'FILTER_RIVER_LEVEL_PENDING'
+const FILTER_RIVER_LEVEL_FULFILLED = 'FILTER_RIVER_LEVEL_FULFILLED'
+const FILTER_RIVER_LEVEL_REJECTED = 'FILTER_RIVER_LEVEL_REJECTED'
+export const CHANGE_RIVER_LEVEL_FILTER = 'CHANGE_RIVER_LEVEL_FILTER'
 export const CHANGE_RIVER_LEVEL_SETTING = 'CHANGE_RIVER_LEVEL_SETTING'
 
 const initialState = Immutable.fromJS({
@@ -55,6 +60,8 @@ const initialState = Immutable.fromJS({
   isFilteredDrySequence: false,
   isFilteringRainSeason: false,
   isFilteredRainSeason: false,
+  isFilteringRiverLevel: false,
+  isFilteredRiverLevel: false,
 })
 
 export default (state = initialState, action) => {
@@ -102,6 +109,15 @@ export default (state = initialState, action) => {
       return state.setIn(['data', 'rainSeasonChart', 'sortedBy'], sortedBy)
         .setIn(['data', 'rainSeasonChart', 'sortedAsc'], sortedAsc)
     }
+    case FILTER_RIVER_LEVEL_PENDING:
+      return state.set('isFilteringRiverLevel', true).set('isFilteredRiverLevel', false).set('error', null)
+    case FILTER_RIVER_LEVEL_FULFILLED:
+      return state.set('isFilteringRiverLevel', false).set('isFilteredRiverLevel', true)
+        .setIn(['data', 'riverLevelChart', 'data'], payload)
+    case FILTER_RIVER_LEVEL_REJECTED:
+      return state.set('isFilteringRiverLevel', false).set('isFilteredRiverLevel', false).set('error', payload)
+    case CHANGE_RIVER_LEVEL_FILTER:
+      return state.setIn(['data', 'riverLevelChart', 'filter', ...path], data)
     case CHANGE_RIVER_LEVEL_SETTING:
       return state.setIn(['data', 'riverLevelChart', 'setting', 'showAlert'], data)
     default: {
