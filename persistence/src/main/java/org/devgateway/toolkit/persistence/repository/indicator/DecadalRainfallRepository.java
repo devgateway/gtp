@@ -28,8 +28,9 @@ public interface DecadalRainfallRepository extends BaseJpaRepository<DecadalRain
     @CacheHibernateQueryResult
     @Query("select distinct year "
             + "from DecadalRainfall "
-            + "where formStatus = 'PUBLISHED'")
-    List<Integer> findYearsWithData();
+            + "where formStatus = 'PUBLISHED' "
+            + "and year >= :minYear")
+    List<Integer> findYearsWithData(Integer minYear);
 
     @CacheHibernateQueryResult
     List<DecadalRainfall> findByFormStatusAndYearIn(FormStatus status, Collection<Integer> years);
