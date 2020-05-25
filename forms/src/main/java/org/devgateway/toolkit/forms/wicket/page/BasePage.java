@@ -72,6 +72,7 @@ import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListRapidLinkFormPage
 import org.devgateway.toolkit.forms.wicket.page.ipar.lists.ListRegionIndicatorPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.category.ReferenceDataPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.category.SystemCategoriesHomePage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.IndicatorHomePage;
 import org.devgateway.toolkit.forms.wicket.page.user.EditUserPage;
@@ -333,8 +334,17 @@ public abstract class BasePage extends GenericWebPage<Void> {
         return adminMenu;
     }
 
-    protected NavbarButton<Homepage> newCategoriesMenu() {
-        final NavbarButton<Homepage> categoriesMenu = new NavbarButton<Homepage>(SystemCategoriesHomePage.class,
+    protected NavbarButton<?> newRefDataAndAlertsMenu() {
+        final NavbarButton<?> categoriesMenu = new NavbarButton<>(ReferenceDataPage.class,
+                new StringResourceModel("navbar.refData", this, null));
+        categoriesMenu.setIconType(FontAwesomeIconType.list_ul);
+        MetaDataRoleAuthorizationStrategy.authorize(categoriesMenu, Component.RENDER,
+                SecurityConstants.Roles.ROLE_ADMIN);
+        return categoriesMenu;
+    }
+
+    protected NavbarButton<?> newCategoriesMenu() {
+        final NavbarButton<?> categoriesMenu = new NavbarButton<>(SystemCategoriesHomePage.class,
                 new StringResourceModel("navbar.categories", this, null));
         categoriesMenu.setIconType(FontAwesomeIconType.list_ul);
         MetaDataRoleAuthorizationStrategy.authorize(categoriesMenu, Component.RENDER,
@@ -562,7 +572,8 @@ public abstract class BasePage extends GenericWebPage<Void> {
         navbar.setInverted(true);
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
-                newAdminMenu(), newCategoriesMenu(), newIndicatorsMenu(), newAccountMenu(), newLogoutMenu()));
+                newAdminMenu(), newRefDataAndAlertsMenu(), newCategoriesMenu(), newIndicatorsMenu(),
+                newAccountMenu(), newLogoutMenu()));
 
         // navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT, newLanguageMenu()));
 

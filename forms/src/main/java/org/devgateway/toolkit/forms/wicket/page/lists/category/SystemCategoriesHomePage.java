@@ -9,9 +9,6 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
-import org.devgateway.toolkit.forms.wicket.page.lists.reference.ListRainLevelReferencePage;
-import org.devgateway.toolkit.forms.wicket.page.lists.reference.ListRainSeasonStartReferencePage;
-import org.devgateway.toolkit.forms.wicket.page.lists.reference.ListRiverStationYearlyLevelsReferencesPage;
 import org.devgateway.toolkit.forms.wicket.styles.HomeStyles;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -53,17 +50,6 @@ public class SystemCategoriesHomePage extends BasePage {
         stations.setLabel(new StringResourceModel("pluviometricPosts"));
         add(stations);
 
-        BootstrapBookmarkablePageLink<ListRainLevelReferencePage> referenceRain = new BootstrapBookmarkablePageLink<>(
-                "referenceRain", ListRainLevelReferencePage.class, Buttons.Type.Default);
-        referenceRain.setLabel(new StringResourceModel("referenceRain"));
-        add(referenceRain);
-
-        BootstrapBookmarkablePageLink<ListRainSeasonStartReferencePage> referenceSeason =
-                new BootstrapBookmarkablePageLink<>(
-                        "referenceSeason", ListRainSeasonStartReferencePage.class, Buttons.Type.Default);
-        referenceSeason.setLabel(new StringResourceModel("referenceSeason"));
-        add(referenceSeason);
-
         BootstrapBookmarkablePageLink<ListRiversPage> rivers =
                 new BootstrapBookmarkablePageLink<>("rivers", ListRiversPage.class, Buttons.Type.Default);
         rivers.setLabel(new StringResourceModel("rivers"));
@@ -73,12 +59,6 @@ public class SystemCategoriesHomePage extends BasePage {
                 new BootstrapBookmarkablePageLink<>("riverStations", ListRiverStationsPage.class, Buttons.Type.Default);
         riverStations.setLabel(new StringResourceModel("riverStations"));
         add(riverStations);
-
-        BootstrapBookmarkablePageLink<ListRiverStationYearlyLevelsReferencesPage> riverLevelRefs =
-                new BootstrapBookmarkablePageLink<>("riverLevelRefs",
-                        ListRiverStationYearlyLevelsReferencesPage.class, Buttons.Type.Default);
-        riverLevelRefs.setLabel(new StringResourceModel("riverLevelRefs"));
-        add(riverLevelRefs);
 
         BootstrapBookmarkablePageLink<ListMarketsPage> markets = new BootstrapBookmarkablePageLink<>(
                 "markets", ListMarketsPage.class, Buttons.Type.Default);
