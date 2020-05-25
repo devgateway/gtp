@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.devgateway.toolkit.persistence.dao.FormStatus;
+import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
@@ -19,11 +20,12 @@ public interface DecadalRainfallRepository extends BaseJpaRepository<DecadalRain
     boolean existsByYear(Integer year);
 
     @CacheHibernateQueryResult
-    @Query("select distinct prf.pluviometricPost.id "
+    @Query("select distinct prf.pluviometricPost "
             + "from DecadalRainfall drf "
             + "join drf.postRainfalls prf "
-            + "where drf.formStatus = 'PUBLISHED'")
-    List<Long> findPluviometricPostsWithData();
+            + "where drf.formStatus = 'PUBLISHED'"
+            + "order by prf.pluviometricPost.label")
+    List<PluviometricPost> findPluviometricPostsWithData();
 
     @CacheHibernateQueryResult
     @Query("select distinct year "
