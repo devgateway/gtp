@@ -1,7 +1,6 @@
-package org.devgateway.toolkit.persistence.dao.ipar;
+package org.devgateway.toolkit.persistence.dao.categories;
 
 import java.io.Serializable;
-import java.time.DayOfWeek;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +14,8 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
-import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.location.Department;
+import org.devgateway.toolkit.persistence.util.MarketDaysUtil;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -32,8 +31,6 @@ import org.hibernate.envers.Audited;
 @BatchSize(size = 100)
 public class Market extends AbstractAuditableEntity implements Serializable, Labelable {
 
-    public static final int ALL_DAYS = (1 << DayOfWeek.values().length) - 1;
-
     @NotNull
     @ManyToOne(optional = false)
     private Department department;
@@ -47,7 +44,7 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
     private MarketType type;
 
     @NotNull @Min(1)
-    private Integer marketDays = ALL_DAYS;
+    private Integer marketDays = MarketDaysUtil.ALL_DAYS;
 
     @Min(12) @Max(17) @NotNull
     private Double latitude;

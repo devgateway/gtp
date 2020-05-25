@@ -17,7 +17,7 @@ import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.table.DegreePropertyColumn;
 import org.devgateway.toolkit.forms.wicket.page.edit.category.EditMarketPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
-import org.devgateway.toolkit.persistence.dao.ipar.Market;
+import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.util.MarketDaysUtil;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -70,7 +70,7 @@ public class ListMarketsPage extends AbstractListPage<Market> {
         @Override
         public String getObject() {
             Integer flags = targetModel.getObject();
-            if (flags.equals(Market.ALL_DAYS)) {
+            if (flags.equals(MarketDaysUtil.ALL_DAYS)) {
                 return permanentLabelModel.getObject();
             }
             List<DayOfWeek> days = MarketDaysUtil.unpack(flags);

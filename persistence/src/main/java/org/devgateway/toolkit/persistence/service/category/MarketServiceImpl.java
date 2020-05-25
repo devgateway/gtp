@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.persistence.service.category;
 
-import org.devgateway.toolkit.persistence.dao.ipar.Market;
+import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.repository.category.MarketRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;

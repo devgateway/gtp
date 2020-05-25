@@ -10,6 +10,8 @@ import java.util.List;
  */
 public final class MarketDaysUtil {
 
+    public static final int ALL_DAYS = (1 << DayOfWeek.values().length) - 1;
+
     private MarketDaysUtil() {
     }
 

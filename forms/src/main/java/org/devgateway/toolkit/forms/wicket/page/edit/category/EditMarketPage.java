@@ -5,7 +5,6 @@ import static java.util.stream.Collectors.toList;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Collection;
-import java.util.Objects;
 
 import com.google.common.collect.ImmutableMap;
 import org.apache.wicket.Session;
@@ -30,7 +29,7 @@ import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.category.ListMarketsPage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.categories.MarketType;
-import org.devgateway.toolkit.persistence.dao.ipar.Market;
+import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.service.category.MarketTypeService;
@@ -88,7 +87,7 @@ public class EditMarketPage extends AbstractEditPage<Market> {
         marketType.required();
         editForm.add(marketType);
 
-        permanentModel = Model.of(Objects.equals(editForm.getModelObject().getMarketDays(), Market.ALL_DAYS));
+        permanentModel = Model.of(editForm.getModelObject().getMarketDays().equals(MarketDaysUtil.ALL_DAYS));
         CheckBoxYesNoToggleBootstrapFormComponent permanent =
                 new CheckBoxYesNoToggleBootstrapFormComponent("permanent", permanentModel);
         permanent.required();
@@ -133,7 +132,7 @@ public class EditMarketPage extends AbstractEditPage<Market> {
         @Override
         protected void onSubmit(AjaxRequestTarget target) {
             if (permanentModel.getObject()) {
-                editForm.getModelObject().setMarketDays(Market.ALL_DAYS);
+                editForm.getModelObject().setMarketDays(MarketDaysUtil.ALL_DAYS);
             }
 
             super.onSubmit(target);

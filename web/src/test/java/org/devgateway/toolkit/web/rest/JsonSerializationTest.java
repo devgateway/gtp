@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import org.devgateway.toolkit.persistence.dao.ipar.Consumption;
 import org.devgateway.toolkit.persistence.dao.ipar.Dataset;
 import org.devgateway.toolkit.persistence.dao.location.Department;
-import org.devgateway.toolkit.persistence.dao.ipar.Market;
+import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.ipar.MarketPrice;
 import org.devgateway.toolkit.persistence.dao.ipar.Production;
 import org.devgateway.toolkit.persistence.dao.location.Region;
