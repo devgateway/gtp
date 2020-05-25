@@ -179,6 +179,8 @@
 	"indicators.filters.losstype": "Répartition de la Production",
 	"indicators.filters.regions": "Régions",
 	"indicators.filters.reset": "Réinitialiser",
+	"indicators.filters.river_station": "Fleuve",
+	"indicators.filters.river_station.option": "{river} - Station de {station}",
 	"indicators.filters.select_all": "Tous",
 	"indicators.filters.select_none": "Aucun",
 	"indicators.filters.slider.age": "Tranche d'âge",
