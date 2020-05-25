@@ -13,6 +13,7 @@ import {
   rainSeasonDataFromApi
 } from "../../modules/entities/rainSeason/RainSeasonChart"
 import {riverLevelFromApi} from "../../modules/entities/river/RiverLevelChart"
+import RiverLevelData from "../../modules/entities/river/RiverLevelData"
 import DrySequenceChartBuilder from "../../modules/graphic/water/drySequence/DrySequenceChartBuilder"
 import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
@@ -24,10 +25,12 @@ import {
   CHANGE_RAIN_SEASON_FILTER,
   CHANGE_RAINFALL_FILTER,
   CHANGE_RAINFALL_SETTING,
+  CHANGE_RIVER_LEVEL_FILTER,
   CHANGE_RIVER_LEVEL_SETTING,
   FILTER_DRY_SEQUENCE,
   FILTER_RAIN_SEASON,
   FILTER_RAINFALL,
+  FILTER_RIVER_LEVEL,
   SORT_RAIN_SEASON,
   WATER_RESOURCES
 } from "../reducers/Water"
@@ -196,3 +199,20 @@ export const showAlert = (isShow: boolean) => (dispatch, getState) => dispatch({
   type: CHANGE_RIVER_LEVEL_SETTING,
   data: isShow
 })
+
+const getRiverLevelByFilter = (dispatch, getState) => {
+  const filter = getState().getIn(['water', 'data', 'riverLevelChart', 'filter'])
+  return dispatch({
+    type: FILTER_RIVER_LEVEL,
+    payload: api.getRiverLevel(filter).then(data => new RiverLevelData(data))
+  })
+}
+
+export const setRiverLevelFilter = (path, data) => (dispatch, getState) => {
+  dispatch({
+    type: CHANGE_RIVER_LEVEL_FILTER,
+    path,
+    data
+  })
+  getRiverLevelByFilter(dispatch, getState)
+}
