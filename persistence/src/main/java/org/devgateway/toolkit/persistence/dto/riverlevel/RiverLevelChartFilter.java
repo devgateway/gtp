@@ -15,7 +15,7 @@ public class RiverLevelChartFilter {
 
     @NotNull
     @NotEmpty
-    private final Set<HydrologicalYear> years;
+    private final Set<@NotNull HydrologicalYear> years;
 
     @NotNull
     private final Long riverStationId;

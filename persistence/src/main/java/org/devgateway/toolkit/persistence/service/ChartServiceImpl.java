@@ -213,10 +213,12 @@ public class ChartServiceImpl implements ChartService {
                 .map(ps -> newSeasonStart(ps, referenceStartByPost.get(ps.getPluviometricPost())))
                 .collect(toList());
 
+        Integer yearStart = seasonRef.getYearStart();
+        Integer yearEnd = seasonRef.getYearEnd();
         Integer referenceYearStart = seasonRef.getReferenceYearStart();
         Integer referenceYearEnd = seasonRef.getReferenceYearEnd();
 
-        return new SeasonChartData(referenceYearStart, referenceYearEnd, predictions);
+        return new SeasonChartData(yearStart, yearEnd, referenceYearStart, referenceYearEnd, predictions);
     }
 
     private SeasonPrediction newSeasonStart(PluviometricPostRainSeason ps, MonthDay plannedMonthDay) {
