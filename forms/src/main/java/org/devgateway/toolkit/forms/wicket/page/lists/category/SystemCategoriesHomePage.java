@@ -79,5 +79,10 @@ public class SystemCategoriesHomePage extends BasePage {
                         ListRiverStationYearlyLevelsReferencesPage.class, Buttons.Type.Default);
         riverLevelRefs.setLabel(new StringResourceModel("riverLevelRefs"));
         add(riverLevelRefs);
+
+        BootstrapBookmarkablePageLink<ListMarketsPage> markets = new BootstrapBookmarkablePageLink<>(
+                "markets", ListMarketsPage.class, Buttons.Type.Default);
+        markets.setLabel(new StringResourceModel("markets"));
+        add(markets);
     }
 }

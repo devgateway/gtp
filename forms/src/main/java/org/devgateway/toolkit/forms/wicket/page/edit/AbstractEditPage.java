@@ -384,7 +384,11 @@ public abstract class AbstractEditPage<T extends GenericPersistable & Serializab
      * @return
      */
     public SaveEditPageButton getSaveEditPageButton() {
-        return new SaveEditPageButton("save", new StringResourceModel("saveButton", this, null));
+        return getSaveEditPageButton("save", new StringResourceModel("saveButton", this, null));
+    }
+
+    public SaveEditPageButton getSaveEditPageButton(String id, IModel<String> labelModel) {
+        return new SaveEditPageButton(id, labelModel);
     }
 
     /**

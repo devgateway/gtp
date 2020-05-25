@@ -5,7 +5,7 @@ import static java.util.stream.Collectors.toMap;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
-import org.devgateway.toolkit.persistence.dao.ipar.Market;
+import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.CropType;
 import org.devgateway.toolkit.persistence.service.ipar.category.CropTypeService;
 import org.devgateway.toolkit.persistence.service.ipar.category.MarketService;
