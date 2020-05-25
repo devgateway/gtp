@@ -27,8 +27,9 @@ public interface RainSeasonRepository extends BaseJpaRepository<RainSeason, Long
             + "where p.formStatus = 'PUBLISHED' "
             + "and s.year >= rs.yearStart "
             + "and s.year <= rs.yearEnd "
+            + "and s.year >= :minYear "
             + "and p.pluviometricPost = rp.pluviometricPost "
             + "and rp.startReference is not null")
     @CacheHibernateQueryResult
-    List<Integer> findYearsWithData();
+    List<Integer> findYearsWithData(Integer minYear);
 }
