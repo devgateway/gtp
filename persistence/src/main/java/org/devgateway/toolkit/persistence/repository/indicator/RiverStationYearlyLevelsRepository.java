@@ -28,7 +28,8 @@ public interface RiverStationYearlyLevelsRepository extends BaseJpaRepository<Ri
     @CacheHibernateQueryResult
     @Query("select distinct yl.station "
             + "from RiverStationYearlyLevels yl "
-            + "join yl.levels l")
+            + "join yl.levels l "
+            + "order by yl.station.name")
     List<RiverStation> findStationsWithLevels();
 
     @CacheHibernateQueryResult

@@ -16,6 +16,7 @@ import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaReposit
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,7 +90,9 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
 
     @Override
     public List<Long> findPluviometricPostsWithData() {
-        return decadalRainfallRepository.findPluviometricPostsWithData();
+        return decadalRainfallRepository.findPluviometricPostsWithData().stream()
+                .map(AbstractPersistable::getId)
+                .collect(toList());
     }
 
     @Override
