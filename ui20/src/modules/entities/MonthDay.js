@@ -24,4 +24,9 @@ export default class MonthDay {
     return this.date.toLocaleDateString('fr-SN', {month: 'long', day: 'numeric'})
   }
 
+  static getMonthDayStr(date: Date) {
+    const month = date.getMonth() + 1
+    const add0 = (v) => v < 10 ? '0' : ''
+    return `--${add0(month)}${month}-${add0(date.getDate())}${date.getDate()}`
+  }
 }

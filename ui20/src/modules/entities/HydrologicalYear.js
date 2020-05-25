@@ -11,4 +11,23 @@ export default class HydrologicalYear {
     this.yearStart = new MonthDay(HYDROLOGICAL_YEAR_START_MONTH_DAY, year)
   }
 
+  get isLeapYear() {
+    const y = this.year + (this.yearStart.date.getMonth() > 1 ? 1 : 0)
+    return y % 4 === 0
+  }
+
+  get days() {
+    return 365 + (this.isLeapYear ? 1 : 0)
+  }
+
+  getMonthDays() {
+    let days = this.days
+    const mds = []
+    for (let date = new Date(this.yearStart.date); days > 0; days--) {
+      mds.push(MonthDay.getMonthDayStr(date))
+      date.setDate(date.getDate() + 1)
+    }
+    return mds
+  }
+
 }
