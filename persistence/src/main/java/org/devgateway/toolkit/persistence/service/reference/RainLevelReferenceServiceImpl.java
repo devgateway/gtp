@@ -86,6 +86,7 @@ public class RainLevelReferenceServiceImpl extends YearsReferenceServiceImpl<Rai
 
     private ReferenceLevels findReferenceLevels(RainLevelReference rlr, Long pluviometricPostId) {
         List<MonthDecadalRainLevel> rainLevels = rainLevelReferenceRepository.findRainLevels(rlr, pluviometricPostId);
-        return new ReferenceLevels(rlr.getReferenceYearStart(), rlr.getReferenceYearEnd(), rainLevels);
+        return new ReferenceLevels(rlr.getYearStart(), rlr.getYearEnd(),
+                rlr.getReferenceYearStart(), rlr.getReferenceYearEnd(), rainLevels);
     }
 }
