@@ -30,7 +30,8 @@ export default class RiverLevelChartBuilder {
   }
 
   _getAlertLevel() {
-    return this.riverLevelChart.config.riverStations.get(this.riverLevelChart.filter.riverStationId).alertLevel
+    const station = this.riverLevelChart.config.riverStations.get(this.riverLevelChart.filter.riverStationId)
+    return station && station.alertLevel
   }
 
 }
