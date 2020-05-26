@@ -8,6 +8,7 @@ import MonthDecadal from "../../../modules/utils/MonthDecadal"
 import messages from "../../../translations/messages"
 import DefaultBarOrNegativeValueAsZeroBar from "../../common/DefaultBarOrNegativeValueAsZeroBar"
 import DecadalTick from "./DecadalTick"
+import {INNER_PADDING} from "./RainfallGraphicConstants"
 import RainTick from "./RainTick"
 import {keysWithRefsToLegendData, ReferenceLineLayer, ReferenceLineLegend} from "./ReferenceLineLayer"
 
@@ -79,7 +80,7 @@ class Rainfall extends Component {
         minValue={0}
         margin={{ top: 50, right: 130, bottom: 80, left: 60 }}
         padding={0.3}
-        innerPadding={3}
+        innerPadding={INNER_PADDING}
         fill={[]}
         borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
         axisTop={null}

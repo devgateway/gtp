@@ -29,13 +29,13 @@ export default class RainfallChartBuilder {
   _init() {
     this.keys = this.rainLevelChart.filter.years.sort().reverse()
     this.keyReferenceLevels = new Map()
-    let idx = 0
     this.data.referenceLevels.sort((r1, r2) => r1.referenceYearEnd > r2.referenceYearEnd)
       .forEach((refLevels: RainReferenceLevelData) => {
-        if (idx > this.keys.length) {
-          console.error('More reference level periods than selected years')
+        const refKeys = this.keys.filter(k => (refLevels.yearStart <= k && refLevels.yearEnd >= k))
+        if (!refKeys.length) {
+          console.error('No matching year found for provided reference level')
         } else {
-          this.keyReferenceLevels.set(this.keys[idx++], refLevels)
+          this.keyReferenceLevels.set(refKeys[Math.min(2, refKeys.length) - 1], refLevels)
         }
       })
     this.monthDecadal = new MonthDecadal(this.keys.length === 1 ? this.keys[0] : null, C.SEASON_MONTHS)
