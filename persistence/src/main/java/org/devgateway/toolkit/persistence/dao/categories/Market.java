@@ -7,15 +7,20 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.util.MarketDaysUtil;
+import org.devgateway.toolkit.persistence.validator.SenegalLatitude;
+import org.devgateway.toolkit.persistence.validator.SenegalLongitude;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -33,6 +38,9 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
 
     @NotNull
     @ManyToOne(optional = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("departmentId")
     private Department department;
 
     @NotNull
@@ -41,15 +49,18 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
 
     @NotNull
     @ManyToOne(optional = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("typeId")
     private MarketType type;
 
     @NotNull @Min(1)
     private Integer marketDays = MarketDaysUtil.ALL_DAYS;
 
-    @Min(12) @Max(17) @NotNull
+    @NotNull @SenegalLatitude
     private Double latitude;
 
-    @Min(-18) @Max(-11) @NotNull
+    @NotNull @SenegalLongitude
     private Double longitude;
 
     public Market() {

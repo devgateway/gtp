@@ -1,7 +1,10 @@
 package org.devgateway.toolkit.persistence.service;
 
+import org.devgateway.toolkit.persistence.dto.agriculture.AgricultureChartsData;
 import org.devgateway.toolkit.persistence.dto.ChartsData;
+import org.devgateway.toolkit.persistence.dto.agriculture.AgricultureConfig;
 import org.devgateway.toolkit.persistence.dto.CommonConfig;
+import org.devgateway.toolkit.persistence.dto.WaterConfig;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartData;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartFilter;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartConfig;
@@ -23,6 +26,8 @@ public interface ChartService {
 
     CommonConfig getCommonConfig();
 
+    WaterConfig getWaterConfig();
+
     RainLevelChartConfig getRainLevelConfig();
 
     RainLevelChartData getRainLevelData(RainLevelChartFilter filter);
@@ -36,4 +41,8 @@ public interface ChartService {
     RiverLevelChartConfig getRiverLevelConfig();
 
     RiverLevelChartData getRiverLevelData(RiverLevelChartFilter filter);
+
+    AgricultureConfig getAgricultureConfig();
+
+    AgricultureChartsData getAgricultureChartsData();
 }
