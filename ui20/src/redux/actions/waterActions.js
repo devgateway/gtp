@@ -43,7 +43,7 @@ export const loadAllWaterData = () => (dispatch, getState) =>
 
 const transformAll = (allData) => {
   const {rainLevelChart, drySequenceChart, seasonChart, riverLevelChart} = allData
-  const commonConfig = new CommonConfig(allData.commonConfig)
+  const commonConfig = new CommonConfig(allData.waterConfig, allData.commonConfig)
   return {
     commonConfig,
     rainLevelChart: {
