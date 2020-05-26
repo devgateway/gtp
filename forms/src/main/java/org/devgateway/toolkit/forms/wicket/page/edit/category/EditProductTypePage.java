@@ -44,33 +44,4 @@ public class EditProductTypePage extends AbstractEditPage<ProductType> {
 
         deleteButton.setVisible(false);
     }
-
-    // TODO check other unique validators!
-
-
-//    private class UniqueMarketNameValidator extends AbstractFormValidator {
-//
-//        private final FormComponent<?>[] dependentFormComponents;
-//        private final FormComponent<String> nameFC;
-//
-//        UniqueMarketNameValidator(FormComponent<?> department, FormComponent<String> name) {
-//            nameFC = name;
-//            dependentFormComponents = new FormComponent[]{department, name};
-//        }
-//
-//        @Override
-//        public FormComponent<?>[] getDependentFormComponents() {
-//            return dependentFormComponents;
-//        }
-//
-//        @Override
-//        public void validate(Form<?> form) {
-//            String name = editForm.getModelObject().getName();
-//            Department department = editForm.getModelObject().getDepartment();
-//            Long id = editForm.getModelObject().getId();
-//            if (productTypeService.exists(department, name, id)) {
-//                error(nameFC, ImmutableMap.of("department", department.getName(), "marketName", name));
-//            }
-//        }
-//    }
 }

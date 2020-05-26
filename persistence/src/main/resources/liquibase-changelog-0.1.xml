@@ -437,7 +437,7 @@
 
     <changeSet id="ANACIM-121" author="Octavian Ciubotaru">
         <preConditions onFail="CONTINUE">
-            <tableExists tableName="category" />
+            <columnExists tableName="category" columnName="name" />
         </preConditions>
         <insert tableName="category">
             <column name="id" valueSequenceNext="hibernate_sequence" />
