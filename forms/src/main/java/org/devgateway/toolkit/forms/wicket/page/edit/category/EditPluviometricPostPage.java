@@ -7,6 +7,7 @@ import org.apache.wicket.util.lang.Objects;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.validators.UniquePropertyValidator;
+import org.devgateway.toolkit.forms.wicket.components.form.DegreeBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
@@ -50,15 +51,13 @@ public class EditPluviometricPostPage extends AbstractEditPage<PluviometricPost>
                 Objects.defaultIfNull(entityId, -1L), "label", this));
         editForm.add(name);
 
-        final TextFieldBootstrapFormComponent<Double> latitude = new TextFieldBootstrapFormComponent<>("latitude");
+        DegreeBootstrapFormComponent latitude = new DegreeBootstrapFormComponent("latitude");
         latitude.required();
-        latitude.asDouble();
         latitude.getField().add(WebConstants.Validators.LATITUDE_RANGE);
         editForm.add(latitude);
 
-        final TextFieldBootstrapFormComponent<Double> longitude = new TextFieldBootstrapFormComponent<>("longitude");
+        DegreeBootstrapFormComponent longitude = new DegreeBootstrapFormComponent("longitude");
         longitude.required();
-        longitude.asDouble();
         longitude.getField().add(WebConstants.Validators.LONGITUDE_RANGE);
         editForm.add(longitude);
 

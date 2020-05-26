@@ -6,6 +6,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.wicket.components.table.DegreePropertyColumn;
 import org.devgateway.toolkit.forms.wicket.page.edit.category.EditPluviometricPostPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
@@ -31,7 +32,7 @@ public class ListPluviometricPostPage extends AbstractListPage<PluviometricPost>
 
         columns.add(new PropertyColumn<>(new StringResourceModel("department"), "department.name", "department.name"));
         columns.add(new PropertyColumn<>(new StringResourceModel("label"), "label", "label"));
-        columns.add(new PropertyColumn<>(new StringResourceModel("latitude"), "latitude", "latitude"));
-        columns.add(new PropertyColumn<>(new StringResourceModel("longitude"), "longitude", "longitude"));
+        columns.add(new DegreePropertyColumn<>(new StringResourceModel("latitude"), "latitude", "latitude"));
+        columns.add(new DegreePropertyColumn<>(new StringResourceModel("longitude"), "longitude", "longitude"));
     }
 }

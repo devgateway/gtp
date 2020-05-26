@@ -412,7 +412,26 @@
         ]]></sql>
     </changeSet>
 
-    <!-- placeholder 4 -->
+    <changeSet id="ANACIM-120" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="MarketType" />
+            <column name="label" value="Marché rural" />
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="MarketType" />
+            <column name="label" value="Quaie de pêche" />
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="MarketType" />
+            <column name="label" value="Lieu de transformation" />
+        </insert>
+    </changeSet>
 
     <!-- placeholder 5 -->
 

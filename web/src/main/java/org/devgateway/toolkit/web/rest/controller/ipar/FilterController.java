@@ -2,7 +2,7 @@ package org.devgateway.toolkit.web.rest.controller.ipar;
 
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.location.Department;
-import org.devgateway.toolkit.persistence.dao.ipar.Market;
+import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.location.Region;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.AgeGroup;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.AgriculturalWomenGroup;

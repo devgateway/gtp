@@ -21,13 +21,15 @@ public interface RiverStationYearlyLevelsRepository extends BaseJpaRepository<Ri
     @CacheHibernateQueryResult
     @Query("select distinct yl.year "
             + "from RiverStationYearlyLevels yl "
-            + "join yl.levels l")
-    List<HydrologicalYear> findYearsWithLevels();
+            + "join yl.levels l "
+            + "where yl.year >= :minYear")
+    List<HydrologicalYear> findYearsWithLevels(HydrologicalYear minYear);
 
     @CacheHibernateQueryResult
     @Query("select distinct yl.station "
             + "from RiverStationYearlyLevels yl "
-            + "join yl.levels l")
+            + "join yl.levels l "
+            + "order by yl.station.name")
     List<RiverStation> findStationsWithLevels();
 
     @CacheHibernateQueryResult

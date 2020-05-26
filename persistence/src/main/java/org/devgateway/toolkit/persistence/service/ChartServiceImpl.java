@@ -1,6 +1,5 @@
 package org.devgateway.toolkit.persistence.service;
 
-import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
@@ -17,7 +16,6 @@ import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainSeason;
-import org.devgateway.toolkit.persistence.dao.indicator.RainSeason;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverStationYearlyLevels;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.dao.location.Region;
@@ -43,12 +41,12 @@ import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChart;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartConfig;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartData;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartFilter;
-import org.devgateway.toolkit.persistence.repository.category.PluviometricPostRepository;
-import org.devgateway.toolkit.persistence.repository.indicator.RainSeasonRepository;
-import org.devgateway.toolkit.persistence.repository.reference.RainSeasonStartReferenceRepository;
+import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
 import org.devgateway.toolkit.persistence.service.indicator.DecadalRainfallService;
+import org.devgateway.toolkit.persistence.service.indicator.RainSeasonService;
 import org.devgateway.toolkit.persistence.service.indicator.RiverStationYearlyLevelsService;
 import org.devgateway.toolkit.persistence.service.reference.RainLevelReferenceService;
+import org.devgateway.toolkit.persistence.service.reference.RainSeasonStartReferenceService;
 import org.devgateway.toolkit.persistence.service.reference.RiverStationYearlyLevelsReferenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,13 +65,13 @@ public class ChartServiceImpl implements ChartService {
     private RainLevelReferenceService rainLevelReferenceService;
 
     @Autowired
-    private RainSeasonRepository rainSeasonRepository;
+    private RainSeasonService rainSeasonService;
 
     @Autowired
-    private RainSeasonStartReferenceRepository rainSeasonStartReferenceRepository;
+    private RainSeasonStartReferenceService rainSeasonStartReferenceService;
 
     @Autowired
-    private PluviometricPostRepository pluviometricPostRepository;
+    private PluviometricPostService pluviometricPostService;
 
     @Autowired
     private AdminSettingsService adminSettingsService;
@@ -99,7 +97,7 @@ public class ChartServiceImpl implements ChartService {
     @Override
     @Transactional(readOnly = true)
     public CommonConfig getCommonConfig() {
-        List<PluviometricPost> posts = pluviometricPostRepository.findAll();
+        List<PluviometricPost> posts = pluviometricPostService.findAll();
         List<Department> departments = posts.stream().map(PluviometricPost::getDepartment).distinct().collect(toList());
         List<Region> regions = departments.stream().map(Department::getRegion).distinct().collect(toList());
         List<Zone> zones = regions.stream().map(Region::getZone).distinct().collect(toList());
@@ -187,7 +185,7 @@ public class ChartServiceImpl implements ChartService {
     @Override
     @Transactional(readOnly = true)
     public SeasonChartConfig getRainSeasonConfig() {
-        return new SeasonChartConfig(rainSeasonRepository.findYearsWithData());
+        return new SeasonChartConfig(rainSeasonService.findYearsWithData());
     }
 
     @Override
@@ -195,12 +193,10 @@ public class ChartServiceImpl implements ChartService {
     public SeasonChartData getRainSeasonData(SeasonChartFilter filter) {
         Integer year = filter.getYear();
 
-        List<PluviometricPostRainSeason> postRainSeasons = rainSeasonRepository.findByYear(year)
-                .map(RainSeason::getPostRainSeasons)
-                .orElse(emptyList());
+        List<PluviometricPostRainSeason> postRainSeasons = rainSeasonService.findByYear(year);
 
-        RainSeasonStartReference seasonRef = rainSeasonStartReferenceRepository
-                .findByYearStartLessThanEqualAndYearEndGreaterThanEqual(year, year);
+        RainSeasonStartReference seasonRef = rainSeasonStartReferenceService
+                .findByYearStartLessThanEqualAndYearEndGreaterThanEqual(year);
 
         Map<PluviometricPost, MonthDay> referenceStartByPost = seasonRef.getPostReferences().stream()
                 .filter(p -> p.getStartReference() != null)
@@ -213,10 +209,12 @@ public class ChartServiceImpl implements ChartService {
                 .map(ps -> newSeasonStart(ps, referenceStartByPost.get(ps.getPluviometricPost())))
                 .collect(toList());
 
+        Integer yearStart = seasonRef.getYearStart();
+        Integer yearEnd = seasonRef.getYearEnd();
         Integer referenceYearStart = seasonRef.getReferenceYearStart();
         Integer referenceYearEnd = seasonRef.getReferenceYearEnd();
 
-        return new SeasonChartData(referenceYearStart, referenceYearEnd, predictions);
+        return new SeasonChartData(yearStart, yearEnd, referenceYearStart, referenceYearEnd, predictions);
     }
 
     private SeasonPrediction newSeasonStart(PluviometricPostRainSeason ps, MonthDay plannedMonthDay) {
