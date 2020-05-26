@@ -19,7 +19,7 @@ export default class CommonConfig {
   regions: Map<number, Region>
   zones: Map<number, Zone>
 
-  constructor({ posts, departments, regions, zones}) {
+  constructor({ posts }, {departments, regions, zones}) {
     this.zones = fromApiToMap(zones, Zone.newInstance)
     this.regions = fromApiToMap(regions, Region.newInstance, 'zone', this.zones)
     this.departments = fromApiToMap(departments, Department.newInstance, 'region', this.regions)
