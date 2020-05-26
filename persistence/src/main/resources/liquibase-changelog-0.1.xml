@@ -477,7 +477,47 @@
         </insert>
     </changeSet>
 
-    <!-- placeholder 7 -->
+    <changeSet id="ANACIM-122" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <columnExists tableName="category" columnName="name" />
+        </preConditions>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="MeasurementUnit" />
+            <column name="name" value="kg" />
+            <column name="label" value="kg" />
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="MeasurementUnit" />
+            <column name="name" value="head" />
+            <column name="label" value="tête" />
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="PriceType" />
+            <column name="name" value="wholesale-price" />
+            <column name="label" value="Prix producteur" />
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="PriceType" />
+            <column name="name" value="retail-price" />
+            <column name="label" value="Prix au détail" />
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="PriceType" />
+            <column name="name" value="importer-price" />
+            <column name="label" value="Prix importateur" />
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="PriceType" />
+            <column name="name" value="semi-wholesale-price" />
+            <column name="label" value="Prix demi-gros" />
+        </insert>
+    </changeSet>
 
     <!-- placeholder 8 -->
 
