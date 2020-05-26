@@ -5,6 +5,7 @@ import {connect} from "react-redux"
 import * as marketActions from "../../redux/actions/market/index"
 import "../common/indicator-base.scss"
 import "../ipar/indicators/indicators.scss"
+import MarketLocationGraphic from "./marketLocation"
 
 
 class AgricultureAndMarket extends Component {
@@ -25,7 +26,8 @@ class AgricultureAndMarket extends Component {
     }
     return (
       <div className="indicators content fixed">
-        <div>TODO</div>
+        {/* keep MarketLocationGraphic always at the end*/}
+        <MarketLocationGraphic />
       </div>)
   }
 
