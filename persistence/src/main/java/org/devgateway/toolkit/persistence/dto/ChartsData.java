@@ -12,6 +12,8 @@ public class ChartsData {
 
     private final CommonConfig commonConfig;
 
+    private final WaterConfig waterConfig;
+
     private final RainLevelChart rainLevelChart;
 
     private final DrySequenceChart drySequenceChart;
@@ -20,10 +22,11 @@ public class ChartsData {
 
     private final RiverLevelChart riverLevelChart;
 
-    public ChartsData(CommonConfig commonConfig, RainLevelChart rainLevelChart,
+    public ChartsData(CommonConfig commonConfig, WaterConfig waterConfig, RainLevelChart rainLevelChart,
             DrySequenceChart drySequenceChart,
             SeasonChart seasonChart, RiverLevelChart riverLevelChart) {
         this.commonConfig = commonConfig;
+        this.waterConfig = waterConfig;
         this.rainLevelChart = rainLevelChart;
         this.drySequenceChart = drySequenceChart;
         this.seasonChart = seasonChart;
@@ -32,6 +35,10 @@ public class ChartsData {
 
     public CommonConfig getCommonConfig() {
         return commonConfig;
+    }
+
+    public WaterConfig getWaterConfig() {
+        return waterConfig;
     }
 
     public RainLevelChart getRainLevelChart() {

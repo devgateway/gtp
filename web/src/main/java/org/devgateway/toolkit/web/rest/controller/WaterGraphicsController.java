@@ -3,7 +3,7 @@ package org.devgateway.toolkit.web.rest.controller;
 import javax.validation.Valid;
 
 import org.devgateway.toolkit.persistence.dto.ChartsData;
-import org.devgateway.toolkit.persistence.dto.CommonConfig;
+import org.devgateway.toolkit.persistence.dto.WaterConfig;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartData;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartFilter;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartConfig;
@@ -38,9 +38,9 @@ public class WaterGraphicsController {
         return chartService.getCharts();
     }
 
-    @GetMapping("common-config")
-    public CommonConfig getCommonConfig() {
-        return chartService.getCommonConfig();
+    @GetMapping("config")
+    public WaterConfig getWaterConfig() {
+        return chartService.getWaterConfig();
     }
 
     @GetMapping("rain-level/config")
