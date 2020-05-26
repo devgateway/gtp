@@ -24,7 +24,7 @@ const AnalystDropdown = withRouter(injectIntl((props) => {
       <Dropdown.Menu>
         <Dropdown.Item onClick={e => props.history.push(`/${props.match.params.lan}/water-resources`)}
                        text={<FormattedMessage id="home.pane.waterResources.title" values={""}/>}/>
-        <Dropdown.Item onClick={e => props.history.push(`/${props.match.params.lan}/agriculture-and-markets`)}
+        <Dropdown.Item onClick={e => props.history.push(`/${props.match.params.lan}/agriculture-and-market`)}
                        text={<FormattedMessage id="home.pane.agricultureAndMarkets.title" values={""}/>}/>
         <Dropdown.Item onClick={e => props.history.push(`/${props.match.params.lan}/livestock`)}
                        text={<FormattedMessage id="home.pane.livestock.title" values={""}/>}/>

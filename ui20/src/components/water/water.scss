@@ -1,19 +1,6 @@
 .indicators.content.fixed {
-  padding-top: unset;
 
   .chart {
-    .container {
-      .tooltips {
-        .label:after {
-          content: none;
-          margin: unset;
-        }
-      }
-    }
-    .toggler.view {
-      display: unset;
-    }
-    display: flow-root;
     .daysWithOrWithoutRain {
       display: block;
       label {

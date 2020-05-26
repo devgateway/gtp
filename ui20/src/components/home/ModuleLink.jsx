@@ -30,7 +30,7 @@ const ModuleLinksBlock = injectIntl((props) => {
             <Pane name='waterResources' {...props} url={'water-resources'} />
           </GridColumn>
           <GridColumn>
-            <Pane name='agricultureAndMarkets' {...props}/>
+            <Pane name='agricultureAndMarkets' {...props} url={'agriculture-and-market'}/>
           </GridColumn>
           <GridColumn>
             <Pane name='livestock' {...props}/>
