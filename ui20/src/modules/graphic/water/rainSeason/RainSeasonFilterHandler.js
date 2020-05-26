@@ -1,5 +1,5 @@
+import WaterConfig from "../../../entities/config/WaterConfig"
 import PluviometricPost from "../../../entities/PluviometricPost"
-import CommonConfig from "../../../entities/rainfall/CommonConfig"
 import RainSeasonConfig from "../../../entities/rainSeason/RainSeasonConfig"
 import RainSeasonData from "../../../entities/rainSeason/RainSeasonData"
 import RainSeasonFilter from "../../../entities/rainSeason/RainSeasonFilter"
@@ -12,7 +12,7 @@ export default class RainSeasonFilterHandler {
   _filteredConfig: RainSeasonConfig
   actualConfig: RainSeasonConfig
   rainSeasonFilter: RainSeasonFilter
-  commonConfig: CommonConfig
+  waterConfig: WaterConfig
   zoneIds: Set<number>
   regionIds: Set<number>
   departmentIds: Set<number>
@@ -20,12 +20,12 @@ export default class RainSeasonFilterHandler {
   filteredPosts: Array<PluviometricPost>
 
   constructor(data: RainSeasonData, fullConfig: RainSeasonConfig, rainSeasonFilter: RainSeasonFilter,
-    commonConfig: CommonConfig) {
+    waterConfig: WaterConfig) {
     this.data = data
     this.filteredData = data.clone()
     this.fullConfig = fullConfig
     this.rainSeasonFilter = rainSeasonFilter
-    this.commonConfig = commonConfig
+    this.waterConfig = waterConfig
 
     this.zoneIds = new Set(rainSeasonFilter.zoneIds)
     this.regionIds = new Set(rainSeasonFilter.regionIds)
@@ -36,7 +36,7 @@ export default class RainSeasonFilterHandler {
 
   applyFilter() {
     this.filteredData.predictions = this._filter(this.data.predictions)
-    this.filteredPosts = this.filteredData.predictions.map(p => this.commonConfig.posts.get(p.pluviometricPostId))
+    this.filteredPosts = this.filteredData.predictions.map(p => this.waterConfig.posts.get(p.pluviometricPostId))
     this._filteredConfig = RainSeasonConfig.from(this.fullConfig.years, this.filteredPosts)
     this.constructor.removeNotApplicableFilters(this.rainSeasonFilter, this._filteredConfig)
     this.actualConfig = this._getOptions(this.fullConfig, this._filteredConfig)
@@ -44,7 +44,7 @@ export default class RainSeasonFilterHandler {
 
   _filter(data: Array<RainSeasonPrediction>) {
     return data.filter(p => {
-      const post = this.commonConfig.posts.get(p.pluviometricPostId)
+      const post = this.waterConfig.posts.get(p.pluviometricPostId)
       return ((!this.postIds.size || this.postIds.has(post.id)) &&
         (!this.departmentIds.size || this.departmentIds.has(post.departmentId)) &&
         (!this.regionIds.size || this.regionIds.has(post.department.regionId)) &&

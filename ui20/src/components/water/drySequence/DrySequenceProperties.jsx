@@ -23,7 +23,7 @@ class DrySequenceProperties extends Component {
 }
 
 const DrySequenceFilters = (props) => {
-  const {config, filter, setFilter, commonConfig} = props
+  const {config, filter, setFilter, waterConfig} = props
   const onYearChange = (year) => setFilter(year[0], filter.pluviometricPostId)
   const onPostChange = (postId) => setFilter(filter.year, postId[0])
   const {year, pluviometricPostId} = filter
@@ -37,7 +37,7 @@ const DrySequenceFilters = (props) => {
       </div>
       <div className="filter item">
         <FilterDropDown
-          options={postIdsToOptions(config.pluviometricPostIds, commonConfig)} onChange={onPostChange}
+          options={postIdsToOptions(config.pluviometricPostIds, waterConfig)} onChange={onPostChange}
           min={1} single withSearch
           selected={[pluviometricPostId]} text={<FormattedMessage id="indicators.filters.location" defaultMessage="Location" />} />
       </div>
@@ -72,7 +72,7 @@ const DrySeasonSetting = (props) => {
 
 const mapStateToProps = state => {
   return {
-    commonConfig: state.getIn(['water', 'data', 'commonConfig']),
+    waterConfig: state.getIn(['water', 'data', 'waterConfig']),
     config: state.getIn(['water', 'data', 'rainLevelChart', 'config']),
   }
 }
