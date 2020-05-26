@@ -13,7 +13,8 @@ const DropdownBreadcrumb = (options, selected, text, single) => {
 
 const findSingleSelected = (options: Array, selected: Array, text) => {
   if (!selected.length || !options.length) return text
-  return options.find(a=>a.key === selected[0]).text
+  const option = options.find(a => a.key === selected[0])
+  return option ? option.text : text
 }
 
 export default DropdownBreadcrumb
