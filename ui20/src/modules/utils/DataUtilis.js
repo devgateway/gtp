@@ -22,3 +22,9 @@ export const toSignedNumberLocaleString = (intl, value: number, defaultNullOrUnd
   const sign = value > 0 ? '+' : ''
   return `${sign}${intl.formatNumber(value)}`
 }
+
+export const compareDateExcludingTime = (d1:Date, d2:Date) => {
+  if (d1.getFullYear() !== d2.getFullYear()) return d1.getFullYear() - d2.getFullYear()
+  if (d1.getMonth() !== d2.getMonth()) return d1.getMonth() - d2.getMonth()
+  return d1.getDay() - d2.getDay()
+}
