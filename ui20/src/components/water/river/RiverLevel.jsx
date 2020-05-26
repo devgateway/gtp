@@ -64,6 +64,9 @@ class RiverLevel extends Component {
       return isHide ? 'rgba(0, 0, 0, .0)' : category10[line.index]
     }
 
+    const showAlert = setting.showAlert && data.alertLevel
+    const showAlertLegend = !!data.alertLevel
+
     const alertMarker = {
       axis: 'y',
       value: data.alertLevel,
@@ -115,7 +118,7 @@ class RiverLevel extends Component {
           colors={lineColor}
           animate={true}
 
-          markers={setting.showAlert ? [alertMarker] : null}
+          markers={showAlert ? [alertMarker] : null}
 
           legends={[
             {
@@ -149,7 +152,7 @@ class RiverLevel extends Component {
               ]
             }
           ]}
-          layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends', AlertLevelLegend]}
+          layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends', showAlertLegend ? AlertLevelLegend : null]}
         />
       </div>);
   }

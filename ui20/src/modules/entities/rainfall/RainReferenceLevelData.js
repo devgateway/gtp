@@ -3,12 +3,16 @@ import {getOrDefault, getOrDefaultMap} from "../../utils/DataUtilis"
 export default class RainReferenceLevelData {
   referenceYearStart: number
   referenceYearEnd: number
+  yearStart: number
+  yearEnd: number
   levelsByMonth: Map<number, Map<number, number>>
   levelsByMonthAndDecadal: Map<number, Map<number, number>>
 
-  constructor({referenceYearStart, referenceYearEnd, levels}) {
+  constructor({referenceYearStart, referenceYearEnd, yearStart, yearEnd, levels}) {
     this.referenceYearStart = referenceYearStart
     this.referenceYearEnd = referenceYearEnd
+    this.yearStart = yearStart
+    this.yearEnd = yearEnd
     this._init(levels)
   }
 

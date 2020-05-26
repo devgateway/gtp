@@ -3,6 +3,7 @@ import {line} from "d3-shape"
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {Tooltip} from 'react-svg-tooltip'
+import {INNER_PADDING} from "./RainfallGraphicConstants"
 
 class ReferenceLine extends Component {
   static propTypes = {
@@ -13,9 +14,10 @@ class ReferenceLine extends Component {
   }
 
   render() {
-    const {bars, xScale, yScale, rgba, intl} = this.props
+    const {bars, barNo, xScale, yScale, rgba, intl} = this.props
     const undefinedToZero = (value) => value === undefined ? 0 : value
-    const xScaleByBar = b => xScale(b.data.indexValue) + b.width / 2
+    const skipXBarWidth = barNo - 1
+    const xScaleByBar = b => xScale(b.data.indexValue) + b.width * (skipXBarWidth + 0.5) + skipXBarWidth * INNER_PADDING
     const yScaleByBar = b => yScale(undefinedToZero(b.data.data.lineValues.get(b.data.id)))
     const lineGenerator = line().x(xScaleByBar).y(yScaleByBar)
 
@@ -54,15 +56,16 @@ class ReferenceLine extends Component {
 
 const rgba = ["rgba(150, 3, 15, 1)", "rgba(300, 3, 15, 1)", "rgba(10, 3, 15, 1)"]
 
-export const ReferenceLineLayer = (intl, keysWithRefs) => ({ bars, xScale, yScale }) => {
+export const ReferenceLineLayer = (intl, keysWithRefs) => ({ bars, xScale, yScale, keys }) => {
   let idx = 0
+  let barNo = keys.length > 1 ? 2 : 1
   return (
     <svg>
       {keysWithRefs.length && keysWithRefs.map(([key, ]) => {
         const useBars = bars.filter(b => b.data.id === key)
         return (
           <ReferenceLine
-            key={idx} bars={useBars} xScale={xScale} yScale={yScale} rgba={rgba[idx++]} intl={intl} />)
+            key={idx} bars={useBars} xScale={xScale} yScale={yScale} rgba={rgba[idx++]} intl={intl} barNo={barNo}/>)
       })}
   </svg>)
 }
