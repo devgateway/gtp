@@ -435,7 +435,7 @@
 
     <changeSet id="ANACIM-134" author="Octavian Ciubotaru">
         <preConditions onFail="CONTINUE">
-            <tableExists tableName="category" />
+            <columnExists tableName="category" columnName="name" />
         </preConditions>
         <update tableName="category">
             <column name="name" value="rural-market" />
