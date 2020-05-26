@@ -119,7 +119,7 @@ class Rainfall extends Component {
             anchor: 'top-right',
             direction: 'row',
             justify: false,
-            translateX: 0,
+            translateX: -((keysWithRefs.length || 1) - 1) * 120,
             translateY: -30,
             itemsSpacing: 2,
             itemWidth: 100,
