@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao.categories;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
@@ -45,6 +46,11 @@ public class Category extends AbstractAuditableEntity implements Labelable {
     static final int DTYPE_COLUMN_LENGTH = 100;
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * A non-modifiable name used to reference this category item from code.
+     */
+    protected String name;
 
     protected String label;
 
@@ -90,6 +96,7 @@ public class Category extends AbstractAuditableEntity implements Labelable {
     /**
      * Retrieve french label. If not found returns null.
      */
+    @JsonIgnore
     public String getLabelFr() {
         return getLabel(LANG_FR);
     }
@@ -177,8 +184,15 @@ public class Category extends AbstractAuditableEntity implements Labelable {
         return null;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    @JsonIgnore
     public String getNameEnFr() {
         String frLabel = getLocalizedLabel(Constants.LANG_FR);
         StringBuilder sb = new StringBuilder();

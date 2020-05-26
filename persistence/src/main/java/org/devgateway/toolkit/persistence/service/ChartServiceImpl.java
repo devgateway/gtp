@@ -13,6 +13,8 @@ import java.util.TreeSet;
 
 import com.google.common.collect.ImmutableSet;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
+import org.devgateway.toolkit.persistence.dao.categories.Market;
+import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainSeason;
@@ -23,8 +25,11 @@ import org.devgateway.toolkit.persistence.dao.location.Zone;
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonPluviometricPostReferenceStart;
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonStartReference;
 import org.devgateway.toolkit.persistence.dao.reference.RiverStationYearlyLevelsReference;
+import org.devgateway.toolkit.persistence.dto.agriculture.AgricultureChartsData;
 import org.devgateway.toolkit.persistence.dto.ChartsData;
+import org.devgateway.toolkit.persistence.dto.agriculture.AgricultureConfig;
 import org.devgateway.toolkit.persistence.dto.CommonConfig;
+import org.devgateway.toolkit.persistence.dto.WaterConfig;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChart;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartData;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartFilter;
@@ -41,10 +46,13 @@ import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChart;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartConfig;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartData;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartFilter;
+import org.devgateway.toolkit.persistence.service.category.MarketService;
+import org.devgateway.toolkit.persistence.service.category.MarketTypeService;
 import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
 import org.devgateway.toolkit.persistence.service.indicator.DecadalRainfallService;
 import org.devgateway.toolkit.persistence.service.indicator.RainSeasonService;
 import org.devgateway.toolkit.persistence.service.indicator.RiverStationYearlyLevelsService;
+import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.devgateway.toolkit.persistence.service.reference.RainLevelReferenceService;
 import org.devgateway.toolkit.persistence.service.reference.RainSeasonStartReferenceService;
 import org.devgateway.toolkit.persistence.service.reference.RiverStationYearlyLevelsReferenceService;
@@ -82,12 +90,22 @@ public class ChartServiceImpl implements ChartService {
     @Autowired
     private RiverStationYearlyLevelsReferenceService riverStationYearlyLevelsReferenceService;
 
+    @Autowired
+    private DepartmentService departmentService;
+
+    @Autowired
+    private MarketService marketService;
+
+    @Autowired
+    private MarketTypeService marketTypeService;
+
     @Override
     @Transactional(readOnly = true)
     public ChartsData getCharts() {
         RainLevelChartConfig rainLevelChartConfig = getRainLevelConfig();
         return new ChartsData(
                 getCommonConfig(),
+                getWaterConfig(),
                 getRainLevelChart(rainLevelChartConfig),
                 getDrySequenceChart(rainLevelChartConfig),
                 getSeasonChart(),
@@ -97,11 +115,17 @@ public class ChartServiceImpl implements ChartService {
     @Override
     @Transactional(readOnly = true)
     public CommonConfig getCommonConfig() {
-        List<PluviometricPost> posts = pluviometricPostService.findAll();
-        List<Department> departments = posts.stream().map(PluviometricPost::getDepartment).distinct().collect(toList());
+        List<Department> departments = departmentService.findAll();
         List<Region> regions = departments.stream().map(Department::getRegion).distinct().collect(toList());
         List<Zone> zones = regions.stream().map(Region::getZone).distinct().collect(toList());
-        return new CommonConfig(posts, departments, regions, zones);
+        return new CommonConfig(departments, regions, zones);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public WaterConfig getWaterConfig() {
+        List<PluviometricPost> posts = pluviometricPostService.findAll();
+        return new WaterConfig(posts);
     }
 
     private RainLevelChart getRainLevelChart(RainLevelChartConfig config) {
@@ -259,5 +283,17 @@ public class ChartServiceImpl implements ChartService {
                 .collect(toList());
 
         return new RiverLevelChartData(yearlyLevels, referenceYearlyLevels);
+    }
+
+    @Override
+    public AgricultureConfig getAgricultureConfig() {
+        List<Market> markets = marketService.findAll();
+        List<MarketType> marketTypes = marketTypeService.findAll();
+        return new AgricultureConfig(marketTypes, markets);
+    }
+
+    @Override
+    public AgricultureChartsData getAgricultureChartsData() {
+        return new AgricultureChartsData(getCommonConfig(), getAgricultureConfig());
     }
 }

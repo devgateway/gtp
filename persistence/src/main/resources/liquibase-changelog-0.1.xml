@@ -433,7 +433,23 @@
         </insert>
     </changeSet>
 
-    <!-- placeholder 5 -->
+    <changeSet id="ANACIM-134" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <update tableName="category">
+            <column name="name" value="rural-market" />
+            <where>dtype='MarketType' and label='Marché rural'</where>
+        </update>
+        <update tableName="category">
+            <column name="name" value="fishing-dock" />
+            <where>dtype='MarketType' and label='Quaie de pêche'</where>
+        </update>
+        <update tableName="category">
+            <column name="name" value="transformation-place" />
+            <where>dtype='MarketType' and label='Lieu de transformation'</where>
+        </update>
+    </changeSet>
 
     <!-- placeholder 6 -->
 
