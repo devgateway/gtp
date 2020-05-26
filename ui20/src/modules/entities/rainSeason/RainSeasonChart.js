@@ -1,7 +1,7 @@
 import RainSeasonConfigDTO from "../../graphic/water/rainSeason/RainSeasonConfigDTO"
 import * as C from "../../graphic/water/rainSeason/RainSeasonConstants"
 import RainSeasonFilterHandler from "../../graphic/water/rainSeason/RainSeasonFilterHandler"
-import CommonConfig from "../rainfall/CommonConfig"
+import WaterConfig from "../config/WaterConfig"
 import RainSeasonConfig from "./RainSeasonConfig"
 import RainSeasonData from "./RainSeasonData"
 import RainSeasonFilter from "./RainSeasonFilter"
@@ -19,24 +19,24 @@ const RainSeasonChart: {
   sortedAsc: true,
 }
 
-export const rainSeasonChartFromApi: RainSeasonChart  = (commonConfig: CommonConfig, {config, filter, data }) => {
+export const rainSeasonChartFromApi: RainSeasonChart  = (waterConfig: WaterConfig, {config, filter, data }) => {
   RainSeasonChart.filter = RainSeasonFilter
   RainSeasonFilter.yearIds = [filter.year]
-  return rainSeasonDataFromApi(RainSeasonChart, commonConfig, config, data)
+  return rainSeasonDataFromApi(RainSeasonChart, waterConfig, config, data)
 }
 
-export const rainSeasonDataFromApi: RainSeasonChart = (rainSeasonChart: RainSeasonChart, commonConfig: CommonConfig,
+export const rainSeasonDataFromApi: RainSeasonChart = (rainSeasonChart: RainSeasonChart, waterConfig: WaterConfig,
   config: RainSeasonConfig, data) => {
   rainSeasonChart.data = new RainSeasonData(data, rainSeasonChart.filter.yearIds)
-  const posts = rainSeasonChart.data.predictions.map(p => commonConfig.posts.get(p.pluviometricPostId))
+  const posts = rainSeasonChart.data.predictions.map(p => waterConfig.posts.get(p.pluviometricPostId))
   rainSeasonChart.config = RainSeasonConfig.from(config.years, posts)
   RainSeasonFilterHandler.removeNotApplicableFilters(rainSeasonChart.filter, rainSeasonChart.config)
-  return handleFilter(rainSeasonChart, commonConfig)
+  return handleFilter(rainSeasonChart, waterConfig)
 }
 
-export const handleFilter: RainSeasonChart = (rainSeasonChart: RainSeasonChart, commonConfig: CommonConfig) => {
+export const handleFilter: RainSeasonChart = (rainSeasonChart: RainSeasonChart, waterConfig: WaterConfig) => {
   const { data, config, filter} = rainSeasonChart
-  const filterHandler = new RainSeasonFilterHandler(data, config, filter, commonConfig)
+  const filterHandler = new RainSeasonFilterHandler(data, config, filter, waterConfig)
   filterHandler.applyFilter()
   rainSeasonChart.filteredData = filterHandler.filteredData
   rainSeasonChart.actualConfig = filterHandler.actualConfig
