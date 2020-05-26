@@ -451,7 +451,47 @@
         </update>
     </changeSet>
 
-    <!-- placeholder 6 -->
+    <changeSet id="ANACIM-121" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <columnExists tableName="category" columnName="name" />
+        </preConditions>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="ProductType" />
+            <column name="name" value="cereals" />
+            <column name="label" value="Céréales" />
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="ProductType" />
+            <column name="name" value="vegetables" />
+            <column name="label" value="Légumineuses" />
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="ProductType" />
+            <column name="name" value="fruits" />
+            <column name="label" value="Légumes" />
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="ProductType" />
+            <column name="name" value="livestock" />
+            <column name="label" value="Bétail" />
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="ProductType" />
+            <column name="name" value="fresh-fish" />
+            <column name="label" value="Poisson frais" />
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="ProductType" />
+            <column name="name" value="processed-fish" />
+            <column name="label" value="Poisson transformés" />
+        </insert>
+    </changeSet>
 
     <!-- placeholder 7 -->
 

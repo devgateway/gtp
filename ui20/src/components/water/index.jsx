@@ -9,6 +9,7 @@ import "./water.scss"
 import DrySeasonGraphic from "./drySequence"
 import RainfallGraphic from "./rainfall"
 import RainSeasonGraphic from "./rainseason"
+import RiverLevelGraphic from "./river"
 
 class WaterResources extends Component {
 
@@ -31,6 +32,7 @@ class WaterResources extends Component {
         <RainfallGraphic/>
         <DrySeasonGraphic />
         <RainSeasonGraphic/>
+        <RiverLevelGraphic />
       </div>)
   }
 

@@ -1,4 +1,5 @@
 {
+	"all.alertLevel": "Niveau d'alerte",
 	"all.decadals": "Décadaires",
 	"all.decadalsPerMonth": "Décadaires par mois",
 	"all.graphic.value.NA": "N/A",
@@ -155,6 +156,8 @@
 	"indicators.chart.rainfall.source": "ANACIM",
 	"indicators.table.rainseason.title": "Prévisions saisonnières",
 	"indicators.table.rainseason.source": "ANACIM",
+	"indicators.chart.riverlevel.title": "Variation du niveau du fleuve",
+	"indicators.chart.riverlevel.source": "DGPRE",
 	"indicators.chart.toggler.chart": "graphique",
 	"indicators.chart.toggler.table": "tableau ",
 	"indicators.chart.women.description": "Proportion de la population agricole totale propriétaire ou ayants droits sur les terres agricoles, selon le sexe; b) la part des femmes parmi les propriétaires ou les ayants droit des terres agricoles, selon le mode de tenure.",
@@ -176,6 +179,8 @@
 	"indicators.filters.losstype": "Répartition de la Production",
 	"indicators.filters.regions": "Régions",
 	"indicators.filters.reset": "Réinitialiser",
+	"indicators.filters.river_station": "Fleuve",
+	"indicators.filters.river_station.option": "{river} - Station de {station}",
 	"indicators.filters.select_all": "Tous",
 	"indicators.filters.select_none": "Aucun",
 	"indicators.filters.slider.age": "Tranche d'âge",
@@ -288,5 +293,7 @@
 	"table.unsed.rows": "Elément des lignes",
 	"table.used.cols": "Eléments des colonnes",
 	"water.drysequence.days": "Nombre de jours",
-	"water.rainfall.level": "Pluie (mm)"
+	"water.rainfall.level": "Pluie (mm)",
+	"water.rainlevel.period": "jours",
+	"water.rainlevel.level": "Côte journalière (en cm)"
 }
