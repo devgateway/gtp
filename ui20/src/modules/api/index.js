@@ -8,3 +8,5 @@ export const getRainfall = (rainLevelFilter: RainLevelFilter) => post(EP.RAINFAL
 export const getLengthOfDrySequence = (filter) => post(EP.DRY_SEQUENCE, filter)
 export const getRainSeason = (year: number) => post(EP.RAINSEASON, {year})
 export const getRiverLevel = (riverLevelFilter: RiverLevelFilter) => post(EP.RIVER_LEVEL, riverLevelFilter)
+
+export const getAllMarketAndAgriculture = () => get(EP.MARKET_AND_AGRICULTURE_ALL)

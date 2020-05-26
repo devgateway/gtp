@@ -23,3 +23,7 @@ export const RAINFALL = API_WATER + '/rain-level/data'
 export const DRY_SEQUENCE = API_WATER + '/dry-sequence/data'
 export const RAINSEASON = API_WATER + '/rain-season/data'
 export const RIVER_LEVEL = API_WATER + '/river-level/data'
+
+
+const API_MARKET_AND_AGRICULTURE = API_GRAPHIC + '/agriculture'
+export const MARKET_AND_AGRICULTURE_ALL = API_MARKET_AND_AGRICULTURE + '/all'
