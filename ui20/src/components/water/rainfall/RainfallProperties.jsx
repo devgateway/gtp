@@ -2,7 +2,7 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
-import CommonConfig from "../../../modules/entities/rainfall/CommonConfig"
+import WaterConfig from "../../../modules/entities/config/WaterConfig"
 import RainLevelConfig from "../../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelFilter from "../../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../../modules/entities/rainfall/RainLevelSetting"
@@ -13,7 +13,7 @@ import FilterDropDown from "../../common/filter/FilterDropDown"
 
 class RainfallProperties extends Component {
   static propTypes = {
-    commonConfig: PropTypes.instanceOf(CommonConfig).isRequired,
+    waterConfig: PropTypes.instanceOf(WaterConfig).isRequired,
     config: PropTypes.instanceOf(RainLevelConfig).isRequired,
     filter: PropTypes.instanceOf(RainLevelFilter).isRequired,
     setFilter: PropTypes.func.isRequired,
@@ -31,7 +31,7 @@ class RainfallProperties extends Component {
 }
 
 const RainfallFilters = (props) => {
-  const {config, filter, setFilter, commonConfig} = props
+  const {config, filter, setFilter, waterConfig} = props
   const onYearChange = (years) => setFilter(years, filter.pluviometricPostId)
   const onPostChange = (postIds) => setFilter(filter.years, postIds[0])
   const {years, pluviometricPostId} = filter
@@ -46,7 +46,7 @@ const RainfallFilters = (props) => {
       </div>
       <div className="filter item">
         <FilterDropDown
-          options={postIdsToOptions(config.pluviometricPostIds, commonConfig)} onChange={onPostChange}
+          options={postIdsToOptions(config.pluviometricPostIds, waterConfig)} onChange={onPostChange}
           single={true} min={1} max={1} withSearch
           selected={[pluviometricPostId]} text={<FormattedMessage id="indicators.filters.location" defaultMessage="Location" />} />
       </div>
@@ -79,7 +79,7 @@ const PeriodSetting = (props) => {
 
 const mapStateToProps = state => {
   return {
-    commonConfig: state.getIn(['water', 'data', 'commonConfig']),
+    waterConfig: state.getIn(['water', 'data', 'waterConfig']),
     config: state.getIn(['water', 'data', 'rainLevelChart', 'config']),
     filter: state.getIn(['water', 'data', 'rainLevelChart', 'filter']),
     setting: state.getIn(['water', 'data', 'rainLevelChart', 'setting']),

@@ -1,4 +1,4 @@
-import CommonConfig from "../../../entities/rainfall/CommonConfig"
+import WaterConfig from "../../../entities/config/WaterConfig"
 import RainSeasonChart from "../../../entities/rainSeason/RainSeasonChart"
 import RainSeasonConfigDTO from "./RainSeasonConfigDTO"
 import * as C from './RainSeasonConstants'
@@ -6,13 +6,13 @@ import {RainSeasonPredictionDTO} from "./RainSeasonPredictionDTO"
 
 export default class RainSeasonTableBuilder {
   rainSeasonChart: RainSeasonChart
-  commonConfig: CommonConfig
+  waterConfig: WaterConfig
   data: Array<RainSeasonPredictionDTO>
   config: RainSeasonConfigDTO
 
-  constructor(rainSeasonChart: RainSeasonChart, commonConfig: CommonConfig) {
+  constructor(rainSeasonChart: RainSeasonChart, waterConfig: WaterConfig) {
     this.rainSeasonChart = rainSeasonChart
-    this.commonConfig = commonConfig
+    this.waterConfig = waterConfig
   }
 
   build() {
@@ -24,7 +24,7 @@ export default class RainSeasonTableBuilder {
     if (isDateSorting) {
       data = data.sort((a, b) => a[sortedBy].date.getTime() - b[sortedBy].date.getTime())
     }
-    data = data.map(p => new RainSeasonPredictionDTO(this.commonConfig.posts.get(p.pluviometricPostId), p))
+    data = data.map(p => new RainSeasonPredictionDTO(this.waterConfig.posts.get(p.pluviometricPostId), p))
     if (sortedBy) {
       if (!isDateSorting) {
         if (C.DIFFERENCE === sortedBy) {

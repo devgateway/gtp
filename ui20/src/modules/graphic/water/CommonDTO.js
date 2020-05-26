@@ -1,4 +1,4 @@
-import CommonConfig from "../../entities/rainfall/CommonConfig"
+import WaterConfig from "../../entities/config/WaterConfig"
 import RiverStation from "../../entities/river/RiverStation"
 
 export const yearsToOptions = (years) => years.sort().reverse().map(y => ({
@@ -7,8 +7,8 @@ export const yearsToOptions = (years) => years.sort().reverse().map(y => ({
   value: y
 }))
 
-export const postIdsToOptions = (postIds, commonConfig: CommonConfig) => postIds.map(id => {
-  const post = commonConfig.posts.get(id)
+export const postIdsToOptions = (postIds, waterConfig: WaterConfig) => postIds.map(id => {
+  const post = waterConfig.posts.get(id)
   const dep = post.department
   return ({
     key: id,
