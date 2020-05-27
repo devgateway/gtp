@@ -153,7 +153,7 @@
 	"indicators.chart.dryseason.title": "Longueur des séquences sèches",
 	"indicators.chart.dryseason.source": "ANACIM",
 	"indicators.map.market.title": "Localisation des marchés de collecte",
-	"indicators.map.market.source": "TBD",
+	"indicators.map.market.source": "Commissariat à la Sécurité Alimentaire",
 	"indicators.chart.rainfall.title": "Pluviométrie par Poste pluviométrique",
 	"indicators.chart.rainfall.source": "ANACIM",
 	"indicators.table.rainseason.title": "Prévisions saisonnières",

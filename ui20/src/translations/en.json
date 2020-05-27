@@ -141,7 +141,7 @@
 	"indicators.chart.dryseason.title": "Length of dry sequence",
 	"indicators.chart.dryseason.source": "ANACIM",
 	"indicators.map.market.title": "Market Location",
-	"indicators.map.market.source": "TBD",
+	"indicators.map.market.source": "Commissariat à la Sécurité Alimentaire",
 	"indicators.chart.rainfall.title": "Pluviometry by post",
 	"indicators.chart.rainfall.source": "ANACIM",
 	"indicators.table.rainseason.title": "Seasonal predictions",
