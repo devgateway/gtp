@@ -17,4 +17,10 @@
 .map {
   width: 1266px;
   height: 500px;
+
+  .tooltips {
+    span.label {
+      float: none !important;
+    }
+  }
 }

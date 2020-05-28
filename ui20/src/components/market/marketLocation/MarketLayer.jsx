@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
-import {CircleMarker} from "react-leaflet"
+import {CircleMarker, Tooltip} from "react-leaflet"
 import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
 import Market from "../../../modules/entities/market/Market"
 import * as MarketUtils from "../MarketUtils"
@@ -14,13 +14,24 @@ export default class MarketLayer extends Component {
     return (
     <div>
       {this.props.agricultureConfig.markets.map((m: Market) => {
+        const marketDays = m.marketDays
+        const tooltip = `Marché ${m.name}. Département de ${m.department.name}. Jours de marchés: ${marketDays}`
+        const color = MarketUtils.getMarketTypeColor(m.type.name)
+
         return (
         <CircleMarker
         key={m.id}
         center={[m.latitude, m.longitude]}
-        color={MarketUtils.getMarketTypeColor(m.type.name)}
+        color={color}
         fillOpacity={0.5}
-        radius={5} />
+        radius={5} >
+          <Tooltip>
+            <div className="tooltips white">
+              <span className="color" style={{backgroundColor: color}}/>
+              <span className="label">{tooltip}</span>
+            </div>
+          </Tooltip>
+        </CircleMarker>
         )
       })}
     </div>
