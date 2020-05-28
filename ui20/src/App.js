@@ -24,6 +24,7 @@ import asyncComponent from "./components/common/AsyncComponent";
 
 const Home = asyncComponent(() => import("./components/home/"));
 const Water = asyncComponent(() => import("./components/water/"));
+const Market = asyncComponent(() => import("./components/market/"));
 
 /*
 const Indicators = asyncComponent(() => import("./components/ipar/indicators/"));
@@ -54,8 +55,9 @@ const messages = {
 
 
 const WithDefHeader = (Component)=><div><Header/><Component/></div>
-const HomeLayout = (props)=>WithDefHeader(Home)
-const WaterLayout = (props)=>WithDefHeader(Water)
+const HomeLayout = (props)=> WithDefHeader(Home)
+const WaterLayout = (props)=> WithDefHeader(Water)
+const MarketLayout = (props)=> WithDefHeader(Market)
 /*
 const AnalyticLayout = (props)=>WithDefHeader(Analytic)
 const IndicatorLayout = (props) => (<div><Header className="fix" ></Header><Indicators header={e=>this.divRef} language={props.match.params.lan}></Indicators></div>)
@@ -107,6 +109,7 @@ class IntlRoutes extends Component {
             <Route exact={true} path="/:lan/home"  component={HomeLayout}/>
 
             <Route exact={true} path="/:lan/water-resources"  component={WaterLayout}/>
+            <Route exact={true} path="/:lan/agriculture-and-market"  component={MarketLayout}/>
             {/*
             <Route exact={true} path="/:lan/analytic/production" component={withTracker(AnalyticLayout)}/>
             <Route exact={true} path="/:lan/analytic/marketPrice" component={withTracker(AnalyticLayout)}/>
