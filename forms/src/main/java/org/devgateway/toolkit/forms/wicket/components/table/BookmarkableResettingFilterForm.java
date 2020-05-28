@@ -81,7 +81,7 @@ public class BookmarkableResettingFilterForm<T extends JpaFilterState> extends R
             String strVal = om.writeValueAsString(obj);
             return new JSONObject(strVal);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to convert filter state to JSONObject.");
+            throw new RuntimeException("Failed to convert filter state to JSONObject.", e);
         }
     }
 
