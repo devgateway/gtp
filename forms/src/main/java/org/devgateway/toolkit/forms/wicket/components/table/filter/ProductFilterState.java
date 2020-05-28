@@ -8,7 +8,6 @@ import javax.persistence.criteria.Predicate;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.categories.ProductType_;
 import org.devgateway.toolkit.persistence.dao.categories.Product_;
-import org.devgateway.toolkit.persistence.service.SQLUtils;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
@@ -16,42 +15,40 @@ import org.springframework.data.jpa.domain.Specification;
  */
 public class ProductFilterState extends JpaFilterState<Product> {
 
-    private String productType;
+    private List<String> productTypes = new ArrayList<>();
 
-    private String name;
+    private List<String> products = new ArrayList<>();
 
     @Override
     public Specification<Product> getSpecification() {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (productType != null) {
-                predicates.add(cb.equal(root.get(Product_.productType)
-                        .get(ProductType_.label), productType));
+            if (!productTypes.isEmpty()) {
+                predicates.add(root.get(Product_.productType).get(ProductType_.label).in(productTypes));
             }
 
-            if (name != null) {
-                predicates.add(cb.like(cb.lower(root.get(Product_.name)),
-                        SQLUtils.likeContainsPattern(name.toLowerCase())));
+            if (!products.isEmpty()) {
+                predicates.add(root.get(Product_.name).in(products));
             }
 
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
 
-    public String getProductType() {
-        return productType;
+    public List<String> getProductTypes() {
+        return productTypes;
     }
 
-    public void setProductType(String productType) {
-        this.productType = productType;
+    public void setProductTypes(List<String> productTypes) {
+        this.productTypes = productTypes;
     }
 
-    public String getName() {
-        return name;
+    public List<String> getProducts() {
+        return products;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProducts(List<String> products) {
+        this.products = products;
     }
 }
