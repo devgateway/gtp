@@ -23,6 +23,9 @@ public interface DepartmentRepository extends TextSearchableRepository<Departmen
 
     @Override
     @CacheHibernateQueryResult
-    @Query("from Department order by name")
     List<Department> findAll();
+
+    @Override
+    @CacheHibernateQueryResult
+    Page<Department> findAll(Pageable pageable);
 }
