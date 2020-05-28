@@ -35,6 +35,7 @@ import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.service.category.MarketTypeService;
 import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.devgateway.toolkit.persistence.util.MarketDaysUtil;
+import org.springframework.data.domain.Sort;
 import org.wicketstuff.annotation.mount.MountPath;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
@@ -70,7 +71,7 @@ public class EditMarketPage extends AbstractEditPage<Market> {
 
         Select2ChoiceBootstrapFormComponent<Department> department =
                 new Select2ChoiceBootstrapFormComponent<>("department",
-                        new GenericPersistableJpaTextChoiceProvider<>(departmentService));
+                        new GenericPersistableJpaTextChoiceProvider<>(departmentService, Sort.by("name")));
         department.required();
         editForm.add(department);
 

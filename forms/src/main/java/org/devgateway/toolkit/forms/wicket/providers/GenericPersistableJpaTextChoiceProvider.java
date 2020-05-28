@@ -55,21 +55,25 @@ public class GenericPersistableJpaTextChoiceProvider<T extends GenericPersistabl
     private final TextSearchableService<T> textSearchableService;
 
     public GenericPersistableJpaTextChoiceProvider(final TextSearchableService<T> textSearchableService) {
-        this.textSearchableService = textSearchableService;
+        this(textSearchableService, (Sort) null);
+    }
+
+    public GenericPersistableJpaTextChoiceProvider(final TextSearchableService<T> textSearchableService, Sort sort) {
+        this(textSearchableService, null, false, null, sort);
     }
 
     public GenericPersistableJpaTextChoiceProvider(final TextSearchableService<T> textSearchableService,
-                                                   final Class<T> clazz,
-                                                   final Boolean addNewElements) {
+            final IModel<Collection<T>> restrictedToItemsModel) {
+        this(textSearchableService, null, false, restrictedToItemsModel, null);
+    }
+
+    public GenericPersistableJpaTextChoiceProvider(TextSearchableService<T> textSearchableService, Class<T> clazz,
+            Boolean addNewElements, IModel<Collection<T>> restrictedToItemsModel, Sort sort) {
         this.textSearchableService = textSearchableService;
         this.clazz = clazz;
         this.addNewElements = addNewElements;
-    }
-
-    public GenericPersistableJpaTextChoiceProvider(final TextSearchableService<T> textSearchableService,
-                                                   final IModel<Collection<T>> restrictedToItemsModel) {
-        this(textSearchableService);
         this.restrictedToItemsModel = restrictedToItemsModel;
+        this.sort = sort;
     }
 
     @Override
