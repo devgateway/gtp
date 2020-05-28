@@ -89,5 +89,10 @@ public class SystemCategoriesHomePage extends BasePage {
                 "productTypes", ListProductTypesPage.class, Buttons.Type.Default);
         productTypes.setLabel(new StringResourceModel("productTypes"));
         add(productTypes);
+
+        BootstrapBookmarkablePageLink<?> products = new BootstrapBookmarkablePageLink<>(
+                "products", ListProductsPage.class, Buttons.Type.Default);
+        products.setLabel(new StringResourceModel("products"));
+        add(products);
     }
 }

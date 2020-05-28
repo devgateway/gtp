@@ -6,6 +6,9 @@ import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaReposit
 import org.devgateway.toolkit.persistence.repository.norepository.UniquePropertyRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,5 +33,15 @@ public class ProductTypeServiceImpl extends BaseJpaServiceImpl<ProductType> impl
     @Override
     public UniquePropertyRepository<ProductType, Long> uniquePropertyRepository() {
         return productTypeRepository;
+    }
+
+    @Override
+    public JpaRepository<ProductType, Long> getRepository() {
+        return productTypeRepository;
+    }
+
+    @Override
+    public Page<ProductType> searchText(String term, Pageable page) {
+        return productTypeRepository.searchText(term, page);
     }
 }

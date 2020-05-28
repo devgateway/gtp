@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.devgateway.toolkit.persistence.dao.location.Department;
@@ -55,6 +56,7 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
     private MarketType type;
 
     @NotNull @Min(1)
+    @JsonSerialize(converter = MarketDaysConverter.class)
     private Integer marketDays = MarketDaysUtil.ALL_DAYS;
 
     @NotNull @SenegalLatitude
