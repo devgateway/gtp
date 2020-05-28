@@ -3,8 +3,8 @@ import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as marketActions from "../../redux/actions/market/index"
-import "../common/indicator-base.scss"
 import "../ipar/indicators/indicators.scss"
+import "../common/indicator-base.scss"
 import MarketLocationGraphic from "./marketLocation"
 
 

@@ -1,5 +1,15 @@
 @import "~leaflet/dist/leaflet.css";
 
+.legend {
+  width: 1266px;
+  height: 20px;
+  margin-bottom: 10px;
+
+  text {
+    font-size: 12px !important;
+  }
+}
+
 .map-container {
   position: relative;
 }

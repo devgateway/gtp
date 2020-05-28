@@ -6,6 +6,7 @@ import {connect} from "react-redux"
 import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
 import MarketLayer from "./MarketLayer"
 import "./marketMap.scss"
+import MarketMapLegend from "./MarketMapLegend"
 
 class MarketMap extends Component {
   static propTypes = {
@@ -15,6 +16,7 @@ class MarketMap extends Component {
   render() {
     return (
       <div className="png exportable">
+        <MarketMapLegend {...this.props} />
         <div className="map-container">
           <Map className="map" zoom={7} center={[14.4974, -14.4545887]} zoomControl={false}>
             <ZoomControl position="topright" />
