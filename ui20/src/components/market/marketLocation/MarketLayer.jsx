@@ -20,7 +20,11 @@ export default class MarketLayer extends Component {
       {this.props.agricultureConfig.markets.map((m: Market) => {
         let marketDays = [...m.marketDays].map((v, idx) => v === '1' ? weekDaysTrn[idx] : null).filter(v => v)
         marketDays = marketDays.length === 7 ? permanentText : marketDays.join(', ')
-        const tooltip = `Marché ${m.name}. Département de ${m.department.name}. Jours de marchés: ${marketDays}`
+        const tooltip = intl.formatMessage({ id: "indicators.map.market.tooltip" }, {
+          market: m.name,
+          department: m.department.name,
+          workingDays: marketDays
+        })
         const color = MarketUtils.getMarketTypeColor(m.type.name)
 
         return (
