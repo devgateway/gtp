@@ -36,7 +36,7 @@ public class ListRiverStationYearlyLevelsPage extends AbstractListPage<RiverStat
     private RiverStationYearlyLevelsService riverStationYearlyLevelsService;
 
     public ListRiverStationYearlyLevelsPage(PageParameters parameters) {
-        super(parameters);
+        super(parameters, false);
 
         this.jpaService = riverStationYearlyLevelsService;
         this.editPageClass = EditRiverStationYearlyLevelsPage.class;

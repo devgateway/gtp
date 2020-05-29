@@ -1,19 +1,19 @@
-package org.devgateway.toolkit.forms.wicket.page.edit.category;
+package org.devgateway.toolkit.persistence.service.indicator;
 
 import java.util.List;
 
 /**
  * @author Octavian Ciubotaru
  */
-public class RiverLevelReaderException extends Exception {
+public class ReaderException extends Exception {
 
     private final List<String> errors;
 
-    public RiverLevelReaderException(List<String> errors) {
+    public ReaderException(List<String> errors) {
         this(errors, null);
     }
 
-    public RiverLevelReaderException(List<String> errors, Exception e) {
+    public ReaderException(List<String> errors, Exception e) {
         super(String.join("\n", errors), e);
         this.errors = errors;
     }
