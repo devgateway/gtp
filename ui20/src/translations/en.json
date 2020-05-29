@@ -150,6 +150,7 @@
 	"indicators.map.market.title": "Market Location",
 	"indicators.map.market.source": "Commissariat à la Sécurité Alimentaire",
 	"indicators.map.market.permanent": "Permanent",
+	"indicators.map.market.tooltip": "Market {market}. Department {department}. Working days: {workingDays}",
 	"indicators.chart.rainfall.title": "Pluviometry by post",
 	"indicators.chart.rainfall.source": "ANACIM",
 	"indicators.table.rainseason.title": "Seasonal predictions",

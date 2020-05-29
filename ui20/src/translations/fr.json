@@ -164,6 +164,7 @@
 	"indicators.chart.rainfall.title": "Pluviométrie par Poste pluviométrique",
 	"indicators.chart.rainfall.source": "ANACIM",
 	"indicators.map.market.permanent": "permanent",
+	"indicators.map.market.tooltip": "Marché {market}. Département de {department}. Jours de marchés: {workingDays}",
 	"indicators.table.rainseason.title": "Prévisions saisonnières",
 	"indicators.table.rainseason.source": "ANACIM",
 	"indicators.chart.riverlevel.title": "Variation du niveau du fleuve",
