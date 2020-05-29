@@ -8,6 +8,9 @@
     <suppress checks="HideUtilityClassConstructor|FinalClass"
               files="PersistenceApplication\.java|MongoPersistenceApplication\.java|UIWebApplication\.java|WebApplication\.java|ReportingApplication\.java" />
 
+    <suppress checks="MethodName"
+              files=".*Repository\.java" />
+
     <suppress checks="[a-zA-Z0-9]*" files="[\\/]ui[\\/]" />
 
     <suppress checks="." files=".ipar.*" />

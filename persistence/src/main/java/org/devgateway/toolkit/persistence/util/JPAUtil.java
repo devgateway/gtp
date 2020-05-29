@@ -23,8 +23,8 @@ public final class JPAUtil {
     /**
      * Update destination sorted set with items from source collection.
      * Existing items are updated with <tt>dstAdder</tt>. Items that are not present in target set are added
-     * with <tt>dstItemUpdater</tt>. Any items from source collections that are not present in destination set are removed
-     * from destination set.
+     * with <tt>dstItemUpdater</tt>. Any items from source collections that are not present in destination set
+     * are removed from destination set.
      *
      * @param srcCol source collection
      * @param dstSet destination set
@@ -53,6 +53,8 @@ public final class JPAUtil {
     }
 
     private static <T> BinaryOperator<T> throwingMerger() {
-        return (u,v) -> { throw new IllegalStateException(String.format("Duplicate key %s", u)); };
+        return (u, v) -> {
+            throw new IllegalStateException(String.format("Duplicate key %s", u));
+        };
     }
 }

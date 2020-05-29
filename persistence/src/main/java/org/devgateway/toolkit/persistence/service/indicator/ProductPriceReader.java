@@ -87,39 +87,7 @@ public class ProductPriceReader {
                 .flatMap(p -> p.getPriceTypes().stream().sorted().map(pt -> Pair.of(p, pt)))
                 .collect(toList());
 
-        // check header
-        if (productsOnSeparateRows) {
-            throw new UnsupportedOperationException();
-        } else {
-            int rowNum = 0;
-            XSSFRow row = sheet.getRow(rowNum);
-            for (int i = 0; i < columnDefinitions.size(); i++) {
-                Pair<Product, PriceType> colDef = columnDefinitions.get(i);
-                String expectedColName = colDef.getKey().getName() + " / " + colDef.getValue().getLabel();
-
-                int colNum = ProductPriceWriter.DATE_COL_IDX + 1 + i;
-                XSSFCell cell = row.getCell(colNum);
-                if (isEmpty(cell)) {
-                    errors.add(errorAt(cell,
-                            String.format("Expected header '%s' but found no value", expectedColName)));
-                    continue;
-                }
-
-                String colName;
-                try {
-                    colName = cell.getStringCellValue();
-                } catch (Exception e) {
-                    errors.add(errorAt(cell,
-                            String.format("Expected header '%s' but found an invalid value", expectedColName)));
-                    continue;
-                }
-
-                if (!colName.equalsIgnoreCase(expectedColName)) {
-                    errors.add(errorAt(cell,
-                            String.format("Expected header '%s' but found '%s'", expectedColName, colName)));
-                }
-            }
-        }
+        checkHeader(sheet, errors, columnDefinitions);
 
         if (!errors.isEmpty()) {
             throw new ReaderException(errors);
@@ -204,14 +172,63 @@ public class ProductPriceReader {
             }
         }
 
+        checkForSkippedData(sheet, errors, columnDefinitions, rowNum - 1);
+
+        if (!errors.isEmpty()) {
+            throw new ReaderException(errors);
+        }
+
+        return productPrices;
+    }
+
+    private void checkHeader(XSSFSheet sheet, List<String> errors, List<Pair<Product, PriceType>> columnDefinitions) {
+        if (productsOnSeparateRows) {
+            throw new UnsupportedOperationException();
+        } else {
+            int rowNum = 0;
+            XSSFRow row = sheet.getRow(rowNum);
+            for (int i = 0; i < columnDefinitions.size(); i++) {
+                Pair<Product, PriceType> colDef = columnDefinitions.get(i);
+                String expectedColName = colDef.getKey().getName() + " / " + colDef.getValue().getLabel();
+
+                int colNum = ProductPriceWriter.DATE_COL_IDX + 1 + i;
+                XSSFCell cell = row.getCell(colNum);
+                if (isEmpty(cell)) {
+                    errors.add(errorAt(cell,
+                            String.format("Expected header '%s' but found no value", expectedColName)));
+                    continue;
+                }
+
+                String colName;
+                try {
+                    colName = cell.getStringCellValue();
+                } catch (Exception e) {
+                    errors.add(errorAt(cell,
+                            String.format("Expected header '%s' but found an invalid value", expectedColName)));
+                    continue;
+                }
+
+                if (!colName.equalsIgnoreCase(expectedColName)) {
+                    errors.add(errorAt(cell,
+                            String.format("Expected header '%s' but found '%s'", expectedColName, colName)));
+                }
+            }
+        }
+    }
+
+    private void checkForSkippedData(XSSFSheet sheet, List<String> errors,
+            List<Pair<Product, PriceType>> columnDefinitions, int lastImportedRowNum) {
+
         int lastRowNum = sheet.getLastRowNum();
+
         int numColumns;
         if (productsOnSeparateRows) {
             throw new UnsupportedOperationException();
         } else {
             numColumns = ProductPriceWriter.DATE_COL_IDX + columnDefinitions.size() + 1;
         }
-        for (;rowNum <= lastRowNum; rowNum++) {
+
+        for (int rowNum = lastImportedRowNum + 1; rowNum <= lastRowNum; rowNum++) {
             XSSFRow row = sheet.getRow(rowNum);
             if (row == null) {
                 continue;
@@ -224,12 +241,6 @@ public class ProductPriceReader {
                 }
             }
         }
-
-        if (!errors.isEmpty()) {
-            throw new ReaderException(errors);
-        }
-
-        return productPrices;
     }
 
     private String errorAt(XSSFCell cell, String text) {
