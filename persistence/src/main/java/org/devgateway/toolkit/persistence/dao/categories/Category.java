@@ -26,6 +26,8 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
+
+import java.util.Comparator;
 import java.util.List;
 
 import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
@@ -41,9 +43,11 @@ import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 @DiscriminatorColumn(length = Category.DTYPE_COLUMN_LENGTH)
 @JsonIgnoreProperties({"new"})
 @Table(indexes = {@Index(columnList = "label"), @Index(columnList = "DTYPE")})
-public class Category extends AbstractAuditableEntity implements Labelable {
+public class Category extends AbstractAuditableEntity implements Labelable, Comparable<Category> {
 
     static final int DTYPE_COLUMN_LENGTH = 100;
+
+    private static final Comparator<Category> NATURAL = Comparator.comparing(Category::getLabel);
 
     private static final long serialVersionUID = 1L;
 
@@ -206,5 +210,10 @@ public class Category extends AbstractAuditableEntity implements Labelable {
             sb.append(label);
         }
         return sb.toString();
+    }
+
+    @Override
+    public int compareTo(Category o) {
+        return NATURAL.compare(this, o);
     }
 }
