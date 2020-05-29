@@ -28,8 +28,10 @@ class MarketMapLegend extends Component {
           direction='row'
           justify={false}
           itemsSpacing={2}
-          itemWidth={140}
+          itemWidth={160}
+          containerWidth={1266}
           itemHeight={20}
+          containerHeight={20}
           itemOpacity={0.75}
           symbolShape='circle'
           symbolSize={12}
