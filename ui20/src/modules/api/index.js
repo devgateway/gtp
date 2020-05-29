@@ -10,3 +10,5 @@ export const getRainSeason = (year: number) => post(EP.RAINSEASON, {year})
 export const getRiverLevel = (riverLevelFilter: RiverLevelFilter) => post(EP.RIVER_LEVEL, riverLevelFilter)
 
 export const getAllMarketAndAgriculture = () => get(EP.MARKET_AND_AGRICULTURE_ALL)
+
+export const getWorldMapAttribution = () => get(EP.ESRI_MAP_SERVICE_INFO)
