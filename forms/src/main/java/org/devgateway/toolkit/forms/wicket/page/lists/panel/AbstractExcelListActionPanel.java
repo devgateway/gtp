@@ -41,13 +41,13 @@ public abstract class AbstractExcelListActionPanel<T extends GenericPersistable>
                 .setLabel(new StringResourceModel(editResourceKey, this, null));
         add(editPageLink);
 
-        AbstractGeneratedExcelDownloadLink<?> downloadButton = getDownloadButton();
+        AbstractGeneratedExcelDownloadLink<?> downloadButton = getDownloadButton("download");
         downloadButton.setSize(Buttons.Size.Small);
         downloadButton.setVisibilityAllowed(!isEmpty);
         add(downloadButton);
     }
 
-    protected abstract AbstractGeneratedExcelDownloadLink<?> getDownloadButton();
+    protected abstract AbstractGeneratedExcelDownloadLink<?> getDownloadButton(String id);
 
     protected abstract boolean isEmpty();
 }

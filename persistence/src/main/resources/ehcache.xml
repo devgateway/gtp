@@ -100,4 +100,7 @@
            statistics="true">
     </cache>
 
+    <cache name="org.devgateway.toolkit.persistence.dao.indicator.ProductPrice"
+           eternal="true" overflowToDisk="false" statistics="true" maxEntriesLocalHeap="1000000" />
+
 </ehcache>

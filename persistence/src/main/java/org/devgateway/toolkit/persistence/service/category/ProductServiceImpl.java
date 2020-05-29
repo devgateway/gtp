@@ -1,6 +1,9 @@
 package org.devgateway.toolkit.persistence.service.category;
 
+import java.util.List;
+
 import org.devgateway.toolkit.persistence.dao.categories.Product;
+import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.repository.category.ProductRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.UniquePropertyRepository;
@@ -15,11 +18,11 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImpl extends BaseJpaServiceImpl<Product> implements ProductService {
 
     @Autowired
-    private ProductRepository productTypeRepository;
+    private ProductRepository repository;
 
     @Override
     protected BaseJpaRepository<Product, Long> repository() {
-        return productTypeRepository;
+        return repository;
     }
 
     @Override
@@ -29,6 +32,11 @@ public class ProductServiceImpl extends BaseJpaServiceImpl<Product> implements P
 
     @Override
     public UniquePropertyRepository<Product, Long> uniquePropertyRepository() {
-        return productTypeRepository;
+        return repository;
+    }
+
+    @Override
+    public List<Product> findByProductType(ProductType productType) {
+        return repository.findByProductType(productType);
     }
 }

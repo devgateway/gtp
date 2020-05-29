@@ -29,8 +29,8 @@ public class RiverStationYearlyLevelsActionPanel
     }
 
     @Override
-    protected AbstractGeneratedExcelDownloadLink<?> getDownloadButton() {
-        return new DownloadRiverLevelsLink<>("download", getModel(), creator);
+    protected AbstractGeneratedExcelDownloadLink<?> getDownloadButton(String id) {
+        return new DownloadRiverLevelsLink<>(id, getModel(), creator);
     }
 
     @Override
