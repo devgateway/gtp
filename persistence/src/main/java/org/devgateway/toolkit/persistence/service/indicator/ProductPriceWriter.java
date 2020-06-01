@@ -150,7 +150,7 @@ public class ProductPriceWriter {
                 Collections.sort(priceTypes);
                 for (PriceType priceType : priceTypes) {
                     hrow.createCell(DATE_COL_IDX + 1 + i)
-                            .setCellValue(product.getName() + " / " + priceType.getLabel());
+                            .setCellValue(product.getName() + " - " + priceType.getLabel());
                     columnIndex.put(new Value(product, priceType, null), i);
                     i++;
                 }

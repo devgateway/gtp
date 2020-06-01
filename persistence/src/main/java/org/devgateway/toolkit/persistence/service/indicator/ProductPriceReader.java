@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toMap;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.time.MonthDay;
 import java.time.Year;
 import java.time.ZoneId;
@@ -14,14 +15,17 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.poi.UnsupportedFileFormatException;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -38,6 +42,8 @@ import org.devgateway.toolkit.persistence.dao.location.Department;
  */
 public class ProductPriceReader {
 
+    private static final String[] DATE_PATTERNS = { "dd-MM-yyyy", "dd-MMM-yyyy" };
+
     private final SearchableCollection<Department> departments;
 
     private final Map<Department, SearchableCollection<Market>> marketsByDepartment;
@@ -45,6 +51,8 @@ public class ProductPriceReader {
     private final List<Product> products;
 
     private final boolean productsOnSeparateRows;
+
+    private List<String> errors;
 
     public ProductPriceReader(List<Product> products,
             List<Market> markets, boolean productsOnSeparateRows) {
@@ -81,98 +89,15 @@ public class ProductPriceReader {
 
         XSSFSheet sheet = workbook.getSheetAt(0);
 
-        List<String> errors = new ArrayList<>();
+        errors = new ArrayList<>();
 
-        List<Pair<Product, PriceType>> columnDefinitions = products.stream()
-                .flatMap(p -> p.getPriceTypes().stream().sorted().map(pt -> Pair.of(p, pt)))
-                .collect(toList());
-
-        checkHeader(sheet, errors, columnDefinitions);
+        List<Pair<Product, PriceType>> columnDefinitions = readHeader(sheet);
 
         if (!errors.isEmpty()) {
             throw new ReaderException(errors);
         }
 
-        List<ProductPrice> productPrices = new ArrayList<>();
-
-        int rowNum = 1;
-        for (;; rowNum++) {
-            XSSFRow row = sheet.getRow(rowNum);
-
-            if (row == null) {
-                break;
-            }
-
-            XSSFCell dptCell = row.getCell(ProductPriceWriter.DEPARTMENT_COL_IDX);
-            if (isEmpty(dptCell)) {
-                break;
-            }
-            String departmentName = dptCell.getStringCellValue();
-            Department department = departments.get(departmentName);
-            if (department == null) {
-                errors.add(errorAt(dptCell, "Unknown department " + departmentName));
-                continue;
-            }
-
-            XSSFCell marketCell = row.getCell(ProductPriceWriter.MARKET_COL_IDX);
-            if (isEmpty(marketCell)) {
-                errors.add(errorAt(marketCell, "Market not specified"));
-                continue;
-            }
-            String marketName = marketCell.getStringCellValue();
-            Market market = marketsByDepartment.get(department).get(marketName);
-            if (market == null) {
-                errors.add(errorAt(marketCell, "Unknown market " + marketName));
-                continue;
-            }
-
-            XSSFCell dateCell = row.getCell(ProductPriceWriter.DATE_COL_IDX);
-            if (isEmpty(dateCell)) {
-                errors.add(errorAt(dateCell, "Date not specified"));
-                continue;
-            }
-
-            Date date;
-            try {
-                date = dateCell.getDateCellValue();
-            } catch (IllegalStateException | NumberFormatException e) {
-                errors.add(errorAt(dateCell, "Could not parse date"));
-                continue;
-            }
-            ZonedDateTime zonedDate = date.toInstant().atZone(ZoneId.systemDefault());
-            if (Year.from(zonedDate).getValue() != year) {
-                errors.add(errorAt(dateCell, "Expected a date for " + year + " year but found " + date));
-                continue;
-            }
-            MonthDay monthDay = MonthDay.from(zonedDate);
-
-            // for each product or product x price type
-            if (productsOnSeparateRows) {
-                throw new UnsupportedOperationException();
-            } else {
-                int colNum = ProductPriceWriter.DATE_COL_IDX;
-                for (Pair<Product, PriceType> columnDefinition : columnDefinitions) {
-                    XSSFCell priceCell = row.getCell(++colNum);
-                    if (!isEmpty(priceCell)) {
-
-                        double price;
-                        try {
-                            price = priceCell.getNumericCellValue();
-                        } catch (IllegalStateException | NumberFormatException e) {
-                            errors.add(errorAt(priceCell, "Could not parse price"));
-                            continue;
-                        }
-
-                        Product product = columnDefinition.getKey();
-                        PriceType priceType = columnDefinition.getValue();
-
-                        productPrices.add(new ProductPrice(product, market, monthDay, priceType, (int) price));
-                    }
-                }
-            }
-        }
-
-        checkForSkippedData(sheet, errors, columnDefinitions, rowNum - 1);
+        List<ProductPrice> productPrices = readPrices(year, sheet, columnDefinitions);
 
         if (!errors.isEmpty()) {
             throw new ReaderException(errors);
@@ -181,46 +106,7 @@ public class ProductPriceReader {
         return productPrices;
     }
 
-    private void checkHeader(XSSFSheet sheet, List<String> errors, List<Pair<Product, PriceType>> columnDefinitions) {
-        if (productsOnSeparateRows) {
-            throw new UnsupportedOperationException();
-        } else {
-            int rowNum = 0;
-            XSSFRow row = sheet.getRow(rowNum);
-            for (int i = 0; i < columnDefinitions.size(); i++) {
-                Pair<Product, PriceType> colDef = columnDefinitions.get(i);
-                String expectedColName = colDef.getKey().getName() + " / " + colDef.getValue().getLabel();
-
-                int colNum = ProductPriceWriter.DATE_COL_IDX + 1 + i;
-                XSSFCell cell = row.getCell(colNum);
-                if (isEmpty(cell)) {
-                    errors.add(errorAt(cell,
-                            String.format("Expected header '%s' but found no value", expectedColName)));
-                    continue;
-                }
-
-                String colName;
-                try {
-                    colName = cell.getStringCellValue();
-                } catch (Exception e) {
-                    errors.add(errorAt(cell,
-                            String.format("Expected header '%s' but found an invalid value", expectedColName)));
-                    continue;
-                }
-
-                if (!colName.equalsIgnoreCase(expectedColName)) {
-                    errors.add(errorAt(cell,
-                            String.format("Expected header '%s' but found '%s'", expectedColName, colName)));
-                }
-            }
-        }
-    }
-
-    private void checkForSkippedData(XSSFSheet sheet, List<String> errors,
-            List<Pair<Product, PriceType>> columnDefinitions, int lastImportedRowNum) {
-
-        int lastRowNum = sheet.getLastRowNum();
-
+    private List<ProductPrice> readPrices(int year, XSSFSheet sheet, List<Pair<Product, PriceType>> columnDefinitions) {
         int numColumns;
         if (productsOnSeparateRows) {
             throw new UnsupportedOperationException();
@@ -228,23 +114,200 @@ public class ProductPriceReader {
             numColumns = ProductPriceWriter.DATE_COL_IDX + columnDefinitions.size() + 1;
         }
 
-        for (int rowNum = lastImportedRowNum + 1; rowNum <= lastRowNum; rowNum++) {
+        List<ProductPrice> productPrices = new ArrayList<>();
+
+        for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
             XSSFRow row = sheet.getRow(rowNum);
-            if (row == null) {
+
+            if (isEmptyRow(row, numColumns)) {
                 continue;
             }
 
-            for (int col = 0; col < numColumns; col++) {
-                XSSFCell cell = row.getCell(col);
-                if (!isEmpty(cell)) {
-                    errors.add(errorAt(cell, "Found a value after last imported row"));
+            Department department = getDepartment(row);
+            Market market = getMarket(row, department);
+            MonthDay monthDay = getMonthDay(year, row);
+
+            // for each product or product x price type
+            if (productsOnSeparateRows) {
+                throw new UnsupportedOperationException();
+            } else {
+                for (int i = 0; i < columnDefinitions.size(); i++) {
+                    Pair<Product, PriceType> columnDefinition = columnDefinitions.get(i);
+                    if (columnDefinition != null) {
+                        XSSFCell priceCell = row.getCell(ProductPriceWriter.DATE_COL_IDX + i + 1);
+                        if (!isEmpty(priceCell)) {
+                            Integer price = getPrice(priceCell);
+                            Product product = columnDefinition.getKey();
+                            PriceType priceType = columnDefinition.getValue();
+
+                            productPrices.add(new ProductPrice(product, market, monthDay, priceType, price));
+                        }
+                    }
                 }
             }
+        }
+        return productPrices;
+    }
+
+    private MonthDay getMonthDay(int year, XSSFRow row) {
+        XSSFCell dateCell = row.getCell(ProductPriceWriter.DATE_COL_IDX);
+        if (isEmpty(dateCell)) {
+            errors.add(errorAt(dateCell, "Date not specified"));
+            return null;
+        }
+
+        Date date;
+        if (dateCell.getCellType() == CellType.STRING) {
+            try {
+                date = parseDate(dateCell.getStringCellValue());
+            } catch (ParseException e) {
+                errors.add(errorAt(dateCell, "Could not parse date"));
+                return null;
+            }
+        } else {
+            try {
+                date = dateCell.getDateCellValue();
+            } catch (NumberFormatException e) {
+                errors.add(errorAt(dateCell, "Could not parse date"));
+                return null;
+            }
+        }
+
+        ZonedDateTime zonedDate = date.toInstant().atZone(ZoneId.systemDefault());
+        if (Year.from(zonedDate).getValue() != year) {
+            errors.add(errorAt(dateCell, "Expected a date for " + year + " year but found " + date));
+            return null;
+        }
+
+        return MonthDay.from(zonedDate);
+    }
+
+    private static Date parseDate(String val) throws ParseException {
+        try {
+            return DateUtils.parseDate(val, Locale.FRENCH, DATE_PATTERNS);
+        } catch (ParseException e) {
+            return DateUtils.parseDate(val, Locale.ENGLISH, DATE_PATTERNS);
+        }
+    }
+
+    private Market getMarket(XSSFRow row, Department department) {
+        if (department == null) {
+            return null;
+        }
+
+        XSSFCell marketCell = row.getCell(ProductPriceWriter.MARKET_COL_IDX);
+        if (isEmpty(marketCell)) {
+            errors.add(errorAt(marketCell, "Market not specified"));
+            return null;
+        }
+
+        String marketName;
+        try {
+            marketName = marketCell.getStringCellValue();
+        } catch (Exception e) {
+            errors.add(errorAt(marketCell, "Invalid market"));
+            return null;
+        }
+        Market market = marketsByDepartment.get(department).get(marketName);
+        if (market == null) {
+            errors.add(errorAt(marketCell, "Unknown market " + marketName));
+            return null;
+        }
+
+        return market;
+    }
+
+    private Department getDepartment(XSSFRow row) {
+        XSSFCell dptCell = row.getCell(ProductPriceWriter.DEPARTMENT_COL_IDX);
+        if (isEmpty(dptCell)) {
+            errors.add(errorAt(dptCell, "Department not specified"));
+            return null;
+        }
+
+        String departmentName;
+        try {
+            departmentName = dptCell.getStringCellValue();
+        } catch (Exception e) {
+            errors.add(errorAt(dptCell, "Invalid department"));
+            return null;
+        }
+
+        Department department = departments.get(departmentName);
+        if (department == null) {
+            errors.add(errorAt(dptCell, "Unknown department " + departmentName));
+            return null;
+        }
+
+        return department;
+    }
+
+    private Integer getPrice(XSSFCell priceCell) {
+        try {
+            return (int) priceCell.getNumericCellValue();
+        } catch (IllegalStateException | NumberFormatException e) {
+            errors.add(errorAt(priceCell, "Could not parse price"));
+            return null;
+        }
+    }
+
+    private List<Pair<Product, PriceType>> readHeader(XSSFSheet sheet) {
+        if (productsOnSeparateRows) {
+            throw new UnsupportedOperationException();
+        } else {
+            List<Pair<Product, PriceType>> columnDefinitions = new ArrayList<>();
+
+            SearchableCollection<Pair<Product, PriceType>> allProductPriceTypes = new SearchableCollection<>(
+                    products.stream()
+                            .flatMap(p -> p.getPriceTypes().stream().sorted().map(pt -> Pair.of(p, pt)))
+                            .collect(toList()), p -> p.getKey().getName() + " - " + p.getValue().getLabel());
+
+            int rowNum = 0;
+            XSSFRow row = sheet.getRow(rowNum);
+
+            for (int i = ProductPriceWriter.DATE_COL_IDX + 1; i < row.getLastCellNum(); i++) {
+                XSSFCell cell = row.getCell(i);
+
+                String colName = null;
+                if (!isEmpty(cell)) {
+                    try {
+                        colName = cell.getStringCellValue().replace(" – ", " - ");
+                    } catch (Exception e) {
+                        errors.add(errorAt(cell, "Invalid header value"));
+                    }
+                }
+
+                Pair<Product, PriceType> productPriceTypePair;
+                productPriceTypePair = colName != null ? allProductPriceTypes.get(colName) : null;
+
+                if (colName != null && productPriceTypePair == null) {
+                    errors.add(errorAt(cell, "Unexpected header value"));
+                }
+
+                if (productPriceTypePair != null && columnDefinitions.contains(productPriceTypePair)) {
+                    errors.add(errorAt(cell, "Duplicate header"));
+                }
+
+                columnDefinitions.add(productPriceTypePair);
+            }
+
+            return columnDefinitions;
         }
     }
 
     private String errorAt(XSSFCell cell, String text) {
         return text + " at " + cell.getReference();
+    }
+
+    private boolean isEmptyRow(XSSFRow row, int numColumns) {
+        if (row == null) {
+            return true;
+        }
+        for (int i = 0; i < numColumns; i++) {
+            if (!isEmpty(row.getCell(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private boolean isEmpty(XSSFCell cell) {
@@ -260,7 +323,7 @@ public class ProductPriceReader {
         }
 
         private String normalize(String value) {
-            return StringUtils.stripAccents(StringUtils.strip(value));
+            return StringUtils.stripAccents(StringUtils.strip(value.toLowerCase()));
         }
 
         T get(String name) {
