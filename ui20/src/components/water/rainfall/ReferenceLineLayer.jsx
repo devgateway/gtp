@@ -14,10 +14,11 @@ class ReferenceLine extends Component {
   }
 
   render() {
-    const {bars, barNo, xScale, yScale, rgba, intl} = this.props
+    const {bars, barsGroupSize, xScale, yScale, rgba, intl} = this.props
     const undefinedToZero = (value) => value === undefined ? 0 : value
-    const skipXBarWidth = barNo - 1
-    const xScaleByBar = b => xScale(b.data.indexValue) + b.width * (skipXBarWidth + 0.5) + skipXBarWidth * INNER_PADDING
+    const skipXBarWidthRatio = barsGroupSize * 0.5
+    const innerPadding = (barsGroupSize - 1) * INNER_PADDING * 0.5
+    const xScaleByBar = b => xScale(b.data.indexValue) + b.width * skipXBarWidthRatio + innerPadding
     const yScaleByBar = b => yScale(undefinedToZero(b.data.data.lineValues.get(b.data.id)))
     const lineGenerator = line().x(xScaleByBar).y(yScaleByBar)
 
@@ -58,14 +59,14 @@ const rgba = ["rgba(150, 3, 15, 1)", "rgba(300, 3, 15, 1)", "rgba(10, 3, 15, 1)"
 
 export const ReferenceLineLayer = (intl, keysWithRefs) => ({ bars, xScale, yScale, keys }) => {
   let idx = 0
-  let barNo = keys.length > 1 ? 2 : 1
   return (
     <svg>
       {keysWithRefs.length && keysWithRefs.map(([key, ]) => {
         const useBars = bars.filter(b => b.data.id === key)
         return (
           <ReferenceLine
-            key={idx} bars={useBars} xScale={xScale} yScale={yScale} rgba={rgba[idx++]} intl={intl} barNo={barNo}/>)
+            key={idx} bars={useBars} xScale={xScale} yScale={yScale} rgba={rgba[idx++]} intl={intl}
+            barsGroupSize={keys.length}/>)
       })}
   </svg>)
 }

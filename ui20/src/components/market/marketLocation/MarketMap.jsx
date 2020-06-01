@@ -11,9 +11,12 @@ import MarketMapLegend from "./MarketMapLegend"
 class MarketMap extends Component {
   static propTypes = {
     agricultureConfig: PropTypes.instanceOf(AgricultureConfig).isRequired,
+    worldMapAttribution: PropTypes.string.isRequired,
   }
 
   render() {
+    const {worldMapAttribution} = this.props
+
     return (
       <div className="png exportable">
         <MarketMapLegend {...this.props} />
@@ -22,7 +25,7 @@ class MarketMap extends Component {
             <ZoomControl position="topright" />
             <TileLayer
               url="https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
-              attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
+              attribution={worldMapAttribution} />
             <MarketLayer {...this.props} />
           </Map>
         </div>
@@ -34,6 +37,7 @@ class MarketMap extends Component {
 const mapStateToProps = state => {
   return {
     agricultureConfig: state.getIn(['agriculture', 'data', 'agricultureConfig']),
+    worldMapAttribution: state.getIn(['app', 'data', 'worldMapAttribution']),
   }
 }
 
