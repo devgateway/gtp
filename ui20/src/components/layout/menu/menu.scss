@@ -1,0 +1,38 @@
+@import '../../../base';
+
+.menu-nav-bar {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  padding-top: 3px;
+  margin-right: 20px;
+  background-color: #f0f0f0;
+
+  .nav.link {
+    margin-top: 17px;
+    line-height: 29px;
+    margin-right: 25px;
+    height: 29px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    padding-left: 10px;
+  }
+
+  .nav.link.menu {
+    padding-right: 0;
+    padding-left: 0;
+    margin-left: 20px;
+  }
+
+  a {
+    cursor: pointer;
+    color: $color-green;
+    text-decoration: none;
+  }
+
+  .ui.divider {
+    border-top-color: #e1e1e1 !important;
+
+  }
+}
