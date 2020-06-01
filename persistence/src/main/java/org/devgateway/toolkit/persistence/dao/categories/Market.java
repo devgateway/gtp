@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.dao.categories;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +36,9 @@ import org.hibernate.envers.Audited;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"department_id", "name"}))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
-public class Market extends AbstractAuditableEntity implements Serializable, Labelable {
+public class Market extends AbstractAuditableEntity implements Serializable, Labelable, Comparable<Market> {
+
+    private static final Comparator<Market> NATURAL = Comparator.comparing(Market::getName);
 
     @NotNull
     @ManyToOne(optional = false)
@@ -139,5 +142,10 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
     @Override
     public String getLabel(String lang) {
         return name;
+    }
+
+    @Override
+    public int compareTo(Market o) {
+        return NATURAL.compare(this, o);
     }
 }
