@@ -8,18 +8,19 @@ export default class MenuNavButton extends Component {
     lan: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
     messageId: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
   }
 
   render() {
-    const {lan, url, messageId} = this.props
+    const {lan, url, messageId, icon} = this.props
     return (
       <div className="nav menu">
         <div className="nav link menu">
+          <img src={icon} />
           <Link to={`/${lan}/${url}`}>
             <FormattedMessage id={messageId}/>
           </Link>
         </div>
-        <div className="ui divider"/>
       </div>
     )
   }
