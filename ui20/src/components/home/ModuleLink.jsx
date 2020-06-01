@@ -11,7 +11,7 @@ const Pane = injectIntl((props) => {
   console.log(`home.pane.title.${name}`);
   return (<div>
     <Link to={`/${intl.locale}/${url}`}>
-    <img className="pane-icon" src={`icon_${name}.png`} alt={''}/>
+    <img className="pane-icon" src={`icon_${name}.jpg`} alt={''}/>
     <div className="pane-title">
       <FormattedHTMLMessage id={`home.pane.${name}.title`} />
     </div>
