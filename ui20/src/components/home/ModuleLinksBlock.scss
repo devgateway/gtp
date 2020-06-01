@@ -1,24 +1,43 @@
 @import "../../base";
 
+$home-wide: 900px;
+$module-wide-width: 270px;
+
 .home-links-container {
   margin: 48px auto 48px auto;
-  width: $page-width;
-  color: #777777;
-  display: flex;
-  justify-content: center;
-  text-align: left;
+  max-width: 900px !important;
+
+  .ui.grid .row {
+    .column {
+      flex-shrink: 1;
+      flex-basis: 0;
+      margin-bottom: 20px;
+    }
+  }
 
   .home-links-image {
-    width: 1006px;
+    border: 1px solid #E6EAEE;
+    border-radius: 5px;
 
     .pane-icon {
       display: block;
-      width: 270px;
+      width: $module-wide-width;
       height: 160px;
+      border-radius: 5px 5px 0 0;
     }
 
-    .pane-title {
-      font-weight: bold;
+    .pane-text {
+      padding: 10px;
+      max-width: $module-wide-width;
+
+      .pane-title {
+        font-weight: 600;
+        color: $color-dark-gray !important;
+      }
+
+      .pane-description {
+        color: #848C98 !important;
+      }
     }
   }
 }
