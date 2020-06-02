@@ -1,7 +1,18 @@
+@import '../../base';
+
 .page-layout {
   height: 100%;
   margin: 0;
 
+  .column.menu {
+    flex: 0 0 $menu-max-width;
+    @include sm {
+      width: $menu-max-width !important;
+    }
+  }
+
   .page-content {
+    flex: 1 0 auto;
+    width: auto;
   }
 }

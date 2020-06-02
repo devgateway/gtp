@@ -1,19 +1,22 @@
 import React, {Component} from "react"
-import Menu from "./menu"
+import {Grid, GridColumn, GridRow} from "semantic-ui-react";
 import "./layout.scss"
+import Menu from "./menu"
 
 export default class Layout extends Component {
 
   render() {
     return (
-      <div className="ui grid page-layout">
-        <div className="four wide column">
-          <Menu/>
-        </div>
-        <div className="twelve wide column page-content">
-          {this.props.children}
-        </div>
-      </div>
+      <Grid className="ui grid page-layout" stackable={false}>
+        <GridRow>
+          <GridColumn className="menu">
+            <Menu/>
+          </GridColumn>
+          <GridColumn className="page-content">
+            {this.props.children}
+          </GridColumn>
+        </GridRow>
+      </Grid>
     );
   }
 }

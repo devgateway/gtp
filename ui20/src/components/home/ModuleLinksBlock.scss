@@ -8,10 +8,12 @@ $module-wide-width: 270px;
   max-width: 900px !important;
 
   .ui.grid .row {
+
     .column {
       flex-shrink: 1;
       flex-basis: 0;
       margin-bottom: 20px;
+      min-width: fit-content;
     }
   }
 
