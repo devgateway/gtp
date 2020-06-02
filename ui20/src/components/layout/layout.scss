@@ -1,18 +1,27 @@
 @import '../../base';
 
+.ui.grid.page-layout {
+  padding-top: $header-height;
+}
+
 .page-layout {
-  height: 100%;
-  margin: 0;
+  min-height: calc(100vh - 297px + 2rem);
+
+  .menu {
+    .ui.sticky {
+      top: $header-height !important;
+      position: fixed;
+      width: inherit;
+    }
+  }
 
   .column.menu {
-    flex: 0 0 $menu-max-width;
-    @include sm {
-      width: $menu-max-width !important;
-    }
+    flex: 0 0 min-content;
   }
 
   .page-content {
     flex: 1 0 auto;
     width: auto;
+    padding-left: unset !important;
   }
 }

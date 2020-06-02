@@ -49,7 +49,7 @@ class IntlRoutes extends Component {
     const props = this.props;
     const locale = this.props.location.pathname.split("/")[1]
     return (<IntlProvider key={locale} locale={locale} messages={messages[props.match.params.lan]}>
-      <div>
+      <div className="page-wrapper">
           <Header />
 
           <Switch>

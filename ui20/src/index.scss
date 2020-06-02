@@ -12,6 +12,14 @@ html {
   font-display: fallback;
 }
 
+#root {
+  height: 100%;
+}
+
+.page-wrapper {
+  height: 100%;
+}
+
 .st-row {
   clear: both;
   display: block;

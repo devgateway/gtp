@@ -7,7 +7,7 @@ export default class Layout extends Component {
 
   render() {
     return (
-      <Grid className="ui grid page-layout" stackable={false}>
+      <Grid className="page-layout" stackable={false}>
         <GridRow>
           <GridColumn className="menu">
             <Menu/>

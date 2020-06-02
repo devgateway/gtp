@@ -16,7 +16,7 @@ export default class MenuNavButton extends Component {
     return (
       <div className="nav menu">
         <div className="nav link menu">
-          <img src={icon} />
+          <img src={icon} alt={''}/>
           <Link to={`/${lan}/${url}`}>
             <FormattedMessage id={messageId}/>
           </Link>
