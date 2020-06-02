@@ -14,7 +14,7 @@ public class ReaderException extends Exception {
     }
 
     public ReaderException(List<String> errors, Exception e) {
-        super(String.join("\n", errors), e);
+        super("Import failed with " + errors.size() + " errors", e);
         this.errors = errors;
     }
 

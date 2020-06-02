@@ -31,7 +31,7 @@ public final class JPAUtil {
      * @param dstItemUpdater method used to update an existing item from destination set
      * @param <T> item type
      */
-    public static <T extends Comparable<T>> void mergeSortedSet(Collection<T> srcCol, SortedSet<T> dstSet,
+    public static <T> void mergeSortedSet(Collection<T> srcCol, SortedSet<T> dstSet,
             Consumer<T> dstAdder, BiConsumer<T, T> dstItemUpdater) {
 
         SortedMap<T, T> newItemsMap = srcCol.stream()

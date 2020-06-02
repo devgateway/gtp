@@ -65,6 +65,7 @@ public class RiverLevel extends AbstractAuditableEntity implements IRiverLevel {
         this.riverStationYearlyLevels = riverStationYearlyLevels;
     }
 
+    @Override
     public MonthDay getMonthDay() {
         return monthDay;
     }
@@ -73,10 +74,12 @@ public class RiverLevel extends AbstractAuditableEntity implements IRiverLevel {
         this.monthDay = monthDay;
     }
 
+    @Override
     public BigDecimal getLevel() {
         return level;
     }
 
+    @Override
     public void setLevel(BigDecimal level) {
         this.level = level;
     }
