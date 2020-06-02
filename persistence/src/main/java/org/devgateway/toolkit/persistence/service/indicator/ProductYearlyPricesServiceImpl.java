@@ -7,7 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.devgateway.toolkit.persistence.dao.PersistedCollectionSize;
+import org.devgateway.toolkit.persistence.dao.categories.Market;
+import org.devgateway.toolkit.persistence.dao.categories.Product;
+import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
+import org.devgateway.toolkit.persistence.dto.agriculture.AveragePrice;
+import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartFilter;
 import org.devgateway.toolkit.persistence.repository.indicator.ProductYearlyPricesRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
@@ -61,5 +66,37 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
     @Override
     public ProductYearlyPrices newInstance() {
         return new ProductYearlyPrices();
+    }
+
+    @Override
+    public List<ProductPrice> findPrices(ProductPricesChartFilter filter) {
+        return repository.findPrices(filter.getYear(), filter.getProductId(), filter.getMarketId());
+    }
+
+    @Override
+    public List<AveragePrice> findPreviousYearAveragePrices(ProductPricesChartFilter filter) {
+        return repository.findAveragePrices(filter.getYear() - 1, filter.getProductId(), filter.getMarketId());
+    }
+
+    @Override
+    public List<Integer> findYearsWithPrices() {
+        return repository.findYearsWithPrices();
+    }
+
+    @Override
+    public boolean hasPrices(Integer year, Long productId) {
+        return repository.countPrices(year, productId) > 0;
+    }
+
+    @Override
+    public Long getProductIdWithPrices(Integer year) {
+        List<Product> products = repository.getProductsWithPrices(year);
+        return products.isEmpty() ? null : products.get(0).getId();
+    }
+
+    @Override
+    public Long getMarketIdWithPrices(Integer year, Long productId) {
+        List<Market> markets = repository.getMarketsWithPrices(year, productId);
+        return markets.isEmpty() ? null : markets.get(0).getId();
     }
 }

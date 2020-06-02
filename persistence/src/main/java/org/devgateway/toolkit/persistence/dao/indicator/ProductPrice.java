@@ -12,6 +12,12 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.categories.PriceType;
@@ -29,6 +35,7 @@ import org.hibernate.envers.Audited;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(uniqueConstraints = @UniqueConstraint(
         columnNames = {"product_yearly_prices_id", "product_id", "market_id", "monthDay", "price_type_id"}))
+@JsonIgnoreProperties({"id", "new"})
 public class ProductPrice extends AbstractAuditableEntity implements Comparable<ProductPrice> {
 
     private static final Comparator<ProductPrice> NATURAL = Comparator.comparing(ProductPrice::getProduct)
@@ -38,14 +45,17 @@ public class ProductPrice extends AbstractAuditableEntity implements Comparable<
 
     @NotNull
     @ManyToOne(optional = false)
+    @JsonIgnore
     private ProductYearlyPrices productYearlyPrices;
 
     @NotNull
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Product product;
 
     @NotNull
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Market market;
 
     @NotNull
@@ -55,6 +65,9 @@ public class ProductPrice extends AbstractAuditableEntity implements Comparable<
 
     @NotNull
     @ManyToOne(optional = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("priceTypeId")
     private PriceType priceType;
 
     @NotNull @Min(0)
@@ -124,6 +137,7 @@ public class ProductPrice extends AbstractAuditableEntity implements Comparable<
     }
 
     @Override
+    @JsonIgnore
     public AbstractAuditableEntity getParent() {
         return productYearlyPrices;
     }

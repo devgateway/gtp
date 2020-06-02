@@ -11,7 +11,14 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
+import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -24,12 +31,16 @@ import org.hibernate.envers.Audited;
 @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
-public class Product extends AbstractAuditableEntity implements Comparable<Product> {
+@JsonIgnoreProperties({"id", "new"})
+public class Product extends AbstractAuditableEntity implements Comparable<Product>, Labelable {
 
     private static final Comparator<Product> NATURAL = Comparator.comparing(Product::getName);
 
     @NotNull
     @ManyToOne(optional = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("productTypeId")
     private ProductType productType;
 
     @NotNull
@@ -38,12 +49,17 @@ public class Product extends AbstractAuditableEntity implements Comparable<Produ
 
     @NotNull
     @ManyToOne(optional = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "label")
+    @JsonIdentityReference(alwaysAsId = true)
     private MeasurementUnit unit;
 
     @NotNull @NotEmpty
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @BatchSize(size = 100)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("priceTypeIds")
     private List<PriceType> priceTypes = new ArrayList<>();
 
     public ProductType getProductType() {
@@ -79,6 +95,7 @@ public class Product extends AbstractAuditableEntity implements Comparable<Produ
     }
 
     @Override
+    @JsonIgnore
     public AbstractAuditableEntity getParent() {
         return null;
     }
@@ -86,5 +103,21 @@ public class Product extends AbstractAuditableEntity implements Comparable<Produ
     @Override
     public int compareTo(Product o) {
         return NATURAL.compare(this, o);
+    }
+
+    @Override
+    public void setLabel(String label) {
+        name = label;
+    }
+
+    @Override
+    @JsonIgnore
+    public String getLabel() {
+        return name;
+    }
+
+    @Override
+    public String getLabel(String lang) {
+        return name;
     }
 }
