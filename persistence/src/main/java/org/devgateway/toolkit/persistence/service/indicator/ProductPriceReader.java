@@ -12,7 +12,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -48,11 +47,13 @@ public class ProductPriceReader {
 
     private final Map<Department, SearchableCollection<Market>> marketsByDepartment;
 
-    private final List<Product> products;
+    private final SearchableCollection<Product> products;
 
     private final boolean productsOnSeparateRows;
 
     private List<String> errors;
+
+    private int firstPriceColIdx;
 
     public ProductPriceReader(List<Product> products,
             List<Market> markets, boolean productsOnSeparateRows) {
@@ -62,8 +63,7 @@ public class ProductPriceReader {
                 .collect(toList());
         departments = new SearchableCollection<>(departmentList, Department::getName);
 
-        this.products = new ArrayList<>(products);
-        Collections.sort(this.products);
+        this.products = new SearchableCollection<>(products, Product::getName);
 
         marketsByDepartment = departmentList.stream()
                 .collect(toMap(Function.identity(),
@@ -107,12 +107,7 @@ public class ProductPriceReader {
     }
 
     private List<ProductPrice> readPrices(int year, XSSFSheet sheet, List<Pair<Product, PriceType>> columnDefinitions) {
-        int numColumns;
-        if (productsOnSeparateRows) {
-            throw new UnsupportedOperationException();
-        } else {
-            numColumns = ProductPriceWriter.DATE_COL_IDX + columnDefinitions.size() + 1;
-        }
+        int numColumns = firstPriceColIdx + columnDefinitions.size();
 
         List<ProductPrice> productPrices = new ArrayList<>();
 
@@ -128,25 +123,52 @@ public class ProductPriceReader {
             MonthDay monthDay = getMonthDay(year, row);
 
             // for each product or product x price type
+            Product product = null;
             if (productsOnSeparateRows) {
-                throw new UnsupportedOperationException();
-            } else {
-                for (int i = 0; i < columnDefinitions.size(); i++) {
-                    Pair<Product, PriceType> columnDefinition = columnDefinitions.get(i);
-                    if (columnDefinition != null) {
-                        XSSFCell priceCell = row.getCell(ProductPriceWriter.DATE_COL_IDX + i + 1);
-                        if (!isEmpty(priceCell)) {
-                            Integer price = getPrice(priceCell);
-                            Product product = columnDefinition.getKey();
-                            PriceType priceType = columnDefinition.getValue();
+                product = getProduct(row);
+            }
 
-                            productPrices.add(new ProductPrice(product, market, monthDay, priceType, price));
+            for (int i = 0; i < columnDefinitions.size(); i++) {
+                Pair<Product, PriceType> columnDefinition = columnDefinitions.get(i);
+                if (columnDefinition != null) {
+                    XSSFCell priceCell = row.getCell(firstPriceColIdx + i);
+                    if (!isEmpty(priceCell)) {
+                        Integer price = getPrice(priceCell);
+                        if (!productsOnSeparateRows) {
+                            product = columnDefinition.getKey();
                         }
+                        PriceType priceType = columnDefinition.getValue();
+
+                        productPrices.add(new ProductPrice(product, market, monthDay, priceType, price));
                     }
                 }
             }
         }
+
         return productPrices;
+    }
+
+    private Product getProduct(XSSFRow row) {
+        XSSFCell cell = row.getCell(ProductPriceWriter.PRODUCT_COL_IDX);
+        if (isEmpty(cell)) {
+            errors.add(errorAt(cell, "Product not specified"));
+            return null;
+        }
+
+        String productName;
+        try {
+            productName = cell.getStringCellValue();
+        } catch (Exception e) {
+            errors.add(errorAt(cell, "Invalid product"));
+            return null;
+        }
+
+        Product product = products.get(productName);
+        if (product == null) {
+            errors.add(errorAt(cell, "Unknown product"));
+        }
+
+        return product;
     }
 
     private MonthDay getMonthDay(int year, XSSFRow row) {
@@ -251,47 +273,59 @@ public class ProductPriceReader {
     }
 
     private List<Pair<Product, PriceType>> readHeader(XSSFSheet sheet) {
+        XSSFRow row = sheet.getRow(0);
+
+        SearchableCollection<Pair<Product, PriceType>> allColumnDefs;
+
         if (productsOnSeparateRows) {
-            throw new UnsupportedOperationException();
+            allColumnDefs = new SearchableCollection<>(
+                    products.elements.values().stream()
+                            .flatMap(p -> p.getPriceTypes().stream())
+                            .distinct()
+                            .map(pt -> Pair.of((Product) null, pt))
+                            .collect(toList()),
+                    p -> p.getValue().getLabel());
+
+            firstPriceColIdx = ProductPriceWriter.PRODUCT_COL_IDX + 1;
         } else {
-            List<Pair<Product, PriceType>> columnDefinitions = new ArrayList<>();
-
-            SearchableCollection<Pair<Product, PriceType>> allProductPriceTypes = new SearchableCollection<>(
-                    products.stream()
+            allColumnDefs = new SearchableCollection<>(
+                    products.elements.values().stream()
                             .flatMap(p -> p.getPriceTypes().stream().sorted().map(pt -> Pair.of(p, pt)))
-                            .collect(toList()), p -> p.getKey().getName() + " - " + p.getValue().getLabel());
+                            .collect(toList()),
+                    p -> p.getKey().getName() + " - " + p.getValue().getLabel());
 
-            int rowNum = 0;
-            XSSFRow row = sheet.getRow(rowNum);
+            firstPriceColIdx = ProductPriceWriter.DATE_COL_IDX + 1;
+        }
 
-            for (int i = ProductPriceWriter.DATE_COL_IDX + 1; i < row.getLastCellNum(); i++) {
-                XSSFCell cell = row.getCell(i);
+        List<Pair<Product, PriceType>> columnDefinitions = new ArrayList<>();
 
-                String colName = null;
-                if (!isEmpty(cell)) {
-                    try {
-                        colName = cell.getStringCellValue().replace(" – ", " - ");
-                    } catch (Exception e) {
-                        errors.add(errorAt(cell, "Invalid header value"));
-                    }
+        for (int i = firstPriceColIdx; i < row.getLastCellNum(); i++) {
+            XSSFCell cell = row.getCell(i);
+
+            String colName = null;
+            if (!isEmpty(cell)) {
+                try {
+                    colName = cell.getStringCellValue().replace(" – ", " - ");
+                } catch (Exception e) {
+                    errors.add(errorAt(cell, "Invalid header value"));
                 }
-
-                Pair<Product, PriceType> productPriceTypePair;
-                productPriceTypePair = colName != null ? allProductPriceTypes.get(colName) : null;
-
-                if (colName != null && productPriceTypePair == null) {
-                    errors.add(errorAt(cell, "Unexpected header value"));
-                }
-
-                if (productPriceTypePair != null && columnDefinitions.contains(productPriceTypePair)) {
-                    errors.add(errorAt(cell, "Duplicate header"));
-                }
-
-                columnDefinitions.add(productPriceTypePair);
             }
 
-            return columnDefinitions;
+            Pair<Product, PriceType> productPriceTypePair;
+            productPriceTypePair = colName != null ? allColumnDefs.get(colName) : null;
+
+            if (colName != null && productPriceTypePair == null) {
+                errors.add(errorAt(cell, "Unexpected header value"));
+            }
+
+            if (productPriceTypePair != null && columnDefinitions.contains(productPriceTypePair)) {
+                errors.add(errorAt(cell, "Duplicate header"));
+            }
+
+            columnDefinitions.add(productPriceTypePair);
         }
+
+        return columnDefinitions;
     }
 
     private String errorAt(XSSFCell cell, String text) {

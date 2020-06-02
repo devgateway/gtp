@@ -18,6 +18,7 @@ import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.IRiverLevel;
 import org.devgateway.toolkit.persistence.dao.IRiverStationYearlyLevels;
 import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
+import org.devgateway.toolkit.persistence.util.JPAUtil;
 
 /**
  * @author Octavian Ciubotaru
@@ -65,7 +66,9 @@ public class AbstractEditRiverStationYearlyLevelsPage
         Collection<L> levels = reader.read(inputStream, creator);
 
         T entity = editForm.getModelObject();
-        entity.getLevels().clear();
-        levels.forEach(l -> entity.addLevel(l));
+
+        JPAUtil.mergeSortedSet(levels, entity.getLevels(),
+                l -> entity.addLevel(l),
+                (oldItem, newItem) -> oldItem.setLevel(newItem.getLevel()));
     }
 }
