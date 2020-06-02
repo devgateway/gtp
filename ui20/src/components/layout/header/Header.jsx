@@ -35,7 +35,7 @@ export default class Header extends Component {
 
   render() {
     return (
-      <div className='header' ref={this.props.divRef}>
+      <div className='header sticky' ref={this.props.divRef}>
         <div className="header-nav">
           <HeaderTitle {...this.props}/>
         </div>
