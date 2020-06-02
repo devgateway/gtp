@@ -42,3 +42,27 @@
 
   }
 }
+
+.menu-nav-bar.closed {
+  width: 60px;
+
+  .nav.link.menu {
+    margin: 0 15px;
+  }
+
+  img {
+    margin-right: unset !important;
+  }
+
+  .title {
+    display: none;
+  }
+}
+
+.menu-nav-bar.opened {
+  .open-or-close {
+    img {
+      transform: scaleX(-1)
+    }
+  }
+}

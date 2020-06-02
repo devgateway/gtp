@@ -7,8 +7,7 @@ import {Link} from "react-router-dom";
 
 const Pane = injectIntl((props) => {
   // eslint-disable-next-line no-unused-vars
-  const {intl, name, url} = props;
-  console.log(`home.pane.title.${name}`);
+  const {intl, name, url} = props
   return (<div className="home-links-image">
     <Link to={`/${intl.locale}/${url}`}>
       <img className="pane-icon" src={`icon_${name}.jpg`} alt={''}/>
