@@ -45,7 +45,9 @@ public class DownloadProductPricesLink extends AbstractGeneratedExcelDownloadLin
 
     @Override
     protected boolean isEmpty() {
-        return getModelObject().getPrices().isEmpty();
+        return getModelObject().getPricesSize() == null
+                ? getModelObject().getPrices().isEmpty()
+                : getModelObject().getPricesSize() == 0L;
     }
 
     @Override
