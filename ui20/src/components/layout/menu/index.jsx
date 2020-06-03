@@ -9,6 +9,8 @@ import {MenuNavButtonClosed, MenuNavButtonOpen} from "./MenuNavButton"
 // TODO (SCROLLING_MENU) make them exportable for reuse from _base.scss
 const HEADER_HEIGHT = 70
 const MENU_HEIGHT = 366
+const FOOTER_HEIGHT = 297
+const fullMenuRequiredHeight = MENU_HEIGHT + HEADER_HEIGHT
 
 class Menu extends Component {
   static propTypes = {
@@ -18,7 +20,8 @@ class Menu extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { stickTo: 'top' }
+    const stickTo = document.documentElement.clientHeight < fullMenuRequiredHeight ? 'relative' : 'top'
+    this.state = { stickTo }
   }
 
   componentDidMount() {
@@ -32,10 +35,15 @@ class Menu extends Component {
   handleScroll(event) {
     const { scrollTop, scrollTopMax, clientHeight } = event.target.documentElement
     const remainingScroll = scrollTopMax - scrollTop
-    const fullMenuRequiredHeight = MENU_HEIGHT + HEADER_HEIGHT
+
     let stickTo = 'top'
-    if (remainingScroll + fullMenuRequiredHeight < clientHeight ) {
-      stickTo = 'bottom'
+    if (clientHeight < fullMenuRequiredHeight) {
+      stickTo = 'relative'
+    } else if (remainingScroll < FOOTER_HEIGHT) {
+      const heightRequiredWithVisibleFooter =  FOOTER_HEIGHT - remainingScroll +  fullMenuRequiredHeight
+      if (heightRequiredWithVisibleFooter > clientHeight) {
+        stickTo = 'bottom'
+      }
     }
 
     this.setState({ stickTo });
