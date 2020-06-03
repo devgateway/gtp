@@ -7,9 +7,7 @@ import org.junit.runners.Suite;
  * @author Octavian Ciubotaru
  */
 @Suite.SuiteClasses({
-        PersonRepositoryTest.class,
-        DataSourceRepositoryTest.class,
-        TableRepositoryTest.class})
+        PersonRepositoryTest.class})
 @RunWith(Suite.class)
 public class RepositoryTestSuite {
 }
