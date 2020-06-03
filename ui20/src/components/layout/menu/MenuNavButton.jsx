@@ -1,16 +1,18 @@
 import PropTypes from 'prop-types'
 import React, {Component} from "react"
 import {FormattedMessage} from "react-intl"
+import {withRouter} from "react-router"
 import {Link} from "react-router-dom"
-import { Popup } from 'semantic-ui-react'
+import {Popup} from 'semantic-ui-react'
+import {cssClasses} from "../../ComponentUtil"
 
 class MenuNavButton extends Component {
   static propTypes = {
-    lan: PropTypes.string.isRequired,
     url: PropTypes.string,
     messageId: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
     isOpened: PropTypes.bool.isRequired,
+    className: PropTypes.string,
   }
 
   getMenuEntry() {
@@ -23,11 +25,16 @@ class MenuNavButton extends Component {
   }
 
   render() {
-    const {lan, url, isOpened} = this.props
+    const {url, isOpened, className} = this.props
+    const lan = this.props.match.params.lan
+    const pathName = this.props.location.pathname
+    const menuUrl = `/${lan}/${url}`
+    const isActive = pathName === menuUrl
+
     const menuEntry = this.getMenuEntry()
     const menuItem = (
-      <div className="nav menu">
-        {url && <Link to={`/${lan}/${url}`}>{menuEntry}</Link>}
+      <div className={cssClasses("nav", "menu", className, isActive ? "active" : null)}>
+        {url && <Link to={menuUrl}>{menuEntry}</Link>}
         {!url && <a href="http://">{menuEntry}</a>}
       </div>)
 
@@ -46,5 +53,7 @@ class MenuNavButton extends Component {
   }
 }
 
-export const MenuNavButtonOpen = (props) => <MenuNavButton isOpened={true} {...props} />
-export const MenuNavButtonClosed = (props) => <MenuNavButton isOpened={false} {...props} />
+const MenuItemWithRouter = withRouter(MenuNavButton)
+
+export const MenuNavButtonOpen = (props) => <MenuItemWithRouter isOpened={true} {...props} />
+export const MenuNavButtonClosed = (props) => <MenuItemWithRouter isOpened={false} {...props} />
