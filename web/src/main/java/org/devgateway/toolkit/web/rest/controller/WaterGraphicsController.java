@@ -15,7 +15,7 @@ import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartConfig;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartData;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartFilter;
-import org.devgateway.toolkit.persistence.service.ChartService;
+import org.devgateway.toolkit.persistence.service.WaterChartsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,50 +31,50 @@ import org.springframework.web.bind.annotation.RestController;
 public class WaterGraphicsController {
 
     @Autowired
-    private ChartService chartService;
+    private WaterChartsService waterChartsService;
 
     @GetMapping("all")
     public ChartsData getCharts() {
-        return chartService.getCharts();
+        return waterChartsService.getCharts();
     }
 
     @GetMapping("config")
     public WaterConfig getWaterConfig() {
-        return chartService.getWaterConfig();
+        return waterChartsService.getWaterConfig();
     }
 
     @GetMapping("rain-level/config")
     public RainLevelChartConfig getRainLevelConfig() {
-        return chartService.getRainLevelConfig();
+        return waterChartsService.getRainLevelConfig();
     }
 
     @PostMapping("rain-level/data")
     public RainLevelChartData getRainLevelChartData(@RequestBody @Valid RainLevelChartFilter filter) {
-        return chartService.getRainLevelData(filter);
+        return waterChartsService.getRainLevelData(filter);
     }
 
     @PostMapping("dry-sequence/data")
     public DrySequenceChartData getDrySequenceChartData(@RequestBody @Valid DrySequenceChartFilter filter) {
-        return chartService.getDrySequenceData(filter);
+        return waterChartsService.getDrySequenceData(filter);
     }
 
     @GetMapping("rain-season/config")
     public SeasonChartConfig getRainSeasonConfig() {
-        return chartService.getRainSeasonConfig();
+        return waterChartsService.getRainSeasonConfig();
     }
 
     @PostMapping("rain-season/data")
     public SeasonChartData getRainSeasonData(@RequestBody @Valid SeasonChartFilter filter) {
-        return chartService.getRainSeasonData(filter);
+        return waterChartsService.getRainSeasonData(filter);
     }
 
     @GetMapping("river-level/config")
     public RiverLevelChartConfig getRiverLevelConfig() {
-        return chartService.getRiverLevelConfig();
+        return waterChartsService.getRiverLevelConfig();
     }
 
     @PostMapping("river-level/data")
     public RiverLevelChartData getRiverLevelData(@RequestBody @Valid RiverLevelChartFilter filter) {
-        return chartService.getRiverLevelData(filter);
+        return waterChartsService.getRiverLevelData(filter);
     }
 }

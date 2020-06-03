@@ -11,9 +11,12 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket;
 
+import java.util.Collections;
+
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.SessionTrackingMode;
 
 import org.apache.wicket.protocol.http.WicketFilter;
 import org.apache.wicket.spring.SpringWebApplicationFactory;
@@ -36,6 +39,8 @@ public class WebInitializer implements ServletContextInitializer {
 
     @Override
     public void onStartup(final ServletContext sc) throws ServletException {
+
+        sc.setSessionTrackingModes(Collections.singleton(SessionTrackingMode.COOKIE));
 
         // AUTO configured by spring boot 1.2.x and upper
         sc.addFilter("Spring OpenEntityManagerInViewFilter",

@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dao;
 
+import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -24,6 +25,9 @@ public class AdminSettings extends AbstractAuditableEntity {
 
     @ManyToOne
     private RiverStation defaultRiverStation;
+
+    @ManyToOne
+    private Product defaultProduct;
 
     @Override
     public AbstractAuditableEntity getParent() {
@@ -52,5 +56,13 @@ public class AdminSettings extends AbstractAuditableEntity {
 
     public void setDefaultRiverStation(RiverStation defaultRiverStation) {
         this.defaultRiverStation = defaultRiverStation;
+    }
+
+    public Product getDefaultProduct() {
+        return defaultProduct;
+    }
+
+    public void setDefaultProduct(Product defaultProduct) {
+        this.defaultProduct = defaultProduct;
     }
 }

@@ -12,6 +12,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
+import org.devgateway.toolkit.forms.wicket.page.lists.indicator.market.ListProductYearlyPricesPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainseason.ListRainSeasonPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.riverlevel.ListRiverStationYearlyLevelsPage;
@@ -64,5 +65,12 @@ public class IndicatorHomePage extends BasePage {
         riverLevels.setLabel(new StringResourceModel("riverLevels"));
         authorize(riverLevels, Component.RENDER, SecurityConstants.Roles.ROLE_RIVER_LEVEL_EDITOR);
         add(riverLevels);
+
+        BootstrapBookmarkablePageLink<?> productYearlyPrices =
+                new BootstrapBookmarkablePageLink<>("productYearlyPrices", ListProductYearlyPricesPage.class,
+                        Buttons.Type.Default);
+        productYearlyPrices.setLabel(new StringResourceModel("productYearlyPrices"));
+        authorize(productYearlyPrices, Component.RENDER, SecurityConstants.Roles.ROLE_MARKET_EDITOR);
+        add(productYearlyPrices);
     }
 }

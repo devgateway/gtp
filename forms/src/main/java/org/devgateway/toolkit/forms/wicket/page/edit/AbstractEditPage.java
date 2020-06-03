@@ -55,7 +55,6 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,7 +62,7 @@ import java.util.Map;
  * @author mpostelnicu Page used to make editing easy, extend to get easy access
  * to one entity for editing
  */
-public abstract class AbstractEditPage<T extends GenericPersistable & Serializable> extends BasePage {
+public abstract class AbstractEditPage<T extends GenericPersistable> extends BasePage {
     private static final long serialVersionUID = -5928614890244382103L;
 
     public static final int DEFA_MAX_LENGTH = 254;

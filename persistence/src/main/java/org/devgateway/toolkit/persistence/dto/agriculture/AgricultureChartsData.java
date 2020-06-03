@@ -11,10 +11,14 @@ public class AgricultureChartsData {
 
     private final AgricultureConfig agricultureConfig;
 
+    private final ProductPricesChart productPricesChart;
+
     public AgricultureChartsData(CommonConfig commonConfig,
-            AgricultureConfig agricultureConfig) {
+            AgricultureConfig agricultureConfig,
+            ProductPricesChart productPricesChart) {
         this.commonConfig = commonConfig;
         this.agricultureConfig = agricultureConfig;
+        this.productPricesChart = productPricesChart;
     }
 
     public CommonConfig getCommonConfig() {
@@ -23,5 +27,9 @@ public class AgricultureChartsData {
 
     public AgricultureConfig getAgricultureConfig() {
         return agricultureConfig;
+    }
+
+    public ProductPricesChart getProductPricesChart() {
+        return productPricesChart;
     }
 }

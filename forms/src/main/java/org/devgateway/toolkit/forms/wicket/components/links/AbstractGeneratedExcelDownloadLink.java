@@ -1,13 +1,7 @@
-package org.devgateway.toolkit.forms.wicket.page.lists.category;
-
-import static java.util.stream.Collectors.toCollection;
+package org.devgateway.toolkit.forms.wicket.components.links;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.time.MonthDay;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.function.BiFunction;
+import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,29 +15,20 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.IRequestCycle;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.cycle.RequestCycle;
-import org.danekja.java.util.function.serializable.SerializableBiFunction;
 import org.devgateway.toolkit.forms.wicket.components.form.AJAXDownload;
-import org.devgateway.toolkit.forms.wicket.page.edit.category.RiverLevelWriter;
-import org.devgateway.toolkit.persistence.dao.IRiverLevel;
-import org.devgateway.toolkit.persistence.dao.IRiverStationYearlyLevels;
 import org.springframework.http.ContentDisposition;
 
 /**
  * @author Octavian Ciubotaru
  */
-public class DownloadRiverLevelsLink<T extends IRiverStationYearlyLevels<L>, L extends IRiverLevel>
-        extends BootstrapAjaxLink<T> {
+public abstract class AbstractGeneratedExcelDownloadLink<T> extends BootstrapAjaxLink<T> {
 
     private final AJAXDownload download;
 
-    public DownloadRiverLevelsLink(String id, IModel<T> model,
-            SerializableBiFunction<MonthDay, BigDecimal, L> creator) {
-
+    public AbstractGeneratedExcelDownloadLink(String id, IModel<T> model) {
         super(id, model, Buttons.Type.Info);
 
-        boolean empty = model.getObject().getLevels().isEmpty();
-
-        setLabel(new StringResourceModel(empty ? "downloadTemplate" : "download", this));
+        setLabel(new StringResourceModel(isEmpty() ? "downloadTemplate" : "download", this));
         setIconType(FontAwesomeIconType.download);
 
         download = new AJAXDownload() {
@@ -57,24 +42,14 @@ public class DownloadRiverLevelsLink<T extends IRiverStationYearlyLevels<L>, L e
                                 (HttpServletResponse) requestCycle.getResponse().getContainerResponse();
 
                         try {
-                            T entity = model.getObject();
-
-                            String fileName = String.format("%s - %s.xlsx", entity.getStation().getName(),
-                                    entity.getYear());
-
                             response.setContentType(
                                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
                             response.setHeader("Content-Disposition", ContentDisposition.builder("attachment")
-                                    .filename(fileName)
+                                    .filename(getFileName())
                                     .build()
                                     .toString());
 
-                            SortedSet<L> levels = empty
-                                    ? getLevelForTemplate(entity, creator)
-                                    : entity.getLevels();
-
-                            RiverLevelWriter writer = new RiverLevelWriter();
-                            writer.write(entity.getYear(), levels, response.getOutputStream(), creator);
+                            generate(response.getOutputStream());
                         } catch (IOException e) {
                             throw new WicketRuntimeException("Download error", e);
                         }
@@ -93,11 +68,11 @@ public class DownloadRiverLevelsLink<T extends IRiverStationYearlyLevels<L>, L e
         add(download);
     }
 
-    private SortedSet<L> getLevelForTemplate(T entity, BiFunction<MonthDay, BigDecimal, L> creator) {
-        return entity.getYear().getMonthDays().stream()
-                .map(md -> creator.apply(md, null))
-                .collect(toCollection(TreeSet::new));
-    }
+    protected abstract String getFileName();
+
+    protected abstract boolean isEmpty();
+
+    protected abstract void generate(OutputStream outputStream) throws IOException;
 
     @Override
     public void onClick(AjaxRequestTarget target) {

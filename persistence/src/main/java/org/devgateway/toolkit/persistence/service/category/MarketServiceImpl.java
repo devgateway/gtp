@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.service.category;
 
+import java.util.List;
+
 import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.repository.category.MarketRepository;
@@ -37,5 +39,10 @@ public class MarketServiceImpl extends BaseJpaServiceImpl<Market> implements Mar
     public boolean exists(Double latitude, Double longitude, Long exceptId) {
         Long safeExceptId = exceptId == null ? -1 : exceptId;
         return marketRepository.existsByLatitudeAndLongitudeAndIdNot(latitude, longitude, safeExceptId);
+    }
+
+    @Override
+    public List<Market> findByMarketTypeName(String marketTypeName) {
+        return marketRepository.findByType_Name(marketTypeName);
     }
 }

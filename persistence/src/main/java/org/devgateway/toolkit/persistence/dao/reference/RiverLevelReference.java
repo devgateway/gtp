@@ -66,6 +66,7 @@ public class RiverLevelReference extends AbstractAuditableEntity implements IRiv
         this.riverStationYearlyLevelsReference = riverStationYearlyLevelsReference;
     }
 
+    @Override
     public MonthDay getMonthDay() {
         return monthDay;
     }
@@ -74,10 +75,12 @@ public class RiverLevelReference extends AbstractAuditableEntity implements IRiv
         this.monthDay = monthDay;
     }
 
+    @Override
     public BigDecimal getLevel() {
         return level;
     }
 
+    @Override
     public void setLevel(BigDecimal level) {
         this.level = level;
     }
