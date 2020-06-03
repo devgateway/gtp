@@ -9,9 +9,16 @@
 
   .menu {
     .ui.sticky {
-      top: $header-height !important;
       position: fixed;
       width: inherit;
+      z-index: 0;
+    }
+    .top {
+      top: $header-height !important;
+    }
+    .bottom {
+      top: unset;
+      bottom: $footer-height;
     }
   }
 

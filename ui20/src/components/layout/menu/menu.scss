@@ -4,7 +4,7 @@
   display: inline-block;
   height: 100%;
   width: $menu-max-width;
-  min-height: 366px;
+  min-height: $menu-height;
   background-color: #f0f0f0;
   border-collapse: collapse;
 

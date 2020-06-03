@@ -6,19 +6,49 @@ import {cssClasses} from "../../ComponentUtil"
 import "./menu.scss"
 import {MenuNavButtonClosed, MenuNavButtonOpen} from "./MenuNavButton"
 
+// TODO (SCROLLING_MENU) make them exportable for reuse from _base.scss
+const HEADER_HEIGHT = 70
+const MENU_HEIGHT = 366
+
 class Menu extends Component {
   static propTypes = {
     toggleMenu: PropTypes.func.isRequired,
     isMenuOpened: PropTypes.bool.isRequired,
   }
 
+  constructor(props) {
+    super(props);
+    this.state = { stickTo: 'top' }
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll.bind(this));
+  }
+
+  handleScroll(event) {
+    const { scrollTop, scrollTopMax, clientHeight } = event.target.documentElement
+    const remainingScroll = scrollTopMax - scrollTop
+    const fullMenuRequiredHeight = MENU_HEIGHT + HEADER_HEIGHT
+    let stickTo = 'top'
+    if (remainingScroll + fullMenuRequiredHeight < clientHeight ) {
+      stickTo = 'bottom'
+    }
+
+    this.setState({ stickTo });
+  }
+
   render() {
     const {isMenuOpened, toggleMenu} = this.props
+    const { stickTo } = this.state
     const MenuItem = isMenuOpened ? MenuNavButtonOpen : MenuNavButtonClosed
 
     return (
-      <div className={cssClasses("menu-nav-bar", isMenuOpened ? "opened" : "closed") }>
-        <div className="ui sticky">
+      <div className={cssClasses("menu-nav-bar", isMenuOpened ? "opened" : "closed")}>
+        <div className={cssClasses("ui", "sticky", stickTo)}>
           <div className="top-menu">
             <MenuItem url="home" messageId="menu.home" icon="logo-anacim-small-optimized.png" className="home-icon"/>
             <MenuItem url="water-resources" messageId="home.pane.waterResources.title" icon="page_icon_water.svg"/>
