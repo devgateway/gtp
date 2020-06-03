@@ -13,6 +13,9 @@
       width: inherit;
       z-index: 0;
     }
+    .relative {
+      position: relative !important;
+    }
     .top {
       top: $header-height !important;
     }
