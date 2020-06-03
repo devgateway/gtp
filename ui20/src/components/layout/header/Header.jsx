@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {withRouter} from "react-router";
 import './header.scss';
+import {Popup} from "semantic-ui-react"
 
 // eslint-disable-next-line no-unused-vars
 const HeaderImage = (props) => {
@@ -22,13 +23,23 @@ const LanSwitcher = withRouter((props) => (
       </div>
   </div>))
 
-const HeaderTitle = (props) =>
-  (<div className="header-title">
+const HeaderTitle = (props) => {
+  const legend = <FormattedMessage id="home.header.sub.title"/>
+  return (<div className="header-title">
     <div className="title">
       <FormattedMessage id="home.header.title" defaultMessage={"Senegal Agridata Platform"} values={""}/>
     </div>
-    <div className="legend"><FormattedMessage id="home.header.sub.title" defaultMessage={"Unleashing the power of agricultural statistics"} values={""}/></div>
-  </div>);
+    <Popup
+      position="bottom center"
+      trigger={
+        <div className="legend">
+          {legend}
+        </div>
+      }>
+      <Popup.Content>{legend}</Popup.Content>
+    </Popup>
+  </div>)
+}
 
 
 export default class Header extends Component {
