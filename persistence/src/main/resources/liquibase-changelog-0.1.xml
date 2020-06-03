@@ -535,7 +535,19 @@
         </insert>
     </changeSet>
 
-    <!-- placeholder 8 -->
+    <changeSet id="ANACIM-125" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="indicator_metadata" />
+            <changeSetExecuted id="ANACIM-1 initial org and admin" author="nmandrescu"
+                               changeLogFile="liquibase-changelog-0.1.xml"/>
+        </preConditions>
+        <insert tableName="indicator_metadata">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Marchés" />
+            <column name="type" value="MARKET" />
+            <column name="organization_id" valueComputed="(SELECT id FROM organization WHERE tag='CSA')" />
+        </insert>
+    </changeSet>
 
     <!-- placeholder 9 -->
 

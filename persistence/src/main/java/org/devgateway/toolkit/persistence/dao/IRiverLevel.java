@@ -17,6 +17,8 @@ public interface IRiverLevel extends Comparable<IRiverLevel> {
 
     BigDecimal getLevel();
 
+    void setLevel(BigDecimal level);
+
     @Override
     default int compareTo(IRiverLevel o) {
         return HYDROLOGICAL.compare(this, o);

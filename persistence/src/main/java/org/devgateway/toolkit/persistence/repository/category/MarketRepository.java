@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.repository.category;
 
+import java.util.List;
+
 import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
@@ -17,4 +19,7 @@ public interface MarketRepository extends BaseJpaRepository<Market, Long> {
 
     @CacheHibernateQueryResult
     boolean existsByLatitudeAndLongitudeAndIdNot(Double latitude, Double longitude, Long exceptId);
+
+    @CacheHibernateQueryResult
+    List<Market> findByType_Name(String marketTypeName);
 }

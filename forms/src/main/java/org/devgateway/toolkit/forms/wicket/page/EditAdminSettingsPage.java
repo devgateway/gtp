@@ -13,8 +13,10 @@ import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFor
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.AdminSettings;
+import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
+import org.devgateway.toolkit.persistence.service.category.ProductService;
 import org.devgateway.toolkit.persistence.service.category.RiverStationService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -37,6 +39,9 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
 
     @SpringBean
     private RiverStationService riverStationService;
+
+    @SpringBean
+    private ProductService productService;
 
     public EditAdminSettingsPage(final PageParameters parameters) {
         super(parameters);
@@ -75,5 +80,11 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
                         new GenericPersistableJpaTextChoiceProvider<>(riverStationService));
         defaultRiverStation.required();
         editForm.add(defaultRiverStation);
+
+        Select2ChoiceBootstrapFormComponent<Product> defaultProduct =
+                new Select2ChoiceBootstrapFormComponent<>("defaultProduct",
+                        new GenericPersistableJpaTextChoiceProvider<>(productService));
+        defaultProduct.required();
+        editForm.add(defaultProduct);
     }
 }

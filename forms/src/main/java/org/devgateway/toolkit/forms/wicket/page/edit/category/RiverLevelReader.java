@@ -24,6 +24,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.devgateway.toolkit.persistence.dao.IRiverLevel;
+import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
 
 /**
  * @author Octavian Ciubotaru
@@ -33,15 +34,15 @@ public class RiverLevelReader {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
 
     public <L extends IRiverLevel> Collection<L> read(InputStream is,
-            BiFunction<MonthDay, BigDecimal, L> creator) throws RiverLevelReaderException {
+            BiFunction<MonthDay, BigDecimal, L> creator) throws ReaderException {
 
         XSSFWorkbook sheets;
         try {
             sheets = new XSSFWorkbook(is);
         } catch (IOException e) {
-            throw new RiverLevelReaderException(ImmutableList.of("I/O error."), e);
+            throw new ReaderException(ImmutableList.of("I/O error."), e);
         } catch (UnsupportedFileFormatException e) {
-            throw new RiverLevelReaderException(ImmutableList.of("Unsupported file format. Please use a "
+            throw new ReaderException(ImmutableList.of("Unsupported file format. Please use a "
                     + "Microsoft Excel Open XML Format Spreadsheet (XLSX) file."), e);
         }
 
@@ -101,7 +102,7 @@ public class RiverLevelReader {
         }
 
         if (!errors.isEmpty()) {
-            throw new RiverLevelReaderException(errors);
+            throw new ReaderException(errors);
         }
 
         return data;
