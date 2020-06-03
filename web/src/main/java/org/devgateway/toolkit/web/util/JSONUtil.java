@@ -87,7 +87,7 @@ public final class JSONUtil {
         return jsonFlat;
     }
 
-    public static Map<String, String> parse(JSONObject jsonObject) {
+    public static Map<String, String> parse(JSONObject jsonObject) throws JSONException {
         Map<String, String> flatJson = new LinkedHashMap<>();
         flatten(jsonObject, flatJson, "");
 
@@ -95,7 +95,7 @@ public final class JSONUtil {
     }
 
 
-    public static List<Map<String, String>> parse(JSONArray jsonArray) {
+    public static List<Map<String, String>> parse(JSONArray jsonArray) throws JSONException {
         JSONObject jsonObject;
         List<Map<String, String>> flatJson = new ArrayList<>();
         int length = jsonArray.length();
@@ -121,7 +121,7 @@ public final class JSONUtil {
         return jsonFlat;
     }
 
-    private static void flatten(JSONObject obj, Map<String, String> jsonFlat, String prefix) {
+    private static void flatten(JSONObject obj, Map<String, String> jsonFlat, String prefix) throws JSONException {
         Iterator<?> iterator = obj.keys();
         String newPrefix = !prefix.equals("") ? prefix + "." : "";
 
@@ -151,7 +151,7 @@ public final class JSONUtil {
     }
 
 
-    private static void flatten(JSONArray obj, Map<String, String> jsonFlat, String prefix) {
+    private static void flatten(JSONArray obj, Map<String, String> jsonFlat, String prefix) throws JSONException {
         int length = obj.length();
 
         for (int i = 0; i < length; i++) {
