@@ -2,39 +2,47 @@
 .intro {
   .main {
     margin: auto;
-    height: 567px;
-    border-bottom: 1px solid #90b47a;
-    width: $page-width;
     box-sizing: border-box;
-    background-image: url("/header-image-background.jpg");
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    text-align: center;
+    width: 90%;
 
+    .logo {
+      margin: 30px 0 10px 0;
+      height: 90px;
+    }
 
     .title {
-      margin-top: -78px;
-      font-size: 60px;
-      letter-spacing: -2px;
-      line-height: 60px;
-      color: #ffffff;
+      font-size: 30px;
+      letter-spacing: -1px;
+      line-height: 40px;
+      color: $color-green;
       font-weight: normal;
-      text-align: center;
-
-
     }
 
     .text {
-      width: 75%;
-      padding: 0px;
-      margin-top: 15px;
-      font-size: 28px;
-      letter-spacing: -1px;
-      line-height: 35px;
-      color: #ffffff;
+      font-size: 18px;
+      line-height: 28px;
+      color: $color-green;
       font-weight: normal;
-      text-align: center;
+    }
+
+    .presentation-title {
+      padding-top: 25px;
+      font-size: 24px;
+      line-height: 34px;
+      color: $color-green;
+    }
+
+    .presentation-text {
+      color: #4E4E4E;
+
+      .strong {
+        font-weight: 600;
+      }
     }
 
     .btn-link{

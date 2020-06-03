@@ -2,8 +2,8 @@
 import React, {Component,useState} from 'react';
 import {connect} from 'react-redux';
 import {injectIntl, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
-import {doSubscribe} from '../../redux/ipar/newsLetter'
-import messages from '../../translations/messages'
+import {doSubscribe} from '../../../redux/ipar/newsLetter'
+import messages from '../../../translations/messages'
 import './newsletter.scss';
 
 

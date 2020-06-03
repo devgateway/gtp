@@ -1,69 +1,35 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Josefin+Slab|Arvo|Lato|Vollkorn|Abril+Fatface|Old+Standard+TT|Droid+Sans|Lobster|Inconsolata|Montserrat|Playfair+Display|Karla|Alegreya|Libre+Baskerville|Merriweather|Lora|Archivo+Narrow|Neuton|Signika|Questrial|Fjalla+One|Bitter|Varela+Round);
-@import '../../base';
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300|Josefin+Slab|Arvo|Lato|Vollkorn|Abril+Fatface|Old+Standard+TT|Droid+Sans|Lobster|Inconsolata|Montserrat|Playfair+Display|Karla|Alegreya|Libre+Baskerville|Merriweather|Lora|Archivo+Narrow|Neuton|Signika|Questrial|Fjalla+One|Bitter|Varela+Round);
+@import '../../../base';
 
 .header {
   .header-nav {
-    margin: auto;
-    height: 70px;
+    height: $header-height;
     border-bottom: 1px solid #83a46e;
-    width: $page-width;
     box-sizing: border-box;
-    background-color: #497423;
-    //background-image: url("/header-nav-background.jpg");
+    background-color: $color-green;
+    color: $color-white;
+
     .header-title {
-      float: left;
-      line-height: 50px;
+      line-height: 40px;
       height: 50px;
-      width: 480px;
+      margin-left: 20px;
+      padding-top: 15px;
 
       .title {
-        margin-left: 74px;
-        font-size: 22px;
-        line-height: 37px;
-        font-weight: 700;
-        margin-top: 6px;
-        letter-spacing: -.5px;
+        font-size: 18px;
+        line-height: 20px;
+        font-weight: 600;
+        letter-spacing: -.2px;
       }
 
       .legend {
-        margin-left: 74px;
-        font-size: 18px;
-        font-weight: normal;
-        line-height: 10px;
-        letter-spacing: -1px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
-    }
-  }
-
-  .header-nav-bar {
-    float: right;
-    height: 70px;
-    padding-top: 3px;
-    margin-right: 20px;
-
-
-
-    .nav.link {
-      margin-top: 17px;
-      line-height: 29px;
-      margin-right: 25px;
-      height: 29px;
-      cursor: pointer;
-      float: left;
-      font-size: 13px;
-      font-weight: 600;
-      padding-left: 10px;
-    }
-
-    .nav.link.menu {
-      padding-right: 0;
-      padding-left: 0;
-    }
-
-    a {
-      cursor: pointer;
-      color: $color;
-      text-decoration: none;
     }
   }
 
@@ -96,7 +62,7 @@
   .ui.dropdown .menu > .item {
     font-size: 12px;
     background-color: #497423;
-    color: $color;
+    color: $color-white;
     padding: 0.4rem 1rem !important;
     font-family: $font;
     line-height: 20px;

@@ -7,15 +7,18 @@ import {Link} from "react-router-dom";
 
 const Pane = injectIntl((props) => {
   // eslint-disable-next-line no-unused-vars
-  const {intl, name, url} = props;
-  console.log(`home.pane.title.${name}`);
-  return (<div>
+  const {intl, name, url} = props
+  return (<div className="home-links-image">
     <Link to={`/${intl.locale}/${url}`}>
-    <img className="pane-icon" src={`icon_${name}.png`} alt={''}/>
-    <div className="pane-title">
-      <FormattedHTMLMessage id={`home.pane.${name}.title`} />
-    </div>
-    <FormattedHTMLMessage id={`home.pane.${name}.text.short`}/>
+      <img className="pane-icon" src={`icon_${name}.jpg`} alt={''}/>
+      <div className="pane-text">
+        <div className="pane-title">
+          <FormattedHTMLMessage id={`home.pane.${name}.title`}/>
+        </div>
+        <div className="pane-description">
+          <FormattedHTMLMessage id={`home.pane.${name}.text.short`}/>
+        </div>
+      </div>
     </Link>
   </div>);
 });
@@ -23,16 +26,16 @@ const Pane = injectIntl((props) => {
 const ModuleLinksBlock = injectIntl((props) => {
   return (<div className="home-links-container">
 
-    <div className="home-links-image">
-      <Grid columns={3}>
-        <GridRow>
-          <GridColumn>
+    <div>
+      <Grid stackable columns={3} container centered>
+        <GridRow centered>
+          <GridColumn textAlign="center">
             <Pane name='waterResources' {...props} url={'water-resources'} />
           </GridColumn>
-          <GridColumn>
+          <GridColumn textAlign="center">
             <Pane name='agricultureAndMarkets' {...props} url={'agriculture-and-market'}/>
           </GridColumn>
-          <GridColumn>
+          <GridColumn textAlign="center">
             <Pane name='livestock' {...props}/>
           </GridColumn>
         </GridRow>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {FormattedMessage, FormattedHTMLMessage, injectIntl} from 'react-intl';
 import { Tab } from 'semantic-ui-react'
-import messages from '../../translations/messages'
+import messages from '../../../translations/messages'
 
 import './links.scss'
 

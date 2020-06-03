@@ -22,16 +22,26 @@ const IntroLink = (props)=>{
     return (<div className="btn-link">  <FormattedMessage id="home.intro.link.learn" defaultMessage={"Click here to learn more "} values={""}/></div>)
 }
 
+const PresentationTitle = (props) => <div className="presentation-title"><FormattedMessage id="home.presentation.title"/></div>
+const PresentationText = (props) =>
+  (<div className="presentation-text">
+    <FormattedMessage id="home.presentation.text" values={{
+      b: (...chunks) => <span className="presentation-text strong">{chunks}</span>,
+    }}/>
+  </div>)
 
 
-const Header = (props)=>{
-  return (<div className="intro">
-    <MainIntro>
-        <IntroTitle></IntroTitle>
-        <IntroText></IntroText>
-
+const Header = (props)=> {
+  return (
+    <div className="intro">
+      <MainIntro>
+        <img className="logo" src="logo-anacim-standard-optimized.png" alt={''}/>
+        <IntroTitle />
+        <IntroText />
+        <PresentationTitle />
+        <PresentationText />
       </MainIntro>
-  </div>);
+    </div>)
 }
 
 export default Header
