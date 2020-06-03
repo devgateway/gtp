@@ -14,21 +14,18 @@ import org.devgateway.toolkit.persistence.dao.ipar.Production;
 import org.devgateway.toolkit.persistence.dao.location.Region;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.CropSubType;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.CropType;
-import org.devgateway.toolkit.web.spring.WebApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.json.JsonContent;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @author Octavian Ciubotaru
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = { WebApplication.class })
 @JsonTest
 public class JsonSerializationTest {
 
