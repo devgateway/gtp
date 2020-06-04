@@ -3,16 +3,21 @@ import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as waterActions from "../../redux/actions/waterActions"
-import "../ipar/indicators/indicators.scss"
-import "../common/indicator-base.scss"
-import "./water.scss"
+import GraphicPage, {GraphicDef} from "../common/GraphicPage"
 import DrySeasonGraphic from "./drySequence"
 import RainfallGraphic from "./rainfall"
 import RainSeasonGraphic from "./rainseason"
 import RiverLevelGraphic from "./river"
+import "./water.scss"
+
+const waterGraphicsDef = [
+  new GraphicDef('indicators.chart.rainfall.title', RainfallGraphic),
+  new GraphicDef('indicators.chart.dryseason.title', DrySeasonGraphic),
+  new GraphicDef('indicators.table.rainseason.title', RainSeasonGraphic),
+  new GraphicDef('indicators.chart.riverlevel.title', RiverLevelGraphic),
+]
 
 class WaterResources extends Component {
-
   static propTypes = {
     onLoadAll: PropTypes.func.isRequired,
     isLoaded: PropTypes.bool.isRequired,
@@ -25,15 +30,9 @@ class WaterResources extends Component {
   render() {
     const {isLoaded} = this.props;
     if (!isLoaded) {
-      return <div></div>
+      return <div />
     }
-    return (
-      <div className="indicators content fixed">
-        <RainfallGraphic/>
-        <DrySeasonGraphic />
-        <RainSeasonGraphic/>
-        <RiverLevelGraphic />
-      </div>)
+    return <GraphicPage graphicsDefs={waterGraphicsDef} />
   }
 
 }
