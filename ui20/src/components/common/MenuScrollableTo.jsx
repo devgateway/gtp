@@ -1,5 +1,4 @@
-import PropTypes from "prop-types"
-import React, {Component} from "react"
+import React from "react"
 import {FormattedMessage} from "react-intl"
 import {Menu, MenuItem} from "semantic-ui-react"
 import {scrollToRef} from "../ComponentUtil"
@@ -15,29 +14,27 @@ export class MenuItemDef {
   }
 }
 
-export default class MenuScrollableTo extends Component {
-  static propTypes = {
-    defs: PropTypes.arrayOf(PropTypes.instanceOf(MenuItemDef)).isRequired,
-  }
+const MenuScrollableTo = (props) => {
+  const {defs, active} = props
 
-  render() {
-    const {defs} = this.props
-    return (
-      <Menu fluid widths={defs.length} stackable attached="top" borderless>
-        {defs.map((itemDef:MenuItemDef) => {
-          const name = `menu-${itemDef.messageId}`
-          return (
-            <MenuItem
-              key={name}
-              name={name}
-              onClick={() => scrollToRef(itemDef.scrollRef.ref)}
-            >
-              <div className="link">
-                <FormattedMessage id={itemDef.messageId} />
-              </div>
-            </MenuItem>)
-        })}
-      </Menu>
-    )
-  }
+  return (
+    <Menu fluid widths={defs.length} stackable attached="top" borderless>
+      {defs.map((itemDef: MenuItemDef, index) => {
+        const name = `menu-${itemDef.messageId}`
+        return (
+          <MenuItem
+            key={name}
+            name={name}
+            active={active === index}
+            onClick={() => scrollToRef(itemDef.scrollRef.ref)}
+          >
+            <div className="link">
+              <FormattedMessage id={itemDef.messageId}/>
+            </div>
+          </MenuItem>)
+      })}
+    </Menu>
+  )
 }
+
+export default MenuScrollableTo

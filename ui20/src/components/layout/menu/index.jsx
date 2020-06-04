@@ -22,14 +22,15 @@ class Menu extends Component {
     super(props);
     const stickTo = document.documentElement.clientHeight < fullMenuRequiredHeight ? 'relative' : 'top'
     this.state = { stickTo }
+    this.handleScroll = this.handleScroll.bind(this)
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll.bind(this));
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll.bind(this));
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   handleScroll(event) {

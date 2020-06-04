@@ -10,7 +10,7 @@
       width: -moz-available;
       /* Mozilla-based browsers will ignore this. */
       width: -webkit-fill-available;
-      width: fill-available;
+      width: stretch;
     }
 
     .item {
