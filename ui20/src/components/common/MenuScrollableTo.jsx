@@ -23,7 +23,7 @@ export default class MenuScrollableTo extends Component {
   render() {
     const {defs} = this.props
     return (
-      <Menu fluid widths={defs.length} stackable>
+      <Menu fluid widths={defs.length} stackable attached="top">
         {defs.map((itemDef:MenuItemDef) => {
           const name = `menu-${itemDef.messageId}`
           return (

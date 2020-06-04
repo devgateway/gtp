@@ -1,8 +1,10 @@
-import React from "react"
+import React, {useRef} from "react"
+import {Sticky, Segment} from "semantic-ui-react"
 import MenuScrollableTo, {MenuItemDef} from "./MenuScrollableTo"
 import ScrollableTo, {ScrollRef} from "./ScrollableTo"
 import "../ipar/indicators/indicators.scss"
 import "../common/indicator-base.scss"
+import "./graphicPage.scss"
 
 
 export class GraphicDef {
@@ -18,21 +20,24 @@ export class GraphicDef {
 }
 
 const GraphicPage = (props) => {
+  const contextRef = useRef()
   const graphicsDefs: Array<GraphicDef> = props.graphicsDefs
   const menuDefs = graphicsDefs.map((graphicDef) => graphicDef.menuItemDef)
   return (
-    <>
-      <div key="graphics-menu">
+    <div ref={contextRef} className="graphic-page">
+      <Sticky context={contextRef} className="graphic-menu">
         <MenuScrollableTo defs={menuDefs} />
-      </div>
-      <div key="graphics" className="indicators content fixed">
-        {graphicsDefs.map(({menuItemDef, GraphicComponent, GraphicScrollableTo}) => (
-          <GraphicScrollableTo key={`scrollable-${menuItemDef.messageId}`}>
-            <GraphicComponent/>
-          </GraphicScrollableTo>
-        ))}
-      </div>
-    </>)
+      </Sticky>
+      <Segment attached='bottom'>
+        <div key="graphics" className="indicators content fixed">
+          {graphicsDefs.map(({menuItemDef, GraphicComponent, GraphicScrollableTo}) => (
+            <GraphicScrollableTo key={`scrollable-${menuItemDef.messageId}`}>
+              <GraphicComponent/>
+            </GraphicScrollableTo>
+          ))}
+        </div>
+      </Segment>
+    </div>)
 }
 
 export default GraphicPage

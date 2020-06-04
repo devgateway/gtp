@@ -1,0 +1,16 @@
+@import '../../base';
+
+.graphic-page {
+  .graphic-menu {
+    .ui.sticky, .ui.stuck-container {
+      position: fixed;
+      top: $header-height !important;
+      width: 100%;
+      /* WebKit-based browsers will ignore this. */
+      width: -moz-available;
+      /* Mozilla-based browsers will ignore this. */
+      width: -webkit-fill-available;
+      width: fill-available;
+    }
+  }
+}
