@@ -12,7 +12,9 @@ $color-dark-gray: #354052;
 // TODO (SCROLLING_MENU) make them exportable for reuse in menu display while scrolling
 $header-height: 70px;
 $footer-height: 297px;
-$menu-height: 366px;
+$menu-entry-padding: 29px;
+$menu-entry-height: 2 * $menu-entry-padding;
+$menu-height: $menu-entry-height * 6;
 $menu-max-width: 250px;
 
 // Small tablets and large smartphones (landscape view)

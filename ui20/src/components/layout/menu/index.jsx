@@ -8,7 +8,7 @@ import {MenuNavButtonClosed, MenuNavButtonOpen} from "./MenuNavButton"
 
 // TODO (SCROLLING_MENU) make them exportable for reuse from _base.scss
 const HEADER_HEIGHT = 70
-const MENU_HEIGHT = 366
+const MENU_HEIGHT = 354
 const FOOTER_HEIGHT = 297
 const fullMenuRequiredHeight = MENU_HEIGHT + HEADER_HEIGHT
 

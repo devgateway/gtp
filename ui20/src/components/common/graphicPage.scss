@@ -12,5 +12,26 @@
       width: -webkit-fill-available;
       width: fill-available;
     }
+
+    .item {
+      background-color: #e8edf1;
+      padding: 0;
+
+      .link {
+        height: 25px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #a4a4a4;
+        padding: $menu-entry-padding 0;
+        display: flex;
+        align-items: center;
+      }
+    }
+    .item.active {
+      background: inherit;
+      .link {
+        color: #50769b;
+      }
+    }
   }
 }

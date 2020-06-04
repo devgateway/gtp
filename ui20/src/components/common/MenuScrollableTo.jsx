@@ -23,7 +23,7 @@ export default class MenuScrollableTo extends Component {
   render() {
     const {defs} = this.props
     return (
-      <Menu fluid widths={defs.length} stackable attached="top">
+      <Menu fluid widths={defs.length} stackable attached="top" borderless>
         {defs.map((itemDef:MenuItemDef) => {
           const name = `menu-${itemDef.messageId}`
           return (
@@ -32,7 +32,9 @@ export default class MenuScrollableTo extends Component {
               name={name}
               onClick={() => scrollToRef(itemDef.scrollRef.ref)}
             >
-              <FormattedMessage id={itemDef.messageId} />
+              <div className="link">
+                <FormattedMessage id={itemDef.messageId} />
+              </div>
             </MenuItem>)
         })}
       </Menu>
