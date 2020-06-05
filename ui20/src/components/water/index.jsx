@@ -11,10 +11,10 @@ import RiverLevelGraphic from "./river"
 import "./water.scss"
 
 const waterGraphicsDef = [
-  new GraphicDef('indicators.chart.rainfall.title', 'chart bar', RainfallGraphic),
-  new GraphicDef('indicators.chart.dryseason.title', 'chart area', DrySeasonGraphic),
-  new GraphicDef('indicators.table.rainseason.title', 'table', RainSeasonGraphic),
-  new GraphicDef('indicators.chart.riverlevel.title', 'chart area', RiverLevelGraphic),
+  new GraphicDef('indicators.chart.rainfall.title', 'masked-icon icon-barchart', RainfallGraphic),
+  new GraphicDef('indicators.chart.dryseason.title', 'masked-icon icon-linechart', DrySeasonGraphic),
+  new GraphicDef('indicators.table.rainseason.title', 'masked-icon icon-table', RainSeasonGraphic),
+  new GraphicDef('indicators.chart.riverlevel.title', 'masked-icon icon-linechart', RiverLevelGraphic),
 ]
 
 class WaterResources extends Component {

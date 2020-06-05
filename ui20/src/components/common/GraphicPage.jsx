@@ -1,10 +1,10 @@
 import React, {useRef, useState} from "react"
-import {Grid, Sticky, Segment, GridColumn, GridRow} from "semantic-ui-react"
-import MenuScrollableTo, {MenuItemDef} from "./MenuScrollableTo"
-import ScrollableTo, {ScrollRef} from "./ScrollableTo"
+import {Segment, Sticky} from "semantic-ui-react"
 import "../ipar/indicators/indicators.scss"
 import "../common/indicator-base.scss"
 import "./graphicPage.scss"
+import MenuScrollableTo, {MenuItemDef} from "./MenuScrollableTo"
+import ScrollableTo, {ScrollRef} from "./ScrollableTo"
 import TrackVisibility from "./TrackVisibility"
 
 

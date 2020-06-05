@@ -1,7 +1,7 @@
 import React from "react"
 import {FormattedMessage} from "react-intl"
-import {Icon, Menu, MenuItem} from "semantic-ui-react"
-import {scrollToRef} from "../ComponentUtil"
+import {Menu, MenuItem} from "semantic-ui-react"
+import {cssClasses, scrollToRef} from "../ComponentUtil"
 import {ScrollRef} from "./ScrollableTo"
 
 export class MenuItemDef {
@@ -30,7 +30,7 @@ const MenuScrollableTo = (props) => {
             active={active === index}
             onClick={() => scrollToRef(itemDef.scrollRef.ref)}
           >
-            {itemDef.icon && <Icon name={itemDef.icon} />}
+            {itemDef.icon && MenuIcon(itemDef.icon)}
             <div className="link">
               <FormattedMessage id={itemDef.messageId}/>
             </div>
@@ -38,6 +38,16 @@ const MenuScrollableTo = (props) => {
       })}
     </Menu>
   )
+}
+
+const MenuIcon = (icon: string) => {
+  if (icon.endsWith(".svg")) {
+    return <object type="image/svg+xml" data={icon}>icon</object>
+  }
+  if (icon.includes(".")) {
+    return <img src={icon} alt="" />
+  }
+  return <span className={cssClasses("icon", icon)} />
 }
 
 export default MenuScrollableTo
