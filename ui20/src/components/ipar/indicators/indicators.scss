@@ -35,17 +35,11 @@
     margin-left: 0;
   }
 
-
-
-
-
-
   .ui.dropdown>.dropdown.icon:before {
 
     margin-top: 4px;
     background-size:10px 10px !important;
     }
-
 
   .filter.nav.item {
     height: 78px;
@@ -249,14 +243,15 @@
   }
 
 
-.indicators.content.fixed {
+.indicators.content {
   color: #818181;
   font-size: 21px;
-  padding-top: 150px;
+  padding-top: $menu-entry-height;
   min-height: 200px;
   display: block;
   clear: both;
-  width:  $content-width;
+  min-width:  $min-content-width;
+  max-width: $max-content-width;
   margin: auto;
 
   .indicators.title {
@@ -439,25 +434,22 @@
     }
   }
 
-  .indicator.chart.section {
-    padding: 10px;
+  .indicators.chart.section {
     margin-bottom: 50px;
-    height: 850px;
-    margin-top: 30px;
-
-
   }
 
   .indicator.chart.title {
-
-    background-color: #FFF;
+    background-color: #e8edf1;
     border-top: 1px solid $border-color;
-    height: 74px;
-    color: #497423;
+    height: 58px;
+    color: #50769b;
+    padding-left: 21px;
 
     p {
-      font-size: 28px;
-      line-height: 72px;
+      font-size: 21px;
+      font-weight: 400;
+      letter-spacing: -1px;
+      line-height: 58px;
       float: left;
       margin: 0;
     }
@@ -725,34 +717,38 @@
   .indicator.chart.filter {
     border: 1px solid $border-color;
     border-top: 0;
-    height: 80px;
+    height: 64px;
     margin: 0;
-    padding-top: 20px;
+    padding-top: 15px;
 
     .ui.fluid.dropdown {
       display: block;
       width: 100%;
-      height: 36px;
-      min-width: 210px;
+      height: 32px;
+      min-width: 250px;
       font-size: 12px;
       border: 1px solid #ced0da;
       float: left;
       border-radius: 4px;
-      background-color: #f9fafc;
-      margin-left: 22px;
+      background-image: linear-gradient(0deg, #f1f3f7 0%, #ffffff 100%);
     }
     cursor: pointer;
 
     .text {
       font-weight: normal;
-      line-height: 36px;
+      line-height: 32px;
       padding-left: 16px;
-      font-size: 14px;
-      color: #000;
+      font-size: 12px;
 
       .breadcrums {
-        span {
+        .filterName {
+          font-weight: 600;
+          font-size: 12px;
+          color: #364833;
+        }
+        .description {
           font-size: 11px;
+          color: #747474;
         }
       }
     }
@@ -793,7 +789,10 @@
     .dropdown.icon {
       float: right;
       margin-right: 7px;
-      margin-top: 12px;
+    }
+    .dropdown.icon:before {
+      background-image: unset !important;
+      content: '\2304' !important;
     }
 
     .visible {
@@ -832,7 +831,7 @@
 
     .filter.item {
       float: left;
-      margin-left: 30px;
+      margin-left: 21px;
     }
   }
 

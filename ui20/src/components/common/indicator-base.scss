@@ -1,8 +1,6 @@
 @import '../../base';
 
-.indicators.content.fixed {
-  padding-top: unset;
-
+.indicators.content {
   .tooltips {
     overflow: auto;
     line-height: 28px;
@@ -59,17 +57,7 @@
 }
 
 .indicator.chart.filter {
-  .text {
-    .breadcrums {
-      .filterName {
-        font-weight: 600;
-        font-size: 12px !important;
-      }
-    }
-  }
-  .description {
-    font-size: 11px;
-  }
+
 }
 th {
   .indicator.chart.filter {

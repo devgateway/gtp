@@ -1,15 +1,17 @@
 import React from "react"
 import {FormattedMessage} from "react-intl"
-import {Menu, MenuItem} from "semantic-ui-react"
+import {Icon, Menu, MenuItem} from "semantic-ui-react"
 import {scrollToRef} from "../ComponentUtil"
 import {ScrollRef} from "./ScrollableTo"
 
 export class MenuItemDef {
   messageId: string
+  icon: string
   scrollRef: ScrollRef
 
-  constructor(messageId: string, scrollRef: ScrollRef) {
+  constructor(messageId: string, icon: string, scrollRef: ScrollRef) {
     this.messageId = messageId
+    this.icon = icon
     this.scrollRef = scrollRef
   }
 }
@@ -28,6 +30,7 @@ const MenuScrollableTo = (props) => {
             active={active === index}
             onClick={() => scrollToRef(itemDef.scrollRef.ref)}
           >
+            {itemDef.icon && <Icon name={itemDef.icon} />}
             <div className="link">
               <FormattedMessage id={itemDef.messageId}/>
             </div>

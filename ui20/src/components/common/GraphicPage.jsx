@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react"
-import {Sticky, Segment} from "semantic-ui-react"
+import {Grid, Sticky, Segment, GridColumn, GridRow} from "semantic-ui-react"
 import MenuScrollableTo, {MenuItemDef} from "./MenuScrollableTo"
 import ScrollableTo, {ScrollRef} from "./ScrollableTo"
 import "../ipar/indicators/indicators.scss"
@@ -13,8 +13,8 @@ export class GraphicDef {
   GraphicComponent
   GraphicScrollableTo
 
-  constructor(messageId: string, GraphicComponent) {
-    this.menuItemDef = new MenuItemDef(messageId, new ScrollRef())
+  constructor(messageId: string, icon: string, GraphicComponent) {
+    this.menuItemDef = new MenuItemDef(messageId, icon, new ScrollRef())
     this.GraphicComponent = GraphicComponent
     this.GraphicScrollableTo = ScrollableTo(this.menuItemDef.scrollRef)
   }
@@ -28,11 +28,11 @@ const GraphicPage = (props) => {
 
   return (
     <div ref={contextRef} className="graphic-page">
-      <Sticky context={contextRef} className="graphic-menu">
+      <Sticky context={contextRef} className="graphic-menu" pushing>
         <MenuScrollableTo defs={menuDefs} active={active} />
       </Sticky>
-      <Segment attached='bottom'>
-        <div key="graphics" className="indicators content fixed">
+      <Segment className="graphics">
+        <div key="graphics" className="indicators content">
           {graphicsDefs.map(({menuItemDef, GraphicComponent, GraphicScrollableTo}, index) => (
             <GraphicScrollableTo key={`scrollable-${menuItemDef.messageId}`}>
               <TrackVisibility thresholds={[0.5]} onVisible={() => {
