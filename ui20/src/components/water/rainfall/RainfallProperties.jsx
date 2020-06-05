@@ -23,9 +23,9 @@ class RainfallProperties extends Component {
 
   render() {
     return (
-      <div className="rainfall">
+      <div className="indicator chart properties">
         <RainfallFilters key="filters" {...this.props} />
-        <PeriodSetting key="settings" {...this.props} />
+        <RainfallSetting key="settings" {...this.props} />
       </div>)
   }
 }
@@ -54,22 +54,23 @@ const RainfallFilters = (props) => {
   )
 }
 
-const PeriodSetting = (props) => {
+const RainfallSetting = (props) => {
     const {byDecadal} = props.setting
     const onChange = (byDecadal) => props.setRainPerDecadal(byDecadal)
     return (
-      <div className="period">
-        <div className="chart toggler view">
-          { /* <label><FormattedMessage id="indicators.settings.periodicity" /></label> */}
-          <div className="ui toggle checkbox">
-            <div className={!byDecadal ? 'active' : ''}>
-              <FormattedMessage id="indicators.settings.months"/>
-            </div>
-            <input id="period" type="checkbox" onChange={e => onChange(e.target.checked)}
-                   defaultChecked={byDecadal ? 'checked' : ''}/>
-            <label className={byDecadal ? 'active' : ''}></label>
-            <div className={byDecadal ? 'active' : ''}>
-              <FormattedMessage id="indicators.settings.decadals"/>
+      <div className="indicator chart setting">
+        <div className="setting item">
+          <div className="chart toggler view">
+            <div className="ui toggle checkbox">
+              <div className={!byDecadal ? 'active' : ''}>
+                <FormattedMessage id="indicators.settings.months"/>
+              </div>
+              <input id="period" type="checkbox" onChange={e => onChange(e.target.checked)}
+                     defaultChecked={byDecadal ? 'checked' : ''}/>
+              <label className={byDecadal ? 'active' : ''}></label>
+              <div className={byDecadal ? 'active' : ''}>
+                <FormattedMessage id="indicators.settings.decadals"/>
+              </div>
             </div>
           </div>
         </div>

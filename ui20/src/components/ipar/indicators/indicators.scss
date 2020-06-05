@@ -246,7 +246,6 @@
 .indicators.content {
   color: #818181;
   font-size: 21px;
-  padding-top: $menu-entry-height;
   min-height: 200px;
   display: block;
   clear: both;
@@ -386,18 +385,33 @@
 
 
   .chart.toggler.view {
-    display: none;
+    display: flex;
+    align-items: center;
     float: right;
-    height: 74px;
-    padding-top: 22px;
-    font-size: 12px;
-
-    .active {
-      color: #65b457;
-    }
 
     input {
-      width: 100px;
+      width: 100%;
+    }
+
+    .ui.toggle.checkbox {
+      margin: 0;
+
+      div {
+        font-size: 11px;
+        font-weight: 600;
+        color: #a6a6a6;
+        margin-left: 0;
+      }
+
+      div.active {
+        color: #4d4d4d;
+      }
+
+      label {
+        position: relative;
+        float: left;
+        margin: 0;
+      }
     }
 
     .ui.toggle.checkbox .box:before {
@@ -435,6 +449,7 @@
   }
 
   .indicators.chart.section {
+    padding-top: 1rem;
     margin-bottom: 50px;
   }
 
@@ -631,17 +646,16 @@
   }
 
 
+  .chart {
+    display: flow-root;
+  }
 
   .chart.container {
-
-
-
     border: 1px solid $border-color;
     border-top: 0;
     width: 100%;
     height: 500px;
     font-size: 12px;
-
   }
 
   .tooltips.white {
@@ -714,12 +728,18 @@
     }
   }
 
-  .indicator.chart.filter {
+  .indicator.chart.properties {
+    display: flow-root;
     border: 1px solid $border-color;
-    border-top: 0;
+
+    .filter, .setting {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+
+  .indicator.chart.filter {
     height: 64px;
-    margin: 0;
-    padding-top: 15px;
 
     .ui.fluid.dropdown {
       display: block;
@@ -751,6 +771,10 @@
           color: #747474;
         }
       }
+    }
+
+    .options {
+      display: block;
     }
 
     .menu {
@@ -830,6 +854,14 @@
     }
 
     .filter.item {
+      float: left;
+      margin-left: 21px;
+    }
+  }
+
+  .indicator.chart.setting {
+    height: 64px;
+    .setting.item {
       float: left;
       margin-left: 21px;
     }
