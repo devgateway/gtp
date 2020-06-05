@@ -1,0 +1,280 @@
+= AD3 API Documentation
+Octavian Ciubotaru
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+:operation-curl-request-title: Example request
+:operation-http-response-title: Example response
+
+== Common
+
+[[common-config]]
+=== Get common config
+
+Returns Senegal's zones, regions and departments.
+
+operation::common-config[snippets='curl-request,http-response,response-fields']
+
+[[zone]]
+Zone fields:
+
+include::{snippets}/common-config/response-fields-beneath-zones.adoc[]
+
+[[region]]
+Region fields:
+
+include::{snippets}/common-config/response-fields-beneath-regions.adoc[]
+
+[[department]]
+Department fields:
+
+include::{snippets}/common-config/response-fields-beneath-departments.adoc[]
+
+== Water charts
+
+=== Get all water charts
+
+Useful to retrieve information needed to render all water related charts in a single HTTP request.
+
+Includes:
+
+* common configuration for all charts
+* common configuration for water charts
+* all water-related charts
+
+Each chart has configuration, default filters and data for the default filters.
+
+In rare cases default filters cannot be computed, as result chart data will not be provided.
+
+operation::all-water-charts[snippets='curl-request,http-response,response-fields']
+
+[[rainfall-chart]]
+Rainfall chart fields:
+
+include::{snippets}/all-water-charts/response-fields-rainfall.adoc[]
+
+[[dry-sequence-chart]]
+Dry sequence chart fields:
+
+include::{snippets}/all-water-charts/response-fields-drySequence.adoc[]
+
+[[rainfall-season-chart]]
+Rainfall season chart fields:
+
+include::{snippets}/all-water-charts/response-fields-rainfallSeason.adoc[]
+
+[[river-level-chart]]
+River level chart fields:
+
+include::{snippets}/all-water-charts/response-fields-riverLevel.adoc[]
+
+[[water-charts-config]]
+=== Get water charts config
+
+Returns pluviometric posts needed to render water charts.
+
+operation::water-config[snippets='curl-request,http-response,response-fields']
+
+[[pluviometric-post]]
+Pluviometric post fields:
+
+include::{snippets}/water-config/response-fields-beneath-posts.adoc[]
+
+[[rainfall-chart-config]]
+=== Get rainfall chart config
+
+Returns years and pluviometric posts for which rain fall data exists. Still, some combinations of specific years
+and pluviometric posts will return no data.
+
+For any year, there exists at least one pluviometric post with rainfall data.
+
+operation::rain-level-config[snippets='curl-request,http-response,response-fields']
+
+[[rainfall-chart-data]]
+=== Get rainfall chart data
+
+Returns rainfall values (mm) for each decadal.
+Filter is one or more years and a pluviometric post.
+
+operation::rain-level-data[snippets='curl-request,http-response,request-fields,response-fields']
+
+[[rainfall-levels]]
+Rainfall level fields:
+
+include::{snippets}/rain-level-data/response-fields-levels.adoc[]
+
+[[reference-rainfalls]]
+Reference rainfalls fields:
+
+include::{snippets}/rain-level-data/response-fields-refLevelsGroup.adoc[]
+
+[[reference-rainfall-levels]]
+Reference rainfall level fields:
+
+include::{snippets}/rain-level-data/response-fields-refLevels.adoc[]
+
+[[dry-sequence-chart-data]]
+=== Get dry sequence chart data
+
+Returns one year worth of data for dry sequence chart. Dry sequence chart is a bar chart where each
+bar represents number of days with/without rain for each decadal or month.
+
+Filter is a single year and a pluviometric post.
+
+Please note that the last decadal may have 8, 9, 10 or 11 days depending on the month and year. Number of days
+with or without rain accounts for this variation.
+
+operation::dry-sequence-data[snippets='curl-request,http-response,request-fields,response-fields']
+
+[[days-with-rain]]
+Days with rain fields:
+
+include::{snippets}/dry-sequence-data/response-fields-daysWithRain.adoc[]
+
+[[rainfall-season-chart-config]]
+=== Get rain season chart config
+
+Returns years with rainfall data.
+
+operation::rain-season-config[snippets='curl-request,http-response,response-fields']
+
+[[rainfall-season-chart-data]]
+=== Get rain season chart data
+
+Returns predictions for the start of the rain season, and their corresponding actual values.
+
+Filter is a single year.
+
+Returns data for all pluviometric posts at once.
+
+operation::rain-season-data[snippets='curl-request,http-response,request-fields,response-fields']
+
+[[season-prediction]]
+Seasonal predictions:
+
+include::{snippets}/rain-season-data/response-fields-predictions.adoc[]
+
+[[river-level-chart-config]]
+=== Get river level chart config
+
+Returns years and river stations for which river levels exist.
+
+operation::river-level-config[snippets='curl-request,http-response,response-fields']
+
+[[river-station]]
+River station fields:
+
+include::{snippets}/river-level-config/response-fields-riverStations.adoc[]
+
+[[river-level-chart-data]]
+=== Get river level chart data
+
+Returns annual river levels for a river station. Alongside with river levels, also returns reference river levels.
+
+Filter is one or more years and a river station.
+
+Each station may have up to two reference river levels.
+
+operation::river-level-data[snippets='curl-request,http-response,request-fields,response-fields']
+
+[[annual-river-levels]]
+Annual river levels and annual reference levels fields:
+
+include::{snippets}/river-level-data/response-fields-annualLevels.adoc[]
+
+[[river-levels]]
+River levels and reference river levels fields:
+
+include::{snippets}/river-level-data/response-fields-levels.adoc[]
+
+== Agriculture charts
+
+=== Get all agriculture charts
+
+Useful to retrieve information needed to render all agriculture related charts in a single HTTP request.
+
+Includes:
+
+* common configuration for all charts
+* common configuration for agriculture charts
+* all agriculture-related charts
+
+Each chart has configuration, default filters and data for the default filters.
+
+In rare cases default filters cannot be computed, as result chart data will not be provided.
+
+operation::all-agriculture-charts[snippets='curl-request,http-response,response-fields']
+
+[[product-prices-chart]]
+Product prices chart fields:
+
+include::{snippets}/all-agriculture-charts/response-fields-productPricesChart.adoc[]
+
+[[agriculture-charts-config]]
+=== Get agriculture charts config
+
+Returns all products and markets.
+
+Products are grouped by type (cereals, vegetables, etc.) and the way these are sold,
+price type (wholesale, retail, etc.).
+
+Market can be either rural, fishing dock, or a fish transformation place.
+
+On each market only specific products can be found. For fishing docks it is only fresh fish.
+For fish transformation places it is only transformed fish. For rural markets it is any product
+except fresh and transformed fish.
+
+operation::agriculture-config[snippets='curl-request,http-response,response-fields']
+
+[[product]]
+Product fields:
+
+include::{snippets}/agriculture-config/response-fields-product.adoc[]
+
+[[product-type]]
+Product type fields:
+
+include::{snippets}/agriculture-config/response-fields-productType.adoc[]
+
+[[price-type]]
+Price type fields:
+
+include::{snippets}/agriculture-config/response-fields-priceType.adoc[]
+
+[[market]]
+Market fields:
+
+include::{snippets}/agriculture-config/response-fields-market.adoc[]
+
+[[market-type]]
+Market type fields:
+
+include::{snippets}/agriculture-config/response-fields-marketType.adoc[]
+
+[[product-price-chart-config]]
+=== Get product prices chart config
+
+Returns years for which product prices exist.
+
+operation::product-prices-config[snippets='curl-request,http-response,response-fields']
+
+[[product-price-chart-data]]
+=== Get product price chart data
+
+Returns annual product prices on a specific market. Also, returns previous year average for each price type.
+
+operation::product-prices-data[snippets='curl-request,http-response,request-fields,response-fields']
+
+[[product-price]]
+Product price fields:
+
+include::{snippets}/product-prices-data/response-fields-productPrice.adoc[]
+
+[[average-price]]
+Average price fields:
+
+include::{snippets}/product-prices-data/response-fields-averagePrice.adoc[]
+

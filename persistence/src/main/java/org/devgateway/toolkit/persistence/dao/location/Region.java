@@ -109,6 +109,7 @@ public class Region extends AbstractAuditableEntity implements Serializable, Lab
     }
 
     @Override
+    @JsonIgnore
     public String getLabel() {
         return name;
     }
@@ -118,7 +119,7 @@ public class Region extends AbstractAuditableEntity implements Serializable, Lab
         return name;
     }
 
-    @JsonProperty("labelFr")
+    @JsonIgnore
     public String getLabelFr() {
         return name;
     }

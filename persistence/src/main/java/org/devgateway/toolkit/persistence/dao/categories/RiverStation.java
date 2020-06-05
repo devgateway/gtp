@@ -45,6 +45,13 @@ public class RiverStation extends AbstractAuditableEntity implements Labelable {
     @Max(MAX_RIVER_DEPTH_IN_CM)
     private Integer alertLevel;
 
+    public RiverStation() {
+    }
+
+    public RiverStation(Long id) {
+        setId(id);
+    }
+
     public String getName() {
         return name;
     }

@@ -73,10 +73,16 @@ public class Category extends AbstractAuditableEntity implements Labelable, Comp
     */
 
     public Category(final String label) {
-        this.label = label;
+        this(null, null, label);
     }
 
     public Category() {
+    }
+
+    public Category(Long id, String name, String label) {
+        setId(id);
+        this.name = name;
+        this.label = label;
     }
 
     @Override

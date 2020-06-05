@@ -31,7 +31,7 @@ import org.hibernate.envers.Audited;
 @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
-@JsonIgnoreProperties({"id", "new"})
+@JsonIgnoreProperties({"new"})
 public class Product extends AbstractAuditableEntity implements Comparable<Product>, Labelable {
 
     private static final Comparator<Product> NATURAL = Comparator.comparing(Product::getName);
@@ -61,6 +61,17 @@ public class Product extends AbstractAuditableEntity implements Comparable<Produ
     @JsonIdentityReference(alwaysAsId = true)
     @JsonProperty("priceTypeIds")
     private List<PriceType> priceTypes = new ArrayList<>();
+
+    public Product() {
+    }
+
+    public Product(Long id, ProductType productType, String name, MeasurementUnit unit, List<PriceType> priceTypes) {
+        setId(id);
+        this.productType = productType;
+        this.name = name;
+        this.unit = unit;
+        this.priceTypes = priceTypes;
+    }
 
     public ProductType getProductType() {
         return productType;
