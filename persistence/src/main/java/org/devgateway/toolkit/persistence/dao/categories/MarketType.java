@@ -1,11 +1,13 @@
 package org.devgateway.toolkit.persistence.dao.categories;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang3.tuple.Pair;
@@ -36,4 +38,13 @@ public class MarketType extends Category {
             .stream()
             .flatMap(e -> e.getValue().stream().map(pt -> Pair.of(e.getKey(), pt)))
             .collect(Collectors.toMap(Pair::getRight, Pair::getLeft));
+
+    public static final List<String> ALL = ImmutableList.copyOf(PRODUCT_TYPES_BY_MARKET_TYPE.keySet());
+
+    public MarketType() {
+    }
+
+    public MarketType(long id, String name, String label) {
+        super(id, name, label);
+    }
 }

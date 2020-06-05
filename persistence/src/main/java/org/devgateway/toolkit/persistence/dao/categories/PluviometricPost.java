@@ -47,6 +47,13 @@ public class PluviometricPost extends AbstractAuditableEntity implements Seriali
     @JsonProperty("departmentId")
     private Department department;
 
+    public PluviometricPost() {
+    }
+
+    public PluviometricPost(Long id) {
+        setId(id);
+    }
+
     @Override
     public void setLabel(String label) {
         this.label = label;

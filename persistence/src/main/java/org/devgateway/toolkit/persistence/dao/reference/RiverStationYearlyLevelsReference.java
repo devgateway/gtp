@@ -54,6 +54,14 @@ public class RiverStationYearlyLevelsReference extends AbstractAuditableEntity
     @SortNatural
     private SortedSet<RiverLevelReference> levels = new TreeSet<>();
 
+    public RiverStationYearlyLevelsReference() {
+    }
+
+    public RiverStationYearlyLevelsReference(RiverStation station, HydrologicalYear year) {
+        this.station = station;
+        this.year = year;
+    }
+
     public RiverStation getStation() {
         return station;
     }

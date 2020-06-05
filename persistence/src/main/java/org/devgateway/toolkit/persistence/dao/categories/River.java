@@ -25,6 +25,14 @@ public class River extends AbstractAuditableEntity implements Labelable {
     @Column(nullable = false, unique = true)
     private String name;
 
+    public River() {
+    }
+
+    public River(Long id, String name) {
+        setId(id);
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

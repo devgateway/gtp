@@ -10,4 +10,11 @@ import org.hibernate.envers.Audited;
 @Entity
 @Audited
 public class PriceType extends Category {
+
+    public PriceType() {
+    }
+
+    public PriceType(Long id, String name, String label) {
+        super(id, name, label);
+    }
 }

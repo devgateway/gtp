@@ -10,4 +10,11 @@ import org.hibernate.envers.Audited;
 @Entity
 @Audited
 public class MeasurementUnit extends Category {
+
+    public MeasurementUnit() {
+    }
+
+    public MeasurementUnit(Long id, String name, String label) {
+        super(id, name, label);
+    }
 }

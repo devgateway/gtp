@@ -27,6 +27,7 @@ import java.util.List;
 @Entity
 @BatchSize(size = 100)
 public class Zone extends AbstractAuditableEntity implements Serializable, Labelable {
+
     @NotNull
     @Column(nullable = false, unique = true)
     private String name;
@@ -37,6 +38,13 @@ public class Zone extends AbstractAuditableEntity implements Serializable, Label
     @JsonIgnore
     @BatchSize(size = 100)
     private List<Region> regions = new ArrayList<>();
+
+    public Zone() {
+    }
+
+    public Zone(Long id) {
+        setId(id);
+    }
 
     public String getName() {
         return name;
@@ -60,6 +68,7 @@ public class Zone extends AbstractAuditableEntity implements Serializable, Label
     }
 
     @Override
+    @JsonIgnore
     public String getLabel() {
         return name;
     }
