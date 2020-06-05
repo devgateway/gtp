@@ -1,20 +1,14 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-
-import Main from './Intro'
-// import {loadRapidLInks} from '../../redux/ipar/Data'
-import ModuleLinksBlock from "./ModuleLink";
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import Intro from './Intro'
+import ModuleLinksBlock from "./ModuleLink"
 
 class Home extends Component {
-  componentDidMount() {
-      // this.props.onLoadRapidLinks()
-  }
 
   render() {
-
     return (
       <div>
-        <Main {...this.props}></Main>
+        <Intro {...this.props}></Intro>
         <ModuleLinksBlock {...this.props}></ModuleLinksBlock>
         {
           // <Links {...this.props}></Links>
@@ -28,19 +22,16 @@ class Home extends Component {
         {
           // <Newsletter {...this.props}></Newsletter>
         }
-
     </div>)
   }
 }
 
 const mapStateToProps = state => {
 return {
-    // links: state.getIn(['data','links','data'])
   }
 }
 
 const mapActionCreators = {
-  // onLoadRapidLinks:loadRapidLInks
-};
+}
 
-export default connect(mapStateToProps, mapActionCreators)(Home);
+export default connect(mapStateToProps, mapActionCreators)(Home)

@@ -1,0 +1,37 @@
+@import '../../base';
+
+.ui.grid.page-layout {
+  padding-top: $header-height;
+}
+
+.page-layout {
+  min-height: calc(100vh - 297px + 2rem);
+
+  .menu {
+    .ui.sticky {
+      position: fixed;
+      width: inherit;
+      z-index: 0;
+    }
+    .relative {
+      position: relative !important;
+    }
+    .top {
+      top: $header-height !important;
+    }
+    .bottom {
+      top: unset;
+      bottom: $footer-height;
+    }
+  }
+
+  .column.menu {
+    flex: 0 0 min-content;
+  }
+
+  .page-content {
+    flex: 1 0 auto;
+    width: auto;
+    padding-left: unset !important;
+  }
+}

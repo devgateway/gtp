@@ -1,18 +1,20 @@
 @import '../../base';
 
 .footer {
-  margin: auto;
-  width: $page-width;
   box-sizing: border-box;
   height: 297px;
   background-color: #333333;
-  margin-top: -1px;
+  padding-left: 20px;
+  width: 100%;
+  position: relative;
 
   .st-row {
-    width: 1006px;
     margin: auto;
     height: 93px;
     border-bottom: 2px solid #5c5c5c;
+    @include lg {
+      margin-left: $menu-max-width;
+    }
   }
   .st-row:nth-child(2){
     border: 0px;
