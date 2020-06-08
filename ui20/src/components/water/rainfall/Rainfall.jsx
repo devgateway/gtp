@@ -93,7 +93,7 @@ class Rainfall extends Component {
           tickSize: 0,
           tickPadding: 5,
           tickRotation: 0,
-          legend: intl.formatMessage(byDecadal ? messages.decadals : messages.months),
+          legend: intl.formatMessage(byDecadal ? messages.decadalsPerMonth : messages.months),
           legendPosition: 'middle',
           // legendOffset: byDecadal ? 62 : 52,
           legendOffset: 52,
@@ -148,6 +148,7 @@ class Rainfall extends Component {
         motionDamping={15}
         layers={['grid', 'axes', 'bars', 'legends', 'markers', ReferenceLineLayer(intl, keysWithRefs),
           ReferenceLineLegend(intl, referenceLineLegend)]}
+        theme={sccJS.NIVO_THEME}
       />
     </div>)
   }

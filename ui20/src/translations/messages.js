@@ -692,6 +692,11 @@ const messages = defineMessages({
     defaultMessage: 'Decadals'
   },
 
+  decadalsPerMonth: {
+    id: 'all.decadalsPerMonth',
+    defaultMessage: 'Decadals per month'
+  },
+
   rainfall: {
     id: 'water.rainfall.level',
     defaultMessage: 'Rain (mm)'
