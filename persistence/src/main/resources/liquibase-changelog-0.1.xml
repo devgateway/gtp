@@ -549,8 +549,28 @@
         </insert>
     </changeSet>
 
-    <!-- placeholder 9 -->
+    <changeSet id="ANACIM-164" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="indicator_metadata" />
+            <changeSetExecuted id="ANACIM-1 initial org and admin" author="nmandrescu"
+                               changeLogFile="liquibase-changelog-0.1.xml"/>
+        </preConditions>
+        <insert tableName="indicator_metadata">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Bulletins GTP" />
+            <column name="type" value="GTP_BULLETIN" />
+            <column name="organization_id" valueComputed="(SELECT id FROM organization WHERE tag='ANACIM')" />
+        </insert>
+    </changeSet>
 
     <!-- placeholder 10 -->
+
+    <!-- placeholder 11 -->
+
+    <!-- placeholder 12 -->
+
+    <!-- placeholder 13 -->
+
+    <!-- placeholder 14 -->
 
 </databaseChangeLog>

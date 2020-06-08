@@ -27,5 +27,6 @@ public final class SecurityConstants {
         public static final String ROLE_RAINFALL_SEASON_EDITOR = "ROLE_RAINFALL_SEASON_EDITOR";
         public static final String ROLE_RIVER_LEVEL_EDITOR = "ROLE_RIVER_LEVEL_EDITOR";
         public static final String ROLE_MARKET_EDITOR = "ROLE_MARKET_EDITOR";
+        public static final String ROLE_GTP_BULLETIN = "ROLE_GTP_BULLETIN";
     }
 }
