@@ -11,13 +11,12 @@
  *******************************************************************************/
 package org.devgateway.toolkit.web.spring;
 
-import org.devgateway.toolkit.persistence.spring.CustomJPAUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.access.expression.SecurityExpressionHandler;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -28,7 +27,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
@@ -45,15 +46,8 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 @ConditionalOnMissingClass("org.devgateway.toolkit.forms.FormsSecurityConfig")
 @Order(2) // this loads the security config after the forms security (if you use
 // them overlayed, it must pick that one first)
-@PropertySource("classpath:allowedApiEndpoints.properties")
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    protected CustomJPAUserDetailsService customJPAUserDetailsService;
-
-    @Value("${allowedApiEndpoints}")
-    private String[] allowedApiEndpoints;
 
     @Value("${roleHierarchy}")
     private String roleHierarchyStringRepresentation;
@@ -128,8 +122,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Autowired
-    public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customJPAUserDetailsService).passwordEncoder(passwordEncoder);
+    @Configuration
+    @ConditionalOnMissingBean(UserDetailsService.class)
+    public static class InMemoryUserDetailsConfiguration {
+
+        @Bean
+        public UserDetailsService getUserDetailsService() {
+            return new InMemoryUserDetailsManager();
+        }
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        UserDetailsService userDetailsService = getApplicationContext().getBean(UserDetailsService.class);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 }

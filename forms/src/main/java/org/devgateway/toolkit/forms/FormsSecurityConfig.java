@@ -11,29 +11,18 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms;
 
-import org.devgateway.toolkit.persistence.spring.CustomJPAUserDetailsService;
 import org.devgateway.toolkit.web.spring.WebSecurityConfig;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.RememberMeAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
-import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 @Configuration
 @EnableWebSecurity
 @Order(1) // this ensures the forms security comes first
 public class FormsSecurityConfig extends WebSecurityConfig {
-
-    /**
-     * Remember me key for {@link TokenBasedRememberMeServices}
-     */
-    private static final String UNIQUE_SECRET_REMEMBER_ME_KEY = "secret";
 
     /**
      * We ensure the superclass configuration is being applied Take note the
@@ -62,31 +51,6 @@ public class FormsSecurityConfig extends WebSecurityConfig {
 
         // forgot pwd page is public as well
         web.ignoring().antMatchers("/admin/forgotPassword");
-    }
-
-    /**
-     * This bean defines the same key in the
-     * {@link RememberMeAuthenticationProvider}
-     *
-     * @return
-     */
-    @Bean
-    public AuthenticationProvider rememberMeAuthenticationProvider() {
-        return new RememberMeAuthenticationProvider(UNIQUE_SECRET_REMEMBER_ME_KEY);
-    }
-
-    /**
-     * This bean configures the {@link TokenBasedRememberMeServices} with
-     * {@link CustomJPAUserDetailsService}
-     *
-     * @return
-     */
-    @Bean
-    public AbstractRememberMeServices rememberMeServices() {
-        TokenBasedRememberMeServices rememberMeServices =
-                new TokenBasedRememberMeServices(UNIQUE_SECRET_REMEMBER_ME_KEY, customJPAUserDetailsService);
-        rememberMeServices.setAlwaysRemember(true);
-        return rememberMeServices;
     }
 
     @Override

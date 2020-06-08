@@ -72,7 +72,18 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
     }
 
     public Market(Long id) {
+        this(id, null, null, null, MarketDaysUtil.ALL_DAYS, null, null);
+    }
+
+    public Market(Long id, Department department, String name, MarketType type, Integer marketDays,
+            Double latitude, Double longitude) {
         setId(id);
+        this.department = department;
+        this.name = name;
+        this.type = type;
+        this.marketDays = marketDays;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     @Override

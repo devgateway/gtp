@@ -1,7 +1,6 @@
 package org.devgateway.toolkit.web;
 
 import org.devgateway.toolkit.persistence.spring.PersistenceApplication;
-import org.devgateway.toolkit.web.spring.WebApplication;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
