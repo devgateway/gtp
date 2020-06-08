@@ -21,7 +21,7 @@ class Rainfall extends Component {
     groupMode: PropTypes.string,
     indexBy: PropTypes.string,
     colors: PropTypes.object,
-    byDecadal: PropTypes.bool,
+    setting: PropTypes.object.isRequired,
     monthDecadal: PropTypes.instanceOf(MonthDecadal).isRequired,
   }
 
@@ -37,7 +37,8 @@ class Rainfall extends Component {
   }
 
   render() {
-    const {barData, keys, indexBy, groupMode, intl, byDecadal, monthDecadal, keysWithRefs} = this.props
+    const {barData, keys, indexBy, groupMode, intl, monthDecadal, keysWithRefs} = this.props
+    const {byDecadal, showReferences} = this.props.setting
     const maxValue = this._getMaxValue(barData, keys)
     const formatLevel = (s) => {
       const { value } = s;
@@ -70,6 +71,12 @@ class Rainfall extends Component {
           }
         }
       ]
+    }
+
+    const layers = ['grid', 'axes', 'bars', 'legends', 'markers']
+    if (showReferences) {
+      layers.push(ReferenceLineLayer(intl, keysWithRefs))
+      layers.push(ReferenceLineLegend(intl, referenceLineLegend))
     }
 
     return (<div className="png exportable chart container">
@@ -146,8 +153,7 @@ class Rainfall extends Component {
         animate={false}
         motionStiffness={90}
         motionDamping={15}
-        layers={['grid', 'axes', 'bars', 'legends', 'markers', ReferenceLineLayer(intl, keysWithRefs),
-          ReferenceLineLegend(intl, referenceLineLegend)]}
+        layers={layers}
         theme={sccJS.NIVO_THEME}
       />
     </div>)
