@@ -23,11 +23,11 @@ export default class RainSeasonConfigDTO {
   }
 
   _setZones(zones: Array<Zone>) {
-    this.zones = zones.sort(Zone.localeCompare).map(z => ({key: z.id, value: z.id, text: z.label}))
+    this.zones = zones.sort(Zone.localeCompare).map(z => ({key: z.id, value: z.id, text: z.name}))
   }
 
   _setRegions(regions: Array<Region>) {
-    this.regions = regions.sort(Region.localeCompare).map(r => ({key: r.id, value: r.id, text: r.label}))
+    this.regions = regions.sort(Region.localeCompare).map(r => ({key: r.id, value: r.id, text: r.name}))
   }
 
   _setDepartments(departments: Array<Department>) {
