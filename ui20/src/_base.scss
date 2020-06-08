@@ -1,7 +1,8 @@
 $color: #747474;
 $font: 'Open Sans', sans-serif;
 $page-width: 1366px;
-$content-width: 1266px;
+$min-content-width: 200px;
+$max-content-width: 1266px;
 
 $border-color:#e6e7ec;
 $color-white: #FFF;
@@ -12,7 +13,9 @@ $color-dark-gray: #354052;
 // TODO (SCROLLING_MENU) make them exportable for reuse in menu display while scrolling
 $header-height: 70px;
 $footer-height: 297px;
-$menu-height: 366px;
+$menu-entry-padding: 29px;
+$menu-entry-height: 2 * $menu-entry-padding;
+$menu-height: $menu-entry-height * 6;
 $menu-max-width: 250px;
 
 // Small tablets and large smartphones (landscape view)

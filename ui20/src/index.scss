@@ -51,13 +51,6 @@ html {
   margin-right: 0;
 }
 
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
 .separator {
   width: 1px;
   float: left;
@@ -365,3 +358,21 @@ html {
 
   }
 }
+.masked-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: #4A4A4A;
+  mask-size: cover !important;
+  mask-repeat: no-repeat !important;
+}
+.icon-barchart.masked-icon {
+  mask: url('/icons/icon_barchart.svg');
+}
+.icon-linechart.masked-icon {
+  mask: url('/icons/icon_linechart.svg');
+}
+.icon-table.masked-icon {
+  mask: url('/icons/icon_table.svg');
+}
+

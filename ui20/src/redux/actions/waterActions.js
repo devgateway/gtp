@@ -80,10 +80,6 @@ export const getRain = (intl) => (dispatch, getState) => {
     keysWithRefs: rainfallDTO.keyWithReferences,
     groupMode: 'grouped',
     indexBy: rainfallDTO.indexBy,
-    colors: {
-      // TODO update based on mockup
-      scheme: 'category10'
-    },
     byDecadal: rainfallDTO.byDecadal,
     monthDecadal: rainfallDTO.monthDecadal,
   }

@@ -8,7 +8,7 @@ import {MenuNavButtonClosed, MenuNavButtonOpen} from "./MenuNavButton"
 
 // TODO (SCROLLING_MENU) make them exportable for reuse from _base.scss
 const HEADER_HEIGHT = 70
-const MENU_HEIGHT = 366
+const MENU_HEIGHT = 354
 const FOOTER_HEIGHT = 297
 const fullMenuRequiredHeight = MENU_HEIGHT + HEADER_HEIGHT
 
@@ -22,14 +22,15 @@ class Menu extends Component {
     super(props);
     const stickTo = document.documentElement.clientHeight < fullMenuRequiredHeight ? 'relative' : 'top'
     this.state = { stickTo }
+    this.handleScroll = this.handleScroll.bind(this)
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll.bind(this));
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll.bind(this));
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   handleScroll(event) {

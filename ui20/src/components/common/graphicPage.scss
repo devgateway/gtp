@@ -1,0 +1,61 @@
+@import '../../base';
+
+.graphic-page {
+  .graphic-menu {
+    .ui.sticky, .ui.stuck-container {
+      position: fixed;
+      top: $header-height !important;
+      width: 100%;
+      /* WebKit-based browsers will ignore this. */
+      width: -moz-available;
+      /* Mozilla-based browsers will ignore this. */
+      width: -webkit-fill-available;
+      width: stretch;
+    }
+
+    .item {
+      background-color: #e8edf1;
+      padding: 0;
+
+      .link {
+        height: 25px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #a6a6a6;
+        padding: $menu-entry-padding 0;
+        display: flex;
+        align-items: center;
+      }
+
+      :before {
+        top: unset;
+        border-left: 1px solid #8d8d8d;
+        height: 21px;
+      }
+      img:not(.ui) {
+        border: unset;
+        width: 16px;
+        margin-right: 5px;
+      }
+      .icon {
+        width: 16px;
+        margin-right: 5px;
+      }
+    }
+    .item.active {
+      background: inherit;
+      .link {
+        color: #50769b;
+      }
+      .icon.masked-icon {
+        background: #50769b;
+      }
+    }
+  }
+
+  .graphics {
+    margin-top: 0;
+    border: 0;
+    padding-top: $menu-entry-height;
+  }
+}

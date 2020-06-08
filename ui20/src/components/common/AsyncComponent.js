@@ -1,5 +1,5 @@
-
 import React, { Component } from 'react'
+import {initializeObserver} from "./TrackVisibility"
 
 export default function asyncComponent (importComponent) {
   class AsyncComponent extends Component {
@@ -12,6 +12,7 @@ export default function asyncComponent (importComponent) {
     }
 
     async componentDidMount () {
+      await initializeObserver()
       const { default: component } = await importComponent()
 
       this.setState({

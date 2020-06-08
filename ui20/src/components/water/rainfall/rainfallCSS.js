@@ -1,0 +1,4 @@
+export const LEGEND_YEAR_WIDTH = 60
+export const LEGEND_TRANSLATE_X = -35
+export const LEGEND_REF_LINE_LENGTH = 15
+export const LEGEND_REF_YEAR_WIDTH = LEGEND_YEAR_WIDTH + 60
