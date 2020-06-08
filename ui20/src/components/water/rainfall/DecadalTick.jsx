@@ -22,8 +22,6 @@ class DecadalTick extends Component {
         dominantBaseline="middle"
         style={{
           ...theme.axis.ticks.text,
-          fill: '#333',
-          fontSize: 10,
         }}>
         {tickLabel}
       </text>)

@@ -15,7 +15,7 @@ class DrySequenceProperties extends Component {
 
   render() {
     return (
-      <div className="rainfall">
+      <div className="indicator chart properties">
         <DrySequenceFilters key="filters" {...this.props} />
         <DrySeasonSetting key="settings" {...this.props} />
       </div>)
@@ -51,17 +51,19 @@ const DrySeasonSetting = (props) => {
   const checked = !isDaysWithRain
   const onChange = (isDaysWithRain) => showDaysWithRain(isDaysWithRain)
   return (
-    <div className="daysWithOrWithoutRain">
-      <div className="chart toggler view">
-        <div className="ui toggle checkbox">
-          <div className={!checked ? 'active' : ''}>
-            <FormattedMessage id="indicators.settings.withRain"/>
-          </div>
-          <input id="period" type="checkbox" onChange={e => onChange(!e.target.checked)}
-                 defaultChecked={checked ? 'checked' : ''}/>
-          <label className={checked ? 'active' : ''}></label>
-          <div className={checked ? 'active' : ''}>
-            <FormattedMessage id="indicators.settings.withoutRain"/>
+    <div className="indicator chart setting daysWithOrWithoutRain">
+      <div className="setting item">
+        <div className="chart toggler view">
+          <div className="ui toggle checkbox">
+            <div className={!checked ? 'active' : ''}>
+              <FormattedMessage id="indicators.settings.withRain"/>
+            </div>
+            <input id="period" type="checkbox" onChange={e => onChange(!e.target.checked)}
+                   defaultChecked={checked ? 'checked' : ''}/>
+            <label className={checked ? 'active' : ''}></label>
+            <div className={checked ? 'active' : ''}>
+              <FormattedMessage id="indicators.settings.withoutRain"/>
+            </div>
           </div>
         </div>
       </div>

@@ -8,7 +8,6 @@ import DrySeasonGraphic from "./drySequence"
 import RainfallGraphic from "./rainfall"
 import RainSeasonGraphic from "./rainseason"
 import RiverLevelGraphic from "./river"
-import "./water.scss"
 
 const waterGraphicsDef = [
   new GraphicDef('indicators.chart.rainfall.title', 'masked-icon icon-barchart', RainfallGraphic),
