@@ -204,6 +204,7 @@
 	"indicators.settings.decadals": "Decadals",
 	"indicators.settings.months": "Months",
 	"indicators.settings.periodicity": "Periodicity",
+	"indicators.settings.showReferences": "Year references",
 	"indicators.settings.withRain": "With rain",
 	"indicators.settings.withoutRain": "Without rain",
 	"indicators.global.aoi.short": "Agriculture orientation index for government expenditures",

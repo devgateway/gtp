@@ -83,7 +83,7 @@ export default (state = initialState, action) => {
     case CHANGE_RAINFALL_FILTER:
       return state.setIn(['data', 'rainLevelChart', 'filter'], data)
     case CHANGE_RAINFALL_SETTING:
-      return state.setIn(['data', 'rainLevelChart', 'setting'], data)
+      return state.setIn(['data', 'rainLevelChart', 'setting', ...path], data)
     case FILTER_DRY_SEQUENCE_PENDING:
       return state.set('isFilteringDrySequence', true).set('isFilteredDrySequence', false).set('error', null)
     case FILTER_DRY_SEQUENCE_FULFILLED:

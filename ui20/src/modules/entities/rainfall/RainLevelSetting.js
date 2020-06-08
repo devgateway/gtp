@@ -1,7 +1,9 @@
-export default class RainLevelSetting {
-  byDecadal: boolean
-
-  constructor(byDecadal: boolean = false) {
-    this.byDecadal = byDecadal
-  }
+const RainLevelSetting: {
+  byDecadal: boolean,
+  showReferences: boolean,
+} = {
+  byDecadal: false,
+  showReferences: true,
 }
+
+export default RainLevelSetting
