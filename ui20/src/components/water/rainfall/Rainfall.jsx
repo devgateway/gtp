@@ -112,7 +112,7 @@ class Rainfall extends Component {
           tickRotation: 0,
           legend: intl.formatMessage(messages.rainfall),
           legendPosition: 'middle',
-          legendOffset: -40,
+          legendOffset: -45,
           renderTick: (tick) => RainTick(tick)
         }}
         enableLabel={false}
