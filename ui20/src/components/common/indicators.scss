@@ -1,4 +1,4 @@
-@import '../../../base';
+@import '../../base';
 
 .ui.fixed.table {}
 
@@ -660,18 +660,17 @@
   }
 
   .tooltips.white {
-    background-color:: #FFF !important;
+    background-color: #FFF !important;
   }
 
   .indicator.description {
     border: 1px solid $border-color;
     padding: 15px;
-    font-size: 15px;
     display: flex;
     background-color: #f6faf5;
     font-size: 21px;
     color: #646464;
-    display: flex;
+
     p {
       float: left;
 
