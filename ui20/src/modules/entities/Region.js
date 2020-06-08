@@ -2,7 +2,7 @@ import Zone from "./Zone"
 
 export default class Region {
   id: number
-  label: string
+  name: string
   code: string
   zoneId: number
   zone: Zone
@@ -16,6 +16,6 @@ export default class Region {
   }
 
   static localeCompare(r1: Region, r2: Region) {
-    return r1.label.localeCompare(r2.label)
+    return r1.name.localeCompare(r2.name)
   }
 }
