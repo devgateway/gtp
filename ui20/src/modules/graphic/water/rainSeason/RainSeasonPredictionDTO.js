@@ -15,8 +15,8 @@ export class RainSeasonPredictionDTO {
     this.id = rainSeasonPrediction.pluviometricPostId
     this.post = (post && post.label) || `id=${this.id}`
     this.department = post && post.department.name
-    this.region = post && post.department.region.label
-    this.zone = post && post.department.region.zone.label
+    this.region = post && post.department.region.name
+    this.zone = post && post.department.region.zone.name
     this.planned = rainSeasonPrediction.planned.toLocaleString()
     this.actual = rainSeasonPrediction.actual.toLocaleString()
     this.difference = rainSeasonPrediction.difference

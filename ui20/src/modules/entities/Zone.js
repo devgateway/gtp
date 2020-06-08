@@ -1,6 +1,6 @@
 export default class Zone {
   id: number
-  label: string
+  name: string
 
   constructor(props) {
     Object.assign(this, props)
@@ -11,6 +11,6 @@ export default class Zone {
   }
 
   static localeCompare(z1: Zone, z2: Zone) {
-    return z1.label.localeCompare(z2.label)
+    return z1.name.localeCompare(z2.name)
   }
 }
