@@ -7,6 +7,8 @@ import * as C from "../../../modules/entities/Constants"
 import MonthDecadal from "../../../modules/utils/MonthDecadal"
 import messages from "../../../translations/messages"
 import DefaultBarOrNegativeValueAsZeroBar from "../../common/DefaultBarOrNegativeValueAsZeroBar"
+import * as sccJS from "../../css"
+import * as rainfallScc from "./rainfallCSS"
 import DecadalTick from "./DecadalTick"
 import {INNER_PADDING} from "./RainfallGraphicConstants"
 import RainTick from "./RainTick"
@@ -35,7 +37,7 @@ class Rainfall extends Component {
   }
 
   render() {
-    const {barData, keys, indexBy, groupMode, colors, intl, byDecadal, monthDecadal, keysWithRefs} = this.props
+    const {barData, keys, indexBy, groupMode, intl, byDecadal, monthDecadal, keysWithRefs} = this.props
     const maxValue = this._getMaxValue(barData, keys)
     const formatLevel = (s) => {
       const { value } = s;
@@ -45,19 +47,21 @@ class Rainfall extends Component {
     }
 
     const referenceLineLegend = {
-      data: keysWithRefsToLegendData(keysWithRefs),
-      anchor: 'top-right',
+      data: keysWithRefsToLegendData(keysWithRefs, intl),
+      anchor: 'top-left',
       direction: 'row',
       justify: false,
-      translateX: 120,
+      translateX: rainfallScc.LEGEND_TRANSLATE_X + keys.length * rainfallScc.LEGEND_YEAR_WIDTH,
       translateY: -30,
       itemsSpacing: 2,
-      itemWidth: 100,
+      itemWidth: rainfallScc.LEGEND_REF_YEAR_WIDTH + rainfallScc.LEGEND_REF_LINE_LENGTH,
       itemHeight: 20,
-      itemDirection: 'right-to-left',
+      itemDirection: 'left-to-right',
       itemOpacity: 1,
-      symbolShape: 'circle',
-      symbolSize: 20,
+      symbolShape: ({ x, y, size, fill }) =>
+        (<path id="lineAB" d={`M 0 10 H ${rainfallScc.LEGEND_REF_LINE_LENGTH}`}
+              x={x} y={y} stroke={fill} strokeWidth={3} fill="none" />),
+      symbolSize: 14,
       effects: [
         {
           on: 'hover',
@@ -74,11 +78,11 @@ class Rainfall extends Component {
         keys={keys}
         indexBy={indexBy}
         groupMode={groupMode}
-        colors={colors}
+        colors={[sccJS.GRAPHIC_COLOR_BLUE, sccJS.GRAPHIC_COLOR_RED, sccJS.GRAPHIC_COLOR_YELLOW]}
         barComponent={DefaultBarOrNegativeValueAsZeroBar}
         maxValue={maxValue}
         minValue={0}
-        margin={{ top: 50, right: 130, bottom: 80, left: 60 }}
+        margin={{ top: 50, bottom: 80, left: 60 }}
         padding={0.3}
         innerPadding={INNER_PADDING}
         fill={[]}
@@ -117,17 +121,18 @@ class Rainfall extends Component {
         legends={[
           {
             dataFrom: 'keys',
-            anchor: 'top-right',
+            anchor: 'top-left',
             direction: 'row',
             justify: false,
-            translateX: -((keysWithRefs.length || 1) - 1) * 120,
+            translateX: rainfallScc.LEGEND_TRANSLATE_X,
             translateY: -30,
             itemsSpacing: 2,
-            itemWidth: 100,
+            itemWidth: rainfallScc.LEGEND_YEAR_WIDTH,
             itemHeight: 20,
-            itemDirection: 'right-to-left',
-            itemOpacity:1,
-            symbolSize: 20,
+            itemDirection: 'left-to-right',
+            itemOpacity: 1,
+            symbolShape: 'circle',
+            symbolSize: 14,
             effects: [
               {
                 on: 'hover',
@@ -141,7 +146,8 @@ class Rainfall extends Component {
         animate={false}
         motionStiffness={90}
         motionDamping={15}
-        layers={['grid', 'axes', 'bars', 'legends', 'markers', ReferenceLineLayer(intl, keysWithRefs), ReferenceLineLegend(referenceLineLegend)]}
+        layers={['grid', 'axes', 'bars', 'legends', 'markers', ReferenceLineLayer(intl, keysWithRefs),
+          ReferenceLineLegend(intl, referenceLineLegend)]}
       />
     </div>)
   }

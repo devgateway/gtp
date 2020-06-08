@@ -361,19 +361,19 @@
   }
 
   .source {
-    margin-left: 10px;
+    float: right;
+    margin-right: 10px;
     margin-top: 10px;
     font-size: 12px;
 
     .label {
+      float: initial;
       color: $color-green;
-      font-weight: bold;
       font-weight: 600;
     }
   }
 
   .source-icon {
-    height: 20px;
     float: left;
     width: 17px;
     height: 18px;
@@ -459,6 +459,7 @@
     height: 58px;
     color: #50769b;
     padding-left: 21px;
+    overflow: hidden;
 
     p {
       font-size: 21px;

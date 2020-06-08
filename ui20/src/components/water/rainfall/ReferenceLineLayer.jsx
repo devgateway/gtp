@@ -3,6 +3,7 @@ import {line} from "d3-shape"
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {Tooltip} from 'react-svg-tooltip'
+import * as sccJS from "../../css"
 import {INNER_PADDING} from "./RainfallGraphicConstants"
 
 class ReferenceLine extends Component {
@@ -25,10 +26,10 @@ class ReferenceLine extends Component {
     return (
       <g>
         <g>
-          <path d={lineGenerator(bars)} fill="none" stroke={rgba} strokeWidth="2"/>
+          <path d={lineGenerator(bars)} fill="none" stroke={rgba} strokeWidth="1"/>
         </g>
         <g stroke={rgba} strokeWidth="3" fill={rgba}>
-          {bars.map(b => {
+          {bars.map((b, index) => {
             const circleRef = React.createRef()
             const value = b.data.data.lineValues.get(b.data.id)
             const xValue = value === undefined ? intl.formatMessage({ id: "all.graphic.value.NA" }) :
@@ -42,9 +43,14 @@ class ReferenceLine extends Component {
                   cy={yScaleByBar(b)}
                   r="3"/>
                 <Tooltip triggerRef={circleRef}>
-                  <rect x={2} y={2} width={100} height={30} rx={.5} ry={.5} fill='white' stroke={rgba}/>
-                  <text x={20} y={20} fontSize={10} fill='#333'>
-                    <tspan className="color" style={{backgroundColor:b.data.color}} />
+                  <filter id="f1" x="0" y="0" width="200%" height="200%">
+                    <feOffset result="offOut" in="SourceAlpha" dx="1" dy="1" />
+                    <feGaussianBlur result="blurOut" in="offOut" stdDeviation="3" />
+                    <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                  </filter>
+                  <rect x={2} y={2} width={120} height={35} rx={.5} ry={.5} strokeWidth={1} fill="white" filter="url(#f1)" />
+                  <text x={10} y={23} fontSize={12} fill='#747474'>
+                    <tspan className="color" style={{backgroundColor: b.data.color, width: 6, fontWeight: 800, fontSize: 20}}>|</tspan>
                     <tspan>{`${b.data.data.indexLabel} : ${xValue}`}</tspan>
                   </text>
                 </Tooltip>
@@ -55,7 +61,7 @@ class ReferenceLine extends Component {
   }
 }
 
-const rgba = ["rgba(150, 3, 15, 1)", "rgba(300, 3, 15, 1)", "rgba(10, 3, 15, 1)"]
+const rgba = [sccJS.GRAPHIC_COLOR_GRAY1, sccJS.GRAPHIC_COLOR_GRAY2, sccJS.GRAPHIC_COLOR_GRAY3]
 
 export const ReferenceLineLayer = (intl, keysWithRefs) => ({ bars, xScale, yScale, keys }) => {
   let idx = 0
@@ -71,14 +77,14 @@ export const ReferenceLineLayer = (intl, keysWithRefs) => ({ bars, xScale, yScal
   </svg>)
 }
 
-export const keysWithRefsToLegendData = (keysWithRefs) => keysWithRefs.map(([k, ref], index) => ({
+export const keysWithRefsToLegendData = (keysWithRefs, intl) => keysWithRefs.map(([k, ref], index) => ({
   color: rgba[index],
   id: k,
-  label: ref
+  label: `${intl.formatMessage({ id: "all.reference" })} ${ref}`
 }))
 
 
-export const ReferenceLineLegend = (referenceLineLegend) => ({ height, legends, width }) => {
+export const ReferenceLineLegend = (intl, referenceLineLegend) => ({ height, legends, width }) => {
   const keys = JSON.stringify(referenceLineLegend.data.map(({id}) => id))
   return (
     <React.Fragment>
