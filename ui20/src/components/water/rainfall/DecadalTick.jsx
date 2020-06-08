@@ -41,10 +41,18 @@ class DecadalTick extends Component {
 
     return (
       <g transform={`translate(${tick.x},${tick.y + 22})`}>
+        {showMonth && this.renderText(<FormattedMessage id={`all.month.${month}`} />,  0)}
+      </g>
+    )
+
+    /* decadal on first line
+    return (
+      <g transform={`translate(${tick.x},${tick.y + 22})`}>
         {showDecadal && this.renderText(decadal, 0)}
         {showMonth && this.renderText(<FormattedMessage id={`all.month.${month}`} />, showDecadal ? 20 : 0)}
       </g>
     )
+    */
   }
 }
 

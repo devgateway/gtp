@@ -91,7 +91,8 @@ class Rainfall extends Component {
           tickRotation: 0,
           legend: intl.formatMessage(byDecadal ? messages.decadals : messages.months),
           legendPosition: 'middle',
-          legendOffset: byDecadal ? 62 : 52,
+          // legendOffset: byDecadal ? 62 : 52,
+          legendOffset: 52,
           renderTick: (tick) => DecadalTick(tick, monthDecadal)
         }}
         axisLeft={{
