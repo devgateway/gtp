@@ -79,7 +79,7 @@ class RiverLevel extends Component {
     }
 
     return (
-      <div className="png exportable chart container">
+      <div className="graphic-content">
         <ResponsiveLine
           enableGridY={true}
           enableGridX={false}

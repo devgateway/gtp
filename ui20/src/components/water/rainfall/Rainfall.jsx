@@ -79,7 +79,7 @@ class Rainfall extends Component {
       layers.push(ReferenceLineLegend(intl, referenceLineLegend))
     }
 
-    return (<div className="png exportable chart container">
+    return (<div className="graphic-content">
       <ResponsiveBar
         data={barData}
         keys={keys}

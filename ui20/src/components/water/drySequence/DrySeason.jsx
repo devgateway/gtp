@@ -24,7 +24,7 @@ class DrySeason extends Component {
       return intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 0})
     }
 
-    return (<div className="png exportable chart container">
+    return (<div className="graphic-content">
         <ResponsiveBar
           data={drySequenceChartDTO.barData}
           keys={drySequenceChartDTO.keys}
