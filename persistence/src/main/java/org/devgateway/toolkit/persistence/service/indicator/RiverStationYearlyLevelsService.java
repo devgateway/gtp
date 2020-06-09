@@ -18,4 +18,8 @@ public interface RiverStationYearlyLevelsService
     List<RiverStation> findStationsWithLevels();
 
     List<RiverStationYearlyLevels> findByYearInAndStationId(Set<HydrologicalYear> years, Long riverStationId);
+
+    boolean hasLevels(Set<HydrologicalYear> years, Long riverStationId);
+
+    List<RiverStation> findStationsWithLevels(Set<HydrologicalYear> years);
 }
