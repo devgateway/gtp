@@ -119,6 +119,7 @@ const dgPagination = (props, state, onPageChange) => {
 
 }
 
+// eslint-disable-next-line no-unused-vars
 const semanticUIPagination = (props, state, onPageChange) => {
   const {activePage, totalPages} = state
   return (<Pagination

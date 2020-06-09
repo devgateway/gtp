@@ -17,7 +17,7 @@ class RiverLevelProperties extends Component {
 
   render() {
     return (
-      <div className="rainfall">
+      <div className="indicator chart properties">
         <RiverLevelFilters key="filters" {...this.props} />
       </div>)
   }

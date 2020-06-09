@@ -5,6 +5,7 @@ import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import RiverLevelSettings from "../../../modules/entities/river/RiverLevelSettings"
 import * as waterActions from "../../../redux/actions/waterActions"
+import * as sccRiverLevel from "./cssRiverLevel"
 
 export const ALERT_COLOR = '#b0413e'
 
@@ -12,10 +13,11 @@ class AlertLegend extends Component {
   static propTypes = {
     showAlert: PropTypes.func.isRequired,
     setting: PropTypes.object.isRequired,
+    prevLegendItem: PropTypes.number.isRequired,
   }
 
   render() {
-    const {intl, showAlert} = this.props
+    const {intl, showAlert, prevLegendItem} = this.props
     const setting: RiverLevelSettings = this.props.setting
 
     const alertLegendProps = {
@@ -24,10 +26,10 @@ class AlertLegend extends Component {
         id: '1000',
         label: intl.formatMessage({ id: 'all.alertLevel'})
       }],
-      anchor: 'top-right',
+      anchor: 'top-left',
       direction: 'row',
       justify: false,
-      translateX:1004,
+      translateX: -sccRiverLevel.LEGEND_TRANSLATE_X + sccRiverLevel.LEGEND_ITEM_WIDTH * prevLegendItem,
       translateY: -30,
       itemsSpacing: 2,
       itemWidth: 100,
@@ -69,7 +71,7 @@ const mapActionCreators = {
 
 const AlertLegendIntl = injectIntl(connect(mapStateToProps, mapActionCreators)(AlertLegend))
 
-export const AlertLevelLegend = () => <AlertLegendIntl />
+export const AlertLevelLegend = (prevLegendItem) => () => <AlertLegendIntl prevLegendItem={prevLegendItem} />
 
 
 

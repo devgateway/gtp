@@ -74,6 +74,7 @@ const RainfallSetting = (props) => {
             </div>
           </div>
         </div>
+        <div className="ui separator" />
       </div>
       <div className="setting item">
         <div className="chart toggler view">

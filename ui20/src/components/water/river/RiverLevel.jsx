@@ -7,6 +7,8 @@ import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import RiverLevelChartDTO from "../../../modules/graphic/water/river/RiverLevelChartDTO"
 import Chip from "../../common/Chip"
+import * as sccJS from "../../css"
+import * as sccRiverLevel from "./cssRiverLevel"
 import {ALERT_COLOR, AlertLevelLegend} from "./AlertLevelLegend"
 
 class RiverLevel extends Component {
@@ -80,8 +82,8 @@ class RiverLevel extends Component {
       <div className="png exportable chart container">
         <ResponsiveLine
           enableGridY={true}
-          enableGridX={true}
-          margin={{ top: 50, right: 50, bottom: 110, left: 60 }}
+          enableGridX={false}
+          margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
 
           data={data.lines}
           xScale={{
@@ -100,7 +102,7 @@ class RiverLevel extends Component {
           axisLeft={{
             legendPosition: 'middle',
             legend: intl.formatMessage({ id: "water.rainlevel.level"}),
-            legendOffset: -50,
+            legendOffset: -45,
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
@@ -128,13 +130,13 @@ class RiverLevel extends Component {
                 color: category10[index],
                 riverLevelYear,
               })),
-              anchor: 'top-right',
+              anchor: 'top-left',
               direction: 'row',
               justify: false,
-              translateX: -130,
+              translateX: -sccRiverLevel.LEGEND_TRANSLATE_X,
               translateY: -30,
               itemsSpacing: 0,
-              itemWidth: 120,
+              itemWidth: sccRiverLevel.LEGEND_ITEM_WIDTH,
               itemHeight: 20,
               itemOpacity: 0.75,
               symbolSize: 12,
@@ -152,7 +154,9 @@ class RiverLevel extends Component {
               ]
             }
           ]}
-          layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends', showAlertLegend ? AlertLevelLegend : null]}
+          layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends',
+            showAlertLegend ? AlertLevelLegend(data.lines.length) : null]}
+          theme={sccJS.NIVO_THEME}
         />
       </div>);
   }

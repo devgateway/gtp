@@ -917,6 +917,9 @@
       float: left;
       margin-left: 21px;
     }
+    .separator:before {
+      margin: auto 12px;
+    }
   }
 
   .indicators.chart.poverty {
