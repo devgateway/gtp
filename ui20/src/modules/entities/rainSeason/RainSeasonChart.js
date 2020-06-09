@@ -15,7 +15,7 @@ const RainSeasonChart: {
   sortedBy: string,
   sortedAsc: boolean,
 } = {
-  sortedBy: C.DEPARTMENT,
+  sortedBy: C.ZONE,
   sortedAsc: true,
 }
 
