@@ -102,10 +102,11 @@ class RainSeasonTable extends Component {
 }
 
 const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort, filter, config) => (name) => {
+  const canSort = C.SORTABLE_COLUMNS.has(name)
   const isSorted = sortedBy === name
   const applySort = () => handleSort(name, isSorted ? !sortedAsc : true)
   return (
-    <Table.HeaderCell key={name} sorted={isSorted ? directionLong : null} onClick={applySort}>
+    <Table.HeaderCell key={name} sorted={canSort && isSorted ? directionLong : null} onClick={canSort ? applySort : null}>
       {C.FILTER_MESSAGE_KEY[name] &&
       (<div className="indicator chart filter">
         <RainSeasonTableFilter columnName={name} filter={filter} config={config} min={0}/>
