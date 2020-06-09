@@ -49,6 +49,8 @@ public class ListProductYearlyPricesPage extends AbstractListPage<ProductYearlyP
         super.onInitialize();
 
         dataProvider.setSort("productType.label", SortOrder.ASCENDING);
+
+        editPageLink.setVisibilityAllowed(false);
     }
 
     @Override

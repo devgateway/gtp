@@ -52,6 +52,14 @@ public class ProductYearlyPrices extends AbstractAuditableEntity {
     @JsonIgnore
     private Long pricesSize;
 
+    public ProductYearlyPrices() {
+    }
+
+    public ProductYearlyPrices(Integer year, ProductType productType) {
+        this.year = year;
+        this.productType = productType;
+    }
+
     public Integer getYear() {
         return year;
     }

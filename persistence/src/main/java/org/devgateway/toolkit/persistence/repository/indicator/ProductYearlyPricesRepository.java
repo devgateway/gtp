@@ -79,4 +79,7 @@ public interface ProductYearlyPricesRepository extends BaseJpaRepository<Product
             + "and p.product.id = :productId "
             + "order by p.market.name")
     List<Market> getMarketsWithPrices(Integer year, Long productId);
+
+    @CacheHibernateQueryResult
+    boolean existsByYear(Integer year);
 }
