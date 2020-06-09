@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.repository.indicator;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +32,22 @@ public interface RiverStationYearlyLevelsRepository extends BaseJpaRepository<Ri
             + "join yl.levels l "
             + "order by yl.station.name")
     List<RiverStation> findStationsWithLevels();
+
+    @CacheHibernateQueryResult
+    @Query("select distinct yl.station "
+            + "from RiverStationYearlyLevels yl "
+            + "join yl.levels l "
+            + "where yl.year in :years "
+            + "order by yl.station.name")
+    List<RiverStation> findStationsWithLevels(Collection<HydrologicalYear> years);
+
+    @CacheHibernateQueryResult
+    @Query("select count(l.id) "
+            + "from RiverStationYearlyLevels yl "
+            + "join yl.levels l "
+            + "where yl.year in :years "
+            + "and yl.station.id = :riverStationId")
+    Long countLevels(Collection<HydrologicalYear> years, Long riverStationId);
 
     @CacheHibernateQueryResult
     List<RiverStationYearlyLevels> findByYearInAndStationId(Set<HydrologicalYear> years, Long riverStationId);

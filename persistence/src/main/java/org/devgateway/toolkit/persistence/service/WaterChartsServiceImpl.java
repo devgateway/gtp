@@ -221,16 +221,30 @@ public class WaterChartsServiceImpl implements WaterChartsService {
 
     private RiverLevelChart getRiverLevelChart() {
         RiverLevelChartConfig config = getRiverLevelConfig();
-        RiverLevelChartFilter filter = getRiverLevelFilter();
+        RiverLevelChartFilter filter = getRiverLevelFilter(config);
         RiverLevelChartData data = getRiverLevelData(filter);
-
         return new RiverLevelChart(config, filter, data);
     }
 
-    private RiverLevelChartFilter getRiverLevelFilter() {
-        Set<HydrologicalYear> years = ImmutableSet.of(HydrologicalYear.now());
+    private RiverLevelChartFilter getRiverLevelFilter(RiverLevelChartConfig config) {
+        Set<HydrologicalYear> years = config.getYears().isEmpty()
+                ? ImmutableSet.of(HydrologicalYear.now())
+                : ImmutableSet.of(config.getYears().last());
 
-        Long riverStationId = adminSettingsService.get().getDefaultRiverStation().getId();
+        Long riverStationId;
+
+        Long defaultRiverStationId = adminSettingsService.get().getDefaultRiverStation().getId();
+
+        if (riverStationYearlyLevelsService.hasLevels(years, defaultRiverStationId)) {
+            riverStationId = defaultRiverStationId;
+        } else {
+            List<RiverStation> stationsWithLevels = riverStationYearlyLevelsService.findStationsWithLevels(years);
+            if (!stationsWithLevels.isEmpty()) {
+                riverStationId = stationsWithLevels.get(0).getId();
+            } else {
+                riverStationId = defaultRiverStationId;
+            }
+        }
 
         return new RiverLevelChartFilter(years, riverStationId);
     }
