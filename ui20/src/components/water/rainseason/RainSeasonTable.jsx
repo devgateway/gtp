@@ -9,6 +9,7 @@ import {RainSeasonPredictionDTO} from "../../../modules/graphic/water/rainSeason
 import {toSignedNumberLocaleString} from "../../../modules/utils/DataUtilis"
 import * as waterActions from "../../../redux/actions/waterActions"
 import "../../common/indicator-table.scss"
+import GraphicSource from "../../common/GraphicSource"
 import {cssClasses} from "../../ComponentUtil"
 import RainSeasonTableFilter from "./RainSeasonTableFilter"
 
@@ -28,6 +29,7 @@ class RainSeasonTable extends Component {
     this.state = {
       isLocalStateChange: false,
     }
+    this.onPageChange = this.onPageChange.bind(this)
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -91,17 +93,40 @@ class RainSeasonTable extends Component {
               </Table>
           </div>
           <div className="pagination wrapper">
-            <Pagination
-              activePage={this.state.activePage}
-              totalPages={this.state.totalPages}
-              size='mini'
-              onPageChange={(e, { activePage })=> this.onPageChange(activePage)}
-            />
+            {dgPagination(this.props, this.state, this.onPageChange)}
+            {GraphicSource("indicators.table.rainseason.source")}
           </div>
         </div>
       </div>
     )
   }
+}
+
+const dgPagination = (props, state, onPageChange) => {
+  const {activePage, totalPages} = state
+  return (
+    <div className="dg-pagination">
+      <Icon
+        name="caret left"
+        disabled={activePage === 1 }
+        onClick={() => onPageChange(activePage - 1)} />
+      <span><FormattedMessage id="indicators.table.page.text" values={{activePage, totalPages}} /></span>
+      <Icon
+        name="caret right"
+        disabled={activePage === totalPages}
+        onClick={() => onPageChange(activePage + 1)} />
+    </div>)
+
+}
+
+const semanticUIPagination = (props, state, onPageChange) => {
+  const {activePage, totalPages} = state
+  return (<Pagination
+    activePage={activePage}
+    totalPages={totalPages}
+    size='mini'
+    onPageChange={(e, { activePage })=> onPageChange(activePage)}
+  />)
 }
 
 const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort, filter, config) => (name) => {

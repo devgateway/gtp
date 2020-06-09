@@ -207,6 +207,7 @@
 	"indicators.settings.showReferences": "Year references",
 	"indicators.settings.withRain": "With rain",
 	"indicators.settings.withoutRain": "Without rain",
+	"indicators.table.page.text": "Page {activePage} of {totalPages}",
 	"indicators.global.aoi.short": "Agriculture orientation index for government expenditures",
 	"indicators.global.food.short": "Post-Harvest Loss",
 	"indicators.global.intro": "This page displays the alignment of specific agricultural indicators against the SDGs and the ones managed by the International System for Agricultural Science and Technology (AGRIS). All tables and charts will be automatically updated as new information is entered in the system. Users can use the date and the region filters to refine their search criteria.",

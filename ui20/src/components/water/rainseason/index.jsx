@@ -19,9 +19,7 @@ class RainSeasonGraphic extends Component {
     const {filter, getRainSeason} = this.props;
     const builderData = getRainSeason()
 
-    return (<Graphic
-      id="anchor.indicator.water.rainseason" titleId="indicators.table.rainseason.title"
-      sourceId="indicators.table.rainseason.source" className="rainseason">
+    return (<Graphic id="anchor.indicator.water.rainseason" titleId="indicators.table.rainseason.title">
       <div className="indicator chart properties">
         <div className="indicator chart filter">
           <RainSeasonTableFilter columnName={C.YEAR} filter={filter} config={builderData.config} max={1} min={1} />
