@@ -16,12 +16,14 @@ import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartFilt
 import org.devgateway.toolkit.persistence.repository.indicator.ProductYearlyPricesRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.service.category.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Octavian Ciubotaru
@@ -33,6 +35,9 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
     @Autowired
     private ProductYearlyPricesRepository repository;
 
+    @Autowired
+    private ProductTypeService productTypeService;
+
     @Override
     protected BaseJpaRepository<ProductYearlyPrices, Long> repository() {
         return repository;
@@ -40,11 +45,13 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
 
     @Override
     public boolean existsByYear(Integer year) {
-        return false;
+        return repository.existsByYear(year);
     }
 
     @Override
+    @Transactional
     public void generate(Integer year) {
+        productTypeService.findAll().forEach(pt -> repository.save(new ProductYearlyPrices(year, pt)));
     }
 
     @Override

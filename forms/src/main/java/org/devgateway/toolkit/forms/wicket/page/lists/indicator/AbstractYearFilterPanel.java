@@ -44,10 +44,18 @@ public class AbstractYearFilterPanel<T extends GenericPersistable & Serializable
             throw new NullJpaServiceException();
         }
 
-        Select2ChoiceBootstrapFormComponent<Y> yearChoice = new Select2ChoiceBootstrapFormComponent<>(
+        Select2ChoiceBootstrapFormComponent<Y> yearChoice = new Select2ChoiceBootstrapFormComponent<Y>(
                 "year",
                 new GenericChoiceProvider<>(years),
-                new PropertyModel<>(filterForm.getDefaultModel(), "year"));
+                new PropertyModel<>(filterForm.getDefaultModel(), "year")) {
+
+            @Override
+            protected void onInitialize() {
+                super.onInitialize();
+
+                field.getSettings().setAllowClear(false);
+            }
+        };
 
         yearChoice.getField().add(AttributeModifier.replace("onchange", "this.form.submit();"));
 
