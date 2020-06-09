@@ -63,7 +63,7 @@ public class ListGTPBulletinPage extends AbstractListPage<GTPBulletin> {
                 new StringResourceModel("decadal"), "decadal",
                 new ConverterBasedChoiceProvider<>(Arrays.asList(Decadal.values()), Decadal.class)));
 
-        pageSize = Month.values().length;
+        pageSize = GTPBulletin.MONTHS.size() * Decadal.values().length;
     }
 
     @Override

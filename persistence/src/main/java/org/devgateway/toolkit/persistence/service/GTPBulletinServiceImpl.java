@@ -57,7 +57,7 @@ public class GTPBulletinServiceImpl extends BaseJpaServiceImpl<GTPBulletin> impl
         byYmd.addAll(findAll());
 
         for (int y = startingYear; y <= currentYear; y++) {
-            for (Month month : Month.values()) {
+            for (Month month : GTPBulletin.MONTHS) {
                 for (Decadal decadal : Decadal.values()) {
                     if (!isFuture(y, month, decadal)) {
                         GTPBulletin bulletin = new GTPBulletin(y, month, decadal);
