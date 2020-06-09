@@ -363,7 +363,7 @@
   .source {
     float: right;
     margin-right: 10px;
-    margin-top: 10px;
+    margin-top: -40px;
     font-size: 12px;
 
     .label {
@@ -706,8 +706,12 @@
     border: 1px solid $border-color;
     border-top: 0;
     width: 100%;
-    height: 500px;
+    max-height: 571px;
     font-size: 12px;
+  }
+
+  .graphic-content {
+    height: 500px;
   }
 
   .tooltips.white {
@@ -781,7 +785,7 @@
 
   .indicator.chart.properties {
     display: flow-root;
-    border: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
 
     .filter, .setting {
       display: inline-flex;
@@ -916,6 +920,9 @@
     .setting.item {
       float: left;
       margin-left: 21px;
+    }
+    .separator:before {
+      margin: auto 12px;
     }
   }
 

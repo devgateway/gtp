@@ -1,4 +1,3 @@
-import {categoricalColorSchemes} from '@nivo/colors'
 import {ResponsiveLine} from "@nivo/line"
 import {TableTooltip} from '@nivo/tooltip'
 import PropTypes from "prop-types"
@@ -7,7 +6,10 @@ import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import RiverLevelChartDTO from "../../../modules/graphic/water/river/RiverLevelChartDTO"
 import Chip from "../../common/Chip"
+import * as sccJS from "../../css"
+import * as sccRiverLevel from "./cssRiverLevel"
 import {ALERT_COLOR, AlertLevelLegend} from "./AlertLevelLegend"
+import CustomLegendSymbol, {LEGEND_SYMBOL_CIRCLE, LEGEND_SYMBOL_LINE} from "../../common/CustomLegendSymbol"
 
 class RiverLevel extends Component {
   static propTypes = {
@@ -57,11 +59,11 @@ class RiverLevel extends Component {
   render() {
     const { data, intl, setting } = this.props
     const { hideReferenceYears } = this.state
-    const { category10 } = categoricalColorSchemes
 
-    const lineColor = (line) => {
-      const isHide = hideReferenceYears.has(line.riverLevelYear.year)
-      return isHide ? 'rgba(0, 0, 0, .0)' : category10[line.index]
+    const colors = getColors(data.lines)
+    const lineColor = ({riverLevelYear, index}) => {
+      const isHide = hideReferenceYears.has(riverLevelYear.year)
+      return isHide ? 'rgba(0, 0, 0, .0)' : colors[index]
     }
 
     const showAlert = setting.showAlert && data.alertLevel
@@ -77,11 +79,11 @@ class RiverLevel extends Component {
     }
 
     return (
-      <div className="png exportable chart container">
+      <div className="graphic-content">
         <ResponsiveLine
           enableGridY={true}
-          enableGridX={true}
-          margin={{ top: 50, right: 50, bottom: 110, left: 60 }}
+          enableGridX={false}
+          margin={{ top: 50, right: 50, bottom: 75, left: 60 }}
 
           data={data.lines}
           xScale={{
@@ -100,15 +102,15 @@ class RiverLevel extends Component {
           axisLeft={{
             legendPosition: 'middle',
             legend: intl.formatMessage({ id: "water.rainlevel.level"}),
-            legendOffset: -50,
-            tickSize: 5,
+            legendOffset: -45,
+            tickSize: 0,
             tickPadding: 5,
             tickRotation: 0,
           }}
           axisBottom={{
             format: "%b",
             tickValues: 'every month',
-            legend: intl.formatMessage({ id: "water.rainlevel.period"}),
+            tickSize: 10,
             legendOffset: 40,
             legendPosition: 'middle'
           }}
@@ -122,23 +124,28 @@ class RiverLevel extends Component {
 
           legends={[
             {
-              data: data.lines.map(({id, riverLevelYear, isReference}, index) => ({
+              data: data.lines.map(({id, riverLevelYear}, index) => ({
                 id: index,
                 label: id,
-                color: category10[index],
+                color: colors[index],
                 riverLevelYear,
               })),
-              anchor: 'top-right',
+              anchor: 'top-left',
               direction: 'row',
               justify: false,
-              translateX: -130,
+              translateX: -sccRiverLevel.LEGEND_TRANSLATE_X,
               translateY: -30,
               itemsSpacing: 0,
-              itemWidth: 120,
+              itemWidth: sccRiverLevel.LEGEND_ITEM_WIDTH,
               itemHeight: 20,
               itemOpacity: 0.75,
               symbolSize: 12,
-              symbolShape: 'circle',
+              symbolShape: (legendProps) => {
+                const {isReference} = data.lines[legendProps.id].riverLevelYear
+                const type = isReference ? LEGEND_SYMBOL_LINE : LEGEND_SYMBOL_CIRCLE
+                return <CustomLegendSymbol type={type} legendProps={legendProps}
+                                    lineLength={sccJS.LEGEND_SYMBOL_LINE_LENGTH}/>
+              },
               symbolBorderColor: 'rgba(0, 0, 0, .5)',
               onClick: this.levelLineToggle.bind(this),
               effects: [
@@ -152,12 +159,25 @@ class RiverLevel extends Component {
               ]
             }
           ]}
-          layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends', showAlertLegend ? AlertLevelLegend : null]}
+          layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends',
+            showAlertLegend ? AlertLevelLegend(data.lines.length) : null]}
+          theme={sccJS.NIVO_THEME}
         />
       </div>);
   }
 }
 
+const getColors = (lines) => {
+  let refIndex = 0
+  let levelIndex = 0
+  return lines.map(({riverLevelYear}) => {
+    if (riverLevelYear.isReference) {
+      return sccRiverLevel.REFERENCE_COLORS[refIndex++]
+    }
+    const index = levelIndex++ % sccRiverLevel.LEVEL_COLORS.length
+    return sccRiverLevel.LEVEL_COLORS[index]
+  })
+}
 
 const CustomSliceTooltip = ({slice, axis}) => {
   const otherAxis = axis === 'x' ? 'y' : 'x';
@@ -171,7 +191,7 @@ const CustomSliceTooltip = ({slice, axis}) => {
   })
   const date:Date = slice.points[0].data.actualDate
   const month = date.getMonth() + 1
-  const title = <strong><FormattedMessage id={`all.month.${month}`} /> {date.getDate()}</strong>
+  const title = <strong>{date.getDate()} <FormattedMessage id={`all.month.${month}`} /></strong>
   return <TableTooltip title={title} rows={rows}/>
 }
 

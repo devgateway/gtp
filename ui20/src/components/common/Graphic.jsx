@@ -29,8 +29,10 @@ class Graphic extends Component {
                 includes={['active']}/>
             </div>
           </div>
-          {children}
-          {sourceId && GraphicSource(sourceId)}
+          <div className="png exportable chart container">
+            {children}
+            {sourceId && GraphicSource(sourceId)}
+          </div>
         </div>
       </div>)
   }
