@@ -3,12 +3,13 @@ import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import {PngExport} from "./Components"
+import GraphicSource from "./GraphicSource"
 
 class Graphic extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     titleId: PropTypes.string.isRequired,
-    sourceId: PropTypes.string.isRequired,
+    sourceId: PropTypes.string,
   }
 
   render() {
@@ -29,13 +30,7 @@ class Graphic extends Component {
             </div>
           </div>
           {children}
-          <div className="source">
-            <span className="source label">
-              <FormattedMessage id="data.fields.source_label" defaultMessage="Source: "/>
-            </span>
-            {sourceId ? <FormattedMessage id={sourceId} />
-              : <FormattedMessage id="data.fields.source_undefined" defaultMessage="Not specified"/>}
-          </div>
+          {sourceId && GraphicSource(sourceId)}
         </div>
       </div>)
   }
