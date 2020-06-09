@@ -1,4 +1,3 @@
-import {categoricalColorSchemes} from '@nivo/colors'
 import {ResponsiveLine} from "@nivo/line"
 import {TableTooltip} from '@nivo/tooltip'
 import PropTypes from "prop-types"
@@ -59,11 +58,11 @@ class RiverLevel extends Component {
   render() {
     const { data, intl, setting } = this.props
     const { hideReferenceYears } = this.state
-    const { category10 } = categoricalColorSchemes
 
-    const lineColor = (line) => {
-      const isHide = hideReferenceYears.has(line.riverLevelYear.year)
-      return isHide ? 'rgba(0, 0, 0, .0)' : category10[line.index]
+    const colors = getColors(data.lines)
+    const lineColor = ({riverLevelYear, index}) => {
+      const isHide = hideReferenceYears.has(riverLevelYear.year)
+      return isHide ? 'rgba(0, 0, 0, .0)' : colors[index]
     }
 
     const showAlert = setting.showAlert && data.alertLevel
@@ -83,7 +82,7 @@ class RiverLevel extends Component {
         <ResponsiveLine
           enableGridY={true}
           enableGridX={false}
-          margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
+          margin={{ top: 50, right: 50, bottom: 75, left: 60 }}
 
           data={data.lines}
           xScale={{
@@ -110,7 +109,6 @@ class RiverLevel extends Component {
           axisBottom={{
             format: "%b",
             tickValues: 'every month',
-            legend: intl.formatMessage({ id: "water.rainlevel.period"}),
             legendOffset: 40,
             legendPosition: 'middle'
           }}
@@ -124,10 +122,10 @@ class RiverLevel extends Component {
 
           legends={[
             {
-              data: data.lines.map(({id, riverLevelYear, isReference}, index) => ({
+              data: data.lines.map(({id, riverLevelYear}, index) => ({
                 id: index,
                 label: id,
-                color: category10[index],
+                color: colors[index],
                 riverLevelYear,
               })),
               anchor: 'top-left',
@@ -162,6 +160,17 @@ class RiverLevel extends Component {
   }
 }
 
+const getColors = (lines) => {
+  let refIndex = 0
+  let levelIndex = 0
+  return lines.map(({riverLevelYear}) => {
+    if (riverLevelYear.isReference) {
+      return sccRiverLevel.REFERENCE_COLORS[refIndex++]
+    }
+    const index = levelIndex++ % sccRiverLevel.LEVEL_COLORS.length
+    return sccRiverLevel.LEVEL_COLORS[index]
+  })
+}
 
 const CustomSliceTooltip = ({slice, axis}) => {
   const otherAxis = axis === 'x' ? 'y' : 'x';

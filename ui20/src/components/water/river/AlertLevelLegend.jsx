@@ -7,7 +7,7 @@ import RiverLevelSettings from "../../../modules/entities/river/RiverLevelSettin
 import * as waterActions from "../../../redux/actions/waterActions"
 import * as sccRiverLevel from "./cssRiverLevel"
 
-export const ALERT_COLOR = '#b0413e'
+export const ALERT_COLOR = '#c94545'
 
 class AlertLegend extends Component {
   static propTypes = {
