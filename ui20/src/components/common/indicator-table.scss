@@ -1,0 +1,151 @@
+@import '../../base';
+
+.indicators.chart.section {
+
+  .indicator-table.container {
+    margin: auto;
+    max-width: $max-content-width;
+    border: 1px solid $border-color;
+    border-top: 0;
+
+    .table-wrapper {
+      min-height: 423px;
+
+      .ui.celled {
+        border-width: 0;
+        margin-top: 0;
+        border-radius: 0;
+        font-size: 12px;
+        border-bottom: 1px solid $border-color;
+        border-collapse: collapse;
+
+        th {
+          padding: 0.4rem;
+          color: #7f8fa4;
+          font-weight: 600;
+
+          span {
+            display: inline;
+            white-space: pre-wrap;
+            margin-right: 1rem;
+          }
+
+          .indicator.chart.filter {
+            height: auto;
+            white-space: nowrap;
+
+            .filter.item {
+              margin-left: 0;
+              width: 100%;
+
+              .ui.fluid.dropdown {
+                min-width: auto;
+
+                .text {
+                  padding-left: 4px;
+                  padding-right: 4px;
+
+                  .breadcrums {
+                    .filterName {
+                      padding-right: 0;
+                      color: inherit;
+                    }
+
+                    span:not(.filterName) {
+                      color: $color;
+                    }
+                  }
+                }
+
+                .dropdown.icon {
+                  margin-left: 0;
+                  margin-right: 3px;
+                }
+              }
+            }
+          }
+        }
+
+        th.th-filter:hover {
+          background: inherit;
+          cursor: inherit;
+        }
+
+        th {
+          i.icon {
+            color: $color-light-grey;
+            float: right;
+            font-size: 1rem;
+          }
+          .up-down-combo {
+            float: right;
+            margin-right: 1rem;
+
+            i.icon {
+              position: absolute;
+            }
+
+            .sorted {
+              color: #036fb3;
+            }
+
+          }
+        }
+
+        th.sorted:after {
+          display: none;
+        }
+
+        td {
+          font-weight: 600;
+        }
+      }
+    }
+
+    .pagination.wrapper {
+      border-top: 1px solid $border-color;
+
+      .dg-pagination {
+        font-size: 10px;
+        margin: 1rem auto 0 auto;
+        min-height: 36px;
+
+        span {
+          display: inline-block;
+          width: 250px;
+          text-align: center;
+          color: $color;
+        }
+
+        i.icon {
+          cursor: pointer;
+        }
+
+        i.icon.disabled {
+          cursor: inherit;
+        }
+
+        i.icon:first-of-type {
+          margin-right: 1.5rem;
+        }
+
+        i.icon:before {
+          font-size: 1rem;
+          border-radius: 5px;
+          border: 1px solid $border-color;
+          padding: 0.5rem 1rem 0.5rem 1rem;
+        }
+      }
+
+      .source {
+        position: absolute;
+        margin: auto;
+        display: contents;
+
+        .content {
+          margin: auto 12px auto;
+        }
+      }
+    }
+  }
+}

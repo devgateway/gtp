@@ -120,7 +120,6 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
 
         dataProvider = new SortableJpaServiceDataProvider<>(jpaService);
         dataProvider.setFilterState(newFilterState());
-        dataProvider.setPageSize(pageSize);
 
         // create the excel download form; by default this form is hidden and we should make it visible only to pages
         // where we want to export entities to excel file
@@ -163,6 +162,8 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
     public class ActionPanel extends Panel {
         private static final long serialVersionUID = 5821419128121941939L;
 
+        protected final BootstrapBookmarkablePageLink<T> editPageLink;
+
         /**
          * @param id
          * @param model
@@ -178,7 +179,7 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
                 pageParameters.set(WebConstants.PARAM_ID, entity.getId());
             }
 
-            BootstrapBookmarkablePageLink<T> editPageLink =
+            editPageLink =
                     new BootstrapBookmarkablePageLink<>("edit", editPageClass, pageParameters, Buttons.Type.Info);
             editPageLink.setIconType(FontAwesomeIconType.edit).setSize(Size.Small)
                     .setLabel(new StringResourceModel("edit", AbstractListPage.this, null));
