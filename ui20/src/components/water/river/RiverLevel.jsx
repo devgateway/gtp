@@ -103,13 +103,14 @@ class RiverLevel extends Component {
             legendPosition: 'middle',
             legend: intl.formatMessage({ id: "water.rainlevel.level"}),
             legendOffset: -45,
-            tickSize: 5,
+            tickSize: 0,
             tickPadding: 5,
             tickRotation: 0,
           }}
           axisBottom={{
             format: "%b",
             tickValues: 'every month',
+            tickSize: 10,
             legendOffset: 40,
             legendPosition: 'middle'
           }}
@@ -190,7 +191,7 @@ const CustomSliceTooltip = ({slice, axis}) => {
   })
   const date:Date = slice.points[0].data.actualDate
   const month = date.getMonth() + 1
-  const title = <strong><FormattedMessage id={`all.month.${month}`} /> {date.getDate()}</strong>
+  const title = <strong>{date.getDate()} <FormattedMessage id={`all.month.${month}`} /></strong>
   return <TableTooltip title={title} rows={rows}/>
 }
 

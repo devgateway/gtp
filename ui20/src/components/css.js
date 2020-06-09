@@ -18,6 +18,9 @@ export const GRAPHIC_MAIN_COLORS = [
 export const NIVO_THEME = {
   axis: {
     ticks: {
+      line: {
+        stroke: '#e3e3e3',
+      },
       text: {
         fontSize: 10,
       }
