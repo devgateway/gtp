@@ -14,7 +14,6 @@ import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
@@ -27,6 +26,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.PluviometricP
 import org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainseason.EditRainSeasonPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.AbstractIndicatorWithStatusListPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.YearFilterPanel;
+import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainSeason;
 import org.devgateway.toolkit.persistence.dao.location.Department;
@@ -75,7 +75,7 @@ public class ListRainSeasonPage extends AbstractIndicatorWithStatusListPage<Pluv
         List<String> zones = zoneService.findAll().stream().map(Zone::getName).collect(toList());
         columns.add(new SelectFilteredBootstrapPropertyColumn<>(new StringResourceModel("zone"),
                 "pluviometricPost.department.region.zone.name", "pluviometricPost.department.region.zone.name", "zone",
-                new ListModel<>(zones)));
+                new GenericChoiceProvider<>(zones)));
 
         String zone = filterState.getZone();
         Set<String> regions = regionService.findAll().stream()
@@ -84,7 +84,7 @@ public class ListRainSeasonPage extends AbstractIndicatorWithStatusListPage<Pluv
                 .collect(toCollection(TreeSet::new));
         columns.add(new SelectFilteredBootstrapPropertyColumn<>(new StringResourceModel("region"),
                 "pluviometricPost.department.region.name", "pluviometricPost.department.region.name", "region",
-                new ListModel<>(new ArrayList<>(regions))));
+                new GenericChoiceProvider<>(new ArrayList<>(regions))));
 
         String region = filterState.getRegion();
         Set<String> departments = departmentService.findAll().stream()
@@ -94,7 +94,7 @@ public class ListRainSeasonPage extends AbstractIndicatorWithStatusListPage<Pluv
                 .collect(toCollection(TreeSet::new));
         columns.add(new SelectFilteredBootstrapPropertyColumn<>(new StringResourceModel("department"),
                 "pluviometricPost.department.name", "pluviometricPost.department.name", "department",
-                new ListModel<>(new ArrayList<>(departments))));
+                new GenericChoiceProvider<>(new ArrayList<>(departments))));
 
         String department = filterState.getDepartment();
         Set<String> posts = pluviometricPostService.findAll().stream()
@@ -104,7 +104,7 @@ public class ListRainSeasonPage extends AbstractIndicatorWithStatusListPage<Pluv
                 .collect(toCollection(TreeSet::new));
         columns.add(new SelectFilteredBootstrapPropertyColumn<>(new StringResourceModel("pluviometricPost"),
                 "pluviometricPost.label", "pluviometricPost.label", "pluviometricPost",
-                new ListModel<>(new ArrayList<>(posts))));
+                new GenericChoiceProvider<>(new ArrayList<>(posts))));
 
         columns.add(new PropertyColumn<>(new StringResourceModel("startDate"), "startDate", "startDate"));
     }

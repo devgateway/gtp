@@ -11,6 +11,9 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
@@ -27,10 +30,11 @@ import javax.persistence.Table;
  * <p>
  * Entity used to store the metadata of uploaded files
  */
-
 @Entity
 @Audited
 @Table(indexes = {@Index(columnList = "name")})
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@BatchSize(size = 50)
 public class FileMetadata extends AbstractAuditableEntity {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

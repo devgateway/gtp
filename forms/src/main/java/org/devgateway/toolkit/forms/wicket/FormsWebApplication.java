@@ -51,12 +51,15 @@ import org.apache.wicket.util.file.Folder;
 import org.devgateway.toolkit.forms.security.PasswordRecoveryProperties;
 import org.devgateway.toolkit.forms.service.SessionFinderService;
 import org.devgateway.toolkit.forms.wicket.components.form.SummernoteJpaStorageService;
+import org.devgateway.toolkit.forms.wicket.converters.DecadalConverter;
 import org.devgateway.toolkit.forms.wicket.converters.HydrologicalYearConverter;
+import org.devgateway.toolkit.forms.wicket.converters.MonthConverter;
 import org.devgateway.toolkit.forms.wicket.converters.NonNumericFilteredBigDecimalConverter;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
 import org.devgateway.toolkit.forms.wicket.page.Homepage;
 import org.devgateway.toolkit.forms.wicket.page.user.LoginPage;
 import org.devgateway.toolkit.forms.wicket.styles.BaseStyles;
+import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -70,6 +73,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 import org.wicketstuff.select2.ApplicationSettings;
 
 import java.math.BigDecimal;
+import java.time.Month;
 import java.util.Locale;
 
 /**
@@ -112,6 +116,8 @@ public class FormsWebApplication extends AuthenticatedWebApplication {
         ConverterLocator locator = (ConverterLocator) super.newConverterLocator();
         locator.set(BigDecimal.class, new NonNumericFilteredBigDecimalConverter());
         locator.set(HydrologicalYear.class, new HydrologicalYearConverter());
+        locator.set(Month.class, new MonthConverter());
+        locator.set(Decadal.class, new DecadalConverter());
         return locator;
     }
 

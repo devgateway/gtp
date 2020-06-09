@@ -89,7 +89,6 @@ public class ListLocalitiesPage extends BasePage {
 
         dataProvider = new SortableJpaServiceDataProvider<>(departmentService);
         dataProvider.setFilterState(new JpaFilterState<>());
-        dataProvider.setPageSize(WebConstants.NO_PAGE_SIZE);
         dataProvider.setSort("name", SortOrder.ASCENDING);
 
         dataTable = new AjaxFallbackBootstrapDataTable<>("table", columns, dataProvider, WebConstants.NO_PAGE_SIZE);

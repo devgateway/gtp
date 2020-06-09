@@ -10,7 +10,6 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilt
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
@@ -23,6 +22,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.RiverStationY
 import org.devgateway.toolkit.forms.wicket.page.edit.category.EditRiverStationYearlyLevelsReferencePage;
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.panel.RiverStationYearlyLevelsActionPanel;
+import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.reference.RiverLevelReference;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.dao.reference.RiverStationYearlyLevelsReference;
@@ -56,7 +56,7 @@ public class ListRiverStationYearlyLevelsReferencesPage extends AbstractListPage
 
         columns.add(new SelectFilteredBootstrapPropertyColumn<>(
                 new StringResourceModel("station"), "station.name", "station.name", "station",
-                new ListModel<>(stationNames)));
+                new GenericChoiceProvider<>(stationNames)));
 
         columns.add(new PropertyColumn<>(new StringResourceModel("year"), "year", "year"));
     }
