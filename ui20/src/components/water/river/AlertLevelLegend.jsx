@@ -5,7 +5,9 @@ import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import RiverLevelSettings from "../../../modules/entities/river/RiverLevelSettings"
 import * as waterActions from "../../../redux/actions/waterActions"
+import * as sccJS from "../../css"
 import * as sccRiverLevel from "./cssRiverLevel"
+import CustomLegendSymbol, {LEGEND_SYMBOL_LINE} from "../../common/CustomLegendSymbol"
 
 export const ALERT_COLOR = '#c94545'
 
@@ -35,7 +37,8 @@ class AlertLegend extends Component {
       itemWidth: 100,
       itemHeight: 20,
       itemOpacity: setting.showAlert ? 0.75 : 0.5,
-      symbolShape: 'circle',
+      symbolShape: (legendProps) =>
+        <CustomLegendSymbol type={LEGEND_SYMBOL_LINE} legendProps={legendProps} lineLength={sccJS.LEGEND_SYMBOL_LINE_LENGTH} />,
       symbolSize: 12,
       effects: [
         {

@@ -30,3 +30,5 @@ export const NIVO_THEME = {
   },
   textColor: BASE_TEXT_COLOR,
 }
+
+export const LEGEND_SYMBOL_LINE_LENGTH = 15

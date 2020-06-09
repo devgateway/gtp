@@ -6,6 +6,7 @@ import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import MonthDecadal from "../../../modules/utils/MonthDecadal"
 import messages from "../../../translations/messages"
+import CustomLegendSymbol, {LEGEND_SYMBOL_LINE} from "../../common/CustomLegendSymbol"
 import DefaultBarOrNegativeValueAsZeroBar from "../../common/DefaultBarOrNegativeValueAsZeroBar"
 import * as sccJS from "../../css"
 import * as rainfallScc from "./rainfallCSS"
@@ -55,13 +56,12 @@ class Rainfall extends Component {
       translateX: rainfallScc.LEGEND_TRANSLATE_X + keys.length * rainfallScc.LEGEND_YEAR_WIDTH,
       translateY: -30,
       itemsSpacing: 2,
-      itemWidth: rainfallScc.LEGEND_REF_YEAR_WIDTH + rainfallScc.LEGEND_REF_LINE_LENGTH,
+      itemWidth: rainfallScc.LEGEND_REF_YEAR_WIDTH + sccJS.LEGEND_SYMBOL_LINE_LENGTH,
       itemHeight: 20,
       itemDirection: 'left-to-right',
       itemOpacity: 1,
-      symbolShape: ({ x, y, size, fill }) =>
-        (<path id="lineAB" d={`M 0 10 H ${rainfallScc.LEGEND_REF_LINE_LENGTH}`}
-              x={x} y={y} stroke={fill} strokeWidth={3} fill="none" />),
+      symbolShape: (legendProps) =>
+        <CustomLegendSymbol type={LEGEND_SYMBOL_LINE} legendProps={legendProps} lineLength={sccJS.LEGEND_SYMBOL_LINE_LENGTH} />,
       symbolSize: 14,
       effects: [
         {

@@ -9,6 +9,7 @@ import Chip from "../../common/Chip"
 import * as sccJS from "../../css"
 import * as sccRiverLevel from "./cssRiverLevel"
 import {ALERT_COLOR, AlertLevelLegend} from "./AlertLevelLegend"
+import CustomLegendSymbol, {LEGEND_SYMBOL_CIRCLE, LEGEND_SYMBOL_LINE} from "../../common/CustomLegendSymbol"
 
 class RiverLevel extends Component {
   static propTypes = {
@@ -138,7 +139,12 @@ class RiverLevel extends Component {
               itemHeight: 20,
               itemOpacity: 0.75,
               symbolSize: 12,
-              symbolShape: 'circle',
+              symbolShape: (legendProps) => {
+                const {isReference} = data.lines[legendProps.id].riverLevelYear
+                const type = isReference ? LEGEND_SYMBOL_LINE : LEGEND_SYMBOL_CIRCLE
+                return <CustomLegendSymbol type={type} legendProps={legendProps}
+                                    lineLength={sccJS.LEGEND_SYMBOL_LINE_LENGTH}/>
+              },
               symbolBorderColor: 'rgba(0, 0, 0, .5)',
               onClick: this.levelLineToggle.bind(this),
               effects: [

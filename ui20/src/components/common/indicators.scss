@@ -785,7 +785,7 @@
 
   .indicator.chart.properties {
     display: flow-root;
-    border: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
 
     .filter, .setting {
       display: inline-flex;
