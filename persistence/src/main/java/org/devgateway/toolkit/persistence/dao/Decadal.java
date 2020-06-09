@@ -5,7 +5,7 @@ import java.time.YearMonth;
 /**
  * @author Nadejda Mandrescu
  */
-public enum Decadal {
+public enum Decadal implements Comparable<Decadal> {
     FIRST(1),
     SECOND(2),
     THIRD(3);
@@ -26,6 +26,16 @@ public enum Decadal {
 
     public int length(YearMonth yearMonth) {
         return value < 3 ? 10 : yearMonth.lengthOfMonth() - 20;
+    }
+
+    public static Decadal fromIndex(String index) {
+        int v = Integer.parseInt(index);
+        for (Decadal d : values()) {
+            if (d.getValue() == v) {
+                return d;
+            }
+        }
+        throw new IllegalArgumentException(index);
     }
 
     public static Decadal fromDayOfMonth(int dayOfMonth) {

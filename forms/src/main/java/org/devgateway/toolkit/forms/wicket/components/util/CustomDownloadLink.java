@@ -18,6 +18,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIc
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.resource.ResourceStreamRequestHandler;
 import org.apache.wicket.request.resource.ContentDisposition;
 import org.apache.wicket.util.resource.AbstractResourceStreamWriter;
@@ -42,20 +43,24 @@ public class CustomDownloadLink extends Link<FileMetadata> {
 
     @Override
     public void onClick() {
+        respond(getModelObject());
+    }
+
+    public static void respond(FileMetadata fileMetadata) {
         final AbstractResourceStreamWriter rstream = new AbstractResourceStreamWriter() {
             @Override
             public void write(final OutputStream output) throws IOException {
-                output.write(getModelObject().getContent().getBytes());
+                output.write(fileMetadata.getContent().getBytes());
             }
 
             @Override
             public String getContentType() {
-                return getModelObject().getContentType();
+                return fileMetadata.getContentType();
             }
         };
 
-        ResourceStreamRequestHandler handler = new ResourceStreamRequestHandler(rstream, getModelObject().getName());
+        ResourceStreamRequestHandler handler = new ResourceStreamRequestHandler(rstream, fileMetadata.getName());
         handler.setContentDisposition(ContentDisposition.ATTACHMENT);
-        getRequestCycle().scheduleRequestHandlerAfterCurrent(handler);
+        RequestCycle.get().scheduleRequestHandlerAfterCurrent(handler);
     }
 }
