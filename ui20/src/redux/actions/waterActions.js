@@ -50,7 +50,7 @@ const transformAll = (allData) => {
       config: new RainLevelConfig(rainLevelChart.config),
       data: new RainLevelData(rainLevelChart.data),
       filter: new RainLevelFilter(rainLevelChart.filter.years, rainLevelChart.filter.pluviometricPostId),
-      setting: new RainLevelSetting()
+      setting: RainLevelSetting,
     },
     drySequenceChart: drySequenceChartFromApi(drySequenceChart),
     rainSeasonChart: rainSeasonChartFromApi(waterConfig, seasonChart),
@@ -80,15 +80,15 @@ export const getRain = (intl) => (dispatch, getState) => {
     keysWithRefs: rainfallDTO.keyWithReferences,
     groupMode: 'grouped',
     indexBy: rainfallDTO.indexBy,
-    byDecadal: rainfallDTO.byDecadal,
     monthDecadal: rainfallDTO.monthDecadal,
   }
 }
 
-export const setRainPerDecadal = (byDecadal) => (dispatch, getState) => {
+export const setRainSetting = (path, data) => (dispatch, getState) => {
   dispatch({
     type: CHANGE_RAINFALL_SETTING,
-    data: new RainLevelSetting(byDecadal)
+    path,
+    data
   })
 }
 
@@ -181,7 +181,7 @@ export const setRainSeasonFilter = (path: Array<string>, value, isYearFilter: bo
   }
 }
 
-/*      RAINFALL          */
+/*      RIVER LEVEL          */
 export const getRiverLevel = (): RiverLevelChartDTO => (dispatch, getState) => {
   const { riverLevelChart } = getState().getIn(['water', 'data'])
   const builder = new RiverLevelChartBuilder(riverLevelChart)

@@ -21,8 +21,6 @@ class RainTick extends Component {
           dominantBaseline="middle"
           style={{
             ...theme.axis.ticks.text,
-            fill: '#333',
-            fontSize: 10,
           }}>
           <FormattedNumber value={tick.value} maximumFractionDigits={1} minimumFractionDigits={1} />
         </text>

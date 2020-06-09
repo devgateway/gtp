@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react"
 import {Segment, Sticky} from "semantic-ui-react"
-import "../ipar/indicators/indicators.scss"
+import "./indicators.scss"
 import "../common/indicator-base.scss"
 import "./graphicPage.scss"
 import MenuScrollableTo, {MenuItemDef} from "./MenuScrollableTo"

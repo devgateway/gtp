@@ -1,4 +1,4 @@
-@import '../../../base';
+@import '../../base';
 
 .ui.fixed.table {}
 
@@ -397,7 +397,7 @@
       margin: 0;
 
       div {
-        font-size: 11px;
+        font-size: $setting-font-size;
         font-weight: 600;
         color: #a6a6a6;
         margin-left: 0;
@@ -440,7 +440,7 @@
 
     .ui.toggle.checkbox .box:after,
     .ui.toggle.checkbox label:after {
-      border: 3px solid #a4db77;
+      border: 3px solid $setting-green-color;
       height: 12px;
       width: 12px;
       left: 17px;
@@ -471,19 +471,70 @@
     }
   }
 
-  .slider {
-    margin-top: -10px;
-    margin-left: 20px;
-    width: 200px;
-    float: left;
-    height: 70px;
+  .chart.toggler.view {
+    .ui.checkbox.slider {
+      label {
+        font-size: $setting-font-size;
+        top: unset;
+      }
 
-    p {
-      margin: 0;
-      padding: 0;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 5px;
+      label.active {
+        color: #4d4d4d;
+      }
+
+      input {
+        position: absolute;
+        width: 100%;
+        z-index: 3;
+      }
+
+      .inline {
+        display: inline-block;
+        label {
+          float: left;
+        }
+      }
+
+      .reversed {
+        label {
+          padding-left: unset;
+        }
+
+        label::before {
+          position: relative;
+          float: right;
+          padding-left: 0;
+          width: 1.2rem;
+          height: 0.7rem;
+          // (line-height 1rem - height 0.7rem) / 2
+          top: 0.15rem;
+          left: -.25rem;
+          background-color: $setting-green-color;
+          opacity: 0.6;
+        }
+
+        label::after {
+          position: relative;
+          float: right;
+          top: unset;
+          left: 1.7rem;
+          width: 1rem;
+          height: 1rem;
+        }
+
+        span {
+          padding-right: 0.25rem;
+        }
+      }
+
+      &.checked {
+        .reversed {
+          label::after {
+            left: 0;
+            background-color: $setting-green-color;
+          }
+        }
+      }
     }
   }
 
@@ -660,18 +711,17 @@
   }
 
   .tooltips.white {
-    background-color:: #FFF !important;
+    background-color: #FFF !important;
   }
 
   .indicator.description {
     border: 1px solid $border-color;
     padding: 15px;
-    font-size: 15px;
     display: flex;
     background-color: #f6faf5;
     font-size: 21px;
     color: #646464;
-    display: flex;
+
     p {
       float: left;
 
@@ -766,6 +816,7 @@
           font-weight: 600;
           font-size: 12px;
           color: #364833;
+          padding-right: 10px;
         }
         .description {
           font-size: 11px;

@@ -14,13 +14,13 @@ class RainfallGraphic extends Component {
   }
 
   render() {
-    const {getRain, intl} = this.props;
+    const {getRain, intl, setting} = this.props;
 
     return (<Graphic
       id="anchor.indicator.water.rainfall" titleId="indicators.chart.rainfall.title"
       sourceId="indicators.chart.rainfall.source">
       <RainfallProperties />
-      <Rainfall {...getRain(intl)} />
+      <Rainfall {...getRain(intl)} setting={setting} />
     </Graphic>)
   }
 }
