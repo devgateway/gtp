@@ -21,7 +21,7 @@ import org.hibernate.envers.Audited;
 @Audited
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class AnnualGTPBulletin extends AbstractAuditableEntity {
+public class AnnualGTPReport extends AbstractAuditableEntity {
 
     @NotNull
     @Column(unique = true)
@@ -33,15 +33,15 @@ public class AnnualGTPBulletin extends AbstractAuditableEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FileMetadata> uploads = new HashSet<>();
 
-    public AnnualGTPBulletin() {
+    public AnnualGTPReport() {
     }
 
-    public AnnualGTPBulletin(Long id, Integer year) {
+    public AnnualGTPReport(Long id, Integer year) {
         this(year);
         setId(id);
     }
 
-    public AnnualGTPBulletin(Integer year) {
+    public AnnualGTPReport(Integer year) {
         this.year = year;
     }
 

@@ -2,7 +2,7 @@ package org.devgateway.toolkit.persistence.service;
 
 import java.util.Optional;
 
-import org.devgateway.toolkit.persistence.dao.AnnualGTPBulletin;
+import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
 import org.devgateway.toolkit.persistence.dao.GTPBulletin;
 import org.devgateway.toolkit.persistence.dto.GTPMaterials;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class GTPServiceImpl implements GTPService {
     private GTPBulletinService bulletinService;
 
     @Autowired
-    private AnnualGTPBulletinService annualGTPBulletinService;
+    private AnnualGTPReportService annualGTPBulletinService;
 
     @Override
     public GTPMaterials getGTPMaterials() {
@@ -31,7 +31,7 @@ public class GTPServiceImpl implements GTPService {
     }
 
     @Override
-    public Optional<AnnualGTPBulletin> findAnnualReport(Long id) {
+    public Optional<AnnualGTPReport> findAnnualReport(Long id) {
         return annualGTPBulletinService.findById(id);
     }
 }

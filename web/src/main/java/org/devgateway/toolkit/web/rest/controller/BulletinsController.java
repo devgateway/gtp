@@ -1,6 +1,6 @@
 package org.devgateway.toolkit.web.rest.controller;
 
-import org.devgateway.toolkit.persistence.dao.AnnualGTPBulletin;
+import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.GTPBulletin;
 import org.devgateway.toolkit.persistence.dto.GTPMaterials;
@@ -41,7 +41,7 @@ public class BulletinsController {
 
     @GetMapping("annual-report")
     public ResponseEntity<Resource> getAnnualReport(@RequestParam("id") Long id) {
-        return service.findAnnualReport(id).map(AnnualGTPBulletin::getUpload)
+        return service.findAnnualReport(id).map(AnnualGTPReport::getUpload)
                 .map(BulletinsController::responseForFileMetadata)
                 .orElseGet(BulletinsController::notFound);
     }

@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.devgateway.toolkit.persistence.dao.AnnualGTPBulletin;
-import org.devgateway.toolkit.persistence.repository.AnnualGTPBulletinRepository;
+import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
+import org.devgateway.toolkit.persistence.repository.AnnualGTPRerportRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,42 +17,42 @@ import org.springframework.stereotype.Service;
  * @author Octavian Ciubotaru
  */
 @Service
-public class AnnualGTPBulletinServiceImpl extends BaseJpaServiceImpl<AnnualGTPBulletin>
-        implements AnnualGTPBulletinService  {
+public class AnnualGTPReportServiceImpl extends BaseJpaServiceImpl<AnnualGTPReport>
+        implements AnnualGTPReportService {
 
     @Autowired
-    private AnnualGTPBulletinRepository repository;
+    private AnnualGTPRerportRepository repository;
 
     @Autowired
     private AdminSettingsService adminSettingsService;
 
     @Override
     public void generate() {
-        Map<Integer, AnnualGTPBulletin> byYear = findAll().stream()
-                .collect(toMap(AnnualGTPBulletin::getYear, Function.identity()));
+        Map<Integer, AnnualGTPReport> byYear = findAll().stream()
+                .collect(toMap(AnnualGTPReport::getYear, Function.identity()));
 
         Integer startingYear = adminSettingsService.getStartingYear();
         int endYear = Year.now().getValue();
 
         for (int y = startingYear; y <= endYear; y++) {
             if (!byYear.containsKey(y)) {
-                repository.save(new AnnualGTPBulletin(y));
+                repository.save(new AnnualGTPReport(y));
             }
         }
     }
 
     @Override
-    public List<AnnualGTPBulletin> findAllWithUploads() {
-        return repository.findAllWithUploads();
-    }
-
-    @Override
-    protected BaseJpaRepository<AnnualGTPBulletin, Long> repository() {
+    protected BaseJpaRepository<AnnualGTPReport, Long> repository() {
         return repository;
     }
 
     @Override
-    public AnnualGTPBulletin newInstance() {
-        return new AnnualGTPBulletin();
+    public AnnualGTPReport newInstance() {
+        return new AnnualGTPReport();
+    }
+
+    @Override
+    public List<AnnualGTPReport> findAllWithUploads() {
+        return repository.findAllWithUploads();
     }
 }

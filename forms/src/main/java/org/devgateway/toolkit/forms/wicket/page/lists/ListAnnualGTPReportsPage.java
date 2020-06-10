@@ -13,27 +13,27 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.util.CustomDownloadLink;
-import org.devgateway.toolkit.forms.wicket.page.edit.EditAnnualGTPBulletinPage;
-import org.devgateway.toolkit.persistence.dao.AnnualGTPBulletin;
+import org.devgateway.toolkit.forms.wicket.page.edit.EditAnnualGTPReportPage;
+import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
-import org.devgateway.toolkit.persistence.service.AnnualGTPBulletinService;
+import org.devgateway.toolkit.persistence.service.AnnualGTPReportService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
  * @author Octavian Ciubotaru
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_GTP_BULLETIN)
-@MountPath("/annual-gtp-bulletins")
-public class ListAnnualGTPBulletinsPage extends AbstractListPage<AnnualGTPBulletin> {
+@MountPath("/annual-gtp-reports")
+public class ListAnnualGTPReportsPage extends AbstractListPage<AnnualGTPReport> {
 
     @SpringBean
-    private AnnualGTPBulletinService service;
+    private AnnualGTPReportService service;
 
-    public ListAnnualGTPBulletinsPage(PageParameters parameters) {
+    public ListAnnualGTPReportsPage(PageParameters parameters) {
         super(parameters, false);
 
         jpaService = service;
-        editPageClass = EditAnnualGTPBulletinPage.class;
+        editPageClass = EditAnnualGTPReportPage.class;
 
         service.generate();
 
@@ -50,19 +50,19 @@ public class ListAnnualGTPBulletinsPage extends AbstractListPage<AnnualGTPBullet
     }
 
     @Override
-    public Panel getActionPanel(String id, IModel<AnnualGTPBulletin> model) {
+    public Panel getActionPanel(String id, IModel<AnnualGTPReport> model) {
         return new CustomActionPanel(id, model);
     }
 
     public class CustomActionPanel extends ActionPanel {
 
-        public CustomActionPanel(String id, IModel<AnnualGTPBulletin> model) {
+        public CustomActionPanel(String id, IModel<AnnualGTPReport> model) {
             super(id, model);
 
             boolean empty = model.getObject().getUploads().isEmpty();
 
             BootstrapLink<FileMetadata> download = new BootstrapLink<FileMetadata>("download",
-                    model.map(AnnualGTPBulletin::getUpload), Buttons.Type.Info) {
+                    model.map(AnnualGTPReport::getUpload), Buttons.Type.Info) {
 
                 @Override
                 public void onClick() {

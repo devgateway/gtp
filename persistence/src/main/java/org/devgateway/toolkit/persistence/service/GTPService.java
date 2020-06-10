@@ -2,7 +2,7 @@ package org.devgateway.toolkit.persistence.service;
 
 import java.util.Optional;
 
-import org.devgateway.toolkit.persistence.dao.AnnualGTPBulletin;
+import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
 import org.devgateway.toolkit.persistence.dao.GTPBulletin;
 import org.devgateway.toolkit.persistence.dto.GTPMaterials;
 
@@ -15,5 +15,5 @@ public interface GTPService {
 
     Optional<GTPBulletin> findBulletin(Long id);
 
-    Optional<AnnualGTPBulletin> findAnnualReport(Long id);
+    Optional<AnnualGTPReport> findAnnualReport(Long id);
 }
