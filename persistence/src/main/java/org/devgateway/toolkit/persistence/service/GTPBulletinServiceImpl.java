@@ -39,7 +39,7 @@ public class GTPBulletinServiceImpl extends BaseJpaServiceImpl<GTPBulletin> impl
         return new GTPBulletin();
     }
 
-    public List<Integer> findYearsWithData() {
+    public List<Integer> findYears() {
         Integer startingYear = adminSettingsService.getStartingYear();
         return repository.findAllYears().stream().filter(y -> y >= startingYear).collect(toList());
     }

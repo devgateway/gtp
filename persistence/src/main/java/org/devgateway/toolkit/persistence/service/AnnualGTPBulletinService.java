@@ -2,12 +2,12 @@ package org.devgateway.toolkit.persistence.service;
 
 import java.util.List;
 
-import org.devgateway.toolkit.persistence.dao.GTPBulletin;
+import org.devgateway.toolkit.persistence.dao.AnnualGTPBulletin;
 
 /**
  * @author Octavian Ciubotaru
  */
-public interface GTPBulletinService extends BaseJpaService<GTPBulletin> {
+public interface AnnualGTPBulletinService extends BaseJpaService<AnnualGTPBulletin> {
 
     void generate();
 

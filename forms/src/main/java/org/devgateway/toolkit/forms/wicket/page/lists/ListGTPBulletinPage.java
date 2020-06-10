@@ -52,7 +52,7 @@ public class ListGTPBulletinPage extends AbstractListPage<GTPBulletin> {
 
         columns.add(new SelectFilteredBootstrapPropertyColumn<GTPBulletin, Integer, String>(
                 new StringResourceModel("year"), "year",
-                new GenericChoiceProvider<>(gtpBulletinService.findYearsWithData()))
+                new GenericChoiceProvider<>(gtpBulletinService.findYears()))
                 .required());
 
         columns.add(new SelectFilteredBootstrapPropertyColumn<>(
