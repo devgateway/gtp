@@ -15,7 +15,7 @@ export const PngExport = ({id, element, name = "chart", filters = [],includes = 
 
   // eslint-disable-next-line no-unused-vars
   const changedNodes = []
-      return (<div className="icon download png" onClick={e=>{
+      return (<div className="icon download masked-icon icon-png-download" onClick={e=>{
 
         var node = id ? document.getElementById(id) : document[element];
 

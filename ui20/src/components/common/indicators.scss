@@ -469,6 +469,19 @@
       float: left;
       margin: 0;
     }
+
+    .icon.group {
+      display: flex;
+      float: right;
+      padding-right: 21px;
+      height: 100%;
+
+      .icon-png-download {
+        margin: auto;
+        width: 35px;
+        height: 35px;
+      }
+    }
   }
 
   .chart.toggler.view {
@@ -706,7 +719,6 @@
     border: 1px solid $border-color;
     border-top: 0;
     width: 100%;
-    max-height: 571px;
     font-size: 12px;
   }
 
@@ -730,11 +742,6 @@
       float: left;
 
         flex-grow: 1
-    }
-
-    .icon.group{
-      float: right;
-      width: 250px;
     }
 
     clear: both;

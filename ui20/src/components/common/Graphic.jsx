@@ -17,7 +17,7 @@ class Graphic extends Component {
     return (
       <div className="indicators chart section" id={id}>
         <div className="png exportable">
-          <div className="indicator chart title poverty ">
+          <div className="indicator chart title">
             <p>
               <FormattedMessage id={titleId} />
             </p>
