@@ -2,6 +2,7 @@ import React, {useRef} from "react"
 
 export class ScrollRef {
   ref
+  offset = 0
 }
 
 const ScrollableTo = (scrollRef: ScrollRef) => (props) => {

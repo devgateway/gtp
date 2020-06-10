@@ -5,12 +5,10 @@ import * as appActions from "../../../redux/actions/appActions"
 import {cssClasses} from "../../ComponentUtil"
 import "./menu.scss"
 import {MenuNavButtonClosed, MenuNavButtonOpen} from "./MenuNavButton"
+import * as cssJS from '../../css'
 
 // TODO (SCROLLING_MENU) make them exportable for reuse from _base.scss
-const HEADER_HEIGHT = 70
-const MENU_HEIGHT = 354
-const FOOTER_HEIGHT = 297
-const fullMenuRequiredHeight = MENU_HEIGHT + HEADER_HEIGHT
+const fullMenuRequiredHeight = cssJS.MENU_HEIGHT + cssJS.HEADER_HEIGHT
 
 class Menu extends Component {
   static propTypes = {
@@ -40,8 +38,8 @@ class Menu extends Component {
     let stickTo = 'top'
     if (clientHeight < fullMenuRequiredHeight) {
       stickTo = 'relative'
-    } else if (remainingScroll < FOOTER_HEIGHT) {
-      const heightRequiredWithVisibleFooter =  FOOTER_HEIGHT - remainingScroll +  fullMenuRequiredHeight
+    } else if (remainingScroll < cssJS.FOOTER_HEIGHT) {
+      const heightRequiredWithVisibleFooter =  cssJS.FOOTER_HEIGHT - remainingScroll +  fullMenuRequiredHeight
       if (heightRequiredWithVisibleFooter > clientHeight) {
         stickTo = 'bottom'
       }
