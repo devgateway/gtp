@@ -28,7 +28,7 @@ const MenuScrollableTo = (props) => {
             key={name}
             name={name}
             active={active === index}
-            onClick={() => scrollToRef(itemDef.scrollRef.ref)}
+            onClick={() => scrollToRef(itemDef.scrollRef.ref, itemDef.scrollRef.offset)}
           >
             {itemDef.icon && MenuIcon(itemDef.icon)}
             <div className="link">
