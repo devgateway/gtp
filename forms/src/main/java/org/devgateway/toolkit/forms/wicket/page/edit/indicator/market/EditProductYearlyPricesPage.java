@@ -20,11 +20,13 @@ import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
+import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.service.category.ProductService;
 import org.devgateway.toolkit.persistence.service.indicator.ProductPriceReader;
 import org.devgateway.toolkit.persistence.service.indicator.ProductYearlyPricesService;
 import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
+import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.devgateway.toolkit.persistence.util.JPAUtil;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -40,6 +42,9 @@ public class EditProductYearlyPricesPage extends AbstractExcelImportPage<Product
 
     @SpringBean
     private MarketService marketService;
+
+    @SpringBean
+    private DepartmentService departmentService;
 
     @SpringBean
     private ProductYearlyPricesService productYearlyPricesService;
@@ -79,12 +84,14 @@ public class EditProductYearlyPricesPage extends AbstractExcelImportPage<Product
 
         String marketTypeName = MarketType.MARKET_TYPE_BY_PRODUCT_TYPE.get(productType.getName());
 
+        List<Department> departments = departmentService.findAll();
+
         List<Market> markets = marketService.findByMarketTypeName(marketTypeName);
 
         boolean productsOnSeparateRows =
                 ProductTypeUtil.areProductsOnSeparateRows(productType);
 
-        ProductPriceReader reader = new ProductPriceReader(products, markets, productsOnSeparateRows);
+        ProductPriceReader reader = new ProductPriceReader(products, departments, markets, productsOnSeparateRows);
 
         Collection<ProductPrice> prices = reader.read(productYearlyPrices.getYear(), inputStream);
 

@@ -3,6 +3,7 @@ import {Segment, Sticky} from "semantic-ui-react"
 import "./indicators.scss"
 import "../common/indicator-base.scss"
 import "./graphicPage.scss"
+import * as cssJS from "../css"
 import MenuScrollableTo, {MenuItemDef} from "./MenuScrollableTo"
 import ScrollableTo, {ScrollRef} from "./ScrollableTo"
 import TrackVisibility from "./TrackVisibility"
@@ -24,6 +25,7 @@ const GraphicPage = (props) => {
   const contextRef = useRef()
   const graphicsDefs: Array<GraphicDef> = props.graphicsDefs
   const menuDefs = graphicsDefs.map((graphicDef) => graphicDef.menuItemDef)
+  menuDefs[0].scrollRef.offset = -cssJS.MENU_HEIGHT
   const [active, setActive] = useState(0)
 
   return (

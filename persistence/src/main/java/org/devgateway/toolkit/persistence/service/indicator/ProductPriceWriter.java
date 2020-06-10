@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.poi.ss.usermodel.BuiltinFormats;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -50,6 +51,8 @@ public class ProductPriceWriter {
 
     private final boolean productsOnSeparateRows;
 
+    private XSSFCellStyle dateCellStyle;
+
     public ProductPriceWriter(List<Product> products, boolean productsOnSeparateRows) {
         this.products = new ArrayList<>(products);
         Collections.sort(this.products);
@@ -67,7 +70,7 @@ public class ProductPriceWriter {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet();
 
-        XSSFCellStyle dateCellStyle = workbook.createCellStyle();
+        dateCellStyle = workbook.createCellStyle();
         dateCellStyle.setDataFormat(DATE_DATA_FORMAT);
 
         sheet.setDefaultColumnStyle(DATE_COL_IDX, dateCellStyle);
@@ -122,9 +125,9 @@ public class ProductPriceWriter {
         sheet.setColumnWidth(DATE_COL_IDX, DATE_WIDTH);
 
         XSSFRow hrow = sheet.createRow(0);
-        hrow.createCell(DEPARTMENT_COL_IDX).setCellValue("Department");
-        hrow.createCell(MARKET_COL_IDX).setCellValue("Market");
-        hrow.createCell(DATE_COL_IDX).setCellValue("Date");
+        hrow.createCell(DEPARTMENT_COL_IDX).setCellValue("Département");
+        hrow.createCell(MARKET_COL_IDX).setCellValue("Marché de collecte");
+        hrow.createCell(DATE_COL_IDX).setCellValue("Date de collecte");
 
         if (productsOnSeparateRows) {
             hrow.createCell(PRODUCT_COL_IDX).setCellValue("Product");
@@ -188,7 +191,9 @@ public class ProductPriceWriter {
         String mkName = market.getName();
         row.createCell(MARKET_COL_IDX).setCellValue(mkName);
 
-        row.createCell(DATE_COL_IDX).setCellValue(date);
+        XSSFCell dateCell = row.createCell(DATE_COL_IDX);
+        dateCell.setCellValue(date);
+        dateCell.setCellStyle(dateCellStyle);
 
         return row;
     }

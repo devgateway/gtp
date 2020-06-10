@@ -358,13 +358,17 @@ html {
   mask-size: cover !important;
   mask-repeat: no-repeat !important;
 }
-.icon-barchart.masked-icon {
+.masked-icon.icon-barchart {
   mask: url('/icons/icon_barchart.svg');
 }
-.icon-linechart.masked-icon {
+.masked-icon.icon-linechart {
   mask: url('/icons/icon_linechart.svg');
 }
-.icon-table.masked-icon {
+.masked-icon.icon-table {
   mask: url('/icons/icon_table.svg');
+}
+.masked-icon.icon-png-download {
+  mask: url('/icons/icon_png_download.svg');
+  background: #608bb5;
 }
 
