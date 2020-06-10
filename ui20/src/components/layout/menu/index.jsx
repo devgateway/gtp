@@ -11,7 +11,6 @@ import {MenuNavButtonClosed, MenuNavButtonOpen} from "./MenuNavButton"
 import * as cssJS from '../../css'
 
 // TODO (SCROLLING_MENU) make them exportable for reuse from _base.scss
-const fullMenuRequiredHeight = cssJS.MENU_HEIGHT + cssJS.HEADER_HEIGHT
 
 class Menu extends Component {
   static propTypes = {
@@ -19,9 +18,11 @@ class Menu extends Component {
     isMenuOpened: PropTypes.bool.isRequired,
   }
 
+  menuRef = React.createRef()
+
   constructor(props) {
     super(props);
-    const stickTo = document.documentElement.clientHeight < fullMenuRequiredHeight ? 'relative' : 'top'
+    const stickTo = 'relative'
     this.state = { stickTo }
     this.handleScroll = this.handleScroll.bind(this)
   }
@@ -37,6 +38,7 @@ class Menu extends Component {
   handleScroll(event) {
     const { scrollTop, scrollTopMax, clientHeight } = event.target.documentElement
     const remainingScroll = scrollTopMax - scrollTop
+    const fullMenuRequiredHeight = this.menuRef.current.firstChild.clientHeight + cssJS.HEADER_HEIGHT
 
     let stickTo = 'top'
     if (clientHeight < fullMenuRequiredHeight) {
@@ -60,7 +62,7 @@ class Menu extends Component {
     const isShowDescription = isMenuOpened && activeEntry && activeEntry.descriptionId
 
     return (
-      <div className={cssClasses("menu-nav-bar", isMenuOpened ? "opened" : "closed")}>
+      <div ref={this.menuRef} className={cssClasses("menu-nav-bar", isMenuOpened ? "opened" : "closed")}>
         <div className={cssClasses("ui", "sticky", stickTo)}>
           <div className="top-menu">
             {menuEntries.map(me => <MenuItem key={me.messageId} {...me}/>)}
