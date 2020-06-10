@@ -30,6 +30,8 @@
     a {
       color: $color-white;
     }
+  }
+  .nav.menu.active:not(.home-icon) {
     img {
       filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(360deg) brightness(100%) contrast(150%);
     }
