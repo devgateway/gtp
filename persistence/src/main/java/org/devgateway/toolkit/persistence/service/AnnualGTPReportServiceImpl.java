@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
-import org.devgateway.toolkit.persistence.repository.AnnualGTPRerportRepository;
+import org.devgateway.toolkit.persistence.repository.AnnualGTPReportRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class AnnualGTPReportServiceImpl extends BaseJpaServiceImpl<AnnualGTPRepo
         implements AnnualGTPReportService {
 
     @Autowired
-    private AnnualGTPRerportRepository repository;
+    private AnnualGTPReportRepository repository;
 
     @Autowired
     private AdminSettingsService adminSettingsService;

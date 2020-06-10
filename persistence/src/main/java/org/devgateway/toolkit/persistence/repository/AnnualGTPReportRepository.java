@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 /**
  * @author Octavian Ciubotaru
  */
-public interface AnnualGTPRerportRepository extends BaseJpaRepository<AnnualGTPReport, Long> {
+public interface AnnualGTPReportRepository extends BaseJpaRepository<AnnualGTPReport, Long> {
 
     @CacheHibernateQueryResult
     @Query("select distinct b "
