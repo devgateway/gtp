@@ -6,25 +6,25 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.page.lists.ListAnnualGTPBulletinsPage;
-import org.devgateway.toolkit.persistence.dao.AnnualGTPBulletin;
-import org.devgateway.toolkit.persistence.service.AnnualGTPBulletinService;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListAnnualGTPReportsPage;
+import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
+import org.devgateway.toolkit.persistence.service.AnnualGTPReportService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
  * @author Octavian Ciubotaru
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_GTP_BULLETIN)
-@MountPath("/annual-gtp-bulletin")
-public class EditAnnualGTPBulletinPage extends AbstractEditPage<AnnualGTPBulletin> {
+@MountPath("/annual-gtp-report")
+public class EditAnnualGTPReportPage extends AbstractEditPage<AnnualGTPReport> {
 
     @SpringBean
-    private AnnualGTPBulletinService service;
+    private AnnualGTPReportService service;
 
-    public EditAnnualGTPBulletinPage(PageParameters parameters) {
+    public EditAnnualGTPReportPage(PageParameters parameters) {
         super(parameters);
 
-        setListPage(ListAnnualGTPBulletinsPage.class);
+        setListPage(ListAnnualGTPReportsPage.class);
         jpaService = service;
     }
 
