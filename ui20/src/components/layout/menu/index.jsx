@@ -1,9 +1,11 @@
 import PropTypes from "prop-types"
 import React, {Component} from "react"
 import {connect} from "react-redux"
+import {withRouter} from "react-router"
 import * as appActions from "../../../redux/actions/appActions"
 import {cssClasses} from "../../ComponentUtil"
 import "./menu.scss"
+import MenuEntry, {APP_MENU} from "./MenuEntry"
 import {MenuNavButtonClosed, MenuNavButtonOpen} from "./MenuNavButton"
 import * as cssJS from '../../css'
 
@@ -52,16 +54,13 @@ class Menu extends Component {
     const {isMenuOpened, toggleMenu} = this.props
     const { stickTo } = this.state
     const MenuItem = isMenuOpened ? MenuNavButtonOpen : MenuNavButtonClosed
+    const menuEntries = getMenuEntries(this.props)
 
     return (
       <div className={cssClasses("menu-nav-bar", isMenuOpened ? "opened" : "closed")}>
         <div className={cssClasses("ui", "sticky", stickTo)}>
           <div className="top-menu">
-            <MenuItem url="home" messageId="menu.home" icon="logo-anacim-small-optimized.png" className="home-icon"/>
-            <MenuItem url="water-resources" messageId="home.pane.waterResources.title" icon="page_icon_water.svg"/>
-            <MenuItem url="agriculture-and-market" messageId="home.pane.agricultureAndMarkets.title" icon="page_icon_agriculture.svg"/>
-            <MenuItem url="livestock" messageId="home.pane.livestock.title" icon="page_icon_livestock.svg"/>
-            <MenuItem url="bulletins" messageId="menu.bulletins" icon="page_icon_bulletins.svg"/>
+            {menuEntries.map(me => <MenuItem key={me.messageId} {...me}/>)}
             {/*
             <MenuNavButton lan={lan} url="about" messageId="home.header.menu.about" />
             */}
@@ -77,6 +76,19 @@ class Menu extends Component {
   }
 }
 
+const getMenuEntries = (props) => {
+  const lan = props.match.params.lan
+  const pathName = props.location.pathname
+
+  return APP_MENU.map((me: MenuEntry) => {
+    const url = `/${lan}/${me.url}`
+    return Object.assign({}, me, {
+      url,
+      isActive: pathName === url
+    })
+  })
+}
+
 
 const mapStateToProps = state => {
   return {
@@ -88,4 +100,4 @@ const mapActionCreators = {
   toggleMenu: appActions.toggleMenu,
 }
 
-export default connect(mapStateToProps, mapActionCreators)(Menu)
+export default connect(mapStateToProps, mapActionCreators)(withRouter(Menu))
