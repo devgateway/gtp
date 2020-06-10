@@ -14,4 +14,10 @@ public interface GTPBulletinRepository extends BaseJpaRepository<GTPBulletin, Lo
     @CacheHibernateQueryResult
     @Query("select distinct year from GTPBulletin")
     List<Integer> findAllYears();
+
+    @CacheHibernateQueryResult
+    @Query("select distinct b "
+            + "from GTPBulletin b "
+            + "join b.uploads")
+    List<GTPBulletin> findAllWithUploads();
 }

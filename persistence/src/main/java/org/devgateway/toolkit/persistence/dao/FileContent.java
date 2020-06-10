@@ -30,6 +30,13 @@ public class FileContent extends AbstractAuditableEntity {
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] bytes;
 
+    public FileContent() {
+    }
+
+    public FileContent(byte[] bytes) {
+        this.bytes = bytes;
+    }
+
     public byte[] getBytes() {
         return bytes;
     }

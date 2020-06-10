@@ -59,8 +59,10 @@ public class ListAnnualGTPBulletinsPage extends AbstractListPage<AnnualGTPBullet
         public CustomActionPanel(String id, IModel<AnnualGTPBulletin> model) {
             super(id, model);
 
+            boolean empty = model.getObject().getUploads().isEmpty();
+
             BootstrapLink<FileMetadata> download = new BootstrapLink<FileMetadata>("download",
-                    model.map(b -> b.getUploads().iterator().next()), Buttons.Type.Info) {
+                    model.map(AnnualGTPBulletin::getUpload), Buttons.Type.Info) {
 
                 @Override
                 public void onClick() {
@@ -70,10 +72,9 @@ public class ListAnnualGTPBulletinsPage extends AbstractListPage<AnnualGTPBullet
             download.setLabel(new StringResourceModel("download", this));
             download.setIconType(FontAwesomeIconType.download);
             download.setSize(Buttons.Size.Small);
-            download.setVisibilityAllowed(!model.getObject().getUploads().isEmpty());
+            download.setVisibilityAllowed(!empty);
             add(download);
 
-            boolean empty = model.getObject().getUploads().isEmpty();
             editPageLink.setLabel(new StringResourceModel(empty ? "import" : "reimport", this));
         }
     }

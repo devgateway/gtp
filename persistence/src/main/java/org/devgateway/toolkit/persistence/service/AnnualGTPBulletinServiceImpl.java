@@ -1,6 +1,5 @@
 package org.devgateway.toolkit.persistence.service;
 
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 import java.time.Year;
@@ -43,9 +42,8 @@ public class AnnualGTPBulletinServiceImpl extends BaseJpaServiceImpl<AnnualGTPBu
     }
 
     @Override
-    public List<Integer> findYears() {
-        Integer startingYear = adminSettingsService.getStartingYear();
-        return repository.findAllYears().stream().filter(y -> y > startingYear).collect(toList());
+    public List<AnnualGTPBulletin> findAllWithUploads() {
+        return repository.findAllWithUploads();
     }
 
     @Override

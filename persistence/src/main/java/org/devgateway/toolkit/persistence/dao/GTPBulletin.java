@@ -40,12 +40,18 @@ public class GTPBulletin extends AbstractAuditableEntity {
     @NotNull
     private Decadal decadal;
 
+    @JsonIgnore
     @BatchSize(size = 50)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FileMetadata> uploads = new HashSet<>();
 
     public GTPBulletin() {
+    }
+
+    public GTPBulletin(Long id, Integer year, Month month, Decadal decadal) {
+        this(year, month, decadal);
+        setId(id);
     }
 
     public GTPBulletin(Integer year, Month month, Decadal decadal) {
@@ -76,6 +82,11 @@ public class GTPBulletin extends AbstractAuditableEntity {
 
     public void setDecadal(Decadal decadal) {
         this.decadal = decadal;
+    }
+
+    @JsonIgnore
+    public FileMetadata getUpload() {
+        return  uploads.isEmpty() ? null : uploads.iterator().next();
     }
 
     public Set<FileMetadata> getUploads() {

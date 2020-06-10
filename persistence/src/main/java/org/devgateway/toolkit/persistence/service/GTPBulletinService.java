@@ -12,4 +12,6 @@ public interface GTPBulletinService extends BaseJpaService<GTPBulletin> {
     void generate();
 
     List<Integer> findYears();
+
+    List<GTPBulletin> findAllWithUploads();
 }
