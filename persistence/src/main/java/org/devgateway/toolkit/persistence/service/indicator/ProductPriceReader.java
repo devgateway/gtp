@@ -263,7 +263,11 @@ public class ProductPriceReader {
 
     private Integer getPrice(XSSFCell priceCell) {
         try {
-            return (int) priceCell.getNumericCellValue();
+            int price = (int) priceCell.getNumericCellValue();
+            if (price < 0) {
+                errors.add(errorAt(priceCell, "Negative price not allowed"));
+            }
+            return price;
         } catch (IllegalStateException | NumberFormatException e) {
             errors.add(errorAt(priceCell, "Could not parse price"));
             return null;
