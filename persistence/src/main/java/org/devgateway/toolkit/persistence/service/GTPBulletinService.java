@@ -11,5 +11,5 @@ public interface GTPBulletinService extends BaseJpaService<GTPBulletin> {
 
     void generate();
 
-    List<Integer> findYearsWithData();
+    List<Integer> findYears();
 }

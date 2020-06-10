@@ -12,6 +12,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListAnnualGTPReportsPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListGTPBulletinPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.market.ListProductYearlyPricesPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
@@ -80,5 +81,12 @@ public class IndicatorHomePage extends BasePage {
         gtpBulletins.setLabel(new StringResourceModel("gtpBulletins"));
         authorize(gtpBulletins, Component.RENDER, SecurityConstants.Roles.ROLE_GTP_BULLETIN);
         add(gtpBulletins);
+
+        BootstrapBookmarkablePageLink<?> annualGTPReports =
+                new BootstrapBookmarkablePageLink<>("annualGTPReports", ListAnnualGTPReportsPage.class,
+                        Buttons.Type.Default);
+        annualGTPReports.setLabel(new StringResourceModel("annualGTPReports"));
+        authorize(annualGTPReports, Component.RENDER, SecurityConstants.Roles.ROLE_GTP_BULLETIN);
+        add(annualGTPReports);
     }
 }
