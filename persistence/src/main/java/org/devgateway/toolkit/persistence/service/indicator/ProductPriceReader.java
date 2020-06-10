@@ -55,17 +55,14 @@ public class ProductPriceReader {
 
     private int firstPriceColIdx;
 
-    public ProductPriceReader(List<Product> products,
+    public ProductPriceReader(List<Product> products, List<Department> departments,
             List<Market> markets, boolean productsOnSeparateRows) {
 
-        List<Department> departmentList = markets.stream().map(Market::getDepartment)
-                .distinct()
-                .collect(toList());
-        departments = new SearchableCollection<>(departmentList, Department::getName);
+        this.departments = new SearchableCollection<>(departments, Department::getName);
 
         this.products = new SearchableCollection<>(products, Product::getName);
 
-        marketsByDepartment = departmentList.stream()
+        marketsByDepartment = departments.stream()
                 .collect(toMap(Function.identity(),
                         d -> new SearchableCollection<>(markets.stream()
                                 .filter(m->m.getDepartment().equals(d))
@@ -232,7 +229,8 @@ public class ProductPriceReader {
         }
         Market market = marketsByDepartment.get(department).get(marketName);
         if (market == null) {
-            errors.add(errorAt(marketCell, "Unknown market " + marketName));
+            errors.add(errorAt(marketCell, "Unknown market " + marketName
+                    + ". If market exists please verify market type."));
             return null;
         }
 
