@@ -125,9 +125,9 @@ public class ProductPriceWriter {
         sheet.setColumnWidth(DATE_COL_IDX, DATE_WIDTH);
 
         XSSFRow hrow = sheet.createRow(0);
-        hrow.createCell(DEPARTMENT_COL_IDX).setCellValue("Department / Département");
-        hrow.createCell(MARKET_COL_IDX).setCellValue("Collection market / Marché de collecte");
-        hrow.createCell(DATE_COL_IDX).setCellValue("Date of collection / Date de collecte");
+        hrow.createCell(DEPARTMENT_COL_IDX).setCellValue("Département");
+        hrow.createCell(MARKET_COL_IDX).setCellValue("Marché de collecte");
+        hrow.createCell(DATE_COL_IDX).setCellValue("Date de collecte");
 
         if (productsOnSeparateRows) {
             hrow.createCell(PRODUCT_COL_IDX).setCellValue("Product");
