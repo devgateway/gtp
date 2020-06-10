@@ -16,8 +16,8 @@ export default class MenuEntry {
 
 export const APP_MENU = [
   new MenuEntry("home", "menu.home", null, "logo-anacim-small-optimized.png", "home-icon"),
-  new MenuEntry("water-resources", "home.pane.waterResources.title", null, "page_icon_water.svg"),
-  new MenuEntry("agriculture-and-market", "home.pane.agricultureAndMarkets.title", null, "page_icon_agriculture.svg"),
-  new MenuEntry("livestock", "home.pane.livestock.title", null, "page_icon_livestock.svg"),
-  new MenuEntry("bulletins", "menu.bulletins", null, "page_icon_bulletins.svg"),
+  new MenuEntry("water-resources", "home.pane.waterResources.title", "home.pane.waterResources.description", "page_icon_water.svg"),
+  new MenuEntry("agriculture-and-market", "home.pane.agricultureAndMarkets.title", "home.pane.agricultureAndMarkets.description", "page_icon_agriculture.svg"),
+  new MenuEntry("livestock", "home.pane.livestock.title", "home.pane.livestock.description", "page_icon_livestock.svg"),
+  new MenuEntry("bulletins", "menu.bulletins.title", "menu.bulletins.description", "page_icon_bulletins.svg"),
 ]

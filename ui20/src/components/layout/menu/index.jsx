@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
 import React, {Component} from "react"
+import {FormattedMessage} from "react-intl"
 import {connect} from "react-redux"
 import {withRouter} from "react-router"
 import * as appActions from "../../../redux/actions/appActions"
@@ -55,6 +56,8 @@ class Menu extends Component {
     const { stickTo } = this.state
     const MenuItem = isMenuOpened ? MenuNavButtonOpen : MenuNavButtonClosed
     const menuEntries = getMenuEntries(this.props)
+    const activeEntry = menuEntries.find(me => me.isActive)
+    const isShowDescription = isMenuOpened && activeEntry && activeEntry.descriptionId
 
     return (
       <div className={cssClasses("menu-nav-bar", isMenuOpened ? "opened" : "closed")}>
@@ -68,6 +71,8 @@ class Menu extends Component {
             <MenuNavButton lan={lan} url="members" messageId="home.header.menu.members" />
             */}
           </div>
+          {isShowDescription &&
+          <div className="entry-description"><FormattedMessage id={activeEntry.descriptionId} /></div>}
           <div className="open-or-close" onClick={() => toggleMenu(!isMenuOpened)}>
             <MenuItem messageId={`menu.${isMenuOpened ? "close" : "open"}`} icon="icon_close.svg"/>
           </div>
