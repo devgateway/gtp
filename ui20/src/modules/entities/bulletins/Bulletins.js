@@ -1,4 +1,4 @@
-import {getOrDefaultMap} from "../../utils/DataUtilis"
+import {DECADALS} from "../Constants"
 import {Bulletin} from "./Bulletin"
 
 export default class Bulletins {
@@ -12,11 +12,12 @@ export default class Bulletins {
       this.annualReport = annualReport
     }
     this.bulletinsByDecadalByMonth = new Map()
+    DECADALS.map(d => this.bulletinsByDecadalByMonth.set(d, new Map()))
   }
 
   addBulletin(b: Bulletin) {
     if (this.isApplicable(b)) {
-      getOrDefaultMap(this.bulletinsByDecadalByMonth, b.decadal).set(b.month, b)
+      this.bulletinsByDecadalByMonth.get(b.decadal).set(b.month, b)
     }
   }
 
