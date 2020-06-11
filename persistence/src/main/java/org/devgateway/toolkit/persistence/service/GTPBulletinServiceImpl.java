@@ -77,4 +77,10 @@ public class GTPBulletinServiceImpl extends BaseJpaServiceImpl<GTPBulletin> impl
                 || month.compareTo(now.getMonth()) == 0
                 && decadal.getValue() > Decadal.fromDayOfMonth(now.getDayOfMonth()).getValue()));
     }
+
+    @Override
+    public List<GTPBulletin> findAllWithUploads() {
+        Integer startingYear = adminSettingsService.getStartingYear();
+        return repository.findAllWithUploads(startingYear);
+    }
 }

@@ -3,11 +3,12 @@ package org.devgateway.toolkit.persistence.service;
 import static java.util.stream.Collectors.toMap;
 
 import java.time.Year;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
 import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
-import org.devgateway.toolkit.persistence.repository.AnnualGTPRerportRepository;
+import org.devgateway.toolkit.persistence.repository.AnnualGTPReportRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class AnnualGTPReportServiceImpl extends BaseJpaServiceImpl<AnnualGTPRepo
         implements AnnualGTPReportService {
 
     @Autowired
-    private AnnualGTPRerportRepository repository;
+    private AnnualGTPReportRepository repository;
 
     @Autowired
     private AdminSettingsService adminSettingsService;
@@ -48,5 +49,11 @@ public class AnnualGTPReportServiceImpl extends BaseJpaServiceImpl<AnnualGTPRepo
     @Override
     public AnnualGTPReport newInstance() {
         return new AnnualGTPReport();
+    }
+
+    @Override
+    public List<AnnualGTPReport> findAllWithUploads() {
+        Integer startingYear = adminSettingsService.getStartingYear();
+        return repository.findAllWithUploads(startingYear);
     }
 }
