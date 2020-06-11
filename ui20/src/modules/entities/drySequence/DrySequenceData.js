@@ -7,8 +7,8 @@ export default class DrySequenceData {
   decadalDaysWithRain: Map<number, Map<number, DecadalDaysRain>>
   monthDaysWithRain: Map<number, MonthDaysRain>
 
-  constructor({daysWithRain}) {
-    this.decadalDaysWithRain = daysWithRain.reduce((map: Map, d) => {
+  constructor({daysWithRain} = {}) {
+    this.decadalDaysWithRain = (daysWithRain || []).reduce((map: Map, d) => {
       const decadalDaysRain = new DecadalDaysRain(d)
       getOrDefaultMap(map, decadalDaysRain.month).set(decadalDaysRain.decadal, decadalDaysRain)
       return map
