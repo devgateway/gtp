@@ -1,14 +1,16 @@
 import PropTypes from "prop-types"
 import React, {Component} from "react"
+import {FormattedMessage} from "react-intl"
 import {connect} from "react-redux"
+import {withRouter} from "react-router"
 import * as appActions from "../../../redux/actions/appActions"
 import {cssClasses} from "../../ComponentUtil"
 import "./menu.scss"
+import MenuEntry, {APP_MENU} from "./MenuEntry"
 import {MenuNavButtonClosed, MenuNavButtonOpen} from "./MenuNavButton"
 import * as cssJS from '../../css'
 
 // TODO (SCROLLING_MENU) make them exportable for reuse from _base.scss
-const fullMenuRequiredHeight = cssJS.MENU_HEIGHT + cssJS.HEADER_HEIGHT
 
 class Menu extends Component {
   static propTypes = {
@@ -16,9 +18,11 @@ class Menu extends Component {
     isMenuOpened: PropTypes.bool.isRequired,
   }
 
+  menuRef = React.createRef()
+
   constructor(props) {
     super(props);
-    const stickTo = document.documentElement.clientHeight < fullMenuRequiredHeight ? 'relative' : 'top'
+    const stickTo = 'relative'
     this.state = { stickTo }
     this.handleScroll = this.handleScroll.bind(this)
   }
@@ -34,6 +38,7 @@ class Menu extends Component {
   handleScroll(event) {
     const { scrollTop, scrollTopMax, clientHeight } = event.target.documentElement
     const remainingScroll = scrollTopMax - scrollTop
+    const fullMenuRequiredHeight = this.menuRef.current.firstChild.clientHeight + cssJS.HEADER_HEIGHT
 
     let stickTo = 'top'
     if (clientHeight < fullMenuRequiredHeight) {
@@ -52,16 +57,15 @@ class Menu extends Component {
     const {isMenuOpened, toggleMenu} = this.props
     const { stickTo } = this.state
     const MenuItem = isMenuOpened ? MenuNavButtonOpen : MenuNavButtonClosed
+    const menuEntries = getMenuEntries(this.props)
+    const activeEntry = menuEntries.find(me => me.isActive)
+    const isShowDescription = isMenuOpened && activeEntry && activeEntry.descriptionId
 
     return (
-      <div className={cssClasses("menu-nav-bar", isMenuOpened ? "opened" : "closed")}>
+      <div ref={this.menuRef} className={cssClasses("menu-nav-bar", isMenuOpened ? "opened" : "closed")}>
         <div className={cssClasses("ui", "sticky", stickTo)}>
           <div className="top-menu">
-            <MenuItem url="home" messageId="menu.home" icon="logo-anacim-small-optimized.png" className="home-icon"/>
-            <MenuItem url="water-resources" messageId="home.pane.waterResources.title" icon="page_icon_water.svg"/>
-            <MenuItem url="agriculture-and-market" messageId="home.pane.agricultureAndMarkets.title" icon="page_icon_agriculture.svg"/>
-            <MenuItem url="livestock" messageId="home.pane.livestock.title" icon="page_icon_livestock.svg"/>
-            <MenuItem url="bulletins" messageId="menu.bulletins" icon="page_icon_bulletins.svg"/>
+            {menuEntries.map(me => <MenuItem key={me.messageId} {...me}/>)}
             {/*
             <MenuNavButton lan={lan} url="about" messageId="home.header.menu.about" />
             */}
@@ -69,12 +73,27 @@ class Menu extends Component {
             <MenuNavButton lan={lan} url="members" messageId="home.header.menu.members" />
             */}
           </div>
+          {isShowDescription &&
+          <div className="entry-description"><FormattedMessage id={activeEntry.descriptionId} /></div>}
           <div className="open-or-close" onClick={() => toggleMenu(!isMenuOpened)}>
             <MenuItem messageId={`menu.${isMenuOpened ? "close" : "open"}`} icon="icon_close.svg"/>
           </div>
         </div>
       </div>)
   }
+}
+
+const getMenuEntries = (props) => {
+  const lan = props.match.params.lan
+  const pathName = props.location.pathname
+
+  return APP_MENU.map((me: MenuEntry) => {
+    const url = `/${lan}/${me.url}`
+    return Object.assign({}, me, {
+      url,
+      isActive: pathName === url
+    })
+  })
 }
 
 
@@ -88,4 +107,4 @@ const mapActionCreators = {
   toggleMenu: appActions.toggleMenu,
 }
 
-export default connect(mapStateToProps, mapActionCreators)(Menu)
+export default connect(mapStateToProps, mapActionCreators)(withRouter(Menu))

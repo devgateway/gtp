@@ -37,5 +37,7 @@ public class EditRainSeasonStartReferencePage extends AbstractEditPage<RainSeaso
         editForm.add(rainSeasonStartTableViewPanel);
 
         deleteButton.setVisible(false);
+
+        rainSeasonStartReferenceService.initialize(editForm.getModelObject());
     }
 }
