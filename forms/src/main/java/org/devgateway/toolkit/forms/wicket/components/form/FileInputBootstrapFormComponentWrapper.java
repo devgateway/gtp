@@ -124,31 +124,10 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
         bootstrapFileInput.withShowUpload(true).withShowRemove(false).withShowPreview(true).withShowCaption(true);
     }
 
-    public boolean isVisibleAlreadyUploadedFiles() {
-        return filesModel != null && filesModel.size() > 0;
-    }
-
     /**
      * already uploaded files section
      */
     private void addAlreadyUploadedFilesComponent() {
-        alreadyUploadedFiles = new WebMarkupContainer("alreadyUploadedFiles") {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            protected void onInitialize() {
-                super.onInitialize();
-                setVisibilityAllowed(isVisibleAlreadyUploadedFiles());
-            }
-        };
-
-        alreadyUploadedFiles.setOutputMarkupPlaceholderTag(true);
-        alreadyUploadedFiles.setOutputMarkupId(true);
-        add(alreadyUploadedFiles);
-
-        alreadyUploadedFiles
-                .add(new Label("uploadedFilesTitle", new StringResourceModel("uploadedFilesTitle", this, null)));
-
         IModel<List<FileMetadata>> alreadyUploadedFilesModel =
                 new IModel<List<FileMetadata>>() {
                     private static final long serialVersionUID = 1L;
@@ -167,6 +146,23 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
                         return fileObject;
                     }
                 };
+
+        alreadyUploadedFiles = new WebMarkupContainer("alreadyUploadedFiles") {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+                setVisibilityAllowed(!alreadyUploadedFilesModel.getObject().isEmpty());
+            }
+        };
+
+        alreadyUploadedFiles.setOutputMarkupPlaceholderTag(true);
+        alreadyUploadedFiles.setOutputMarkupId(true);
+        add(alreadyUploadedFiles);
+
+        alreadyUploadedFiles
+                .add(new Label("uploadedFilesTitle", new StringResourceModel("uploadedFilesTitle", this, null)));
 
         ListView<FileMetadata> list = new ListView<FileMetadata>("list", alreadyUploadedFilesModel) {
             private static final long serialVersionUID = 1L;

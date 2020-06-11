@@ -14,7 +14,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_GTP_BULLETIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_GTP_BULLETIN_EDITOR)
 @MountPath("/gtp-bulletin")
 public class EditGTPBulletinPage extends AbstractEditPage<GTPBulletin> {
 

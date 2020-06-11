@@ -14,7 +14,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_GTP_BULLETIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_GTP_BULLETIN_EDITOR)
 @MountPath("/annual-gtp-report")
 public class EditAnnualGTPReportPage extends AbstractEditPage<AnnualGTPReport> {
 
