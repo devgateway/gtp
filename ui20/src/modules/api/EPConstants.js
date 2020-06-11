@@ -13,8 +13,9 @@ const getEnv = () => {
 export const ENV = getEnv();
 export const IS_ENV_DEV = ENV === ENV_DEV
 
-const API_ROOT = IS_ENV_DEV ? 'http://localhost:8080' : document.location.origin
-const API_GRAPHIC = API_ROOT + '/api/graphics'
+const LOCATION = IS_ENV_DEV ? 'http://localhost:8080' : document.location.origin
+const API_ROOT = LOCATION  + '/api'
+const API_GRAPHIC = API_ROOT + '/graphics'
 
 const API_WATER = API_GRAPHIC + '/water'
 export const WATER_ALL = API_WATER + '/all'
@@ -27,6 +28,8 @@ export const RIVER_LEVEL = API_WATER + '/river-level/data'
 
 const API_MARKET_AND_AGRICULTURE = API_GRAPHIC + '/agriculture'
 export const MARKET_AND_AGRICULTURE_ALL = API_MARKET_AND_AGRICULTURE + '/all'
+
+export const BULLETIN_ALL = API_ROOT + '/gtp'
 
 const ESRI_SERVICE_INFO = 'http://services.arcgisonline.com/arcgis/rest/services/{service}?f=pjson'
 export const ESRI_MAP_SERVICE_INFO = ESRI_SERVICE_INFO.replace('{service}', 'World_Street_Map/MapServer')

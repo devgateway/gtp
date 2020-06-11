@@ -11,4 +11,6 @@ export const getRiverLevel = (riverLevelFilter: RiverLevelFilter) => post(EP.RIV
 
 export const getAllMarketAndAgriculture = () => get(EP.MARKET_AND_AGRICULTURE_ALL)
 
+export const getAllBulletins = () => get(EP.BULLETIN_ALL)
+
 export const getWorldMapAttribution = () => get(EP.ESRI_MAP_SERVICE_INFO)
