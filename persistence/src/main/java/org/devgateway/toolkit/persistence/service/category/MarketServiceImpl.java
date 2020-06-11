@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.service.category;
 import java.util.List;
 
 import org.devgateway.toolkit.persistence.dao.categories.Market;
+import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.repository.category.MarketRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
@@ -30,9 +31,9 @@ public class MarketServiceImpl extends BaseJpaServiceImpl<Market> implements Mar
     }
 
     @Override
-    public boolean exists(Department department, String name, Long exceptId) {
+    public boolean exists(Department department, MarketType marketType, String name, Long exceptId) {
         Long safeExceptId = exceptId == null ? -1 : exceptId;
-        return marketRepository.existsByDepartmentAndNameAndIdNot(department, name, safeExceptId);
+        return marketRepository.existsByDepartmentAndTypeAndNameAndIdNot(department, marketType, name, safeExceptId);
     }
 
     @Override
