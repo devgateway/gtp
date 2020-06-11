@@ -76,7 +76,7 @@ class Menu extends Component {
           {isShowDescription &&
           <div className="entry-description"><FormattedMessage id={activeEntry.descriptionId} /></div>}
           <div className="open-or-close" onClick={() => toggleMenu(!isMenuOpened)}>
-            <MenuItem messageId={`menu.${isMenuOpened ? "close" : "open"}`} icon="icon_close.svg"/>
+            <MenuItem messageId={`menu.${isMenuOpened ? "close" : "open"}`} icon="icon_close.svg" isActive={false}/>
           </div>
         </div>
       </div>)
