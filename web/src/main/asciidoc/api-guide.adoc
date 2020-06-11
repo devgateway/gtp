@@ -33,6 +33,40 @@ Department fields:
 
 include::{snippets}/common-config/response-fields-beneath-departments.adoc[]
 
+== GTP bulletins
+
+=== Get all GTP bulletins
+
+Returns all available GTP bulletins.
+
+operation::gtp-bulletins[snippets='curl-request,http-response,response-fields']
+
+[[gtp-annual-report]]
+GTP annual report fields:
+
+include::{snippets}/gtp-bulletins/response-fields-annualReports.adoc[]
+
+[[gtp-bulletin]]
+GTP bulletin fields:
+
+include::{snippets}/gtp-bulletins/response-fields-bulletins.adoc[]
+
+=== Download GTP bulletin
+
+Returns GTP bulletin file. If not found 404 is returned.
+
+operation::gtp-bulletin-returned[snippets='request-parameters,curl-request,http-response']
+
+operation::gtp-bulletin-not-found[snippets='curl-request,http-response']
+
+=== Download GTP annual report
+
+Returns GTP annual report file. If not found 404 is returned.
+
+operation::gtp-annual-report-returned[snippets='request-parameters,curl-request,http-response']
+
+operation::gtp-annual-report-not-found[snippets='curl-request,http-response']
+
 == Water charts
 
 === Get all water charts

@@ -27,12 +27,18 @@ public class AnnualGTPReport extends AbstractAuditableEntity {
     @Column(unique = true)
     private Integer year;
 
+    @JsonIgnore
     @BatchSize(size = 50)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FileMetadata> uploads = new HashSet<>();
 
     public AnnualGTPReport() {
+    }
+
+    public AnnualGTPReport(Long id, Integer year) {
+        this(year);
+        setId(id);
     }
 
     public AnnualGTPReport(Integer year) {
@@ -53,6 +59,11 @@ public class AnnualGTPReport extends AbstractAuditableEntity {
 
     public void setUploads(Set<FileMetadata> uploads) {
         this.uploads = uploads;
+    }
+
+    @JsonIgnore
+    public FileMetadata getUpload() {
+        return  uploads.isEmpty() ? null : uploads.iterator().next();
     }
 
     @Override

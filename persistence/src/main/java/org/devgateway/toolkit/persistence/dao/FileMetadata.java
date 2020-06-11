@@ -47,6 +47,16 @@ public class FileMetadata extends AbstractAuditableEntity {
 
     private long size;
 
+    public FileMetadata() {
+    }
+
+    public FileMetadata(String name, String contentType, FileContent content) {
+        this.name = name;
+        this.contentType = contentType;
+        this.content = content;
+        this.size = content.getBytes().length;
+    }
+
     private boolean isUserSupportDocument = false;
 
     @Override

@@ -9,9 +9,9 @@ export default class RainLevelData {
   levelsByYearMonth: Map<number, Map<number, number>>
   referenceLevels: Array<RainReferenceLevelData>
 
-  constructor({ levels, referenceLevels }) {
-    this.levels = levels.map(level => new RainLevel(level))
-    this.referenceLevels = referenceLevels.map(refLevel => new RainReferenceLevelData(refLevel))
+  constructor({ levels, referenceLevels } = {}) {
+    this.levels = (levels || []).map(level => new RainLevel(level))
+    this.referenceLevels = (referenceLevels || []).map(refLevel => new RainReferenceLevelData(refLevel))
     this._init();
   }
 
