@@ -21,7 +21,7 @@ const RainSeasonChart: {
 
 export const rainSeasonChartFromApi: RainSeasonChart  = (waterConfig: WaterConfig, {config, filter, data }) => {
   RainSeasonChart.filter = RainSeasonFilter
-  RainSeasonFilter.yearIds = [filter.year]
+  RainSeasonFilter.yearIds = (filter && filter.year && [filter.year]) || []
   return rainSeasonDataFromApi(RainSeasonChart, waterConfig, config, data)
 }
 
