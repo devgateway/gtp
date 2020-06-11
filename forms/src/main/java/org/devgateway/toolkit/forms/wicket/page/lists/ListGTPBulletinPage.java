@@ -35,7 +35,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_GTP_BULLETIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_GTP_BULLETIN_EDITOR)
 @MountPath("/gtp-bulletins")
 public class ListGTPBulletinPage extends AbstractListPage<GTPBulletin> {
 
@@ -57,7 +57,7 @@ public class ListGTPBulletinPage extends AbstractListPage<GTPBulletin> {
 
         columns.add(new SelectFilteredBootstrapPropertyColumn<>(
                 new StringResourceModel("month"), "month",
-                new ConverterBasedChoiceProvider<>(Arrays.asList(Month.values()), Month.class)));
+                new ConverterBasedChoiceProvider<>(GTPBulletin.MONTHS, Month.class)));
 
         columns.add(new SelectFilteredBootstrapPropertyColumn<>(
                 new StringResourceModel("decadal"), "decadal",

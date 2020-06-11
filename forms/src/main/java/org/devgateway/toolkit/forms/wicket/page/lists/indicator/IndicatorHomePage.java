@@ -79,14 +79,14 @@ public class IndicatorHomePage extends BasePage {
                 new BootstrapBookmarkablePageLink<>("gtpBulletins", ListGTPBulletinPage.class,
                         Buttons.Type.Default);
         gtpBulletins.setLabel(new StringResourceModel("gtpBulletins"));
-        authorize(gtpBulletins, Component.RENDER, SecurityConstants.Roles.ROLE_GTP_BULLETIN);
+        authorize(gtpBulletins, Component.RENDER, SecurityConstants.Roles.ROLE_GTP_BULLETIN_EDITOR);
         add(gtpBulletins);
 
         BootstrapBookmarkablePageLink<?> annualGTPReports =
                 new BootstrapBookmarkablePageLink<>("annualGTPReports", ListAnnualGTPReportsPage.class,
                         Buttons.Type.Default);
         annualGTPReports.setLabel(new StringResourceModel("annualGTPReports"));
-        authorize(annualGTPReports, Component.RENDER, SecurityConstants.Roles.ROLE_GTP_BULLETIN);
+        authorize(annualGTPReports, Component.RENDER, SecurityConstants.Roles.ROLE_GTP_BULLETIN_EDITOR);
         add(annualGTPReports);
     }
 }
