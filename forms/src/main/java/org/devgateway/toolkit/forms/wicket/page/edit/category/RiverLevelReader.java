@@ -40,10 +40,10 @@ public class RiverLevelReader {
         try {
             sheets = new XSSFWorkbook(is);
         } catch (IOException e) {
-            throw new ReaderException(ImmutableList.of("I/O error."), e);
+            throw new ReaderException(ImmutableList.of("Erreur d'E / S."), e);
         } catch (UnsupportedFileFormatException e) {
-            throw new ReaderException(ImmutableList.of("Unsupported file format. Please use a "
-                    + "Microsoft Excel Open XML Format Spreadsheet (XLSX) file."), e);
+            throw new ReaderException(ImmutableList.of("Format de fichier non pris en charge. "
+                    + "Veuillez utiliser un fichier Microsoft Excel Open XML Format Spreadsheet (XLSX)."), e);
         }
 
         Set<L> data = new TreeSet<>();
@@ -65,7 +65,7 @@ public class RiverLevelReader {
                 continue;
             }
             if (dateIsMissing) {
-                errors.add(String.format("Date not specified on row %d.", (r + 1)));
+                errors.add(String.format("Date non spécifiée sur la ligne %d.", (r + 1)));
                 continue;
             }
 
@@ -79,7 +79,7 @@ public class RiverLevelReader {
                     monthDay = MonthDay.from(dateCellValue.toInstant().atZone(ZoneId.systemDefault()));
                 }
             } catch (DateTimeException | NumberFormatException e) {
-                errors.add(String.format("Invalid date on row %d.", (r + 1)));
+                errors.add(String.format("Date non valide sur la ligne %d.", (r + 1)));
                 continue;
             }
 
@@ -87,7 +87,7 @@ public class RiverLevelReader {
             if (!levelIsMissing) {
                 level = readLevel(levelCell);
                 if (level == null) {
-                    errors.add(String.format("Invalid river level on row %d.", (r + 1)));
+                    errors.add(String.format("Niveau de rivière non valide sur la ligne %d.", (r + 1)));
                     continue;
                 }
             }
@@ -95,7 +95,7 @@ public class RiverLevelReader {
             L monthDayLevel = creator.apply(monthDay, level);
 
             if (data.contains(monthDayLevel)) {
-                errors.add(String.format("Duplicate date %s on row %d.", formatter.format(monthDay), (r + 1)));
+                errors.add(String.format("Dupliquer la date %s sur la ligne %d.", formatter.format(monthDay), (r + 1)));
             } else if (level != null) {
                 data.add(monthDayLevel);
             }
