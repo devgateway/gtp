@@ -216,7 +216,8 @@ public class EditMarketPage extends AbstractEditPage<Market> {
             MarketType type = editForm.getModelObject().getType();
             Long id = editForm.getModelObject().getId();
             if (marketService.exists(department, type, name, id)) {
-                error(nameFC, ImmutableMap.of("department", department.getName(), "marketName", name));
+                error(nameFC, ImmutableMap.of("department", department.getName(), "marketName", name,
+                        "marketType", type.getLabel()));
             }
         }
     }
