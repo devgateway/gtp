@@ -80,13 +80,13 @@ public class EditMarketPage extends AbstractEditPage<Market> {
         name.getField().add(WebConstants.StringValidators.MAXIMUM_LENGTH_VALIDATOR_STD_DEFAULT_TEXT);
         editForm.add(name);
 
-        editForm.add(new UniqueMarketNameValidator(department.getField(), name.getField()));
-
         Select2ChoiceBootstrapFormComponent<MarketType> marketType =
                 new Select2ChoiceBootstrapFormComponent<>("type",
                         new GenericPersistableJpaTextChoiceProvider<>(marketTypeService));
         marketType.required();
         editForm.add(marketType);
+
+        editForm.add(new UniqueMarketNameValidator(department.getField(), marketType.getField(), name.getField()));
 
         permanentModel = Model.of(editForm.getModelObject().getMarketDays().equals(MarketDaysUtil.ALL_DAYS));
         CheckBoxYesNoToggleBootstrapFormComponent permanent =
@@ -198,9 +198,10 @@ public class EditMarketPage extends AbstractEditPage<Market> {
         private final FormComponent<?>[] dependentFormComponents;
         private final FormComponent<String> nameFC;
 
-        UniqueMarketNameValidator(FormComponent<?> department, FormComponent<String> name) {
+        UniqueMarketNameValidator(FormComponent<?> department, FormComponent<?> marketType,
+                FormComponent<String> name) {
             nameFC = name;
-            dependentFormComponents = new FormComponent[]{department, name};
+            dependentFormComponents = new FormComponent[]{department, marketType, name};
         }
 
         @Override
@@ -212,8 +213,9 @@ public class EditMarketPage extends AbstractEditPage<Market> {
         public void validate(Form<?> form) {
             String name = editForm.getModelObject().getName();
             Department department = editForm.getModelObject().getDepartment();
+            MarketType type = editForm.getModelObject().getType();
             Long id = editForm.getModelObject().getId();
-            if (marketService.exists(department, name, id)) {
+            if (marketService.exists(department, type, name, id)) {
                 error(nameFC, ImmutableMap.of("department", department.getName(), "marketName", name));
             }
         }
