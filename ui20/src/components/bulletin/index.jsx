@@ -35,7 +35,7 @@ class BulletinPage extends Component {
             <FormattedMessage id="menu.bulletins.title" />
           </Segment>
         </Segment>
-        <Segment>
+        <Segment className="bulletins-content">
           {bulletinsList.map((bs: Bulletins) => <BulletinYear key={bs.year} bulletins={bs} />)}
         </Segment>
       </div>)

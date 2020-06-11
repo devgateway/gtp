@@ -15,11 +15,15 @@ export default class BulletinYear extends Component {
     const bulletins:Bulletins = this.props.bulletins
 
     return (
-      <div>
-        <Segment>
-          <span><FormattedMessage id="bulletins.bulletin.title" values={{year: bulletins.year}} /></span>
+      <div className="bulletin-year">
+        <Segment className="year">
+          <span className="title">
+            <FormattedMessage id="bulletins.bulletin.title" values={{year: bulletins.year}} />
+          </span>
           <span>
-            <span><FormattedMessage id="bulletins.bulletin.annualReport" /></span>
+            <span className="header-cell">
+              <FormattedMessage id="bulletins.bulletin.annualReport" />
+            </span>
             <span>{getBulletinURL(bulletins.annualReport)}</span>
           </span>
         </Segment>
@@ -27,9 +31,9 @@ export default class BulletinYear extends Component {
 
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell id="decadals" className="decadal-header" />
+              <Table.HeaderCell key="decadals" className="decadal-header" />
               {BULLETIN_MONTHS.map(m =>
-                <Table.HeaderCell>
+                <Table.HeaderCell key={m} className="header-cell">
                   <FormattedMessage id={`all.month.${m}`} />
                 </Table.HeaderCell>)}
             </Table.Row>
@@ -41,11 +45,11 @@ export default class BulletinYear extends Component {
               const bs = BULLETIN_MONTHS.map(m => bsByMonth.get(m))
 
               return (
-                <Table.Row>
-                  <Table.HeaderCell>
+                <Table.Row key={d}>
+                  <Table.HeaderCell className="decadal">
                     <FormattedMessage id={`bulletins.bulletin.table.decadal.${d}`} />
                   </Table.HeaderCell>
-                  {bs.map(b => <Table.Cell>{getBulletinURL(b)}</Table.Cell>)}
+                  {bs.map((b, index) => <Table.Cell key={index}>{getBulletinURL(b)}</Table.Cell>)}
                 </Table.Row>)
             })}
 

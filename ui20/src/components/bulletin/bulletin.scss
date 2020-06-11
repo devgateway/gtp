@@ -1,9 +1,12 @@
 @import '../../base';
 
 $bulletin-border-color: #e7e9ed;
+$bulletin-blue-color: #50769b;
+$bulletin-border: 1px solid $bulletin-border-color;
 
 .bulletins-container {
   margin: 1rem;
+  max-width: $screen-xl-min;
 
   .ui.segment {
     box-shadow: none;
@@ -16,9 +19,87 @@ $bulletin-border-color: #e7e9ed;
     padding: 0;
 
     .title {
+      padding: 2rem 1rem 1rem 1rem;
       font-size: 21px;
-      color: #50769b;
+      color: $bulletin-blue-color;
       font-weight: 400;
     }
   }
+
+  .ui.segment.bulletins-content {
+    padding-top: 1.5rem;
+
+    .bulletin-year {
+      padding-bottom: 50px;
+
+      .ui.segment.year {
+        padding: 0 0 1rem 0;
+
+        .title {
+          font-size: 20px;
+          color: $color-green;
+          font-weight: 600;
+          padding-right: 1rem;
+        }
+        .header-cell {
+          padding-right: 1rem;
+        }
+        span {
+          display: inline-block;
+        }
+      }
+
+      .ui.table {
+        border-radius: 0;
+        border: 0;
+
+        thead {
+          tr:first-child > th:last-child {
+            border-radius: 0;
+          }
+        }
+
+        th {
+          border-right: $bulletin-border;
+          border-top: $bulletin-border;
+          border-bottom: $bulletin-border;
+          text-align: center;
+          height: 50px;
+        }
+        th.decadal-header {
+          border-top: 0;
+        }
+        th.decadal {
+          font-size: 1rem;
+          color: #7f8fa4;
+          font-weight: 600;
+          text-align: left;
+          padding-left: 1rem;
+          border-left: $bulletin-border;
+          border-top: 0;
+        }
+        td {
+          border-right: $bulletin-border;
+          border-bottom: $bulletin-border;
+          border-top: 0;
+          text-align: center;
+        }
+
+        tr:first-child, tr:last-child {
+          th, td {
+            border-bottom: $bulletin-border;
+          }
+        }
+      }
+
+      .header-cell {
+        font-size: 12px;
+        color: $bulletin-blue-color;
+        font-weight: 700;
+      }
+
+    }
+
+  }
+
 }
