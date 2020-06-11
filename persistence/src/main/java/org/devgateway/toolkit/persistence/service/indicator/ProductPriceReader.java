@@ -76,10 +76,10 @@ public class ProductPriceReader {
         try {
             workbook = new XSSFWorkbook(is);
         } catch (IOException e) {
-            throw new ReaderException(ImmutableList.of("I/O error."), e);
+            throw new ReaderException(ImmutableList.of("Erreur d'E / S."), e);
         } catch (UnsupportedFileFormatException e) {
-            throw new ReaderException(ImmutableList.of("Unsupported file format. Please use a "
-                    + "Microsoft Excel Open XML Format Spreadsheet (XLSX) file."), e);
+            throw new ReaderException(ImmutableList.of("Format de fichier non pris en charge. "
+                    + "Veuillez utiliser un fichier Microsoft Excel Open XML Format Spreadsheet (XLSX)."), e);
         }
 
         workbook.setMissingCellPolicy(Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -148,7 +148,7 @@ public class ProductPriceReader {
     private Product getProduct(XSSFRow row) {
         XSSFCell cell = row.getCell(ProductPriceWriter.PRODUCT_COL_IDX);
         if (isEmpty(cell)) {
-            errors.add(errorAt(cell, "Product not specified"));
+            errors.add(errorAt(cell, "Produit non spécifié"));
             return null;
         }
 
@@ -156,13 +156,13 @@ public class ProductPriceReader {
         try {
             productName = cell.getStringCellValue();
         } catch (Exception e) {
-            errors.add(errorAt(cell, "Invalid product"));
+            errors.add(errorAt(cell, "Produit invalide"));
             return null;
         }
 
         Product product = products.get(productName);
         if (product == null) {
-            errors.add(errorAt(cell, "Unknown product"));
+            errors.add(errorAt(cell, "Produit inconnu"));
         }
 
         return product;
@@ -171,7 +171,7 @@ public class ProductPriceReader {
     private MonthDay getMonthDay(int year, XSSFRow row) {
         XSSFCell dateCell = row.getCell(ProductPriceWriter.DATE_COL_IDX);
         if (isEmpty(dateCell)) {
-            errors.add(errorAt(dateCell, "Date not specified"));
+            errors.add(errorAt(dateCell, "Date non précisée"));
             return null;
         }
 
@@ -187,14 +187,14 @@ public class ProductPriceReader {
             try {
                 date = dateCell.getDateCellValue();
             } catch (NumberFormatException e) {
-                errors.add(errorAt(dateCell, "Could not parse date"));
+                errors.add(errorAt(dateCell, "Impossible d'analyser la date"));
                 return null;
             }
         }
 
         ZonedDateTime zonedDate = date.toInstant().atZone(ZoneId.systemDefault());
         if (Year.from(zonedDate).getValue() != year) {
-            errors.add(errorAt(dateCell, "Expected a date for " + year + " year but found " + date));
+            errors.add(errorAt(dateCell, "Date prévue pour " + year + " mais trouvée " + date));
             return null;
         }
 
@@ -216,7 +216,7 @@ public class ProductPriceReader {
 
         XSSFCell marketCell = row.getCell(ProductPriceWriter.MARKET_COL_IDX);
         if (isEmpty(marketCell)) {
-            errors.add(errorAt(marketCell, "Market not specified"));
+            errors.add(errorAt(marketCell, "Marché non spécifié"));
             return null;
         }
 
@@ -224,13 +224,13 @@ public class ProductPriceReader {
         try {
             marketName = marketCell.getStringCellValue();
         } catch (Exception e) {
-            errors.add(errorAt(marketCell, "Invalid market"));
+            errors.add(errorAt(marketCell, "Marché invalide"));
             return null;
         }
         Market market = marketsByDepartment.get(department).get(marketName);
         if (market == null) {
-            errors.add(errorAt(marketCell, "Unknown market " + marketName
-                    + ". If market exists please verify market type."));
+            errors.add(errorAt(marketCell, "Marché inconnu " + marketName
+                    + ". Si le marché existe, veuillez vérifier le type de marché."));
             return null;
         }
 
@@ -240,7 +240,7 @@ public class ProductPriceReader {
     private Department getDepartment(XSSFRow row) {
         XSSFCell dptCell = row.getCell(ProductPriceWriter.DEPARTMENT_COL_IDX);
         if (isEmpty(dptCell)) {
-            errors.add(errorAt(dptCell, "Department not specified"));
+            errors.add(errorAt(dptCell, "Département non spécifié"));
             return null;
         }
 
@@ -248,13 +248,13 @@ public class ProductPriceReader {
         try {
             departmentName = dptCell.getStringCellValue();
         } catch (Exception e) {
-            errors.add(errorAt(dptCell, "Invalid department"));
+            errors.add(errorAt(dptCell, "Département invalide"));
             return null;
         }
 
         Department department = departments.get(departmentName);
         if (department == null) {
-            errors.add(errorAt(dptCell, "Unknown department " + departmentName));
+            errors.add(errorAt(dptCell, "Département inconnu " + departmentName));
             return null;
         }
 
@@ -265,11 +265,11 @@ public class ProductPriceReader {
         try {
             int price = (int) priceCell.getNumericCellValue();
             if (price < 0) {
-                errors.add(errorAt(priceCell, "Negative price not allowed"));
+                errors.add(errorAt(priceCell, "Prix négatif non autorisé"));
             }
             return price;
         } catch (IllegalStateException | NumberFormatException e) {
-            errors.add(errorAt(priceCell, "Could not parse price"));
+            errors.add(errorAt(priceCell, "Impossible d'analyser le prix"));
             return null;
         }
     }
@@ -309,7 +309,7 @@ public class ProductPriceReader {
                 try {
                     colName = cell.getStringCellValue().replace(" – ", " - ");
                 } catch (Exception e) {
-                    errors.add(errorAt(cell, "Invalid header value"));
+                    errors.add(errorAt(cell, "Valeur d'en-tête non valide"));
                 }
             }
 
@@ -317,11 +317,11 @@ public class ProductPriceReader {
             productPriceTypePair = colName != null ? allColumnDefs.get(colName) : null;
 
             if (colName != null && productPriceTypePair == null) {
-                errors.add(errorAt(cell, "Unexpected header value"));
+                errors.add(errorAt(cell, "Valeur d'en-tête inattendue"));
             }
 
             if (productPriceTypePair != null && columnDefinitions.contains(productPriceTypePair)) {
-                errors.add(errorAt(cell, "Duplicate header"));
+                errors.add(errorAt(cell, "En-tête en double"));
             }
 
             columnDefinitions.add(productPriceTypePair);
@@ -331,7 +331,7 @@ public class ProductPriceReader {
     }
 
     private String errorAt(XSSFCell cell, String text) {
-        return text + " at " + cell.getReference();
+        return text + " à " + cell.getReference();
     }
 
     private boolean isEmptyRow(XSSFRow row, int numColumns) {

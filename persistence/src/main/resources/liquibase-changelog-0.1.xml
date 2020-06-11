@@ -563,7 +563,15 @@
         </insert>
     </changeSet>
 
-    <!-- placeholder 10 -->
+    <changeSet id="ANACIM-139" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="market" />
+            <tableExists tableName="product_price" />
+            <tableExists tableName="department" />
+            <tableExists tableName="category" />
+        </preConditions>
+        <sqlFile path="sql/markets.sql" />
+    </changeSet>
 
     <!-- placeholder 11 -->
 
