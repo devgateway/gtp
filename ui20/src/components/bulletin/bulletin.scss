@@ -1,0 +1,24 @@
+@import '../../base';
+
+$bulletin-border-color: #e7e9ed;
+
+.bulletins-container {
+  margin: 1rem;
+
+  .ui.segment {
+    box-shadow: none;
+    border: 0;
+    border-radius: unset;
+  }
+
+  .ui.segment.bulletins-header {
+    border-bottom: 1px solid $bulletin-border-color;
+    padding: 0;
+
+    .title {
+      font-size: 21px;
+      color: #50769b;
+      font-weight: 400;
+    }
+  }
+}

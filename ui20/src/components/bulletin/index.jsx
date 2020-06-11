@@ -1,8 +1,10 @@
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
-import {injectIntl} from "react-intl"
+import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
+import {Segment} from "semantic-ui-react"
 import * as bulletinActions from "../../redux/actions/bulletinActions"
+import "./bulletin.scss"
 
 class BulletinPage extends Component {
   static propTypes = {
@@ -18,7 +20,14 @@ class BulletinPage extends Component {
     if (!isLoaded) {
       return <div/>
     }
-    return 'TODO'
+    return (
+      <div className="bulletins-container">
+        <Segment className="bulletins-header">
+          <Segment className="title">
+            <FormattedMessage id="menu.bulletins.title" />
+          </Segment>
+        </Segment>
+      </div>)
   }
 }
 
