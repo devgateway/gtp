@@ -14,6 +14,7 @@ public interface AnnualGTPReportRepository extends BaseJpaRepository<AnnualGTPRe
     @CacheHibernateQueryResult
     @Query("select distinct b "
             + "from AnnualGTPReport b "
-            + "join b.uploads")
-    List<AnnualGTPReport> findAllWithUploads();
+            + "join b.uploads "
+            + "where b.year >= :startingYear")
+    List<AnnualGTPReport> findAllWithUploads(int startingYear);
 }

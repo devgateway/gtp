@@ -80,6 +80,7 @@ public class GTPBulletinServiceImpl extends BaseJpaServiceImpl<GTPBulletin> impl
 
     @Override
     public List<GTPBulletin> findAllWithUploads() {
-        return repository.findAllWithUploads();
+        Integer startingYear = adminSettingsService.getStartingYear();
+        return repository.findAllWithUploads(startingYear);
     }
 }
