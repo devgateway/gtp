@@ -103,6 +103,9 @@
 
         td {
           font-weight: 600;
+          .difference {
+            float: right;
+          }
         }
       }
     }
