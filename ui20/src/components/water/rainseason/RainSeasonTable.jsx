@@ -86,7 +86,11 @@ class RainSeasonTable extends Component {
                       <Table.Cell>{dto.post}</Table.Cell>
                       <Table.Cell>{dto.planned}</Table.Cell>
                       <Table.Cell>{dto.actual}</Table.Cell>
-                      <Table.Cell>{toSignedNumberLocaleString(intl, dto.difference)}</Table.Cell>
+                      <Table.Cell>
+                        <span className="difference">
+                          {toSignedNumberLocaleString(intl, dto.difference)}
+                        </span>
+                      </Table.Cell>
                     </Table.Row>
                   ))}
                 </Table.Body>
