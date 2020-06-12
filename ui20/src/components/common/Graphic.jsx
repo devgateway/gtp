@@ -25,7 +25,7 @@ class Graphic extends Component {
               <PngExport
                 name={intl.formatMessage({id: titleId})}
                 id={id}
-                filters={['filter', 'item', 'download']}
+                filters={[]}
                 includes={['active']}/>
             </div>
           </div>

@@ -371,4 +371,8 @@ html {
   mask: url('/icons/icon_png_download.svg');
   background: #608bb5;
 }
+.masked-icon.icon-pdf-download {
+  mask: url('/icons/icon_png_download.svg');
+  background: $color-green
+}
 
