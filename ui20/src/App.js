@@ -24,6 +24,7 @@ import asyncComponent from "./components/common/AsyncComponent";
 const Home = asyncComponent(() => import("./components/home/"));
 const Water = asyncComponent(() => import("./components/water/"));
 const Market = asyncComponent(() => import("./components/market/"));
+const Bulletin = asyncComponent(() => import("./components/bulletin/"));
 
 // kick off the polyfill!
 smoothscroll.polyfill();
@@ -37,6 +38,7 @@ const withLayout = (Component) => <Layout><Component/></Layout>
 const HomeLayout = (props) => withLayout(Home)
 const WaterLayout = (props) => withLayout(Water)
 const MarketLayout = (props) => withLayout(Market)
+const BulletinLayout = (props) => withLayout(Bulletin)
 
 
 class IntlRoutes extends Component {
@@ -58,6 +60,8 @@ class IntlRoutes extends Component {
 
             <Route exact={true} path="/:lan/water-resources"  component={WaterLayout}/>
             <Route exact={true} path="/:lan/agriculture-and-market"  component={MarketLayout}/>
+
+            <Route exact={true} path="/:lan/gtp-bulletins"  component={BulletinLayout}/>
 
             <Route render={() => (
               <Layout>

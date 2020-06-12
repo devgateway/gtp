@@ -1,5 +1,13 @@
+import 'url-search-params-polyfill';
 
-export const get = (url) => fetch(url).then(response => {
+export const urlWithSearchParams = (url, params) => {
+  if (!params) return url
+  const u = new URL(url)
+  u.search = new URLSearchParams(params).toString()
+  return u.toString()
+}
+
+export const get = (url, params) => fetch(urlWithSearchParams(url, params)).then(response => {
   if (response.status !== 200) {
     return Promise.reject(response)
   }
@@ -29,3 +37,21 @@ export const post = (url, params, isBlob) => fetch(url, {
         })
     }
   ).catch(Promise.reject)
+
+export const getFile = (url, params) => fetch(urlWithSearchParams(url, params)).then(response => {
+  if (response.status !== 200) {
+    return Promise.reject(response)
+  }
+  showFileDownload(response.blob())
+  return Promise.resolve()
+}).catch(Promise.reject)
+
+const showFileDownload = (blob) => {
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = "gtp-bulletin222.pdf"
+  document.body.appendChild(a) // we need to append the element to the dom -> otherwise it will not work in firefox
+  a.click()
+  a.remove() // afterwards we remove the element again
+}
