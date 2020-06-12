@@ -102,15 +102,19 @@ public class ProductPriceWriter {
                         row.createCell(PRODUCT_COL_IDX).setCellValue(product.getName());
 
                         for (Value value : productValues) {
-                            row.createCell(PRODUCT_COL_IDX + 1 + columnIndex.get(value)).setCellValue(value.price);
+                            if (value.price != null && columnIndex.containsKey(value)) {
+                                row.createCell(PRODUCT_COL_IDX + 1 + columnIndex.get(value))
+                                        .setCellValue(value.price);
+                            }
                         }
                     }
                 }
             } else {
                 XSSFRow row = createRow(sheet, rowNum++, dataEntry.getKey());
                 for (Value value : values) {
-                    if (value.price != null) {
-                        row.createCell(DATE_COL_IDX + 1 + columnIndex.get(value)).setCellValue(value.price);
+                    if (value.price != null && columnIndex.containsKey(value)) {
+                        row.createCell(DATE_COL_IDX + 1 + columnIndex.get(value))
+                                .setCellValue(value.price);
                     }
                 }
             }

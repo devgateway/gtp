@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.devgateway.toolkit.persistence.dao.PersistedCollectionSize;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
+import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
@@ -34,8 +35,9 @@ public interface ProductYearlyPricesRepository extends BaseJpaRepository<Product
             + "join yp.prices p "
             + "where yp.year = :year "
             + "and p.product.id = :productId "
-            + "and p.market.id = :marketId")
-    List<ProductPrice> findPrices(Integer year, Long productId, Long marketId);
+            + "and p.market.id = :marketId "
+            + "and p.priceType in :priceTypes")
+    List<ProductPrice> findPrices(Integer year, Long productId, List<PriceType> priceTypes, Long marketId);
 
     @CacheHibernateQueryResult
     @Query("select new org.devgateway.toolkit.persistence.dto.agriculture.AveragePrice(p.priceType, avg(p.price)) "
@@ -44,8 +46,9 @@ public interface ProductYearlyPricesRepository extends BaseJpaRepository<Product
             + "where yp.year = :year "
             + "and p.product.id = :productId "
             + "and p.market.id = :marketId "
+            + "and p.priceType in :priceTypes "
             + "group by p.priceType")
-    List<AveragePrice> findAveragePrices(Integer year, Long productId, Long marketId);
+    List<AveragePrice> findAveragePrices(Integer year, Long productId, List<PriceType> priceTypes, Long marketId);
 
     @CacheHibernateQueryResult
     @Query("select yp.year "
@@ -82,4 +85,12 @@ public interface ProductYearlyPricesRepository extends BaseJpaRepository<Product
 
     @CacheHibernateQueryResult
     boolean existsByYear(Integer year);
+
+    @CacheHibernateQueryResult
+    @Query("select count(p.id) "
+            + "from ProductYearlyPrices yp "
+            + "join yp.prices p "
+            + "where p.product.id = :productId "
+            + "and p.priceType.id in :priceTypeIds")
+    Long countPricesForProductAndPriceType(Long productId, Collection<Long> priceTypeIds);
 }
