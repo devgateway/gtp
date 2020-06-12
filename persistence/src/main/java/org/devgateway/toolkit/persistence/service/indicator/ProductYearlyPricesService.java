@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.service.indicator;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
@@ -19,6 +20,8 @@ public interface ProductYearlyPricesService extends YearIndicatorGenerator<Produ
     List<Integer> findYearsWithPrices();
 
     boolean hasPrices(Integer year, Long productId);
+
+    boolean hasPricesForProductAndPriceType(Long productId, Collection<Long> priceTypeIds);
 
     Long getProductIdWithPrices(Integer year);
 

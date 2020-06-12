@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.service.category;
 
+import java.util.List;
+
 import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.repository.category.PriceTypeRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
@@ -37,5 +39,10 @@ public class PriceTypeServiceImpl extends BaseJpaServiceImpl<PriceType> implemen
     @Override
     public Page<PriceType> searchText(String term, Pageable page) {
         return priceTypeRepository.searchText(term, page);
+    }
+
+    @Override
+    public List<PriceType> findByIds(List<Long> ids) {
+        return priceTypeRepository.findAllByIdIn(ids);
     }
 }
