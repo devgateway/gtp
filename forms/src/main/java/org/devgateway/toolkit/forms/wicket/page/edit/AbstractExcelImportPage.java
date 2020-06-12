@@ -43,6 +43,7 @@ public abstract class AbstractExcelImportPage<T extends GenericPersistable> exte
 
         upload = new FileInputBootstrapFormComponent("upload", LambdaModel.of(this::getUploads, this::setUploads));
         upload.maxFiles(1);
+        upload.allowedFileExtensions("xlsx");
         upload.required();
         editForm.add(upload);
 

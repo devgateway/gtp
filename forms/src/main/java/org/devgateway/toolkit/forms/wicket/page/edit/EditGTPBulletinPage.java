@@ -36,7 +36,7 @@ public class EditGTPBulletinPage extends AbstractEditPage<GTPBulletin> {
         editForm.add(new TextFieldBootstrapFormComponent<>("month").setEnabled(false));
         editForm.add(new TextFieldBootstrapFormComponent<>("decadal").setEnabled(false));
 
-        editForm.add(new FileInputBootstrapFormComponent("uploads").maxFiles(1));
+        editForm.add(new FileInputBootstrapFormComponent("uploads").maxFiles(1).allowedFileExtensions("pdf"));
 
         deleteButton.setVisibilityAllowed(false);
     }

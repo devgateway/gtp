@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.components.form;
 
+import static org.apache.commons.io.FilenameUtils.getExtension;
+
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import de.agilecoders.wicket.core.markup.html.bootstrap.components.TooltipBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.components.TooltipConfig;
@@ -97,6 +99,11 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
     private Boolean disableDeleteButton = false;
 
     private boolean requireAtLeastOneItem = false;
+
+    /**
+     * File name extensions that are allowed to upload. Must be lowercase and without the dot. Ex: pdf
+     */
+    private List<String> allowedFileExtensions = new ArrayList<>();
 
     public FileInputBootstrapFormComponentWrapper(final String id, final IModel<T> model) {
         super(id, model);
@@ -415,6 +422,13 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
                                 FileInputBootstrapFormComponentWrapper.this, null).getString();
                         FileInputBootstrapFormComponentWrapper.this.fatal(error);
                         FileInputBootstrapFormComponentWrapper.this.invalid();
+                    } else if (!fileExtensionAreAllowed(fileUploads)) {
+                        String error = new StringResourceModel("fileTypeNotAllowed",
+                                FileInputBootstrapFormComponentWrapper.this, null)
+                                .setParameters(String.join(", ", allowedFileExtensions))
+                                .getString();
+                        FileInputBootstrapFormComponentWrapper.this.fatal(error);
+                        FileInputBootstrapFormComponentWrapper.this.invalid();
                     } else {
                         // convert the uploaded files to the internal structure
                         // and update the model
@@ -480,6 +494,14 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
             MetaDataRoleAuthorizationStrategy.authorize(bootstrapFileInput, Component.RENDER,
                     MetaDataRoleAuthorizationStrategy.NO_ROLE);
         }
+    }
+
+    private boolean fileExtensionAreAllowed(List<FileUpload> fileUploads) {
+        if (allowedFileExtensions.isEmpty()) {
+            return true;
+        }
+        return fileUploads.stream().allMatch(
+                u -> allowedFileExtensions.contains(getExtension(u.getClientFileName()).toLowerCase()));
     }
 
     private boolean fileContentsAndExtensionsAreValid(List<FileUpload> fileUploads) {
@@ -550,5 +572,9 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
 
     public void setFeedbackPanel(NotificationPanel feedbackPanel) {
         this.feedbackPanel = feedbackPanel;
+    }
+
+    public void setAllowedFileExtensions(List<String> allowedFileExtensions) {
+        this.allowedFileExtensions = allowedFileExtensions;
     }
 }
