@@ -33,7 +33,7 @@ import org.hibernate.envers.Audited;
  */
 @Entity
 @Audited
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"department_id", "name"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"department_id", "name", "type_id"}))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
 public class Market extends AbstractAuditableEntity implements Serializable, Labelable, Comparable<Market> {
