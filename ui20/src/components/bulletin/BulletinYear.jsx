@@ -9,6 +9,7 @@ import {
 import {Bulletin} from "../../modules/entities/bulletins/Bulletin"
 import Bulletins from "../../modules/entities/bulletins/Bulletins"
 import {BULLETIN_MONTHS, DECADALS} from "../../modules/entities/Constants"
+import "../common/filter/filter.scss"
 
 export default class BulletinYear extends Component {
   static propTypes = {
