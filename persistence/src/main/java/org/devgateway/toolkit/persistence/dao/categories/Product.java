@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -32,6 +33,7 @@ import org.hibernate.envers.Audited;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
 @JsonIgnoreProperties({"new"})
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"product_type_id", "name"}))
 public class Product extends AbstractAuditableEntity implements Comparable<Product>, Labelable {
 
     private static final Comparator<Product> NATURAL = Comparator.comparing(Product::getName);
@@ -44,7 +46,6 @@ public class Product extends AbstractAuditableEntity implements Comparable<Produ
     private ProductType productType;
 
     @NotNull
-    @Column(unique = true)
     private String name;
 
     @NotNull

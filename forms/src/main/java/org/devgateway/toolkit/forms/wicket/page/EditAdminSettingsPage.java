@@ -83,7 +83,12 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
 
         Select2ChoiceBootstrapFormComponent<Product> defaultProduct =
                 new Select2ChoiceBootstrapFormComponent<>("defaultProduct",
-                        new GenericPersistableJpaTextChoiceProvider<>(productService));
+                        new GenericPersistableJpaTextChoiceProvider<Product>(productService) {
+                            @Override
+                            public String getDisplayValue(Product choice) {
+                                return choice.getLabel() + " (" + choice.getProductType().getLabel() + ")";
+                            }
+                        });
         defaultProduct.required();
         editForm.add(defaultProduct);
     }
