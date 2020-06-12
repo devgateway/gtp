@@ -21,8 +21,12 @@
     line-height: 32px;
     padding-left: 16px;
     font-size: 12px;
+    //height: 100%;
 
     .breadcrums {
+      //display: inline-flex;
+      //align-items: center;
+
       .filterName {
         font-weight: 600;
         font-size: 12px;
