@@ -74,13 +74,12 @@ export default class FilterDropDown extends Component {
   }
 
   allNone(flag) {
-    const {onChange, options} = this.props
+    const {onChange} = this.props
+    const {defaultOptions} = this.state
     if (flag === false) {
       onChange([])
     } else {
-      const newSelection = []
-      options.map(o => newSelection.push(o.key))
-      onChange(newSelection)
+      onChange(defaultOptions.map(o => o.key))
     }
   }
 
