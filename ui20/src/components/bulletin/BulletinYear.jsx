@@ -2,6 +2,10 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage} from "react-intl"
 import {Segment, Table} from "semantic-ui-react"
+import {
+  getDownloadAnnualReportUrl,
+  getDownloadBulletinUrl
+} from "../../modules/api"
 import {Bulletin} from "../../modules/entities/bulletins/Bulletin"
 import Bulletins from "../../modules/entities/bulletins/Bulletins"
 import {BULLETIN_MONTHS, DECADALS} from "../../modules/entities/Constants"
@@ -24,7 +28,9 @@ export default class BulletinYear extends Component {
             <span className="header-cell">
               <FormattedMessage id="bulletins.bulletin.annualReport" />
             </span>
-            <span>{getBulletinURL(bulletins.annualReport)}</span>
+            <span className="annual-download">
+              {BulletinDownload(bulletins.annualReport, getDownloadAnnualReportUrl)}
+            </span>
           </span>
         </Segment>
         <Table stackable={true} columns={1 + BULLETIN_MONTHS.length}>
@@ -49,7 +55,10 @@ export default class BulletinYear extends Component {
                   <Table.HeaderCell className="decadal">
                     <FormattedMessage id={`bulletins.bulletin.table.decadal.${d}`} />
                   </Table.HeaderCell>
-                  {bs.map((b, index) => <Table.Cell key={index}>{getBulletinURL(b)}</Table.Cell>)}
+                  {bs.map((b, index) =>
+                    <Table.Cell key={index}>
+                      {BulletinDownload(b, getDownloadBulletinUrl)}
+                    </Table.Cell>)}
                 </Table.Row>)
             })}
 
@@ -62,4 +71,8 @@ export default class BulletinYear extends Component {
   }
 }
 
-const getBulletinURL = (b: Bulletin) => b ? "url" : "-"
+const BulletinDownload = (b: Bulletin, download: function) => b ? PDFDownload(b, download) : "-"
+const PDFDownload = (b, download) =>
+  (<a href={download(b.id)} download>
+    <span className="icon masked-icon icon-pdf-download middle aligned" />
+  </a>)

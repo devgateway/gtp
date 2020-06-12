@@ -44,6 +44,10 @@ $bulletin-border: 1px solid $bulletin-border-color;
         .header-cell {
           padding-right: 1rem;
         }
+        .annual-download {
+          position: absolute;
+          margin: auto;
+        }
         span {
           display: inline-block;
         }
@@ -83,6 +87,7 @@ $bulletin-border: 1px solid $bulletin-border-color;
           border-bottom: $bulletin-border;
           border-top: 0;
           text-align: center;
+          vertical-align: middle;
         }
 
         tr:first-child, tr:last-child {
@@ -96,6 +101,12 @@ $bulletin-border: 1px solid $bulletin-border-color;
         font-size: 12px;
         color: $bulletin-blue-color;
         font-weight: 700;
+      }
+
+      .icon-pdf-download {
+        width: 26px;
+        height: 26px;
+        cursor: pointer;
       }
 
     }

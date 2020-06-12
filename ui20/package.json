@@ -52,7 +52,8 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
     "smoothscroll-polyfill": "^0.4.4",
-    "source-map-explorer": "^2.4.2"
+    "source-map-explorer": "^2.4.2",
+    "url-search-params-polyfill": "^8.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
