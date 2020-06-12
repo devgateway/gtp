@@ -6,7 +6,6 @@ import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.repository.category.ProductRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
-import org.devgateway.toolkit.persistence.repository.norepository.UniquePropertyRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,13 +33,14 @@ public class ProductServiceImpl extends BaseJpaServiceImpl<Product> implements P
     }
 
     @Override
-    public UniquePropertyRepository<Product, Long> uniquePropertyRepository() {
-        return repository;
+    public List<Product> findByProductType(ProductType productType) {
+        return repository.findByProductType(productType);
     }
 
     @Override
-    public List<Product> findByProductType(ProductType productType) {
-        return repository.findByProductType(productType);
+    public boolean exists(ProductType productType, String name, Long exceptId) {
+        Long safeExceptId = exceptId == null ? -1 : exceptId;
+        return repository.existsByProductTypeAndNameAndIdNot(productType, name, safeExceptId);
     }
 
     @Override

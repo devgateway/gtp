@@ -573,7 +573,15 @@
         <sqlFile path="sql/markets.sql" />
     </changeSet>
 
-    <!-- placeholder 11 -->
+    <changeSet id="ANACIM-196" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="product" />
+        </preConditions>
+        <sql>
+            ALTER TABLE product
+            DROP CONSTRAINT IF EXISTS uk_jmivyxk9rmgysrmsqw15lqr5b;
+        </sql>
+    </changeSet>
 
     <!-- placeholder 12 -->
 
