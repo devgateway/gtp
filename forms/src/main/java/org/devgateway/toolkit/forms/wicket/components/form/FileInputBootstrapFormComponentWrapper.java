@@ -43,15 +43,20 @@ import org.apache.wicket.request.resource.ContentDisposition;
 import org.apache.wicket.util.lang.Objects;
 import org.apache.wicket.util.resource.AbstractResourceStreamWriter;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.util.FileTypeUtil;
 import org.devgateway.toolkit.forms.wicket.components.ComponentUtil;
 import org.devgateway.toolkit.forms.wicket.components.util.CustomDownloadLink;
 import org.devgateway.toolkit.forms.wicket.events.EditingDisabledEvent;
 import org.devgateway.toolkit.forms.wicket.events.EditingEnabledEvent;
 import org.devgateway.toolkit.persistence.dao.FileContent;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.ObjectUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,6 +72,8 @@ import java.util.List;
 
 public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPanel<T> {
     private static final long serialVersionUID = 1L;
+
+    private final Logger logger = LoggerFactory.getLogger(FileInputBootstrapFormComponentWrapper.class);
 
     private Collection<FileMetadata> filesModel;
 
@@ -403,6 +410,11 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
                                     FileInputBootstrapFormComponentWrapper.this, Model.of(maxFiles)).getString());
                         }
                         FileInputBootstrapFormComponentWrapper.this.invalid();
+                    } else if (!fileContentsAndExtensionsAreValid(fileUploads)) {
+                        String error = new StringResourceModel("fileContentsDoNotMatchExtension",
+                                FileInputBootstrapFormComponentWrapper.this, null).getString();
+                        FileInputBootstrapFormComponentWrapper.this.fatal(error);
+                        FileInputBootstrapFormComponentWrapper.this.invalid();
                     } else {
                         // convert the uploaded files to the internal structure
                         // and update the model
@@ -467,6 +479,22 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
         if (disableDeleteButton) {
             MetaDataRoleAuthorizationStrategy.authorize(bootstrapFileInput, Component.RENDER,
                     MetaDataRoleAuthorizationStrategy.NO_ROLE);
+        }
+    }
+
+    private boolean fileContentsAndExtensionsAreValid(List<FileUpload> fileUploads) {
+        try {
+            for (FileUpload upload : fileUploads) {
+                String fileName = upload.getClientFileName();
+                InputStream inputStream = new ByteArrayInputStream(upload.getBytes());
+                if (!FileTypeUtil.extensionMatchesContents(fileName, inputStream)) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (IOException e) {
+            logger.error("Failed to check if file contents match file name.", e);
+            return false;
         }
     }
 
