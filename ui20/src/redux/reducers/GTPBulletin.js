@@ -5,6 +5,7 @@ export const BULLETIN = 'BULLETIN'
 const BULLETIN_PENDING = 'BULLETIN_PENDING'
 const BULLETIN_FULFILLED = 'BULLETIN_FULFILLED'
 const BULLETIN_REJECTED = 'BULLETIN_REJECTED'
+export const FILTER_BULLETIN = 'FILTER_BULLETIN'
 
 const initialState = Immutable.fromJS({
   isLoading: false,
@@ -22,6 +23,8 @@ export default (state = initialState, action) => {
       return state.set('isLoading', false).set('isLoaded', true).set('data', payload)
     case BULLETIN_REJECTED:
       return state.set('isLoading', false).set('isLoaded', false).set('error', payload)
+    case FILTER_BULLETIN:
+      return state.setIn(['data', 'filter', 'years'], data)
     default:
       return state
   }

@@ -1,11 +1,6 @@
 import WaterConfig from "../../entities/config/WaterConfig"
 import RiverStation from "../../entities/river/RiverStation"
 
-export const yearsToOptions = (years) => years.sort().reverse().map(y => ({
-  key: y,
-  text: y,
-  value: y
-}))
 
 export const postIdsToOptions = (postIds, waterConfig: WaterConfig) => postIds.map(id => {
   const post = waterConfig.posts.get(id)
