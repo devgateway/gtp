@@ -29,7 +29,7 @@ $menu-border-color: #e1e1e1;
 
   .nav.menu.active {
     background-color: $color-green;
-    a {
+    .nav.link.menu {
       color: $color-white;
     }
   }
@@ -49,10 +49,6 @@ $menu-border-color: #e1e1e1;
     display: flex;
     align-items: center;
     border: none;
-  }
-
-  a {
-    cursor: pointer;
     color: $color-green;
     text-decoration: none;
   }
