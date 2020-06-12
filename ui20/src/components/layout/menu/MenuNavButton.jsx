@@ -30,7 +30,7 @@ class MenuNavButton extends Component {
     const menuItem = (
       <div className={cssClasses("nav", "menu", className, isActive ? "active" : null)}>
         {url && <Link to={url}>{menuEntry}</Link>}
-        {!url && <a href="http://">{menuEntry}</a>}
+        {!url && <span>{menuEntry}</span>}
       </div>)
 
     if (isOpened) {
