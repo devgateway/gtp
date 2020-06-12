@@ -3,16 +3,20 @@ package org.devgateway.toolkit.persistence.service.indicator;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.PersistedCollectionSize;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
+import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
 import org.devgateway.toolkit.persistence.dto.agriculture.AveragePrice;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartFilter;
+import org.devgateway.toolkit.persistence.repository.category.ProductRepository;
 import org.devgateway.toolkit.persistence.repository.indicator.ProductYearlyPricesRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
@@ -34,6 +38,9 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
 
     @Autowired
     private ProductYearlyPricesRepository repository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Autowired
     private ProductTypeService productTypeService;
@@ -77,12 +84,21 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
 
     @Override
     public List<ProductPrice> findPrices(ProductPricesChartFilter filter) {
-        return repository.findPrices(filter.getYear(), filter.getProductId(), filter.getMarketId());
+        List<PriceType> priceTypes = getPriceTypes(filter.getProductId());
+        return repository.findPrices(filter.getYear(), filter.getProductId(), priceTypes, filter.getMarketId());
     }
 
     @Override
     public List<AveragePrice> findPreviousYearAveragePrices(ProductPricesChartFilter filter) {
-        return repository.findAveragePrices(filter.getYear() - 1, filter.getProductId(), filter.getMarketId());
+        List<PriceType> priceTypes = getPriceTypes(filter.getProductId());
+        int previousYear = filter.getYear() - 1;
+        return repository.findAveragePrices(previousYear, filter.getProductId(), priceTypes, filter.getMarketId());
+    }
+
+    private List<PriceType> getPriceTypes(Long productId) {
+        return productRepository.findById(productId)
+                .map(Product::getPriceTypes)
+                .orElseGet(ImmutableList::of);
     }
 
     @Override
@@ -93,6 +109,11 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
     @Override
     public boolean hasPrices(Integer year, Long productId) {
         return repository.countPrices(year, productId) > 0;
+    }
+
+    @Override
+    public boolean hasPricesForProductAndPriceType(Long productId, Collection<Long> priceTypeIds) {
+        return repository.countPricesForProductAndPriceType(productId, priceTypeIds) > 0;
     }
 
     @Override

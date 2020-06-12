@@ -80,7 +80,7 @@ public abstract class AbstractExcelImportPage<T extends GenericPersistable> exte
                 try {
                     importData(inputStream);
                 } catch (ReaderException e) {
-                    logger.warn("Could not parse river levels.", e);
+                    logger.warn("Import failed.", e);
                     e.getErrors().stream().limit(MAX_ERRORS).forEach(upload::error);
                     if (e.getErrors().size() > MAX_ERRORS) {
                         upload.error("Other " + (e.getErrors().size() - MAX_ERRORS) + " errors are not displayed.");
