@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react"
+import React, {useRef, useState, useEffect} from "react"
 import {Segment, Sticky} from "semantic-ui-react"
 import "./indicators.scss"
 import "../common/indicator-base.scss"
@@ -27,10 +27,28 @@ const GraphicPage = (props) => {
   const menuDefs = graphicsDefs.map((graphicDef) => graphicDef.menuItemDef)
   menuDefs[0].scrollRef.offset = -cssJS.MENU_HEIGHT
   const [active, setActive] = useState(0)
+  const [width, setWidth] = useState('auto')
+
+  const resizeObserver = new ResizeObserver((entries) => {
+    const newWidth = entries[0].target.clientWidth - 1
+    if (newWidth !== width) {
+      setWidth(newWidth)
+    }
+  })
+
+  useEffect(() => {
+    if (contextRef.current) {
+      resizeObserver.observe(contextRef.current)
+    }
+  }, [contextRef.current])
 
   return (
     <div ref={contextRef} className="graphic-page">
-      <Sticky context={contextRef} className="graphic-menu" pushing>
+      <Sticky
+        context={contextRef}
+        className="graphic-menu"
+        styleElement={{ width }}
+        pushing>
         <MenuScrollableTo defs={menuDefs} active={active} />
       </Sticky>
       <Segment className="graphics">
