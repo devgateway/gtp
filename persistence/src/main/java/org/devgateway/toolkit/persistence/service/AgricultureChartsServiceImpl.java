@@ -92,8 +92,9 @@ public class AgricultureChartsServiceImpl implements AgricultureChartsService {
     private ProductPricesChartFilter getProductPricesChartFilter(ProductPricesChartConfig config) {
         Integer year = config.getYears().isEmpty() ? null : config.getYears().last();
 
-        Long productId = adminSettingsService.get().getDefaultProduct().getId();
-        if (year != null && !productYearlyPricesService.hasPrices(year, productId)) {
+        Product defaultProduct = adminSettingsService.get().getDefaultProduct();
+        Long productId = defaultProduct != null ? defaultProduct.getId() : null;
+        if (year != null && productId != null && !productYearlyPricesService.hasPrices(year, productId)) {
             productId = productYearlyPricesService.getProductIdWithPrices(year);
         }
 
