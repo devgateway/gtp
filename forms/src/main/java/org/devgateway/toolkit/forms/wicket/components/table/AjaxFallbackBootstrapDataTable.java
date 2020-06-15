@@ -33,12 +33,18 @@ public class AjaxFallbackBootstrapDataTable<T, S> extends DataTable<T, S> {
     private static final long serialVersionUID = -4423767033850245605L;
 
     public AjaxFallbackBootstrapDataTable(final String id, final List<? extends IColumn<T, S>> columns,
-                                          final ISortableDataProvider<T, S> dataProvider, final int rowsPerPage) {
+            final ISortableDataProvider<T, S> dataProvider, final int rowsPerPage) {
+        this(id, columns, dataProvider, rowsPerPage, false);
+    }
+
+    public AjaxFallbackBootstrapDataTable(final String id, final List<? extends IColumn<T, S>> columns,
+                                          final ISortableDataProvider<T, S> dataProvider, final int rowsPerPage,
+                                          final boolean withPageSizeSelector) {
         super(id, columns, dataProvider, rowsPerPage);
         this.setOutputMarkupId(true);
         this.setVersioned(false);
         this.addTopToolbar(new AjaxFallbackHeadersToolbar<S>(this, dataProvider));
-        this.addBottomToolbar(new AjaxBootstrapNavigationToolbar(this));
+        this.addBottomToolbar(new AjaxBootstrapNavigationToolbar(this, withPageSizeSelector));
         this.addBottomToolbar(new NoRecordsToolbar(this));
     }
 

@@ -35,7 +35,7 @@ public abstract class TableViewSectionPanel<T extends AbstractAuditableEntity, P
         extends CompoundSectionPanel<List<T>> {
     private static final long serialVersionUID = -5941985746340230642L;
 
-    protected AjaxFallbackBootstrapDataTable dataTable;
+    protected AjaxFallbackBootstrapDataTable<T, String> dataTable;
 
     protected List<IColumn<T, String>> columns = new ArrayList<>();
 
@@ -134,8 +134,8 @@ public abstract class TableViewSectionPanel<T extends AbstractAuditableEntity, P
         return new TablePanel(id);
     }
 
-    protected AjaxFallbackBootstrapDataTable getDataTable() {
-        return new AjaxFallbackBootstrapDataTable("table", columns, dataProvider, rowsPerPage);
+    protected AjaxFallbackBootstrapDataTable<T, String> getDataTable() {
+        return new AjaxFallbackBootstrapDataTable<>("table", columns, dataProvider, rowsPerPage, true);
     }
 
     protected class TablePanel extends Panel {
