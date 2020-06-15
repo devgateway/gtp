@@ -18,14 +18,15 @@
 
   .text {
     font-weight: normal;
-    line-height: 32px;
+    line-height: inherit;
     padding-left: 16px;
     font-size: 12px;
-    //height: 100%;
+    height: 100%;
 
     .breadcrums {
-      //display: inline-flex;
-      //align-items: center;
+      display: inline-flex;
+      align-items: center;
+      height: 100%;
 
       .filterName {
         font-weight: 600;
@@ -79,10 +80,16 @@
   .dropdown.icon {
     float: right;
     margin-right: 7px;
+    height: 100%;
   }
   .dropdown.icon:before {
-    background-image: unset !important;
+    font-size: 14px;
     content: '\2304' !important;
+    display: inline-block;
+    height: 100%;
+    .chrome & {
+      vertical-align: -50%;
+    }
   }
 
   .visible {
