@@ -5,6 +5,7 @@ import {withRouter} from "react-router";
 import {Provider} from 'react-redux'
 import {Route, Switch, Redirect} from 'react-router' // react-router v4/v5
 import {ConnectedRouter} from 'connected-react-router/immutable'
+import {cssClasses, getBrowserClass} from "./components/ComponentUtil"
 import Layout from "./components/layout/Layout"
 import configureStore, {history} from './redux/Store'
 import {connect} from 'react-redux';
@@ -52,7 +53,7 @@ class IntlRoutes extends Component {
     const props = this.props;
     const locale = this.props.location.pathname.split("/")[1]
     return (<IntlProvider key={locale} locale={locale} messages={messages[props.match.params.lan]}>
-      <div className="page-wrapper">
+      <div className={cssClasses("page-wrapper", getBrowserClass())}>
           <Header />
 
           <Switch>
