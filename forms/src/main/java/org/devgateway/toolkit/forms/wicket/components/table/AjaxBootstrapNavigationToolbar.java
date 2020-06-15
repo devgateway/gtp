@@ -11,14 +11,18 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.components.table;
 
+import com.google.common.collect.ImmutableList;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.select.BootstrapSelect;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractToolbar;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.devgateway.toolkit.forms.WebConstants;
 
 /**
@@ -29,8 +33,14 @@ import org.devgateway.toolkit.forms.WebConstants;
 public class AjaxBootstrapNavigationToolbar extends AbstractToolbar {
     private static final long serialVersionUID = 230663553625059960L;
 
-    public AjaxBootstrapNavigationToolbar(final DataTable<?, ?> table) {
+    public static final ImmutableList<Long> DEFAULT_PAGE_SIZES = ImmutableList.of(10L, 50L, 100L);
+
+    private final boolean withPageSizeSelector;
+
+    public AjaxBootstrapNavigationToolbar(final DataTable<?, ?> table, boolean withPageSizeSelector) {
         super(table);
+
+        this.withPageSizeSelector = withPageSizeSelector;
 
         final WebMarkupContainer span = new WebMarkupContainer("span");
         this.add(span);
@@ -38,6 +48,27 @@ public class AjaxBootstrapNavigationToolbar extends AbstractToolbar {
                 (IModel<String>) () -> String.valueOf(table.getColumns().size())));
 
         span.add(new Component[]{this.newPagingNavigator("navigator", table)});
+
+        span.add(newPageSizeSelector("pageSizeSelector"));
+    }
+
+    private Component newPageSizeSelector(String id) {
+        BootstrapSelect<Long> select =
+                new BootstrapSelect<>("select", Model.of(getTable().getItemsPerPage()), DEFAULT_PAGE_SIZES);
+
+        select.add(new AjaxFormComponentUpdatingBehavior("change") {
+            @Override
+            protected void onUpdate(AjaxRequestTarget target) {
+                getTable().setItemsPerPage(select.getModelObject());
+
+                target.add(getTable());
+            }
+        });
+
+        WebMarkupContainer wrapper = new WebMarkupContainer(id);
+        wrapper.add(select);
+        wrapper.setVisibilityAllowed(withPageSizeSelector);
+        return wrapper;
     }
 
     protected PagingNavigator newPagingNavigator(final String navigatorId, final DataTable<?, ?> table) {
@@ -49,12 +80,18 @@ public class AjaxBootstrapNavigationToolbar extends AbstractToolbar {
                 target.add(table);
                 target.appendJavaScript(WebConstants.BIND_FORM_LEAVING_CHECK);
             }
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+                setVisibilityAllowed(getTable().getPageCount() > 1L);
+            }
         };
     }
 
     @Override
     protected void onConfigure() {
         super.onConfigure();
-        this.setVisible(this.getTable().getPageCount() > 1L);
+        this.setVisibilityAllowed(this.getTable().getPageCount() > 1L || withPageSizeSelector);
     }
 }

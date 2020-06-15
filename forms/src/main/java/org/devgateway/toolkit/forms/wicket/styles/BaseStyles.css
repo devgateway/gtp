@@ -309,3 +309,8 @@ hr.edit-separator {
     display: inline-block;
     width: 33%;
 }
+
+.navigation .page-size-selector {
+    float: left;
+    margin: 20px 0;
+}
