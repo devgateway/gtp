@@ -16,7 +16,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.util.convert.IConverter;
-import org.devgateway.toolkit.forms.WebConstants;
+import org.apache.wicket.validation.validator.RangeValidator;
 import org.devgateway.toolkit.forms.wicket.FormattedDoubleConverter;
 import org.devgateway.toolkit.forms.wicket.components.PageableTablePanel;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
@@ -149,7 +149,7 @@ public class RainLevelReferenceTablePanel
                         return new FormattedDoubleConverter(1);
                     }
                 };
-                rain.getField().add(WebConstants.Validators.NOT_NEGATIVE);
+                rain.getField().add(RangeValidator.range(0d, RainLevelMonthReference.MAX_RAIN));
                 values.add(rain.asDouble().hideLabel());
             }
             add(values);

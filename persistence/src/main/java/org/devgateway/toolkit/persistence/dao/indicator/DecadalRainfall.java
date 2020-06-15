@@ -28,6 +28,8 @@ import java.util.List;
 public class DecadalRainfall extends AbstractStatusAuditableEntity implements Serializable {
     private static final long serialVersionUID = -4244337786708697078L;
 
+    public static final double MAX_RAIN = 1000;
+
     @NotNull
     @Column(nullable = false)
     private Integer year;
