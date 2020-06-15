@@ -34,7 +34,7 @@ public class EditAnnualGTPReportPage extends AbstractEditPage<AnnualGTPReport> {
 
         editForm.add(new TextFieldBootstrapFormComponent<>("year").setEnabled(false));
 
-        editForm.add(new FileInputBootstrapFormComponent("uploads").maxFiles(1));
+        editForm.add(new FileInputBootstrapFormComponent("uploads").maxFiles(1).allowedFileExtensions("pdf"));
 
         deleteButton.setVisibilityAllowed(false);
     }
