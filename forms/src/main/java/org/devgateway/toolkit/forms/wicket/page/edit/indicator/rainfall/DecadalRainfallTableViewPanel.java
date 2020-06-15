@@ -12,6 +12,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.convert.IConverter;
+import org.apache.wicket.validation.validator.RangeValidator;
 import org.devgateway.toolkit.forms.wicket.FormattedDoubleConverter;
 import org.devgateway.toolkit.forms.wicket.components.TableViewSectionPanel;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
@@ -117,6 +118,7 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
                 });
                 rain.asDouble();
                 rain.hideLabel();
+                rain.getField().add(RangeValidator.range(0d, DecadalRainfall.MAX_RAIN));
                 cellItem.add(rain);
             }
         });

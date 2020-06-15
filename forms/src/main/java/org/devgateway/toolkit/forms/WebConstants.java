@@ -54,7 +54,6 @@ public final class WebConstants {
                 RangeValidator.range((double) MIN_LATITUDE, (double) MAX_LATITUDE);
         public static final RangeValidator<Double> LONGITUDE_RANGE =
                 RangeValidator.range((double) MIN_LONGITUDE, (double) MAX_LONGITUDE);
-        public static final RangeValidator<Double> NOT_NEGATIVE = RangeValidator.minimum(0d);
     }
 
     // add more languages here. It is pointless to make this dynamic because the
