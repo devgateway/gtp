@@ -36,12 +36,12 @@ class Menu extends Component {
   }
 
   handleScroll(event) {
-    const { scrollTop, scrollTopMax, clientHeight } = event.target.documentElement
-    const remainingScroll = scrollTopMax - scrollTop
+    const { scrollTop, scrollHeight, clientHeight } = event.target.documentElement
+    const remainingScroll = scrollHeight - clientHeight - scrollTop
     const fullMenuRequiredHeight = this.menuRef.current.firstChild.clientHeight + cssJS.HEADER_HEIGHT
 
     let stickTo = 'top'
-    if (clientHeight < fullMenuRequiredHeight) {
+    if (clientHeight < fullMenuRequiredHeight || !scrollTop) {
       stickTo = 'relative'
     } else if (remainingScroll < cssJS.FOOTER_HEIGHT) {
       const heightRequiredWithVisibleFooter =  cssJS.FOOTER_HEIGHT - remainingScroll +  fullMenuRequiredHeight
