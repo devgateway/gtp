@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.forms.wicket.page.edit;
 
+import static java.util.stream.Collectors.joining;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -8,9 +10,11 @@ import java.util.List;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
@@ -25,7 +29,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractExcelImportPage<T extends GenericPersistable> extends AbstractEditPage<T> {
 
-    private static final int MAX_ERRORS = 5;
+    private static final int MAX_ERRORS = 30;
 
     private final Logger logger = LoggerFactory.getLogger(AbstractExcelImportPage.class);
 
@@ -82,10 +86,11 @@ public abstract class AbstractExcelImportPage<T extends GenericPersistable> exte
                     importData(inputStream);
                 } catch (ReaderException e) {
                     logger.warn("Import failed.", e);
-                    e.getErrors().stream().limit(MAX_ERRORS).forEach(upload::error);
+                    String errors = e.getErrors().stream().limit(MAX_ERRORS).collect(joining("<br>"));
                     if (e.getErrors().size() > MAX_ERRORS) {
-                        upload.error("Other " + (e.getErrors().size() - MAX_ERRORS) + " errors are not displayed.");
+                        errors += "<br>Other " + (e.getErrors().size() - MAX_ERRORS) + " errors are not displayed.";
                     }
+                    upload.error(new NotificationMessage(Model.of(errors)).escapeModelStrings(false));
                 }
             }
         }
