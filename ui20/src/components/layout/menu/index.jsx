@@ -22,8 +22,10 @@ class Menu extends Component {
 
   constructor(props) {
     super(props);
-    const stickTo = 'relative'
-    this.state = { stickTo }
+    this.state = {
+      stickTo: 'relative',
+      bottom: 'unset',
+    }
     this.handleScroll = this.handleScroll.bind(this)
   }
 
@@ -38,24 +40,27 @@ class Menu extends Component {
   handleScroll(event) {
     const { scrollTop, scrollHeight, clientHeight } = event.target.documentElement
     const remainingScroll = scrollHeight - clientHeight - scrollTop
-    const fullMenuRequiredHeight = this.menuRef.current.firstChild.clientHeight + cssJS.HEADER_HEIGHT
+    const menuAndHeaderHeight = this.menuRef.current.firstChild.clientHeight + cssJS.HEADER_HEIGHT
 
     let stickTo = 'top'
-    if (clientHeight < fullMenuRequiredHeight || !scrollTop) {
+    let bottom = 'unset'
+    if (clientHeight < menuAndHeaderHeight || !scrollTop) {
       stickTo = 'relative'
     } else if (remainingScroll < cssJS.FOOTER_HEIGHT) {
-      const heightRequiredWithVisibleFooter =  cssJS.FOOTER_HEIGHT - remainingScroll +  fullMenuRequiredHeight
+      const visibleFooter = cssJS.FOOTER_HEIGHT - remainingScroll
+      const heightRequiredWithVisibleFooter = visibleFooter  +  menuAndHeaderHeight
       if (heightRequiredWithVisibleFooter > clientHeight) {
         stickTo = 'bottom'
+        bottom = visibleFooter
       }
     }
 
-    this.setState({ stickTo });
+    this.setState({ stickTo, bottom });
   }
 
   render() {
     const {isMenuOpened, toggleMenu} = this.props
-    const { stickTo } = this.state
+    const { stickTo, bottom } = this.state
     const MenuItem = isMenuOpened ? MenuNavButtonOpen : MenuNavButtonClosed
     const menuEntries = getMenuEntries(this.props)
     const activeEntry = menuEntries.find(me => me.isActive)
@@ -63,7 +68,7 @@ class Menu extends Component {
 
     return (
       <div ref={this.menuRef} className={cssClasses("menu-nav-bar", isMenuOpened ? "opened" : "closed")}>
-        <div className={cssClasses("ui", "sticky", stickTo)}>
+        <div className={cssClasses("ui", "sticky", stickTo)} style={{bottom}}>
           <div className="top-menu">
             {menuEntries.map(me => <MenuItem key={me.messageId} {...me}/>)}
             {/*
