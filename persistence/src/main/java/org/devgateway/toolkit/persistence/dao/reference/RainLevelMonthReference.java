@@ -27,6 +27,8 @@ import java.time.Month;
 public class RainLevelMonthReference extends AbstractAuditableEntity implements Serializable {
     private static final long serialVersionUID = 1017836457479552556L;
 
+    public static final double MAX_RAIN = 1000;
+
     @NotNull
     @Column(nullable = false)
     private Month month;
