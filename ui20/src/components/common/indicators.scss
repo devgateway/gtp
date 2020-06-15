@@ -395,6 +395,8 @@
     }
 
     .ui.toggle.checkbox {
+      display: inline-flex;
+      align-items: center;
       margin: 0;
 
       div {
@@ -486,7 +488,10 @@
   }
 
   .chart.toggler.view {
-    .ui.checkbox.slider {
+    .ui.slider.checkbox {
+      display: inline-flex;
+      align-items: center;
+
       label {
         font-size: $setting-font-size;
         top: unset;
