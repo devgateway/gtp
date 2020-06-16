@@ -13,7 +13,7 @@ class MarketLocationGraphic extends Component {
     return (
       <Graphic
         id="anchor.indicator.agriculture.market.map" titleId="indicators.map.market.title"
-        sourceId="indicators.map.market.source" className="map-graphic">
+        className="map-graphic">
         <MarketMap />
       </Graphic>)
   }

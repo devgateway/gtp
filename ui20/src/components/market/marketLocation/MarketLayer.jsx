@@ -14,6 +14,7 @@ export default class MarketLayer extends Component {
     const {intl} = this.props
     const weekDaysTrn = weekDays.map(id => intl.formatMessage({ id }))
     const permanentText = intl.formatMessage({ id: "indicators.map.market.permanent" })
+    const attribution = intl.formatMessage({ id: "indicators.map.market.source" })
 
     return (
     <div>
@@ -30,6 +31,7 @@ export default class MarketLayer extends Component {
         return (
         <CircleMarker
         key={m.id}
+        attribution={attribution}
         center={[m.latitude, m.longitude]}
         color={color}
         fillOpacity={1}
