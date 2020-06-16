@@ -1,7 +1,7 @@
 export const MARKET_TYPE_COLOR = {
-  'rural-market': '#6faa27',
-  'fishing-dock': '#f07d00',
-  'transformation-place': '#219bd8',
+  'rural-market': '#F2BC00',
+  'fishing-dock': '#4484BE',
+  'transformation-place': '#5FC352',
   default: '#727282'
 }
 

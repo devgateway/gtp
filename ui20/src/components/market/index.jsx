@@ -5,7 +5,13 @@ import {connect} from "react-redux"
 import * as marketActions from "../../redux/actions/market/index"
 import "../common/indicators.scss"
 import "../common/indicator-base.scss"
+import GraphicPage, {GraphicDef} from "../common/GraphicPage"
 import MarketLocationGraphic from "./marketLocation"
+
+const agricultureGraphicsDef = [
+  /* keep MarketLocationGraphic always at the end*/
+  new GraphicDef('indicators.map.market.title', 'masked-icon icon-barchart', MarketLocationGraphic),
+]
 
 
 class AgricultureAndMarket extends Component {
@@ -24,11 +30,7 @@ class AgricultureAndMarket extends Component {
     if (!isLoaded) {
       return <div></div>
     }
-    return (
-      <div className="indicators content fixed">
-        {/* keep MarketLocationGraphic always at the end*/}
-        <MarketLocationGraphic />
-      </div>)
+    return <GraphicPage graphicsDefs={agricultureGraphicsDef} />
   }
 
 }

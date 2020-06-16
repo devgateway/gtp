@@ -32,7 +32,7 @@ export default class MarketLayer extends Component {
         key={m.id}
         center={[m.latitude, m.longitude]}
         color={color}
-        fillOpacity={0.5}
+        fillOpacity={1}
         radius={5} >
           <Tooltip>
             <div className="tooltips white">

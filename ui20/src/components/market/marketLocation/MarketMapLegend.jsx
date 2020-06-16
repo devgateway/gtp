@@ -5,7 +5,11 @@ import React, {Component} from "react"
 import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
 import Market from "../../../modules/entities/market/Market"
 import MarketType from "../../../modules/entities/market/MarketType"
+import * as sccJS from "../../css"
 import * as MarketUtils from "../MarketUtils"
+
+const MAX_WIDTH = 1266
+const LEGEND_HEIGHT = 30
 
 class MarketMapLegend extends Component {
   static propTypes = {
@@ -24,15 +28,16 @@ class MarketMapLegend extends Component {
             id: mt.id,
             label: mt.label
           }))}
-          anchor='top-right'
+          anchor='top-left'
           direction='row'
           justify={false}
-          itemsSpacing={2}
-          itemWidth={160}
-          containerWidth={1266}
-          itemHeight={20}
-          containerHeight={20}
-          itemOpacity={0.75}
+          itemsSpacing={10}
+          itemWidth={120}
+          containerWidth={MAX_WIDTH}
+          itemHeight={LEGEND_HEIGHT}
+          containerHeight={LEGEND_HEIGHT}
+          translateX={sccJS.GRAPHIC_TITLE_LEFT_PADDING}
+          itemOpacity={1}
           symbolShape='circle'
           symbolSize={12}
           effects={[
@@ -52,11 +57,11 @@ class MarketMapLegend extends Component {
 
 export default (props) => {
   return (
-    <div>
-      <svg className="legend" viewBox="0 0 1266 20">
-        <ThemeProvider>
+
+      <svg className="legend" viewBox={`0 0 ${MAX_WIDTH} ${LEGEND_HEIGHT}`}>
+        <ThemeProvider theme={sccJS.NIVO_THEME}>
           <MarketMapLegend {...props}/>
         </ThemeProvider>
       </svg>
-    </div>)
+    )
 }

@@ -1,12 +1,13 @@
+@import "../../../base";
 @import "~leaflet/dist/leaflet.css";
 
 .legend {
-  width: 1266px;
-  height: 20px;
-  margin-bottom: 10px;
+  max-width: 1266px;
+  height: 35px;
+  line-height: 35px;
 
   text {
-    font-size: 12px !important;
+    font-size: 11px !important;
   }
 }
 
@@ -15,12 +16,22 @@
 }
 
 .map {
-  width: 1266px;
+  max-width: 1266px;
   height: 500px;
 
   .tooltips {
     span.label {
       float: none !important;
     }
+  }
+}
+
+.map-graphic .source {
+  position: relative;
+  z-index: 800;
+  color: $color-dark-gray;
+
+  .source.label {
+    color: $color-dark-gray;
   }
 }
