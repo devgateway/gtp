@@ -112,7 +112,7 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
 
     private class InputWrapper extends Fragment {
 
-        public InputWrapper(String id) {
+        InputWrapper(String id) {
             super(id, "inputWrapper", DecadalRainfallTableViewPanel.this);
         }
     }
