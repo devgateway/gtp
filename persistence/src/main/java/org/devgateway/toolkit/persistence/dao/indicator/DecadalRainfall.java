@@ -87,6 +87,11 @@ public class DecadalRainfall extends AbstractStatusAuditableEntity implements Se
         this.postRainfalls = postRainfalls;
     }
 
+    public void addPostRainfall(PluviometricPostRainfall pluviometricPostRainfall) {
+        pluviometricPostRainfall.setDecadalRainfall(this);
+        postRainfalls.add(pluviometricPostRainfall);
+    }
+
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
