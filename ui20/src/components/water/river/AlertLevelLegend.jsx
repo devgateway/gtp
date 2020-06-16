@@ -7,7 +7,7 @@ import RiverLevelSettings from "../../../modules/entities/river/RiverLevelSettin
 import * as waterActions from "../../../redux/actions/waterActions"
 import * as sccJS from "../../css"
 import * as sccRiverLevel from "./cssRiverLevel"
-import CustomLegendSymbol, {LEGEND_SYMBOL_LINE} from "../../common/CustomLegendSymbol"
+import CustomLegendSymbol, {LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"
 
 export const ALERT_COLOR = '#c94545'
 
