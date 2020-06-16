@@ -1,6 +1,8 @@
 @import "../../../base";
 @import "~leaflet/dist/leaflet.css";
 
+$tooltip-content-padding: 8px;
+
 .legend {
   max-width: 1266px;
   height: 35px;
@@ -15,23 +17,61 @@
   position: relative;
 }
 
-.map {
-  max-width: 1266px;
-  height: 500px;
+.graphic-page .graphics .indicators.content {
+  .map {
+    max-width: 1266px;
+    height: 500px;
 
-  .tooltips {
-    span.label {
-      float: none !important;
+    .leaflet-tooltip {
+      padding: 0;
+      border: 0;
+
+      &.leaflet-tooltip-right:before {
+        border-right-color: #222C3C;
+      }
+      &.leaflet-tooltip-left:before {
+        border-left-color: #222C3C;
+      }
+    }
+
+    .tooltips {
+      font-size: 11px;
+      padding: 8px;
+      line-height: 1rem;
+      margin: 0;
+      font-weight: 700;
+
+      div {
+        padding: 0 3px;
+      }
+
+      .ui.divider {
+        margin: 6px 0;
+        color: #2B3648;
+      }
+
+      .market {
+        color: #C1DAFC;
+      }
+
+      .workDays {
+        margin-top: -3px;
+        .title {
+          font-style: italic;
+          font-size: 9px;
+          font-weight: 400;
+        }
+      }
     }
   }
-}
 
-.map-graphic .source {
-  position: relative;
-  z-index: 800;
-  color: $color-dark-gray;
-
-  .source.label {
+  &.map-graphic .source {
+    position: relative;
+    z-index: 800;
     color: $color-dark-gray;
+
+    .source.label {
+      color: $color-dark-gray;
+    }
   }
 }
