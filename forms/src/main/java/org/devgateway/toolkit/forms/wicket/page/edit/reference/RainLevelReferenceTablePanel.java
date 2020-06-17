@@ -20,6 +20,7 @@ import org.apache.wicket.validation.validator.RangeValidator;
 import org.devgateway.toolkit.forms.wicket.FormattedDoubleConverter;
 import org.devgateway.toolkit.forms.wicket.components.PageableTablePanel;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.providers.ListDataProvider;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelMonthReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelPluviometricPostReference;
@@ -53,7 +54,7 @@ public class RainLevelReferenceTablePanel
     protected void onInitialize() {
         super.onInitialize();
 
-        ((DefaultSortableDataProvider) dataProvider).setSort("pluviometricPost.department.name", SortOrder.ASCENDING);
+        ((ListDataProvider) dataProvider).setSort("pluviometricPost.department.name", SortOrder.ASCENDING);
     }
 
     protected void addDepOrPostColumn(String resourceKey, String property) {
