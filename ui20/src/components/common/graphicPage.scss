@@ -111,6 +111,15 @@
               content: none;
               margin: unset;
             }
+            .label.with-x::after {
+              content: '-';
+              margin-left: 3px;
+              margin-right: 3px;
+            }
+            .label.with-x.no-separator::after {
+              content: '';
+              margin-left: 3px;
+            }
           }
         }
       }

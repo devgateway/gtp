@@ -1,5 +1,6 @@
 {
 	"all.alertLevel": "Alert level",
+	"all.decadal": "Decadal",
 	"all.decadals": "Decadals",
 	"all.decadalsPerMonth": "Decadals per month",
 	"all.graphic.value.NA": "N/A",
@@ -40,7 +41,7 @@
 	"bulletins.bulletin.annualReport": "Annual Report",
 	"bulletins.bulletin.table.decadal.1": "1st decadal",
 	"bulletins.bulletin.table.decadal.2": "2nd decadal",
-	"bulletins.bulletin.table.decadal.3": "rd decadal",
+	"bulletins.bulletin.table.decadal.3": "3rd decadal",
 	"data.fields.age": "Age",
 	"data.fields.area": "Area (Hectare)",
 	"data.fields.billions": "Billions",
@@ -318,7 +319,9 @@
 	"table.unsed.rows": "Element used as Rows",
 	"table.used.cols": "Element used as columns",
 	"water.drysequence.days": "Number of days",
+	"water.drysequence.unit": "days",
 	"water.rainfall.level": "Rain (mm)",
+	"water.rainfall.unit": "mm",
 	"water.rainlevel.period": "days",
 	"water.rainlevel.level": "Daily level (cm)"
 }

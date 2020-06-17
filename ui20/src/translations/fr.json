@@ -1,5 +1,6 @@
 {
 	"all.alertLevel": "Niveau d'alerte",
+	"all.decadal": "Décadaire",
 	"all.decadals": "Décadaires",
 	"all.decadalsPerMonth": "Décadaires par mois",
 	"all.graphic.value.NA": "N/A",
@@ -320,7 +321,9 @@
 	"table.unsed.rows": "Elément des lignes",
 	"table.used.cols": "Eléments des colonnes",
 	"water.drysequence.days": "Nombre de jours",
+	"water.drysequence.unit": "jours",
 	"water.rainfall.level": "Pluie (mm)",
+	"water.rainfall.unit": "mm",
 	"water.rainlevel.period": "jours",
 	"water.rainlevel.level": "Côte journalière (en cm)"
 }
