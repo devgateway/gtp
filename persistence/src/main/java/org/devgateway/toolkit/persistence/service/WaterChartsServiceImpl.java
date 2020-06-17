@@ -4,13 +4,13 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 import java.time.MonthDay;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
@@ -114,10 +114,12 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     }
 
     private RainLevelChartFilter getRainLevelFilter(RainLevelChartConfig config) {
-        List<Integer> years = config.getYears().stream()
-                .sorted(Comparator.reverseOrder())
-                .limit(2)
-                .collect(toList());
+//        TODO undo after demo
+//        List<Integer> years = config.getYears().stream()
+//                .sorted(Comparator.reverseOrder())
+//                .limit(2)
+//                .collect(toList());
+        List<Integer> years = ImmutableList.of(2020, 2019);
 
         List<Long> posts = config.getPluviometricPostIds();
         Long postId = posts.isEmpty() ? null : posts.get(0);
@@ -155,7 +157,9 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     }
 
     private DrySequenceChartFilter getDrySequenceChartFilter(RainLevelChartConfig config) {
-        Integer year = config.getYears().isEmpty() ? null : config.getYears().last();
+//        TODO undo after demo
+//        Integer year = config.getYears().isEmpty() ? null : config.getYears().last();
+        Integer year = 2019;
         Long postId = config.getPluviometricPostIds().isEmpty() ? null : config.getPluviometricPostIds().get(0);
         return new DrySequenceChartFilter(year, postId);
     }
@@ -171,7 +175,9 @@ public class WaterChartsServiceImpl implements WaterChartsService {
         SeasonChartFilter filter;
         SeasonChartData data;
         if (!config.getYears().isEmpty()) {
-            filter = new SeasonChartFilter(config.getYears().last());
+//            TODO undo after demo
+//            filter = new SeasonChartFilter(config.getYears().last());
+            filter = new SeasonChartFilter(2019);
             data = getRainSeasonData(filter);
         } else {
             filter = null;
@@ -227,9 +233,11 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     }
 
     private RiverLevelChartFilter getRiverLevelFilter(RiverLevelChartConfig config) {
-        Set<HydrologicalYear> years = config.getYears().isEmpty()
-                ? ImmutableSet.of(HydrologicalYear.now())
-                : ImmutableSet.of(config.getYears().last());
+//        TODO undo after demo
+//        Set<HydrologicalYear> years = config.getYears().isEmpty()
+//                ? ImmutableSet.of(HydrologicalYear.now())
+//                : ImmutableSet.of(config.getYears().last());
+        Set<HydrologicalYear> years = ImmutableSet.of(HydrologicalYear.fromInt(2019));
 
         Long riverStationId;
 
