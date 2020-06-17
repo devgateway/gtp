@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.forms.wicket.components;
+package org.devgateway.toolkit.forms.wicket.providers;
 
 import java.io.Serializable;
 import java.util.Comparator;

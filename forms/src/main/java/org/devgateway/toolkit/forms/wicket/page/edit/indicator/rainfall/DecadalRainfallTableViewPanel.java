@@ -19,7 +19,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.convert.IConverter;
 import org.apache.wicket.validation.validator.RangeValidator;
 import org.devgateway.toolkit.forms.wicket.FormattedDoubleConverter;
-import org.devgateway.toolkit.forms.wicket.components.ListDataProvider;
+import org.devgateway.toolkit.forms.wicket.providers.ListDataProvider;
 import org.devgateway.toolkit.forms.wicket.components.TableViewSectionPanel;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.persistence.dao.Decadal;
