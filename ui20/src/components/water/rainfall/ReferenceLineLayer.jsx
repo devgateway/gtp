@@ -22,6 +22,7 @@ class ReferenceLine extends Component {
     const xScaleByBar = b => xScale(b.data.indexValue) + b.width * skipXBarWidthRatio + innerPadding
     const yScaleByBar = b => yScale(undefinedToZero(b.data.data.lineValues.get(b.data.id)))
     const lineGenerator = line().x(xScaleByBar).y(yScaleByBar)
+    const unit = intl.formatMessage({ id: "water.rainfall.unit"})
 
     return (
       <g>
@@ -51,7 +52,7 @@ class ReferenceLine extends Component {
                   <rect x={2} y={2} width={120} height={35} rx={.5} ry={.5} strokeWidth={1} fill="white" filter="url(#f1)" />
                   <text x={10} y={23} fontSize={12} fill='#747474'>
                     <tspan className="color" style={{backgroundColor: b.data.color, width: 6, fontWeight: 800, fontSize: 20}}>|</tspan>
-                    <tspan>{`${b.data.data.indexLabel} : ${xValue}`}</tspan>
+                    <tspan>{`${b.data.data.indexLabel} : ${xValue} ${unit}`}</tspan>
                   </text>
                 </Tooltip>
               </g>)

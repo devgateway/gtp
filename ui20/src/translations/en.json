@@ -319,6 +319,7 @@
 	"table.used.cols": "Element used as columns",
 	"water.drysequence.days": "Number of days",
 	"water.rainfall.level": "Rain (mm)",
+	"water.rainfall.unit": "mm",
 	"water.rainlevel.period": "days",
 	"water.rainlevel.level": "Daily level (cm)"
 }
