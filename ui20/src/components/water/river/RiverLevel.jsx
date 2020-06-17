@@ -9,7 +9,7 @@ import Chip from "../../common/Chip"
 import * as sccJS from "../../css"
 import * as sccRiverLevel from "./cssRiverLevel"
 import {ALERT_COLOR, AlertLevelLegend} from "./AlertLevelLegend"
-import CustomLegendSymbol, {LEGEND_SYMBOL_CIRCLE, LEGEND_SYMBOL_LINE} from "../../common/CustomLegendSymbol"
+import CustomLegendSymbol, {LEGEND_SYMBOL_CIRCLE, LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"
 
 class RiverLevel extends Component {
   static propTypes = {

@@ -3,11 +3,11 @@ import React, {Component} from "react"
 
 export const LEGEND_SYMBOL_LINE = 'line'
 export const LEGEND_SYMBOL_CIRCLE = 'circle'
-const symbols = [LEGEND_SYMBOL_LINE, LEGEND_SYMBOL_CIRCLE]
+export const LEGEND_SYMBOLS = [LEGEND_SYMBOL_LINE, LEGEND_SYMBOL_CIRCLE]
 
 export default class CustomLegendSymbol extends Component {
   static propTypes = {
-    type: PropTypes.oneOf(symbols).isRequired,
+    type: PropTypes.oneOf(LEGEND_SYMBOLS).isRequired,
     lineLength: PropTypes.number,
     legendProps: PropTypes.object.isRequired,
   }

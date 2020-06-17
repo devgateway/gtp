@@ -39,3 +39,5 @@ export const LEGEND_SYMBOL_LINE_LENGTH = 15
 export const HEADER_HEIGHT = 70
 export const MENU_HEIGHT = 354
 export const FOOTER_HEIGHT = 297
+
+export const GRAPHIC_TITLE_LEFT_PADDING = 21

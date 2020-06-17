@@ -1,9 +1,10 @@
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {injectIntl} from "react-intl"
-import {Map, TileLayer, ZoomControl} from 'react-leaflet';
+import {Map, TileLayer} from 'react-leaflet';
 import {connect} from "react-redux"
 import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
+import BorderLayer from "./BorderLayer"
 import MarketLayer from "./MarketLayer"
 import "./marketMap.scss"
 import MarketMapLegend from "./MarketMapLegend"
@@ -21,11 +22,11 @@ class MarketMap extends Component {
       <div className="png exportable">
         <MarketMapLegend {...this.props} />
         <div className="map-container">
-          <Map className="map" zoom={7} center={[14.4974, -14.4545887]} zoomControl={false} preferCanvas>
-            <ZoomControl position="topright" />
+          <Map className="map" zoom={7} center={[14.4974, -14.4545887]} zoomControl={true} preferCanvas>
             <TileLayer
               url="https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
-              attribution={worldMapAttribution} />
+              attribution={worldMapAttribution}/>
+            <BorderLayer/>
             <MarketLayer {...this.props} />
           </Map>
         </div>

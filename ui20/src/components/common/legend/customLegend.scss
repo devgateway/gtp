@@ -1,0 +1,22 @@
+@import '../../../base';
+@import '../indicator-base';
+
+.custom-legend-item {
+  display: inline-flex;
+  align-items: center;
+  padding-left: $graphic-title-left-padding;
+  height: 100%;
+  line-height: 100%;
+  font-size: 11px;
+  color: #364833;
+  font-weight: 600;
+
+  span:first-of-type {
+    padding-right: 10px;
+  }
+
+  .symbol {
+    display: inline-flex;
+    align-items: center;
+  }
+}

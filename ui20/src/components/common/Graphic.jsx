@@ -2,6 +2,7 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
+import {cssClasses} from "../ComponentUtil"
 import {PngExport} from "./Components"
 import GraphicSource from "./GraphicSource"
 
@@ -10,12 +11,13 @@ class Graphic extends Component {
     id: PropTypes.string.isRequired,
     titleId: PropTypes.string.isRequired,
     sourceId: PropTypes.string,
+    className: PropTypes.string,
   }
 
   render() {
-    const {id, titleId, sourceId, children, intl} = this.props;
+    const {id, titleId, sourceId, children, intl, className} = this.props;
     return (
-      <div className="indicators chart section" id={id}>
+      <div className={cssClasses("indicators chart section", className)} id={id}>
         <div className="png exportable">
           <div className="indicator chart title">
             <p>
