@@ -17,6 +17,7 @@ class DrySeason extends Component {
   render() {
     const {intl} = this.props
     const unit = intl.formatMessage({ id: "water.drysequence.unit"})
+    const unitOne = intl.formatMessage({ id: "water.drysequence.unit.one"})
     const decadalTrn = intl.formatMessage({ id: "all.decadal"}).toLowerCase()
     const drySequenceChartDTO: DrySequenceChartDTO = this.props.drySequenceChartDTO
     const formatLevel = (s) => {
@@ -25,7 +26,8 @@ class DrySeason extends Component {
       if (value === C.ZERO_VALUE) {
         value = 0
       }
-      return `${intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 0})} ${unit}`
+      const valueUnit = value === 1 ? unitOne : unit
+      return `${intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 0})} ${valueUnit}`
     }
 
     return (<div className="graphic-content">
