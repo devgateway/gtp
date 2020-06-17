@@ -5,6 +5,7 @@ import java.time.YearMonth;
 import java.util.Comparator;
 
 import org.devgateway.toolkit.persistence.dao.Decadal;
+import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 
 /**
  * @author Octavian Ciubotaru
@@ -19,6 +20,10 @@ public class MonthDecadalDaysWithRain implements Comparable<MonthDecadalDaysWith
     private final Decadal decadal;
     private final int daysWithRain;
     private final int daysWithoutRain;
+
+    public MonthDecadalDaysWithRain(DecadalRainfall drf, long daysWithRain) {
+        this(drf.getYear(), drf.getMonth(), drf.getDecadal(), daysWithRain);
+    }
 
     public MonthDecadalDaysWithRain(int year, Month month, Decadal decadal, long daysWithRain) {
         this.month = month;

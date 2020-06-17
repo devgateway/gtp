@@ -583,7 +583,14 @@
         </sql>
     </changeSet>
 
-    <!-- placeholder 12 -->
+    <changeSet id="ANACIM-136" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="pluviometric_post_rainfall" />
+        </preConditions>
+        <sql>
+            update pluviometric_post_rainfall set no_data = false;
+        </sql>
+    </changeSet>
 
     <!-- placeholder 13 -->
 

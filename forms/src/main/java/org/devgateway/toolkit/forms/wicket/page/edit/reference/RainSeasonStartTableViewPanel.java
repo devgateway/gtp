@@ -11,6 +11,7 @@ import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.wicket.components.PageableTablePanel;
 import org.devgateway.toolkit.forms.wicket.components.form.MonthDayPickerFormPanel;
 import org.devgateway.toolkit.forms.wicket.components.table.AjaxFallbackBootstrapDataTable;
+import org.devgateway.toolkit.forms.wicket.providers.ListDataProvider;
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonPluviometricPostReferenceStart;
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonStartReference;
 
@@ -64,7 +65,7 @@ public class RainSeasonStartTableViewPanel
     protected void onInitialize() {
         super.onInitialize();
 
-        ((DefaultSortableDataProvider) dataProvider).setSort("pluviometricPost.department.name", SortOrder.ASCENDING);
+        ((ListDataProvider) dataProvider).setSort("pluviometricPost.department.name", SortOrder.ASCENDING);
     }
 
     @Override

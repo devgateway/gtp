@@ -35,6 +35,18 @@ public class Rainfall extends AbstractAuditableEntity implements Serializable {
     @JsonIgnore
     private PluviometricPostRainfall pluviometricPostRainfall;
 
+    public Rainfall() {
+    }
+
+    public Rainfall(Integer day) {
+        this(day, null);
+    }
+
+    public Rainfall(Integer day, Double rain) {
+        this.day = day;
+        this.rain = rain;
+    }
+
     public Integer getDay() {
         return day;
     }
@@ -57,7 +69,6 @@ public class Rainfall extends AbstractAuditableEntity implements Serializable {
 
     public void setPluviometricPostRainfall(PluviometricPostRainfall pluviometricPostRainfall) {
         this.pluviometricPostRainfall = pluviometricPostRainfall;
-        pluviometricPostRainfall.getRainfalls().add(this);
     }
 
     @Override
