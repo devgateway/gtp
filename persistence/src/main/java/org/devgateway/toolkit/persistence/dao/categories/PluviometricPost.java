@@ -8,6 +8,7 @@ import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.validator.SenegalLatitude;
+import org.devgateway.toolkit.persistence.validator.SenegalLongitude;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -36,7 +37,7 @@ public class PluviometricPost extends AbstractAuditableEntity implements Seriali
     @NotNull @SenegalLatitude
     private Double latitude;
 
-    @NotNull @SenegalLatitude
+    @NotNull @SenegalLongitude
     private Double longitude;
 
     @NotNull

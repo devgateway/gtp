@@ -99,7 +99,7 @@ public class RainfallTestDataGenerator implements InitializingBean {
                     drf.setMonth(m);
                     drf.setDecadal(d);
                     drf.setFormStatus(FormStatus.PUBLISHED);
-                    drf.setPostRainfalls(generatePluviometricPostRainfalls(drf, pluviometricPosts));
+                    generatePluviometricPostRainfalls(drf, pluviometricPosts).forEach(drf::addPostRainfall);
                     decadalRainfallRepository.saveAndFlush(drf);
                 }
             }
@@ -141,16 +141,9 @@ public class RainfallTestDataGenerator implements InitializingBean {
     private List<PluviometricPostRainfall> generatePluviometricPostRainfalls(DecadalRainfall drf,
             List<PluviometricPost> pluviometricPosts) {
         return pluviometricPosts.stream().map(pp -> {
-            PluviometricPostRainfall pprf = new PluviometricPostRainfall();
-            pprf.setDecadalRainfall(drf);
-            pprf.setPluviometricPost(pp);
-            pprf.setRainfalls(days(drf).mapToObj(d -> {
-                Rainfall rf = new Rainfall();
-                rf.setPluviometricPostRainfall(pprf);
-                rf.setDay(d);
-                rf.setRain(getRandomRainFall(drf.getMonth()));
-                return rf;
-            }).collect(toList()));
+            PluviometricPostRainfall pprf = new PluviometricPostRainfall(pp);
+            days(drf).mapToObj(d -> new Rainfall(d, getRandomRainFall(drf.getMonth())))
+                    .forEach(pprf::addRainfall);
             return pprf;
         }).collect(toList());
     }

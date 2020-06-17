@@ -24,6 +24,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Nadejda Mandrescu
@@ -31,6 +32,8 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfall> implements DecadalRainfallService {
+
+    private static final double EPSILON = 0.000001;
 
     @Autowired
     private DecadalRainfallRepository decadalRainfallRepository;
@@ -54,7 +57,7 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
     }
 
     @Override
-    @Transactional(readOnly = false)
+    @Transactional
     public void generate(Integer year) {
         List<DecadalRainfall> rainfalls = new ArrayList<>();
         for (Month month : MONTHS) {
@@ -70,22 +73,23 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
     }
 
     @Override
-    @Transactional(readOnly = false)
+    @Transactional
     public <S extends DecadalRainfall> S saveAndFlush(final S entity) {
-        List<PluviometricPostRainfall> pluviometricPostRainfalls = entity.getPostRainfalls()
-                .stream()
-                .filter(pluviometricPostRainfall -> {
-                    List<Rainfall> rainfalls = pluviometricPostRainfall.getRainfalls()
-                            .stream()
-                            .filter(rainfall -> rainfall.getRain() != null)
-                            .collect(toList());
-                    pluviometricPostRainfall.setRainfalls(rainfalls);
-                    return !rainfalls.isEmpty();
-                })
-                .collect(toList());
-        entity.setPostRainfalls(pluviometricPostRainfalls);
+        entity.getPostRainfalls().forEach(this::cleanRainfalls);
 
         return repository().saveAndFlush(entity);
+    }
+
+    private void cleanRainfalls(PluviometricPostRainfall pr) {
+        if (pr.getNoData()) {
+            pr.getRainfalls().clear();
+        } else {
+            pr.getRainfalls().removeIf(this::rainIsNullOrZero);
+        }
+    }
+
+    private boolean rainIsNullOrZero(Rainfall rainfall) {
+        return rainfall.getRain() == null || Math.abs(rainfall.getRain()) < EPSILON;
     }
 
     @Override
@@ -107,18 +111,17 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
 
         return decadalRainfalls.stream()
                 .map(drf -> getRainLevelForPost(drf, pluviometricPostId))
+                .filter(Objects::nonNull)
                 .sorted()
                 .collect(toList());
     }
 
     private DecadalInstantRainLevel getRainLevelForPost(DecadalRainfall drf, Long pluviometricPostId) {
-        double val = drf.getPostRainfalls().stream()
-                .filter(prf -> prf.getPluviometricPost().getId().equals(pluviometricPostId))
+        return drf.getPostRainfalls().stream()
+                .filter(prf -> prf.getPluviometricPost().getId().equals(pluviometricPostId) && !prf.getNoData())
                 .findFirst()
-                .map(prf -> prf.getRainfalls().stream().mapToDouble(Rainfall::getRain).sum())
-                .orElse(0d);
-
-        return new DecadalInstantRainLevel(drf.getYear(), drf.getMonth(), drf.getDecadal(), val);
+                .map(prf -> new DecadalInstantRainLevel(drf, prf.getTotal()))
+                .orElse(null);
     }
 
     @Override
@@ -128,17 +131,16 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
 
         return decadalRainfalls.stream()
                 .map(drf -> getDaysWithRainForPost(drf, pluviometricPostId))
+                .filter(Objects::nonNull)
                 .sorted()
                 .collect(toList());
     }
 
     private MonthDecadalDaysWithRain getDaysWithRainForPost(DecadalRainfall drf, Long pluviometricPostId) {
-        long days = drf.getPostRainfalls().stream()
-                .filter(prf -> prf.getPluviometricPost().getId().equals(pluviometricPostId))
+        return drf.getPostRainfalls().stream()
+                .filter(prf -> prf.getPluviometricPost().getId().equals(pluviometricPostId) && !prf.getNoData())
                 .findFirst()
-                .map(prf -> prf.getRainfalls().stream().filter(rf -> rf.getRain() > 0).count())
-                .orElse(0L);
-
-        return new MonthDecadalDaysWithRain(drf.getYear(), drf.getMonth(), drf.getDecadal(), days);
+                .map(prf -> new MonthDecadalDaysWithRain(drf, prf.getRainyDaysCount()))
+                .orElse(null);
     }
 }
