@@ -38,7 +38,7 @@ const Header = (props)=> {
         <img className="logo" src="logo-anacim-standard-optimized.png" alt={''}/>
         <IntroTitle />
         <IntroText />
-        <PresentationTitle />
+        {/* <PresentationTitle /> */}
         <PresentationText />
       </MainIntro>
     </div>)
