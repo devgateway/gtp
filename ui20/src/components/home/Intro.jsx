@@ -21,7 +21,7 @@ const IntroText = (props)=>{
 const IntroLink = (props)=>{
     return (<div className="btn-link">  <FormattedMessage id="home.intro.link.learn" defaultMessage={"Click here to learn more "} values={""}/></div>)
 }
-
+// eslint-disable-next-line no-unused-vars
 const PresentationTitle = (props) => <div className="presentation-title"><FormattedMessage id="home.presentation.title"/></div>
 const PresentationText = (props) =>
   (<div className="presentation-text">
