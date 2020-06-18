@@ -29,3 +29,5 @@ export const compareDateExcludingTime = (d1:Date, d2:Date) => {
   if (d1.getMonth() !== d2.getMonth()) return d1.getMonth() - d2.getMonth()
   return d1.getDay() - d2.getDay()
 }
+
+export const apiMonthDayAwareCompare = (o1, o2) => o1.monthDay.localeCompare(o2.monthDay)
