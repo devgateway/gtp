@@ -1,18 +1,14 @@
 import RiverLevelYear from "../../../entities/river/RiverLevelYear"
+import DateLine from "../../common/dto/DateLine"
 import {hydrologicalYearToString} from "../CommonDTO"
-import RiverLevelPoint from "./RiverLevelPoint"
+import DateLinePoint from "../../common/dto/DateLinePoint"
 
-export default class RiverLevelLine {
-  // hydrological year
-  id: string
-  index: number
+export default class RiverLevelLine extends DateLine {
   riverLevelYear: RiverLevelYear
-  data: Array<RiverLevelPoint>
 
-  constructor(year: number, data: Array<RiverLevelPoint>, isReference: boolean) {
-    this.id = hydrologicalYearToString(year)
+  constructor(year: number, data: Array<DateLinePoint>, isReference: boolean) {
+    super(hydrologicalYearToString(year), data)
     this.riverLevelYear = new RiverLevelYear(year, isReference)
-    this.data = data
   }
 
 }

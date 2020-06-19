@@ -3,7 +3,7 @@ import RiverLevelChart from "../../../entities/river/RiverLevelChart"
 import YearLevel from "../../../entities/river/YearLevel"
 import RiverLevelChartDTO from "./RiverLevelChartDTO"
 import RiverLevelLine from "./RiverLevelLine"
-import RiverLevelPoint from "./RiverLevelPoint"
+import DateLinePoint from "../../common/dto/DateLinePoint"
 
 export default class RiverLevelChartBuilder {
   riverLevelChart: RiverLevelChart
@@ -24,7 +24,7 @@ export default class RiverLevelChartBuilder {
 
   _transformYearlyLevels(yearlyLevels: Array<YearLevel>, isReference: boolean) {
     return yearlyLevels.map(({year, levels}) => {
-      const points = levels.map((l: RiverLevel) => new RiverLevelPoint(l.normalizedDate, l.level, l.monthDay.date))
+      const points = levels.map((l: RiverLevel) => new DateLinePoint(l.normalizedDate, l.level, l.monthDay.date))
       return new RiverLevelLine(year.year, points, isReference)
     })
   }
