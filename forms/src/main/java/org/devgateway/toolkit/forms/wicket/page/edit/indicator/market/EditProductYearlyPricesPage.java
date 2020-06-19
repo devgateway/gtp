@@ -1,16 +1,14 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.indicator.market;
 
 import java.io.InputStream;
-import java.util.Collection;
 import java.util.List;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
-import org.devgateway.toolkit.forms.util.ProductTypeUtil;
 import org.devgateway.toolkit.forms.wicket.components.links.DownloadProductPricesLink;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractExcelImportPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.market.ListProductYearlyPricesPage;
@@ -18,7 +16,6 @@ import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.categories.ProductType;
-import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
@@ -61,10 +58,7 @@ public class EditProductYearlyPricesPage extends AbstractExcelImportPage<Product
     protected void onInitialize() {
         super.onInitialize();
 
-        ProductYearlyPrices productYearlyPrices = editForm.getModelObject();
-
-        pageTitle.setDefaultModel(Model.of(productYearlyPrices.getProductType().getLabel()
-                + " for " + productYearlyPrices.getYear()));
+        pageTitle.setDefaultModel(new StringResourceModel("page.title", this, editForm.getModel()));
 
         deleteButton.setVisibilityAllowed(false);
     }
@@ -88,15 +82,18 @@ public class EditProductYearlyPricesPage extends AbstractExcelImportPage<Product
 
         List<Market> markets = marketService.findByMarketTypeName(marketTypeName);
 
-        boolean productsOnSeparateRows =
-                ProductTypeUtil.areProductsOnSeparateRows(productType);
+        boolean productsOnSeparateRows = productType.areProductsOnSeparateRows();
 
         ProductPriceReader reader = new ProductPriceReader(products, departments, markets, productsOnSeparateRows);
 
-        Collection<ProductPrice> prices = reader.read(productYearlyPrices.getYear(), inputStream);
+        ProductYearlyPrices newEntity = reader.read(productYearlyPrices.getYear(), inputStream);
 
-        JPAUtil.mergeSortedSet(prices, productYearlyPrices.getPrices(),
+        JPAUtil.mergeSortedSet(newEntity.getPrices(), productYearlyPrices.getPrices(),
                 productYearlyPrices::addPrice,
                 (oldItem, newItem) -> oldItem.setPrice(newItem.getPrice()));
+
+        JPAUtil.mergeSortedSet(newEntity.getQuantities(), productYearlyPrices.getQuantities(),
+                productYearlyPrices::addQuantity,
+                (oldItem, newItem) -> oldItem.setQuantity(newItem.getQuantity()));
     }
 }

@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.service.indicator;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,4 +28,6 @@ public interface ProductYearlyPricesService extends YearIndicatorGenerator<Produ
     Long getProductIdWithPrices(Integer year);
 
     Long getMarketIdWithPrices(Integer year, Long productId);
+
+    void export(ProductYearlyPrices productYearlyPrices, OutputStream outputStream) throws IOException;
 }
