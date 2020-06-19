@@ -6,7 +6,7 @@
   align-items: center;
   padding-left: $graphic-title-left-padding;
   height: 100%;
-  line-height: 100%;
+  line-height: 11px;
   font-size: 11px;
   color: #364833;
   font-weight: 600;
@@ -18,5 +18,9 @@
   .symbol {
     display: inline-flex;
     align-items: center;
+  }
+
+  &.clickable {
+    cursor: pointer;
   }
 }

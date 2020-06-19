@@ -1,5 +1,6 @@
 import * as api from "../../../modules/api"
 import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
+import {fromApi} from "../../../modules/entities/product/ProductPriceChart"
 import {MARKET_AND_AGRICULTURE} from "../../reducers/Agriculture"
 import * as appActions from "../appActions"
 
@@ -16,5 +17,6 @@ const transformAll = (allData) => {
   const agricultureConfig = new AgricultureConfig(allData.agricultureConfig, allData.commonConfig)
   return {
     agricultureConfig,
+    productPriceChart: fromApi(allData.productPricesChart, agricultureConfig),
   }
 }

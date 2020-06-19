@@ -20,7 +20,7 @@ export default class MarketMapLegend extends Component {
       <div className="legend">
 
         {Array.from(usedMarketTypes).map((mt: MarketType) =>
-          (<CustomLegendItem type={LEGEND_SYMBOL_CIRCLE} label={mt.label} legendProps={{
+          (<CustomLegendItem key={mt.name} type={LEGEND_SYMBOL_CIRCLE} label={mt.label} legendProps={{
             x: 0,
             y: 0,
             size: 12,

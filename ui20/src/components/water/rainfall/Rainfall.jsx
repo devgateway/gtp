@@ -64,7 +64,7 @@ class Rainfall extends Component {
       itemDirection: 'left-to-right',
       itemOpacity: 1,
       symbolShape: (legendProps) =>
-        <CustomLegendSymbol type={LEGEND_SYMBOL_LINE} legendProps={legendProps} lineLength={sccJS.LEGEND_SYMBOL_LINE_LENGTH} />,
+        <CustomLegendSymbol type={LEGEND_SYMBOL_LINE} legendProps={legendProps} />,
       symbolSize: 14,
       effects: [
         {

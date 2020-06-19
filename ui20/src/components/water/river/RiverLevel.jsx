@@ -108,7 +108,7 @@ class RiverLevel extends Component {
             tickRotation: 0,
           }}
           axisBottom={{
-            format: "%b",
+            format: (date: Date) => intl.formatMessage({ id: `all.month.${date.getMonth() + 1}`}),
             tickValues: 'every month',
             tickSize: 10,
             legendOffset: 40,
@@ -172,10 +172,10 @@ const getColors = (lines) => {
   let levelIndex = 0
   return lines.map(({riverLevelYear}) => {
     if (riverLevelYear.isReference) {
-      return sccRiverLevel.REFERENCE_COLORS[refIndex++]
+      return sccJS.REFERENCE_COLORS[refIndex++]
     }
-    const index = levelIndex++ % sccRiverLevel.LEVEL_COLORS.length
-    return sccRiverLevel.LEVEL_COLORS[index]
+    const index = levelIndex++ % sccJS.PALLET_COLORS.length
+    return sccJS.PALLET_COLORS[index]
   })
 }
 
