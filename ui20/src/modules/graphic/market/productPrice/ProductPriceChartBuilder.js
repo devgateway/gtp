@@ -16,7 +16,7 @@ export default class ProductPriceChartBuilder {
 
   build(): ProductPriceChartDTO {
     const {priceTypes, productsById} = this.agricultureConfig
-    const { pricesByPriceTypeId } = this.productPriceChart.data
+    const { pricesByPriceTypeId, previousYearAverages } = this.productPriceChart.data
     const {productId} = this.productPriceChart.filter
     const product = productId && productsById.get(productId)
     const lines: Array<DateLine> = []
@@ -26,7 +26,8 @@ export default class ProductPriceChartBuilder {
       lines.push(new DateLine(priceTypes.get(priceTypeId).label, points))
     })
     lines.forEach((l, index) => l.index = index)
-    return new ProductPriceChartDTO(product, lines)
+
+    return new ProductPriceChartDTO(product, lines, previousYearAverages)
   }
 
 }

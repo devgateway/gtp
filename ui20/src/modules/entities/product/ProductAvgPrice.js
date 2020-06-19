@@ -1,9 +1,13 @@
-export default class ProductAvgPrice {
-  price: number
-  priceTypeId: number
+import PriceType from "./PriceType"
 
-  constructor({price, priceTypeId}) {
-    this.price = price
+export default class ProductAvgPrice {
+  average: number
+  priceTypeId: number
+  priceType: PriceType
+
+  constructor({average, priceTypeId}, priceTypes: Map<number, PriceType>) {
+    this.average = average
     this.priceTypeId = priceTypeId
+    this.priceType = priceTypeId && priceTypes.get(priceTypeId)
   }
 }

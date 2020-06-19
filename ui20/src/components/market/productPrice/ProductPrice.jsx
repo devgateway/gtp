@@ -2,8 +2,9 @@ import {ResponsiveLine} from "@nivo/line"
 import {TableTooltip} from '@nivo/tooltip'
 import PropTypes from "prop-types"
 import React, {Component} from "react"
-import {FormattedMessage, injectIntl} from "react-intl"
+import {FormattedMessage, FormattedNumber, injectIntl} from "react-intl"
 import {connect} from "react-redux"
+import ProductAvgPrice from "../../../modules/entities/product/ProductAvgPrice"
 import ProductPriceChartDTO from "../../../modules/graphic/market/productPrice/ProductPriceChartDTO"
 import Chip from "../../common/Chip"
 import * as sccJS from "../../css"
@@ -12,13 +13,16 @@ import CustomLegendSymbol, {LEGEND_SYMBOL_CIRCLE, LEGEND_SYMBOL_LINE} from "../.
 class ProductPrice extends Component {
   static propTypes = {
     data: PropTypes.instanceOf(ProductPriceChartDTO).isRequired,
+    filter: PropTypes.object.isRequired,
   }
 
   render() {
-    const { intl } = this.props
+    const { filter, intl } = this.props
     const data: ProductPriceChartDTO = this.props.data
+    const { previousYearAverages } = data
 
     const colors = getColors(data.lines)
+    const avgColors = getAvgMarkersColors(previousYearAverages)
 
     return (
       <div className="graphic-content">
@@ -39,7 +43,19 @@ class ProductPrice extends Component {
             stacked: false,
           }}
           enableSlices='x'
-          sliceTooltip={CustomSliceTooltip}
+          sliceTooltip={CustomSliceTooltip(filter, previousYearAverages, avgColors)}
+
+          markers={previousYearAverages.map((avg, index) => ({
+            axis: 'y',
+            value: avg.average,
+            lineStyle: {
+              stroke: avgColors[index],
+              strokeWidth: 2,
+              strokeDasharray: "5,5"
+            },
+            // legend: intl.formatNumber(avg.average, {minimumFractionDigits: 0, maximumFractionDigits: 2}),
+            legendOrientation: 'horizontal',
+          }))}
 
           axisLeft={{
             legendPosition: 'middle',
@@ -114,14 +130,29 @@ const getColors = (lines) => {
   })
 }
 
-const CustomSliceTooltip = ({slice, axis}) => {
+const getAvgMarkersColors = (avgPrices) => avgPrices.map((avg, index) =>
+  sccJS.REFERENCE_COLORS[index % sccJS.REFERENCE_COLORS.length])
+
+const CustomSliceTooltip = (filter, previousYearAverages: Array<ProductAvgPrice>, avgColors) =>
+  ({slice, axis}) => {
+  const { year } = filter
   const otherAxis = axis === 'x' ? 'y' : 'x';
   const dataProp = "".concat(otherAxis, "Formatted")
-  const rows = slice.points.map((point) => {
+  const sliceData = slice.points.map((point) => ({
+    color: point.serieColor,
+    serieId: `${point.serieId} ${year}`,
+    value: point.data[dataProp]
+  })).concat(previousYearAverages.map((avg, index) => ({
+    color: avgColors[index],
+    serieId:
+      <FormattedMessage id={`indicators.chart.product.price.average.${avg.priceType.name}`} values={{year: year - 1}} />,
+    value: <FormattedNumber value={avg.average} maximumFractionDigits={0} />
+  })))
+  const rows = sliceData.map((sd) => {
     return [
-      <Chip key="chip" color={point.serieColor}/>,
-      point.serieId,
-      <span><strong key="value">{point.data[dataProp]}</strong> cm</span>,
+      <Chip key="chip" color={sd.color}/>,
+      sd.serieId,
+      <span><strong key="value">{sd.value}</strong> CFA</span>,
     ];
   })
   const date:Date = slice.points[0].data.actualDate

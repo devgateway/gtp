@@ -10,16 +10,17 @@ import ProductPrice from "./ProductPrice"
 class ProductPriceGraphic extends Component {
   static propTypes = {
     getProductPrices: PropTypes.func.isRequired,
+    filter: PropTypes.object.isRequired,
   }
 
   render() {
-    const {getProductPrices} = this.props
+    const {filter, getProductPrices} = this.props
 
     return (
       <Graphic
         id="anchor.indicator.agriculture.market.price" titleId="indicators.chart.product.price.title"
         sourceId="indicators.chart.product.price.source">
-        <ProductPrice {...getProductPrices()}/>
+        <ProductPrice {...getProductPrices()} filter={filter}/>
       </Graphic>)
   }
 }
@@ -27,6 +28,7 @@ class ProductPriceGraphic extends Component {
 
 const mapStateToProps = state => {
   return {
+    filter: state.getIn(['agriculture', 'data', 'productPriceChart', 'filter'])
   }
 }
 

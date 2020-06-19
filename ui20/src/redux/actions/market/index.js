@@ -17,6 +17,6 @@ const transformAll = (allData) => {
   const agricultureConfig = new AgricultureConfig(allData.agricultureConfig, allData.commonConfig)
   return {
     agricultureConfig,
-    productPriceChart: fromApi(allData.productPricesChart),
+    productPriceChart: fromApi(allData.productPricesChart, agricultureConfig),
   }
 }
