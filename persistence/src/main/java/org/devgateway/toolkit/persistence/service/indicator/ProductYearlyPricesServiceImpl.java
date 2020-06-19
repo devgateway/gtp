@@ -3,16 +3,26 @@ package org.devgateway.toolkit.persistence.service.indicator;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.time.Month;
+import java.time.MonthDay;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSortedSet;
 import org.devgateway.toolkit.persistence.dao.PersistedCollectionSize;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
+import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
+import org.devgateway.toolkit.persistence.dao.indicator.ProductQuantity;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
 import org.devgateway.toolkit.persistence.dto.agriculture.AveragePrice;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartFilter;
@@ -20,6 +30,8 @@ import org.devgateway.toolkit.persistence.repository.category.ProductRepository;
 import org.devgateway.toolkit.persistence.repository.indicator.ProductYearlyPricesRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.service.category.MarketService;
+import org.devgateway.toolkit.persistence.service.category.ProductService;
 import org.devgateway.toolkit.persistence.service.category.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,6 +56,12 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
 
     @Autowired
     private ProductTypeService productTypeService;
+
+    @Autowired
+    private MarketService marketService;
+
+    @Autowired
+    private ProductService productService;
 
     @Override
     protected BaseJpaRepository<ProductYearlyPrices, Long> repository() {
@@ -126,5 +144,41 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
     public Long getMarketIdWithPrices(Integer year, Long productId) {
         List<Market> markets = repository.getMarketsWithPrices(year, productId);
         return markets.isEmpty() ? null : markets.get(0).getId();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public void export(ProductYearlyPrices entity, OutputStream outputStream) throws IOException {
+        List<Product> products = productService.findByProductType(entity.getProductType());
+
+        SortedSet<ProductPrice> prices;
+        SortedSet<ProductQuantity> quantities;
+        if (entity.getPrices().isEmpty()) {
+            prices = getExamplePrices(products);
+            quantities = ImmutableSortedSet.of();
+        } else {
+            prices = entity.getPrices();
+            quantities = entity.getQuantities();
+        }
+
+        boolean productsOnSeparateRows = entity.getProductType().areProductsOnSeparateRows();
+
+        ProductPriceWriter writer = new ProductPriceWriter(products, productsOnSeparateRows);
+
+        writer.write(prices, quantities, entity.getYear(), outputStream);
+    }
+
+    private SortedSet<ProductPrice> getExamplePrices(List<Product> products) {
+        Product product = products.get(0);
+        PriceType priceType = product.getPriceTypes().get(0);
+        MonthDay monthDay = MonthDay.of(Month.JANUARY, 1);
+
+        String marketTypeName = MarketType.MARKET_TYPE_BY_PRODUCT_TYPE.get(product.getProductType().getName());
+
+        List<Market> markets = marketService.findByMarketTypeName(marketTypeName);
+
+        return markets.stream()
+                .map(m -> new ProductPrice(product, m, monthDay, priceType, null))
+                .collect(Collectors.toCollection(TreeSet::new));
     }
 }
