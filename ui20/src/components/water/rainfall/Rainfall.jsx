@@ -41,11 +41,14 @@ class Rainfall extends Component {
     const {barData, keys, indexBy, groupMode, intl, monthDecadal, keysWithRefs} = this.props
     const {byDecadal, showReferences} = this.props.setting
     const maxValue = this._getMaxValue(barData, keys)
+    const unit = intl.formatMessage({ id: "water.rainfall.unit"})
     const formatLevel = (s) => {
-      const { value } = s;
-      if (value === C.ZERO_VALUE) return 0
+      let value = s.value
       if (value === C.NA_VALUE) return <FormattedMessage id="all.graphic.value.NA" />
-      return intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 1})
+      if (value === C.ZERO_VALUE) {
+        value = 0
+      }
+      return `${intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 1})} ${unit}`
     }
 
     const referenceLineLegend = {
@@ -120,7 +123,8 @@ class Rainfall extends Component {
         tooltip={(s)=>{
           return (<div className="tooltips white">
             <div className="color" style={{backgroundColor:s.color}} />
-            <div className="label">{s.data.indexLabel}</div>
+            <div className="label with-x no-separator">{s.data.indexLabel}</div>
+            <div className='x'>{s.id}</div>
             <div className='y' style={{'color':s.color}}>{formatLevel(s)}</div>
           </div>)
         }}

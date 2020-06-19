@@ -16,12 +16,18 @@ class DrySeason extends Component {
 
   render() {
     const {intl} = this.props
+    const unit = intl.formatMessage({ id: "water.drysequence.unit"})
+    const unitOne = intl.formatMessage({ id: "water.drysequence.unit.one"})
+    const decadalTrn = intl.formatMessage({ id: "all.decadal"}).toLowerCase()
     const drySequenceChartDTO: DrySequenceChartDTO = this.props.drySequenceChartDTO
     const formatLevel = (s) => {
-      const {value} = s;
-      if (value === C.ZERO_VALUE) return 0
+      let value = s.value;
       if (value === C.NA_VALUE) return <FormattedMessage id="all.graphic.value.NA"/>
-      return intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 0})
+      if (value === C.ZERO_VALUE) {
+        value = 0
+      }
+      const valueUnit = value === 1 ? unitOne : unit
+      return `${intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 0})} ${valueUnit}`
     }
 
     return (<div className="graphic-content">
@@ -63,7 +69,7 @@ class DrySeason extends Component {
           tooltip={(s) => {
             return (<div className="tooltips white">
               <div className="color" style={{backgroundColor: s.color}}/>
-              <div className="label">{s.id}</div>
+              <div className="label">{`${s.indexValue} ${decadalTrn} ${s.id}`}</div>
               <div className='y' style={{'color': s.color}}>{formatLevel(s)}</div>
             </div>)
           }}
