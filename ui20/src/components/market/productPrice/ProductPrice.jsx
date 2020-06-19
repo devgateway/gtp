@@ -8,7 +8,7 @@ import ProductAvgPrice from "../../../modules/entities/product/ProductAvgPrice"
 import ProductPriceChartDTO from "../../../modules/graphic/market/productPrice/ProductPriceChartDTO"
 import Chip from "../../common/Chip"
 import * as sccJS from "../../css"
-import CustomLegendSymbol, {LEGEND_SYMBOL_CIRCLE, LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"
+import ProductPriceLegend, {getAveragePriceLabel} from "./ProductPriceLegend"
 
 class ProductPrice extends Component {
   static propTypes = {
@@ -17,107 +17,82 @@ class ProductPrice extends Component {
   }
 
   render() {
-    const { filter, intl } = this.props
+    const {filter, intl} = this.props
     const data: ProductPriceChartDTO = this.props.data
-    const { previousYearAverages } = data
+    const {previousYearAverages} = data
 
     const colors = getColors(data.lines)
     const avgColors = getAvgMarkersColors(previousYearAverages)
+    // TODO responsive top detection
+    const chartTop = colors.length + avgColors.length < 5 ? 10 : 50
 
     return (
-      <div className="graphic-content">
-        <ResponsiveLine
-          enableGridY={true}
-          enableGridX={false}
-          margin={{ top: 50, right: 50, bottom: 75, left: 60 }}
+      <div>
+        <div key="legend">
+          <ProductPriceLegend
+            filter={filter}
+            data={data}
+            avgColors={avgColors}
+            lineColors={colors}
+            onAveragePriceToggle={() => 'TODO'}/>
+        </div>
+        <div key="chart" className="graphic-content">
+          <ResponsiveLine
+            enableGridY={true}
+            enableGridX={false}
+            margin={{top: chartTop, right: 50, bottom: 75, left: 60}}
 
-          data={data.lines}
-          xScale={{
-            type: 'time',
-            format: '%Y-%m-%d',
-            precision: 'day',
-          }}
-          xFormat="time:%Y-%m-%d"
-          yScale={{
-            type: 'linear',
-            stacked: false,
-          }}
-          enableSlices='x'
-          sliceTooltip={CustomSliceTooltip(filter, previousYearAverages, avgColors)}
+            data={data.lines}
+            xScale={{
+              type: 'time',
+              format: '%Y-%m-%d',
+              precision: 'day',
+            }}
+            xFormat="time:%Y-%m-%d"
+            yScale={{
+              type: 'linear',
+              stacked: false,
+            }}
+            enableSlices='x'
+            sliceTooltip={CustomSliceTooltip(filter, previousYearAverages, avgColors)}
 
-          markers={previousYearAverages.map((avg, index) => ({
-            axis: 'y',
-            value: avg.average,
-            lineStyle: {
-              stroke: avgColors[index],
-              strokeWidth: 2,
-              strokeDasharray: "5,5"
-            },
-            legendOrientation: 'horizontal',
-          }))}
-
-          axisLeft={{
-            legendPosition: 'middle',
-            legend: intl.formatMessage({ id: "indicators.chart.product.price.legend.y"}, {unit: data.product.unit}),
-            legendOffset: -45,
-            tickSize: 0,
-            tickPadding: 5,
-            tickRotation: 0,
-          }}
-          axisBottom={{
-            format: (date: Date) => intl.formatMessage({ id: `all.month.${date.getMonth() + 1}`}),
-            tickValues: 'every month',
-            tickSize: 10,
-            legendOffset: 40,
-            legendPosition: 'middle'
-          }}
-          curve="monotoneX"
-          enablePoints={false}
-          useMesh={true}
-          colors={colors}
-          animate={true}
-
-          legends={[
-            {
-              data: data.lines.map(({id}, index) => ({
-                id: index,
-                label: id,
-                color: colors[index],
-              })),
-              anchor: 'top-left',
-              direction: 'row',
-              justify: false,
-              translateX: -35,
-              translateY: -30,
-              itemsSpacing: 0,
-              itemWidth: 120,
-              itemHeight: 20,
-              itemOpacity: 0.75,
-              symbolSize: 12,
-              symbolShape: (legendProps) => {
-                // const {isReference} = data.lines[legendProps.id].riverLevelYear
-                // const type = isReference ? LEGEND_SYMBOL_LINE : LEGEND_SYMBOL_CIRCLE
-                const type = LEGEND_SYMBOL_CIRCLE
-                return <CustomLegendSymbol type={type} legendProps={legendProps}
-                                           lineLength={sccJS.LEGEND_SYMBOL_LINE_LENGTH}/>
+            markers={previousYearAverages.map((avg, index) => ({
+              axis: 'y',
+              value: avg.average,
+              lineStyle: {
+                stroke: avgColors[index],
+                strokeWidth: 2,
+                strokeDasharray: "5,5"
               },
-              symbolBorderColor: 'rgba(0, 0, 0, .5)',
-              // onClick: this.levelLineToggle.bind(this),
-              effects: [
-                {
-                  on: 'hover',
-                  style: {
-                    itemBackground: 'rgba(0, 0, 0, .03)',
-                    itemOpacity: 1
-                  }
-                }
-              ]
-            }
-          ]}
-          layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends',
+              legendOrientation: 'horizontal',
+            }))}
+
+            axisLeft={{
+              legendPosition: 'middle',
+              legend: intl.formatMessage({id: "indicators.chart.product.price.legend.y"}, {unit: data.product.unit}),
+              legendOffset: -45,
+              tickSize: 0,
+              tickPadding: 5,
+              tickRotation: 0,
+            }}
+            axisBottom={{
+              format: (date: Date) => intl.formatMessage({id: `all.month.${date.getMonth() + 1}`}),
+              tickValues: 'every month',
+              tickSize: 10,
+              legendOffset: 40,
+              legendPosition: 'middle'
+            }}
+            curve="monotoneX"
+            enablePoints={false}
+            useMesh={true}
+            colors={colors}
+            animate={true}
+
+            layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends',
             ]}
-          theme={sccJS.NIVO_THEME}
-        />
+            theme={sccJS.NIVO_THEME}
+          />
+        </div>
       </div>);
   }
 }
@@ -139,12 +114,11 @@ const CustomSliceTooltip = (filter, previousYearAverages: Array<ProductAvgPrice>
   const dataProp = "".concat(otherAxis, "Formatted")
   const sliceData = slice.points.map((point) => ({
     color: point.serieColor,
-    serieId: `${point.serieId} ${year}`,
+    serieId: point.serieId,
     value: point.data[dataProp]
   })).concat(previousYearAverages.map((avg, index) => ({
     color: avgColors[index],
-    serieId:
-      <FormattedMessage id={`indicators.chart.product.price.average.${avg.priceType.name}`} values={{year: year - 1}} />,
+    serieId: getAveragePriceLabel(avg, year - 1),
     value: <FormattedNumber value={avg.average} maximumFractionDigits={0} />
   })))
   const rows = sliceData.map((sd) => {

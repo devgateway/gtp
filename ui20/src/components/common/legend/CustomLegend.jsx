@@ -7,7 +7,7 @@ import "./customLegend.scss"
 export default class CustomLegendItem extends Component {
   static propTypes = {
     messageId: PropTypes.string,
-    label: PropTypes.string,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     leftToRight: PropTypes.bool,
     type: PropTypes.oneOf(LEGEND_SYMBOLS).isRequired,
     lineLength: PropTypes.number,
