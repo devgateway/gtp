@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.service.testdata;
 
 import static org.devgateway.toolkit.persistence.dao.categories.MarketType.PRODUCT_TYPES_BY_MARKET_TYPE;
 
+import java.math.BigDecimal;
 import java.time.Month;
 import java.time.MonthDay;
 import java.time.Year;
@@ -14,6 +15,7 @@ import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
+import org.devgateway.toolkit.persistence.dao.indicator.ProductQuantity;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
 import org.devgateway.toolkit.persistence.repository.indicator.ProductYearlyPricesRepository;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
@@ -37,6 +39,7 @@ public class ProductPricesTestDataGenerator implements InitializingBean {
 
     public static final int WEEKS_IN_YEAR = 52;
     public static final int MAX_PRICE = 10000;
+    public static final int MAX_QT = 1000;
 
     @Autowired
     private PlatformTransactionManager transactionManager;
@@ -92,6 +95,7 @@ public class ProductPricesTestDataGenerator implements InitializingBean {
                             for (Product product : products) {
                                 String productTypeName = product.getProductType().getName();
                                 if (PRODUCT_TYPES_BY_MARKET_TYPE.get(marketTypeName).contains(productTypeName)) {
+                                    boolean priceAdded = false;
                                     for (PriceType priceType : product.getPriceTypes()) {
                                         if (ThreadLocalRandom.current().nextDouble() > 0.6) {
                                             ProductPrice price = new ProductPrice();
@@ -102,7 +106,14 @@ public class ProductPricesTestDataGenerator implements InitializingBean {
                                             price.setPrice(ThreadLocalRandom.current().nextInt(MAX_PRICE));
 
                                             productYearlyPrices.addPrice(price);
+                                            priceAdded = true;
                                         }
+                                    }
+                                    if (priceAdded) {
+                                        BigDecimal qt = BigDecimal.valueOf(
+                                                ThreadLocalRandom.current().nextInt(MAX_QT * 100), 2);
+                                        ProductQuantity pqt = new ProductQuantity(product, market, monthDay, qt);
+                                        productYearlyPrices.addQuantity(pqt);
                                     }
                                 }
                             }

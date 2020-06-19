@@ -2,9 +2,11 @@ package org.devgateway.toolkit.persistence.service;
 
 import static java.util.stream.Collectors.toCollection;
 
+import java.time.Year;
 import java.util.List;
 import java.util.TreeSet;
 
+import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.categories.PriceType;
@@ -72,38 +74,53 @@ public class AgricultureChartsServiceImpl implements AgricultureChartsService {
     @Override
     @Transactional
     public AgricultureChartsData getAgricultureChartsData() {
+        AgricultureConfig agricultureConfig = getAgricultureConfig();
         return new AgricultureChartsData(chartService.getCommonConfig(), getAgricultureConfig(),
-                getProductPricesChart());
+                getProductPricesChart(agricultureConfig));
     }
 
-    private ProductPricesChart getProductPricesChart() {
+    private ProductPricesChart getProductPricesChart(AgricultureConfig agricultureConfig) {
         ProductPricesChartConfig config = getProductPricesChartConfig();
 
-        ProductPricesChartFilter filter = getProductPricesChartFilter(config);
+        ProductPricesChartFilter filter = getProductPricesChartFilter(config, agricultureConfig);
 
-        ProductPricesChartData data = null;
-        if (filter.getYear() != null && filter.getMarketId() != null && filter.getProductId() != null) {
+        ProductPricesChartData data;
+        if (filter.getMarketId() != null && filter.getProductId() != null) {
             data = getProductPricesChartData(filter);
+        } else {
+            data = new ProductPricesChartData(ImmutableList.of(), ImmutableList.of());
         }
 
         return new ProductPricesChart(config, filter, data);
     }
 
-    private ProductPricesChartFilter getProductPricesChartFilter(ProductPricesChartConfig config) {
-        Integer year = config.getYears().isEmpty() ? null : config.getYears().last();
+    private ProductPricesChartFilter getProductPricesChartFilter(ProductPricesChartConfig config,
+            AgricultureConfig agricultureConfig) {
+        Integer year = config.getYears().isEmpty() ? Year.now().getValue() : config.getYears().last();
 
+        Long productId;
         Product defaultProduct = adminSettingsService.get().getDefaultProduct();
-        Long productId = defaultProduct != null ? defaultProduct.getId() : null;
-        if (year != null && productId != null && !productYearlyPricesService.hasPrices(year, productId)) {
-            productId = productYearlyPricesService.getProductIdWithPrices(year);
+        if (defaultProduct != null && productYearlyPricesService.hasPrices(year, defaultProduct.getId())) {
+            productId = defaultProduct.getId();
+        } else {
+            Long productIdWithPrices = productYearlyPricesService.getProductIdWithPrices(year);
+            if (productIdWithPrices == null) {
+                productId = defaultProduct != null ? defaultProduct.getId() : getFirstProduct(agricultureConfig);
+            } else {
+                productId = productIdWithPrices;
+            }
         }
 
         Long marketId = null;
-        if (year != null && productId != null) {
+        if (productId != null) {
             marketId = productYearlyPricesService.getMarketIdWithPrices(year, productId);
         }
 
         return new ProductPricesChartFilter(year, productId, marketId);
+    }
+
+    private Long getFirstProduct(AgricultureConfig agricultureConfig) {
+        return agricultureConfig.getProducts().isEmpty() ? null : agricultureConfig.getProducts().get(0).getId();
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.ImmutableList;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.envers.Audited;
@@ -31,5 +32,11 @@ public class ProductType extends Category {
 
     public ProductType(Long id, String name, String label) {
         super(id, name, label);
+    }
+
+    @JsonIgnore
+    public boolean areProductsOnSeparateRows() {
+        return name.equals(ProductType.FRESH_FISH)
+                || name.equals(ProductType.PROCESSED_FISH);
     }
 }

@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dao.indicator;
 
+import java.math.BigDecimal;
 import java.time.MonthDay;
 import java.util.Comparator;
 
@@ -12,18 +13,11 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
-import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.converter.MonthDayStringAttributeConverter;
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -35,14 +29,12 @@ import org.hibernate.envers.Audited;
 @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(uniqueConstraints = @UniqueConstraint(
-        columnNames = {"product_yearly_prices_id", "product_id", "market_id", "monthDay", "price_type_id"}))
-@JsonIgnoreProperties({"id", "new"})
-public class ProductPrice extends AbstractAuditableEntity implements Comparable<ProductPrice> {
+        columnNames = {"product_yearly_prices_id", "product_id", "market_id", "monthDay"}))
+public class ProductQuantity extends AbstractAuditableEntity implements Comparable<ProductQuantity> {
 
-    private static final Comparator<ProductPrice> NATURAL = Comparator.comparing(ProductPrice::getProduct)
-            .thenComparing(ProductPrice::getMarket)
-            .thenComparing(ProductPrice::getMonthDay)
-            .thenComparing(ProductPrice::getPriceType);
+    private static final Comparator<ProductQuantity> NATURAL = Comparator.comparing(ProductQuantity::getProduct)
+            .thenComparing(ProductQuantity::getMarket)
+            .thenComparing(ProductQuantity::getMonthDay);
 
     @NotNull
     @ManyToOne(optional = false)
@@ -65,29 +57,18 @@ public class ProductPrice extends AbstractAuditableEntity implements Comparable<
     private MonthDay monthDay;
 
     @NotNull
-    @ManyToOne(optional = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonProperty("priceTypeId")
-    @BatchSize(size = 100)
-    private PriceType priceType;
+    @Column(scale = 1, precision = 10)
+    @Min(0)
+    private BigDecimal quantity;
 
-    @NotNull @Min(0)
-    private Integer price;
-
-    public ProductPrice() {
+    public ProductQuantity() {
     }
 
-    public ProductPrice(
-            @NotNull Product product,
-            @NotNull Market market, @NotNull MonthDay monthDay,
-            @NotNull PriceType priceType,
-            @NotNull @Min(0) Integer price) {
+    public ProductQuantity(Product product, Market market, MonthDay monthDay, BigDecimal quantity) {
         this.product = product;
         this.market = market;
         this.monthDay = monthDay;
-        this.priceType = priceType;
-        this.price = price;
+        this.quantity = quantity;
     }
 
     public ProductYearlyPrices getProductYearlyPrices() {
@@ -122,30 +103,21 @@ public class ProductPrice extends AbstractAuditableEntity implements Comparable<
         this.monthDay = monthDay;
     }
 
-    public PriceType getPriceType() {
-        return priceType;
+    public BigDecimal getQuantity() {
+        return quantity;
     }
 
-    public void setPriceType(PriceType priceType) {
-        this.priceType = priceType;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setQuantity(BigDecimal quantity) {
+        this.quantity = quantity;
     }
 
     @Override
-    @JsonIgnore
     public AbstractAuditableEntity getParent() {
         return productYearlyPrices;
     }
 
     @Override
-    public int compareTo(ProductPrice o) {
+    public int compareTo(ProductQuantity o) {
         return NATURAL.compare(this, o);
     }
 }

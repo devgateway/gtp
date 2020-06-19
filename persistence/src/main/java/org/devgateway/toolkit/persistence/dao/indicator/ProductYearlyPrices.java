@@ -44,6 +44,13 @@ public class ProductYearlyPrices extends AbstractAuditableEntity {
     @BatchSize(size = 10)
     private SortedSet<ProductPrice> prices = new TreeSet<>();
 
+    @NotNull
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "productYearlyPrices")
+    @SortNatural
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @BatchSize(size = 10)
+    private SortedSet<ProductQuantity> quantities = new TreeSet<>();
+
     /**
      * Used in some cases to improve performance by avoiding to load prices. If the value is set it matches the
      * size of the persisted collection.
@@ -95,6 +102,19 @@ public class ProductYearlyPrices extends AbstractAuditableEntity {
 
     public void setPricesSize(Long pricesSize) {
         this.pricesSize = pricesSize;
+    }
+
+    public SortedSet<ProductQuantity> getQuantities() {
+        return quantities;
+    }
+
+    public void setQuantities(SortedSet<ProductQuantity> quantities) {
+        this.quantities = quantities;
+    }
+
+    public void addQuantity(ProductQuantity quantity) {
+        quantity.setProductYearlyPrices(this);
+        quantities.add(quantity);
     }
 
     @Override

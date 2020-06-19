@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toMap;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.time.MonthDay;
 import java.time.Year;
@@ -31,9 +32,12 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
+import org.devgateway.toolkit.persistence.dao.categories.MeasurementUnit;
 import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
+import org.devgateway.toolkit.persistence.dao.indicator.ProductQuantity;
+import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 
 /**
@@ -53,7 +57,7 @@ public class ProductPriceReader {
 
     private List<String> errors;
 
-    private int firstPriceColIdx;
+    private ProductPriceColumns cols;
 
     public ProductPriceReader(List<Product> products, List<Department> departments,
             List<Market> markets, boolean productsOnSeparateRows) {
@@ -71,7 +75,7 @@ public class ProductPriceReader {
         this.productsOnSeparateRows = productsOnSeparateRows;
     }
 
-    public Collection<ProductPrice> read(int year, InputStream is) throws ReaderException {
+    public ProductYearlyPrices read(int year, InputStream is) throws ReaderException {
         XSSFWorkbook workbook;
         try {
             workbook = new XSSFWorkbook(is);
@@ -88,30 +92,30 @@ public class ProductPriceReader {
 
         errors = new ArrayList<>();
 
-        List<Pair<Product, PriceType>> columnDefinitions = readHeader(sheet);
+        readHeader(sheet);
 
         if (!errors.isEmpty()) {
             throw new ReaderException(errors);
         }
 
-        List<ProductPrice> productPrices = readPrices(year, sheet, columnDefinitions);
+        ProductYearlyPrices yearlyPrices = readPrices(year, sheet);
 
         if (!errors.isEmpty()) {
             throw new ReaderException(errors);
         }
 
-        return productPrices;
+        return yearlyPrices;
     }
 
-    private List<ProductPrice> readPrices(int year, XSSFSheet sheet, List<Pair<Product, PriceType>> columnDefinitions) {
-        int numColumns = firstPriceColIdx + columnDefinitions.size();
+    private ProductYearlyPrices readPrices(int year, XSSFSheet sheet) {
+        int lastColumn = cols.getLastColumn();
 
-        List<ProductPrice> productPrices = new ArrayList<>();
+        ProductYearlyPrices yearlyPrices = new ProductYearlyPrices();
 
         for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
             XSSFRow row = sheet.getRow(rowNum);
 
-            if (isEmptyRow(row, numColumns)) {
+            if (isEmptyRow(row, lastColumn)) {
                 continue;
             }
 
@@ -119,30 +123,43 @@ public class ProductPriceReader {
             Market market = getMarket(row, department);
             MonthDay monthDay = getMonthDay(year, row);
 
-            // for each product or product x price type
-            Product product = null;
-            if (productsOnSeparateRows) {
-                product = getProduct(row);
+            if (market == null || monthDay == null) {
+                continue;
             }
 
-            for (int i = 0; i < columnDefinitions.size(); i++) {
-                Pair<Product, PriceType> columnDefinition = columnDefinitions.get(i);
-                if (columnDefinition != null) {
-                    XSSFCell priceCell = row.getCell(firstPriceColIdx + i);
-                    if (!isEmpty(priceCell)) {
-                        Integer price = getPrice(priceCell);
-                        if (!productsOnSeparateRows) {
-                            product = columnDefinition.getKey();
+            if (productsOnSeparateRows) {
+                Product product = getProduct(row);
+                if (product != null) {
+                    for (PriceType priceType : product.getPriceTypes()) {
+                        XSSFCell priceCell = row.getCell(cols.getPriceTypeCol(priceType));
+                        if (!isEmpty(priceCell)) {
+                            Integer price = getPrice(priceCell);
+                            yearlyPrices.addPrice(new ProductPrice(product, market, monthDay, priceType, price));
                         }
-                        PriceType priceType = columnDefinition.getValue();
+                    }
+                }
+            } else {
+                for (Product product :  products.elements.values()) {
+                    for (PriceType priceType : product.getPriceTypes()) {
+                        XSSFCell priceCell = row.getCell(cols.getProductAndPriceTypeCol(product, priceType));
+                        if (!isEmpty(priceCell)) {
+                            Integer price = getPrice(priceCell);
+                            yearlyPrices.addPrice(new ProductPrice(product, market, monthDay, priceType, price));
+                        }
+                    }
+                }
 
-                        productPrices.add(new ProductPrice(product, market, monthDay, priceType, price));
+                for (Product product :  products.elements.values()) {
+                    XSSFCell qtCell = row.getCell(cols.getQuantityCol(product));
+                    if (!isEmpty(qtCell)) {
+                        BigDecimal quantity = getQuantity(qtCell, product);
+                        yearlyPrices.addQuantity(new ProductQuantity(product, market, monthDay, quantity));
                     }
                 }
             }
         }
 
-        return productPrices;
+        return yearlyPrices;
     }
 
     private Product getProduct(XSSFRow row) {
@@ -274,32 +291,61 @@ public class ProductPriceReader {
         }
     }
 
-    private List<Pair<Product, PriceType>> readHeader(XSSFSheet sheet) {
+    private BigDecimal getQuantity(XSSFCell cell, Product product) {
+        try {
+            double qt = cell.getNumericCellValue();
+            if (qt < 0) {
+                errors.add(errorAt(cell, "Quantité négative non autorisée"));
+            }
+            if (product.getUnit().getName().equals(MeasurementUnit.HEAD)) {
+                return new BigDecimal(Math.round(qt));
+            } else {
+                return new BigDecimal(String.format("%.2f", qt));
+            }
+        } catch (IllegalStateException | NumberFormatException e) {
+            errors.add(errorAt(cell, "Impossible d'analyser le quantité"));
+            return null;
+        }
+    }
+
+    private void readHeader(XSSFSheet sheet) {
         XSSFRow row = sheet.getRow(0);
 
-        SearchableCollection<Pair<Product, PriceType>> allColumnDefs;
+        SearchableCollection<Pair<Product, PriceType>> productAndPriceTypeNames;
+        SearchableCollection<Product> quantityNames;
+        SearchableCollection<PriceType> priceTypeNames;
+
+        cols = new ProductPriceColumns(productsOnSeparateRows);
+
+        int firstPriceColIdx;
 
         if (productsOnSeparateRows) {
-            allColumnDefs = new SearchableCollection<>(
-                    products.elements.values().stream()
-                            .flatMap(p -> p.getPriceTypes().stream())
-                            .distinct()
-                            .map(pt -> Pair.of((Product) null, pt))
-                            .collect(toList()),
-                    p -> p.getValue().getLabel());
+            productAndPriceTypeNames = null;
+
+            quantityNames = null;
+
+            List<PriceType> priceTypes = products.elements.values().stream()
+                    .flatMap(p -> p.getPriceTypes().stream())
+                    .distinct()
+                    .collect(toList());
+
+            priceTypeNames = new SearchableCollection<>(priceTypes, ProductPriceColumns::getPriceTypeColumnName);
 
             firstPriceColIdx = ProductPriceWriter.PRODUCT_COL_IDX + 1;
         } else {
-            allColumnDefs = new SearchableCollection<>(
+            productAndPriceTypeNames = new SearchableCollection<>(
                     products.elements.values().stream()
                             .flatMap(p -> p.getPriceTypes().stream().sorted().map(pt -> Pair.of(p, pt)))
                             .collect(toList()),
                     p -> p.getKey().getName() + " - " + p.getValue().getLabel());
 
+            quantityNames = new SearchableCollection<>(products.elements.values(),
+                    ProductPriceColumns::getQuantityColumnName);
+
+            priceTypeNames = null;
+
             firstPriceColIdx = ProductPriceWriter.DATE_COL_IDX + 1;
         }
-
-        List<Pair<Product, PriceType>> columnDefinitions = new ArrayList<>();
 
         for (int i = firstPriceColIdx; i < row.getLastCellNum(); i++) {
             XSSFCell cell = row.getCell(i);
@@ -312,33 +358,49 @@ public class ProductPriceReader {
                     errors.add(errorAt(cell, "Valeur d'en-tête non valide"));
                 }
             }
-
-            Pair<Product, PriceType> productPriceTypePair;
-            productPriceTypePair = colName != null ? allColumnDefs.get(colName) : null;
-
-            if (colName != null && productPriceTypePair == null) {
-                errors.add(errorAt(cell, "Valeur d'en-tête inattendue"));
+            if (colName == null) {
+                continue;
             }
 
-            if (productPriceTypePair != null && columnDefinitions.contains(productPriceTypePair)) {
+            try {
+                if (productsOnSeparateRows) {
+                    PriceType priceType = priceTypeNames.get(colName);
+                    if (priceType != null) {
+                        cols.addPriceTypeCol(priceType, i);
+                    } else {
+                        errors.add(errorAt(cell, "Valeur d'en-tête inattendue"));
+                    }
+                } else {
+                    Product product = quantityNames.get(colName);
+                    if (product != null) {
+                        cols.addQuantityCol(product, i);
+                    }
+
+                    Pair<Product, PriceType> productAndPriceType;
+                    productAndPriceType = productAndPriceTypeNames.get(colName);
+                    if (productAndPriceType != null) {
+                        cols.addPriceCol(productAndPriceType.getKey(), productAndPriceType.getValue(), i);
+                    }
+
+                    if (product == null && productAndPriceType == null) {
+                        errors.add(errorAt(cell, "Valeur d'en-tête inattendue"));
+                    }
+                }
+            } catch (DuplicateElementException e) {
                 errors.add(errorAt(cell, "En-tête en double"));
             }
-
-            columnDefinitions.add(productPriceTypePair);
         }
-
-        return columnDefinitions;
     }
 
     private String errorAt(XSSFCell cell, String text) {
         return text + " à " + cell.getReference();
     }
 
-    private boolean isEmptyRow(XSSFRow row, int numColumns) {
+    private boolean isEmptyRow(XSSFRow row, int lastColumn) {
         if (row == null) {
             return true;
         }
-        for (int i = 0; i < numColumns; i++) {
+        for (int i = 0; i <= lastColumn; i++) {
             if (!isEmpty(row.getCell(i))) {
                 return false;
             }

@@ -3,6 +3,7 @@ package org.devgateway.toolkit.forms.wicket.components.form;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.AbstractDateTextFieldConfig;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.LocalDateTextField;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.LocalDateTextFieldConfig;
+import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.model.IModel;
 
 import java.time.LocalDate;
@@ -32,6 +33,13 @@ public class LocalDateFieldBootstrapFormComponent extends AbstractDateFieldBoots
 
     @Override
     protected LocalDateTextField newDateTextField(String id, AbstractDateTextFieldConfig config) {
-        return new LocalDateTextField(id, initFieldModel(), (LocalDateTextFieldConfig) config);
+        return new LocalDateTextField(id, initFieldModel(), (LocalDateTextFieldConfig) config) {
+
+            @Override
+            protected void onComponentTag(ComponentTag tag) {
+                super.onComponentTag(tag);
+                tag.put("autocomplete", "off");
+            }
+        };
     }
 }
