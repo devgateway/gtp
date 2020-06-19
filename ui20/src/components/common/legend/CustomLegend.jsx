@@ -24,12 +24,12 @@ export default class CustomLegendItem extends Component {
     const message = label ? label : <FormattedMessage key="message" id={messageId}/>
 
     let legendItem = [
-      (<span className="symbol">
+      (<span key="symbol" className="symbol">
         <svg width={size} height={size}>
           <g><CustomLegendSymbol key="symbol" {...this.props} /></g>
         </svg>
       </span>),
-      <span>{message}</span>]
+      <span key="message">{message}</span>]
     if (!leftToRight) {
       legendItem = legendItem.reverse()
     }
