@@ -11,6 +11,9 @@ import org.hibernate.envers.Audited;
 @Audited
 public class MeasurementUnit extends Category {
 
+    public static final String KG = "kg";
+    public static final String HEAD = "head";
+
     public MeasurementUnit() {
     }
 
