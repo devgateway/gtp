@@ -108,7 +108,7 @@ class RiverLevel extends Component {
             tickRotation: 0,
           }}
           axisBottom={{
-            format: "%b",
+            format: (date: Date) => intl.formatMessage({ id: `all.month.${date.getMonth() + 1}`}),
             tickValues: 'every month',
             tickSize: 10,
             legendOffset: 40,

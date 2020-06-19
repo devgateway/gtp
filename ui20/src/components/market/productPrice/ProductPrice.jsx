@@ -53,20 +53,19 @@ class ProductPrice extends Component {
               strokeWidth: 2,
               strokeDasharray: "5,5"
             },
-            // legend: intl.formatNumber(avg.average, {minimumFractionDigits: 0, maximumFractionDigits: 2}),
             legendOrientation: 'horizontal',
           }))}
 
           axisLeft={{
             legendPosition: 'middle',
-            legend: intl.formatMessage({ id: `indicators.chart.product.price.unit.${data.product.unit.toLowerCase()}`}),
+            legend: intl.formatMessage({ id: "indicators.chart.product.price.legend.y"}, {unit: data.product.unit}),
             legendOffset: -45,
             tickSize: 0,
             tickPadding: 5,
             tickRotation: 0,
           }}
           axisBottom={{
-            format: "%m",
+            format: (date: Date) => intl.formatMessage({ id: `all.month.${date.getMonth() + 1}`}),
             tickValues: 'every month',
             tickSize: 10,
             legendOffset: 40,
