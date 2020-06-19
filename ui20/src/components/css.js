@@ -20,7 +20,7 @@ export const GRAPHIC_MAIN_COLORS = [
 const { category10, set3, dark2 } = categoricalColorSchemes
 // category10=10, set3=12, dark2=8 => total 30 colors
 export const PALLET_COLORS = [...category10, ...set3, ...dark2]
-export const REFERENCE_COLORS = ['#bdbdbd', '#828282']
+export const REFERENCE_COLORS = ['#bdbdbd', '#828282', '#535353', '#0e0e0e']
 
 export const NIVO_THEME = {
   axis: {

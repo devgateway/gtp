@@ -16,10 +16,42 @@ class ProductPrice extends Component {
     filter: PropTypes.object.isRequired,
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      isLocalStateChange: false
+    }
+    this.onAveragePriceToggle = this.onAveragePriceToggle.bind(this)
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const {isLocalStateChange} = state
+    if (isLocalStateChange) {
+      return {
+        isLocalStateChange: false
+      }
+    }
+    return {
+      hideAvgPrices: new Set(),
+    }
+  }
+
+  onAveragePriceToggle(priceTypeId) {
+    const {hideAvgPrices} = this.state
+    if (!hideAvgPrices.delete(priceTypeId)) {
+      hideAvgPrices.add(priceTypeId)
+    }
+    this.setState({
+      hideAvgPrices,
+      isLocalStateChange: true,
+    })
+  }
+
   render() {
     const {filter, intl} = this.props
     const data: ProductPriceChartDTO = this.props.data
     const {previousYearAverages} = data
+    const {hideAvgPrices} = this.state
 
     const colors = getColors(data.lines)
     const avgColors = getAvgMarkersColors(previousYearAverages)
@@ -34,7 +66,7 @@ class ProductPrice extends Component {
             data={data}
             avgColors={avgColors}
             lineColors={colors}
-            onAveragePriceToggle={() => 'TODO'}/>
+            onAveragePriceToggle={this.onAveragePriceToggle}/>
         </div>
         <div key="chart" className="graphic-content">
           <ResponsiveLine
@@ -54,14 +86,14 @@ class ProductPrice extends Component {
               stacked: false,
             }}
             enableSlices='x'
-            sliceTooltip={CustomSliceTooltip(filter, previousYearAverages, avgColors)}
+            sliceTooltip={CustomSliceTooltip(filter, previousYearAverages, avgColors, hideAvgPrices)}
 
             markers={previousYearAverages.map((avg, index) => ({
               axis: 'y',
               value: avg.average,
               lineStyle: {
                 stroke: avgColors[index],
-                strokeWidth: 2,
+                strokeWidth: hideAvgPrices.has(avg.priceTypeId) ? 0 : 2,
                 strokeDasharray: "5,5"
               },
               legendOrientation: 'horizontal',
@@ -107,7 +139,8 @@ const getColors = (lines) => {
 const getAvgMarkersColors = (avgPrices) => avgPrices.map((avg, index) =>
   sccJS.REFERENCE_COLORS[index % sccJS.REFERENCE_COLORS.length])
 
-const CustomSliceTooltip = (filter, previousYearAverages: Array<ProductAvgPrice>, avgColors) =>
+const CustomSliceTooltip = (filter, previousYearAverages: Array<ProductAvgPrice>, avgColors: Array<string>,
+  hideAvgPrices: Set<number>) =>
   ({slice, axis}) => {
   const { year } = filter
   const otherAxis = axis === 'x' ? 'y' : 'x';
@@ -119,8 +152,9 @@ const CustomSliceTooltip = (filter, previousYearAverages: Array<ProductAvgPrice>
   })).concat(previousYearAverages.map((avg, index) => ({
     color: avgColors[index],
     serieId: getAveragePriceLabel(avg, year - 1),
-    value: <FormattedNumber value={avg.average} maximumFractionDigits={0} />
-  })))
+    value: <FormattedNumber value={avg.average} maximumFractionDigits={0} />,
+    hide: hideAvgPrices.has(avg.priceTypeId)
+  })).filter(sd => !sd.hide))
   const rows = sliceData.map((sd) => {
     return [
       <Chip key="chip" color={sd.color}/>,

@@ -28,7 +28,7 @@ export default class ProductPriceLegend extends Component {
       label: getAveragePriceLabel(avg, filter.year - 1),
       color: avgColors[index],
       symbol: LEGEND_SYMBOL_LINE,
-      onClick: onAveragePriceToggle
+      onClick: () => onAveragePriceToggle(avg.priceTypeId)
     })))
 
     return (
