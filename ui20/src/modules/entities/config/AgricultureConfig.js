@@ -12,6 +12,7 @@ export default class AgricultureConfig extends CommonConfig {
   markets: Array<Market>
   productTypes: Map<number, ProductType>
   priceTypes: Map<number, PriceType>
+  productsById: Map<Number, Product>
   productsByTypeId: Map<number, Array<Product>>
 
   constructor({marketTypes, markets, productTypes, priceTypes, products}, commonConfig) {
@@ -21,7 +22,10 @@ export default class AgricultureConfig extends CommonConfig {
     this.markets = Array.from(this.marketsById.values())
     this.productTypes = (productTypes || []).reduce((map, pt) => map.set(pt.id, new ProductType(pt)), new Map())
     this.priceTypes = (priceTypes || []).reduce((map, pt) => map.set(pt.id, new PriceType(pt)), new Map())
-    this.productsByTypeId = (products || []).map(p => new Product(p)).sort(Product.localeCompare).reduce((map, p) => {
+
+    products = (products || []).map(p => new Product(p)).sort(Product.localeCompare)
+    this.productsById = products.reduce((map, p) => map.set(p.id, p), new Map())
+    this.productsByTypeId = products.reduce((map, p) => {
       getOrDefaultArray(map, p.id).push(p)
       return map
     }, new Map())
