@@ -19,4 +19,8 @@
     display: inline-flex;
     align-items: center;
   }
+
+  &.clickable {
+    cursor: pointer;
+  }
 }
