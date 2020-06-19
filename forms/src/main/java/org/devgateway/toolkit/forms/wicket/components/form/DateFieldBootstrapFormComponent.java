@@ -17,6 +17,7 @@ package org.devgateway.toolkit.forms.wicket.components.form;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.AbstractDateTextFieldConfig;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextFieldConfig;
+import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.model.IModel;
 
 import java.util.Date;
@@ -56,6 +57,13 @@ public class DateFieldBootstrapFormComponent extends AbstractDateFieldBootstrapF
 
     @Override
     protected DateTextField newDateTextField(String id, AbstractDateTextFieldConfig config) {
-        return new DateTextField(id, initFieldModel(), (DateTextFieldConfig) config);
+        return new DateTextField(id, initFieldModel(), (DateTextFieldConfig) config) {
+
+            @Override
+            protected void onComponentTag(ComponentTag tag) {
+                super.onComponentTag(tag);
+                tag.put("autocomplete", "off");
+            }
+        };
     }
 }
