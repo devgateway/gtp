@@ -5,7 +5,7 @@ import {connect} from "react-redux"
 import WaterConfig from "../../../modules/entities/config/WaterConfig"
 import RainLevelConfig from "../../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelFilter from "../../../modules/entities/rainfall/RainLevelFilter"
-import {yearsToOptions} from "../../../modules/graphic/GraphicDTO"
+import {yearsToOptions} from "../../../modules/graphic/common/GraphicDTO"
 import {postIdsToOptions} from "../../../modules/graphic/water/CommonDTO"
 import * as waterActions from "../../../redux/actions/waterActions"
 import FilterDropDown from "../../common/filter/FilterDropDown"
@@ -43,8 +43,8 @@ const RainfallFilters = (props) => {
         <FilterDropDown
           options={yearsToOptions(config.years)} onChange={onYearChange}
           min={1} max={3}
-          description={<FormattedMessage id="indicators.filters.year.description" defaultMessage="Years" />}
-          selected={years} text={<FormattedMessage id="indicators.filters.year" defaultMessage="Years" />} />
+          description={<FormattedMessage id="indicators.filters.years.description" defaultMessage="Years" />}
+          selected={years} text={<FormattedMessage id="indicators.filters.years" defaultMessage="Years" />} />
       </div>
       <div className="filter item">
         <FilterDropDown
