@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage} from "react-intl"
-import {Dropdown, Input} from "semantic-ui-react"
+import {Dropdown, Input, Tab} from "semantic-ui-react"
 import DropdownBreadcrumb from "./DropdownBreadcrubmb"
 import FilterGroupedOptions from "./FilterGroupedOptions"
 
@@ -158,22 +158,30 @@ export default class FilterDropDown extends Component {
 }
 
 const GroupedFilterOptions = (groups: Map<String, Set<number>>, optionsByKey, filterOptions) => {
-  return Array.from(groups.keys()).sort().map(groupName => {
+  const optionsGroups = Array.from(groups.keys()).sort().map(groupName => {
     const options = groups.get(groupName).map(key => optionsByKey.get(key)).filter(o => !!o)
     if (!options.length) {
       return null
     }
-    return (
-      <>
-        <Dropdown.Header className="group-header">
-          <snap>{groupName}</snap>
-        </Dropdown.Header>
-        <Dropdown.Divider/>
-
-        {filterOptions(options)}
-      </>
-    )
-  })
+    return {
+      menuItem: groupName,
+      pane:
+        <Tab.Pane>
+          <Dropdown.Divider/>
+          <Dropdown.Menu>
+            {filterOptions(options)}
+          </Dropdown.Menu>
+        </Tab.Pane>
+    }
+  }).filter(entry => entry)
+  return (
+    <Tab
+      defaultActiveIndex={0}
+      renderActiveOnly={false}
+      onTabChange={(e) => e.stopPropagation()}
+      panes={optionsGroups}
+      className="filter-group"/>
+  )
 }
 
 const FilterOptions = (id, selected, updateSelection, allowSelect, allowDeselect) => (options) => (

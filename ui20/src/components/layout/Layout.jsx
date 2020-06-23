@@ -9,7 +9,7 @@ export default class Layout extends Component {
     return (
       <Grid className="page-layout" stackable={false}>
         <GridRow>
-          <GridColumn className="menu">
+          <GridColumn className="page-menu menu">
             <Menu/>
           </GridColumn>
           <GridColumn className="page-content">
