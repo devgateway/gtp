@@ -112,9 +112,9 @@ public class ProductYearlyPrices extends AbstractAuditableEntity {
         this.quantities = quantities;
     }
 
-    public void addQuantity(ProductQuantity quantity) {
+    public boolean addQuantity(ProductQuantity quantity) {
         quantity.setProductYearlyPrices(this);
-        quantities.add(quantity);
+        return quantities.add(quantity);
     }
 
     @Override

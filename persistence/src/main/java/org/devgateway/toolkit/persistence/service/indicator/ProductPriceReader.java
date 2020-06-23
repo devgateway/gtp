@@ -11,9 +11,10 @@ import java.time.MonthDay;
 import java.time.Year;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class ProductPriceReader {
 
     private final boolean productsOnSeparateRows;
 
-    private List<String> errors;
+    private LinkedHashSet<String> errors;
 
     private ProductPriceColumns cols;
 
@@ -90,7 +91,7 @@ public class ProductPriceReader {
 
         XSSFSheet sheet = workbook.getSheetAt(0);
 
-        errors = new ArrayList<>();
+        errors = new LinkedHashSet<>();
 
         readHeader(sheet);
 
@@ -131,35 +132,55 @@ public class ProductPriceReader {
                 Product product = getProduct(row);
                 if (product != null) {
                     for (PriceType priceType : product.getPriceTypes()) {
-                        XSSFCell priceCell = row.getCell(cols.getPriceTypeCol(priceType));
-                        if (!isEmpty(priceCell)) {
-                            Integer price = getPrice(priceCell);
-                            yearlyPrices.addPrice(new ProductPrice(product, market, monthDay, priceType, price));
-                        }
+                        XSSFCell priceCell = getOptionalCell(row, cols.getPriceTypeCol(priceType));
+                        processPriceCell(row, priceCell, yearlyPrices, market, monthDay, product, priceType);
                     }
                 }
             } else {
                 for (Product product :  products.elements.values()) {
                     for (PriceType priceType : product.getPriceTypes()) {
-                        XSSFCell priceCell = row.getCell(cols.getProductAndPriceTypeCol(product, priceType));
-                        if (!isEmpty(priceCell)) {
-                            Integer price = getPrice(priceCell);
-                            yearlyPrices.addPrice(new ProductPrice(product, market, monthDay, priceType, price));
-                        }
+                        XSSFCell priceCell = getOptionalCell(row, cols.getProductAndPriceTypeCol(product, priceType));
+                        processPriceCell(row, priceCell, yearlyPrices, market, monthDay, product, priceType);
                     }
                 }
 
                 for (Product product :  products.elements.values()) {
-                    XSSFCell qtCell = row.getCell(cols.getQuantityCol(product));
+                    XSSFCell qtCell = getOptionalCell(row, cols.getQuantityCol(product));
                     if (!isEmpty(qtCell)) {
                         BigDecimal quantity = getQuantity(qtCell, product);
-                        yearlyPrices.addQuantity(new ProductQuantity(product, market, monthDay, quantity));
+                        ProductQuantity productQuantity = new ProductQuantity(product, market, monthDay, quantity);
+                        boolean isNew = yearlyPrices.addQuantity(productQuantity);
+                        if (!isNew) {
+                            reportDuplicateRowError(row, product, market, monthDay);
+                        }
                     }
                 }
             }
         }
 
         return yearlyPrices;
+    }
+
+    private XSSFCell getOptionalCell(XSSFRow row, Integer col) {
+        return col != null ? row.getCell(col) : null;
+    }
+
+    private void processPriceCell(XSSFRow row, XSSFCell priceCell, ProductYearlyPrices yearlyPrices, Market market,
+            MonthDay monthDay, Product product, PriceType priceType) {
+        if (!isEmpty(priceCell)) {
+            Integer price = getPrice(priceCell);
+            ProductPrice productPrice = new ProductPrice(product, market, monthDay, priceType, price);
+            boolean isNew = yearlyPrices.addPrice(productPrice);
+            if (!isNew) {
+                reportDuplicateRowError(row, product, market, monthDay);
+            }
+        }
+    }
+
+    private void reportDuplicateRowError(XSSFRow row, Product product, Market market, MonthDay monthDay) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd MMM", Locale.FRENCH);
+        errors.add(errorAt(row.getCell(0), String.format("Ligne en double pour le produit %s, le marché %s, le jour %s",
+                product.getLabel(), market.getLabel(), fmt.format(monthDay))));
     }
 
     private Product getProduct(XSSFRow row) {
@@ -409,7 +430,7 @@ public class ProductPriceReader {
     }
 
     private boolean isEmpty(XSSFCell cell) {
-        return cell.getRawValue() == null;
+        return cell == null || cell.getRawValue() == null;
     }
 
     private static class SearchableCollection<T> {
