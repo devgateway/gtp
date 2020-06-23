@@ -85,11 +85,15 @@ public abstract class AbstractExcelImportPage<T extends GenericPersistable> exte
                 try {
                     importData(inputStream);
                 } catch (ReaderException e) {
-                    logger.warn("Import failed.", e);
+                    if (e.getCause() != null) {
+                        logger.warn("Import failed.", e.getCause());
+                    }
+
                     String errors = e.getErrors().stream().limit(MAX_ERRORS).collect(joining("<br>"));
                     if (e.getErrors().size() > MAX_ERRORS) {
                         errors += "<br>Other " + (e.getErrors().size() - MAX_ERRORS) + " errors are not displayed.";
                     }
+
                     upload.error(new NotificationMessage(Model.of(errors)).escapeModelStrings(false));
                 }
             }
