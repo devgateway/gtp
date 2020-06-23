@@ -1,24 +1,24 @@
 package org.devgateway.toolkit.persistence.service.indicator;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * @author Octavian Ciubotaru
  */
 public class ReaderException extends Exception {
 
-    private final List<String> errors;
+    private final Collection<String> errors;
 
-    public ReaderException(List<String> errors) {
+    public ReaderException(Collection<String> errors) {
         this(errors, null);
     }
 
-    public ReaderException(List<String> errors, Exception e) {
+    public ReaderException(Collection<String> errors, Exception e) {
         super("Import failed with " + errors.size() + " errors", e);
         this.errors = errors;
     }
 
-    public List<String> getErrors() {
+    public Collection<String> getErrors() {
         return errors;
     }
 }
