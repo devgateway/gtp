@@ -111,7 +111,7 @@ public class EditProductPage extends AbstractEditPage<Product> {
 
         deleteButton.setVisible(false);
 
-        savedSaveEditPageButton = super.getSaveEditPageButton("button", Model.of("Yes"));
+        savedSaveEditPageButton = super.getSaveEditPageButton("button", new StringResourceModel("modal.ok", this));
 
         confirmationModal = new TextContentModal("confirmationModal", Model.of());
         confirmationModal.setOutputMarkupId(true);
@@ -124,7 +124,7 @@ public class EditProductPage extends AbstractEditPage<Product> {
             public void onClick(AjaxRequestTarget target) {
                 confirmationModal.close(target);
             }
-        }.setLabel(Model.of("Cancel")));
+        }.setLabel(new StringResourceModel("modal.cancel", this)));
         editForm.add(confirmationModal);
     }
 
