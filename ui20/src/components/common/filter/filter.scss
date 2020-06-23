@@ -51,11 +51,10 @@
     border: 0;
     margin-left: 0;
     min-width: 209px;
-    max-width: 800px;
+    max-width: 250px;
     width: auto !important;
 
     .item {
-      padding-left: 10px !important;
       font-size: 12px;
       margin-right: 12px;
     }
@@ -129,5 +128,41 @@
   .filter.item {
     float: left;
     margin-left: 21px;
+
+    .ui.input.search {
+      margin: 11px;
+    }
+
+    .filter-group {
+      display: block;
+      margin-top: -6px;
+
+      .menu {
+        display: flex;
+        flex-wrap: wrap;
+        position: initial;
+        margin-left: 0 !important;
+        border-bottom: 1px solid $border-color;
+
+        .item {
+          margin-right: 0;
+        }
+        a::after {
+          padding-left: 16px;
+          margin-right: -16px;
+          content: '';
+          font-size: 12px;
+          border-right: 1px solid $border-color;
+        }
+        a:last-child::after {
+          display: none;
+        }
+      }
+      .ui.bottom.attached.segment.tab {
+        padding: 0;
+        border: 0;
+        margin: 0;
+      }
+    }
   }
 }

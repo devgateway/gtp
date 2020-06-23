@@ -5,11 +5,13 @@ import {connect} from "react-redux"
 import * as priceActions from "../../../redux/actions/market/priceActions"
 import Graphic from "../../common/Graphic"
 import ProductPrice from "./ProductPrice"
+import ProductPriceProperties from "./ProductPriceProperties"
 
 
 class ProductPriceGraphic extends Component {
   static propTypes = {
     getProductPrices: PropTypes.func.isRequired,
+    isPriceDataLoaded: PropTypes.bool.isRequired,
     filter: PropTypes.object.isRequired,
   }
 
@@ -20,6 +22,7 @@ class ProductPriceGraphic extends Component {
       <Graphic
         id="anchor.indicator.agriculture.market.price" titleId="indicators.chart.product.price.title"
         sourceId="indicators.chart.product.price.source">
+        <ProductPriceProperties filter={filter} />
         <ProductPrice {...getProductPrices()} filter={filter}/>
       </Graphic>)
   }
@@ -28,6 +31,7 @@ class ProductPriceGraphic extends Component {
 
 const mapStateToProps = state => {
   return {
+    isPriceDataLoaded: state.getIn(['agriculture', 'isPriceDataLoading']),
     filter: state.getIn(['agriculture', 'data', 'productPriceChart', 'filter'])
   }
 }

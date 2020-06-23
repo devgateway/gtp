@@ -10,6 +10,7 @@ export const getRainSeason = (year: number) => post(EP.RAINSEASON, {year})
 export const getRiverLevel = (riverLevelFilter: RiverLevelFilter) => post(EP.RIVER_LEVEL, riverLevelFilter)
 
 export const getAllMarketAndAgriculture = () => get(EP.MARKET_AND_AGRICULTURE_ALL)
+export const getProductPrices = (year, productId, marketId) => post(EP.PRODUCT_PRICES, {year, productId, marketId})
 
 export const getAllBulletins = () => get(EP.BULLETIN_ALL)
 export const getDownloadBulletinUrl = (id) => urlWithSearchParams(EP.BULLETIN_DOWNLOAD, {id})

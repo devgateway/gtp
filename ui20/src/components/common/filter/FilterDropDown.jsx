@@ -1,12 +1,14 @@
 import PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage} from "react-intl"
-import {Dropdown, Input} from "semantic-ui-react"
+import {Dropdown, Input, Tab} from "semantic-ui-react"
 import DropdownBreadcrumb from "./DropdownBreadcrubmb"
+import FilterGroupedOptions from "./FilterGroupedOptions"
 
 export default class FilterDropDown extends Component {
   static propTypes = {
     options: PropTypes.array.isRequired,
+    groupedOptions: PropTypes.instanceOf(FilterGroupedOptions),
     selected: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired,
     text: PropTypes.any.isRequired,
@@ -27,15 +29,20 @@ export default class FilterDropDown extends Component {
 
   constructor(props) {
     super(props)
+    const {groupedOptions} = props
     this.state = {
       open: false,
       id: `dropdown_${Math.random()}`,
       isLocalStateChange: false,
+      isGrouped: groupedOptions && groupedOptions.groups && !!groupedOptions.groups.size,
+      activeGroupIndex: null,
     }
+    this.updateSelection = this.updateSelection.bind(this)
+    this.setActiveGroupIndex = this.setActiveGroupIndex.bind(this)
   }
 
   static getDerivedStateFromProps(props, state) {
-    const {isLocalStateChange} = state
+    const {isLocalStateChange, isGrouped} = state
     if (isLocalStateChange) {
       return {
         isLocalStateChange: false
@@ -46,8 +53,13 @@ export default class FilterDropDown extends Component {
     options.forEach(o => o.lowerText = `${o.text}`.toLowerCase())
     return {
       options,
+      optionsByKey: isGrouped && FilterDropDown.optionsByKey(options),
       defaultOptions: options
     }
+  }
+
+  static optionsByKey(defaultOptions) {
+    return defaultOptions.reduce((map: Map, o) => map.set(o.key, o), new Map())
   }
 
   setFilterState(state) {
@@ -84,18 +96,26 @@ export default class FilterDropDown extends Component {
   }
 
   onSearchChange(value) {
-    const {defaultOptions} = this.state
+    const {defaultOptions, isGrouped} = this.state
     value = value && value.trim().toLowerCase()
-    if (!value) {
-      this.setFilterState({ options: defaultOptions })
-    } else {
-      this.setFilterState({options: defaultOptions.filter(({ lowerText }) => lowerText.includes(value) )})
-    }
+
+    const options = !value ? defaultOptions : defaultOptions.filter(({lowerText}) => lowerText.includes(value))
+    this.setFilterState({
+      options,
+      optionsByKey: isGrouped && FilterDropDown.optionsByKey(options),
+    })
+  }
+
+  setActiveGroupIndex(activeGroupIndex) {
+    this.setFilterState({
+      activeGroupIndex
+    })
   }
 
   render() {
     const {selected, text, description, disabled, single, min, max, withSearch} = this.props
-    const {open, id, options, defaultOptions} = this.state
+    const {open, id, optionsByKey, defaultOptions, options, isGrouped, activeGroupIndex} = this.state
+    const groups: Map = this.props.groupedOptions && this.props.groupedOptions.groups
 
     const breadcrum = DropdownBreadcrumb(defaultOptions, selected, text, single)
     const allowSelectNone = !single && !min
@@ -105,6 +125,8 @@ export default class FilterDropDown extends Component {
 
     const isKeepOpen = (e: Event) => !!(e && e.currentTarget && e.currentTarget.getAttribute &&
         e.currentTarget.getAttribute("role") === "listbox" && e.target.id && e.target.id !== id)
+
+    const filterOptions = FilterOptions(id, selected, this.updateSelection, allowSelect, allowDeselect)
 
     return (
       <Dropdown
@@ -136,23 +158,69 @@ export default class FilterDropDown extends Component {
           </Dropdown.Header>}
           <Dropdown.Divider/>
 
-          <Dropdown.Menu scrolling className="filter options">
-            {
-              options.map(o => {
-                const isChecked = selected.indexOf(o.key) > -1
-                const isDisabled = (isChecked && !allowDeselect) || (!isChecked && !allowSelect)
-                return (
-                  <Dropdown.Item
-                    id={`${id}_item_${o.key}`}
-                    key={o.key} disabled={isDisabled} onClick={e => this.updateSelection(o.key)}>
-                    <div className={"checkbox " + (isChecked ? "checked" : "")}/>
-                    {o.text}
-                  </Dropdown.Item>)
-              })}
-          </Dropdown.Menu>
-          <Dropdown.Divider/>
+          {isGrouped ?
+            GroupedFilterOptions(groups, optionsByKey, selected, filterOptions, activeGroupIndex, this.setActiveGroupIndex)
+            : filterOptions(options)}
 
         </Dropdown.Menu>
       </Dropdown>)
   }
 }
+
+const GroupedFilterOptions = (groups: Map<String, Set<number>>, optionsByKey, selected, filterOptions,
+  activeIndex, setActiveGroupIndex) => {
+  const optionsGroups = Array.from(groups.keys()).sort().map((groupName, index) => {
+    const options = groups.get(groupName).map(key => optionsByKey.get(key)).filter(o => !!o)
+    if (!options.length) {
+      return null
+    }
+    const hasSelection = options.some(o => selected.includes(o.key))
+    if (hasSelection && activeIndex === null) {
+      activeIndex = index
+    }
+    return {
+      menuItem: groupName,
+      pane:
+        <Tab.Pane key={index}>
+          <Dropdown.Divider/>
+          <Dropdown.Menu>
+            {filterOptions(options)}
+          </Dropdown.Menu>
+        </Tab.Pane>
+    }
+  }).filter(entry => entry)
+  if (activeIndex >= optionsGroups.length) {
+    activeIndex = 0
+  }
+  return (
+    <Tab
+      activeIndex={activeIndex || 0}
+      renderActiveOnly={false}
+      onTabChange={(e, {activeIndex}) => {
+        e.stopPropagation()
+        setActiveGroupIndex(activeIndex)
+      }}
+      panes={optionsGroups}
+      className="filter-group"/>
+  )
+}
+
+const FilterOptions = (id, selected, updateSelection, allowSelect, allowDeselect) => (options) => (
+  <>
+    <Dropdown.Menu scrolling className="filter options">
+      {
+        options.map(o => {
+          const isChecked = selected.indexOf(o.key) > -1
+          const isDisabled = (isChecked && !allowDeselect) || (!isChecked && !allowSelect)
+          return (
+            <Dropdown.Item
+              id={`${id}_item_${o.key}`}
+              key={o.key} disabled={isDisabled} onClick={e => updateSelection(o.key)}>
+              <div className={"checkbox " + (isChecked ? "checked" : "")}/>
+              {o.text}
+            </Dropdown.Item>)
+        })}
+    </Dropdown.Menu>
+    <Dropdown.Divider/>
+  </>
+)

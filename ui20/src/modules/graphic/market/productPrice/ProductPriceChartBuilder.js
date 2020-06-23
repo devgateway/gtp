@@ -1,9 +1,9 @@
 import AgricultureConfig from "../../../entities/config/AgricultureConfig"
 import ProductPrice from "../../../entities/product/ProductPrice"
 import ProductPriceChart from "../../../entities/product/ProductPriceChart"
-import DateLine from "../../common/dto/DateLine"
 import DateLinePoint from "../../common/dto/DateLinePoint"
 import ProductPriceChartDTO from "./ProductPriceChartDTO"
+import ProductPriceLine from "./ProductPriceLine"
 
 export default class ProductPriceChartBuilder {
   productPriceChart: ProductPriceChart
@@ -19,11 +19,11 @@ export default class ProductPriceChartBuilder {
     const { pricesByPriceTypeId, previousYearAverages } = this.productPriceChart.data
     const {productId} = this.productPriceChart.filter
     const product = productId && productsById.get(productId)
-    const lines: Array<DateLine> = []
+    const lines: Array<ProductPriceLine> = []
 
     pricesByPriceTypeId.forEach((prices: Array<ProductPrice>, priceTypeId: number) => {
       const points = prices.map(pp => new DateLinePoint(pp.monthDay.date, pp.price))
-      lines.push(new DateLine(priceTypes.get(priceTypeId).label, points))
+      lines.push(new ProductPriceLine(priceTypes.get(priceTypeId), points))
     })
     lines.forEach((l, index) => l.index = index)
 
