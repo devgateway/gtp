@@ -132,20 +132,20 @@ public class ProductPriceReader {
                 Product product = getProduct(row);
                 if (product != null) {
                     for (PriceType priceType : product.getPriceTypes()) {
-                        XSSFCell priceCell = row.getCell(cols.getPriceTypeCol(priceType));
+                        XSSFCell priceCell = getOptionalCell(row, cols.getPriceTypeCol(priceType));
                         processPriceCell(row, priceCell, yearlyPrices, market, monthDay, product, priceType);
                     }
                 }
             } else {
                 for (Product product :  products.elements.values()) {
                     for (PriceType priceType : product.getPriceTypes()) {
-                        XSSFCell priceCell = row.getCell(cols.getProductAndPriceTypeCol(product, priceType));
+                        XSSFCell priceCell = getOptionalCell(row, cols.getProductAndPriceTypeCol(product, priceType));
                         processPriceCell(row, priceCell, yearlyPrices, market, monthDay, product, priceType);
                     }
                 }
 
                 for (Product product :  products.elements.values()) {
-                    XSSFCell qtCell = row.getCell(cols.getQuantityCol(product));
+                    XSSFCell qtCell = getOptionalCell(row, cols.getQuantityCol(product));
                     if (!isEmpty(qtCell)) {
                         BigDecimal quantity = getQuantity(qtCell, product);
                         ProductQuantity productQuantity = new ProductQuantity(product, market, monthDay, quantity);
@@ -159,6 +159,10 @@ public class ProductPriceReader {
         }
 
         return yearlyPrices;
+    }
+
+    private XSSFCell getOptionalCell(XSSFRow row, Integer col) {
+        return col != null ? row.getCell(col) : null;
     }
 
     private void processPriceCell(XSSFRow row, XSSFCell priceCell, ProductYearlyPrices yearlyPrices, Market market,
@@ -426,7 +430,7 @@ public class ProductPriceReader {
     }
 
     private boolean isEmpty(XSSFCell cell) {
-        return cell.getRawValue() == null;
+        return cell == null || cell.getRawValue() == null;
     }
 
     private static class SearchableCollection<T> {
