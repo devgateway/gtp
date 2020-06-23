@@ -9,6 +9,7 @@ export default class RiverLevelData {
   referenceYearlyLevels: Array<YearLevel>
 
   constructor({yearlyLevels, referenceYearlyLevels}) {
+    // eslint-disable-next-line no-unused-vars
     const hasLeapYear = (yearLevels) => yearLevels.some(({ year }) => new HydrologicalYear(year).isLeapYear)
     normalizedData.isUseLeapYear = false // hasLeapYear(yearlyLevels) || hasLeapYear(referenceYearlyLevels)
 
