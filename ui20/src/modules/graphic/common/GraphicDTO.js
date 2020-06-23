@@ -3,3 +3,9 @@ export const yearsToOptions = (years) => years.sort().reverse().map(y => ({
   text: y,
   value: y
 }))
+
+export const anyWithIdAndNameToOptions = (list) => list.map(el => ({
+  key: el.id,
+  text: el.name,
+  value: el.id,
+}))

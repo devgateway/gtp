@@ -2,14 +2,6 @@ import FilterGroupedOptions from "../../../components/common/filter/FilterGroupe
 import Product from "../../entities/product/Product"
 import ProductType from "../../entities/product/ProductType"
 
-export const productToOption = (p: Product) => ({
-  key: p.id,
-  text: p.name,
-  value: p.id
-})
-
-export const productsToOptions = (products: Array<Product>) => products.map(productToOption)
-
 export const productsToFilterGroupedOptions = (productsByTypeId: Map<number, Set<number>>,
   productTypes: Map<number, ProductType>) => {
   const groups = new Map()
@@ -17,4 +9,8 @@ export const productsToFilterGroupedOptions = (productsByTypeId: Map<number, Set
     groups.set(productTypes.get(key).label, productIds)
   })
   return new FilterGroupedOptions(groups)
+}
+
+export const marketsToFilterGroupedOptions = (marketIdsByTypeName: Map<string, Set<number>>) => {
+  return new FilterGroupedOptions(marketIdsByTypeName)
 }

@@ -17,4 +17,8 @@ export default class Market {
     this.department = departments.get(this.departmentId)
     this.type = marketTypes.get(this.typeId)
   }
+
+  static localeCompare(m1: Market, m2: Market) {
+    return m1.name.localeCompare(m2.name)
+  }
 }

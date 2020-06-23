@@ -4,8 +4,11 @@ import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
 import ProductPriceConfig from "../../../modules/entities/product/ProductPriceConfig"
-import {yearsToOptions} from "../../../modules/graphic/common/GraphicDTO"
-import {productsToFilterGroupedOptions, productsToOptions} from "../../../modules/graphic/market/MarketUtils"
+import {anyWithIdAndNameToOptions, yearsToOptions} from "../../../modules/graphic/common/GraphicDTO"
+import {
+  marketsToFilterGroupedOptions,
+  productsToFilterGroupedOptions
+} from "../../../modules/graphic/market/MarketUtils"
 import * as priceActions from "../../../redux/actions/market/priceActions"
 import FilterDropDown from "../../common/filter/FilterDropDown"
 
@@ -30,7 +33,7 @@ class ProductPriceProperties extends Component {
 
 const ProductPriceFilters = (props) => {
   const {setYearFilter, setProductFilter, setMarketFilter, config, intl}  = props
-  const {products, productIdsByTypeId, productTypes} = props.agricultureConfig
+  const {products, productIdsByTypeId, productTypes, markets, marketIdsByTypeName} = props.agricultureConfig
   const {year, productId, marketId} = props.filter
 
   return (
@@ -43,11 +46,19 @@ const ProductPriceFilters = (props) => {
       </div>
       <div className="filter item">
         <FilterDropDown
-          options={productsToOptions(products)}
+          options={anyWithIdAndNameToOptions(products)}
           groupedOptions={productsToFilterGroupedOptions(productIdsByTypeId, productTypes)}
           onChange={(productIds) => setProductFilter(productIds[0])}
           min={1} max={1} single withSearch
           selected={[productId]} text={intl.formatMessage({ id: "indicators.filters.product" })} />
+      </div>
+      <div className="filter item">
+        <FilterDropDown
+          options={anyWithIdAndNameToOptions(markets)}
+          groupedOptions={marketsToFilterGroupedOptions(marketIdsByTypeName)}
+          onChange={(marketIds) => setMarketFilter(marketIds[0])}
+          min={1} max={1} single withSearch
+          selected={[marketId]} text={intl.formatMessage({ id: "indicators.filters.market" })} />
       </div>
     </div>
   )
