@@ -34,9 +34,11 @@ export default class FilterDropDown extends Component {
       open: false,
       id: `dropdown_${Math.random()}`,
       isLocalStateChange: false,
-      isGrouped: groupedOptions && groupedOptions.groups && !!groupedOptions.groups.size
+      isGrouped: groupedOptions && groupedOptions.groups && !!groupedOptions.groups.size,
+      activeGroupIndex: null,
     }
     this.updateSelection = this.updateSelection.bind(this)
+    this.setActiveGroupIndex = this.setActiveGroupIndex.bind(this)
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -104,9 +106,15 @@ export default class FilterDropDown extends Component {
     })
   }
 
+  setActiveGroupIndex(activeGroupIndex) {
+    this.setFilterState({
+      activeGroupIndex
+    })
+  }
+
   render() {
     const {selected, text, description, disabled, single, min, max, withSearch} = this.props
-    const {open, id, optionsByKey, defaultOptions, options, isGrouped} = this.state
+    const {open, id, optionsByKey, defaultOptions, options, isGrouped, activeGroupIndex} = this.state
     const groups: Map = this.props.groupedOptions && this.props.groupedOptions.groups
 
     const breadcrum = DropdownBreadcrumb(defaultOptions, selected, text, single)
@@ -150,23 +158,30 @@ export default class FilterDropDown extends Component {
           </Dropdown.Header>}
           <Dropdown.Divider/>
 
-          {isGrouped ? GroupedFilterOptions(groups, optionsByKey, filterOptions) : filterOptions(options)}
+          {isGrouped ?
+            GroupedFilterOptions(groups, optionsByKey, selected, filterOptions, activeGroupIndex, this.setActiveGroupIndex)
+            : filterOptions(options)}
 
         </Dropdown.Menu>
       </Dropdown>)
   }
 }
 
-const GroupedFilterOptions = (groups: Map<String, Set<number>>, optionsByKey, filterOptions) => {
-  const optionsGroups = Array.from(groups.keys()).sort().map(groupName => {
+const GroupedFilterOptions = (groups: Map<String, Set<number>>, optionsByKey, selected, filterOptions,
+  activeIndex, setActiveGroupIndex) => {
+  const optionsGroups = Array.from(groups.keys()).sort().map((groupName, index) => {
     const options = groups.get(groupName).map(key => optionsByKey.get(key)).filter(o => !!o)
     if (!options.length) {
       return null
     }
+    const hasSelection = options.some(o => selected.includes(o.key))
+    if (hasSelection && activeIndex === null) {
+      activeIndex = index
+    }
     return {
       menuItem: groupName,
       pane:
-        <Tab.Pane>
+        <Tab.Pane key={index}>
           <Dropdown.Divider/>
           <Dropdown.Menu>
             {filterOptions(options)}
@@ -174,11 +189,17 @@ const GroupedFilterOptions = (groups: Map<String, Set<number>>, optionsByKey, fi
         </Tab.Pane>
     }
   }).filter(entry => entry)
+  if (activeIndex >= optionsGroups.length) {
+    activeIndex = 0
+  }
   return (
     <Tab
-      defaultActiveIndex={0}
+      activeIndex={activeIndex || 0}
       renderActiveOnly={false}
-      onTabChange={(e) => e.stopPropagation()}
+      onTabChange={(e, {activeIndex}) => {
+        e.stopPropagation()
+        setActiveGroupIndex(activeIndex)
+      }}
       panes={optionsGroups}
       className="filter-group"/>
   )
