@@ -4,8 +4,11 @@ import PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage, FormattedNumber, injectIntl} from "react-intl"
 import {connect} from "react-redux"
+import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
+import PriceType from "../../../modules/entities/product/PriceType"
 import ProductAvgPrice from "../../../modules/entities/product/ProductAvgPrice"
 import ProductPriceChartDTO from "../../../modules/graphic/market/productPrice/ProductPriceChartDTO"
+import ProductPriceLine from "../../../modules/graphic/market/productPrice/ProductPriceLine"
 import Chip from "../../common/Chip"
 import * as sccJS from "../../css"
 import ProductPriceLegend, {getAveragePriceLabel} from "./ProductPriceLegend"
@@ -13,6 +16,7 @@ import ProductPriceLegend, {getAveragePriceLabel} from "./ProductPriceLegend"
 class ProductPrice extends Component {
   static propTypes = {
     data: PropTypes.instanceOf(ProductPriceChartDTO).isRequired,
+    agricultureConfig: PropTypes.instanceOf(AgricultureConfig).isRequired,
     filter: PropTypes.object.isRequired,
   }
 
@@ -53,8 +57,10 @@ class ProductPrice extends Component {
     const {previousYearAverages} = data
     const {hideAvgPrices} = this.state
 
-    const colors = getColors(data.lines)
-    const avgColors = getAvgMarkersColors(previousYearAverages)
+    const priceTypes = Array.from(this.props.agricultureConfig.priceTypes.values())
+    const colorsByPriceType: Map<number, string> = getColorsByPriceType(priceTypes)
+    const colors = getColors(data.lines, colorsByPriceType)
+    const avgColors = getAvgMarkersColors(previousYearAverages, colorsByPriceType)
     // TODO responsive top detection
     const chartTop = colors.length + avgColors.length < 5 ? 10 : 50
 
@@ -129,15 +135,16 @@ class ProductPrice extends Component {
   }
 }
 
-const getColors = (lines) => {
-  return lines.map((l, index) => {
-    index = index % sccJS.PALLET_COLORS.length
-    return sccJS.PALLET_COLORS[index]
-  })
-}
+const getColorsByPriceType = (priceTypes: Array<PriceType>) => priceTypes.sort(PriceType.localeCompare)
+  .reduce((map: Map, pt, index) => {
+    return map.set(pt.id, sccJS.PALLET_COLORS[index % sccJS.PALLET_COLORS.length])
+  }, new Map())
 
-const getAvgMarkersColors = (avgPrices) => avgPrices.map((avg, index) =>
-  sccJS.REFERENCE_COLORS[index % sccJS.REFERENCE_COLORS.length])
+const getColors = (lines, colorsByPriceType: Map<number, string>) =>
+  lines.map((l: ProductPriceLine) => colorsByPriceType.get(l.priceType.id))
+
+const getAvgMarkersColors = (avgPrices, colorsByPriceType: Map<number, string>) =>
+  avgPrices.map((avg: ProductAvgPrice) => colorsByPriceType.get(avg.priceType.id))
 
 const CustomSliceTooltip = (filter, previousYearAverages: Array<ProductAvgPrice>, avgColors: Array<string>,
   hideAvgPrices: Set<number>) =>
@@ -171,6 +178,7 @@ const CustomSliceTooltip = (filter, previousYearAverages: Array<ProductAvgPrice>
 
 const mapStateToProps = state => {
   return {
+    agricultureConfig: state.getIn(['agriculture', 'data', 'agricultureConfig'])
   }
 }
 
