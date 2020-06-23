@@ -1,10 +1,11 @@
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
-import {FormattedMessage, injectIntl} from "react-intl"
+import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
 import ProductPriceConfig from "../../../modules/entities/product/ProductPriceConfig"
 import {yearsToOptions} from "../../../modules/graphic/common/GraphicDTO"
+import {productsToFilterGroupedOptions, productsToOptions} from "../../../modules/graphic/market/MarketUtils"
 import * as priceActions from "../../../redux/actions/market/priceActions"
 import FilterDropDown from "../../common/filter/FilterDropDown"
 
@@ -29,7 +30,9 @@ class ProductPriceProperties extends Component {
 
 const ProductPriceFilters = (props) => {
   const {setYearFilter, setProductFilter, setMarketFilter, config, intl}  = props
+  const {products, productIdsByTypeId, productTypes} = props.agricultureConfig
   const {year, productId, marketId} = props.filter
+
   return (
     <div className="indicator chart filter">
       <div className="filter item">
@@ -37,6 +40,14 @@ const ProductPriceFilters = (props) => {
           options={yearsToOptions(config.years)} onChange={(years) => setYearFilter(years[0])}
           min={1} max={1} single
           selected={[year]} text={intl.formatMessage({ id: "indicators.filters.year", defaultMessage: "Years" })} />
+      </div>
+      <div className="filter item">
+        <FilterDropDown
+          options={productsToOptions(products)}
+          groupedOptions={productsToFilterGroupedOptions(productIdsByTypeId, productTypes)}
+          onChange={(productIds) => setProductFilter(productIds[0])}
+          min={1} max={1} single withSearch
+          selected={[productId]} text={intl.formatMessage({ id: "indicators.filters.product" })} />
       </div>
     </div>
   )

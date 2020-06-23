@@ -209,7 +209,7 @@
 	"indicators.filters.index_type": "Index Type",
 	"indicators.filters.location": "Location",
 	"indicators.filters.losstype": "Loss Type",
-	"indicators.filters.product": "Years",
+	"indicators.filters.product": "Product",
 	"indicators.filters.regions": "Regions",
 	"indicators.filters.reset": "Reset All",
 	"indicators.filters.river_station": "River",

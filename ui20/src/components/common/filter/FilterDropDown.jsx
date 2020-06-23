@@ -165,8 +165,8 @@ const GroupedFilterOptions = (groups: Map<String, Set<number>>, optionsByKey, fi
     }
     return (
       <>
-        <Dropdown.Header>
-          <snap className="filterGroup">{groupName}</snap>
+        <Dropdown.Header className="group-header">
+          <snap>{groupName}</snap>
         </Dropdown.Header>
         <Dropdown.Divider/>
 

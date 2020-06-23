@@ -210,6 +210,7 @@
 	"indicators.filters.index_type": "Type d'Indice",
 	"indicators.filters.location": "Localisation",
 	"indicators.filters.losstype": "Répartition de la Production",
+	"indicators.filters.product": "Produit",
 	"indicators.filters.regions": "Régions",
 	"indicators.filters.reset": "Réinitialiser",
 	"indicators.filters.river_station": "Fleuve",

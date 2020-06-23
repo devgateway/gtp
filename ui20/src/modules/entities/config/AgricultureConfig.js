@@ -1,4 +1,4 @@
-import {getOrDefaultArray} from "../../utils/DataUtilis"
+import {getOrDefaultArray, getOrDefaultSet} from "../../utils/DataUtilis"
 import Market from "../market/Market"
 import MarketType from "../market/MarketType"
 import PriceType from "../product/PriceType"
@@ -12,8 +12,9 @@ export default class AgricultureConfig extends CommonConfig {
   markets: Array<Market>
   productTypes: Map<number, ProductType>
   priceTypes: Map<number, PriceType>
+  products: Array<Product>
   productsById: Map<Number, Product>
-  productsByTypeId: Map<number, Array<Product>>
+  productIdsByTypeId: Map<number, Array<number>>
 
   constructor({marketTypes, markets, productTypes, priceTypes, products}, commonConfig) {
     super(commonConfig)
@@ -23,10 +24,10 @@ export default class AgricultureConfig extends CommonConfig {
     this.productTypes = (productTypes || []).reduce((map, pt) => map.set(pt.id, new ProductType(pt)), new Map())
     this.priceTypes = (priceTypes || []).reduce((map, pt) => map.set(pt.id, new PriceType(pt)), new Map())
 
-    products = (products || []).map(p => new Product(p)).sort(Product.localeCompare)
-    this.productsById = products.reduce((map, p) => map.set(p.id, p), new Map())
-    this.productsByTypeId = products.reduce((map, p) => {
-      getOrDefaultArray(map, p.id).push(p)
+    this.products = (products || []).map(p => new Product(p)).sort(Product.localeCompare)
+    this.productsById = this.products.reduce((map: Map, p: Product) => map.set(p.id, p), new Map())
+    this.productIdsByTypeId = this.products.reduce((map: Map, p: Product) => {
+      getOrDefaultArray(map, p.productTypeId).push(p.id)
       return map
     }, new Map())
   }

@@ -4,6 +4,7 @@ export const defaultMapFunc = () => new Map()
 
 export const getOrDefaultMap = (map, key) => getOrDefault(map, key, null, defaultMapFunc)
 export const getOrDefaultArray = (map, key) => getOrDefault(map, key, [])
+export const getOrDefaultSet = (map, key) => getOrDefault(map, key, new Set())
 
 export const getOrDefault = (map, key, defaultValue, defaultFunc) => {
   if (!map.has(key)) {
