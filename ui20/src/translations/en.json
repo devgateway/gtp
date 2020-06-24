@@ -178,6 +178,8 @@
 	"indicators.chart.product.price.average.importer-price": "Average importation price {year}",
 	"indicators.chart.product.price.average.retail-price": "Average retail price {year}",
 	"indicators.chart.product.price.average.wholesale-price": "Average wholesale price {year}",
+	"indicators.chart.product.quantity.title": "Supply of collection markets",
+	"indicators.chart.product.quantity.source": "Commissariat à la Sécurité Alimentaire",
 	"indicators.map.market.title": "Market Location",
 	"indicators.map.market.source": "Commissariat à la Sécurité Alimentaire",
 	"indicators.map.market.permanent": "Permanent",

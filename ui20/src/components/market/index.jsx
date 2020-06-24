@@ -8,9 +8,11 @@ import "../common/indicator-base.scss"
 import GraphicPage, {GraphicDef} from "../common/GraphicPage"
 import MarketLocationGraphic from "./marketLocation"
 import ProductPriceGraphic from "./productPrice"
+import ProductQuantityGraphic from "./productQuantity"
 
 const agricultureGraphicsDef = [
   new GraphicDef('indicators.chart.product.price.title', 'masked-icon icon-linechart', ProductPriceGraphic),
+  new GraphicDef('indicators.chart.product.quantity.title', 'masked-icon icon-linechart', ProductQuantityGraphic),
   /* keep MarketLocationGraphic always at the end*/
   new GraphicDef('indicators.map.market.title', 'masked-icon icon-barchart', MarketLocationGraphic),
 ]
