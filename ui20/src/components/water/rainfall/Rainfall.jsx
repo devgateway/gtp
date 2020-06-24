@@ -22,19 +22,11 @@ class Rainfall extends Component {
     setting: PropTypes.object.isRequired,
   }
 
-  _getMaxValue(barData: Array, keys: Array) {
-    return barData.reduce((max, r) => {
-      const lineX = Array.from(r.lineValues.values()).map(v => v || 0)
-      const barX = keys.map(k => r[k])
-      return Math.max(max, ...lineX, ...barX)
-    }, 1) * 1.1 || 'auto'
-  }
-
   render() {
     const {intl} = this.props
-    const {barData, keys, keysWithRefs, indexBy, monthDecadal} = this.props.rainfallDTO
+    const {barData, keys, keysWithRefs, indexBy, monthDecadal, maxValue} = this.props.rainfallDTO
     const {byDecadal, showReferences} = this.props.setting
-    const maxValue = this._getMaxValue(barData, keys)
+    const graphicMaxValue = maxValue * 1.1 || 'auto'
     const unit = intl.formatMessage({ id: "water.rainfall.unit"})
     const formatLevel = (s) => {
       let value = s.value
@@ -84,7 +76,7 @@ class Rainfall extends Component {
         groupMode='grouped'
         colors={[sccJS.GRAPHIC_COLOR_BLUE, sccJS.GRAPHIC_COLOR_RED, sccJS.GRAPHIC_COLOR_YELLOW]}
         barComponent={DefaultBarOrNegativeValueAsZeroBar}
-        maxValue={maxValue}
+        maxValue={graphicMaxValue}
         minValue={0}
         margin={{ top: 50, bottom: 80, left: 60 }}
         padding={0.3}

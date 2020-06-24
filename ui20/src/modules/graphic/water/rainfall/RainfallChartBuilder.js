@@ -38,6 +38,16 @@ export default class RainfallChartBuilder {
         }
       })
     this.rainfallDTO.monthDecadal = new MonthDecadal(this.keys.length === 1 ? this.keys[0] : null, C.SEASON_MONTHS)
+    this.rainfallDTO.maxValue = this._getMaxValue()
+  }
+
+  _getMaxValue() {
+    const maxLevels = this.keys.map(year => this.byDecadal ? this.data.getMaxDecadalLevel(year)
+      : this.data.getMaxMonthLevel(year))
+    const maxRainLevel = Math.max(...maxLevels)
+    const maxRefLevel = Math.max(...Array.from(this.keyReferenceLevels.values()).map((refData: RainReferenceLevelData) =>
+      this.byDecadal ? refData.maxDecadalLevel : refData.maxMonthLevel))
+    return Math.max(maxRainLevel, maxRefLevel)
   }
 
   build(): RainfallDTO {
