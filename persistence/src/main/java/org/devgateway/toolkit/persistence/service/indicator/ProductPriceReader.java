@@ -386,7 +386,7 @@ public class ProductPriceReader {
             String colName = null;
             if (!isEmpty(cell)) {
                 try {
-                    colName = cell.getStringCellValue().replace(" – ", " - ");
+                    colName = cell.getStringCellValue();
                 } catch (Exception e) {
                     errors.add(errorAt(cell, "Valeur d'en-tête non valide"));
                 }
@@ -454,7 +454,8 @@ public class ProductPriceReader {
         }
 
         private String normalize(String value) {
-            return StringUtils.stripAccents(StringUtils.strip(value.toLowerCase()));
+            return StringUtils.stripAccents(StringUtils.normalizeSpace(StringUtils.strip(value.toLowerCase())))
+                    .replace('–', '-');
         }
 
         T get(String name) {
