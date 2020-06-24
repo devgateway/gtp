@@ -59,6 +59,14 @@ public class ProductYearlyPrices extends AbstractAuditableEntity {
     @JsonIgnore
     private Long pricesSize;
 
+    /**
+     * Used in some cases to improve performance by avoiding to load prices. If the value is set it matches the
+     * size of the persisted collection.
+     */
+    @Transient
+    @JsonIgnore
+    private Long quantitiesSize;
+
     public ProductYearlyPrices() {
     }
 
@@ -102,6 +110,14 @@ public class ProductYearlyPrices extends AbstractAuditableEntity {
 
     public void setPricesSize(Long pricesSize) {
         this.pricesSize = pricesSize;
+    }
+
+    public Long getQuantitiesSize() {
+        return quantitiesSize;
+    }
+
+    public void setQuantitiesSize(Long quantitiesSize) {
+        this.quantitiesSize = quantitiesSize;
     }
 
     public SortedSet<ProductQuantity> getQuantities() {

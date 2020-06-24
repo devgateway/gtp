@@ -17,6 +17,8 @@ import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChart;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartFilter;
+import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChart;
+import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartFilter;
 import org.devgateway.toolkit.persistence.service.AgricultureChartsService;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,6 +59,7 @@ public class AgricultureGraphicsControllerTest extends AbstractDocumentedControl
                 .andExpect(jsonPath("commonConfig").isNotEmpty())
                 .andExpect(jsonPath("agricultureConfig").isNotEmpty())
                 .andExpect(jsonPath("productPricesChart").isNotEmpty())
+                .andExpect(jsonPath("productQuantitiesChart").isNotEmpty())
                 .andDo(document("all-agriculture-charts",
                         responseFields(
                                 subsectionWithPath("commonConfig")
@@ -65,7 +68,9 @@ public class AgricultureGraphicsControllerTest extends AbstractDocumentedControl
                                         .description("<<agriculture-charts-config,Configuration>> for "
                                                 + "agriculture charts"),
                                 subsectionWithPath("productPricesChart")
-                                        .description("<<product-prices-chart,Product prices chart>>")),
+                                        .description("<<product-prices-chart,Product prices chart>>"),
+                                subsectionWithPath("productQuantitiesChart")
+                                        .description("<<product-quantities-chart,Product quantities chart>>")),
                         responseFields(
                                 beneathPath("productPricesChart").withSubsectionId("productPricesChart"),
                                 subsectionWithPath("config")
@@ -73,7 +78,15 @@ public class AgricultureGraphicsControllerTest extends AbstractDocumentedControl
                                 subsectionWithPath("filter").description("Default <<product-price-chart-data,filter>> "
                                         + "for product price chart"),
                                 subsectionWithPath("data")
-                                        .description("<<product-price-chart-data,Data>> for the default filter"))));
+                                        .description("<<product-price-chart-data,Data>> for the default filter")),
+                        responseFields(
+                                beneathPath("productQuantitiesChart").withSubsectionId("productQuantitiesChart"),
+                                subsectionWithPath("config")
+                                        .description("<<product-quantity-chart-config,Configuration>>"),
+                                subsectionWithPath("filter").description("Default <<product-quantity-chart-data,filter>> "
+                                        + "for product quantity chart"),
+                                subsectionWithPath("data")
+                                        .description("<<product-quantity-chart-data,Data>> for the default filter"))));
     }
 
     @Test
@@ -180,5 +193,47 @@ public class AgricultureGraphicsControllerTest extends AbstractDocumentedControl
                                 beneathPath("previousYearAverages").withSubsectionId("averagePrice"),
                                 subsectionWithPath("average").description("Average price"),
                                 subsectionWithPath("priceTypeId").description("<<price-type,Price Type>> Id"))));
+    }
+
+    @Test
+    public void getProductQuantitiesChartConfig() throws Exception {
+        given(agricultureChartsService.getProductQuantitiesChartConfig())
+                .willReturn(agricultureData.getAgricultureChartsData().getProductQuantitiesChart().getConfig());
+
+        mvc.perform(get("/api/graphics/agriculture/product-quantities/config"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("years").isNotEmpty())
+                .andDo(document("product-quantities-config",
+                        responseFields(
+                                fieldWithPath("years").description("Years with product quantity data"))));
+    }
+
+    @Test
+    public void getProductQuantitiesChartData() throws Exception {
+        ProductQuantitiesChart chart = agricultureData.getAgricultureChartsData().getProductQuantitiesChart();
+
+        given(agricultureChartsService.getProductQuantitiesChartData(any()))
+                .willReturn(chart.getData());
+
+        ConstrainedFields constrainedFields = new ConstrainedFields(ProductQuantitiesChartFilter.class);
+
+        mvc.perform(post("/api/graphics/agriculture/product-quantities/data")
+                .content(om.writeValueAsBytes(chart.getFilter()))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("quantities").isNotEmpty())
+                .andDo(document("product-quantities-data",
+                        requestFields(
+                                constrainedFields.withPath("year").description("Year"),
+                                constrainedFields.withPath("productTypeId").description("<<product-type,Product Type>> Id"),
+                                constrainedFields.withPath("marketId").description("<<market,Market>> Id")),
+                        responseFields(
+                                subsectionWithPath("quantities")
+                                        .description("<<product-quantity,Product quantities>> for the requested filter")),
+                        responseFields(
+                                beneathPath("quantities").withSubsectionId("productQuantity"),
+                                fieldWithPath("monthDay").description("Date of the observed quantity. Format --mm-dd."),
+                                fieldWithPath("productId").description("<<product,Product>> Id"),
+                                fieldWithPath("quantity").description("Product quantity"))));
     }
 }

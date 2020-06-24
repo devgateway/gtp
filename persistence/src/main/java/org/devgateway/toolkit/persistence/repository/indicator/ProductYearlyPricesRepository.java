@@ -7,7 +7,9 @@ import org.devgateway.toolkit.persistence.dao.PersistedCollectionSize;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
+import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
+import org.devgateway.toolkit.persistence.dao.indicator.ProductQuantity;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
 import org.devgateway.toolkit.persistence.dto.agriculture.AveragePrice;
 import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
@@ -28,6 +30,14 @@ public interface ProductYearlyPricesRepository extends BaseJpaRepository<Product
             + "where p.id in :ids "
             + "group by p.id")
     List<PersistedCollectionSize> getPriceSizes(Collection<Long> ids);
+
+    @CacheHibernateQueryResult
+    @Query("select new org.devgateway.toolkit.persistence.dao.PersistedCollectionSize(p.id, count(pq.id)) "
+            + "from ProductYearlyPrices p "
+            + "join p.quantities pq "
+            + "where p.id in :ids "
+            + "group by p.id")
+    List<PersistedCollectionSize> getQuantitySizes(Collection<Long> ids);
 
     @CacheHibernateQueryResult
     @Query("select p "
@@ -93,4 +103,38 @@ public interface ProductYearlyPricesRepository extends BaseJpaRepository<Product
             + "where p.product.id = :productId "
             + "and p.priceType.id in :priceTypeIds")
     Long countPricesForProductAndPriceType(Long productId, Collection<Long> priceTypeIds);
+
+    @CacheHibernateQueryResult
+    @Query("select yp.year "
+            + "from ProductYearlyPrices yp "
+            + "join yp.quantities q "
+            + "group by yp.year "
+            + "having count(q.id) > 0")
+    List<Integer> findYearsWithQuantities();
+
+    @CacheHibernateQueryResult
+    @Query("select distinct q.market "
+            + "from ProductYearlyPrices yp "
+            + "join yp.quantities q "
+            + "where yp.year = :year "
+            + "and q.product.productType.id = :productTypeId "
+            + "order by q.market.name")
+    List<Market> getMarketsWithQuantities(Integer year, Long productTypeId);
+
+    @CacheHibernateQueryResult
+    @Query("select distinct q.product.productType "
+            + "from ProductYearlyPrices yp "
+            + "join yp.quantities q "
+            + "where yp.year = :year "
+            + "order by q.product.productType.label")
+    List<ProductType> getProductTypesWithQuantities(Integer year);
+
+    @CacheHibernateQueryResult
+    @Query("select q "
+            + "from ProductYearlyPrices yp "
+            + "join yp.quantities q "
+            + "where yp.year = :year "
+            + "and q.product.productType.id = :productTypeId "
+            + "and q.market.id = :marketId")
+    List<ProductQuantity> findQuantities(Integer year, Long productTypeId, Long marketId);
 }
