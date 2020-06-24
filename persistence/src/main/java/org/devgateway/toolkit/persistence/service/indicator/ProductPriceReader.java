@@ -27,6 +27,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.poi.UnsupportedFileFormatException;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -218,14 +219,20 @@ public class ProductPriceReader {
             try {
                 date = parseDate(dateCell.getStringCellValue());
             } catch (ParseException e) {
-                errors.add(errorAt(dateCell, "Could not parse date"));
+                errors.add(errorAt(dateCell, "Les cellules de texte doivent utiliser le format "
+                        + DATE_PATTERNS[0] + " ou " + DATE_PATTERNS[1]));
                 return null;
             }
         } else {
-            try {
-                date = dateCell.getDateCellValue();
-            } catch (NumberFormatException e) {
-                errors.add(errorAt(dateCell, "Impossible d'analyser la date"));
+            if (DateUtil.isCellDateFormatted(dateCell)) {
+                try {
+                    date = dateCell.getDateCellValue();
+                } catch (NumberFormatException e) {
+                    errors.add(errorAt(dateCell, "Impossible d'analyser la date"));
+                    return null;
+                }
+            } else {
+                errors.add(errorAt(dateCell, "La cellule doit utiliser un format de date"));
                 return null;
             }
         }
@@ -301,7 +308,7 @@ public class ProductPriceReader {
 
     private Integer getPrice(XSSFCell priceCell) {
         try {
-            int price = (int) priceCell.getNumericCellValue();
+            int price = (int) Math.round(priceCell.getNumericCellValue());
             if (price < 0) {
                 errors.add(errorAt(priceCell, "Prix négatif non autorisé"));
             }
