@@ -1,6 +1,6 @@
 import * as api from "../../../modules/api"
-import {dataFromApi} from "../../../modules/entities/product/ProductPriceChart"
-import ProductPriceFilter from "../../../modules/entities/product/ProductPriceFilter"
+import {dataFromApi} from "../../../modules/entities/product/price/ProductPriceChart"
+import ProductPriceFilter from "../../../modules/entities/product/price/ProductPriceFilter"
 import ProductPriceChartBuilder from "../../../modules/graphic/market/productPrice/ProductPriceChartBuilder"
 import ProductPriceChartDTO from "../../../modules/graphic/market/productPrice/ProductPriceChartDTO"
 import {CHANGE_MARKET_PRICE_FILTER, FILTER_MARKET_PRICE} from "../../reducers/Agriculture"

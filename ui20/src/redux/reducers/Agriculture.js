@@ -1,6 +1,6 @@
 import Immutable from "immutable"
 import AgricultureConfig from "../../modules/entities/config/AgricultureConfig"
-import ProductPriceChart from "../../modules/entities/product/ProductPriceChart"
+import ProductPriceChart from "../../modules/entities/product/price/ProductPriceChart"
 
 export const MARKET_AND_AGRICULTURE = 'MARKET_AND_AGRICULTURE'
 const MARKET_AND_AGRICULTURE_PENDING = 'MARKET_AND_AGRICULTURE_PENDING'

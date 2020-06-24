@@ -1,4 +1,4 @@
-import AgricultureConfig from "../config/AgricultureConfig"
+import AgricultureConfig from "../../config/AgricultureConfig"
 import ProductPriceConfig from "./ProductPriceConfig"
 import ProductPriceData from "./ProductPriceData"
 import ProductPriceFilter from "./ProductPriceFilter"

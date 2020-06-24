@@ -1,4 +1,4 @@
-import MonthDay from "../MonthDay"
+import MonthDay from "../../MonthDay"
 
 export default class ProductPrice {
   monthDay: MonthDay

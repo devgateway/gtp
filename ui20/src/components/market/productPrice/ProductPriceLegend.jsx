@@ -1,7 +1,7 @@
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage} from "react-intl"
-import ProductAvgPrice from "../../../modules/entities/product/ProductAvgPrice"
+import ProductAvgPrice from "../../../modules/entities/product/price/ProductAvgPrice"
 import ProductPriceChartDTO from "../../../modules/graphic/market/productPrice/ProductPriceChartDTO"
 import CustomLegendItem from "../../common/legend/CustomLegend"
 import {LEGEND_SYMBOL_CIRCLE, LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"

@@ -1,4 +1,4 @@
-import {apiMonthDayAwareCompare, getOrDefaultArray} from "../../utils/DataUtilis"
+import {apiMonthDayAwareCompare, getOrDefaultArray} from "../../../utils/DataUtilis"
 import PriceType from "./PriceType"
 import ProductAvgPrice from "./ProductAvgPrice"
 import ProductPrice from "./ProductPrice"
