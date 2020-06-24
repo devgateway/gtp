@@ -2,6 +2,9 @@ package org.devgateway.toolkit.persistence.service.indicator;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
+import static org.apache.commons.lang3.StringUtils.normalizeSpace;
+import static org.apache.commons.lang3.StringUtils.strip;
+import static org.apache.commons.lang3.StringUtils.stripAccents;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,10 +22,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.poi.UnsupportedFileFormatException;
@@ -447,6 +450,8 @@ public class ProductPriceReader {
 
     private static class SearchableCollection<T> {
 
+        private static final Pattern SEP = Pattern.compile("\\s?[–-]\\s?");
+
         private final Map<String, T> elements;
 
         SearchableCollection(Collection<T> col, Function<T, String> nameFn) {
@@ -454,8 +459,8 @@ public class ProductPriceReader {
         }
 
         private String normalize(String value) {
-            return StringUtils.stripAccents(StringUtils.normalizeSpace(StringUtils.strip(value.toLowerCase())))
-                    .replace('–', '-');
+            String normalized = stripAccents(normalizeSpace(strip(value.toLowerCase())));
+            return SEP.matcher(normalized).replaceAll("-");
         }
 
         T get(String name) {
