@@ -13,7 +13,12 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
@@ -30,6 +35,7 @@ import org.hibernate.envers.Audited;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(uniqueConstraints = @UniqueConstraint(
         columnNames = {"product_yearly_prices_id", "product_id", "market_id", "monthDay"}))
+@JsonIgnoreProperties({"id", "new"})
 public class ProductQuantity extends AbstractAuditableEntity implements Comparable<ProductQuantity> {
 
     private static final Comparator<ProductQuantity> NATURAL = Comparator.comparing(ProductQuantity::getProduct)
@@ -43,7 +49,9 @@ public class ProductQuantity extends AbstractAuditableEntity implements Comparab
 
     @NotNull
     @ManyToOne(optional = false)
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("productId")
     private Product product;
 
     @NotNull
@@ -112,6 +120,7 @@ public class ProductQuantity extends AbstractAuditableEntity implements Comparab
     }
 
     @Override
+    @JsonIgnore
     public AbstractAuditableEntity getParent() {
         return productYearlyPrices;
     }

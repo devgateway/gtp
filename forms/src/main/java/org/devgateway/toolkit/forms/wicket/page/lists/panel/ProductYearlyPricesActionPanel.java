@@ -23,6 +23,6 @@ public class ProductYearlyPricesActionPanel extends AbstractExcelListActionPanel
 
     @Override
     protected boolean isEmpty() {
-        return getModelObject().getPricesSize() == 0L;
+        return getModelObject().getPricesSize() == 0L || getModelObject().getQuantitiesSize() == 0L;
     }
 }

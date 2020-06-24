@@ -8,3 +8,4 @@ export const FEB_29_MONTH_DAY = "--02-29"
 // for rendering such use DefaultBarOrNegativeValueAsZeroBar
 export const ZERO_VALUE = -100
 export const NA_VALUE = -200
+export const SMALL_VALUE = -300

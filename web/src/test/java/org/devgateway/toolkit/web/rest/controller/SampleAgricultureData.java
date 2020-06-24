@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.web.rest.controller;
 
+import java.math.BigDecimal;
 import java.time.Month;
 import java.time.MonthDay;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
+import org.devgateway.toolkit.persistence.dao.indicator.ProductQuantity;
 import org.devgateway.toolkit.persistence.dto.agriculture.AgricultureChartsData;
 import org.devgateway.toolkit.persistence.dto.agriculture.AgricultureConfig;
 import org.devgateway.toolkit.persistence.dto.agriculture.AveragePrice;
@@ -20,6 +22,10 @@ import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChart;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartConfig;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartData;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartFilter;
+import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChart;
+import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartConfig;
+import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartData;
+import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartFilter;
 import org.devgateway.toolkit.persistence.util.MarketDaysUtil;
 
 /**
@@ -30,11 +36,14 @@ public class SampleAgricultureData {
     private final AgricultureChartsData agricultureChartsData;
 
     private final Product rice;
+    private final Product sorghum;
 
     private final Market gueuleTapee;
 
     private final PriceType retailPrice;
     private final PriceType wholesalePrice;
+
+    private final ProductType cereals;
 
     public SampleAgricultureData(SampleCommonData commonData) {
 
@@ -51,14 +60,14 @@ public class SampleAgricultureData {
         retailPrice = new PriceType(2L, "retail-price", "Retail price");
         List<PriceType> priceTypes = ImmutableList.of(wholesalePrice, retailPrice);
 
-        ProductType cereals = new ProductType(1L, ProductType.CEREALS, "Cereals");
+        cereals = new ProductType(1L, ProductType.CEREALS, "Cereals");
         ProductType vegetables = new ProductType(2L, ProductType.VEGETABLES, "Vegetables");
         List<ProductType> productTypes = ImmutableList.of(cereals, vegetables);
 
         MeasurementUnit kg = new MeasurementUnit(1L, "kg", "Kg");
 
         rice = new Product(1L, cereals, "Rice", kg, priceTypes);
-        Product sorghum = new Product(2L, cereals, "Sorghum", kg, priceTypes);
+        sorghum = new Product(2L, cereals, "Sorghum", kg, priceTypes);
         Product potato = new Product(3L, vegetables, "Potato", kg, priceTypes);
         List<Product> products = ImmutableList.of(rice, sorghum, potato);
 
@@ -67,8 +76,27 @@ public class SampleAgricultureData {
 
         ProductPricesChart productPricesChart = getProductPricesChart();
 
+        ProductQuantitiesChart productQuantitiesChart = getProductQuantitiesChart();
+
         agricultureChartsData = new AgricultureChartsData(commonData.getCommonConfig(), agricultureConfig,
-                productPricesChart);
+                productPricesChart, productQuantitiesChart);
+    }
+
+    private ProductQuantitiesChart getProductQuantitiesChart() {
+        ProductQuantitiesChartConfig config = new ProductQuantitiesChartConfig(ImmutableSortedSet.of(2018, 2019, 2020));
+
+        ProductQuantitiesChartFilter filter =
+                new ProductQuantitiesChartFilter(2020, cereals.getId(), gueuleTapee.getId());
+
+        ProductQuantitiesChartData data = new ProductQuantitiesChartData(ImmutableList.of(
+                new ProductQuantity(rice, gueuleTapee, MonthDay.of(1, 3), new BigDecimal("10.5")),
+                new ProductQuantity(rice, gueuleTapee, MonthDay.of(1, 10), new BigDecimal("23")),
+                new ProductQuantity(rice, gueuleTapee, MonthDay.of(1, 17), new BigDecimal("14")),
+                new ProductQuantity(sorghum, gueuleTapee, MonthDay.of(1, 6), new BigDecimal("67")),
+                new ProductQuantity(sorghum, gueuleTapee, MonthDay.of(1, 13), new BigDecimal("125")),
+                new ProductQuantity(sorghum, gueuleTapee, MonthDay.of(1, 20), new BigDecimal("300"))));
+
+        return new ProductQuantitiesChart(config, filter, data);
     }
 
     private ProductPricesChart getProductPricesChart() {
