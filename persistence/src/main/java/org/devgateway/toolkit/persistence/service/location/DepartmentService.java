@@ -8,4 +8,6 @@ import org.devgateway.toolkit.persistence.service.TextSearchableService;
  * @author Octavian Ciubotaru
  */
 public interface DepartmentService extends TextSearchableService<Department>, BaseJpaService<Department> {
+
+    boolean exists(String name, Long exceptId);
 }
