@@ -7,6 +7,9 @@ import org.devgateway.toolkit.persistence.dto.agriculture.AgricultureConfig;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartConfig;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartData;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartFilter;
+import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartConfig;
+import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartData;
+import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartFilter;
 import org.devgateway.toolkit.persistence.service.AgricultureChartsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,5 +47,16 @@ public class AgricultureGraphicsController {
     public ProductPricesChartData getProductPricesChartData(
             @RequestBody @Valid ProductPricesChartFilter filter) {
         return agricultureChartsService.getProductPricesChartData(filter);
+    }
+
+    @GetMapping("product-quantities/config")
+    public ProductQuantitiesChartConfig getProductQuantitiesChartConfig() {
+        return agricultureChartsService.getProductQuantitiesChartConfig();
+    }
+
+    @PostMapping("product-quantities/data")
+    public ProductQuantitiesChartData getProductQuantitiesChartData(
+            @RequestBody @Valid ProductQuantitiesChartFilter filter) {
+        return agricultureChartsService.getProductQuantitiesChartData(filter);
     }
 }

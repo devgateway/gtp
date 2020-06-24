@@ -21,11 +21,13 @@ import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
+import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductQuantity;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
 import org.devgateway.toolkit.persistence.dto.agriculture.AveragePrice;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartFilter;
+import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartFilter;
 import org.devgateway.toolkit.persistence.repository.category.ProductRepository;
 import org.devgateway.toolkit.persistence.repository.indicator.ProductYearlyPricesRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
@@ -125,6 +127,11 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
     }
 
     @Override
+    public List<Integer> findYearsWithQuantities() {
+        return repository.findYearsWithQuantities();
+    }
+
+    @Override
     public boolean hasPrices(Integer year, Long productId) {
         return repository.countPrices(year, productId) > 0;
     }
@@ -166,6 +173,23 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
         ProductPriceWriter writer = new ProductPriceWriter(products, productsOnSeparateRows);
 
         writer.write(prices, quantities, entity.getYear(), outputStream);
+    }
+
+    @Override
+    public Long getMarketIdWithQuantities(Integer year, Long productTypeId) {
+        List<Market> markets = repository.getMarketsWithQuantities(year, productTypeId);
+        return markets.isEmpty() ? null : markets.get(0).getId();
+    }
+
+    @Override
+    public Long getProductTypeIdWithQuantities(Integer year) {
+        List<ProductType> types = repository.getProductTypesWithQuantities(year);
+        return types.isEmpty() ? null : types.get(0).getId();
+    }
+
+    @Override
+    public List<ProductQuantity> findQuantities(ProductQuantitiesChartFilter filter) {
+        return repository.findQuantities(filter.getYear(), filter.getProductTypeId(), filter.getMarketId());
     }
 
     private SortedSet<ProductPrice> getExamplePrices(List<Product> products) {
