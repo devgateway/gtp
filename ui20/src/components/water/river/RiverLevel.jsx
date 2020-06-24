@@ -143,7 +143,7 @@ class RiverLevel extends Component {
               symbolShape: (legendProps) => {
                 const {isReference} = data.lines[legendProps.id].riverLevelYear
                 const type = isReference ? LEGEND_SYMBOL_LINE : LEGEND_SYMBOL_CIRCLE
-                return <CustomLegendSymbol type={type} legendProps={legendProps}
+                return <CustomLegendSymbol type={type} {...legendProps}
                                     lineLength={sccJS.LEGEND_SYMBOL_LINE_LENGTH}/>
               },
               symbolBorderColor: 'rgba(0, 0, 0, .5)',
