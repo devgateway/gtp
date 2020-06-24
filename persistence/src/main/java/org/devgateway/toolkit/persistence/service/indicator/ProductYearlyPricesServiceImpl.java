@@ -21,11 +21,13 @@ import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
+import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductQuantity;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
 import org.devgateway.toolkit.persistence.dto.agriculture.AveragePrice;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartFilter;
+import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartFilter;
 import org.devgateway.toolkit.persistence.repository.category.ProductRepository;
 import org.devgateway.toolkit.persistence.repository.indicator.ProductYearlyPricesRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
@@ -87,10 +89,16 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
                 .map(AbstractPersistable::getId)
                 .collect(toList());
 
-        Map<Long, Long> sizeById = repository.getPriceSizes(ids).stream()
+        Map<Long, Long> priceSizeById = repository.getPriceSizes(ids).stream()
                 .collect(toMap(PersistedCollectionSize::getId, PersistedCollectionSize::getSize));
 
-        page.get().forEach(p -> p.setPricesSize(sizeById.getOrDefault(p.getId(), 0L)));
+        Map<Long, Long> quantitySizeById = repository.getQuantitySizes(ids).stream()
+                .collect(toMap(PersistedCollectionSize::getId, PersistedCollectionSize::getSize));
+
+        page.get().forEach(p -> {
+            p.setPricesSize(priceSizeById.getOrDefault(p.getId(), 0L));
+            p.setQuantitiesSize(quantitySizeById.getOrDefault(p.getId(), 0L));
+        });
 
         return page;
     }
@@ -122,6 +130,11 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
     @Override
     public List<Integer> findYearsWithPrices() {
         return repository.findYearsWithPrices();
+    }
+
+    @Override
+    public List<Integer> findYearsWithQuantities() {
+        return repository.findYearsWithQuantities();
     }
 
     @Override
@@ -166,6 +179,23 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
         ProductPriceWriter writer = new ProductPriceWriter(products, productsOnSeparateRows);
 
         writer.write(prices, quantities, entity.getYear(), outputStream);
+    }
+
+    @Override
+    public Long getMarketIdWithQuantities(Integer year, Long productTypeId) {
+        List<Market> markets = repository.getMarketsWithQuantities(year, productTypeId);
+        return markets.isEmpty() ? null : markets.get(0).getId();
+    }
+
+    @Override
+    public Long getProductTypeIdWithQuantities(Integer year) {
+        List<ProductType> types = repository.getProductTypesWithQuantities(year);
+        return types.isEmpty() ? null : types.get(0).getId();
+    }
+
+    @Override
+    public List<ProductQuantity> findQuantities(ProductQuantitiesChartFilter filter) {
+        return repository.findQuantities(filter.getYear(), filter.getProductTypeId(), filter.getMarketId());
     }
 
     private SortedSet<ProductPrice> getExamplePrices(List<Product> products) {

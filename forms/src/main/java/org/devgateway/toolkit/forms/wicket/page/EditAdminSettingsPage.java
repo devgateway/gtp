@@ -14,9 +14,11 @@ import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.AdminSettings;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
+import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.category.ProductService;
+import org.devgateway.toolkit.persistence.service.category.ProductTypeService;
 import org.devgateway.toolkit.persistence.service.category.RiverStationService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -42,6 +44,9 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
 
     @SpringBean
     private ProductService productService;
+
+    @SpringBean
+    private ProductTypeService productTypeService;
 
     public EditAdminSettingsPage(final PageParameters parameters) {
         super(parameters);
@@ -78,6 +83,7 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
         Select2ChoiceBootstrapFormComponent<RiverStation> defaultRiverStation =
                 new Select2ChoiceBootstrapFormComponent<>("defaultRiverStation",
                         new GenericPersistableJpaTextChoiceProvider<>(riverStationService));
+        defaultRiverStation.setShowTooltip(true);
         defaultRiverStation.required();
         editForm.add(defaultRiverStation);
 
@@ -89,7 +95,15 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
                                 return choice.getLabel() + " (" + choice.getProductType().getLabel() + ")";
                             }
                         });
+        defaultProduct.setShowTooltip(true);
         defaultProduct.required();
         editForm.add(defaultProduct);
+
+        Select2ChoiceBootstrapFormComponent<ProductType> defaultProductType =
+                new Select2ChoiceBootstrapFormComponent<>("defaultProductType",
+                        new GenericPersistableJpaTextChoiceProvider<>(productTypeService));
+        defaultProductType.setShowTooltip(true);
+        defaultProductType.required();
+        editForm.add(defaultProductType);
     }
 }

@@ -247,6 +247,11 @@ Product prices chart fields:
 
 include::{snippets}/all-agriculture-charts/response-fields-productPricesChart.adoc[]
 
+[[product-quantities-chart]]
+Product quantities chart fields:
+
+include::{snippets}/all-agriculture-charts/response-fields-productQuantitiesChart.adoc[]
+
 [[agriculture-charts-config]]
 === Get agriculture charts config
 
@@ -312,3 +317,21 @@ Average price fields:
 
 include::{snippets}/product-prices-data/response-fields-averagePrice.adoc[]
 
+[[product-quantity-chart-config]]
+=== Get product quantities chart config
+
+Returns years for which product quantities exist.
+
+operation::product-quantities-config[snippets='curl-request,http-response,response-fields']
+
+[[product-quantity-chart-data]]
+=== Get product quantity chart data
+
+Returns annual quantities for all products of some specific type on a specific market.
+
+operation::product-quantities-data[snippets='curl-request,http-response,request-fields,response-fields']
+
+[[product-quantity]]
+Product quantity fields:
+
+include::{snippets}/product-quantities-data/response-fields-productQuantity.adoc[]

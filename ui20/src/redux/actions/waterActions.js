@@ -15,7 +15,7 @@ import {
 import {riverLevelFromApi} from "../../modules/entities/river/RiverLevelChart"
 import RiverLevelData from "../../modules/entities/river/RiverLevelData"
 import DrySequenceChartBuilder from "../../modules/graphic/water/drySequence/DrySequenceChartBuilder"
-import RainfallChartBuilder from "../../modules/graphic/water/RainfallChartBuilder"
+import RainfallChartBuilder from "../../modules/graphic/water/rainfall/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
 import RiverLevelChartBuilder from "../../modules/graphic/water/river/RiverLevelChartBuilder"
 import RiverLevelChartDTO from "../../modules/graphic/water/river/RiverLevelChartDTO"
@@ -70,17 +70,10 @@ const transformRainfall = (data) => new RainLevelData(data)
 
 export const getRain = (intl) => (dispatch, getState) => {
   const {rainLevelChart} = getState().getIn(['water', 'data'])
-  const rainfallDTO = new RainfallChartBuilder(rainLevelChart, intl)
-
-  rainfallDTO.build()
+  const rainfallBuilder = new RainfallChartBuilder(rainLevelChart, intl)
 
   return {
-    barData: rainfallDTO.barData,
-    keys: rainfallDTO.keys.map(k => `${k}`),
-    keysWithRefs: rainfallDTO.keyWithReferences,
-    groupMode: 'grouped',
-    indexBy: rainfallDTO.indexBy,
-    monthDecadal: rainfallDTO.monthDecadal,
+    rainfallDTO: rainfallBuilder.build()
   }
 }
 
