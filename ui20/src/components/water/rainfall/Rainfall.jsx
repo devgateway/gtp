@@ -30,6 +30,7 @@ class Rainfall extends Component {
     const unit = intl.formatMessage({ id: "water.rainfall.unit"})
     const formatLevel = (s) => {
       let value = s.value
+      if (value === C.SMALL_VALUE) value = s.data.actualValue[s.id]
       if (value === C.NA_VALUE) return <FormattedMessage id="all.graphic.value.NA" />
       if (value === C.ZERO_VALUE) {
         value = 0

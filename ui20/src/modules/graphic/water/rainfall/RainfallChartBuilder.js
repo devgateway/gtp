@@ -70,9 +70,11 @@ export default class RainfallChartBuilder {
     record[this.rainfallDTO.indexBy] = this.byDecadal ? `${month},${decadal}` : `${month}`
     record.indexLabel = this.byDecadal ? `${decadal}` : monthLabel
     record.lineValues = new Map()
+    record.actualValue = {}
     this.keys.forEach(year => {
       const yearLabel = `${year}`
-      record[yearLabel] = asBarChartValue(this._getValue(year, month, decadal))
+      record.actualValue[yearLabel] = this._getValue(year, month, decadal)
+      record[yearLabel] = asBarChartValue(record.actualValue[yearLabel], this.rainfallDTO.maxValue)
       const refLevels = this.keyReferenceLevels.get(year)
       if (refLevels) {
         record.lineValues.set(yearLabel, this._getReferenceValue(refLevels, month, decadal))
