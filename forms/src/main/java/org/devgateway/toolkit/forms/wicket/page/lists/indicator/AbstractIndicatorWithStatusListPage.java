@@ -19,7 +19,7 @@ public abstract class AbstractIndicatorWithStatusListPage<T extends AbstractStat
         extends AbstractListPage<T> {
 
     public AbstractIndicatorWithStatusListPage(PageParameters parameters) {
-        super(parameters);
+        super(parameters, false);
     }
 
     @Override
