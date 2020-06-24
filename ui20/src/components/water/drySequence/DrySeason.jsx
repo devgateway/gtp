@@ -6,7 +6,7 @@ import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import DrySequenceChartDTO from "../../../modules/graphic/water/drySequence/DrySequenceChartDTO"
 import messages from "../../../translations/messages"
-import DefaultBarOrNegativeValueAsZeroBar from "../../common/DefaultBarOrNegativeValueAsZeroBar"
+import DefaultBarOrNegativeValueAsZeroBar from "../../common/graphic/DefaultBarOrNegativeValueAsZeroBar"
 import * as sccJS from "../../css"
 
 class DrySeason extends Component {

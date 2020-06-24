@@ -1,4 +1,4 @@
-import "../../common/indicators.scss"
+import "../../common/graphic/indicators.scss"
 
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl} from 'react-intl';

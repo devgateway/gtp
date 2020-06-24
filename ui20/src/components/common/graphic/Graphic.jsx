@@ -2,8 +2,8 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
-import {cssClasses} from "../ComponentUtil"
-import {PngExport} from "./Components"
+import {cssClasses} from "../../ComponentUtil"
+import {PngExport} from "../Components"
 import GraphicSource from "./GraphicSource"
 
 class Graphic extends Component {

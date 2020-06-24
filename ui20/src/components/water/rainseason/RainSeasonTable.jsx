@@ -8,8 +8,8 @@ import * as C from "../../../modules/graphic/water/rainSeason/RainSeasonConstant
 import {RainSeasonPredictionDTO} from "../../../modules/graphic/water/rainSeason/RainSeasonPredictionDTO"
 import {toSignedNumberLocaleString} from "../../../modules/utils/DataUtilis"
 import * as waterActions from "../../../redux/actions/waterActions"
-import "../../common/indicator-table.scss"
-import GraphicSource from "../../common/GraphicSource"
+import "../../common/graphic/indicator-table.scss"
+import GraphicSource from "../../common/graphic/GraphicSource"
 import {cssClasses} from "../../ComponentUtil"
 import RainSeasonTableFilter from "./RainSeasonTableFilter"
 

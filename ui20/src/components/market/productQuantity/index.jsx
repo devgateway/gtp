@@ -3,7 +3,7 @@ import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as quantityActions from "../../../redux/actions/market/quantityActions"
-import Graphic from "../../common/Graphic"
+import Graphic from "../../common/graphic/Graphic"
 import ProductQuantity from "./ProductQuantity"
 
 

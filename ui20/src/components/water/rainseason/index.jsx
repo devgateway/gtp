@@ -4,7 +4,7 @@ import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as C from "../../../modules/graphic/water/rainSeason/RainSeasonConstants"
 import * as waterActions from "../../../redux/actions/waterActions"
-import Graphic from "../../common/Graphic"
+import Graphic from "../../common/graphic/Graphic"
 import RainSeasonTable from "./RainSeasonTable"
 import RainSeasonTableFilter from "./RainSeasonTableFilter"
 

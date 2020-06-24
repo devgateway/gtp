@@ -9,7 +9,7 @@ import PriceType from "../../../modules/entities/product/price/PriceType"
 import ProductAvgPrice from "../../../modules/entities/product/price/ProductAvgPrice"
 import ProductPriceChartDTO from "../../../modules/graphic/market/productPrice/ProductPriceChartDTO"
 import ProductPriceLine from "../../../modules/graphic/market/productPrice/ProductPriceLine"
-import Chip from "../../common/Chip"
+import Chip from "../../common/graphic/Chip"
 import * as sccJS from "../../css"
 import ProductPriceLegend, {getAveragePriceLabel} from "./ProductPriceLegend"
 
