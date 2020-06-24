@@ -2,9 +2,6 @@ package org.devgateway.toolkit.persistence.service.indicator;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
-import static org.apache.commons.lang3.StringUtils.normalizeSpace;
-import static org.apache.commons.lang3.StringUtils.strip;
-import static org.apache.commons.lang3.StringUtils.stripAccents;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,15 +12,12 @@ import java.time.Year;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.time.DateUtils;
@@ -141,14 +135,14 @@ public class ProductPriceReader {
                     }
                 }
             } else {
-                for (Product product :  products.elements.values()) {
+                for (Product product : products.originalValues()) {
                     for (PriceType priceType : product.getPriceTypes()) {
                         XSSFCell priceCell = getOptionalCell(row, cols.getProductAndPriceTypeCol(product, priceType));
                         processPriceCell(row, priceCell, yearlyPrices, market, monthDay, product, priceType);
                     }
                 }
 
-                for (Product product :  products.elements.values()) {
+                for (Product product : products.originalValues()) {
                     XSSFCell qtCell = getOptionalCell(row, cols.getQuantityCol(product));
                     if (!isEmpty(qtCell)) {
                         BigDecimal quantity = getQuantity(qtCell, product);
@@ -360,7 +354,7 @@ public class ProductPriceReader {
 
             quantityNames = null;
 
-            List<PriceType> priceTypes = products.elements.values().stream()
+            List<PriceType> priceTypes = products.originalValues().stream()
                     .flatMap(p -> p.getPriceTypes().stream())
                     .distinct()
                     .collect(toList());
@@ -370,12 +364,12 @@ public class ProductPriceReader {
             firstPriceColIdx = ProductPriceWriter.PRODUCT_COL_IDX + 1;
         } else {
             productAndPriceTypeNames = new SearchableCollection<>(
-                    products.elements.values().stream()
+                    products.originalValues().stream()
                             .flatMap(p -> p.getPriceTypes().stream().sorted().map(pt -> Pair.of(p, pt)))
                             .collect(toList()),
                     p -> p.getKey().getName() + " - " + p.getValue().getLabel());
 
-            quantityNames = new SearchableCollection<>(products.elements.values(),
+            quantityNames = new SearchableCollection<>(products.originalValues(),
                     ProductPriceColumns::getQuantityColumnName);
 
             priceTypeNames = null;
@@ -448,23 +442,4 @@ public class ProductPriceReader {
         return cell == null || cell.getRawValue() == null;
     }
 
-    private static class SearchableCollection<T> {
-
-        private static final Pattern SEP = Pattern.compile("\\s?[–-]\\s?");
-
-        private final Map<String, T> elements;
-
-        SearchableCollection(Collection<T> col, Function<T, String> nameFn) {
-            elements = col.stream().collect(Collectors.toMap(e -> normalize(nameFn.apply(e)), Function.identity()));
-        }
-
-        private String normalize(String value) {
-            String normalized = stripAccents(normalizeSpace(strip(value.toLowerCase())));
-            return SEP.matcher(normalized).replaceAll("-");
-        }
-
-        T get(String name) {
-            return elements.get(normalize(name));
-        }
-    }
 }
