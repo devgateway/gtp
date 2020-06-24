@@ -13,7 +13,8 @@ export const getOrDefault = (map, key, defaultValue, defaultFunc) => {
   return map.get(key)
 }
 
-export const asBarChartValue = (value) => {
+export const asBarChartValue = (value, maxValue) => {
+  if (maxValue && maxValue / value > 100) return C.SMALL_VALUE
   if (value > 0) return value
   if (value === undefined) return C.NA_VALUE
   return C.ZERO_VALUE
