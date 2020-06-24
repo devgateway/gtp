@@ -41,7 +41,7 @@ public class ProductPriceWriter {
 
     public static final int DATE_DATA_FORMAT = BuiltinFormats.getBuiltinFormat("d-mmm-yy");
     public static final int INT_NUM_FORMAT = BuiltinFormats.getBuiltinFormat("0");
-    public static final int REAL_NUM_FORMAT = BuiltinFormats.getBuiltinFormat("0.00");
+    public static final int REAL_NUM_FORMAT = BuiltinFormats.getBuiltinFormat("0.0");
 
     public static final int DEPARTMENT_WIDTH = 15 * 256;
     public static final int MARKET_WIDTH = 22 * 256;

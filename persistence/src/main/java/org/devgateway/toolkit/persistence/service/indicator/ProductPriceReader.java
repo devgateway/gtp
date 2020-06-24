@@ -325,11 +325,16 @@ public class ProductPriceReader {
             if (qt < 0) {
                 errors.add(errorAt(cell, "Quantité négative non autorisée"));
             }
+            BigDecimal val;
             if (product.getUnit().getName().equals(MeasurementUnit.HEAD)) {
-                return new BigDecimal(Math.round(qt));
+                val = new BigDecimal(Math.round(qt));
             } else {
-                return new BigDecimal(String.format("%.2f", qt));
+                val = new BigDecimal(String.format("%.1f", qt));
             }
+            if (val.precision() > 10) {
+                errors.add(errorAt(cell, "Veuillez utiliser au plus 10 chiffres"));
+            }
+            return val;
         } catch (IllegalStateException | NumberFormatException e) {
             errors.add(errorAt(cell, "Impossible d'analyser le quantité"));
             return null;
