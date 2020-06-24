@@ -4,7 +4,7 @@ import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
-import MonthDecadal from "../../../modules/utils/MonthDecadal"
+import RainfallDTO from "../../../modules/graphic/water/rainfall/RainfallDTO"
 import messages from "../../../translations/messages"
 import CustomLegendSymbol, {LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"
 import DefaultBarOrNegativeValueAsZeroBar from "../../common/DefaultBarOrNegativeValueAsZeroBar"
@@ -17,16 +17,9 @@ import {keysWithRefsToLegendData, ReferenceLineLayer, ReferenceLineLegend} from 
 
 class Rainfall extends Component {
   static propTypes = {
-    barData: PropTypes.array,
-    keys: PropTypes.array,
-    groupMode: PropTypes.string,
-    indexBy: PropTypes.string,
+    rainfallDTO: PropTypes.instanceOf(RainfallDTO).isRequired,
     colors: PropTypes.object,
     setting: PropTypes.object.isRequired,
-    monthDecadal: PropTypes.instanceOf(MonthDecadal).isRequired,
-  }
-
-  componentDidMount() {
   }
 
   _getMaxValue(barData: Array, keys: Array) {
@@ -38,7 +31,8 @@ class Rainfall extends Component {
   }
 
   render() {
-    const {barData, keys, indexBy, groupMode, intl, monthDecadal, keysWithRefs} = this.props
+    const {intl} = this.props
+    const {barData, keys, keysWithRefs, indexBy, monthDecadal} = this.props.rainfallDTO
     const {byDecadal, showReferences} = this.props.setting
     const maxValue = this._getMaxValue(barData, keys)
     const unit = intl.formatMessage({ id: "water.rainfall.unit"})
@@ -87,7 +81,7 @@ class Rainfall extends Component {
         data={barData}
         keys={keys}
         indexBy={indexBy}
-        groupMode={groupMode}
+        groupMode='grouped'
         colors={[sccJS.GRAPHIC_COLOR_BLUE, sccJS.GRAPHIC_COLOR_RED, sccJS.GRAPHIC_COLOR_YELLOW]}
         barComponent={DefaultBarOrNegativeValueAsZeroBar}
         maxValue={maxValue}
