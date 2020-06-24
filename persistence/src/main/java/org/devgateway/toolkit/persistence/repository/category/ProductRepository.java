@@ -28,4 +28,7 @@ public interface ProductRepository extends BaseJpaRepository<Product, Long>,
 
     @CacheHibernateQueryResult
     boolean existsByProductTypeAndNameAndIdNot(ProductType productType, String name, Long id);
+
+    @CacheHibernateQueryResult
+    boolean existsByProductType(ProductType productType);
 }

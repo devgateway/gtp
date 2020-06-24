@@ -15,4 +15,6 @@ public interface ProductService extends BaseJpaService<Product>, TextSearchableS
     List<Product> findByProductType(ProductType productType);
 
     boolean exists(ProductType productType, String name, Long exceptId);
+
+    boolean existsByProductType(ProductType productType);
 }
