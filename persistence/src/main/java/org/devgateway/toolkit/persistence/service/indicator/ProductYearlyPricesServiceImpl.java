@@ -89,10 +89,16 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
                 .map(AbstractPersistable::getId)
                 .collect(toList());
 
-        Map<Long, Long> sizeById = repository.getPriceSizes(ids).stream()
+        Map<Long, Long> priceSizeById = repository.getPriceSizes(ids).stream()
                 .collect(toMap(PersistedCollectionSize::getId, PersistedCollectionSize::getSize));
 
-        page.get().forEach(p -> p.setPricesSize(sizeById.getOrDefault(p.getId(), 0L)));
+        Map<Long, Long> quantitySizeById = repository.getQuantitySizes(ids).stream()
+                .collect(toMap(PersistedCollectionSize::getId, PersistedCollectionSize::getSize));
+
+        page.get().forEach(p -> {
+            p.setPricesSize(priceSizeById.getOrDefault(p.getId(), 0L));
+            p.setQuantitiesSize(quantitySizeById.getOrDefault(p.getId(), 0L));
+        });
 
         return page;
     }

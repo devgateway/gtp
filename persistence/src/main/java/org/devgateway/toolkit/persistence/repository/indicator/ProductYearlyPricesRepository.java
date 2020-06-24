@@ -32,6 +32,14 @@ public interface ProductYearlyPricesRepository extends BaseJpaRepository<Product
     List<PersistedCollectionSize> getPriceSizes(Collection<Long> ids);
 
     @CacheHibernateQueryResult
+    @Query("select new org.devgateway.toolkit.persistence.dao.PersistedCollectionSize(p.id, count(pq.id)) "
+            + "from ProductYearlyPrices p "
+            + "join p.quantities pq "
+            + "where p.id in :ids "
+            + "group by p.id")
+    List<PersistedCollectionSize> getQuantitySizes(Collection<Long> ids);
+
+    @CacheHibernateQueryResult
     @Query("select p "
             + "from ProductYearlyPrices yp "
             + "join yp.prices p "
