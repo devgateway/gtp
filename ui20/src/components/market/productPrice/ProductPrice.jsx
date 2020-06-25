@@ -78,7 +78,7 @@ class ProductPrice extends Component {
           <ResponsiveLine
             enableGridY={true}
             enableGridX={false}
-            margin={{top: chartTop, right: 50, bottom: 75, left: 60}}
+            margin={{...sccJS.NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN, top: chartTop}}
 
             data={data.lines}
             xScale={{
@@ -121,7 +121,7 @@ class ProductPrice extends Component {
               legendPosition: 'middle'
             }}
             curve="monotoneX"
-            enablePoints={false}
+            enablePoints={true}
             useMesh={true}
             colors={colors}
             animate={true}
