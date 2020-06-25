@@ -32,4 +32,7 @@ public interface ProductRepository extends BaseJpaRepository<Product, Long>,
             + "from Product p "
             + "where p.productType = :productType")
     List<Pair<Long, String>> findAllNames(ProductType productType);
+
+    @CacheHibernateQueryResult
+    boolean existsByProductType(ProductType productType);
 }

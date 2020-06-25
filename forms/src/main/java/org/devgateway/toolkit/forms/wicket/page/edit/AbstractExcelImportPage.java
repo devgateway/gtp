@@ -35,7 +35,9 @@ public abstract class AbstractExcelImportPage<T extends GenericPersistable> exte
 
     private List<FileMetadata> uploads = new ArrayList<>();
 
-    private FileInputBootstrapFormComponent upload;
+    protected FileInputBootstrapFormComponent upload;
+
+    protected BootstrapAjaxLink<?> download;
 
     public AbstractExcelImportPage(PageParameters parameters) {
         super(parameters);
@@ -54,7 +56,7 @@ public abstract class AbstractExcelImportPage<T extends GenericPersistable> exte
         Fragment extraButtons = new Fragment("extraButtons", "excelExtraButtons", this);
         editForm.replace(extraButtons);
 
-        BootstrapAjaxLink<?> download = getDownloadButton("download");
+        download = getDownloadButton("download");
         download.setSize(Buttons.Size.Medium);
         extraButtons.add(download);
     }

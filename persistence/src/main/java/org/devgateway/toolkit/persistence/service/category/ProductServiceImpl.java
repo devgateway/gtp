@@ -44,6 +44,11 @@ public class ProductServiceImpl extends BaseJpaServiceImpl<Product> implements P
     }
 
     @Override
+    public boolean existsByProductType(ProductType productType) {
+        return repository.existsByProductType(productType);
+    }
+
+    @Override
     public JpaRepository<Product, Long> getRepository() {
         return repository;
     }
