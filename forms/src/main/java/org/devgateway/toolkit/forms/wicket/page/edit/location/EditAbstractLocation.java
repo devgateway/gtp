@@ -16,6 +16,8 @@ public abstract class EditAbstractLocation<T extends GenericPersistable & Serial
         extends AbstractExistingEntityEditPage<T> {
     private static final long serialVersionUID = -7925855608498896685L;
 
+    protected TextFieldBootstrapFormComponent<String> name;
+
     public EditAbstractLocation(PageParameters parameters) {
         super(parameters);
 
@@ -26,7 +28,7 @@ public abstract class EditAbstractLocation<T extends GenericPersistable & Serial
     protected void onInitialize() {
         super.onInitialize();
 
-        final TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("name");
+        name = new TextFieldBootstrapFormComponent<>("name");
         name.required();
         name.getField().add(WebConstants.StringValidators.MAXIMUM_LENGTH_VALIDATOR_STD_DEFAULT_TEXT);
         editForm.add(name);

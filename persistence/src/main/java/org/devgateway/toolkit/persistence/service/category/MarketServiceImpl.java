@@ -8,6 +8,7 @@ import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.repository.category.MarketRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.service.ServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +33,7 @@ public class MarketServiceImpl extends BaseJpaServiceImpl<Market> implements Mar
 
     @Override
     public boolean exists(Department department, MarketType marketType, String name, Long exceptId) {
-        Long safeExceptId = exceptId == null ? -1 : exceptId;
-        return marketRepository.existsByDepartmentAndTypeAndNameAndIdNot(department, marketType, name, safeExceptId);
+        return ServiceUtil.exists(marketRepository.findAllNames(department, marketType), name, exceptId);
     }
 
     @Override

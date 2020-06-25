@@ -4,6 +4,7 @@ import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.repository.location.DepartmentRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.service.ServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,5 +40,10 @@ public class DepartmentServiceImpl extends BaseJpaServiceImpl<Department> implem
     @Override
     public Page<Department> searchText(String term, Pageable page) {
         return departmentRepository.searchText(term, page);
+    }
+
+    @Override
+    public boolean exists(String name, Long exceptId) {
+        return ServiceUtil.exists(departmentRepository.findAllNames(), name, exceptId);
     }
 }
