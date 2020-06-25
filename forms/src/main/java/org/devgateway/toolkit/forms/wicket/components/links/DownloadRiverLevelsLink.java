@@ -12,22 +12,34 @@ import java.util.function.BiFunction;
 
 import org.apache.wicket.model.IModel;
 import org.danekja.java.util.function.serializable.SerializableBiFunction;
+import org.danekja.java.util.function.serializable.SerializableSupplier;
 import org.devgateway.toolkit.forms.wicket.page.edit.category.RiverLevelWriter;
+import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
 import org.devgateway.toolkit.persistence.dao.IRiverLevel;
 import org.devgateway.toolkit.persistence.dao.IRiverStationYearlyLevels;
 
 /**
  * @author Octavian Ciubotaru
  */
-public class DownloadRiverLevelsLink<T extends IRiverStationYearlyLevels<L>, L extends IRiverLevel>
+public class DownloadRiverLevelsLink
+        <T extends AbstractImportableEntity & IRiverStationYearlyLevels<L>, L extends IRiverLevel>
         extends AbstractGeneratedExcelDownloadLink<T> {
 
-    private final SerializableBiFunction<MonthDay, BigDecimal, L> creator;
+    private final SerializableSupplier<T> entityCreator;
+    private final SerializableBiFunction<MonthDay, BigDecimal, L> levelCreator;
 
     public DownloadRiverLevelsLink(String id, IModel<T> model,
-            SerializableBiFunction<MonthDay, BigDecimal, L> creator) {
-        super(id, model);
-        this.creator = creator;
+            SerializableSupplier<T> entityCreator,
+            SerializableBiFunction<MonthDay, BigDecimal, L> levelCreator) {
+        this(id, model, entityCreator, levelCreator, null);
+    }
+
+    public DownloadRiverLevelsLink(String id, IModel<T> model,
+            SerializableSupplier<T> entityCreator,
+            SerializableBiFunction<MonthDay, BigDecimal, L> levelCreator, Boolean template) {
+        super(id, model, template);
+        this.entityCreator = entityCreator;
+        this.levelCreator = levelCreator;
     }
 
     @Override
@@ -37,20 +49,17 @@ public class DownloadRiverLevelsLink<T extends IRiverStationYearlyLevels<L>, L e
     }
 
     @Override
-    protected boolean isEmpty() {
-        return getModelObject().getLevels().isEmpty();
+    protected T getTemplateObject() {
+        T entity = entityCreator.get();
+        entity.setYear(getModelObject().getYear());
+        getLevelForTemplate(entity, levelCreator).forEach(l -> entity.addLevel(l));
+        return entity;
     }
 
     @Override
-    protected void generate(OutputStream outputStream) throws IOException {
-        T entity = getModelObject();
-
-        SortedSet<L> levels = isEmpty()
-                ? getLevelForTemplate(entity, creator)
-                : entity.getLevels();
-
+    protected void generate(T entity, OutputStream outputStream) throws IOException {
         RiverLevelWriter writer = new RiverLevelWriter();
-        writer.write(entity.getYear(), levels, outputStream, creator);
+        writer.write(entity.getYear(), entity.getLevels(), outputStream, levelCreator);
     }
 
     private SortedSet<L> getLevelForTemplate(T entity, BiFunction<MonthDay, BigDecimal, L> creator) {

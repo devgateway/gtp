@@ -3,6 +3,9 @@ package org.devgateway.toolkit.forms.wicket.page.edit.location;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.IValidatable;
+import org.apache.wicket.validation.IValidator;
+import org.apache.wicket.validation.ValidationError;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
@@ -37,9 +40,24 @@ public class EditDepartmentPage extends EditAbstractLocation<Department> {
         super.onInitialize();
 
         final Select2ChoiceBootstrapFormComponent<Region> region = new Select2ChoiceBootstrapFormComponent<>("region",
-                new GenericPersistableJpaTextChoiceProvider<Region>(regionService));
+                new GenericPersistableJpaTextChoiceProvider<>(regionService));
         region.required();
         region.setEnabled(false);
         editForm.add(region);
+
+        name.getField().add(new UniqueDepartmentValidator());
+    }
+
+    private class UniqueDepartmentValidator implements IValidator<String> {
+
+        @Override
+        public void validate(IValidatable<String> validatable) {
+            Long id = editForm.getModelObject().getId();
+            if (departmentService.exists(validatable.getValue(), id)) {
+                ValidationError error = new ValidationError(this);
+                error.setVariable("department", validatable.getValue());
+                validatable.error(error);
+            }
+        }
     }
 }

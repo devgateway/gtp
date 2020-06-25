@@ -15,7 +15,6 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSortedSet;
 import org.devgateway.toolkit.persistence.dao.PersistedCollectionSize;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.categories.MarketType;
@@ -159,26 +158,26 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
         return markets.isEmpty() ? null : markets.get(0).getId();
     }
 
+    public ProductYearlyPrices getExample(Integer year, ProductType productType) {
+        List<Product> products = productService.findByProductType(productType);
+
+        ProductYearlyPrices prices = new ProductYearlyPrices(year, productType);
+
+        getExamplePrices(products).forEach(prices::addPrice);
+
+        return prices;
+    }
+
     @Override
     @Transactional(readOnly = true)
     public void export(ProductYearlyPrices entity, OutputStream outputStream) throws IOException {
         List<Product> products = productService.findByProductType(entity.getProductType());
 
-        SortedSet<ProductPrice> prices;
-        SortedSet<ProductQuantity> quantities;
-        if (entity.getPrices().isEmpty()) {
-            prices = getExamplePrices(products);
-            quantities = ImmutableSortedSet.of();
-        } else {
-            prices = entity.getPrices();
-            quantities = entity.getQuantities();
-        }
-
         boolean productsOnSeparateRows = entity.getProductType().areProductsOnSeparateRows();
 
         ProductPriceWriter writer = new ProductPriceWriter(products, productsOnSeparateRows);
 
-        writer.write(prices, quantities, entity.getYear(), outputStream);
+        writer.write(entity.getPrices(), entity.getQuantities(), entity.getYear(), outputStream);
     }
 
     @Override

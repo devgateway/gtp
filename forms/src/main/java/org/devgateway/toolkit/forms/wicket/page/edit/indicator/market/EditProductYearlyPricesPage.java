@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -61,11 +62,23 @@ public class EditProductYearlyPricesPage extends AbstractExcelImportPage<Product
         pageTitle.setDefaultModel(new StringResourceModel("page.title", this, editForm.getModel()));
 
         deleteButton.setVisibilityAllowed(false);
+
+        ProductType productType = editForm.getModelObject().getProductType();
+        boolean hasPrices = productService.existsByProductType(productType);
+
+        Label label = new Label("warning", new StringResourceModel("noProducts", this, editForm.getModel()));
+        label.setVisibilityAllowed(!hasPrices);
+        editForm.add(label);
+
+        upload.setEnabled(hasPrices);
+        download.setEnabled(hasPrices);
+        downloadTemplate.setEnabled(hasPrices);
+        saveButton.setEnabled(hasPrices);
     }
 
     @Override
-    protected BootstrapAjaxLink<?> getDownloadButton(String id) {
-        return new DownloadProductPricesLink(id, editForm.getModel());
+    protected BootstrapAjaxLink<?> getDownloadButton(String id, boolean template) {
+        return new DownloadProductPricesLink(id, editForm.getModel(), template);
     }
 
     @Override

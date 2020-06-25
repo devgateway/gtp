@@ -7,6 +7,7 @@ import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.repository.category.ProductRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.service.ServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,8 +40,12 @@ public class ProductServiceImpl extends BaseJpaServiceImpl<Product> implements P
 
     @Override
     public boolean exists(ProductType productType, String name, Long exceptId) {
-        Long safeExceptId = exceptId == null ? -1 : exceptId;
-        return repository.existsByProductTypeAndNameAndIdNot(productType, name, safeExceptId);
+        return ServiceUtil.exists(repository.findAllNames(productType), name, exceptId);
+    }
+
+    @Override
+    public boolean existsByProductType(ProductType productType) {
+        return repository.existsByProductType(productType);
     }
 
     @Override

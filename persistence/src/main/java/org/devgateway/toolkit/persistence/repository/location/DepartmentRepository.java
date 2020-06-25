@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.repository.location;
 
 import java.util.List;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
 import org.devgateway.toolkit.persistence.repository.norepository.TextSearchableRepository;
@@ -28,4 +29,9 @@ public interface DepartmentRepository extends TextSearchableRepository<Departmen
     @Override
     @CacheHibernateQueryResult
     Page<Department> findAll(Pageable pageable);
+
+    @CacheHibernateQueryResult
+    @Query("select new org.apache.commons.lang3.tuple.ImmutablePair(d.id, d.name) "
+            + "from Department d")
+    List<Pair<Long, String>> findAllNames();
 }

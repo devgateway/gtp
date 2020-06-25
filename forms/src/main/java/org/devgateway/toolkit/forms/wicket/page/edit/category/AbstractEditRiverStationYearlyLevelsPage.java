@@ -8,12 +8,13 @@ import java.util.Collection;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.danekja.java.util.function.serializable.SerializableBiFunction;
+import org.danekja.java.util.function.serializable.SerializableSupplier;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.links.DownloadRiverLevelsLink;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractExcelImportPage;
 import org.devgateway.toolkit.forms.wicket.providers.HydrologicalYearRangeChoiceProvider;
-import org.devgateway.toolkit.persistence.dao.GenericPersistable;
+import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.IRiverLevel;
 import org.devgateway.toolkit.persistence.dao.IRiverStationYearlyLevels;
@@ -24,18 +25,21 @@ import org.devgateway.toolkit.persistence.util.JPAUtil;
  * @author Octavian Ciubotaru
  */
 public class AbstractEditRiverStationYearlyLevelsPage
-        <T extends GenericPersistable & IRiverStationYearlyLevels<L>, L extends IRiverLevel>
+        <T extends AbstractImportableEntity & IRiverStationYearlyLevels<L>, L extends IRiverLevel>
         extends AbstractExcelImportPage<T> {
 
-    private final SerializableBiFunction<MonthDay, BigDecimal, L> creator;
+    private final SerializableSupplier<T> entityCreator;
+    private final SerializableBiFunction<MonthDay, BigDecimal, L> levelCreator;
 
     protected Select2ChoiceBootstrapFormComponent<HydrologicalYear> year;
 
     public AbstractEditRiverStationYearlyLevelsPage(PageParameters parameters,
-            SerializableBiFunction<MonthDay, BigDecimal, L> creator) {
+            SerializableSupplier<T> entityCreator,
+            SerializableBiFunction<MonthDay, BigDecimal, L> levelCreator) {
         super(parameters);
 
-        this.creator = creator;
+        this.entityCreator = entityCreator;
+        this.levelCreator = levelCreator;
     }
 
     protected void onInitialize(int minYear) {
@@ -55,15 +59,15 @@ public class AbstractEditRiverStationYearlyLevelsPage
     }
 
     @Override
-    protected BootstrapAjaxLink<?> getDownloadButton(String id) {
-        return new DownloadRiverLevelsLink<>("download", editForm.getModel(), creator);
+    protected BootstrapAjaxLink<?> getDownloadButton(String id, boolean template) {
+        return new DownloadRiverLevelsLink<>(id, editForm.getModel(), entityCreator, levelCreator, template);
     }
 
     @Override
     protected void importData(InputStream inputStream) throws ReaderException {
         RiverLevelReader reader = new RiverLevelReader();
 
-        Collection<L> levels = reader.read(inputStream, creator);
+        Collection<L> levels = reader.read(inputStream, levelCreator);
 
         T entity = editForm.getModelObject();
 

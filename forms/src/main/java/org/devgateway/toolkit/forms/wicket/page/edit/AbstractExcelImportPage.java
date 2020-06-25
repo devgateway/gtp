@@ -19,7 +19,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
-import org.devgateway.toolkit.persistence.dao.GenericPersistable;
+import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
 import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Octavian Ciubotaru
  */
-public abstract class AbstractExcelImportPage<T extends GenericPersistable> extends AbstractEditPage<T> {
+public abstract class AbstractExcelImportPage<T extends AbstractImportableEntity> extends AbstractEditPage<T> {
 
     private static final int MAX_ERRORS = 30;
 
@@ -35,7 +35,11 @@ public abstract class AbstractExcelImportPage<T extends GenericPersistable> exte
 
     private List<FileMetadata> uploads = new ArrayList<>();
 
-    private FileInputBootstrapFormComponent upload;
+    protected FileInputBootstrapFormComponent upload;
+
+    protected BootstrapAjaxLink<?> download;
+
+    protected BootstrapAjaxLink<?> downloadTemplate;
 
     public AbstractExcelImportPage(PageParameters parameters) {
         super(parameters);
@@ -54,12 +58,17 @@ public abstract class AbstractExcelImportPage<T extends GenericPersistable> exte
         Fragment extraButtons = new Fragment("extraButtons", "excelExtraButtons", this);
         editForm.replace(extraButtons);
 
-        BootstrapAjaxLink<?> download = getDownloadButton("download");
+        download = getDownloadButton("download", false);
         download.setSize(Buttons.Size.Medium);
+        download.setVisibilityAllowed(!editForm.getModelObject().isEmpty());
         extraButtons.add(download);
+
+        downloadTemplate = getDownloadButton("downloadTemplate", true);
+        downloadTemplate.setSize(Buttons.Size.Medium);
+        extraButtons.add(downloadTemplate);
     }
 
-    protected abstract BootstrapAjaxLink<?> getDownloadButton(String id);
+    protected abstract BootstrapAjaxLink<?> getDownloadButton(String id, boolean template);
 
     @Override
     public SaveEditPageButton getSaveEditPageButton() {

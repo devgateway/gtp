@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.repository.category;
 
 import java.util.List;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
@@ -27,5 +28,11 @@ public interface ProductRepository extends BaseJpaRepository<Product, Long>,
     Page<Product> searchText(String term, Pageable page);
 
     @CacheHibernateQueryResult
-    boolean existsByProductTypeAndNameAndIdNot(ProductType productType, String name, Long id);
+    @Query("select new org.apache.commons.lang3.tuple.ImmutablePair(p.id, p.name) "
+            + "from Product p "
+            + "where p.productType = :productType")
+    List<Pair<Long, String>> findAllNames(ProductType productType);
+
+    @CacheHibernateQueryResult
+    boolean existsByProductType(ProductType productType);
 }

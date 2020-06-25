@@ -28,7 +28,7 @@ public class EditRiverStationYearlyLevelsPage
     private AdminSettingsService adminSettingsService;
 
     public EditRiverStationYearlyLevelsPage(PageParameters parameters) {
-        super(parameters, RiverLevel::new);
+        super(parameters, RiverStationYearlyLevels::new, RiverLevel::new);
 
         this.jpaService = riverStationYearlyLevelsService;
 

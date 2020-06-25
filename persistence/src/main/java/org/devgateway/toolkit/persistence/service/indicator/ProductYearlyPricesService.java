@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
 
+import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductQuantity;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
@@ -32,6 +33,8 @@ public interface ProductYearlyPricesService extends YearIndicatorGenerator<Produ
     Long getProductIdWithPrices(Integer year);
 
     Long getMarketIdWithPrices(Integer year, Long productId);
+
+    ProductYearlyPrices getExample(Integer year, ProductType productType);
 
     void export(ProductYearlyPrices productYearlyPrices, OutputStream outputStream) throws IOException;
 

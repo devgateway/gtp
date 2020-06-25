@@ -17,7 +17,11 @@ public class DownloadProductPricesLink extends AbstractGeneratedExcelDownloadLin
     private ProductYearlyPricesService productYearlyPricesService;
 
     public DownloadProductPricesLink(String id, IModel<ProductYearlyPrices> model) {
-        super(id, model);
+        this(id, model, null);
+    }
+
+    public DownloadProductPricesLink(String id, IModel<ProductYearlyPrices> model, Boolean template) {
+        super(id, model, template);
     }
 
     @Override
@@ -28,15 +32,12 @@ public class DownloadProductPricesLink extends AbstractGeneratedExcelDownloadLin
     }
 
     @Override
-    protected boolean isEmpty() {
-        ProductYearlyPrices entity = getModelObject();
-        return entity.getPricesSize() == null
-                ? entity.getPrices().isEmpty() && entity.getQuantities().isEmpty()
-                : entity.getPricesSize() == 0L && entity.getQuantitiesSize() == 0L;
+    protected ProductYearlyPrices getTemplateObject() {
+        return productYearlyPricesService.getExample(getModelObject().getYear(), getModelObject().getProductType());
     }
 
     @Override
-    protected void generate(OutputStream outputStream) throws IOException {
-        productYearlyPricesService.export(getModelObject(), outputStream);
+    protected void generate(ProductYearlyPrices object, OutputStream outputStream) throws IOException {
+        productYearlyPricesService.export(object, outputStream);
     }
 }

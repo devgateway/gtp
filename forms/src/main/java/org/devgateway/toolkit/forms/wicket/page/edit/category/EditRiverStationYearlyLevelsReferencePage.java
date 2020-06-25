@@ -28,7 +28,7 @@ public class EditRiverStationYearlyLevelsReferencePage
     private RiverStationYearlyLevelsReferenceService riverStationYearlyLevelsReferenceService;
 
     public EditRiverStationYearlyLevelsReferencePage(PageParameters parameters) {
-        super(parameters, RiverLevelReference::new);
+        super(parameters, RiverStationYearlyLevelsReference::new, RiverLevelReference::new);
 
         jpaService = riverStationYearlyLevelsReferenceService;
 
