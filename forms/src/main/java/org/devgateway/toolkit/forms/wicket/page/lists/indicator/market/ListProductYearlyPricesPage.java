@@ -17,7 +17,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.ProductYearlyPricesFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.indicator.market.EditProductYearlyPricesPage;
-import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.AbstractExcelImportListPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.YearFilterPanel;
 import org.devgateway.toolkit.forms.wicket.page.lists.panel.ProductYearlyPricesActionPanel;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
@@ -29,13 +29,13 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_MARKET_EDITOR)
 @MountPath(value = "/product-prices")
-public class ListProductYearlyPricesPage extends AbstractListPage<ProductYearlyPrices> {
+public class ListProductYearlyPricesPage extends AbstractExcelImportListPage<ProductYearlyPrices> {
 
     @SpringBean
     private ProductYearlyPricesService productYearlyPricesService;
 
     public ListProductYearlyPricesPage(PageParameters parameters) {
-        super(parameters, false);
+        super(parameters);
 
         jpaService = productYearlyPricesService;
         editPageClass = EditProductYearlyPricesPage.class;

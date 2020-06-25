@@ -20,7 +20,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.SelectFilteredBootst
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.RiverStationYearlyLevelsReferenceFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.category.EditRiverStationYearlyLevelsReferencePage;
-import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.AbstractExcelImportListPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.panel.RiverStationYearlyLevelsActionPanel;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.reference.RiverLevelReference;
@@ -35,7 +35,8 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/reference-river-levels")
-public class ListRiverStationYearlyLevelsReferencesPage extends AbstractListPage<RiverStationYearlyLevelsReference> {
+public class ListRiverStationYearlyLevelsReferencesPage
+        extends AbstractExcelImportListPage<RiverStationYearlyLevelsReference> {
 
     @SpringBean
     private RiverStationYearlyLevelsReferenceService riverStationYearlyLevelsReferenceService;
@@ -44,7 +45,7 @@ public class ListRiverStationYearlyLevelsReferencesPage extends AbstractListPage
     private RiverStationService riverStationService;
 
     public ListRiverStationYearlyLevelsReferencesPage(PageParameters parameters) {
-        super(parameters, false);
+        super(parameters);
 
         jpaService = riverStationYearlyLevelsReferenceService;
 
@@ -72,7 +73,8 @@ public class ListRiverStationYearlyLevelsReferencesPage extends AbstractListPage
 
     @Override
     public Panel getActionPanel(String id, IModel<RiverStationYearlyLevelsReference> model) {
-        return new RiverStationYearlyLevelsActionPanel<>(id, model, RiverLevelReference::new, editPageClass);
+        return new RiverStationYearlyLevelsActionPanel<>(id, model,
+                RiverStationYearlyLevelsReference::new, RiverLevelReference::new, editPageClass);
     }
 
     @Override

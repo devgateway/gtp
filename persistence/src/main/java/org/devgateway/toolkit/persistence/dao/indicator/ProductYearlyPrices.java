@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
+import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
 import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
@@ -28,7 +29,7 @@ import org.hibernate.envers.Audited;
 @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"year", "product_type_id"}))
-public class ProductYearlyPrices extends AbstractAuditableEntity {
+public class ProductYearlyPrices extends AbstractImportableEntity {
 
     @NotNull
     private Integer year;
@@ -104,16 +105,8 @@ public class ProductYearlyPrices extends AbstractAuditableEntity {
         return prices.add(price);
     }
 
-    public Long getPricesSize() {
-        return pricesSize;
-    }
-
     public void setPricesSize(Long pricesSize) {
         this.pricesSize = pricesSize;
-    }
-
-    public Long getQuantitiesSize() {
-        return quantitiesSize;
     }
 
     public void setQuantitiesSize(Long quantitiesSize) {
@@ -136,5 +129,12 @@ public class ProductYearlyPrices extends AbstractAuditableEntity {
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return (pricesSize != null)
+                ? pricesSize == 0L && quantitiesSize == 0L
+                : prices.isEmpty() && quantities.isEmpty();
     }
 }

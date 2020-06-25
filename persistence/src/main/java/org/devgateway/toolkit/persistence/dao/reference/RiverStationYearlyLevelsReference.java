@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.IRiverStationYearlyLevels;
+import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.dao.converter.HydrologicalYearConverter;
 import org.hibernate.annotations.BatchSize;
@@ -35,7 +36,7 @@ import org.hibernate.envers.Audited;
 @BatchSize(size = 100)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"station_id", "year"}))
 @JsonIgnoreProperties({"id", "parent", "new"})
-public class RiverStationYearlyLevelsReference extends AbstractAuditableEntity
+public class RiverStationYearlyLevelsReference extends AbstractImportableEntity
         implements IRiverStationYearlyLevels<RiverLevelReference> {
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -95,5 +96,10 @@ public class RiverStationYearlyLevelsReference extends AbstractAuditableEntity
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return levels.isEmpty();
     }
 }
