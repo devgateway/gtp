@@ -215,6 +215,7 @@
 	"indicators.filters.losstype": "Répartition de la Production",
 	"indicators.filters.market": "Marché de collecte",
 	"indicators.filters.product": "Produit",
+	"indicators.filters.product.type": "Type de produit",
 	"indicators.filters.regions": "Régions",
 	"indicators.filters.reset": "Réinitialiser",
 	"indicators.filters.river_station": "Fleuve",
