@@ -5,7 +5,11 @@ import {connect} from "react-redux"
 import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
 import ProductType from "../../../modules/entities/product/ProductType"
 import ProductQuantityConfig from "../../../modules/entities/product/quantity/ProductQuantityConfig"
-import {anyWithIdAndLabelToOptions, yearsToOptions} from "../../../modules/graphic/common/GraphicDTO"
+import {
+  anyWithIdAndLabelToOptions,
+  anyWithIdAndNameToOptions,
+  yearsToOptions
+} from "../../../modules/graphic/common/GraphicDTO"
 import * as quantityActions from "../../../redux/actions/market/quantityActions"
 import FilterDropDown from "../../common/filter/FilterDropDown"
 
@@ -31,7 +35,7 @@ class ProductQuantityProperties extends Component {
 
 const ProductQuantityFilters = (props) => {
   const {setYearFilter, setProductTypeFilter, setMarketFilter, config, intl}  = props
-  const {productTypes, markets, marketIdsByTypeName} = props.agricultureConfig
+  const {productTypes, markets} = props.agricultureConfig
   const {year, productTypeId, marketId} = props.filter
   return (
     <div className="indicator chart filter">
@@ -48,6 +52,14 @@ const ProductQuantityFilters = (props) => {
           onChange={(productTypeIds) => setProductTypeFilter(productTypeIds[0])}
           min={1} max={1} single
           selected={[productTypeId]} text={intl.formatMessage({ id: "indicators.filters.product.type" })} />
+      </div>
+      <div className="filter item">
+        <FilterDropDown
+          // TODO use chart specific markets from API config once API implements them
+          options={anyWithIdAndNameToOptions(markets)}
+          onChange={(marketIds) => setMarketFilter(marketIds[0])}
+          min={1} max={1} single withSearch
+          selected={[marketId]} text={intl.formatMessage({ id: "indicators.filters.market" })} />
       </div>
     </div>)
 }
