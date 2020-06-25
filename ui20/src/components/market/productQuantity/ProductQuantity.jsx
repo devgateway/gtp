@@ -6,6 +6,7 @@ import {connect} from "react-redux"
 import ProductQuantityChartDTO from "../../../modules/graphic/market/productQuantity/ProductQuantityChartDTO"
 import * as sccJS from "../../css"
 import * as utils from "../../ComponentUtil"
+import ProductQuantityLegend from "./ProductQuantityLegend"
 
 class ProductQuantity extends Component {
   static propTypes = {
@@ -20,6 +21,7 @@ class ProductQuantity extends Component {
 
     return (
       <div>
+        <ProductQuantityLegend data={data} colors={colors} />
         <div key="chart" className="graphic-content">
           <ResponsiveLine
             enableGridY={true}
