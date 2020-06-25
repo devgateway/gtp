@@ -1,4 +1,4 @@
-import AgricultureConfig from "../config/AgricultureConfig"
+import AgricultureConfig from "../../config/AgricultureConfig"
 import ProductPriceConfig from "./ProductPriceConfig"
 import ProductPriceData from "./ProductPriceData"
 import ProductPriceFilter from "./ProductPriceFilter"
@@ -13,14 +13,14 @@ const ProductPriceChart: {
 
 export default ProductPriceChart
 
-export const fromApi = ({config, filter, data}, agricultureConfig) => {
+export const priceFromApi = ({config, filter, data}, agricultureConfig) => {
   ProductPriceChart.config = new ProductPriceConfig(config)
   Object.assign(ProductPriceChart.filter, filter)
-  ProductPriceChart.data = dataFromApi(data, filter, agricultureConfig)
+  ProductPriceChart.data = priceDataFromApi(data, filter, agricultureConfig)
   return ProductPriceChart
 }
 
-export const dataFromApi = (data, filter, agricultureConfig: AgricultureConfig) => {
+export const priceDataFromApi = (data, filter, agricultureConfig: AgricultureConfig) => {
   return  new ProductPriceData(data, filter.year, agricultureConfig.priceTypes)
 }
 

@@ -1,5 +1,5 @@
 import Product from "../../../entities/product/Product"
-import ProductAvgPrice from "../../../entities/product/ProductAvgPrice"
+import ProductAvgPrice from "../../../entities/product/price/ProductAvgPrice"
 import ProductPriceLine from "./ProductPriceLine"
 
 export default class ProductPriceChartDTO {

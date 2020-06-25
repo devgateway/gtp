@@ -48,3 +48,10 @@ export const MENU_HEIGHT = 354
 export const FOOTER_HEIGHT = 297
 
 export const GRAPHIC_TITLE_LEFT_PADDING = 21
+
+export const NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN = {
+  top: 10,
+  right: 50,
+  bottom: 75,
+  left: 60
+}

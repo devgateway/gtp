@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as priceActions from "../../../redux/actions/market/priceActions"
-import Graphic from "../../common/Graphic"
+import Graphic from "../../common/graphic/Graphic"
 import ProductPrice from "./ProductPrice"
 import ProductPriceProperties from "./ProductPriceProperties"
 
