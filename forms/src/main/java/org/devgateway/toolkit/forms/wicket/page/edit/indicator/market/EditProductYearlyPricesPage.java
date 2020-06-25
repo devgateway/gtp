@@ -72,12 +72,13 @@ public class EditProductYearlyPricesPage extends AbstractExcelImportPage<Product
 
         upload.setEnabled(hasPrices);
         download.setEnabled(hasPrices);
+        downloadTemplate.setEnabled(hasPrices);
         saveButton.setEnabled(hasPrices);
     }
 
     @Override
-    protected BootstrapAjaxLink<?> getDownloadButton(String id) {
-        return new DownloadProductPricesLink(id, editForm.getModel());
+    protected BootstrapAjaxLink<?> getDownloadButton(String id, boolean template) {
+        return new DownloadProductPricesLink(id, editForm.getModel(), template);
     }
 
     @Override

@@ -17,7 +17,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.RiverStationYearlyLevelsFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.indicator.riverlevel.EditRiverStationYearlyLevelsPage;
-import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.AbstractExcelImportListPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.HydrologicalYearFilterPanel;
 import org.devgateway.toolkit.forms.wicket.page.lists.panel.RiverStationYearlyLevelsActionPanel;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverLevel;
@@ -30,13 +30,13 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RIVER_LEVEL_EDITOR)
 @MountPath(value = "/river-levels")
-public class ListRiverStationYearlyLevelsPage extends AbstractListPage<RiverStationYearlyLevels> {
+public class ListRiverStationYearlyLevelsPage extends AbstractExcelImportListPage<RiverStationYearlyLevels> {
 
     @SpringBean
     private RiverStationYearlyLevelsService riverStationYearlyLevelsService;
 
     public ListRiverStationYearlyLevelsPage(PageParameters parameters) {
-        super(parameters, false);
+        super(parameters);
 
         this.jpaService = riverStationYearlyLevelsService;
         this.editPageClass = EditRiverStationYearlyLevelsPage.class;
@@ -55,7 +55,8 @@ public class ListRiverStationYearlyLevelsPage extends AbstractListPage<RiverStat
 
     @Override
     public Panel getActionPanel(String id, IModel<RiverStationYearlyLevels> model) {
-        return new RiverStationYearlyLevelsActionPanel<>(id, model, RiverLevel::new, editPageClass);
+        return new RiverStationYearlyLevelsActionPanel<>(id, model,
+                RiverStationYearlyLevels::new, RiverLevel::new, editPageClass);
     }
 
     @Override

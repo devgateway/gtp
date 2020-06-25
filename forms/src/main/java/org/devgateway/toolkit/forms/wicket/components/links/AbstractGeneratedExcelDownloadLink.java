@@ -16,19 +16,25 @@ import org.apache.wicket.request.IRequestCycle;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.devgateway.toolkit.forms.wicket.components.form.AJAXDownload;
+import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
 import org.springframework.http.ContentDisposition;
 
 /**
  * @author Octavian Ciubotaru
  */
-public abstract class AbstractGeneratedExcelDownloadLink<T> extends BootstrapAjaxLink<T> {
+public abstract class AbstractGeneratedExcelDownloadLink<T extends AbstractImportableEntity>
+        extends BootstrapAjaxLink<T> {
 
     private final AJAXDownload download;
 
-    public AbstractGeneratedExcelDownloadLink(String id, IModel<T> model) {
+    private final Boolean template;
+
+    public AbstractGeneratedExcelDownloadLink(String id, IModel<T> model, Boolean template) {
         super(id, model, Buttons.Type.Info);
 
-        setLabel(new StringResourceModel(isEmpty() ? "downloadTemplate" : "download", this));
+        this.template = template;
+
+        setLabel(new StringResourceModel(isTemplate() ? "downloadTemplate" : "download", this));
         setIconType(FontAwesomeIconType.download);
 
         download = new AJAXDownload() {
@@ -49,7 +55,9 @@ public abstract class AbstractGeneratedExcelDownloadLink<T> extends BootstrapAja
                                     .build()
                                     .toString());
 
-                            generate(response.getOutputStream());
+                            T object = isTemplate() ? getTemplateObject() : getModelObject();
+
+                            generate(object, response.getOutputStream());
                         } catch (IOException e) {
                             throw new WicketRuntimeException("Download error", e);
                         }
@@ -68,11 +76,15 @@ public abstract class AbstractGeneratedExcelDownloadLink<T> extends BootstrapAja
         add(download);
     }
 
+    private boolean isTemplate() {
+        return template == null ? getModelObject().isEmpty() : template;
+    }
+
     protected abstract String getFileName();
 
-    protected abstract boolean isEmpty();
+    protected abstract T getTemplateObject();
 
-    protected abstract void generate(OutputStream outputStream) throws IOException;
+    protected abstract void generate(T object, OutputStream outputStream) throws IOException;
 
     @Override
     public void onClick(AjaxRequestTarget target) {

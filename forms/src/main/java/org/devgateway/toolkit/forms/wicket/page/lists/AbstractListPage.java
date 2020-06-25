@@ -136,6 +136,11 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
                                      final IModel<T> model) {
                 cellItem.add(getActionPanel(componentId, model));
             }
+
+            @Override
+            public String getCssClass() {
+                return "action-panel-column";
+            }
         });
         dataTable = new AjaxFallbackBootstrapDataTable<>("table", columns, dataProvider, pageSize);
 

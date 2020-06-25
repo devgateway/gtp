@@ -150,7 +150,10 @@ public abstract class BasePage extends GenericWebPage<Void> {
     public BasePage(final PageParameters parameters) {
         super(parameters);
 
-        add(new HtmlTag("html"));
+        HtmlTag html = new HtmlTag("html");
+        html.add(new CssClassNameAppender(getClass().getSimpleName() + " "
+                + StringUtils.trimToEmpty(getPageCssClassName())));
+        add(html);
 
         // Add javascript files.
         add(new HeaderResponseContainer("scripts-container", "scripts-bucket"));
@@ -195,6 +198,10 @@ public abstract class BasePage extends GenericWebPage<Void> {
 
         Label pageDescription = new Label("pageDescription", new ResourceModel("page.description"));
         add(pageDescription);
+    }
+
+    protected String getPageCssClassName() {
+        return "";
     }
 
     protected NotificationPanel createFeedbackPanel() {
