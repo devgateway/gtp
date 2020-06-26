@@ -4,12 +4,15 @@ GENERATE_SOURCEMAP=false
 SRC="forms/target/forms.jar"
 TARGET="/opt/ad3/ad3.jar"
 
-TODAY=`date +%F`
+TODAY=$(date +%F)
+SED_TEMP=$(mktemp)
 if [ "$TODAY" == "$AD3_CLOCK_DATE" ]; then
-  sed -Ei 's/^#?(AD3_CLOCK_DATE)/#\1/' /etc/default/ad3
+  sed -E 's/^#?(AD3_CLOCK_DATE)/#\1/' /etc/default/ad3 > $SED_TEMP
 else
-  sed -Ei "s/^#?(AD3_CLOCK_DATE).*/\1=$AD3_CLOCK_DATE/" /etc/default/ad3
+  sed -E "s/^#?(AD3_CLOCK_DATE).*/\1=$AD3_CLOCK_DATE/" /etc/default/ad3 > $SED_TEMP
 fi
+cat $SED_TEMP > /etc/default/ad3
+rm $SED_TEMP
 
 if [ "$RECREATE_DB" = "true" ] && [ -f "/opt/ad3/recreate-db.sh" ]; then
   sudo systemctl stop ad3
