@@ -7,6 +7,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.persistence.dao.GenericPersistable;
 import org.devgateway.toolkit.persistence.service.indicator.YearIndicatorGenerator;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 
 /**
  * @author Octavian Ciubotaru
@@ -24,6 +25,6 @@ public class YearFilterPanel<T extends GenericPersistable & Serializable>
     protected void onInitialize() {
         super.onInitialize();
 
-        addYearChoice(adminSettingsService.getYears(), LocalDate.now().getYear());
+        addYearChoice(adminSettingsService.getYears(), LocalDate.now(AD3Clock.systemDefaultZone()).getYear());
     }
 }

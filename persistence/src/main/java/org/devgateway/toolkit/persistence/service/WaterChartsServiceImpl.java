@@ -48,6 +48,7 @@ import org.devgateway.toolkit.persistence.service.indicator.RiverStationYearlyLe
 import org.devgateway.toolkit.persistence.service.reference.RainLevelReferenceService;
 import org.devgateway.toolkit.persistence.service.reference.RainSeasonStartReferenceService;
 import org.devgateway.toolkit.persistence.service.reference.RiverStationYearlyLevelsReferenceService;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -122,7 +123,7 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     private RainLevelChartFilter getRainLevelFilter(RainLevelChartConfig config, WaterConfig waterConfig) {
         List<Integer> years;
         if (config.getYears().isEmpty()) {
-            years = ImmutableList.of(Year.now().getValue());
+            years = ImmutableList.of(Year.now(AD3Clock.systemDefaultZone()).getValue());
         } else {
             years = config.getYears().stream()
                     .sorted(Comparator.reverseOrder())
@@ -170,7 +171,9 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     }
 
     private DrySequenceChartFilter getDrySequenceChartFilter(RainLevelChartConfig config, WaterConfig waterConfig) {
-        Integer year = config.getYears().isEmpty() ? Year.now().getValue() : config.getYears().last();
+        Integer year = config.getYears().isEmpty()
+                ? Year.now(AD3Clock.systemDefaultZone()).getValue()
+                : config.getYears().last();
         Long postId = getFirstOr(config.getPluviometricPostIds(), () -> getFirstPost(waterConfig));
         return new DrySequenceChartFilter(year, postId);
     }
@@ -188,7 +191,9 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     private SeasonChart getSeasonChart() {
         SeasonChartConfig config = getRainSeasonConfig();
 
-        Integer year = config.getYears().isEmpty() ? Year.now().getValue() : config.getYears().last();
+        Integer year = config.getYears().isEmpty()
+                ? Year.now(AD3Clock.systemDefaultZone()).getValue()
+                : config.getYears().last();
         SeasonChartFilter filter = new SeasonChartFilter(year);
 
         return new SeasonChart(config, filter, getRainSeasonData(filter));
