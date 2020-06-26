@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 GENERATE_SOURCEMAP=false
 SRC="forms/target/forms.jar"
 TARGET="/opt/ad3/ad3.jar"
