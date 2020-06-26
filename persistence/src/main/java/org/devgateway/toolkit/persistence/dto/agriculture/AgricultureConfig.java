@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.dto.agriculture;
 
 import java.util.List;
+import java.util.Map;
 
 import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.categories.MarketType;
@@ -48,5 +49,9 @@ public class AgricultureConfig {
 
     public List<PriceType> getPriceTypes() {
         return priceTypes;
+    }
+
+    public Map<String, String> getMarketTypeByProductType() {
+        return MarketType.MARKET_TYPE_BY_PRODUCT_TYPE;
     }
 }
