@@ -142,11 +142,8 @@ export const getRainSeason = () => (dispatch, getState) => {
   const { rainSeasonChart, waterConfig } = getState().getIn(['water', 'data'])
   const builder = new RainSeasonTableBuilder(rainSeasonChart, waterConfig)
 
-  builder.build()
-
   return {
-    data: builder.data,
-    config: builder.config,
+    rainSeasonTableDTO: builder.build()
   }
 }
 
