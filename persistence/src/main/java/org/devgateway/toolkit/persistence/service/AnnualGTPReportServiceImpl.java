@@ -10,6 +10,7 @@ import java.util.function.Function;
 import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
 import org.devgateway.toolkit.persistence.repository.AnnualGTPReportRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class AnnualGTPReportServiceImpl extends BaseJpaServiceImpl<AnnualGTPRepo
                 .collect(toMap(AnnualGTPReport::getYear, Function.identity()));
 
         Integer startingYear = adminSettingsService.getStartingYear();
-        int endYear = Year.now().getValue();
+        int endYear = Year.now(AD3Clock.systemDefaultZone()).getValue();
 
         for (int y = startingYear; y <= endYear; y++) {
             if (!byYear.containsKey(y)) {

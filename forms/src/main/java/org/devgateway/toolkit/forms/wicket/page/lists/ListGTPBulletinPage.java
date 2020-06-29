@@ -30,6 +30,7 @@ import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.GTPBulletin;
 import org.devgateway.toolkit.persistence.service.GTPBulletinService;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
@@ -84,7 +85,7 @@ public class ListGTPBulletinPage extends AbstractListPage<GTPBulletin> {
                 new BookmarkableResettingFilterForm<GTPBulletinFilterState>(id, locator, dataTable,
                         ListGTPBulletinPage.class, getPageParameters());
         if (form.getModelObject().getYear() == null) {
-            form.getModelObject().setYear(Year.now().getValue());
+            form.getModelObject().setYear(Year.now(AD3Clock.systemDefaultZone()).getValue());
         }
         return form;
     }

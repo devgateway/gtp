@@ -11,12 +11,16 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.page;
 
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Properties;
 
@@ -47,5 +51,11 @@ public class Footer extends Panel {
         add(new Label("toolkit-version", Model.of(prop.getProperty("toolkit.version"))));
         add(new Label("toolkit-branch", Model.of(prop.getProperty("toolkit.branch"))));
         add(new Label("toolkit-year", Calendar.getInstance().get(Calendar.YEAR)));
+        if (AD3Clock.hasOffset()) {
+            add(new Label("ad3clock",
+                    DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(LocalDateTime.now(AD3Clock.systemDefaultZone()))));
+        } else {
+            add(new WebMarkupContainer("ad3clock").setVisibilityAllowed(false));
+        }
     }
 }
