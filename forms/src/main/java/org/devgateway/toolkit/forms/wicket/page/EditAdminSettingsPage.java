@@ -20,6 +20,7 @@ import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.category.ProductService;
 import org.devgateway.toolkit.persistence.service.category.ProductTypeService;
 import org.devgateway.toolkit.persistence.service.category.RiverStationService;
+import org.springframework.data.domain.Sort;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.List;
@@ -82,14 +83,14 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
 
         Select2ChoiceBootstrapFormComponent<RiverStation> defaultRiverStation =
                 new Select2ChoiceBootstrapFormComponent<>("defaultRiverStation",
-                        new GenericPersistableJpaTextChoiceProvider<>(riverStationService));
+                        new GenericPersistableJpaTextChoiceProvider<>(riverStationService, Sort.by("name")));
         defaultRiverStation.setShowTooltip(true);
         defaultRiverStation.required();
         editForm.add(defaultRiverStation);
 
         Select2ChoiceBootstrapFormComponent<Product> defaultProduct =
                 new Select2ChoiceBootstrapFormComponent<>("defaultProduct",
-                        new GenericPersistableJpaTextChoiceProvider<Product>(productService) {
+                        new GenericPersistableJpaTextChoiceProvider<Product>(productService, Sort.by("name")) {
                             @Override
                             public String getDisplayValue(Product choice) {
                                 return choice.getLabel() + " (" + choice.getProductType().getLabel() + ")";
@@ -101,7 +102,7 @@ public class EditAdminSettingsPage extends AbstractEditPage<AdminSettings> {
 
         Select2ChoiceBootstrapFormComponent<ProductType> defaultProductType =
                 new Select2ChoiceBootstrapFormComponent<>("defaultProductType",
-                        new GenericPersistableJpaTextChoiceProvider<>(productTypeService));
+                        new GenericPersistableJpaTextChoiceProvider<>(productTypeService, Sort.by("label")));
         defaultProductType.setShowTooltip(true);
         defaultProductType.required();
         editForm.add(defaultProductType);

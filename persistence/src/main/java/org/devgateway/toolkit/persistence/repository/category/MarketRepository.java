@@ -28,5 +28,5 @@ public interface MarketRepository extends BaseJpaRepository<Market, Long> {
     boolean existsByLatitudeAndLongitudeAndIdNot(Double latitude, Double longitude, Long exceptId);
 
     @CacheHibernateQueryResult
-    List<Market> findByType_Name(String marketTypeName);
+    List<Market> findByType(MarketType marketType);
 }

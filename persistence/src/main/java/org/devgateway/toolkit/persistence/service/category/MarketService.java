@@ -16,5 +16,5 @@ public interface MarketService extends BaseJpaService<Market> {
 
     boolean exists(Double latitude, Double longitude, Long id);
 
-    List<Market> findByMarketTypeName(String marketTypeName);
+    List<Market> findByMarketType(MarketType marketType);
 }

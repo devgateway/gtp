@@ -1,7 +1,5 @@
 package org.devgateway.toolkit.persistence.service.testdata;
 
-import static org.devgateway.toolkit.persistence.dao.categories.MarketType.PRODUCT_TYPES_BY_MARKET_TYPE;
-
 import java.math.BigDecimal;
 import java.time.Month;
 import java.time.MonthDay;
@@ -89,12 +87,10 @@ public class ProductPricesTestDataGenerator implements InitializingBean {
                     List<Market> markets = marketService.findAll();
 
                     for (Market market : markets) {
-                        String marketTypeName = market.getType().getName();
                         for (int i = 0; i < WEEKS_IN_YEAR; i++) {
                             MonthDay monthDay = randomMonthDay(year);
                             for (Product product : products) {
-                                String productTypeName = product.getProductType().getName();
-                                if (PRODUCT_TYPES_BY_MARKET_TYPE.get(marketTypeName).contains(productTypeName)) {
+                                if (market.getType().equals(product.getProductType().getMarketType())) {
                                     boolean priceAdded = false;
                                     for (PriceType priceType : product.getPriceTypes()) {
                                         if (ThreadLocalRandom.current().nextDouble() > 0.6) {
