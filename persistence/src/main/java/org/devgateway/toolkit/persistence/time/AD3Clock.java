@@ -10,13 +10,19 @@ import java.time.format.DateTimeFormatter;
  */
 public final class AD3Clock {
 
-    private static final Clock CLOCK = Clock.offset(Clock.systemDefaultZone(), offset());
+    private static final Duration OFFSET = offset();
+
+    private static final Clock CLOCK = Clock.offset(Clock.systemDefaultZone(), OFFSET);
 
     private AD3Clock() {
     }
 
     public static Clock systemDefaultZone() {
         return CLOCK;
+    }
+
+    public static boolean hasOffset() {
+        return !OFFSET.isZero();
     }
 
     private static Duration offset() {
