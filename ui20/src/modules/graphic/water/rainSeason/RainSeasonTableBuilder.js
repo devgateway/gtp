@@ -3,19 +3,19 @@ import RainSeasonChart from "../../../entities/rainSeason/RainSeasonChart"
 import RainSeasonConfigDTO from "./RainSeasonConfigDTO"
 import * as C from './RainSeasonConstants'
 import {RainSeasonPredictionDTO} from "./RainSeasonPredictionDTO"
+import RainSeasonTableDTO from "./RainSeasonTableDTO"
 
 export default class RainSeasonTableBuilder {
   rainSeasonChart: RainSeasonChart
   waterConfig: WaterConfig
-  data: Array<RainSeasonPredictionDTO>
-  config: RainSeasonConfigDTO
+
 
   constructor(rainSeasonChart: RainSeasonChart, waterConfig: WaterConfig) {
     this.rainSeasonChart = rainSeasonChart
     this.waterConfig = waterConfig
   }
 
-  build() {
+  build(): RainSeasonTableDTO {
     let data = this.rainSeasonChart.filteredData.predictions
 
     const {sortedBy, sortedAsc} = this.rainSeasonChart
@@ -37,13 +37,12 @@ export default class RainSeasonTableBuilder {
         data = data.reverse()
       }
     }
-    this.data = data
-    this._prepareConfig()
+    return new RainSeasonTableDTO(data, this._prepareConfig())
   }
 
   _prepareConfig() {
     const {years, zones, regions, departments, posts} = this.rainSeasonChart.actualConfig
-    this.config = new RainSeasonConfigDTO({
+    return new RainSeasonConfigDTO({
       years,
       zones: Array.from(zones.values()),
       regions: Array.from(regions.values()),
