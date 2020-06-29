@@ -84,8 +84,7 @@ public class EditPartnerPage extends AbstractEditPage<Partner> {
         editForm.add(groupType);
         groupType.required();
 
-        FileInputBootstrapFormComponent logo = new FileInputBootstrapFormComponent("logo",
-                new ResourceModel("tooltipNote")).maxFiles(1);
+        FileInputBootstrapFormComponent logo = new FileInputBootstrapFormComponent("logo").maxFiles(1);
         editForm.add(logo);
         logo.required();
 

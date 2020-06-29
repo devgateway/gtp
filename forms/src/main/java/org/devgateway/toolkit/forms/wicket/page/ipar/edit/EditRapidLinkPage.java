@@ -119,8 +119,7 @@ public class EditRapidLinkPage extends AbstractEditPage<RapidLink> {
                 new Select2ChoiceBootstrapFormComponent<>("rapidLinkPosition", choiceProvider);
         editForm.add(rapidLinkPosition);
 
-        FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata",
-                new ResourceModel("tooltipNote")).maxFiles(1);
+        FileInputBootstrapFormComponent fileInput = new FileInputBootstrapFormComponent("fileMetadata").maxFiles(1);
         fileInput.getField().add((IValidator) new InputImageFileValidator(getString("fileNotAdded"),
                 getString("filenameError")));
         fileInput.required();

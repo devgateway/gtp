@@ -56,6 +56,8 @@ public class TextAreaFieldBootstrapFormComponent<TYPE> extends GenericBootstrapF
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        getField().add(validator);
+        if (getField().getBehaviors(StringValidator.class).isEmpty()) {
+            getField().add(validator);
+        }
     }
 }
