@@ -5,14 +5,14 @@ import ProductQuantities from "./ProductQuantities"
 import Quantity from "./Quantity"
 
 export default class ProductQuantityData {
-  quantitiesByProductTypeId: Map<number, ProductQuantities>
+  quantitiesByProductId: Map<number, ProductQuantities>
 
   constructor({ quantities}, year: number, productsById: Map<number, Product>) {
     const newProductQuantities = (productId) => new ProductQuantities(productsById.get(productId))
-    this.quantitiesByProductTypeId = new Map();
+    this.quantitiesByProductId = new Map();
     (quantities || []).forEach(({monthDay, quantity, productId}) => {
       const q = new Quantity(new MonthDay(monthDay, year), quantity)
-      getOrDefault(this.quantitiesByProductTypeId, productId, null, () => newProductQuantities(productId)).addQuantity(q)
+      getOrDefault(this.quantitiesByProductId, productId, null, () => newProductQuantities(productId)).addQuantity(q)
     })
   }
 

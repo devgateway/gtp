@@ -214,6 +214,7 @@
 	"indicators.filters.losstype": "Loss Type",
 	"indicators.filters.market": "Collection market",
 	"indicators.filters.product": "Product",
+	"indicators.filters.product.type": "Product type",
 	"indicators.filters.regions": "Regions",
 	"indicators.filters.reset": "Reset All",
 	"indicators.filters.river_station": "River",
