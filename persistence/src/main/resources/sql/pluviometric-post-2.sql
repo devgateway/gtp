@@ -114,7 +114,3 @@ delete from rain_level_pluviometric_post_reference
 where pluviometric_post_id in (select id from pluviometric_post where label='Tivouane');
 
 delete from pluviometric_post where label='Tivouane';
-
-Fixed department for the following rainfall stations: Kidira, Diouloulou, Sindian, Richard-Toll, Diourbel, Diatacounda, Guinguinéo, Guédiawaye, Semme, Kolda, Koumpentoum, Koungheul, Kébémer, Kédougou, Déaly, Thilogne, Ranerou, Diamniadio, Rufisque, Saint Louis, Sédhiou, Thiès.
-
-Also removed Tivouane station.
