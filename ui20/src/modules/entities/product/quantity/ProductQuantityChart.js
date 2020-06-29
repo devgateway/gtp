@@ -14,7 +14,7 @@ const ProductQuantityChart: {
 export default ProductQuantityChart
 
 export const quantityFromApi = ({config, filter, data} = {}, agricultureConfig: AgricultureConfig) => {
-  ProductQuantityChart.config = new ProductQuantityConfig(config)
+  ProductQuantityChart.config = new ProductQuantityConfig(config, agricultureConfig)
   Object.assign(ProductQuantityChart.filter, filter || {})
   ProductQuantityChart.data = quantityDataFromApi(data, filter, agricultureConfig)
   return ProductQuantityChart

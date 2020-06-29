@@ -9,3 +9,7 @@ export const FEB_29_MONTH_DAY = "--02-29"
 export const ZERO_VALUE = -100
 export const NA_VALUE = -200
 export const SMALL_VALUE = -300
+
+export const MARKET_TYPE_RURAL = 'rural-market'
+export const MARKET_TYPE_FISHING_DOCK = 'fishing-dock'
+export const MARKET_TYPE_TRANSFORMATION_PLACE = 'transformation-place'

@@ -3,7 +3,6 @@ import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
-import ProductType from "../../../modules/entities/product/ProductType"
 import ProductQuantityConfig from "../../../modules/entities/product/quantity/ProductQuantityConfig"
 import {
   anyWithIdAndLabelToOptions,
@@ -35,7 +34,6 @@ class ProductQuantityProperties extends Component {
 
 const ProductQuantityFilters = (props) => {
   const {setYearFilter, setProductTypeFilter, setMarketFilter, config, intl}  = props
-  const {productTypes, markets} = props.agricultureConfig
   const {year, productTypeId, marketId} = props.filter
   return (
     <div className="indicator chart filter">
@@ -47,16 +45,14 @@ const ProductQuantityFilters = (props) => {
       </div>
       <div className="filter item">
         <FilterDropDown
-          // TODO use product types from API config once API implements them
-          options={anyWithIdAndLabelToOptions(Array.from(productTypes.values()).sort(ProductType.localeCompare))}
+          options={anyWithIdAndLabelToOptions(config.productTypes)}
           onChange={(productTypeIds) => setProductTypeFilter(productTypeIds[0])}
           min={1} max={1} single
           selected={[productTypeId]} text={intl.formatMessage({ id: "indicators.filters.product.type" })} />
       </div>
       <div className="filter item">
         <FilterDropDown
-          // TODO use chart specific markets from API config once API implements them
-          options={anyWithIdAndNameToOptions(markets)}
+          options={anyWithIdAndNameToOptions(config.markets)}
           onChange={(marketIds) => setMarketFilter(marketIds[0])}
           min={1} max={1} single withSearch
           selected={[marketId]} text={intl.formatMessage({ id: "indicators.filters.market" })} />
@@ -68,7 +64,7 @@ const ProductQuantityFilters = (props) => {
 const mapStateToProps = state => {
   return {
     agricultureConfig: state.getIn(['agriculture', 'data', 'agricultureConfig']),
-    config: state.getIn(['agriculture', 'data', 'productPriceChart', 'config']),
+    config: state.getIn(['agriculture', 'data', 'productQuantityChart', 'config']),
   }
 }
 
