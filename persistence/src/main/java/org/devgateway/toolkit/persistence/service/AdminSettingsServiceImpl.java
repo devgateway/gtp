@@ -6,6 +6,7 @@ import org.devgateway.toolkit.persistence.dao.AdminSettings;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.repository.AdminSettingsRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,7 +48,9 @@ public class AdminSettingsServiceImpl extends BaseJpaServiceImpl<AdminSettings> 
 
     @Override
     public List<Integer> getYears() {
-        return IntStream.rangeClosed(getStartingYear(), LocalDate.now().getYear()).boxed().collect(Collectors.toList());
+        return IntStream.rangeClosed(getStartingYear(), LocalDate.now(AD3Clock.systemDefaultZone()).getYear())
+                .boxed()
+                .collect(Collectors.toList());
     }
 
     @Override

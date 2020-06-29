@@ -2,6 +2,7 @@ package org.devgateway.toolkit.forms.wicket.components.table.filter;
 
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference_;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
@@ -22,7 +23,7 @@ public class RainLevelReferenceFilterState extends JpaFilterState<RainLevelRefer
     private Integer year;
 
     public RainLevelReferenceFilterState() {
-        this.year = LocalDate.now().getYear();
+        this.year = LocalDate.now(AD3Clock.systemDefaultZone()).getYear();
     }
 
     @Override
@@ -33,7 +34,7 @@ public class RainLevelReferenceFilterState extends JpaFilterState<RainLevelRefer
             // forces
             LOGGER.debug("currentYear = " + year);
 
-            Integer currentYear = LocalDate.now().getYear();
+            Integer currentYear = LocalDate.now(AD3Clock.systemDefaultZone()).getYear();
             predicates.add(cb.lessThanOrEqualTo(root.get(RainLevelReference_.yearStart), currentYear));
 
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));

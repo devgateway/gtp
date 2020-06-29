@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 
 /**
  * <p>Hydrological year. For Senegal it starts on 1 May and ends on 30 April.</p>
@@ -80,7 +81,7 @@ public class HydrologicalYear implements Serializable, Comparable<HydrologicalYe
     }
 
     public static HydrologicalYear now() {
-        LocalDate now = LocalDate.now();
+        LocalDate now = LocalDate.now(AD3Clock.systemDefaultZone());
         int designatedYear;
         if (MonthDay.from(now).compareTo(HYDROLOGICAL_YEAR_START) < 0) {
             designatedYear = now.getYear() - 1;

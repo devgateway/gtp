@@ -13,6 +13,7 @@ import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.GTPBulletin;
 import org.devgateway.toolkit.persistence.repository.GTPBulletinRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +49,7 @@ public class GTPBulletinServiceImpl extends BaseJpaServiceImpl<GTPBulletin> impl
     @Transactional
     public void generate() {
         Integer startingYear = adminSettingsService.getStartingYear();
-        LocalDate now = LocalDate.now();
+        LocalDate now = LocalDate.now(AD3Clock.systemDefaultZone());
         int currentYear = now.getYear();
 
         Set<GTPBulletin> byYmd = new TreeSet<>(Comparator.comparing(GTPBulletin::getYear)
@@ -71,7 +72,7 @@ public class GTPBulletinServiceImpl extends BaseJpaServiceImpl<GTPBulletin> impl
     }
 
     private boolean isFuture(int y, Month month, Decadal decadal) {
-        LocalDate now = LocalDate.now();
+        LocalDate now = LocalDate.now(AD3Clock.systemDefaultZone());
         return y > now.getYear()
                 || (y == now.getYear() && (month.compareTo(now.getMonth()) > 0
                 || month.compareTo(now.getMonth()) == 0
