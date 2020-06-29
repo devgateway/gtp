@@ -101,16 +101,13 @@ public class AgricultureGraphicsControllerTest extends AbstractDocumentedControl
                 .andExpect(jsonPath("productTypes").isNotEmpty())
                 .andExpect(jsonPath("priceTypes").isNotEmpty())
                 .andExpect(jsonPath("products").isNotEmpty())
-                .andExpect(jsonPath("marketTypeByProductType").isNotEmpty())
                 .andDo(document("agriculture-config",
                         responseFields(
                                 subsectionWithPath("products").description("<<product,Products>>"),
                                 subsectionWithPath("productTypes").description("<<product-type,Product types>>"),
                                 subsectionWithPath("priceTypes").description("<<price-type,Price types>>"),
                                 subsectionWithPath("markets").description("<<market,Markets>>"),
-                                subsectionWithPath("marketTypes").description("<<market-type,Market types>>"),
-                                subsectionWithPath("marketTypeByProductType")
-                                        .description("Relationship between market type and product type")),
+                                subsectionWithPath("marketTypes").description("<<market-type,Market types>>")),
                         responseFields(
                                 beneathPath("marketTypes").withSubsectionId("marketType"),
                                 fieldWithPath("id").description("Market Type Id"),
@@ -134,7 +131,8 @@ public class AgricultureGraphicsControllerTest extends AbstractDocumentedControl
                                 fieldWithPath("name")
                                         .description("Machine friendly name. One of: "
                                                 + String.join(", ", ProductType.ALL) + "."),
-                                fieldWithPath("label").description("User friendly name")),
+                                fieldWithPath("label").description("User friendly name"),
+                                fieldWithPath("marketTypeId").description("<<market-type,Market Type>> Id")),
                         responseFields(
                                 beneathPath("priceTypes").withSubsectionId("priceType"),
                                 fieldWithPath("id").description("Price Type Id"),

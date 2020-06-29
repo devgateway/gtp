@@ -604,7 +604,17 @@
         <sqlFile path="sql/pluviometric-post-2.sql" />
     </changeSet>
 
-    <!-- placeholder 14 -->
+    <changeSet id="ANACIM-212" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="pluviometric_post" />
+            <tableExists tableName="pluviometric_post_rainfall" />
+            <tableExists tableName="rainfall" />
+            <tableExists tableName="rain_level_pluviometric_post_reference" />
+            <tableExists tableName="rain_level_month_reference" />
+            <tableExists tableName="rain_season_pluviometric_post_reference_start" />
+        </preConditions>
+        <sqlFile path="sql/market-types.sql" />
+    </changeSet>
 
     <!-- placeholder 15 -->
 

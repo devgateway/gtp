@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.PersistedCollectionSize;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
-import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.categories.ProductType;
@@ -202,9 +201,7 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
         PriceType priceType = product.getPriceTypes().get(0);
         MonthDay monthDay = MonthDay.of(Month.JANUARY, 1);
 
-        String marketTypeName = MarketType.MARKET_TYPE_BY_PRODUCT_TYPE.get(product.getProductType().getName());
-
-        List<Market> markets = marketService.findByMarketTypeName(marketTypeName);
+        List<Market> markets = marketService.findByMarketType(product.getProductType().getMarketType());
 
         return markets.stream()
                 .map(m -> new ProductPrice(product, m, monthDay, priceType, null))
