@@ -101,13 +101,16 @@ public class AgricultureGraphicsControllerTest extends AbstractDocumentedControl
                 .andExpect(jsonPath("productTypes").isNotEmpty())
                 .andExpect(jsonPath("priceTypes").isNotEmpty())
                 .andExpect(jsonPath("products").isNotEmpty())
+                .andExpect(jsonPath("marketTypeByProductType").isNotEmpty())
                 .andDo(document("agriculture-config",
                         responseFields(
                                 subsectionWithPath("products").description("<<product,Products>>"),
                                 subsectionWithPath("productTypes").description("<<product-type,Product types>>"),
                                 subsectionWithPath("priceTypes").description("<<price-type,Price types>>"),
                                 subsectionWithPath("markets").description("<<market,Markets>>"),
-                                subsectionWithPath("marketTypes").description("<<market-type,Market types>>")),
+                                subsectionWithPath("marketTypes").description("<<market-type,Market types>>"),
+                                subsectionWithPath("marketTypeByProductType")
+                                        .description("Relationship between market type and product type")),
                         responseFields(
                                 beneathPath("marketTypes").withSubsectionId("marketType"),
                                 fieldWithPath("id").description("Market Type Id"),

@@ -56,21 +56,21 @@ public class SendEmailService {
         msg.setTo(person.getEmail());
         msg.setFrom(recoveryProperties.getFrom());
         msg.setSubject("Retrouver votre mot de passe/Recover your password");
-        msg.setText("Cher(ère) " + person.getFirstName() + " " + person.getLastName() + ",\n\n"
+        msg.setText("Cher(e) " + person.getFirstName() + " " + person.getLastName() + ",\n\n"
                 + "Veuillez utiliser ce lien pour modifier le mot de passe permettant de vous connecter à la "
-                + "plateforme Agridata: " + url + "\n"
+                + "plateforme du GTP: " + url + "\n"
                 + "Ce lien sera valide pour 1H\n"
                 + "Votre identifiant est: " + person.getUsername() + ".\n\n"
                 + "Merci,\n"
-                + "L'équipe Agridata"
+                + "L'équipe GTP"
                 + "\n"
                 + "------------------------------------------------------------------------------------------\n\n"
                 + "Dear " + person.getFirstName() + " " + person.getLastName() + ",\n\n"
-                + "Please use this link to change your password for the Agridata platform: " + url + "\n"
+                + "Please use this link to change your password for the GTP platform: " + url + "\n"
                 + "This link will expire in an hour.\n"
                 + "Your username is: " + person.getUsername() + ".\n\n"
                 + "Thank you,\n"
-                + "The Agridata Team");
+                + "The GTP Team");
 
         try {
             javaMailSenderImpl.send(msg);

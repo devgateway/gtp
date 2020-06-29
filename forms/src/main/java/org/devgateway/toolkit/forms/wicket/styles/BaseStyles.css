@@ -314,3 +314,12 @@ hr.edit-separator {
     float: left;
     margin: 20px 0;
 }
+
+.pagination > li > a[disabled='disabled'].first,
+.pagination > li > a[disabled='disabled'].prev,
+.pagination > li > a[disabled='disabled'].next,
+.pagination > li > a[disabled='disabled'].last {
+    color: gray;
+    cursor: default;
+    background-color: #fff;
+}
