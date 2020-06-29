@@ -604,7 +604,12 @@
         <sqlFile path="sql/pluviometric-post-2.sql" />
     </changeSet>
 
-    <!-- placeholder 14 -->
+    <changeSet id="ANACIM-212" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <columnExists tableName="category" columnName="market_type_id" />
+        </preConditions>
+        <sqlFile path="sql/market-types.sql" />
+    </changeSet>
 
     <!-- placeholder 15 -->
 

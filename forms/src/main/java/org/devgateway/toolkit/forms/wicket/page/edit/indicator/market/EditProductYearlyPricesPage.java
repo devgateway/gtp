@@ -14,7 +14,6 @@ import org.devgateway.toolkit.forms.wicket.components.links.DownloadProductPrice
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractExcelImportPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.market.ListProductYearlyPricesPage;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
-import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.categories.Product;
 import org.devgateway.toolkit.persistence.dao.categories.ProductType;
 import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
@@ -89,11 +88,9 @@ public class EditProductYearlyPricesPage extends AbstractExcelImportPage<Product
 
         List<Product> products = productService.findByProductType(productType);
 
-        String marketTypeName = MarketType.MARKET_TYPE_BY_PRODUCT_TYPE.get(productType.getName());
-
         List<Department> departments = departmentService.findAll();
 
-        List<Market> markets = marketService.findByMarketTypeName(marketTypeName);
+        List<Market> markets = marketService.findByMarketType(productType.getMarketType());
 
         boolean productsOnSeparateRows = productType.areProductsOnSeparateRows();
 
