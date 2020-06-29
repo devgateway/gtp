@@ -126,11 +126,11 @@ public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComp
             border.add(new TransparentWebMarkupContainer("tooltipLabel").setVisibilityAllowed(false));
         }
         if (showNote) {
-            Label label = new Label("tooltipNote", new ResourceModel(getId() + ".tooltipNote"));
+            Label label = new Label("note", new ResourceModel(getId() + ".note"));
             label.setEscapeModelStrings(false);
             note = label;
         } else {
-            note = new TransparentWebMarkupContainer("tooltipNote")
+            note = new TransparentWebMarkupContainer("note")
                     .setVisibilityAllowed(false);
         }
         border.add(note);
