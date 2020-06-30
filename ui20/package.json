@@ -71,7 +71,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js --ext .jsx src",
-    "lint-fix": "eslint --fix --ext .js --ext .jsx src"
+    "lint-fix": "eslint --fix --ext .js --ext .jsx src",
+    "postinstall": "cp -R node_modules/semantic-ui-css/themes/default/assets/fonts ./public/themes/default/assets/"
   },
   "browserslist": [
     ">0.2%",
