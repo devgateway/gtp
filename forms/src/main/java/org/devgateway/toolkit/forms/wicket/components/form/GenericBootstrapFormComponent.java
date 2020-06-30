@@ -21,6 +21,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior.Size;
 import de.agilecoders.wicket.core.util.Attributes;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormChoiceComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
@@ -63,10 +64,11 @@ public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComp
 
     // use a flag if we need to display a Tooltip since StringResourceModel it's expensive
     private Boolean showTooltip = false;
+    private boolean showNote = false;
 
     private final IModel<String> labelModel;
 
-    private ResourceModel tooltipNote;
+    private Component note;
 
     public GenericBootstrapFormComponent(final String id) {
         this(id, null);
@@ -123,13 +125,15 @@ public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComp
         } else {
             border.add(new TransparentWebMarkupContainer("tooltipLabel").setVisibilityAllowed(false));
         }
-        if (tooltipNote != null) {
-            Label label = new Label("tooltipNote", new ResourceModel("tooltipNote"));
+        if (showNote) {
+            Label label = new Label("note", new ResourceModel(getId() + ".note"));
             label.setEscapeModelStrings(false);
-            border.add(label);
+            note = label;
         } else {
-            border.add(new TransparentWebMarkupContainer("tooltipNote").setVisibilityAllowed(false));
+            note = new TransparentWebMarkupContainer("note")
+                    .setVisibilityAllowed(false);
         }
+        border.add(note);
 
         add(new TransparentWebMarkupContainer("revisions").setVisibilityAllowed(false)); // this is just a placeholder
     }
@@ -313,12 +317,12 @@ public abstract class GenericBootstrapFormComponent<TYPE, FIELD extends FormComp
         this.showTooltip = showTooltip;
     }
 
-    public ResourceModel getTooltipNote() {
-        return tooltipNote;
+    public void showNote() {
+        showNote = true;
     }
 
-    public void setTooltipNote(ResourceModel tooltipNote) {
-        this.tooltipNote = tooltipNote;
+    public Component getNote() {
+        return note;
     }
 
     protected IConverter<?> createFieldConverter(Class<?> type) {

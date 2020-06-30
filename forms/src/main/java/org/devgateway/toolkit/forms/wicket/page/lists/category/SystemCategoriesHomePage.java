@@ -9,6 +9,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
+import org.devgateway.toolkit.forms.wicket.page.lists.ListGTPMembersPage;
 import org.devgateway.toolkit.forms.wicket.styles.HomeStyles;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -74,5 +75,10 @@ public class SystemCategoriesHomePage extends BasePage {
                 "products", ListProductsPage.class, Buttons.Type.Default);
         products.setLabel(new StringResourceModel("products"));
         add(products);
+
+        BootstrapBookmarkablePageLink<?> gtpMembers = new BootstrapBookmarkablePageLink<>(
+                "gtpMembers", ListGTPMembersPage.class, Buttons.Type.Default);
+        gtpMembers.setLabel(new StringResourceModel("gtpMembers"));
+        add(gtpMembers);
     }
 }

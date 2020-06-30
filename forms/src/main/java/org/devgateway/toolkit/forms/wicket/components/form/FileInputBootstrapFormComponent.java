@@ -14,7 +14,6 @@ package org.devgateway.toolkit.forms.wicket.components.form;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.ResourceModel;
 import org.devgateway.toolkit.forms.wicket.components.ComponentUtil;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.GenericPersistable;
@@ -63,12 +62,6 @@ public class FileInputBootstrapFormComponent extends GenericBootstrapFormCompone
      */
     public FileInputBootstrapFormComponent(final String id) {
         super(id);
-    }
-
-
-    public FileInputBootstrapFormComponent(final String id, ResourceModel tooltipNote) {
-        super(id);
-        super.setTooltipNote(tooltipNote);
     }
 
     @Override
