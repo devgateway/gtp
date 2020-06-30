@@ -1,7 +1,7 @@
 const DrySequenceSettings: {
   isDaysWithRain: boolean
 } = {
-  isDaysWithRain: true
+  isDaysWithRain: false
 }
 
 export default DrySequenceSettings

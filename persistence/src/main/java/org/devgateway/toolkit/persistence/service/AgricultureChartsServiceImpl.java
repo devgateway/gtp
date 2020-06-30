@@ -31,6 +31,7 @@ import org.devgateway.toolkit.persistence.service.category.PriceTypeService;
 import org.devgateway.toolkit.persistence.service.category.ProductService;
 import org.devgateway.toolkit.persistence.service.category.ProductTypeService;
 import org.devgateway.toolkit.persistence.service.indicator.ProductYearlyPricesService;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -101,7 +102,9 @@ public class AgricultureChartsServiceImpl implements AgricultureChartsService {
 
     private ProductPricesChartFilter getProductPricesChartFilter(ProductPricesChartConfig config,
             AgricultureConfig agricultureConfig) {
-        Integer year = config.getYears().isEmpty() ? Year.now().getValue() : config.getYears().last();
+        Integer year = config.getYears().isEmpty()
+                ? Year.now(AD3Clock.systemDefaultZone()).getValue()
+                : config.getYears().last();
 
         Long productId;
         Product defaultProduct = adminSettingsService.get().getDefaultProduct();
@@ -167,7 +170,9 @@ public class AgricultureChartsServiceImpl implements AgricultureChartsService {
     private ProductQuantitiesChartFilter getProductQuantitiesChartFilter(ProductQuantitiesChartConfig config,
             AgricultureConfig agricultureConfig) {
 
-        int year = config.getYears().isEmpty() ? Year.now().getValue() : config.getYears().last();
+        int year = config.getYears().isEmpty()
+                ? Year.now(AD3Clock.systemDefaultZone()).getValue()
+                : config.getYears().last();
 
         Long productTypeId = null;
         ProductType defaultProductType = adminSettingsService.get().getDefaultProductType();

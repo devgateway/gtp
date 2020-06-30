@@ -3,9 +3,11 @@ import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import {Icon, Pagination, Table} from "semantic-ui-react"
+import RainSeasonData from "../../../modules/entities/rainSeason/RainSeasonData"
 import RainSeasonConfigDTO from "../../../modules/graphic/water/rainSeason/RainSeasonConfigDTO"
 import * as C from "../../../modules/graphic/water/rainSeason/RainSeasonConstants"
 import {RainSeasonPredictionDTO} from "../../../modules/graphic/water/rainSeason/RainSeasonPredictionDTO"
+import RainSeasonTableDTO from "../../../modules/graphic/water/rainSeason/RainSeasonTableDTO"
 import {toSignedNumberLocaleString} from "../../../modules/utils/DataUtilis"
 import * as waterActions from "../../../redux/actions/waterActions"
 import "../../common/graphic/indicator-table.scss"
@@ -16,8 +18,8 @@ import RainSeasonTableFilter from "./RainSeasonTableFilter"
 
 class RainSeasonTable extends Component {
   static propTypes = {
-    data: PropTypes.arrayOf(PropTypes.instanceOf(RainSeasonPredictionDTO)).isRequired,
-    config: PropTypes.instanceOf(RainSeasonConfigDTO).isRequired,
+    rawData: PropTypes.instanceOf(RainSeasonData).isRequired,
+    rainSeasonTableDTO: PropTypes.instanceOf(RainSeasonTableDTO).isRequired,
     filter: PropTypes.object.isRequired,
     handleSort: PropTypes.func.isRequired,
     sortedBy: PropTypes.string,
@@ -33,7 +35,7 @@ class RainSeasonTable extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const {data} = props
+    const {data} = props.rainSeasonTableDTO
     const {isLocalStateChange} = state
     if (isLocalStateChange) {
       return {
@@ -54,7 +56,7 @@ class RainSeasonTable extends Component {
   }
 
   _getData() {
-    const {data} = this.props
+    const {data} = this.props.rainSeasonTableDTO
     const {activePage} = this.state
     const begin = (activePage - 1) * C.PAGE_SIZE
     const end = Math.min(begin + C.PAGE_SIZE, data.length)
@@ -62,10 +64,11 @@ class RainSeasonTable extends Component {
   }
 
   render() {
-    const {intl, sortedBy, sortedAsc, handleSort, filter, config} = this.props
+    const {intl, sortedBy, sortedAsc, handleSort, filter, rainSeasonTableDTO, rawData} = this.props
     const data = this._getData()
     const directionLong = sortedAsc ? 'ascending' : 'descending'
-    const headerCell = headerCellBuilder(sortedBy, sortedAsc, directionLong, handleSort, filter, config)
+    const headerCell = headerCellBuilder(sortedBy, sortedAsc, directionLong, handleSort, filter,
+      rainSeasonTableDTO.config, rawData)
 
     return (
       <div className="indicator-table container">
@@ -134,14 +137,22 @@ const semanticUIPagination = (props, state, onPageChange) => {
   />)
 }
 
-const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort, filter, config) => (name) => {
+const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort, filter,
+  config: RainSeasonConfigDTO, rawData: RainSeasonData) => (name) => {
   const canSort = C.SORTABLE_COLUMNS.has(name)
   const isSorted = sortedBy === name
   const applySort = () => handleSort(name, isSorted ? !sortedAsc : true)
   const canFilter = !!C.FILTER_MESSAGE_KEY[name]
   const headerClasses = []
+  const trnValues = {}
   if (canFilter) headerClasses.push("th-filter")
   if (isSorted) headerClasses.push(directionLong)
+  if (name === C.PLANNED) {
+    trnValues.referenceYearStart = rawData.referenceYearStart
+    trnValues.referenceYearEnd = rawData.referenceYearEnd
+  } else if (name === C.ACTUAL) {
+    trnValues.year = filter.yearIds[0]
+  }
 
   return (
     <Table.HeaderCell
@@ -154,7 +165,7 @@ const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort, filte
         <RainSeasonTableFilter columnName={name} filter={filter} config={config} min={0}/>
       </div>)}
       {!canFilter &&
-      <span><FormattedMessage id={C.COLUMN_MESSAGE_KEY[name]} defaultMessage={name}/></span>}
+      <span><FormattedMessage id={C.COLUMN_MESSAGE_KEY[name]} defaultMessage={name} values={trnValues}/></span>}
       {canSort && !isSorted ? <Icon name="sort" /> : null}
       {canSort && isSorted ?
         (<div className="up-down-combo">
@@ -166,6 +177,7 @@ const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort, filte
 
 const mapStateToProps = state => {
   return {
+    rawData: state.getIn(['water', 'data', 'rainSeasonChart', 'data']),
   }
 }
 

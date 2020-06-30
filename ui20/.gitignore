@@ -9,6 +9,8 @@
 # production
 /build
 
+/public/themes/*
+
 # misc
 .DS_Store
 .env
