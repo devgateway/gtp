@@ -1,4 +1,5 @@
 import {getOrDefault, getOrDefaultMap} from "../../utils/DataUtilis"
+import {SEASON_MONTHS} from "../Constants"
 
 export default class RainReferenceLevelData {
   referenceYearStart: number
@@ -7,16 +8,12 @@ export default class RainReferenceLevelData {
   yearEnd: number
   levelsByMonth: Map<number, number>
   levelsByMonthAndDecadal: Map<number, Map<number, number>>
-  maxMonthLevel: number
-  maxDecadalLevel: number
 
   constructor({referenceYearStart, referenceYearEnd, yearStart, yearEnd, levels}) {
     this.referenceYearStart = referenceYearStart
     this.referenceYearEnd = referenceYearEnd
     this.yearStart = yearStart
     this.yearEnd = yearEnd
-    this.maxMonthLevel = 0
-    this.maxDecadalLevel = 0
     this._init(levels)
   }
 
@@ -29,13 +26,7 @@ export default class RainReferenceLevelData {
 
     this.levelsByMonth = new Map()
     for (const month of this.levelsByMonthAndDecadal.keys()) {
-      let monthLevel = 0
-      for (const decadalValue of this.levelsByMonthAndDecadal.get(month).values()) {
-        monthLevel += decadalValue
-        this.maxDecadalLevel = Math.max(this.maxDecadalLevel, decadalValue)
-      }
-      this.levelsByMonth.set(month, monthLevel)
-      this.maxMonthLevel = Math.max(this.maxMonthLevel, monthLevel)
+      this.levelsByMonth.set(month, this.levelsByMonthAndDecadal.get(month).get(3))
     }
   }
 
@@ -45,6 +36,10 @@ export default class RainReferenceLevelData {
 
   getDecadalLevel(month, decadal) {
     return getOrDefault(getOrDefaultMap(this.levelsByMonthAndDecadal, month), decadal)
+  }
+
+  getTotalLevel() {
+    return getOrDefault(this.levelsByMonth, SEASON_MONTHS[SEASON_MONTHS.length - 1])
   }
 
 }

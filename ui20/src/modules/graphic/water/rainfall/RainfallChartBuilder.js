@@ -2,7 +2,7 @@ import messages from "../../../../translations/messages"
 import * as C from "../../../entities/Constants"
 import RainLevelData from "../../../entities/rainfall/RainLevelData"
 import RainReferenceLevelData from "../../../entities/rainfall/RainReferenceLevelData"
-import {asBarChartValue} from "../../../utils/DataUtilis"
+import {addAndGet, asBarChartValue} from "../../../utils/DataUtilis"
 import MonthDecadal from "../../../utils/MonthDecadal"
 import RainfallDTO from "./RainfallDTO"
 
@@ -14,6 +14,7 @@ export default class RainfallChartBuilder {
   keyReferenceLevels: Map<number, RainReferenceLevelData>
   byDecadal: boolean
   rainfallDTO: RainfallDTO
+  cumulatedByYear: Map<number, number>
 
   constructor(rainLevelChart, intl) {
     this.rainLevelChart = rainLevelChart
@@ -21,12 +22,14 @@ export default class RainfallChartBuilder {
     this.intl = intl
     this.byDecadal = rainLevelChart.setting.byDecadal
     this.keyReferenceLevels = new Map()
+    this.cumulatedByYear = new Map()
     this._init()
   }
 
   _init() {
     this.keys = this.rainLevelChart.filter.years.sort().reverse()
     this.rainfallDTO = new RainfallDTO(this.keys.map(k => `${k}`), this.byDecadal ? 'monthDecadal' : 'month')
+    this.keys.forEach(year => this.cumulatedByYear.set(year, 0))
 
     this.data.referenceLevels.sort((r1, r2) => r1.referenceYearEnd > r2.referenceYearEnd)
       .forEach((refLevels: RainReferenceLevelData) => {
@@ -42,11 +45,10 @@ export default class RainfallChartBuilder {
   }
 
   _getMaxValue() {
-    const maxLevels = this.keys.map(year => this.byDecadal ? this.data.getMaxDecadalLevel(year)
-      : this.data.getMaxMonthLevel(year))
+    const maxLevels = this.keys.map(year => this.data.getYearTotal(year))
     const maxRainLevel = Math.max(...maxLevels)
     const maxRefLevel = Math.max(...Array.from(this.keyReferenceLevels.values()).map((refData: RainReferenceLevelData) =>
-      this.byDecadal ? refData.maxDecadalLevel : refData.maxMonthLevel))
+      refData.getTotalLevel()))
     return Math.max(maxRainLevel, maxRefLevel)
   }
 
@@ -73,8 +75,12 @@ export default class RainfallChartBuilder {
     record.actualValue = {}
     this.keys.forEach(year => {
       const yearLabel = `${year}`
-      record.actualValue[yearLabel] = this._getValue(year, month, decadal)
-      record[yearLabel] = asBarChartValue(record.actualValue[yearLabel], this.rainfallDTO.maxValue)
+      const actualValue = this._getValue(year, month, decadal)
+      record.actualValue[yearLabel] = actualValue
+
+      const cumulatedValue = addAndGet(this.cumulatedByYear, year, actualValue || 0)
+      record[yearLabel] = asBarChartValue(cumulatedValue, this.rainfallDTO.maxValue)
+
       const refLevels = this.keyReferenceLevels.get(year)
       if (refLevels) {
         record.lineValues.set(yearLabel, this._getReferenceValue(refLevels, month, decadal))

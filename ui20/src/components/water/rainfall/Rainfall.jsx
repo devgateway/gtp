@@ -28,6 +28,7 @@ class Rainfall extends Component {
     const {byDecadal, showReferences} = this.props.setting
     const graphicMaxValue = maxValue * 1.1 || 'auto'
     const unit = intl.formatMessage({ id: "water.rainfall.unit"})
+    const noData = intl.formatMessage({ id: `indicators.chart.rainfall.nodata.${byDecadal ? 'decadal' : 'month'}`})
     const formatLevel = (s) => {
       let value = s.value
       if (value === C.SMALL_VALUE) value = s.data.actualValue[s.id]
@@ -107,12 +108,17 @@ class Rainfall extends Component {
         }}
         enableLabel={false}
 
-        tooltip={(s)=>{
+        tooltip={(s) => {
+          const isNA = s.data.actualValue[s.id] === undefined
           return (<div className="tooltips white">
             <div className="color" style={{backgroundColor:s.color}} />
             <div className="label with-x no-separator">{s.data.indexLabel}</div>
             <div className='x'>{s.id}</div>
             <div className='y' style={{'color':s.color}}>{formatLevel(s)}</div>
+            {isNA &&
+            <div className="note">
+              <span className="info" style={{'color':s.color}} /> {noData}
+            </div>}
           </div>)
         }}
 
