@@ -21,6 +21,13 @@ class ProductQuantity extends Component {
     const {filter, intl} = this.props
     const data: ProductQuantityChartDTO = this.props.data
 
+    if (!data.lines.length) {
+      // TODO No data image/message once design defined
+      return (
+        <div key="chart" className="graphic-content">
+        </div>)
+    }
+
     const colors = utils.getColors(data.lines.length)
     const maxNumberDigits = `${data.maxQuantity}`.length
     const leftMargin =  maxNumberDigits * 7 + 35
