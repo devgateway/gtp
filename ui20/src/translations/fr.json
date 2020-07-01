@@ -186,6 +186,8 @@
 	"indicators.map.market.source": "Commissariat à la Sécurité Alimentaire",
 	"indicators.chart.rainfall.title": "Pluviométrie par Poste pluviométrique",
 	"indicators.chart.rainfall.source": "ANACIM",
+	"indicators.chart.rainfall.nodata.month": "Aucune donnée n'a été enregistrée pour ce mois",
+	"indicators.chart.rainfall.nodata.decadal": "Aucune donnée n'a été enregistrée pour cette décade",
 	"indicators.map.market.permanent": "permanent",
 	"indicators.map.market.tooltip.departement": "Département de {department}",
 	"indicators.map.market.tooltip.market": "Marché {market}",
