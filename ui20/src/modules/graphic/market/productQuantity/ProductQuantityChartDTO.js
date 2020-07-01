@@ -5,11 +5,13 @@ export default class ProductQuantityChartDTO {
   productType: ProductType
   lines: Array<ProductQuantityLine>
   unit: string
+  maxQuantity: number
 
-  constructor(productType: ProductType, lines: Array<ProductQuantityLine>) {
+  constructor(productType: ProductType, lines: Array<ProductQuantityLine>, maxQuantity: number) {
     this.productType = productType
     this.lines = lines
     this.unit = productType.name === 'livestock' ? 'unités' : 'kg'
+    this.maxQuantity = maxQuantity
   }
 
 }
