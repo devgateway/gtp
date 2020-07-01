@@ -189,6 +189,8 @@
 	"indicators.map.market.tooltip.workingDays": "Working days",
 	"indicators.chart.rainfall.title": "Pluviometry by post",
 	"indicators.chart.rainfall.source": "ANACIM",
+	"indicators.chart.rainfall.nodata.month": "No data was recorded for this month",
+	"indicators.chart.rainfall.nodata.decadal": "No data was recorded for this decadal",
 	"indicators.table.rainseason.title": "Seasonal predictions",
 	"indicators.table.rainseason.source": "ANACIM",
 	"indicators.chart.riverlevel.title": "Variation of the river level",

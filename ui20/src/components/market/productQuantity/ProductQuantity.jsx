@@ -21,7 +21,21 @@ class ProductQuantity extends Component {
     const {filter, intl} = this.props
     const data: ProductQuantityChartDTO = this.props.data
 
+    if (!data.lines.length) {
+      // TODO No data image/message once design defined
+      return (
+        <div key="chart" className="graphic-content">
+        </div>)
+    }
+
     const colors = utils.getColors(data.lines.length)
+    const maxNumberDigits = `${data.maxQuantity}`.length
+    const leftMargin =  maxNumberDigits * 7 + 35
+    const leftLegendOffset = maxNumberDigits * 7 + 20
+    const margin = {
+      ...sccJS.NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN,
+      left: leftMargin
+    }
 
     return (
       <div>
@@ -30,7 +44,7 @@ class ProductQuantity extends Component {
           <ResponsiveLine
             enableGridY={true}
             enableGridX={false}
-            margin={sccJS.NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN}
+            margin={margin}
 
             data={data.lines}
             xScale={{
@@ -42,6 +56,7 @@ class ProductQuantity extends Component {
             yScale={{
               type: 'linear',
               stacked: false,
+              max: data.maxQuantity * 1.1,
             }}
             enableSlices='x'
             sliceTooltip={CustomSliceTooltip(filter, data.unit, colors)}
@@ -49,7 +64,7 @@ class ProductQuantity extends Component {
             axisLeft={{
               legendPosition: 'middle',
               legend: intl.formatMessage({id: "indicators.chart.product.quantity.legend.y"}, {unit: data.unit}),
-              legendOffset: -45,
+              legendOffset: -leftLegendOffset,
               tickSize: 0,
               tickPadding: 5,
               tickRotation: 0,
