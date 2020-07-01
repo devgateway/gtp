@@ -37,7 +37,7 @@ class AlertLegend extends Component {
       itemHeight: 20,
       itemOpacity: setting.showAlert ? 0.75 : 0.5,
       symbolShape: (legendProps) =>
-        <CustomLegendSymbol type={LEGEND_SYMBOL_LINE} legendProps={legendProps} />,
+        <CustomLegendSymbol type={LEGEND_SYMBOL_LINE} {...legendProps} />,
       symbolSize: 12,
       effects: [
         {

@@ -1,6 +1,6 @@
 import * as api from "../../../modules/api"
-import {dataFromApi} from "../../../modules/entities/product/ProductPriceChart"
-import ProductPriceFilter from "../../../modules/entities/product/ProductPriceFilter"
+import {priceDataFromApi} from "../../../modules/entities/product/price/ProductPriceChart"
+import ProductPriceFilter from "../../../modules/entities/product/price/ProductPriceFilter"
 import ProductPriceChartBuilder from "../../../modules/graphic/market/productPrice/ProductPriceChartBuilder"
 import ProductPriceChartDTO from "../../../modules/graphic/market/productPrice/ProductPriceChartDTO"
 import {CHANGE_MARKET_PRICE_FILTER, FILTER_MARKET_PRICE} from "../../reducers/Agriculture"
@@ -26,6 +26,6 @@ export const setProductPriceFilter = (path, data) => (dispatch, getState) => {
 
   return dispatch({
     type: FILTER_MARKET_PRICE,
-    payload: api.getProductPrices(year, productId, marketId).then(data => dataFromApi(data, filter, agricultureConfig))
+    payload: api.getProductPrices(year, productId, marketId).then(data => priceDataFromApi(data, filter, agricultureConfig))
   })
 }

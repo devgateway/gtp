@@ -1,4 +1,4 @@
-import PriceType from "../../../entities/product/PriceType"
+import PriceType from "../../../entities/product/price/PriceType"
 import DateLine from "../../common/dto/DateLine"
 import DateLinePoint from "../../common/dto/DateLinePoint"
 

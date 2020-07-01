@@ -1,4 +1,4 @@
-import "../../common/indicators.scss"
+import "../../common/graphic/indicators.scss"
 import React from 'react'
 import {CustomFilterDropDown} from '../../common/Components'
 import {PngExport} from '../../common/Components'

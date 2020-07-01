@@ -5,11 +5,11 @@ import React, {Component} from "react"
 import {FormattedMessage, FormattedNumber, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
-import PriceType from "../../../modules/entities/product/PriceType"
-import ProductAvgPrice from "../../../modules/entities/product/ProductAvgPrice"
+import PriceType from "../../../modules/entities/product/price/PriceType"
+import ProductAvgPrice from "../../../modules/entities/product/price/ProductAvgPrice"
 import ProductPriceChartDTO from "../../../modules/graphic/market/productPrice/ProductPriceChartDTO"
 import ProductPriceLine from "../../../modules/graphic/market/productPrice/ProductPriceLine"
-import Chip from "../../common/Chip"
+import Chip from "../../common/graphic/Chip"
 import * as sccJS from "../../css"
 import ProductPriceLegend, {getAveragePriceLabel} from "./ProductPriceLegend"
 
@@ -78,7 +78,7 @@ class ProductPrice extends Component {
           <ResponsiveLine
             enableGridY={true}
             enableGridX={false}
-            margin={{top: chartTop, right: 50, bottom: 75, left: 60}}
+            margin={{...sccJS.NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN, top: chartTop}}
 
             data={data.lines}
             xScale={{
@@ -121,7 +121,7 @@ class ProductPrice extends Component {
               legendPosition: 'middle'
             }}
             curve="monotoneX"
-            enablePoints={false}
+            enablePoints={true}
             useMesh={true}
             colors={colors}
             animate={true}

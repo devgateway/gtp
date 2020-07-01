@@ -3,7 +3,7 @@ import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as waterActions from "../../../redux/actions/waterActions"
-import Graphic from "../../common/Graphic"
+import Graphic from "../../common/graphic/Graphic"
 import RiverLevel from "./RiverLevel"
 import RiverLevelProperties from "./RiverLevelProperties"
 

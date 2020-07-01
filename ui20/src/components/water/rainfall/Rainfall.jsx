@@ -7,7 +7,7 @@ import * as C from "../../../modules/entities/Constants"
 import RainfallDTO from "../../../modules/graphic/water/rainfall/RainfallDTO"
 import messages from "../../../translations/messages"
 import CustomLegendSymbol, {LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"
-import DefaultBarOrNegativeValueAsZeroBar from "../../common/DefaultBarOrNegativeValueAsZeroBar"
+import DefaultBarOrNegativeValueAsZeroBar from "../../common/graphic/DefaultBarOrNegativeValueAsZeroBar"
 import * as sccJS from "../../css"
 import * as rainfallScc from "./rainfallCSS"
 import DecadalTick from "./DecadalTick"
@@ -51,7 +51,7 @@ class Rainfall extends Component {
       itemDirection: 'left-to-right',
       itemOpacity: 1,
       symbolShape: (legendProps) =>
-        <CustomLegendSymbol type={LEGEND_SYMBOL_LINE} legendProps={legendProps} />,
+        <CustomLegendSymbol type={LEGEND_SYMBOL_LINE} {...legendProps} />,
       symbolSize: 14,
       effects: [
         {

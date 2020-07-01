@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
-import Graphic from "../../common/Graphic"
+import Graphic from "../../common/graphic/Graphic"
 import MarketMap from "./MarketMap"
 
 

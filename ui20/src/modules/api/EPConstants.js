@@ -29,6 +29,7 @@ export const RIVER_LEVEL = API_WATER + '/river-level/data'
 const API_MARKET_AND_AGRICULTURE = API_GRAPHIC + '/agriculture'
 export const MARKET_AND_AGRICULTURE_ALL = API_MARKET_AND_AGRICULTURE + '/all'
 export const PRODUCT_PRICES = API_MARKET_AND_AGRICULTURE + '/product-prices/data'
+export const PRODUCT_QUANTITIES = API_MARKET_AND_AGRICULTURE + '/product-quantities/data'
 
 export const GTP_ROOT = API_ROOT + '/gtp'
 export const BULLETIN_ALL = GTP_ROOT

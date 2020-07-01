@@ -76,7 +76,8 @@ public class TextFieldBootstrapFormComponent<TYPE> extends GenericBootstrapFormC
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        if (getField().getType() == null || !Number.class.isAssignableFrom(getField().getType())) {
+        if ((getField().getType() == null || !Number.class.isAssignableFrom(getField().getType()))
+                && getField().getBehaviors(StringValidator.class).isEmpty()) {
             getField().add(validator);
         }
     }

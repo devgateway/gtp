@@ -1,9 +1,10 @@
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage} from "react-intl"
-import ProductAvgPrice from "../../../modules/entities/product/ProductAvgPrice"
+import ProductAvgPrice from "../../../modules/entities/product/price/ProductAvgPrice"
 import ProductPriceChartDTO from "../../../modules/graphic/market/productPrice/ProductPriceChartDTO"
-import CustomLegendItem from "../../common/legend/CustomLegend"
+import CustomLegend from "../../common/legend/CustomLegend"
+import CustomLegendItem from "../../common/legend/CustomLegendItem"
 import {LEGEND_SYMBOL_CIRCLE, LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"
 
 export default class ProductPriceLegend extends Component {
@@ -32,20 +33,22 @@ export default class ProductPriceLegend extends Component {
     })))
 
     return (
-      <div className="legend">
+      <CustomLegend>
 
         {legendData.map(({key, label, color, symbol, onClick}) =>
-          (<CustomLegendItem key={key} type={symbol} label={label} onClick={onClick} legendProps={{
-            x: 0,
-            y: 0,
-            my: 5,
-            size: 12,
-            fill: color,
-            lineLength: 10,
-            stroke: color,
-          }}/>))}
+          (<CustomLegendItem
+            key={key}
+            type={symbol}
+            label={label}
+            onClick={onClick}
+            x={0}
+            y={0}
+            my={5}
+            size={12}
+            fill={color}
+            lineLength={10}/>))}
 
-      </div>)
+      </CustomLegend>)
   }
 }
 

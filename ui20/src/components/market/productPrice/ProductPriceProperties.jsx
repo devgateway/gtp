@@ -3,7 +3,7 @@ import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
-import ProductPriceConfig from "../../../modules/entities/product/ProductPriceConfig"
+import ProductPriceConfig from "../../../modules/entities/product/price/ProductPriceConfig"
 import {anyWithIdAndNameToOptions, yearsToOptions} from "../../../modules/graphic/common/GraphicDTO"
 import {
   marketsToFilterGroupedOptions,

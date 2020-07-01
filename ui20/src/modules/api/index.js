@@ -11,6 +11,7 @@ export const getRiverLevel = (riverLevelFilter: RiverLevelFilter) => post(EP.RIV
 
 export const getAllMarketAndAgriculture = () => get(EP.MARKET_AND_AGRICULTURE_ALL)
 export const getProductPrices = (year, productId, marketId) => post(EP.PRODUCT_PRICES, {year, productId, marketId})
+export const getProductQuantities = (year, productTypeId, marketId) => post(EP.PRODUCT_QUANTITIES, {year, productTypeId, marketId})
 
 export const getAllBulletins = () => get(EP.BULLETIN_ALL)
 export const getDownloadBulletinUrl = (id) => urlWithSearchParams(EP.BULLETIN_DOWNLOAD, {id})

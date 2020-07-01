@@ -9,3 +9,9 @@ export const anyWithIdAndNameToOptions = (list) => list.map(el => ({
   text: el.name,
   value: el.id,
 }))
+
+export const anyWithIdAndLabelToOptions = (list) => list.map(el => ({
+  key: el.id,
+  text: el.label,
+  value: el.id,
+}))

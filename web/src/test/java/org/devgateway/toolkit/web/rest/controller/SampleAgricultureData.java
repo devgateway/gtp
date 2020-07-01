@@ -60,8 +60,8 @@ public class SampleAgricultureData {
         retailPrice = new PriceType(2L, "retail-price", "Retail price");
         List<PriceType> priceTypes = ImmutableList.of(wholesalePrice, retailPrice);
 
-        cereals = new ProductType(1L, ProductType.CEREALS, "Cereals");
-        ProductType vegetables = new ProductType(2L, ProductType.VEGETABLES, "Vegetables");
+        cereals = new ProductType(1L, ProductType.CEREALS, "Cereals", ruralMarket);
+        ProductType vegetables = new ProductType(2L, ProductType.VEGETABLES, "Vegetables", ruralMarket);
         List<ProductType> productTypes = ImmutableList.of(cereals, vegetables);
 
         MeasurementUnit kg = new MeasurementUnit(1L, "kg", "Kg");

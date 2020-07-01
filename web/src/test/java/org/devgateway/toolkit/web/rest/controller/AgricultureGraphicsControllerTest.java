@@ -131,7 +131,8 @@ public class AgricultureGraphicsControllerTest extends AbstractDocumentedControl
                                 fieldWithPath("name")
                                         .description("Machine friendly name. One of: "
                                                 + String.join(", ", ProductType.ALL) + "."),
-                                fieldWithPath("label").description("User friendly name")),
+                                fieldWithPath("label").description("User friendly name"),
+                                fieldWithPath("marketTypeId").description("<<market-type,Market Type>> Id")),
                         responseFields(
                                 beneathPath("priceTypes").withSubsectionId("priceType"),
                                 fieldWithPath("id").description("Price Type Id"),

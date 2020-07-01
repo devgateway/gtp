@@ -5,7 +5,7 @@ import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import RiverLevelChartDTO from "../../../modules/graphic/water/river/RiverLevelChartDTO"
-import Chip from "../../common/Chip"
+import Chip from "../../common/graphic/Chip"
 import * as sccJS from "../../css"
 import * as sccRiverLevel from "./cssRiverLevel"
 import {ALERT_COLOR, AlertLevelLegend} from "./AlertLevelLegend"
@@ -143,7 +143,7 @@ class RiverLevel extends Component {
               symbolShape: (legendProps) => {
                 const {isReference} = data.lines[legendProps.id].riverLevelYear
                 const type = isReference ? LEGEND_SYMBOL_LINE : LEGEND_SYMBOL_CIRCLE
-                return <CustomLegendSymbol type={type} legendProps={legendProps}
+                return <CustomLegendSymbol type={type} {...legendProps}
                                     lineLength={sccJS.LEGEND_SYMBOL_LINE_LENGTH}/>
               },
               symbolBorderColor: 'rgba(0, 0, 0, .5)',

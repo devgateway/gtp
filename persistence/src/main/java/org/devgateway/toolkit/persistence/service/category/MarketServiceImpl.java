@@ -43,7 +43,7 @@ public class MarketServiceImpl extends BaseJpaServiceImpl<Market> implements Mar
     }
 
     @Override
-    public List<Market> findByMarketTypeName(String marketTypeName) {
-        return marketRepository.findByType_Name(marketTypeName);
+    public List<Market> findByMarketType(MarketType marketType) {
+        return marketRepository.findByType(marketType);
     }
 }

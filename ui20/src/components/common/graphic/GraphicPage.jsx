@@ -1,12 +1,12 @@
 import React, {useRef, useState, useEffect} from "react"
 import {Segment, Sticky} from "semantic-ui-react"
 import "./indicators.scss"
-import "../common/indicator-base.scss"
+import "./indicator-base.scss"
 import "./graphicPage.scss"
-import * as cssJS from "../css"
-import MenuScrollableTo, {MenuItemDef} from "./MenuScrollableTo"
-import ScrollableTo, {ScrollRef} from "./ScrollableTo"
-import TrackVisibility from "./TrackVisibility"
+import * as cssJS from "../../css"
+import MenuScrollableTo, {MenuItemDef} from "../MenuScrollableTo"
+import ScrollableTo, {ScrollRef} from "../ScrollableTo"
+import TrackVisibility from "../TrackVisibility"
 
 
 export class GraphicDef {
@@ -40,6 +40,7 @@ const GraphicPage = (props) => {
     if (contextRef.current) {
       resizeObserver.observe(contextRef.current)
     }
+    return () => resizeObserver.unobserve(contextRef.current)
   }, [contextRef.current])
 
   return (

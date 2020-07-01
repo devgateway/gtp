@@ -2,6 +2,7 @@ package org.devgateway.toolkit.forms.wicket.components.table.filter;
 
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonStartReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonStartReference_;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
@@ -34,7 +35,7 @@ public class RainSeasonStartReferenceFilterState extends JpaFilterState<RainSeas
             // avoids filter cache
             LOGGER.debug("antiCache=" + antiCache);
 
-            Integer currentYear = LocalDate.now().getYear();
+            Integer currentYear = LocalDate.now(AD3Clock.systemDefaultZone()).getYear();
             predicates.add(cb.lessThanOrEqualTo(root.get(RainSeasonStartReference_.yearStart), currentYear));
 
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
