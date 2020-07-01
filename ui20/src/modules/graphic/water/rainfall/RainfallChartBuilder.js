@@ -45,8 +45,7 @@ export default class RainfallChartBuilder {
   }
 
   _getMaxValue() {
-    const maxLevels = this.keys.map(year => this.byDecadal ? this.data.getMaxDecadalLevel(year)
-      : this.data.getMaxMonthLevel(year))
+    const maxLevels = this.keys.map(year => this.data.getYearTotal(year))
     const maxRainLevel = Math.max(...maxLevels)
     const maxRefLevel = Math.max(...Array.from(this.keyReferenceLevels.values()).map((refData: RainReferenceLevelData) =>
       this.byDecadal ? refData.maxDecadalLevel : refData.maxMonthLevel))
