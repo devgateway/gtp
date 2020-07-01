@@ -50,7 +50,8 @@ public class FileMetadata extends AbstractAuditableEntity {
     public FileMetadata() {
     }
 
-    public FileMetadata(String name, String contentType, FileContent content) {
+    public FileMetadata(Long id, String name, String contentType, FileContent content) {
+        setId(id);
         this.name = name;
         this.contentType = contentType;
         this.content = content;

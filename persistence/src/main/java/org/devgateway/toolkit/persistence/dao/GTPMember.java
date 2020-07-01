@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -36,9 +37,20 @@ public class GTPMember extends AbstractAuditableEntity {
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<FileMetadata> logo = new HashSet<>();
 
     private String url;
+
+    public GTPMember() {
+    }
+
+    public GTPMember(Long id, String name, String description, String url) {
+        setId(id);
+        this.name = name;
+        this.description = description;
+        this.url = url;
+    }
 
     public String getName() {
         return name;
@@ -64,6 +76,11 @@ public class GTPMember extends AbstractAuditableEntity {
         this.logo = logo;
     }
 
+    @JsonIgnore
+    public FileMetadata getLogoSingle() {
+        return logo.isEmpty() ? null : logo.iterator().next();
+    }
+
     public String getUrl() {
         return url;
     }
@@ -73,6 +90,7 @@ public class GTPMember extends AbstractAuditableEntity {
     }
 
     @Override
+    @JsonIgnore
     public AbstractAuditableEntity getParent() {
         return null;
     }
