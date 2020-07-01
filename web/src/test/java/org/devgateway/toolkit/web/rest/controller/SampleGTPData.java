@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import java.time.Month;
+import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -9,13 +10,14 @@ import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.FileContent;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.GTPBulletin;
+import org.devgateway.toolkit.persistence.dao.GTPMember;
 import org.devgateway.toolkit.persistence.dto.GTPMaterials;
 import org.springframework.http.MediaType;
 
 /**
  * @author Octavian Ciubotaru
  */
-public class SampleGTPBulletins {
+public class SampleGTPData {
 
     private final GTPBulletin bulletin1;
 
@@ -23,15 +25,19 @@ public class SampleGTPBulletins {
 
     private final GTPMaterials materials;
 
-    public SampleGTPBulletins() {
+    private final GTPMember anacim;
+
+    private final List<GTPMember> members;
+
+    public SampleGTPData() {
         bulletin1 = new GTPBulletin(1L, 2019, Month.OCTOBER, Decadal.FIRST);
         bulletin1.setUploads(ImmutableSet.of(
-                new FileMetadata("GTP Bulletin #126.pdf", MediaType.APPLICATION_PDF_VALUE,
+                new FileMetadata(1L, "GTP Bulletin #126.pdf", MediaType.APPLICATION_PDF_VALUE,
                         new FileContent("<<pdf-data>>".getBytes()))));
 
         annualReport1 = new AnnualGTPReport(1L, 2018);
         annualReport1.setUploads(ImmutableSet.of(
-                new FileMetadata("Annual Report 2018.pdf", MediaType.APPLICATION_PDF_VALUE,
+                new FileMetadata(2L, "Annual Report 2018.pdf", MediaType.APPLICATION_PDF_VALUE,
                         new FileContent("<<pdf-data>>".getBytes()))));
 
         materials = new GTPMaterials(
@@ -46,6 +52,15 @@ public class SampleGTPBulletins {
                         annualReport1,
                         new AnnualGTPReport(2L, 2019),
                         new AnnualGTPReport(3L, 2020)));
+
+        anacim = new GTPMember(1L, "ANACIM", "Description 1", "https://www.anacim.sn/");
+        anacim.setLogo(ImmutableSet.of(
+                new FileMetadata(3L, "anacim-logo.png", MediaType.IMAGE_PNG_VALUE,
+                        new FileContent("<<png-data>>".getBytes()))));
+
+        members = ImmutableList.of(
+                anacim,
+                new GTPMember(2L, "DAPSA", "Description 2", "http://www.dapsa.gouv.sn/"));
     }
 
     public GTPBulletin getBulletin1() {
@@ -58,5 +73,13 @@ public class SampleGTPBulletins {
 
     public GTPMaterials getMaterials() {
         return materials;
+    }
+
+    public GTPMember getAnacim() {
+        return anacim;
+    }
+
+    public List<GTPMember> getMembers() {
+        return members;
     }
 }
