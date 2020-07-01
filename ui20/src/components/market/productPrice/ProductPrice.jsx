@@ -64,6 +64,13 @@ class ProductPrice extends Component {
     // TODO responsive top detection
     const chartTop = colors.length + avgColors.length < 5 ? 10 : 50
 
+    if (!data.lines.length) {
+      // TODO No data image/message once design defined
+      return (
+        <div key="chart" className="graphic-content">
+        </div>)
+    }
+
     return (
       <div>
         <div key="legend">
