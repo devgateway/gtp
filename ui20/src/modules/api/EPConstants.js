@@ -32,7 +32,7 @@ export const PRODUCT_PRICES = API_MARKET_AND_AGRICULTURE + '/product-prices/data
 export const PRODUCT_QUANTITIES = API_MARKET_AND_AGRICULTURE + '/product-quantities/data'
 
 export const GTP_ROOT = API_ROOT + '/gtp'
-export const BULLETIN_ALL = GTP_ROOT
+export const BULLETIN_ALL = GTP_ROOT + '/materials'
 export const BULLETIN_DOWNLOAD = GTP_ROOT + '/bulletin'
 export const BULLETIN_ANNUAL_REPORT_DOWNLOAD = GTP_ROOT + '/annual-report'
 
