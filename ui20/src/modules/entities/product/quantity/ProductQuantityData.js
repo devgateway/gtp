@@ -14,6 +14,7 @@ export default class ProductQuantityData {
       const q = new Quantity(new MonthDay(monthDay, year), quantity)
       getOrDefault(this.quantitiesByProductId, productId, null, () => newProductQuantities(productId)).addQuantity(q)
     })
+    Array.from(this.quantitiesByProductId.values()).forEach((pqs: ProductQuantities) => pqs.sortByDate())
   }
 
 }

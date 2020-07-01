@@ -14,4 +14,8 @@ export default class ProductQuantities {
     this.quantities.push(quantity)
   }
 
+  sortByDate() {
+    this.quantities.sort(Quantity.compareByDate)
+  }
+
 }
