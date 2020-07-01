@@ -33,11 +33,11 @@ Department fields:
 
 include::{snippets}/common-config/response-fields-beneath-departments.adoc[]
 
-== GTP bulletins
+== GTP data
 
-=== Get all GTP bulletins
+=== Get all GTP materials
 
-Returns all available GTP bulletins.
+Returns all available GTP materials.
 
 operation::gtp-bulletins[snippets='curl-request,http-response,response-fields']
 
@@ -66,6 +66,18 @@ Returns GTP annual report file. If not found 404 is returned.
 operation::gtp-annual-report-returned[snippets='request-parameters,curl-request,http-response']
 
 operation::gtp-annual-report-not-found[snippets='curl-request,http-response']
+
+=== GTP members
+
+Returns all GTP members.
+
+operation::gtp-members[snippets='curl-request,http-response,response-fields']
+
+=== GTP member logo
+
+Returns logo for GTP member, if any.
+
+operation::gtp-member-logo-returned[snippets='request-parameters,curl-request,http-response']
 
 == Water charts
 

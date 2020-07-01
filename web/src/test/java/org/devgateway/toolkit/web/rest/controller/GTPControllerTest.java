@@ -29,19 +29,19 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author Octavian Ciubotaru
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(BulletinsController.class)
-public class BulletinsControllerTest extends AbstractDocumentedControllerTest {
+@WebMvcTest(GTPController.class)
+public class GTPControllerTest extends AbstractDocumentedControllerTest {
 
     @MockBean
     private GTPService service;
 
-    private final SampleGTPBulletins sampleGTPBulletins = new SampleGTPBulletins();
+    private final SampleGTPData sampleData = new SampleGTPData();
 
     @Test
-    public void getGTPBulletins() throws Exception {
-        given(service.getGTPMaterials()).willReturn(sampleGTPBulletins.getMaterials());
+    public void getMaterials() throws Exception {
+        given(service.getGTPMaterials()).willReturn(sampleData.getMaterials());
 
-        mvc.perform(get("/api/gtp"))
+        mvc.perform(get("/api/gtp/materials"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("bulletins").isNotEmpty())
                 .andExpect(jsonPath("annualReports").isNotEmpty())
@@ -63,7 +63,7 @@ public class BulletinsControllerTest extends AbstractDocumentedControllerTest {
 
     @Test
     public void testGTPBulletinReturned() throws Exception {
-        given(service.findBulletin(any())).willReturn(Optional.of(sampleGTPBulletins.getBulletin1()));
+        given(service.findBulletin(any())).willReturn(Optional.of(sampleData.getBulletin1()));
 
         mvc.perform(get("/api/gtp/bulletin?id={id}", 1L))
                 .andExpect(status().isOk())
@@ -84,7 +84,7 @@ public class BulletinsControllerTest extends AbstractDocumentedControllerTest {
 
     @Test
     public void testAnnualReportReturned() throws Exception {
-        given(service.findAnnualReport(any())).willReturn(Optional.of(sampleGTPBulletins.getAnnualReport1()));
+        given(service.findAnnualReport(any())).willReturn(Optional.of(sampleData.getAnnualReport1()));
 
         mvc.perform(get("/api/gtp/annual-report?id={id}", 1L))
                 .andExpect(status().isOk())
@@ -101,5 +101,29 @@ public class BulletinsControllerTest extends AbstractDocumentedControllerTest {
         mvc.perform(get("/api/gtp/annual-report?id={id}", 998L))
                 .andExpect(status().isNotFound())
                 .andDo(document("gtp-annual-report-not-found"));
+    }
+
+    @Test
+    public void getMembers() throws Exception {
+        given(service.getGTPMembers()).willReturn(sampleData.getMembers());
+
+        mvc.perform(get("/api/gtp/members"))
+                .andExpect(status().isOk())
+                .andDo(document("gtp-members",
+                        responseFields(
+                                subsectionWithPath("[].id").description("GTP Member Id"),
+                                subsectionWithPath("[].name").description("Name"),
+                                subsectionWithPath("[].description").description("Description"),
+                                subsectionWithPath("[].url").description("Website URL"))));
+    }
+
+    @Test
+    public void getMemberLogo() throws Exception {
+        given(service.getMember(any())).willReturn(Optional.of(sampleData.getAnacim()));
+
+        mvc.perform(get("/api/gtp/member/logo?id={id}", 1L))
+                .andExpect(status().isOk())
+                .andDo(document("gtp-member-logo-returned",
+                        requestParameters(parameterWithName("id").description("GTP Member Id"))));
     }
 }
