@@ -3,7 +3,8 @@ import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import {cssClasses} from "../../ComponentUtil"
-import {PngExport} from "../Components"
+// import {PngExport} from "../Components"
+import PngExport from "../PngExport"
 import GraphicSource from "./GraphicSource"
 
 class Graphic extends Component {
@@ -23,7 +24,7 @@ class Graphic extends Component {
             <p>
               <FormattedMessage id={titleId} />
             </p>
-            <div className="indicator chart icon group">
+            <div className="indicator chart icon group" data-html2canvas-ignore>
               <PngExport
                 name={intl.formatMessage({id: titleId})}
                 id={id}
