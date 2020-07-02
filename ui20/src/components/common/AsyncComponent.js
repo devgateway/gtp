@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import InitIntersectionObserver from "./polyfills/InitIntersectionObserver"
 import InitResizeObserver from "./polyfills/InitResizeObserver"
-import {initializeObserver} from "./TrackVisibility"
+
 
 export default function asyncComponent (importComponent) {
   class AsyncComponent extends Component {
@@ -13,7 +14,7 @@ export default function asyncComponent (importComponent) {
     }
 
     async componentDidMount () {
-      await initializeObserver()
+      await InitIntersectionObserver()
       InitResizeObserver()
       const { default: component } = await importComponent()
 
