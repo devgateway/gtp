@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import InitResizeObserver from "./polyfills/InitResizeObserver"
 import {initializeObserver} from "./TrackVisibility"
 
 export default function asyncComponent (importComponent) {
@@ -13,6 +14,7 @@ export default function asyncComponent (importComponent) {
 
     async componentDidMount () {
       await initializeObserver()
+      InitResizeObserver()
       const { default: component } = await importComponent()
 
       this.setState({
