@@ -27,6 +27,9 @@
 
   .column.menu {
     flex: 0 0 min-content;
+    .IE & {
+      flex: 0 0 222px;
+    }
     min-width: -webkit-max-content;
     padding-right: unset !important;
   }
