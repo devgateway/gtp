@@ -48,7 +48,10 @@
         color: #50769b;
       }
       .icon.masked-icon {
-        background: #50769b;
+        background-color: #50769b;
+        .IE & {
+          background-color: transparent;
+        }
       }
     }
   }

@@ -340,19 +340,35 @@ html {
 }
 .masked-icon.icon-barchart {
   mask: url('/icons/icon_barchart.svg');
+  .IE & {
+    background: url('/icons/icon_barchart.svg');
+    fill: #4A4A4A;
+  }
 }
 .masked-icon.icon-linechart {
   mask: url('/icons/icon_linechart.svg');
+  .IE & {
+    background: url('/icons/icon_linechart.svg');
+  }
 }
 .masked-icon.icon-table {
   mask: url('/icons/icon_table.svg');
+  .IE & {
+    background: url('/icons/icon_table.svg');
+  }
 }
 .masked-icon.icon-png-download {
   mask: url('/icons/icon_png_download.svg');
   background: #608bb5;
+  .IE & {
+    background: url('/icons/icon_png_download.svg');
+  }
 }
 .masked-icon.icon-pdf-download {
   mask: url('/icons/icon_pdf_download.svg');
-  background: $color-green
+  background: $color-green;
+  .IE & {
+    background: url('/icons/icon_pdf_download.svg');
+  }
 }
 
