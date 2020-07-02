@@ -8,6 +8,10 @@ export const getBrowserClass = () => {
   if (!!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)) {
     return 'chrome'
   }
+  // Internet Explorer 6-11
+  if (/* @cc_on!@*/false || !!document.documentMode) {
+    return 'IE'
+  }
   return ''
 }
 

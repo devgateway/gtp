@@ -149,6 +149,9 @@
         position: absolute;
         margin: auto;
         display: contents;
+        .IE & {
+          display: ruby-text;
+        }
 
         .content {
           margin: auto 12px auto;
