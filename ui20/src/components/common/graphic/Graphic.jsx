@@ -4,7 +4,8 @@ import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import {cssClasses} from "../../ComponentUtil"
 // import {PngExport} from "../Components"
-import PngExport from "../PngExport"
+// import PngExport from "../PngExport"
+import PngExport from "../PngExportDomToImage"
 import GraphicSource from "./GraphicSource"
 
 class Graphic extends Component {
