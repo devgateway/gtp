@@ -9,8 +9,8 @@
     "browserslist": "^4.9.1",
     "connected-react-router": "^6.7.0",
     "d3": "^5.15.0",
+    "dom-to-image": "^2.6.0",
     "downloadjs": "^1.4.7",
-    "html-to-image": "^0.1.1",
     "i": "^0.3.6",
     "immutable": "^4.0.0-rc.12",
     "install": "^0.13.0",
@@ -50,7 +50,6 @@
     "redux-thunk": "^2.3.0",
     "resize-observer": "^1.0.0",
     "save": "^2.4.0",
-    "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
     "smoothscroll-polyfill": "^0.4.4",
     "source-map-explorer": "^2.4.2",
@@ -72,8 +71,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js --ext .jsx src",
-    "lint-fix": "eslint --fix --ext .js --ext .jsx src",
-    "postinstall": "cp -R node_modules/semantic-ui-css/themes/default/assets/fonts ./public/themes/default/assets/"
+    "lint-fix": "eslint --fix --ext .js --ext .jsx src"
   },
   "browserslist": [
     ">0.2%",

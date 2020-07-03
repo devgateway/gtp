@@ -2,14 +2,14 @@ import React, { useState} from 'react'
 import {FormattedMessage} from 'react-intl';
 import  {Range} from 'rc-slider';
 import DatePicker from "react-datepicker";
-import { toPng} from 'html-to-image';
+// import { toPng} from 'html-to-image';
 import download from 'downloadjs'
 import {Dropdown} from 'semantic-ui-react'
 import "react-datepicker/dist/react-datepicker.css";
 import DropdownBreadcrumb from "./filter/DropdownBreadcrubmb"
 import FilterDropDown from "./filter/FilterDropDown"
 
-
+const toPng = () => {}
 export const PngExport = ({id, element, name = "chart", filters = [],includes = []})=>{
 
 
