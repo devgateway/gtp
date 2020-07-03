@@ -7,7 +7,7 @@ const DropdownBreadcrumb = (options, selected, text, single) => {
   return (
     <div className="breadcrums">
       <span className="filterName">{text} </span>
-      <span>{details}</span>
+      <span className="filterValue">{details}</span>
     </div>)
 }
 
