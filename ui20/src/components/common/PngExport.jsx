@@ -1,7 +1,8 @@
 import download from "downloadjs"
-import html2canvas from "html2canvas"
+// import html2canvas from "html2canvas"
 import React from "react"
 
+const html2canvas = () => {}
 
 const PngExport = ({id, element, name = "chart", filters = [],includes = []})=> {
 

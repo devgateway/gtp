@@ -11,8 +11,6 @@
     "d3": "^5.15.0",
     "dom-to-image": "^2.6.0",
     "downloadjs": "^1.4.7",
-    "html2canvas": "^1.0.0-rc.5",
-    "html-to-image": "^0.1.1",
     "i": "^0.3.6",
     "immutable": "^4.0.0-rc.12",
     "install": "^0.13.0",
