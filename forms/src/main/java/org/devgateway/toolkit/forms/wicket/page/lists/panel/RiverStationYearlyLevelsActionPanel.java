@@ -27,8 +27,8 @@ public class RiverStationYearlyLevelsActionPanel
 
     public RiverStationYearlyLevelsActionPanel(String id, IModel<T> model,
             SerializableSupplier<T> entityCreator,
-            SerializableBiFunction<MonthDay, BigDecimal, L> creator, Class<? extends Page> editPageClass) {
-        super(id, model, editPageClass);
+            SerializableBiFunction<MonthDay, BigDecimal, L> creator, Class<? extends Page> uploadPageClass) {
+        super(id, model, uploadPageClass);
 
         this.entityCreator = entityCreator;
         this.creator = creator;

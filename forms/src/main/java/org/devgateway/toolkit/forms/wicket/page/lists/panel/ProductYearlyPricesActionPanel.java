@@ -12,13 +12,14 @@ import org.devgateway.toolkit.persistence.service.category.ProductService;
  * @author Octavian Ciubotaru
  */
 public class ProductYearlyPricesActionPanel extends AbstractExcelListActionPanel<ProductYearlyPrices> {
+    private static final long serialVersionUID = -3673571930691850613L;
 
     @SpringBean
     private ProductService productService;
 
     public ProductYearlyPricesActionPanel(String id, IModel<ProductYearlyPrices> model,
-            Class<? extends Page> editPageClass) {
-        super(id, model, editPageClass);
+            Class<? extends Page> uploadPageClass) {
+        super(id, model, uploadPageClass);
     }
 
     @Override
