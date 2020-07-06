@@ -2,12 +2,6 @@ package org.devgateway.toolkit.forms.wicket.page.edit;
 
 import static java.util.stream.Collectors.joining;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
@@ -18,16 +12,25 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
-import org.devgateway.toolkit.persistence.dao.FileMetadata;
+import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
+import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 /**
  * @author Octavian Ciubotaru
  */
-public abstract class AbstractExcelImportPage<T extends AbstractImportableEntity> extends AbstractEditPage<T> {
+public abstract class AbstractExcelImportPage<T extends AbstractAuditableEntity & AbstractImportableEntity>
+        extends AbstractEditPage<T> {
+    private static final long serialVersionUID = -9188025234865194965L;
 
     private static final int MAX_ERRORS = 30;
 
@@ -77,6 +80,7 @@ public abstract class AbstractExcelImportPage<T extends AbstractImportableEntity
     }
 
     private class CustomSaveEditPageButton extends SaveEditPageButton {
+        private static final long serialVersionUID = 7753752571113153373L;
 
         CustomSaveEditPageButton(String id, IModel<String> model) {
             super(id, model);

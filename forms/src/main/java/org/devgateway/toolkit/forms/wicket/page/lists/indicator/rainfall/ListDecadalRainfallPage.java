@@ -4,6 +4,8 @@ import org.apache.wicket.Component;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -14,9 +16,11 @@ import org.devgateway.toolkit.forms.wicket.components.table.BookmarkableResettin
 import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.DecadalRainfallFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
+import org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall.EditDecadalRainfallImportPage;
 import org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall.EditDecadalRainfallPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.AbstractIndicatorWithStatusListPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.YearFilterPanel;
+import org.devgateway.toolkit.forms.wicket.page.lists.panel.DecadalRainfallActionPanel;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.service.indicator.DecadalRainfallService;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -67,5 +71,11 @@ public class ListDecadalRainfallPage extends AbstractIndicatorWithStatusListPage
     @Override
     public JpaFilterState<DecadalRainfall> newFilterState() {
         return new DecadalRainfallFilterState();
+    }
+
+    @Override
+    public Panel getActionPanel(final String id, final IModel<DecadalRainfall> model) {
+        return new DecadalRainfallActionPanel(id, model, EditDecadalRainfallImportPage.class,
+                EditDecadalRainfallPage.class);
     }
 }
