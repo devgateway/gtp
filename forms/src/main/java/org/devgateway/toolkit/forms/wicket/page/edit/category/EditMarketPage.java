@@ -2,10 +2,6 @@ package org.devgateway.toolkit.forms.wicket.page.edit.category;
 
 import static java.util.stream.Collectors.toList;
 
-import java.time.DayOfWeek;
-import java.time.format.TextStyle;
-import java.util.Collection;
-
 import com.google.common.collect.ImmutableMap;
 import org.apache.wicket.Session;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -28,8 +24,8 @@ import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFor
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.category.ListMarketsPage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericPersistableJpaTextChoiceProvider;
-import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
+import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.service.category.MarketTypeService;
@@ -40,12 +36,17 @@ import org.wicketstuff.annotation.mount.MountPath;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
+import java.util.Collection;
+
 /**
  * @author Octavian Ciubotaru
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/market")
 public class EditMarketPage extends AbstractEditPage<Market> {
+    private static final long serialVersionUID = 7176573046412373760L;
 
     @SpringBean
     private MarketService marketService;
@@ -84,6 +85,10 @@ public class EditMarketPage extends AbstractEditPage<Market> {
                 new Select2ChoiceBootstrapFormComponent<>("type",
                         new GenericPersistableJpaTextChoiceProvider<>(marketTypeService));
         marketType.required();
+        marketType.setShowTooltip(true);
+        if (entityId != null && marketService.hasProductOrQuantities(entityId)) {
+            marketType.setEnabled(false);
+        }
         editForm.add(marketType);
 
         editForm.add(new UniqueMarketNameValidator(department.getField(), marketType.getField(), name.getField()));
@@ -125,6 +130,7 @@ public class EditMarketPage extends AbstractEditPage<Market> {
     }
 
     private class MarketSaveEditPageButton extends SaveEditPageButton {
+        private static final long serialVersionUID = 7101239182836334738L;
 
         MarketSaveEditPageButton(String id, IModel<String> model) {
             super(id, model);
@@ -141,6 +147,7 @@ public class EditMarketPage extends AbstractEditPage<Market> {
     }
 
     private static class DaysModel implements IModel<Collection<DayOfWeek>> {
+        private static final long serialVersionUID = 2076975851063678619L;
 
         private final IModel<Integer> targetModel;
 
@@ -165,6 +172,7 @@ public class EditMarketPage extends AbstractEditPage<Market> {
     }
 
     private static class DaysChoiceProvider extends ChoiceProvider<DayOfWeek> {
+        private static final long serialVersionUID = -7127460649863368966L;
 
         @Override
         public String getDisplayValue(DayOfWeek object) {
@@ -194,6 +202,7 @@ public class EditMarketPage extends AbstractEditPage<Market> {
     }
 
     private class UniqueMarketNameValidator extends AbstractFormValidator {
+        private static final long serialVersionUID = -7118860890126968759L;
 
         private final FormComponent<?>[] dependentFormComponents;
         private final FormComponent<String> nameFC;
@@ -213,7 +222,7 @@ public class EditMarketPage extends AbstractEditPage<Market> {
         public void validate(Form<?> form) {
             String name = editForm.getModelObject().getName();
             Department department = editForm.getModelObject().getDepartment();
-            MarketType type = editForm.getModelObject().getType();
+            org.devgateway.toolkit.persistence.dao.categories.MarketType type = editForm.getModelObject().getType();
             Long id = editForm.getModelObject().getId();
             if (marketService.exists(department, type, name, id)) {
                 error(nameFC, ImmutableMap.of("department", department.getName(), "marketName", name,
@@ -223,6 +232,7 @@ public class EditMarketPage extends AbstractEditPage<Market> {
     }
 
     private class UniqueLocationValidator extends AbstractFormValidator {
+        private static final long serialVersionUID = 481625055429733063L;
 
         private final FormComponent<?> latitudeFc;
         private final FormComponent<?>[] dependentFormComponents;
