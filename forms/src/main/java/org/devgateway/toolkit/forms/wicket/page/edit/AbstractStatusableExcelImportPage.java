@@ -8,7 +8,7 @@ import org.devgateway.toolkit.persistence.dao.AbstractStatusAuditableEntity;
  * @author Nadejda Mandrescu
  */
 public abstract class AbstractStatusableExcelImportPage
-        <T extends AbstractStatusAuditableEntity & AbstractImportableEntity> extends AbstractExcelImportPage<T>{
+        <T extends AbstractStatusAuditableEntity & AbstractImportableEntity> extends AbstractExcelImportPage<T> {
     private static final long serialVersionUID = -2629356746271144152L;
 
     public AbstractStatusableExcelImportPage(PageParameters parameters) {

@@ -11,5 +11,5 @@ import javax.persistence.MappedSuperclass;
 public interface AbstractImportableEntity {
 
     @JsonIgnore
-    public abstract boolean isEmpty();
+    boolean isEmpty();
 }

@@ -26,7 +26,8 @@ import java.util.Collection;
  * @author Octavian Ciubotaru
  */
 public class AbstractEditRiverStationYearlyLevelsPage
-        <T extends AbstractAuditableEntity & AbstractImportableEntity & IRiverStationYearlyLevels<L>, L extends IRiverLevel>
+        <T extends AbstractAuditableEntity & AbstractImportableEntity & IRiverStationYearlyLevels<L>,
+                L extends IRiverLevel>
         extends AbstractExcelImportPage<T> {
     private static final long serialVersionUID = -3075930980896620967L;
 
