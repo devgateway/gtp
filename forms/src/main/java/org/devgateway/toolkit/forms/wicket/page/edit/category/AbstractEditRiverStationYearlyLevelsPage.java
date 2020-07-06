@@ -1,10 +1,5 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.category;
 
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.time.MonthDay;
-import java.util.Collection;
-
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.danekja.java.util.function.serializable.SerializableBiFunction;
@@ -14,6 +9,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFor
 import org.devgateway.toolkit.forms.wicket.components.links.DownloadRiverLevelsLink;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractExcelImportPage;
 import org.devgateway.toolkit.forms.wicket.providers.HydrologicalYearRangeChoiceProvider;
+import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.IRiverLevel;
@@ -21,12 +17,18 @@ import org.devgateway.toolkit.persistence.dao.IRiverStationYearlyLevels;
 import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
 import org.devgateway.toolkit.persistence.util.JPAUtil;
 
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.time.MonthDay;
+import java.util.Collection;
+
 /**
  * @author Octavian Ciubotaru
  */
 public class AbstractEditRiverStationYearlyLevelsPage
-        <T extends AbstractImportableEntity & IRiverStationYearlyLevels<L>, L extends IRiverLevel>
+        <T extends AbstractAuditableEntity & AbstractImportableEntity & IRiverStationYearlyLevels<L>, L extends IRiverLevel>
         extends AbstractExcelImportPage<T> {
+    private static final long serialVersionUID = -3075930980896620967L;
 
     private final SerializableSupplier<T> entityCreator;
     private final SerializableBiFunction<MonthDay, BigDecimal, L> levelCreator;

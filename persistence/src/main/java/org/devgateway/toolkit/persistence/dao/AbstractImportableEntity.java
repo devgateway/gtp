@@ -1,14 +1,14 @@
 package org.devgateway.toolkit.persistence.dao;
 
-import javax.persistence.MappedSuperclass;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.MappedSuperclass;
 
 /**
  * @author Octavian Ciubotaru
  */
 @MappedSuperclass
-public abstract class AbstractImportableEntity extends AbstractAuditableEntity {
+public interface AbstractImportableEntity {
 
     @JsonIgnore
     public abstract boolean isEmpty();

@@ -10,12 +10,15 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.wicket.components.links.AbstractGeneratedExcelDownloadLink;
+import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
 
 /**
  * @author Octavian Ciubotaru
  */
-public abstract class AbstractExcelListActionPanel<T extends AbstractImportableEntity> extends GenericPanel<T> {
+public abstract class AbstractExcelListActionPanel<T extends AbstractAuditableEntity & AbstractImportableEntity>
+        extends GenericPanel<T> {
+    private static final long serialVersionUID = 7044589999284960240L;
 
     private final Class<? extends Page> editPageClass;
 
