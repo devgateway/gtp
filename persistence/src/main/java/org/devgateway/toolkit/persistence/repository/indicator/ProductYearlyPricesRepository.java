@@ -1,8 +1,5 @@
 package org.devgateway.toolkit.persistence.repository.indicator;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.devgateway.toolkit.persistence.dao.PersistedCollectionSize;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.categories.PriceType;
@@ -16,6 +13,9 @@ import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Octavian Ciubotaru
@@ -137,4 +137,7 @@ public interface ProductYearlyPricesRepository extends BaseJpaRepository<Product
             + "and q.product.productType.id = :productTypeId "
             + "and q.market.id = :marketId")
     List<ProductQuantity> findQuantities(Integer year, Long productTypeId, Long marketId);
+
+    boolean existsByPrices_Market_Id(Long marketId);
+    boolean existsByQuantities_Market_Id(Long marketId);
 }

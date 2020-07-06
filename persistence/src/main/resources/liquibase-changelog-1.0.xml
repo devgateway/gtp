@@ -1,0 +1,43 @@
+<!--
+    Copyright (c) 2015 Development Gateway, Inc and others.
+
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the MIT License (MIT)
+    which accompanies this distribution, and is available at
+    https://opensource.org/licenses/MIT
+
+    Contributors:
+    Development Gateway - initial API and implementation
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="ANACIM-212" author="nmandrescu">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="category" columnName="market_type_id" />
+        </preConditions>
+        <sql>
+            DELETE FROM product_quantity WHERE id in (
+                SELECT DISTINCT pq.id
+                FROM market m, product_quantity pq
+                    JOIN product_yearly_prices pyp ON pyp.id = pq.product_yearly_prices_id
+                    JOIN category pt ON pt.id = pyp.product_type_id
+                WHERE pq.market_id = m.id
+                    AND pt.dtype='ProductType'
+                    AND pt.market_type_id != m.type_id
+                );
+
+            DELETE FROM product_price WHERE id in (
+                SELECT DISTINCT pp.id
+                FROM market m, product_price pp
+                    JOIN product_yearly_prices pyp ON pyp.id = pp.product_yearly_prices_id
+                    JOIN category pt ON pt.id = pyp.product_type_id
+                WHERE pp.market_id = m.id
+                    AND pt.dtype='ProductType'
+                    AND pt.market_type_id != m.type_id
+                )
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
