@@ -1,8 +1,10 @@
 package org.devgateway.toolkit.forms.wicket.components.links;
 
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.dto.MonthDTO;
+import org.devgateway.toolkit.persistence.service.indicator.DecadalRainfallService;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -12,6 +14,9 @@ import java.io.OutputStream;
  */
 public class DownloadDecadalRainfall extends AbstractGeneratedExcelDownloadLink<DecadalRainfall> {
     private static final long serialVersionUID = -1753110031235443491L;
+
+    @SpringBean
+    private DecadalRainfallService decadalRainfallService;
 
     public DownloadDecadalRainfall(String id, IModel<DecadalRainfall> model, Boolean template) {
         super(id, model, template);
@@ -33,7 +38,7 @@ public class DownloadDecadalRainfall extends AbstractGeneratedExcelDownloadLink<
     }
 
     @Override
-    protected void generate(DecadalRainfall object, OutputStream outputStream) throws IOException {
-        // TODO
+    protected void generate(DecadalRainfall decadalRainfall, OutputStream outputStream) throws IOException {
+        decadalRainfallService.export(decadalRainfall, outputStream);
     }
 }

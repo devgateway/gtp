@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Month;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +71,10 @@ public class DecadalRainfall extends AbstractStatusAuditableEntity implements Ab
 
     public int lengthOfMonth() {
         return MonthDTO.of(month).lengthOfMonth(year);
+    }
+
+    public int lengthOfDecadal() {
+        return decadal.length(YearMonth.of(year, month));
     }
 
     public Decadal getDecadal() {

@@ -15,11 +15,15 @@ import org.devgateway.toolkit.persistence.repository.indicator.DecadalRainfallRe
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
+import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,6 +41,9 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
 
     @Autowired
     private DecadalRainfallRepository decadalRainfallRepository;
+
+    @Autowired
+    private PluviometricPostService pluviometricPostService;
 
     @Autowired
     private AdminSettingsService adminSettingsService;
@@ -143,4 +150,12 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
                 .map(prf -> new MonthDecadalDaysWithRain(drf, prf.getRainyDaysCount()))
                 .orElse(null);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public void export(DecadalRainfall decadalRainfall, OutputStream outputStream) throws IOException {
+        DecadalRainfallWriter writer = new DecadalRainfallWriter(decadalRainfall);
+        writer.write(outputStream);
+    }
+
 }
