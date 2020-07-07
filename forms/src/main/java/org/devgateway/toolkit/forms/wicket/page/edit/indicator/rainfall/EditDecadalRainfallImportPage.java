@@ -1,8 +1,10 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.toolkit.forms.wicket.components.links.DownloadDecadalRainfall;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractStatusableExcelImportPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
@@ -29,9 +31,17 @@ public class EditDecadalRainfallImportPage extends AbstractStatusableExcelImport
     }
 
     @Override
+    protected void onInitialize() {
+        super.onInitialize();
+
+        pageTitle.setDefaultModel(new StringResourceModel("page.title", this, editForm.getModel()));
+
+        deleteButton.setVisibilityAllowed(false);
+    }
+
+    @Override
     protected BootstrapAjaxLink<?> getDownloadButton(String id, boolean template) {
-        // TODO
-        return null;
+        return new DownloadDecadalRainfall(id, editForm.getModel(), template);
     }
 
     @Override
