@@ -4,7 +4,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.dto.MonthDTO;
-import org.devgateway.toolkit.persistence.service.indicator.DecadalRainfallService;
+import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
 
 import java.io.IOException;
 import java.io.OutputStream;

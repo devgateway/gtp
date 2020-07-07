@@ -8,7 +8,7 @@ import org.devgateway.toolkit.forms.wicket.components.links.DownloadDecadalRainf
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractStatusableExcelImportPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
-import org.devgateway.toolkit.persistence.service.indicator.DecadalRainfallService;
+import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
 import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
 
 import java.io.InputStream;

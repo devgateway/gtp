@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.service.indicator;
+package org.devgateway.toolkit.persistence.service.indicator.rainfall;
 
 import static java.util.stream.Collectors.toList;
 import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
@@ -16,7 +16,6 @@ import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaReposit
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
-import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.stereotype.Service;

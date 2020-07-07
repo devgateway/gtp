@@ -1,9 +1,10 @@
-package org.devgateway.toolkit.persistence.service.indicator;
+package org.devgateway.toolkit.persistence.service.indicator.rainfall;
 
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.dto.drysequence.MonthDecadalDaysWithRain;
 import org.devgateway.toolkit.persistence.dto.rainfall.DecadalInstantRainLevel;
+import org.devgateway.toolkit.persistence.service.indicator.YearIndicatorGenerator;
 
 import java.io.IOException;
 import java.io.OutputStream;
