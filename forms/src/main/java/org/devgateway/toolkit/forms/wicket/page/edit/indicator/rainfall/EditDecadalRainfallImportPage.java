@@ -4,7 +4,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.devgateway.toolkit.forms.wicket.components.links.DownloadDecadalRainfall;
+import org.devgateway.toolkit.forms.wicket.components.links.DownloadDecadalRainfallLink;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractStatusableExcelImportPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
@@ -41,7 +41,7 @@ public class EditDecadalRainfallImportPage extends AbstractStatusableExcelImport
 
     @Override
     protected BootstrapAjaxLink<?> getDownloadButton(String id, boolean template) {
-        return new DownloadDecadalRainfall(id, editForm.getModel(), template);
+        return new DownloadDecadalRainfallLink(id, editForm.getModel(), template);
     }
 
     @Override

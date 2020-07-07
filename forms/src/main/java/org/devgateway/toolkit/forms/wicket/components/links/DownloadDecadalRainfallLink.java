@@ -12,13 +12,13 @@ import java.io.OutputStream;
 /**
  * @author Nadejda Mandrescu
  */
-public class DownloadDecadalRainfall extends AbstractGeneratedExcelDownloadLink<DecadalRainfall> {
+public class DownloadDecadalRainfallLink extends AbstractGeneratedExcelDownloadLink<DecadalRainfall> {
     private static final long serialVersionUID = -1753110031235443491L;
 
     @SpringBean
     private DecadalRainfallService decadalRainfallService;
 
-    public DownloadDecadalRainfall(String id, IModel<DecadalRainfall> model, Boolean template) {
+    public DownloadDecadalRainfallLink(String id, IModel<DecadalRainfall> model, Boolean template) {
         super(id, model, template);
     }
 
