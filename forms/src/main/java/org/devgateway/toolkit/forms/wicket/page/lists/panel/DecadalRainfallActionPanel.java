@@ -19,6 +19,6 @@ public class DecadalRainfallActionPanel extends AbstractExcelListActionPanel<Dec
 
     @Override
     protected AbstractGeneratedExcelDownloadLink<?> getDownloadButton(String id) {
-        return new DownloadDecadalRainfall(id, getModel(), false);
+        return new DownloadDecadalRainfall(id, getModel(), getModelObject().isEmpty());
     }
 }

@@ -158,4 +158,20 @@ public class DecadalRainfallServiceImpl extends BaseJpaServiceImpl<DecadalRainfa
         writer.write(outputStream);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public DecadalRainfall getExample(Integer year, Month month, Decadal decadal) {
+        DecadalRainfall dr = new DecadalRainfall();
+        dr.setYear(year);
+        dr.setMonth(month);
+        dr.setDecadal(decadal);
+
+        pluviometricPostService.findAll().forEach(pluviometricPost -> {
+            PluviometricPostRainfall ppr = new PluviometricPostRainfall();
+            ppr.setDecadalRainfall(dr);
+            ppr.setPluviometricPost(pluviometricPost);
+            dr.addPostRainfall(ppr);
+        });
+        return dr;
+    }
 }

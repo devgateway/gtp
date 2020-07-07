@@ -33,8 +33,8 @@ public class DownloadDecadalRainfall extends AbstractGeneratedExcelDownloadLink<
 
     @Override
     protected DecadalRainfall getTemplateObject() {
-        // TODO
-        return null;
+        DecadalRainfall dr = getModelObject();
+        return decadalRainfallService.getExample(dr.getYear(), dr.getMonth(), dr.getDecadal());
     }
 
     @Override
