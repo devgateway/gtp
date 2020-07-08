@@ -7,7 +7,12 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.wicket.components.links.DownloadDecadalRainfallLink;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractStatusableExcelImportPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
+import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
+import org.devgateway.toolkit.persistence.dao.location.Zone;
+import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
+import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
+import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallReader;
 import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
 import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
 
@@ -21,6 +26,12 @@ public class EditDecadalRainfallImportPage extends AbstractStatusableExcelImport
 
     @SpringBean
     private DecadalRainfallService decadalRainfallService;
+
+    @SpringBean
+    private PluviometricPostService pluviometricPostService;
+
+    @SpringBean
+    private ZoneService zoneService;
 
     public EditDecadalRainfallImportPage(PageParameters parameters) {
         super(parameters);

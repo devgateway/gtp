@@ -23,7 +23,7 @@ public class SearchableCollection<T> {
         elements = col.stream().collect(toMap(e -> normalize(nameFn.apply(e)), Function.identity(), (l, r) -> l));
     }
 
-    private String normalize(String value) {
+    public static String normalize(String value) {
         String normalized = stripAccents(normalizeSpace(strip(value.toLowerCase())));
         return SEP.matcher(normalized).replaceAll("-");
     }
