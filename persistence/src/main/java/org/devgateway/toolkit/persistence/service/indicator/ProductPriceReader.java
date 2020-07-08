@@ -3,8 +3,22 @@ package org.devgateway.toolkit.persistence.service.indicator;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
-import java.io.IOException;
-import java.io.InputStream;
+import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.devgateway.toolkit.persistence.dao.categories.Market;
+import org.devgateway.toolkit.persistence.dao.categories.MeasurementUnit;
+import org.devgateway.toolkit.persistence.dao.categories.PriceType;
+import org.devgateway.toolkit.persistence.dao.categories.Product;
+import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
+import org.devgateway.toolkit.persistence.dao.indicator.ProductQuantity;
+import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
+import org.devgateway.toolkit.persistence.dao.location.Department;
+import org.devgateway.toolkit.persistence.excel.indicator.AbstractExcelFileIndicatorReader;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.time.MonthDay;
@@ -19,30 +33,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.function.Function;
 
-import com.google.common.collect.ImmutableList;
-import org.apache.commons.lang3.time.DateUtils;
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.poi.UnsupportedFileFormatException;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.devgateway.toolkit.persistence.dao.categories.Market;
-import org.devgateway.toolkit.persistence.dao.categories.MeasurementUnit;
-import org.devgateway.toolkit.persistence.dao.categories.PriceType;
-import org.devgateway.toolkit.persistence.dao.categories.Product;
-import org.devgateway.toolkit.persistence.dao.indicator.ProductPrice;
-import org.devgateway.toolkit.persistence.dao.indicator.ProductQuantity;
-import org.devgateway.toolkit.persistence.dao.indicator.ProductYearlyPrices;
-import org.devgateway.toolkit.persistence.dao.location.Department;
-
 /**
  * @author Octavian Ciubotaru
  */
-public class ProductPriceReader {
+public class ProductPriceReader extends AbstractExcelFileIndicatorReader<ProductYearlyPrices> {
 
     private static final String[] DATE_PATTERNS = { "dd-MM-yyyy", "dd-MMM-yyyy" };
 
@@ -58,8 +52,12 @@ public class ProductPriceReader {
 
     private ProductPriceColumns cols;
 
-    public ProductPriceReader(List<Product> products, List<Department> departments,
+    private int year;
+
+    public ProductPriceReader(int year, List<Product> products, List<Department> departments,
             List<Market> markets, boolean productsOnSeparateRows) {
+
+        this.year = year;
 
         this.departments = new SearchableCollection<>(departments, Department::getName);
 
@@ -74,39 +72,8 @@ public class ProductPriceReader {
         this.productsOnSeparateRows = productsOnSeparateRows;
     }
 
-    public ProductYearlyPrices read(int year, InputStream is) throws ReaderException {
-        XSSFWorkbook workbook;
-        try {
-            workbook = new XSSFWorkbook(is);
-        } catch (IOException e) {
-            throw new ReaderException(ImmutableList.of("Erreur d'E / S."), e);
-        } catch (UnsupportedFileFormatException e) {
-            throw new ReaderException(ImmutableList.of("Format de fichier non pris en charge. "
-                    + "Veuillez utiliser un fichier Microsoft Excel Open XML Format Spreadsheet (XLSX)."), e);
-        }
-
-        workbook.setMissingCellPolicy(Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-
-        XSSFSheet sheet = workbook.getSheetAt(0);
-
-        errors = new LinkedHashSet<>();
-
-        readHeader(sheet);
-
-        if (!errors.isEmpty()) {
-            throw new ReaderException(errors);
-        }
-
-        ProductYearlyPrices yearlyPrices = readPrices(year, sheet);
-
-        if (!errors.isEmpty()) {
-            throw new ReaderException(errors);
-        }
-
-        return yearlyPrices;
-    }
-
-    private ProductYearlyPrices readPrices(int year, XSSFSheet sheet) {
+    @Override
+    protected ProductYearlyPrices readContent() {
         int lastColumn = cols.getLastColumn();
 
         ProductYearlyPrices yearlyPrices = new ProductYearlyPrices();
@@ -338,7 +305,8 @@ public class ProductPriceReader {
         }
     }
 
-    private void readHeader(XSSFSheet sheet) {
+    @Override
+    protected void readHeader() {
         XSSFRow row = sheet.getRow(0);
 
         SearchableCollection<Pair<Product, PriceType>> productAndPriceTypeNames;
@@ -422,10 +390,6 @@ public class ProductPriceReader {
         }
     }
 
-    private String errorAt(XSSFCell cell, String text) {
-        return text + " à " + cell.getReference();
-    }
-
     private boolean isEmptyRow(XSSFRow row, int lastColumn) {
         if (row == null) {
             return true;
@@ -436,10 +400,6 @@ public class ProductPriceReader {
             }
         }
         return true;
-    }
-
-    private boolean isEmpty(XSSFCell cell) {
-        return cell == null || cell.getRawValue() == null;
     }
 
 }

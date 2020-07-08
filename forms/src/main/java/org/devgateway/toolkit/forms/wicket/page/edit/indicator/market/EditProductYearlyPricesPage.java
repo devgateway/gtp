@@ -1,8 +1,5 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.indicator.market;
 
-import java.io.InputStream;
-import java.util.List;
-
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -27,12 +24,16 @@ import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.devgateway.toolkit.persistence.util.JPAUtil;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.io.InputStream;
+import java.util.List;
+
 /**
  * @author Octavian Ciubotaru
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_MARKET_EDITOR)
 @MountPath(value = "/product-prices-import")
 public class EditProductYearlyPricesPage extends AbstractExcelImportPage<ProductYearlyPrices> {
+    private static final long serialVersionUID = -7227946818986428498L;
 
     @SpringBean
     private ProductService productService;
@@ -94,9 +95,10 @@ public class EditProductYearlyPricesPage extends AbstractExcelImportPage<Product
 
         boolean productsOnSeparateRows = productType.areProductsOnSeparateRows();
 
-        ProductPriceReader reader = new ProductPriceReader(products, departments, markets, productsOnSeparateRows);
+        ProductPriceReader reader = new ProductPriceReader(productYearlyPrices.getYear(), products, departments,
+                markets, productsOnSeparateRows);
 
-        ProductYearlyPrices newEntity = reader.read(productYearlyPrices.getYear(), inputStream);
+        ProductYearlyPrices newEntity = reader.read(inputStream);
 
         JPAUtil.mergeSortedSet(newEntity.getPrices(), productYearlyPrices.getPrices(),
                 productYearlyPrices::addPrice,
