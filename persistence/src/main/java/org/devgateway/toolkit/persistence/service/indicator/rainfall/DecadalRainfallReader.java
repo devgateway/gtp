@@ -5,6 +5,8 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
+import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainfall;
+import org.devgateway.toolkit.persistence.dao.indicator.Rainfall;
 import org.devgateway.toolkit.persistence.dao.location.Zone;
 import org.devgateway.toolkit.persistence.excel.indicator.AbstractExcelFileIndicatorReader;
 import org.devgateway.toolkit.persistence.service.indicator.SearchableCollection;
@@ -62,6 +64,89 @@ public class DecadalRainfallReader extends AbstractExcelFileIndicatorReader<Deca
     @Override
     protected DecadalRainfall readContent() {
         DecadalRainfall dr = new DecadalRainfall();
+
+        while(rowNo <= sheet.getLastRowNum()) {
+            XSSFRow row = nextRow();
+
+            if (isEmptyRow(row, dayEndColId)) {
+                continue;
+            }
+
+            PluviometricPost pp = getPluviometricPost(row);
+            Zone zone = getZone(row, pp);
+
+            if (pp == null || zone == null) {
+                continue;
+            }
+
+            PluviometricPostRainfall ppr = new PluviometricPostRainfall(pp);
+            dr.addPostRainfall(ppr);
+
+            for (int dayColId = DecadalRainfallWriter.DAY_START_COL_ID, d = decadalRainfall.getDecadal().startDay();
+                 dayColId <= this.dayEndColId; dayColId++, d++) {
+                Double rain = getRain(row, dayColId);
+                ppr.addRainfall(new Rainfall(d, rain));
+            }
+        }
+
         return dr;
+    }
+
+    private PluviometricPost getPluviometricPost(XSSFRow row) {
+        XSSFCell cell = row.getCell(DecadalRainfallWriter.LOCALITY_COL_ID);
+        if (isEmpty(cell)) {
+            addErrorAt(cell, "Localité non spécifié");
+        } else {
+            try {
+                String postName = getAsString(cell);
+                PluviometricPost pp = pluviometricPosts.get(postName);
+                if (pp == null) {
+                    addErrorAt(cell, "Localité inconnu " + postName);
+                }
+                return pp;
+            } catch (Exception e) {
+                addErrorAt(cell, "Localité invalide");
+            }
+        }
+        return null;
+    }
+
+    private Zone getZone(XSSFRow row, PluviometricPost pp) {
+        XSSFCell cell = row.getCell(DecadalRainfallWriter.ZONE_COL_ID);
+        if (isEmpty(cell)) {
+            addErrorAt(cell, "Zone non spécifié");
+        } else {
+            try {
+                String zoneName = getAsString(cell);
+                Zone zone = zones.get(zoneName);
+                if (zone == null) {
+                    addErrorAt(cell, "Zone inconnu " + zoneName);
+                } else if (pp != null && !pp.getDepartment().getRegion().getZone().equals(zone)) {
+                    addErrorAt(cell, "Incohérence de zone");
+                }
+                return zone;
+            } catch (Exception e) {
+                addErrorAt(cell, "Zone invalide");
+            }
+        }
+        return null;
+    }
+
+    private Double getRain(XSSFRow row, int colId) {
+        XSSFCell cell = row.getCell(colId);
+        if (!isEmpty(cell)) {
+            try {
+                double rain = cell.getNumericCellValue();
+                if (rain < 0 || rain > DecadalRainfall.MAX_RAIN) {
+                    addErrorAt(cell, String.format("La pluie n'est pas comprise entre 0 et %.0f",
+                            DecadalRainfall.MAX_RAIN));
+                } else {
+                    return rain;
+                }
+            } catch (Exception e) {
+                addErrorAt(cell, "Pluviométrie invalide");
+            }
+        }
+        return null;
     }
 }

@@ -390,16 +390,4 @@ public class ProductPriceReader extends AbstractExcelFileIndicatorReader<Product
         }
     }
 
-    private boolean isEmptyRow(XSSFRow row, int lastColumn) {
-        if (row == null) {
-            return true;
-        }
-        for (int i = 0; i <= lastColumn; i++) {
-            if (!isEmpty(row.getCell(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 }

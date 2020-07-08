@@ -14,9 +14,12 @@ import org.devgateway.toolkit.persistence.service.category.PluviometricPostServi
 import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
 import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallReader;
 import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
-import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
+import org.devgateway.toolkit.persistence.service.location.ZoneService;
+import org.devgateway.toolkit.persistence.util.JPAUtil;
 
 import java.io.InputStream;
+import java.util.List;
+import java.util.TreeSet;
 
 /**
  * @author Nadejda Mandrescu
@@ -57,6 +60,24 @@ public class EditDecadalRainfallImportPage extends AbstractStatusableExcelImport
 
     @Override
     protected void importData(InputStream inputStream) throws ReaderException {
-        // TODO
+        DecadalRainfall decadalRainfall = editForm.getModelObject();
+        List<Zone> zones = zoneService.findAll();
+        List<PluviometricPost> pluviometricPosts = pluviometricPostService.findAll();
+
+        DecadalRainfallReader reader = new DecadalRainfallReader(decadalRainfall, zones, pluviometricPosts);
+        DecadalRainfall newEntity =  reader.read(inputStream);
+
+        JPAUtil.mergeSortedSet(
+                newEntity.getPostRainfalls(), new TreeSet<>(decadalRainfall.getPostRainfalls()),
+                decadalRainfall::addPostRainfall,
+                (oldItem, newItem) -> {
+                    JPAUtil.mergeSortedSet(
+                            newItem.getRainfalls(), new TreeSet<>(oldItem.getRainfalls()),
+                            oldItem::addRainfall,
+                            (oldRainItem, newRainItem) -> oldRainItem.setRain(newRainItem.getRain()));
+                    if (Boolean.TRUE.equals(oldItem.getNoData()) && !oldItem.getRainfalls().isEmpty()) {
+                        oldItem.setNoData(false);
+                    }
+                });
     }
 }

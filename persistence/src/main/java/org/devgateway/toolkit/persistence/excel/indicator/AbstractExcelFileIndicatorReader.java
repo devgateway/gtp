@@ -123,6 +123,18 @@ public abstract class AbstractExcelFileIndicatorReader<T> {
         return cell == null || cell.getRawValue() == null;
     }
 
+    protected boolean isEmptyRow(XSSFRow row, int lastColumn) {
+        if (row == null) {
+            return true;
+        }
+        for (int i = 0; i <= lastColumn; i++) {
+            if (!isEmpty(row.getCell(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     protected abstract void readHeader();
     protected abstract T readContent();
 }
