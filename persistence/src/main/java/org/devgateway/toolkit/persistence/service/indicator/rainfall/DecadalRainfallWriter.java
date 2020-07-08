@@ -51,7 +51,7 @@ public class DecadalRainfallWriter extends AbstractExcelFileIndicatorWriter {
         sheet.setColumnWidth(ZONE_COL_ID, 15 * 256);
         sheet.setColumnWidth(LOCALITY_COL_ID, 25 * 256);
         SKIP_COL_IDS.forEach(skipId -> sheet.setColumnWidth(skipId, 3 * 256));
-        for (int dayId = DAY_START_COL_ID; dayId < this.dayEndColId; dayId++) {
+        for (int dayId = DAY_START_COL_ID; dayId <= this.dayEndColId; dayId++) {
             sheet.setColumnWidth(dayId, 6 * 256);
         }
 
@@ -65,7 +65,7 @@ public class DecadalRainfallWriter extends AbstractExcelFileIndicatorWriter {
         row.createCell(LOCALITY_COL_ID).setCellValue("LOCALITES");
         sheet.addMergedRegion(new CellRangeAddress(hRowId, hRowId + 1, LOCALITY_COL_ID, LOCALITY_COL_ID));
 
-        for (int dayColId = DAY_START_COL_ID, d = decadalRainfall.getDecadal().startDay(); dayColId < this.dayEndColId;
+        for (int dayColId = DAY_START_COL_ID, d = decadalRainfall.getDecadal().startDay(); dayColId <= this.dayEndColId;
              dayColId++, d++) {
             XSSFCell cell = row.createCell(dayColId);
             cell.setCellStyle(integerCellStyle);
@@ -105,6 +105,6 @@ public class DecadalRainfallWriter extends AbstractExcelFileIndicatorWriter {
     }
 
     public static int getDayEndColId(DecadalRainfall decadalRainfall) {
-        return DAY_START_COL_ID + decadalRainfall.lengthOfDecadal();
+        return DAY_START_COL_ID + decadalRainfall.lengthOfDecadal() - 1;
     }
 }

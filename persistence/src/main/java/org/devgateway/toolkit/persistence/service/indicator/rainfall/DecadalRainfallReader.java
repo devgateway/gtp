@@ -44,7 +44,7 @@ public class DecadalRainfallReader extends AbstractExcelFileIndicatorReader<Deca
         List<Pair<Integer, Object>> headers = new ArrayList<>();
         headers.add(Pair.of(DecadalRainfallWriter.ZONE_COL_ID, "ZONES"));
         headers.add(Pair.of(DecadalRainfallWriter.LOCALITY_COL_ID, "LOCALITES"));
-        for (int dayColId = DecadalRainfallWriter.DAY_START_COL_ID; dayColId < this.dayEndColId; dayColId++) {
+        for (int dayColId = DecadalRainfallWriter.DAY_START_COL_ID; dayColId <= this.dayEndColId; dayColId++) {
             Integer day = dayColId - DecadalRainfallWriter.DAY_START_COL_ID +  decadalRainfall.getDecadal().startDay();
             headers.add(Pair.of(dayColId, day.longValue()));
         }
