@@ -5,11 +5,12 @@ import static java.util.stream.Collectors.joining;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.form.validation.AbstractFormValidator;
 import org.apache.wicket.markup.html.panel.Fragment;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
@@ -73,23 +74,16 @@ public abstract class AbstractExcelImportPage<T extends AbstractAuditableEntity 
 
     protected abstract BootstrapAjaxLink<?> getDownloadButton(String id, boolean template);
 
-    @Override
-    public SaveEditPageButton getSaveEditPageButton() {
-        return new CustomSaveEditPageButton("save",
-                new StringResourceModel("saveButton", this, null));
-    }
+    private class ExcelValidatorAndImporter extends AbstractFormValidator {
+        private static final long serialVersionUID = -9201030530968246406L;
 
-    private class CustomSaveEditPageButton extends SaveEditPageButton {
-        private static final long serialVersionUID = 7753752571113153373L;
-
-        CustomSaveEditPageButton(String id, IModel<String> model) {
-            super(id, model);
+        @Override
+        public FormComponent<?>[] getDependentFormComponents() {
+            return new FormComponent[0];
         }
 
         @Override
-        public void validate() {
-            super.validate();
-
+        public void validate(Form<?> form) {
             if (uploads.size() == 1) {
                 FileMetadata fileMetadata = uploads.get(0);
 
