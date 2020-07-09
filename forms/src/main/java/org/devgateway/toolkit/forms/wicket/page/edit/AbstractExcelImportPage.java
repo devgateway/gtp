@@ -62,6 +62,8 @@ public abstract class AbstractExcelImportPage<T extends AbstractAuditableEntity 
         Fragment extraButtons = new Fragment("extraButtons", "excelExtraButtons", this);
         editForm.replace(extraButtons);
 
+        extraButtons.add(getChildExtraButtons("childExtraButtons"));
+
         download = getDownloadButton("download", false);
         download.setSize(Buttons.Size.Medium);
         download.setVisibilityAllowed(!editForm.getModelObject().isEmpty());
@@ -70,6 +72,12 @@ public abstract class AbstractExcelImportPage<T extends AbstractAuditableEntity 
         downloadTemplate = getDownloadButton("downloadTemplate", true);
         downloadTemplate.setSize(Buttons.Size.Medium);
         extraButtons.add(downloadTemplate);
+
+        editForm.add(new ExcelValidatorAndImporter());
+    }
+
+    protected Fragment getChildExtraButtons(String id) {
+        return new Fragment(id, "noButtons", this);
     }
 
     protected abstract BootstrapAjaxLink<?> getDownloadButton(String id, boolean template);
