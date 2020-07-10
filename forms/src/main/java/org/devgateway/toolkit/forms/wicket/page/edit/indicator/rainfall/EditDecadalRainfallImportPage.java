@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -18,8 +19,12 @@ import org.devgateway.toolkit.persistence.service.location.ZoneService;
 import org.devgateway.toolkit.persistence.util.JPAUtil;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @author Nadejda Mandrescu
@@ -51,6 +56,20 @@ public class EditDecadalRainfallImportPage extends AbstractStatusableExcelImport
         pageTitle.setDefaultModel(new StringResourceModel("page.title", this, editForm.getModel()));
 
         deleteButton.setVisibilityAllowed(false);
+    }
+
+    @Override
+    protected StringResourceModel getImportHelp(String id) {
+        DecadalRainfall dr = editForm.getModelObject();
+        int startDay = dr.getDecadal().startDay();
+        int endDay = startDay + dr.lengthOfDecadal() - 1;
+        String days = IntStream.rangeClosed(startDay, endDay).boxed().map(Object::toString)
+                .collect(Collectors.joining(", "));
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("decadalDays", days);
+        params.put("decadalLastDay", endDay);
+        return new StringResourceModel(id, this, Model.ofMap(params));
     }
 
     @Override

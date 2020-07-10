@@ -53,8 +53,8 @@ public class DecadalRainfallReader extends AbstractExcelFileIndicatorReader<Deca
         headers.forEach(colIdExpectedValuePair -> {
             XSSFCell cell = row.getCell(colIdExpectedValuePair.getLeft());
             Object expected = colIdExpectedValuePair.getRight();
-            boolean matches = expected instanceof String ? matchesString(cell, (String) expected) :
-                    matchesLong(cell, (Long) expected);
+            boolean matches = expected instanceof String ? matchesString(cell, (String) expected)
+                    : matchesLong(cell, (Long) expected);
             if (!matches) {
                 addErrorAt(cell, "Valeur d'en-tête non valide");
             }
@@ -65,7 +65,7 @@ public class DecadalRainfallReader extends AbstractExcelFileIndicatorReader<Deca
     protected DecadalRainfall readContent() {
         DecadalRainfall dr = new DecadalRainfall();
 
-        while(rowNo <= sheet.getLastRowNum()) {
+        while (rowNo <= sheet.getLastRowNum()) {
             XSSFRow row = nextRow();
 
             if (isEmptyRow(row, dayEndColId)) {

@@ -78,7 +78,7 @@ public class DecadalRainfallWriter extends AbstractExcelFileIndicatorWriter {
     protected void writeTableBody() {
         Comparator<PluviometricPostRainfall> pprComparator
                 = Comparator.comparing(
-                (Function<PluviometricPostRainfall,String>) pluviometricPostRainfall ->
+                (Function<PluviometricPostRainfall, String>) pluviometricPostRainfall ->
                         pluviometricPostRainfall.getPluviometricPost().getDepartment().getRegion().getZone().getName(),
                 (z1, z2) -> z1.compareTo(z2)
         );
