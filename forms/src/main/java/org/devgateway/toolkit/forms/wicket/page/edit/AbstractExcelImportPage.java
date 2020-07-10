@@ -5,12 +5,15 @@ import static java.util.stream.Collectors.joining;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.validation.AbstractFormValidator;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.LambdaModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
@@ -53,6 +56,10 @@ public abstract class AbstractExcelImportPage<T extends AbstractAuditableEntity 
     protected void onInitialize() {
         super.onInitialize();
 
+        StringResourceModel importHelpModel = getImportHelp("importHelp");
+        boolean isVisible = StringUtils.isNotBlank(importHelpModel.getString());
+        editForm.add(new Label("importHelp", importHelpModel).setEscapeModelStrings(false).setVisible(isVisible));
+
         upload = new FileInputBootstrapFormComponent("upload", LambdaModel.of(this::getUploads, this::setUploads));
         upload.maxFiles(1);
         upload.allowedFileExtensions("xlsx");
@@ -74,6 +81,10 @@ public abstract class AbstractExcelImportPage<T extends AbstractAuditableEntity 
         extraButtons.add(downloadTemplate);
 
         editForm.add(new ExcelValidatorAndImporter());
+    }
+
+    protected StringResourceModel getImportHelp(String id) {
+        return new StringResourceModel(id, this);
     }
 
     protected Fragment getChildExtraButtons(String id) {
