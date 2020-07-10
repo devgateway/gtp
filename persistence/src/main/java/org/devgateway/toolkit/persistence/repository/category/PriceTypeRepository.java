@@ -1,11 +1,11 @@
 package org.devgateway.toolkit.persistence.repository.category;
 
-import java.util.List;
-
 import org.devgateway.toolkit.persistence.dao.categories.PriceType;
 import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
 import org.devgateway.toolkit.persistence.repository.norepository.TextSearchableRepository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author Octavian Ciubotaru
@@ -16,4 +16,7 @@ public interface PriceTypeRepository extends CategoryRepository<PriceType>,
 
     @CacheHibernateQueryResult
     List<PriceType> findAllByIdIn(List<Long> ids);
+
+    @CacheHibernateQueryResult
+    PriceType findByName(String name);
 }
