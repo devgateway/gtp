@@ -3,9 +3,6 @@ package org.devgateway.toolkit.forms.wicket.page.edit.category;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.collect.ImmutableMap;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
@@ -24,7 +21,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.components.form.Select2MultiChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.category.ListProductsPage;
@@ -42,12 +38,17 @@ import org.devgateway.toolkit.persistence.service.indicator.ProductYearlyPricesS
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author Octavian Ciubotaru
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/product")
 public class EditProductPage extends AbstractEditPage<Product> {
+    private static final long serialVersionUID = -7484213625055816509L;
 
     @SpringBean
     private ProductTypeService productTypeService;
@@ -103,11 +104,17 @@ public class EditProductPage extends AbstractEditPage<Product> {
         unit.required();
         editForm.add(unit);
 
+        if (!isExisting()) {
+            PriceType retail = priceTypeService.findByName(PriceType.NAME_RETAIL);
+            editForm.getModelObject().setPriceTypes(Collections.singletonList(retail));
+        }
+        /*
         Select2MultiChoiceBootstrapFormComponent<PriceType> priceTypes =
                 new Select2MultiChoiceBootstrapFormComponent<>("priceTypes",
                         new GenericPersistableJpaTextChoiceProvider<>(priceTypeService));
         priceTypes.required();
         editForm.add(priceTypes);
+         */
 
         deleteButton.setVisible(false);
 
@@ -119,6 +126,7 @@ public class EditProductPage extends AbstractEditPage<Product> {
         confirmationModal.show(false).setFadeIn(true).setUseKeyboard(true).size(Modal.Size.Medium);
         confirmationModal.addButton(savedSaveEditPageButton);
         confirmationModal.addButton(new BootstrapAjaxLink<String>("button", Buttons.Type.Danger) {
+            private static final long serialVersionUID = 5778554582441166404L;
 
             @Override
             public void onClick(AjaxRequestTarget target) {
@@ -131,6 +139,7 @@ public class EditProductPage extends AbstractEditPage<Product> {
     @Override
     public SaveEditPageButton getSaveEditPageButton(String id, IModel<String> labelModel) {
         return new SaveEditPageButton(id, labelModel) {
+            private static final long serialVersionUID = 6473135225459499343L;
 
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
@@ -161,6 +170,7 @@ public class EditProductPage extends AbstractEditPage<Product> {
     }
 
     private class UniqueProductNameValidator extends AbstractFormValidator {
+        private static final long serialVersionUID = 8280250506755250293L;
 
         private final FormComponent<?>[] dependentFormComponents;
         private final FormComponent<String> nameFC;

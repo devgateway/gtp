@@ -40,4 +40,24 @@
         </sql>
     </changeSet>
 
+    <changeSet id="ANACIM-247-product_price-retail-price-only" author="nmandrescu">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="category" columnName="name" />
+            <tableExists tableName="product_price" />
+        </preConditions>
+        <delete tableName="product_price">
+            <where>price_type_id != (select id from category where dtype='PriceType' and name='retail-price')</where>
+        </delete>
+    </changeSet>
+
+    <changeSet id="ANACIM-247-product-retail-price-only" author="nmandrescu">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="category" columnName="name" />
+            <tableExists tableName="product_price_types" />
+        </preConditions>
+        <delete tableName="product_price_types">
+            <where>price_types_id != (select id from category where dtype='PriceType' and name='retail-price')</where>
+        </delete>
+    </changeSet>
+
 </databaseChangeLog>
