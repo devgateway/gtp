@@ -19,6 +19,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  * @author Nadejda Mandrescu
@@ -27,8 +28,12 @@ import java.io.Serializable;
 @Entity
 @Audited
 @BatchSize(size = 100)
-public class PluviometricPost extends AbstractAuditableEntity implements Serializable, Labelable {
+public class PluviometricPost extends AbstractAuditableEntity implements Comparable<PluviometricPost>, Serializable,
+        Labelable {
     private static final long serialVersionUID = -7372273374563439000L;
+
+    // label is unique; cannot use ::toLabel (the overloaded method will be soon deleted), ::toString does the same
+    private static final Comparator<PluviometricPost> NATURAL = Comparator.comparing(PluviometricPost::toString);
 
     @NotNull
     @Column(nullable = false, unique = true)
@@ -102,5 +107,10 @@ public class PluviometricPost extends AbstractAuditableEntity implements Seriali
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    @Override
+    public int compareTo(PluviometricPost pp) {
+        return NATURAL.compare(this, pp);
     }
 }

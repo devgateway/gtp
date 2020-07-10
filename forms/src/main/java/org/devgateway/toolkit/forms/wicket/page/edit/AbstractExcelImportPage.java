@@ -5,8 +5,12 @@ import static java.util.stream.Collectors.joining;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.form.validation.AbstractFormValidator;
 import org.apache.wicket.markup.html.panel.Fragment;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
@@ -52,6 +56,10 @@ public abstract class AbstractExcelImportPage<T extends AbstractAuditableEntity 
     protected void onInitialize() {
         super.onInitialize();
 
+        StringResourceModel importHelpModel = getImportHelp("importHelp");
+        boolean isVisible = StringUtils.isNotBlank(importHelpModel.getString());
+        editForm.add(new Label("importHelp", importHelpModel).setEscapeModelStrings(false).setVisible(isVisible));
+
         upload = new FileInputBootstrapFormComponent("upload", LambdaModel.of(this::getUploads, this::setUploads));
         upload.maxFiles(1);
         upload.allowedFileExtensions("xlsx");
@@ -61,6 +69,8 @@ public abstract class AbstractExcelImportPage<T extends AbstractAuditableEntity 
         Fragment extraButtons = new Fragment("extraButtons", "excelExtraButtons", this);
         editForm.replace(extraButtons);
 
+        extraButtons.add(getChildExtraButtons("childExtraButtons"));
+
         download = getDownloadButton("download", false);
         download.setSize(Buttons.Size.Medium);
         download.setVisibilityAllowed(!editForm.getModelObject().isEmpty());
@@ -69,27 +79,30 @@ public abstract class AbstractExcelImportPage<T extends AbstractAuditableEntity 
         downloadTemplate = getDownloadButton("downloadTemplate", true);
         downloadTemplate.setSize(Buttons.Size.Medium);
         extraButtons.add(downloadTemplate);
+
+        editForm.add(new ExcelValidatorAndImporter());
+    }
+
+    protected StringResourceModel getImportHelp(String id) {
+        return new StringResourceModel(id, this);
+    }
+
+    protected Fragment getChildExtraButtons(String id) {
+        return new Fragment(id, "noButtons", this);
     }
 
     protected abstract BootstrapAjaxLink<?> getDownloadButton(String id, boolean template);
 
-    @Override
-    public SaveEditPageButton getSaveEditPageButton() {
-        return new CustomSaveEditPageButton("save",
-                new StringResourceModel("saveButton", this, null));
-    }
+    private class ExcelValidatorAndImporter extends AbstractFormValidator {
+        private static final long serialVersionUID = -9201030530968246406L;
 
-    private class CustomSaveEditPageButton extends SaveEditPageButton {
-        private static final long serialVersionUID = 7753752571113153373L;
-
-        CustomSaveEditPageButton(String id, IModel<String> model) {
-            super(id, model);
+        @Override
+        public FormComponent<?>[] getDependentFormComponents() {
+            return new FormComponent[0];
         }
 
         @Override
-        public void validate() {
-            super.validate();
-
+        public void validate(Form<?> form) {
             if (uploads.size() == 1) {
                 FileMetadata fileMetadata = uploads.get(0);
 

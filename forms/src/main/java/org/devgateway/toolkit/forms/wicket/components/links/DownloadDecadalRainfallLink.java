@@ -1,8 +1,10 @@
 package org.devgateway.toolkit.forms.wicket.components.links;
 
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.dto.MonthDTO;
+import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -10,10 +12,13 @@ import java.io.OutputStream;
 /**
  * @author Nadejda Mandrescu
  */
-public class DownloadDecadalRainfall extends AbstractGeneratedExcelDownloadLink<DecadalRainfall> {
+public class DownloadDecadalRainfallLink extends AbstractGeneratedExcelDownloadLink<DecadalRainfall> {
     private static final long serialVersionUID = -1753110031235443491L;
 
-    public DownloadDecadalRainfall(String id, IModel<DecadalRainfall> model, Boolean template) {
+    @SpringBean
+    private DecadalRainfallService decadalRainfallService;
+
+    public DownloadDecadalRainfallLink(String id, IModel<DecadalRainfall> model, Boolean template) {
         super(id, model, template);
     }
 
@@ -28,12 +33,12 @@ public class DownloadDecadalRainfall extends AbstractGeneratedExcelDownloadLink<
 
     @Override
     protected DecadalRainfall getTemplateObject() {
-        // TODO
-        return null;
+        DecadalRainfall dr = getModelObject();
+        return decadalRainfallService.getExample(dr.getYear(), dr.getMonth(), dr.getDecadal());
     }
 
     @Override
-    protected void generate(DecadalRainfall object, OutputStream outputStream) throws IOException {
-        // TODO
+    protected void generate(DecadalRainfall decadalRainfall, OutputStream outputStream) throws IOException {
+        decadalRainfallService.export(decadalRainfall, outputStream);
     }
 }

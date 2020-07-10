@@ -3,7 +3,7 @@ package org.devgateway.toolkit.forms.wicket.page.lists.panel;
 import org.apache.wicket.Page;
 import org.apache.wicket.model.IModel;
 import org.devgateway.toolkit.forms.wicket.components.links.AbstractGeneratedExcelDownloadLink;
-import org.devgateway.toolkit.forms.wicket.components.links.DownloadDecadalRainfall;
+import org.devgateway.toolkit.forms.wicket.components.links.DownloadDecadalRainfallLink;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 
 /**
@@ -19,6 +19,6 @@ public class DecadalRainfallActionPanel extends AbstractExcelListActionPanel<Dec
 
     @Override
     protected AbstractGeneratedExcelDownloadLink<?> getDownloadButton(String id) {
-        return new DownloadDecadalRainfall(id, getModel(), false);
+        return new DownloadDecadalRainfallLink(id, getModel(), getModelObject().isEmpty());
     }
 }
