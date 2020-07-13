@@ -23,6 +23,7 @@ import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.http.handler.RedirectRequestHandler;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -53,7 +54,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -501,7 +501,10 @@ public abstract class AbstractEditPage<T extends GenericPersistable> extends Bas
     }
 
     public void scheduleRedirect() {
-        if (referer != null) {
+        CharSequence urlStr = RequestCycle.get().urlFor(listPageClass, new PageParameters());
+        String listUrl = RequestCycle.get().getUrlRenderer().renderFullUrl(Url.parse(urlStr));
+
+        if (referer != null && referer.startsWith(listUrl)) {
             RequestCycle.get().scheduleRequestHandlerAfterCurrent(new RedirectRequestHandler(referer));
         } else {
             RequestCycle.get().setResponsePage(listPageClass);
