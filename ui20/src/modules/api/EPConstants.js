@@ -36,5 +36,5 @@ export const BULLETIN_ALL = GTP_ROOT + '/materials'
 export const BULLETIN_DOWNLOAD = GTP_ROOT + '/bulletin'
 export const BULLETIN_ANNUAL_REPORT_DOWNLOAD = GTP_ROOT + '/annual-report'
 
-const ESRI_SERVICE_INFO = 'http://services.arcgisonline.com/arcgis/rest/services/{service}?f=pjson'
+const ESRI_SERVICE_INFO = 'https://services.arcgisonline.com/arcgis/rest/services/{service}?f=pjson'
 export const ESRI_MAP_SERVICE_INFO = ESRI_SERVICE_INFO.replace('{service}', 'World_Street_Map/MapServer')
