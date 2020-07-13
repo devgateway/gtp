@@ -1,10 +1,6 @@
-package org.devgateway.toolkit.persistence.service.indicator;
+package org.devgateway.toolkit.persistence.service.indicator.river;
 
 import static java.util.stream.Collectors.toCollection;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
@@ -16,6 +12,10 @@ import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Octavian Ciubotaru

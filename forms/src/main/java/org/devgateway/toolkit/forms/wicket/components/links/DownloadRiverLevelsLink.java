@@ -2,6 +2,14 @@ package org.devgateway.toolkit.forms.wicket.components.links;
 
 import static java.util.stream.Collectors.toCollection;
 
+import org.apache.wicket.model.IModel;
+import org.danekja.java.util.function.serializable.SerializableBiFunction;
+import org.danekja.java.util.function.serializable.SerializableSupplier;
+import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
+import org.devgateway.toolkit.persistence.dao.IRiverLevel;
+import org.devgateway.toolkit.persistence.dao.IRiverStationYearlyLevels;
+import org.devgateway.toolkit.persistence.service.indicator.river.RiverLevelWriter;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -9,14 +17,6 @@ import java.time.MonthDay;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.BiFunction;
-
-import org.apache.wicket.model.IModel;
-import org.danekja.java.util.function.serializable.SerializableBiFunction;
-import org.danekja.java.util.function.serializable.SerializableSupplier;
-import org.devgateway.toolkit.forms.wicket.page.edit.category.RiverLevelWriter;
-import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
-import org.devgateway.toolkit.persistence.dao.IRiverLevel;
-import org.devgateway.toolkit.persistence.dao.IRiverStationYearlyLevels;
 
 /**
  * @author Octavian Ciubotaru

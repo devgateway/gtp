@@ -15,6 +15,7 @@ import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.IRiverLevel;
 import org.devgateway.toolkit.persistence.dao.IRiverStationYearlyLevels;
 import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
+import org.devgateway.toolkit.persistence.service.indicator.river.RiverLevelReader;
 import org.devgateway.toolkit.persistence.util.JPAUtil;
 
 import java.io.InputStream;
@@ -68,9 +69,9 @@ public class AbstractEditRiverStationYearlyLevelsPage
 
     @Override
     protected void importData(InputStream inputStream) throws ReaderException {
-        RiverLevelReader reader = new RiverLevelReader();
+        RiverLevelReader<L> reader = new RiverLevelReader<>(levelCreator);
 
-        Collection<L> levels = reader.read(inputStream, levelCreator);
+        Collection<L> levels = reader.read(inputStream);
 
         T entity = editForm.getModelObject();
 

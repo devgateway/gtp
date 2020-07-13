@@ -10,7 +10,7 @@ import org.devgateway.toolkit.forms.wicket.page.lists.indicator.riverlevel.ListR
 import org.devgateway.toolkit.persistence.dao.indicator.RiverLevel;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverStationYearlyLevels;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
-import org.devgateway.toolkit.persistence.service.indicator.RiverStationYearlyLevelsService;
+import org.devgateway.toolkit.persistence.service.indicator.river.RiverStationYearlyLevelsService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
