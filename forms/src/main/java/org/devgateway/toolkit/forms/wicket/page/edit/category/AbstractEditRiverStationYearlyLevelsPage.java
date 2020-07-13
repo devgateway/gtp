@@ -69,9 +69,9 @@ public class AbstractEditRiverStationYearlyLevelsPage
 
     @Override
     protected void importData(InputStream inputStream) throws ReaderException {
-        RiverLevelReader reader = new RiverLevelReader();
+        RiverLevelReader<L> reader = new RiverLevelReader<>(levelCreator);
 
-        Collection<L> levels = reader.read(inputStream, levelCreator);
+        Collection<L> levels = reader.read(inputStream);
 
         T entity = editForm.getModelObject();
 
