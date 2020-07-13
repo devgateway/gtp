@@ -40,8 +40,12 @@ public class RiverLevelReader<L extends IRiverLevel> extends AbstractExcelFileIn
         Set<L> data = new TreeSet<>();
 
         int lastRowNum = sheet.getLastRowNum();
-        for (int r = 1; r < lastRowNum; r++) {
+        for (int r = 1; r <= lastRowNum; r++) {
             XSSFRow row = sheet.getRow(r);
+
+            if (isEmptyRow(row, 1)) {
+                continue;
+            }
 
             XSSFCell dateCell = row.getCell(0);
             XSSFCell levelCell = row.getCell(1);
