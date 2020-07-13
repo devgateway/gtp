@@ -15,6 +15,7 @@ import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.IRiverLevel;
 import org.devgateway.toolkit.persistence.dao.IRiverStationYearlyLevels;
 import org.devgateway.toolkit.persistence.service.indicator.ReaderException;
+import org.devgateway.toolkit.persistence.service.indicator.river.RiverLevelReader;
 import org.devgateway.toolkit.persistence.util.JPAUtil;
 
 import java.io.InputStream;

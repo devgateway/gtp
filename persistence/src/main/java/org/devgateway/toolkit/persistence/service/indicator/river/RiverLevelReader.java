@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.forms.wicket.page.edit.category;
+package org.devgateway.toolkit.persistence.service.indicator.river;
 
 import java.io.IOException;
 import java.io.InputStream;

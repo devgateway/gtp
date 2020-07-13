@@ -44,7 +44,7 @@ import org.devgateway.toolkit.persistence.dto.season.SeasonPrediction;
 import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
 import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
 import org.devgateway.toolkit.persistence.service.indicator.RainSeasonService;
-import org.devgateway.toolkit.persistence.service.indicator.RiverStationYearlyLevelsService;
+import org.devgateway.toolkit.persistence.service.indicator.river.RiverStationYearlyLevelsService;
 import org.devgateway.toolkit.persistence.service.reference.RainLevelReferenceService;
 import org.devgateway.toolkit.persistence.service.reference.RainSeasonStartReferenceService;
 import org.devgateway.toolkit.persistence.service.reference.RiverStationYearlyLevelsReferenceService;
