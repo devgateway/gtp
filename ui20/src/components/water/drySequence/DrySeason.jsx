@@ -7,7 +7,7 @@ import * as C from "../../../modules/entities/Constants"
 import DrySequenceChartDTO from "../../../modules/graphic/water/drySequence/DrySequenceChartDTO"
 import messages from "../../../translations/messages"
 import DefaultBarOrNegativeValueAsZeroBar from "../../common/graphic/DefaultBarOrNegativeValueAsZeroBar"
-import * as sccJS from "../../css"
+import * as cssJS from "../../css"
 
 class DrySeason extends Component {
   static propTypes = {
@@ -36,7 +36,7 @@ class DrySeason extends Component {
           keys={drySequenceChartDTO.keys}
           indexBy={drySequenceChartDTO.indexBy}
           groupMode={drySequenceChartDTO.groupMode}
-          colors={[sccJS.GRAPHIC_COLOR_BLUE, sccJS.GRAPHIC_COLOR_BLUE, sccJS.GRAPHIC_COLOR_BLUE]}
+          colors={[cssJS.GRAPHIC_COLOR_BLUE, cssJS.GRAPHIC_COLOR_BLUE, cssJS.GRAPHIC_COLOR_BLUE]}
           barComponent={DefaultBarOrNegativeValueAsZeroBar}
           minValue={0}
           margin={{top: 50, bottom: 80, left: 60}}
@@ -52,7 +52,7 @@ class DrySeason extends Component {
             tickRotation: 0,
             legend: intl.formatMessage(messages.decadalsPerMonth),
             legendPosition: 'middle',
-            legendOffset: 52,
+            legendOffset: cssJS.NIVO_CHART_BOTTOM_LEGEND_OFFSET,
           }}
           maxValue={11}
           gridYValues={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}
@@ -77,7 +77,7 @@ class DrySeason extends Component {
           motionStiffness={90}
           motionDamping={15}
           layers={['grid', 'axes', 'bars', 'legends', 'markers']}
-          theme={sccJS.NIVO_THEME}
+          theme={cssJS.NIVO_THEME}
         />
       </div>
     )

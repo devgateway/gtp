@@ -3,7 +3,7 @@ import {line} from "d3-shape"
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {Tooltip} from 'react-svg-tooltip'
-import * as sccJS from "../../css"
+import * as cssJS from "../../css"
 import {INNER_PADDING} from "./RainfallGraphicConstants"
 
 const tooltipShift = 2
@@ -69,7 +69,7 @@ class ReferenceLine extends Component {
   }
 }
 
-const rgba = [sccJS.GRAPHIC_COLOR_GRAY1, sccJS.GRAPHIC_COLOR_GRAY2, sccJS.GRAPHIC_COLOR_GRAY3]
+const rgba = [cssJS.GRAPHIC_COLOR_GRAY1, cssJS.GRAPHIC_COLOR_GRAY2, cssJS.GRAPHIC_COLOR_GRAY3]
 
 export const ReferenceLineLayer = (intl, keysWithRefs) => ({ bars, xScale, yScale, keys }) => {
   let idx = 0

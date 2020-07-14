@@ -8,7 +8,7 @@ import RainfallDTO from "../../../modules/graphic/water/rainfall/RainfallDTO"
 import messages from "../../../translations/messages"
 import CustomLegendSymbol, {LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"
 import DefaultBarOrNegativeValueAsZeroBar from "../../common/graphic/DefaultBarOrNegativeValueAsZeroBar"
-import * as sccJS from "../../css"
+import * as cssJS from "../../css"
 import * as rainfallScc from "./rainfallCSS"
 import DecadalTick from "./DecadalTick"
 import {INNER_PADDING} from "./RainfallGraphicConstants"
@@ -47,7 +47,7 @@ class Rainfall extends Component {
       translateX: rainfallScc.LEGEND_TRANSLATE_X + keys.length * rainfallScc.LEGEND_YEAR_WIDTH,
       translateY: -30,
       itemsSpacing: 2,
-      itemWidth: rainfallScc.LEGEND_REF_YEAR_WIDTH + sccJS.LEGEND_SYMBOL_LINE_LENGTH,
+      itemWidth: rainfallScc.LEGEND_REF_YEAR_WIDTH + cssJS.LEGEND_SYMBOL_LINE_LENGTH,
       itemHeight: 20,
       itemDirection: 'left-to-right',
       itemOpacity: 1,
@@ -76,7 +76,7 @@ class Rainfall extends Component {
         keys={keys}
         indexBy={indexBy}
         groupMode='grouped'
-        colors={[sccJS.GRAPHIC_COLOR_BLUE, sccJS.GRAPHIC_COLOR_RED, sccJS.GRAPHIC_COLOR_YELLOW]}
+        colors={[cssJS.GRAPHIC_COLOR_BLUE, cssJS.GRAPHIC_COLOR_RED, cssJS.GRAPHIC_COLOR_YELLOW]}
         barComponent={DefaultBarOrNegativeValueAsZeroBar}
         maxValue={graphicMaxValue}
         minValue={0}
@@ -151,7 +151,7 @@ class Rainfall extends Component {
         motionStiffness={90}
         motionDamping={15}
         layers={layers}
-        theme={sccJS.NIVO_THEME}
+        theme={cssJS.NIVO_THEME}
       />
     </div>)
   }

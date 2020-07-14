@@ -10,7 +10,7 @@ import ProductAvgPrice from "../../../modules/entities/product/price/ProductAvgP
 import ProductPriceChartDTO from "../../../modules/graphic/market/productPrice/ProductPriceChartDTO"
 import ProductPriceLine from "../../../modules/graphic/market/productPrice/ProductPriceLine"
 import Chip from "../../common/graphic/Chip"
-import * as sccJS from "../../css"
+import * as cssJS from "../../css"
 import ProductPriceLegend, {getAveragePriceLabel} from "./ProductPriceLegend"
 
 class ProductPrice extends Component {
@@ -85,7 +85,7 @@ class ProductPrice extends Component {
           <ResponsiveLine
             enableGridY={true}
             enableGridX={false}
-            margin={{...sccJS.NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN, top: chartTop}}
+            margin={{...cssJS.NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN, top: chartTop}}
 
             data={data.lines}
             xScale={{
@@ -135,7 +135,7 @@ class ProductPrice extends Component {
 
             layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends',
             ]}
-            theme={sccJS.NIVO_THEME}
+            theme={cssJS.NIVO_THEME}
           />
         </div>
       </div>);
@@ -144,7 +144,7 @@ class ProductPrice extends Component {
 
 const getColorsByPriceType = (priceTypes: Array<PriceType>) => priceTypes.sort(PriceType.localeCompare)
   .reduce((map: Map, pt, index) => {
-    return map.set(pt.id, sccJS.PALLET_COLORS[index % sccJS.PALLET_COLORS.length])
+    return map.set(pt.id, cssJS.PALLET_COLORS[index % cssJS.PALLET_COLORS.length])
   }, new Map())
 
 const getColors = (lines, colorsByPriceType: Map<number, string>) =>
