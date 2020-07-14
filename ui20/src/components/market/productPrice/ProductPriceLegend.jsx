@@ -21,7 +21,7 @@ export default class ProductPriceLegend extends Component {
     const data: ProductPriceChartDTO = this.props.data
     const legendData = data.lines.map((l, index) => ({
       key: index,
-      label: l.id,
+      label: `${l.id} ${filter.year}`,
       color: lineColors[index],
       symbol: LEGEND_SYMBOL_CIRCLE,
     })).concat(data.previousYearAverages.map((avg, index) => ({
