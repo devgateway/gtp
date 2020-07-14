@@ -161,7 +161,7 @@ const CustomSliceTooltip = (filter, previousYearAverages: Array<ProductAvgPrice>
   const dataProp = "".concat(otherAxis, "Formatted")
   const sliceData = slice.points.map((point) => ({
     color: point.serieColor,
-    serieId: point.serieId,
+    serieId: `${point.serieId} ${year}`,
     value: point.data[dataProp]
   })).concat(previousYearAverages.map((avg, index) => ({
     color: avgColors[index],
