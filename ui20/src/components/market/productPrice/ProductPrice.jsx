@@ -60,7 +60,10 @@ class ProductPrice extends Component {
     const priceTypes = Array.from(this.props.agricultureConfig.priceTypes.values())
     const colorsByPriceType: Map<number, string> = getColorsByPriceType(priceTypes)
     const colors = getColors(data.lines, colorsByPriceType)
+    /* since only retail price is used, there will be one color only, so below can be restored when many prices are used
     const avgColors = getAvgMarkersColors(previousYearAverages, colorsByPriceType)
+    */
+    const avgColors = [sccJS.GRAPHIC_COLOR_ORANGE]
     // TODO responsive top detection
     const chartTop = colors.length + avgColors.length < 5 ? 10 : 50
 
