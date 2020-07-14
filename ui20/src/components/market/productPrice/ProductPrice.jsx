@@ -63,7 +63,7 @@ class ProductPrice extends Component {
     /* since only retail price is used, there will be one color only, so below can be restored when many prices are used
     const avgColors = getAvgMarkersColors(previousYearAverages, colorsByPriceType)
     */
-    const avgColors = [sccJS.GRAPHIC_COLOR_ORANGE]
+    const avgColors = [cssJS.GRAPHIC_COLOR_ORANGE]
     // TODO responsive top detection
     const chartTop = colors.length + avgColors.length < 5 ? 10 : 50
 
@@ -153,6 +153,7 @@ const getColorsByPriceType = (priceTypes: Array<PriceType>) => priceTypes.sort(P
 const getColors = (lines, colorsByPriceType: Map<number, string>) =>
   lines.map((l: ProductPriceLine) => colorsByPriceType.get(l.priceType.id))
 
+// eslint-disable-next-line no-unused-vars
 const getAvgMarkersColors = (avgPrices, colorsByPriceType: Map<number, string>) =>
   avgPrices.map((avg: ProductAvgPrice) => colorsByPriceType.get(avg.priceType.id))
 
