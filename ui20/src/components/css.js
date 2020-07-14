@@ -49,9 +49,12 @@ export const FOOTER_HEIGHT = 297
 
 export const GRAPHIC_TITLE_LEFT_PADDING = 21
 
+export const NIVO_CHART_BOTTOM = 65
+export const NIVO_CHART_BOTTOM_LEGEND_OFFSET = 40
+
 export const NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN = {
   top: 10,
   right: 50,
-  bottom: 75,
+  bottom: 65,
   left: 60
 }

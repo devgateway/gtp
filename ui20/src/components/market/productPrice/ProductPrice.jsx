@@ -81,7 +81,7 @@ class ProductPrice extends Component {
             lineColors={colors}
             onAveragePriceToggle={this.onAveragePriceToggle}/>
         </div>
-        <div key="chart" className="graphic-content">
+        <div key="chart" className="graphic-content custom-legend">
           <ResponsiveLine
             enableGridY={true}
             enableGridX={false}

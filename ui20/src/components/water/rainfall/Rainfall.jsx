@@ -80,7 +80,7 @@ class Rainfall extends Component {
         barComponent={DefaultBarOrNegativeValueAsZeroBar}
         maxValue={graphicMaxValue}
         minValue={0}
-        margin={{ top: 50, bottom: 80, left: 60 }}
+        margin={{ top: 50, bottom: cssJS.NIVO_CHART_BOTTOM, left: 60 }}
         padding={0.3}
         innerPadding={INNER_PADDING}
         fill={[]}
@@ -93,8 +93,8 @@ class Rainfall extends Component {
           tickRotation: 0,
           legend: intl.formatMessage(byDecadal ? messages.decadalsPerMonth : messages.months),
           legendPosition: 'middle',
-          // legendOffset: byDecadal ? 62 : 52,
-          legendOffset: 52,
+          // legendOffset: byDecadal ? 62 : cssJS.NIVO_CHART_BOTTOM_LEGEND_OFFSET,
+          legendOffset: cssJS.NIVO_CHART_BOTTOM_LEGEND_OFFSET,
           renderTick: (tick) => DecadalTick(tick, monthDecadal)
         }}
         axisLeft={{

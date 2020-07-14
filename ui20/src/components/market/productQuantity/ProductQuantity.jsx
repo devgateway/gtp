@@ -40,7 +40,7 @@ class ProductQuantity extends Component {
     return (
       <div>
         <ProductQuantityLegend data={data} colors={colors} />
-        <div key="chart" className="graphic-content">
+        <div key="chart" className="graphic-content custom-legend">
           <ResponsiveLine
             enableGridY={true}
             enableGridX={false}

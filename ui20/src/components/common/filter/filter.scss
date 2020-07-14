@@ -1,14 +1,17 @@
 @import '../../../base';
+@import '../graphic/indicator-base';
 
 .indicator.chart.filter {
-  height: 64px;
+  max-height: $property-max-height;
+  min-height: $property-min-height;
+  height: calc(12px + 5.5vh);
 
   .ui.fluid.dropdown {
     display: block;
     width: 100%;
     height: 32px;
     min-width: 250px;
-    font-size: 12px;
+    font-size: $property-font-size;
     border: 1px solid #ced0da;
     float: left;
     border-radius: 4px;
@@ -20,7 +23,7 @@
     font-weight: normal;
     line-height: inherit;
     padding-left: 16px;
-    font-size: 12px;
+    font-size: $property-font-size;
     height: 100%;
 
     .breadcrums {
@@ -30,7 +33,7 @@
 
       .filterName {
         font-weight: 600;
-        font-size: 12px;
+        font-size: $property-font-size;
         color: #364833;
         padding-right: 10px;
       }

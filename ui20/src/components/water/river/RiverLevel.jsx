@@ -83,7 +83,7 @@ class RiverLevel extends Component {
         <ResponsiveLine
           enableGridY={true}
           enableGridX={false}
-          margin={{ top: 50, right: 50, bottom: 75, left: 60 }}
+          margin={{ top: 50, right: 50, bottom: cssJS.NIVO_CHART_BOTTOM, left: 60 }}
 
           data={data.lines}
           xScale={{
@@ -111,7 +111,7 @@ class RiverLevel extends Component {
             format: (date: Date) => intl.formatMessage({ id: `all.month.${date.getMonth() + 1}`}),
             tickValues: 'every month',
             tickSize: 10,
-            legendOffset: 40,
+            legendOffset: cssJS.NIVO_CHART_BOTTOM_LEGEND_OFFSET,
             legendPosition: 'middle'
           }}
           curve="monotoneX"

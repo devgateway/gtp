@@ -39,7 +39,7 @@ class DrySeason extends Component {
           colors={[cssJS.GRAPHIC_COLOR_BLUE, cssJS.GRAPHIC_COLOR_BLUE, cssJS.GRAPHIC_COLOR_BLUE]}
           barComponent={DefaultBarOrNegativeValueAsZeroBar}
           minValue={0}
-          margin={{top: 50, bottom: 80, left: 60}}
+          margin={{top: 50, bottom: cssJS.NIVO_CHART_BOTTOM, left: 60}}
           padding={0.3}
           innerPadding={3}
           fill={[]}
