@@ -19,14 +19,17 @@ class RainSeasonGraphic extends Component {
     const {filter, getRainSeason} = this.props;
     const {rainSeasonTableDTO} = getRainSeason()
 
-    return (<Graphic id="anchor.indicator.water.rainseason" titleId="indicators.table.rainseason.title">
-      <div className="indicator chart properties">
-        <div className="indicator chart filter">
-          <RainSeasonTableFilter columnName={C.YEAR} filter={filter} config={rainSeasonTableDTO.config} max={1} min={1} />
+    return (
+      <Graphic id="anchor.indicator.water.rainseason" titleId="indicators.table.rainseason.title">
+        <div className="indicator chart properties">
+          <div className="indicator chart filter">
+            {C.COLUMNS.filter(name => !!C.FILTER_MESSAGE_KEY[name]).map(name =>
+              <RainSeasonTableFilter columnName={name} filter={filter} config={rainSeasonTableDTO.config} min={0}/>)}
+            <RainSeasonTableFilter columnName={C.YEAR} filter={filter} config={rainSeasonTableDTO.config} max={1} min={1} />
+          </div>
         </div>
-      </div>
-      <RainSeasonTable rainSeasonTableDTO={rainSeasonTableDTO} {...this.props}/>
-    </Graphic>)
+        <RainSeasonTable rainSeasonTableDTO={rainSeasonTableDTO} {...this.props}/>
+      </Graphic>)
   }
 }
 

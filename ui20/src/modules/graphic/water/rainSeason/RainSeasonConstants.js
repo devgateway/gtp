@@ -26,4 +26,4 @@ FILTER_MESSAGE_KEY[REGION] = "all.region"
 FILTER_MESSAGE_KEY[DEPARTMENT] = "all.department"
 FILTER_MESSAGE_KEY[POST] = "all.post"
 
-export const SORTABLE_COLUMNS = new Set([PLANNED, ACTUAL, DIFFERENCE])
+export const SORTABLE_COLUMNS = new Set(COLUMNS)
