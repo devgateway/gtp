@@ -27,7 +27,7 @@ class RainSeasonTableFilter extends Component {
     const isYearFilter = columnName === C.YEAR
     const onSetFilter = (value) => setFilter(path, value, isYearFilter)
     return (
-      <div className="filter item">
+      <div className="filter item small">
         <FilterDropDown
           options={options} onChange={onSetFilter} withSearch={!isYearFilter}
           single={max === 1} max={max} min={min}

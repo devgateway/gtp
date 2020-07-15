@@ -2,15 +2,16 @@
 @import '../graphic/indicator-base';
 
 .indicator.chart.filter {
-  max-height: $property-max-height;
-  min-height: $property-min-height;
-  height: calc(12px + 5.5vh);
+  height: 100%;
 
   .ui.fluid.dropdown {
     display: block;
     width: 100%;
     height: 32px;
-    min-width: 250px;
+    min-width: $filter-min-width;
+    @include ad3user {
+      min-width: $filter-min-width-small;
+    }
     font-size: $property-font-size;
     border: 1px solid #ced0da;
     float: left;
@@ -56,8 +57,12 @@
     background-color: #FFF !important;
     border: 0;
     margin-left: 0;
-    min-width: 209px;
-    max-width: 250px;
+    min-width: $filter-min-width;
+    max-width: $filter-max-width;
+    @include ad3user {
+      min-width: $filter-min-width-small;
+      max-width: $filter-max-width-small;
+    }
     width: auto !important;
 
     .item {
@@ -132,8 +137,14 @@
   }
 
   .filter.item {
-    float: left;
+    max-height: $property-max-height;
+    min-height: $property-min-height;
+    height: calc(12px + 5.5vh) !important;
     margin-left: 21px;
+
+    &.small {
+      height: 100% !important;
+    }
 
     .ui.input.search {
       margin: 11px;

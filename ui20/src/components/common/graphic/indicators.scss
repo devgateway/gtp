@@ -817,6 +817,8 @@
     .filter, .setting {
       display: inline-flex;
       align-items: center;
+      flex-wrap: wrap;
+      height: 100%;
     }
 
     .filter.options {

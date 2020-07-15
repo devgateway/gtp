@@ -9,6 +9,9 @@
 
     .table-wrapper {
       min-height: 423px;
+      @include ad3user {
+        min-height: 370px;
+      }
 
       .ui.celled {
         border-width: 0;
@@ -22,6 +25,7 @@
           padding: 0.4rem;
           color: #7f8fa4;
           font-weight: 600;
+          height: 40px;
 
           span {
             display: inline;
@@ -103,6 +107,9 @@
 
         td {
           font-weight: 600;
+          @include ad3user {
+            padding: 0.5em;
+          }
           .difference {
             float: right;
           }
