@@ -310,6 +310,11 @@ hr.edit-separator {
     width: 33%;
 }
 
+.zone {
+    width: 95px;
+    min-width: 95px;
+}
+
 .navigation .page-size-selector {
     float: left;
     margin: 20px 0;

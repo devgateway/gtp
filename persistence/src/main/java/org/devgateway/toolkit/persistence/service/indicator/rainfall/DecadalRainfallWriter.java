@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.service.indicator.rainfall;
 
+import com.google.common.collect.ImmutableList;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -10,7 +12,6 @@ import org.devgateway.toolkit.persistence.dao.location.Zone;
 import org.devgateway.toolkit.persistence.excel.indicator.AbstractExcelFileIndicatorWriter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
@@ -23,7 +24,6 @@ public class DecadalRainfallWriter extends AbstractExcelFileIndicatorWriter {
 
     public static final int ZONE_COL_ID = 0;
     public static final int LOCALITY_COL_ID = 1;
-    public static final List<Integer> SKIP_COL_IDS = Arrays.asList(2, 3);
     public static final int DAY_START_COL_ID = 4;
 
     private final DecadalRainfall decadalRainfall;
@@ -50,14 +50,18 @@ public class DecadalRainfallWriter extends AbstractExcelFileIndicatorWriter {
     protected void writeTableHeader() {
         sheet.setColumnWidth(ZONE_COL_ID, 15 * 256);
         sheet.setColumnWidth(LOCALITY_COL_ID, 25 * 256);
-        SKIP_COL_IDS.forEach(skipId -> sheet.setColumnWidth(skipId, 3 * 256));
+        sheet.setColumnWidth(2, 6 * 256);
+        sheet.setColumnWidth(3, 6 * 256);
         for (int dayId = DAY_START_COL_ID; dayId <= this.dayEndColId; dayId++) {
             sheet.setColumnWidth(dayId, 6 * 256);
+        }
+        for (int lastSkipColId = this.dayEndColId + 1; lastSkipColId <= this.dayEndColId + 4; lastSkipColId++) {
+            sheet.setColumnWidth(lastSkipColId, 6 * 256);
         }
 
         int hRowId = rowNo;
         XSSFRow row = this.createRow();
-        this.createRow();
+        XSSFRow row2 = this.createRow();
 
         row.createCell(ZONE_COL_ID).setCellValue("ZONES");
         sheet.addMergedRegion(new CellRangeAddress(hRowId, hRowId + 1, ZONE_COL_ID, ZONE_COL_ID));
@@ -72,6 +76,17 @@ public class DecadalRainfallWriter extends AbstractExcelFileIndicatorWriter {
             cell.setCellValue(d);
             sheet.addMergedRegion(new CellRangeAddress(hRowId, hRowId + 1, dayColId, dayColId));
         }
+
+        List<Pair<Integer, String>> skipGroups = ImmutableList.of(
+                Pair.of(2, "ANTERIEUR"),
+                Pair.of(this.dayEndColId + 1, "CUMUL DECADE"),
+                Pair.of(this.dayEndColId + 3, "CUMUL SAISON"));
+        skipGroups.forEach(colGroup -> {
+            row.createCell(colGroup.getLeft()).setCellValue(colGroup.getValue());
+            sheet.addMergedRegion(new CellRangeAddress(hRowId, hRowId, colGroup.getLeft(), colGroup.getLeft() + 1));
+            row2.createCell(colGroup.getLeft()).setCellValue("CUM");
+            row2.createCell(colGroup.getLeft() + 1).setCellValue("NBJ");
+        });
     }
 
     @Override
