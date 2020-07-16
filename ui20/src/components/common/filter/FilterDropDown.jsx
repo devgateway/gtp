@@ -225,7 +225,8 @@ const FilterOptions = (id, selected, updateSelection, allowSelect, allowDeselect
               {o.text}
 
             </Dropdown.Item>)
-          return withTooltips ? (<Popup content={o.text} trigger={di} disabled={false} hoverable size="mini" />) : di
+          return withTooltips ?
+            (<Popup key={o.key} content={o.text} trigger={di} disabled={false} hoverable size="mini" />) : di
         })}
     </Dropdown.Menu>
     <Dropdown.Divider/>
