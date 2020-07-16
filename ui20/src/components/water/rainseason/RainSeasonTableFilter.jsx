@@ -31,7 +31,7 @@ class RainSeasonTableFilter extends Component {
         <FilterDropDown
           options={options} onChange={onSetFilter} withSearch={!isYearFilter}
           single={max === 1} max={max} min={min}
-          selected={filter[filterName]}
+          selected={filter[filterName]} withTooltips={!isYearFilter}
           text={<FormattedMessage id={C.FILTER_MESSAGE_KEY[columnName]} defaultMessage={columnName}/>}/>
       </div>
     )

@@ -36,25 +36,25 @@ const ProductQuantityFilters = (props) => {
   const {setYearFilter, setProductTypeFilter, setMarketFilter, config, intl}  = props
   const {year, productTypeId, marketId} = props.filter
   return (
-    <div className="indicator chart filter">
-      <div className="filter item">
+    <div className="indicator chart filter three-filters">
+      <div className="filter item fixed">
         <FilterDropDown
           options={yearsToOptions(config.years)} onChange={(years) => setYearFilter(years[0])}
           min={1} max={1} single
           selected={[year]} text={intl.formatMessage({ id: "indicators.filters.year" })} />
       </div>
-      <div className="filter item">
+      <div className="filter item fixed">
         <FilterDropDown
           options={anyWithIdAndLabelToOptions(config.productTypes)}
           onChange={(productTypeIds) => setProductTypeFilter(productTypeIds[0])}
-          min={1} max={1} single
+          min={1} max={1} single withTooltips
           selected={[productTypeId]} text={intl.formatMessage({ id: "indicators.filters.product.type" })} />
       </div>
-      <div className="filter item">
+      <div className="filter item fixed">
         <FilterDropDown
           options={anyWithIdAndNameToOptions(config.markets)}
           onChange={(marketIds) => setMarketFilter(marketIds[0])}
-          min={1} max={1} single withSearch
+          min={1} max={1} single withSearch withTooltips
           selected={[marketId]} text={intl.formatMessage({ id: "indicators.filters.market" })} />
       </div>
     </div>)

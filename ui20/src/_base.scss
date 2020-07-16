@@ -72,3 +72,10 @@ $screen-xl-min: 1200px;
     @content;
   }
 }
+
+@mixin rwd-max($screen) {
+  @media (max-width: $screen+'px') {
+    @content;
+  }
+}
+

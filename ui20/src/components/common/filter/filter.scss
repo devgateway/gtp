@@ -9,9 +9,7 @@
     width: 100%;
     height: 32px;
     min-width: $filter-min-width;
-    @include ad3user {
-      min-width: $filter-min-width-small;
-    }
+    max-width: $filter-max-width;
     font-size: $property-font-size;
     border: 1px solid #ced0da;
     float: left;
@@ -26,11 +24,15 @@
     padding-left: 16px;
     font-size: $property-font-size;
     height: 100%;
+    max-width: calc(100% - 25px);
+    white-space: nowrap;
 
     .breadcrums {
       display: inline-flex;
       align-items: center;
       height: 100%;
+      max-width: 100%;
+      margin-right: 10px;
 
       .filterName {
         font-weight: 600;
@@ -39,7 +41,8 @@
         padding-right: 10px;
       }
       .filterValue {
-        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .description {
         font-size: 11px;
@@ -57,17 +60,17 @@
     background-color: #FFF !important;
     border: 0;
     margin-left: 0;
-    min-width: $filter-min-width;
-    max-width: $filter-max-width;
-    @include ad3user {
-      min-width: $filter-min-width-small;
-      max-width: $filter-max-width-small;
+    min-width: inherit;
+    max-width: $filter-item-max-width;
+
+    .filter-item-tooltip {
+      pointer-events: auto;
     }
-    width: auto !important;
 
     .item {
       font-size: 12px;
-      margin-right: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .header {
@@ -142,6 +145,10 @@
     height: calc(12px + 5.5vh) !important;
     margin-left: 21px;
 
+    &.fixed {
+      min-width: $filter-fixed-width;
+    }
+
     &.small {
       height: 100% !important;
     }
@@ -161,24 +168,84 @@
         margin-left: 0 !important;
         border-bottom: 1px solid $border-color;
 
-        .item {
-          margin-right: 0;
-        }
-        a::after {
-          padding-left: 16px;
-          margin-right: -16px;
-          content: '';
-          font-size: 12px;
-          border-right: 1px solid $border-color;
-        }
-        a:last-child::after {
-          display: none;
+        &.tabular {
+          .item {
+            padding-right: 0 !important;
+            max-width: calc(100% - 16px);
+            width: auto;
+          }
+          a::after {
+            padding-left: 16px;
+            content: '';
+            font-size: 12px;
+            border-right: 1px solid $border-color;
+          }
+          a:last-child::after {
+            border: 0;
+          }
         }
       }
       .ui.bottom.attached.segment.tab {
         padding: 0;
         border: 0;
         margin: 0;
+      }
+    }
+  }
+
+  &.two-filters .filter.item {
+    @include rwd-max(750) {
+      min-width: $filter-min-width-small;
+    }
+    .ui.fluid.dropdown {
+      @include rwd-max(750) {
+        min-width: $filter-min-width-small;
+      }
+    }
+    .menu {
+      @include rwd(880) {
+        width: auto;
+      }
+      @include rwd-max(880) {
+        max-width: inherit !important;
+      }
+    }
+  }
+
+  &.three-filters .filter.item {
+    @include rwd-max(1070) {
+      min-width: $filter-min-width-small;
+    }
+    .ui.fluid.dropdown {
+      @include rwd-max(1070) {
+        min-width: $filter-min-width-small;
+      }
+    }
+    .menu {
+      @include rwd(1105) {
+        width: auto;
+      }
+      @include rwd-max(1105) {
+        max-width: inherit !important;
+      }
+    }
+  }
+
+  &.five-filters .filter.item {
+    @include rwd-max(1440) {
+      min-width: $filter-min-width-small;
+    }
+    .ui.fluid.dropdown {
+      @include rwd-max(1440) {
+        min-width: $filter-min-width-small;
+      }
+    }
+    .menu {
+      @include rwd(1550) {
+        width: auto;
+      }
+      @include rwd-max(1550) {
+        max-width: inherit !important;
       }
     }
   }
