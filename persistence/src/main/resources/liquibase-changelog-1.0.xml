@@ -60,4 +60,35 @@
         </delete>
     </changeSet>
 
+    <changeSet id="ANACIM-247-product_price-also-head_price" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <columnExists tableName="category" columnName="name" />
+            <tableExists tableName="product_price" />
+            <tableExists tableName="product_price_types" />
+        </preConditions>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="PriceType" />
+            <column name="name" value="head-price" />
+            <column name="label" value="Prix par tête" />
+        </insert>
+        <delete tableName="product_price">
+            <where>
+                product_yearly_prices_id in (
+                    select id from product_yearly_prices
+                    where product_type_id = (select id from category where dtype='ProductType' and name='livestock'))
+            </where>
+        </delete>
+        <delete tableName="product_price_types" />
+        <sql>
+            INSERT into product_price_types (
+                SELECT p.id product_id, price.id as price_type_id
+                FROM product p join category pt on p.product_type_id = pt.id, category price
+                    WHERE price.dtype='PriceType'
+                    AND ((pt.name='livestock' and price.name='head-price')
+                            OR (pt.name!='livestock' and price.name='retail-price'))
+            )
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

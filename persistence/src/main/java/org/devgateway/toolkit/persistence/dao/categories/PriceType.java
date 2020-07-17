@@ -12,7 +12,8 @@ import javax.persistence.Entity;
 public class PriceType extends Category {
     private static final long serialVersionUID = -4435417721030612488L;
 
-    public static final String NAME_RETAIL = "retail-price";
+    public static final String RETAIL_PRICE_NAME = "retail-price";
+    public static final String HEAD_PRICE_NAME = "head-price";
 
     public PriceType() {
     }
