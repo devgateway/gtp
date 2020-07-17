@@ -57,9 +57,13 @@ class ProductPrice extends Component {
     const {previousYearAverages} = data
     const {hideAvgPrices} = this.state
 
+    /*
     const priceTypes = Array.from(this.props.agricultureConfig.priceTypes.values())
     const colorsByPriceType: Map<number, string> = getColorsByPriceType(priceTypes)
     const colors = getColors(data.lines, colorsByPriceType)
+    // one product line only =>
+     */
+    const colors = [cssJS.PALLET_COLORS[0]]
     /* since only retail price is used, there will be one color only, so below can be restored when many prices are used
     const avgColors = getAvgMarkersColors(previousYearAverages, colorsByPriceType)
     */
@@ -145,11 +149,13 @@ class ProductPrice extends Component {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 const getColorsByPriceType = (priceTypes: Array<PriceType>) => priceTypes.sort(PriceType.localeCompare)
   .reduce((map: Map, pt, index) => {
     return map.set(pt.id, cssJS.PALLET_COLORS[index % cssJS.PALLET_COLORS.length])
   }, new Map())
 
+// eslint-disable-next-line no-unused-vars
 const getColors = (lines, colorsByPriceType: Map<number, string>) =>
   lines.map((l: ProductPriceLine) => colorsByPriceType.get(l.priceType.id))
 

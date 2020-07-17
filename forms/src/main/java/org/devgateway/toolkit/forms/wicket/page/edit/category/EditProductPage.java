@@ -104,10 +104,6 @@ public class EditProductPage extends AbstractEditPage<Product> {
         unit.required();
         editForm.add(unit);
 
-        if (!isExisting()) {
-            PriceType retail = priceTypeService.findByName(PriceType.NAME_RETAIL);
-            editForm.getModelObject().setPriceTypes(Collections.singletonList(retail));
-        }
         /*
         Select2MultiChoiceBootstrapFormComponent<PriceType> priceTypes =
                 new Select2MultiChoiceBootstrapFormComponent<>("priceTypes",
@@ -144,6 +140,12 @@ public class EditProductPage extends AbstractEditPage<Product> {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 Product product = editForm.getModelObject();
+
+                if (!isExisting()) {
+                    String defaultPriceType = ProductType.PRODUCT_PRICE_TYPE.get(product.getProductType().getName());
+                    PriceType retail = priceTypeService.findByName(defaultPriceType);
+                    product.setPriceTypes(Collections.singletonList(retail));
+                }
 
                 List<Long> removed = new ArrayList<>(priceTypeIds);
                 product.getPriceTypes().forEach(pt -> removed.remove(pt.getId()));

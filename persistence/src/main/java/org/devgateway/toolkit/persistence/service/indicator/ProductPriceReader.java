@@ -27,7 +27,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -47,8 +46,6 @@ public class ProductPriceReader extends AbstractExcelFileIndicatorReader<Product
     private final SearchableCollection<Product> products;
 
     private final boolean productsOnSeparateRows;
-
-    private LinkedHashSet<String> errors;
 
     private ProductPriceColumns cols;
 
