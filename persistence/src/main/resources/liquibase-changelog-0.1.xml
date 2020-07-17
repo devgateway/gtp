@@ -564,6 +564,7 @@
     </changeSet>
 
     <changeSet id="ANACIM-139" author="Octavian Ciubotaru">
+        <validCheckSum>8:302a93c862ed78feafda526a4ae2ea6c</validCheckSum>
         <preConditions onFail="CONTINUE">
             <tableExists tableName="market" />
             <tableExists tableName="product_price" />
