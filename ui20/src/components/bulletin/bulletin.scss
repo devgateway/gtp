@@ -6,7 +6,7 @@ $bulletin-border: 1px solid $bulletin-border-color;
 
 .bulletins-container {
   margin: 1rem;
-  max-width: $screen-xl-min;
+  max-width: $screen-xl-width-min;
 
   .ui.segment {
     box-shadow: none;
