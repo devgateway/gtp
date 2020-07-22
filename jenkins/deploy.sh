@@ -15,7 +15,7 @@ echo "$CONFIG" > /etc/default/ad3
 
 if [ "$RECREATE_DB" = "true" ] && [ -f "/opt/ad3/recreate-db.sh" ]; then
   sudo systemctl stop ad3
-  /opt/ad3/recreate-db.sh
+  /bin/sh -xe /opt/ad3/recreate-db.sh
 fi
 
 if [ -f $SRC ]; then
