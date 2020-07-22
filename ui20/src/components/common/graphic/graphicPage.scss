@@ -1,5 +1,7 @@
 @import '../../../base';
 
+$graphic-menu-image-size: 16px;
+
 .graphic-page {
   .graphic-menu {
     .ui.sticky, .ui.stuck-container {
@@ -22,7 +24,7 @@
         font-size: 12px;
         font-weight: 600;
         color: #a6a6a6;
-        padding: $menu-entry-padding 0;
+        padding: #{'max(min(29px, 3vh), 3px)'} 0;
         display: flex;
         align-items: center;
       }
@@ -34,11 +36,11 @@
       }
       img:not(.ui) {
         border: unset;
-        width: 16px;
+        width: $graphic-menu-image-size;
         margin-right: 5px;
       }
       .icon {
-        width: 16px;
+        width: $graphic-menu-image-size;
         margin-right: 5px;
       }
     }
@@ -59,7 +61,7 @@
   .graphics {
     margin-top: 0;
     border: 0;
-    padding-top: $menu-entry-height;
+    padding-top: calc(#{$graphic-menu-image-size} + 2 * #{'max(min(29px, 3vh), 3px)'});
 
     .tooltips.white {
       background-color: #FFF !important;

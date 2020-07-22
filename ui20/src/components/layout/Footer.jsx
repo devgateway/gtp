@@ -5,7 +5,7 @@ import {FormattedHTMLMessage} from 'react-intl';
 import './footer.scss';
 
 const Footer = (props) => {
-  return (<div className="footer">
+  return (<div id="ad3-footer" className="footer">
 
     <div className="st-row">
 
