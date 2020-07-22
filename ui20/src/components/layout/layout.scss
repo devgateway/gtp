@@ -1,7 +1,22 @@
 @import '../../base';
 
 .ui.grid.page-layout {
-  padding-top: $header-height;
+  @if $hide-header {
+    margin-top: -38px;
+    >.row {
+      padding-top: 0;
+    }
+  }
+  @include hlg {
+    padding-top: $header-height;
+    margin-top: 0;
+    >.row {
+      padding-top: 0;
+    }
+  }
+  @include ad3user {
+    padding-top: $header-height-small;
+  }
 }
 
 .page-layout {
@@ -17,7 +32,16 @@
       position: relative !important;
     }
     .top {
-      top: $header-height !important;
+      @if $hide-header {
+        margin-top: -38px;
+      }
+      @include hlg {
+        top: $header-height !important;
+        margin-top: 0;
+      }
+      @include ad3user {
+        top: $header-height-small !important;
+      }
     }
     .bottom {
       top: unset;

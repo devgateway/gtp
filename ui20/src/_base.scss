@@ -14,8 +14,14 @@ $color-green: #569e4d;
 $color-ligth-green:#8ab563;
 $color-dark-gray: #354052;
 
-// TODO (SCROLLING_MENU) make them exportable for reuse in menu display while scrolling
-$header-height: 70px;
+$header-line-height-small: 18px;
+$header-line-height: 20px;
+$header-padding-small: 10px;
+$header-padding: 15px;
+$header-height-small: calc(#{$header-line-height-small} + 2 * #{$header-padding-small});
+$header-height: calc(2 * #{$header-line-height} + 2 * #{$header-padding});
+$hide-header: false;
+
 $footer-height: 297px;
 $menu-entry-padding: 29px;
 $menu-entry-height: 2 * $menu-entry-padding;
@@ -23,8 +29,9 @@ $menu-height: $menu-entry-height * 6;
 $menu-max-width: 250px;
 
 $ad3-cnsc-header: 80px;
-$ad3-user-height: 760px;
-$ad3-cnsc-max-height-breaking-point: $ad3-user-height + $ad3-cnsc-header;
+$ad3-user-height: 768px;
+// $browser-titlebar-and-taskbar-height: 80px + 40px;
+$ad3-cnsc-max-height-breaking-point: $ad3-user-height;
 
 // Small tablets and large smartphones (landscape view)
 $screen-sm-width-min: 640px;
@@ -70,7 +77,7 @@ $screen-xl-height-min: 800px;
   }
 }
 @mixin hmd {
-  @media (min-width: #{$screen-md-height-min}) {
+  @media (min-height: #{$screen-md-height-min}) {
     @content;
   }
 }
@@ -81,7 +88,7 @@ $screen-xl-height-min: 800px;
   }
 }
 @mixin hlg {
-  @media (min-width: #{$screen-lg-height-min}) {
+  @media (min-height: #{$screen-lg-height-min}) {
     @content;
   }
 }
@@ -92,7 +99,7 @@ $screen-xl-height-min: 800px;
   }
 }
 @mixin hxl {
-  @media (min-width: #{$screen-xl-height-min}) {
+  @media (min-height: #{$screen-xl-height-min}) {
     @content;
   }
 }
@@ -115,4 +122,3 @@ $screen-xl-height-min: 800px;
     @content;
   }
 }
-

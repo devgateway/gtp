@@ -9,9 +9,7 @@ import {cssClasses} from "../../ComponentUtil"
 import "./menu.scss"
 import MenuEntry, {APP_MENU} from "./MenuEntry"
 import {MenuNavButtonClosed, MenuNavButtonOpen} from "./MenuNavButton"
-import * as cssJS from '../../css'
 
-// TODO (SCROLLING_MENU) make them exportable for reuse from _base.scss
 
 class Menu extends Component {
   static propTypes = {

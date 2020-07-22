@@ -1,12 +1,23 @@
 @import '../../../base';
 
 $graphic-menu-image-size: 16px;
+$graphic-link-font-size: 12px;
+$graphic-link-padding: #{'max(min(29px, 3vh), 3px)'};
 
 .graphic-page {
   .graphic-menu {
     .ui.sticky, .ui.stuck-container {
       position: fixed;
-      top: $header-height !important;
+      @if $hide-header {
+        margin-top: -38px;
+      }
+      @include hlg {
+        top: $header-height !important;
+        margin-top: 0;
+      }
+      @include ad3user {
+        top: $header-height-small !important;
+      }
       width: 100%;
       /* WebKit-based browsers will ignore this. */
       width: -moz-available;
@@ -21,10 +32,10 @@ $graphic-menu-image-size: 16px;
 
       .link {
         height: 25px;
-        font-size: 12px;
+        font-size: $graphic-link-font-size;
         font-weight: 600;
         color: #a6a6a6;
-        padding: #{'max(min(29px, 3vh), 3px)'} 0;
+        padding: #{$graphic-link-padding} 0;
         display: flex;
         align-items: center;
       }
@@ -61,7 +72,7 @@ $graphic-menu-image-size: 16px;
   .graphics {
     margin-top: 0;
     border: 0;
-    padding-top: calc(#{$graphic-menu-image-size} + 2 * #{'max(min(29px, 3vh), 3px)'});
+    padding-top: calc(1px + 2 * #{$graphic-link-padding});
 
     .tooltips.white {
       background-color: #FFF !important;
