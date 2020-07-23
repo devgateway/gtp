@@ -1,5 +1,11 @@
 @import '../../../base';
 
+$header-padding: #{'max(min(0.4rem, 0.5vh), 3px)'};
+$header-line-height: #{'max(min(20px, 3vh), 14px)'};
+$cell-padding: #{'max(min(0.78571429em, 0.8vh), 3px)'};
+$cell-line-height: 20px;
+$table-rows: 10;
+
 .indicators.chart.section {
 
   .indicator-table.container {
@@ -9,8 +15,10 @@
 
     .table-wrapper {
       min-height: 423px;
+      min-height: calc(#{$table-rows} * (#{$cell-line-height} + 2 * #{$cell-padding}) + #{$header-line-height} + 2 * #{$header-padding});
       @include ad3user {
         min-height: 370px;
+        min-height: calc(#{$table-rows} * (#{$cell-line-height} + 2 * #{$cell-padding}) + #{$header-line-height} + 2 * #{$header-padding});
       }
 
       .table {
@@ -34,6 +42,11 @@
 
         th {
           padding: 0.4rem;
+          padding: $header-padding;
+          @include ad3user {
+            padding: 0.2rem;
+            padding: $header-padding;
+          }
           color: #7f8fa4;
           font-weight: 600;
           max-height: 40px;
@@ -44,6 +57,8 @@
             white-space: pre-wrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            line-height: 14px;
+            line-height: $header-line-height;
           }
 
           .filter.item {
@@ -125,9 +140,10 @@
           font-weight: 600;
           overflow: hidden;
           text-overflow: ellipsis;
-
+          padding: $cell-padding;
           @include ad3user {
             padding: 0.5em;
+            padding: $cell-padding;
           }
           .difference {
             @include md {
@@ -150,8 +166,12 @@
 
       .dg-pagination {
         font-size: 10px;
-        margin: 1rem auto 0 auto;
+        margin: auto;
+        padding: 0.5rem 0;
+        padding: #{'max(0.3rem, min(1rem, 1.7vh))'} 0;
         min-height: 36px;
+        height: calc(20px + 2 * #{'max(0.3rem, min(1rem, 2vh))'});
+        max-height: 50px;
 
         span {
           display: inline-block;

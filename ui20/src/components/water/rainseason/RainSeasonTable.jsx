@@ -149,7 +149,7 @@ const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort, filte
   const applySort = () => handleSort(name, isSorted ? !sortedAsc : true)
   // const canFilter = !!C.FILTER_MESSAGE_KEY[name]
   const canFilter = false
-  const headerClasses = ["column15"]
+  const headerClasses = [name === C.DIFFERENCE ? "column10" : "column15"]
   const trnValues = {}
   if (canFilter) headerClasses.push("th-filter")
   if (isSorted) headerClasses.push(directionLong)
