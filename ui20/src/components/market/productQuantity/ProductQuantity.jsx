@@ -8,7 +8,7 @@ import ProductQuantityFilter from "../../../modules/entities/product/quantity/Pr
 import ProductQuantityChartDTO from "../../../modules/graphic/market/productQuantity/ProductQuantityChartDTO"
 import Chip from "../../common/graphic/Chip"
 import * as utils from "../../ComponentUtil"
-import * as sccJS from "../../css"
+import * as cssJS from "../../css"
 import ProductQuantityLegend from "./ProductQuantityLegend"
 
 class ProductQuantity extends Component {
@@ -33,14 +33,14 @@ class ProductQuantity extends Component {
     const leftMargin =  maxNumberDigits * 7 + 35
     const leftLegendOffset = maxNumberDigits * 7 + 20
     const margin = {
-      ...sccJS.NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN,
+      ...cssJS.NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN,
       left: leftMargin
     }
 
     return (
       <div>
         <ProductQuantityLegend data={data} colors={colors} />
-        <div key="chart" className="graphic-content">
+        <div key="chart" className="graphic-content custom-legend">
           <ResponsiveLine
             enableGridY={true}
             enableGridX={false}
@@ -84,7 +84,7 @@ class ProductQuantity extends Component {
 
             layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends',
             ]}
-            theme={sccJS.NIVO_THEME}
+            theme={cssJS.NIVO_THEME}
           />
         </div>
       </div>

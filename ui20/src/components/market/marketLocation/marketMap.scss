@@ -1,12 +1,13 @@
 @import "../../../base";
+@import "../../common/graphic/indicator-base";
 @import "~leaflet/dist/leaflet.css";
 
 $tooltip-content-padding: 8px;
 
 .legend {
   max-width: 1266px;
-  height: 35px;
-  line-height: 35px;
+  height: $custom-legend-height;
+  line-height: $custom-legend-height;
 
   text {
     font-size: 11px !important;
@@ -20,7 +21,9 @@ $tooltip-content-padding: 8px;
 .graphic-page .graphics .indicators.content {
   .map {
     max-width: 1266px;
-    height: 500px;
+    max-height: $graphic-content-max-height;
+    min-height: $graphic-content-min-height;
+    height: 57vh;
 
     .leaflet-top, .leaflet-bottom {
       z-index: 600;

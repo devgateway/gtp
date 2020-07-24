@@ -6,7 +6,7 @@ import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import RiverLevelChartDTO from "../../../modules/graphic/water/river/RiverLevelChartDTO"
 import Chip from "../../common/graphic/Chip"
-import * as sccJS from "../../css"
+import * as cssJS from "../../css"
 import * as sccRiverLevel from "./cssRiverLevel"
 import {ALERT_COLOR, AlertLevelLegend} from "./AlertLevelLegend"
 import CustomLegendSymbol, {LEGEND_SYMBOL_CIRCLE, LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"
@@ -83,7 +83,7 @@ class RiverLevel extends Component {
         <ResponsiveLine
           enableGridY={true}
           enableGridX={false}
-          margin={{ top: 50, right: 50, bottom: 75, left: 60 }}
+          margin={{ top: 50, right: 50, bottom: cssJS.NIVO_CHART_BOTTOM, left: 60 }}
 
           data={data.lines}
           xScale={{
@@ -111,7 +111,7 @@ class RiverLevel extends Component {
             format: (date: Date) => intl.formatMessage({ id: `all.month.${date.getMonth() + 1}`}),
             tickValues: 'every month',
             tickSize: 10,
-            legendOffset: 40,
+            legendOffset: cssJS.NIVO_CHART_BOTTOM_LEGEND_OFFSET,
             legendPosition: 'middle'
           }}
           curve="monotoneX"
@@ -144,7 +144,7 @@ class RiverLevel extends Component {
                 const {isReference} = data.lines[legendProps.id].riverLevelYear
                 const type = isReference ? LEGEND_SYMBOL_LINE : LEGEND_SYMBOL_CIRCLE
                 return <CustomLegendSymbol type={type} {...legendProps}
-                                    lineLength={sccJS.LEGEND_SYMBOL_LINE_LENGTH}/>
+                                    lineLength={cssJS.LEGEND_SYMBOL_LINE_LENGTH}/>
               },
               symbolBorderColor: 'rgba(0, 0, 0, .5)',
               onClick: this.levelLineToggle.bind(this),
@@ -161,7 +161,7 @@ class RiverLevel extends Component {
           ]}
           layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends',
             showAlertLegend ? AlertLevelLegend(data.lines.length) : null]}
-          theme={sccJS.NIVO_THEME}
+          theme={cssJS.NIVO_THEME}
         />
       </div>);
   }
@@ -172,10 +172,10 @@ const getColors = (lines) => {
   let levelIndex = 0
   return lines.map(({riverLevelYear}) => {
     if (riverLevelYear.isReference) {
-      return sccJS.REFERENCE_COLORS[refIndex++]
+      return cssJS.REFERENCE_COLORS[refIndex++]
     }
-    const index = levelIndex++ % sccJS.PALLET_COLORS.length
-    return sccJS.PALLET_COLORS[index]
+    const index = levelIndex++ % cssJS.PALLET_COLORS.length
+    return cssJS.PALLET_COLORS[index]
   })
 }
 

@@ -44,15 +44,16 @@ export const NIVO_THEME = {
 
 export const LEGEND_SYMBOL_LINE_LENGTH = 15
 
-export const HEADER_HEIGHT = 70
-export const MENU_HEIGHT = 354
-export const FOOTER_HEIGHT = 297
+export const MENU_HEIGHT_DEFAULT = 58
 
 export const GRAPHIC_TITLE_LEFT_PADDING = 21
+
+export const NIVO_CHART_BOTTOM = 65
+export const NIVO_CHART_BOTTOM_LEGEND_OFFSET = 40
 
 export const NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN = {
   top: 10,
   right: 50,
-  bottom: 75,
+  bottom: 65,
   left: 60
 }

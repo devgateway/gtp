@@ -2,7 +2,7 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
-import {Icon, Pagination, Table} from "semantic-ui-react"
+import {Icon, Pagination, Popup, Table} from "semantic-ui-react"
 import RainSeasonData from "../../../modules/entities/rainSeason/RainSeasonData"
 import RainSeasonConfigDTO from "../../../modules/graphic/water/rainSeason/RainSeasonConfigDTO"
 import * as C from "../../../modules/graphic/water/rainSeason/RainSeasonConstants"
@@ -69,35 +69,40 @@ class RainSeasonTable extends Component {
     const directionLong = sortedAsc ? 'ascending' : 'descending'
     const headerCell = headerCellBuilder(sortedBy, sortedAsc, directionLong, handleSort, filter,
       rainSeasonTableDTO.config, rawData)
+    const cell = (tooltip, content) => <Popup trigger={content} content={tooltip} size="mini" />
 
     return (
       <div className="indicator-table container">
         <div className="png exportable table">
           <div className="table-wrapper">
-              <Table sortable celled>
-                <Table.Header>
-                  <Table.Row>
-                    {C.COLUMNS.map(headerCell)}
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {data.map((dto: RainSeasonPredictionDTO) => (
+            <Table sortable celled>
+              <Table.Header>
+                <Table.Row>
+                  {C.COLUMNS.map(headerCell)}
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {data.map((dto: RainSeasonPredictionDTO) => {
+                  const difference = toSignedNumberLocaleString(intl, dto.difference)
+                  return (
                     <Table.Row key={dto.id}>
-                      <Table.Cell>{dto.zone}</Table.Cell>
-                      <Table.Cell>{dto.region}</Table.Cell>
-                      <Table.Cell>{dto.department}</Table.Cell>
-                      <Table.Cell>{dto.post}</Table.Cell>
-                      <Table.Cell>{dto.planned}</Table.Cell>
-                      <Table.Cell>{dto.actual}</Table.Cell>
-                      <Table.Cell>
+                      {cell(dto.zone, <Table.Cell className="column15">{dto.zone}</Table.Cell>)}
+                      {cell(dto.region, <Table.Cell className="column15">{dto.region}</Table.Cell>)}
+                      {cell(dto.department, <Table.Cell className="column15">{dto.department}</Table.Cell>)}
+                      {cell(dto.post, <Table.Cell className="column15">{dto.post}</Table.Cell>)}
+                      {cell(dto.planned, <Table.Cell className="column15">{dto.planned}</Table.Cell>)}
+                      {cell(dto.actual, <Table.Cell className="column15">{dto.actual}</Table.Cell>)}
+                      {cell(difference,
+                        <Table.Cell className="column10">
                         <span className="difference">
-                          {toSignedNumberLocaleString(intl, dto.difference)}
+                          {difference}
                         </span>
-                      </Table.Cell>
+                        </Table.Cell>)}
                     </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table>
+                  )
+                })}
+              </Table.Body>
+            </Table>
           </div>
           <div className="pagination wrapper">
             {dgPagination(this.props, this.state, this.onPageChange)}
@@ -142,8 +147,9 @@ const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort, filte
   const canSort = C.SORTABLE_COLUMNS.has(name)
   const isSorted = sortedBy === name
   const applySort = () => handleSort(name, isSorted ? !sortedAsc : true)
-  const canFilter = !!C.FILTER_MESSAGE_KEY[name]
-  const headerClasses = []
+  // const canFilter = !!C.FILTER_MESSAGE_KEY[name]
+  const canFilter = false
+  const headerClasses = [name === C.DIFFERENCE ? "column10" : "column15"]
   const trnValues = {}
   if (canFilter) headerClasses.push("th-filter")
   if (isSorted) headerClasses.push(directionLong)
@@ -157,21 +163,25 @@ const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort, filte
   return (
     <Table.HeaderCell
       key={name}
-      className={cssClasses(headerClasses)}
+      className={cssClasses(...headerClasses)}
       sorted={canSort && isSorted ? directionLong : null}
       onClick={canSort ? applySort : null}>
-      {canFilter &&
-      (<div className="indicator chart filter">
-        <RainSeasonTableFilter columnName={name} filter={filter} config={config} min={0}/>
-      </div>)}
-      {!canFilter &&
-      <span><FormattedMessage id={C.COLUMN_MESSAGE_KEY[name]} defaultMessage={name} values={trnValues}/></span>}
-      {canSort && !isSorted ? <Icon name="sort" /> : null}
-      {canSort && isSorted ?
-        (<div className="up-down-combo">
-          <Icon name="sort up" className={sortedAsc ? "sorted" : null}/>
-          <Icon name="sort down" className={!sortedAsc ? "sorted" : null} />
-        </div>) : null}
+      <div className="header-cell-container">
+        {canFilter &&
+        (<div className="indicator chart filter">
+          <RainSeasonTableFilter columnName={name} filter={filter} config={config} min={0}/>
+        </div>)}
+        {!canFilter &&
+        (<div className="header-title">
+          <FormattedMessage id={C.COLUMN_MESSAGE_KEY[name]} defaultMessage={name} values={trnValues}/>
+        </div>)}
+        {canSort && !isSorted ? <Icon name="sort"/> : null}
+        {canSort && isSorted ?
+          (<div className="up-down-combo">
+            <Icon name="sort up" className={sortedAsc ? "sorted" : null}/>
+            <Icon name="sort down" className={!sortedAsc ? "sorted" : null}/>
+          </div>) : null}
+      </div>
     </Table.HeaderCell>)
 }
 

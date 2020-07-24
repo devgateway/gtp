@@ -29,17 +29,17 @@ const DrySequenceFilters = (props) => {
   const onPostChange = (postId) => setFilter(filter.year, postId[0])
   const {year, pluviometricPostId} = filter
   return (
-    <div className="indicator chart filter">
-      <div className="filter item">
+    <div className="indicator chart filter two-filters">
+      <div className="filter item fixed">
         <FilterDropDown
           options={yearsToOptions(config.years)} onChange={onYearChange}
           min={1} single
           selected={[year]} text={<FormattedMessage id="indicators.filters.year" defaultMessage="Years" />} />
       </div>
-      <div className="filter item">
+      <div className="filter item fixed">
         <FilterDropDown
           options={postIdsToOptions(config.pluviometricPostIds, waterConfig)} onChange={onPostChange}
-          min={1} single withSearch
+          min={1} single withSearch withTooltips
           selected={[pluviometricPostId]} text={<FormattedMessage id="indicators.filters.location" defaultMessage="Location" />} />
       </div>
     </div>

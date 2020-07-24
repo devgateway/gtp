@@ -1,3 +1,21 @@
 @import '../../../base';
 
 $graphic-title-left-padding: 21px;
+
+$property-max-height: 64px;
+$property-min-height: 44px;
+$property-font-size: 12px;
+
+$graphic-content-max-height: 500px;
+$graphic-content-min-height: 300px;
+$graphic-content-height: 55vh;
+
+$custom-legend-height: 35px;
+
+$filter-min-width: 209px;
+$filter-min-width-small: 162px;
+$filter-max-width: 300px;
+$filter-fixed-width: 209px;
+$filter-fixed-width-small: 150px;
+
+$filter-item-max-width: 350px;

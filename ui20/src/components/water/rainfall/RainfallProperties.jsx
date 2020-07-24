@@ -38,18 +38,18 @@ const RainfallFilters = (props) => {
   const onPostChange = (postIds) => setFilter(filter.years, postIds[0])
   const {years, pluviometricPostId} = filter
   return (
-    <div className="indicator chart filter">
-      <div className="filter item">
+    <div className="indicator chart filter two-filters">
+      <div className="filter item fixed">
         <FilterDropDown
           options={yearsToOptions(config.years)} onChange={onYearChange}
           min={1} max={3}
           description={<FormattedMessage id="indicators.filters.years.description" defaultMessage="Years" />}
           selected={years} text={<FormattedMessage id="indicators.filters.years" defaultMessage="Years" />} />
       </div>
-      <div className="filter item">
+      <div className="filter item fixed">
         <FilterDropDown
           options={postIdsToOptions(config.pluviometricPostIds, waterConfig)} onChange={onPostChange}
-          single={true} min={1} max={1} withSearch
+          single={true} min={1} max={1} withSearch withTooltips
           selected={[pluviometricPostId]} text={<FormattedMessage id="indicators.filters.location" defaultMessage="Location" />} />
       </div>
     </div>

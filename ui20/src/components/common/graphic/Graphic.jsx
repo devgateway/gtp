@@ -22,15 +22,17 @@ class Graphic extends Component {
       <div className={cssClasses("indicators chart section", className)} id={id}>
         <div className="png exportable">
           <div className="indicator chart title">
-            <p>
-              <FormattedMessage id={titleId} />
-            </p>
-            <div className="indicator chart icon group" data-html2canvas-ignore>
-              <PngExport
-                name={intl.formatMessage({id: titleId})}
-                id={id}
-                filters={[]}
-                includes={['active']}/>
+            <div className="title-with-download">
+              <p>
+                <FormattedMessage id={titleId} />
+              </p>
+              <div className="indicator chart icon group" data-html2canvas-ignore>
+                <PngExport
+                  name={intl.formatMessage({id: titleId})}
+                  id={id}
+                  filters={[]}
+                  includes={['active']}/>
+              </div>
             </div>
           </div>
           <div className="png exportable chart container">

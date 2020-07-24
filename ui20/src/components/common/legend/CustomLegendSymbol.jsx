@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import * as sccJS from "../../css"
+import * as cssJS from "../../css"
 
 export const LEGEND_SYMBOL_LINE = 'line'
 export const LEGEND_SYMBOL_CIRCLE = 'circle'
@@ -18,7 +18,7 @@ export interface CustomLegendSymbolProps {
 export default class CustomLegendSymbol extends Component<CustomLegendSymbolProps> {
 
   static defaultProps = {
-    lineLength: sccJS.LEGEND_SYMBOL_LINE_LENGTH,
+    lineLength: cssJS.LEGEND_SYMBOL_LINE_LENGTH,
   }
 
   render() {
