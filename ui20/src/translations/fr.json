@@ -227,6 +227,7 @@
 	"indicators.filters.slider.age": "Tranche d'âge",
 	"indicators.filters.slider.score": "Plage d'indices",
 	"indicators.filters.title": "Filtre Indicateur",
+	"indicators.filters.year.hydrological": "Année hydrologique",
 	"indicators.filters.year": "Année",
 	"indicators.filters.years": "Années",
 	"indicators.filters.years.description": "Veuillez sélectionner jusqu'à 3 ans",
