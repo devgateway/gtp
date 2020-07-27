@@ -1,9 +1,9 @@
-import { install } from 'resize-observer'
+import ResizeObserver from 'resize-observer-polyfill';
 
 const InitResizeObserver = () => {
   if (!window.ResizeObserver) {
     console.log('Loading ResizeObserver polyfill')
-    install()
+    window.ResizeObserver = ResizeObserver
   }
 }
 
