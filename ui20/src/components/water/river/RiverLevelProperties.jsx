@@ -3,8 +3,7 @@ import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import RiverLevelFilter from "../../../modules/entities/river/RiverLevelFilter"
-import {yearsToOptions} from "../../../modules/graphic/common/GraphicDTO"
-import {riverStationToOptions} from "../../../modules/graphic/water/CommonDTO"
+import {riverStationToOptions, yearsToHydrologicalYearsOptions} from "../../../modules/graphic/water/CommonDTO"
 import * as waterActions from "../../../redux/actions/waterActions"
 import FilterDropDown from "../../common/filter/FilterDropDown"
 
@@ -33,9 +32,9 @@ const RiverLevelFilters = (props) => {
     <div className="indicator chart filter two-filters">
       <div className="filter item fixed">
         <FilterDropDown
-          options={yearsToOptions(config.years)} onChange={(years) => setYearsFilter(years)}
+          options={yearsToHydrologicalYearsOptions(config.years)} onChange={(years) => setYearsFilter(years)}
           min={1}
-          selected={years} text={<FormattedMessage id="indicators.filters.year" defaultMessage="Years" />} />
+          selected={years} text={<FormattedMessage id="indicators.filters.year.hydrological" defaultMessage="Years" />} />
       </div>
       <div className="filter item fixed">
         <FilterDropDown

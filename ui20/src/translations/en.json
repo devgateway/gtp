@@ -226,6 +226,7 @@
 	"indicators.filters.slider.age": "Age Range",
 	"indicators.filters.slider.score": "Score Range",
 	"indicators.filters.title": "Indicator Filter",
+	"indicators.filters.year.hydrological": "Hydrological Year",
 	"indicators.filters.year": "Year",
 	"indicators.filters.years": "Years",
 	"indicators.filters.years.description": "Please select up to 3 years",

@@ -91,4 +91,15 @@
         </sql>
     </changeSet>
 
+    <changeSet id="ANACIM-287-rename-tranformation-place-market" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <changeSetExecuted id="ANACIM-134" author="Octavian Ciubotaru" changeLogFile="liquibase-changelog-0.1.xml" />
+        </preConditions>
+        <update tableName="category">
+            <column name="label" value="Lieu de transformation de poissons" />
+            <where>dtype='MarketType' and name='transformation-place'</where>
+        </update>
+    </changeSet>
+
 </databaseChangeLog>

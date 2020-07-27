@@ -17,6 +17,12 @@ export const hydrologicalYearToString = (year: number) => {
   return `${year}-${nextYearStr}`
 }
 
+export const yearsToHydrologicalYearsOptions = (years) => years.sort().reverse().map(y => ({
+  key: y,
+  text: hydrologicalYearToString(y),
+  value: y
+}))
+
 export const riverStationToOptions = (riverStations: Array<RiverStation>, intl) => {
   return riverStations.map(rs => ({
     key: rs.id,
