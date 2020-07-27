@@ -5,7 +5,7 @@ import React from "react"
 const PngExport = ({id, element, name = "chart", filters = [],includes = []})=> {
 
   return (
-    <div className="icon download masked-icon icon-png-download" onClick={e => {
+    <div className="icon download masked-icon icon-download" onClick={e => {
 
       const node = id ? document.getElementById(id) : document[element];
       const exportable = id ? node.getElementsByClassName("png exportable")[0] : node
