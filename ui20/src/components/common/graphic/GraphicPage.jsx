@@ -52,7 +52,7 @@ const GraphicPage = (props) => {
       resizeObserver.observe(contextRef.current)
     }
     return () => resizeObserver.unobserve(contextRef.current)
-  }, [contextRef.current])
+  }, [contextRef.current, width, firstGraphicOffset])
 
   return (
     <div ref={contextRef} className="graphic-page">
