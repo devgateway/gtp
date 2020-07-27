@@ -153,7 +153,7 @@ html {
 }
 
 .icon.download {
-  width: 30px;
+  width: 34px;
   margin-left: 12px;
   height: 40px;
   background-repeat: no-repeat;
@@ -369,6 +369,13 @@ html {
   background: $color-green;
   .IE & {
     background: url('/icons/icon_pdf_download.svg');
+  }
+}
+.masked-icon.icon-download {
+  mask: url('/icons/icon_download.svg');
+  background: #608bb5;
+  .IE & {
+    background: url('/icons/icon_download.svg');
   }
 }
 
