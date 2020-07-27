@@ -36,7 +36,7 @@ const GraphicPage = (props) => {
 
   menuDefs[0].scrollRef.offset = firstGraphicOffset
 
-  const resizeObserver = new ResizeObserver((entries) => {
+  const resizeObserver = new window.ResizeObserver((entries) => {
     const newWidth = entries[0].target.clientWidth - 1
     if (newWidth !== width) {
       setWidth(newWidth)
@@ -52,7 +52,7 @@ const GraphicPage = (props) => {
       resizeObserver.observe(contextRef.current)
     }
     return () => resizeObserver.unobserve(contextRef.current)
-  }, [contextRef.current])
+  }, [contextRef.current, width, firstGraphicOffset])
 
   return (
     <div ref={contextRef} className="graphic-page">
