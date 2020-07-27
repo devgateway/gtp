@@ -170,7 +170,7 @@
 	"indicators.chart.poverty.description": "Proportion de la population en-deça du seuil international de pauvreté, selon le sexe, l’âge, le statut professionnel et la situation géographique (urbaine/rurale).",
 	"indicators.chart.poverty.historical.by.region": "% population en-deça du seuil de pauvreté",
 	"indicators.chart.poverty.title": "Proportion de la population en-deça du seuil international de pauvreté ",
-	"indicators.chart.dryseason.title": "Longueur des séquences sèches",
+	"indicators.chart.dryseason.title": "Nombre de jours de pluie et sans pluie",
 	"indicators.chart.dryseason.source": "ANACIM",
 	"indicators.chart.product.price.title": "Prix par marché de collecte",
 	"indicators.chart.product.price.source": "Commissariat à la Sécurité Alimentaire",
