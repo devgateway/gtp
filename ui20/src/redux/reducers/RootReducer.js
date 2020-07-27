@@ -10,6 +10,7 @@ import app from './AppReducer'
 import water from './Water'
 import agriculture from './Agriculture'
 import bulletin from './GTPBulletin'
+import member from './GTPMember'
 
 const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -17,6 +18,7 @@ const createRootReducer = (history) => combineReducers({
   water,
   agriculture,
   bulletin,
+  member,
 })
 
 export default createRootReducer
