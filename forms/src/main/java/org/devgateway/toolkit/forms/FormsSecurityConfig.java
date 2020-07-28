@@ -73,6 +73,10 @@ public class FormsSecurityConfig extends WebSecurityConfig {
         // 'X-Frame-Options' to 'DENY'.
         http.headers().contentTypeOptions().and().xssProtection().and().cacheControl().and()
                 .httpStrictTransportSecurity().and().frameOptions().sameOrigin();
-
+        // allow embedding in frame
+        http.antMatcher("/index.html")
+                .headers().frameOptions().disable()
+                .and().headers().contentSecurityPolicy(
+                "frame-ancestors 'self' http://localhost:* http://*.anacim.sn https://*.anacim.sn filesystem:");
     }
 }
