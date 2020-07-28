@@ -174,8 +174,8 @@ const getColors = (lines) => {
     if (riverLevelYear.isReference) {
       return cssJS.REFERENCE_COLORS[refIndex++]
     }
-    const index = levelIndex++ % cssJS.PALLET_COLORS.length
-    return cssJS.PALLET_COLORS[index]
+    const index = levelIndex++ % cssJS.RIVER_PALLET_COLORS.length
+    return cssJS.RIVER_PALLET_COLORS[index]
   })
 }
 
