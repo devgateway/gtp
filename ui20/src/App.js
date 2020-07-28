@@ -22,6 +22,7 @@ import asyncComponent from "./components/common/AsyncComponent";
 // import withTracker from './components/common/withTracker'
 
 const Home = asyncComponent(() => import("./components/home/"));
+const About = asyncComponent(() => import("./components/about/"));
 const Water = asyncComponent(() => import("./components/water/"));
 const Market = asyncComponent(() => import("./components/market/"));
 const Bulletin = asyncComponent(() => import("./components/bulletin/"));
@@ -36,6 +37,7 @@ const messages = {
 
 const withLayout = (Component) => <Layout><Component/></Layout>
 const HomeLayout = (props) => withLayout(Home)
+const AboutLayout = (props) => withLayout(About)
 const WaterLayout = (props) => withLayout(Water)
 const MarketLayout = (props) => withLayout(Market)
 const BulletinLayout = (props) => withLayout(Bulletin)
@@ -57,6 +59,7 @@ class IntlRoutes extends Component {
 
           <Switch>
             <Route exact={true} path="/:lan/home"  component={HomeLayout}/>
+            <Route exact={true} path="/:lan/about"  component={AboutLayout}/>
 
             <Route exact={true} path="/:lan/water-resources"  component={WaterLayout}/>
             <Route exact={true} path="/:lan/agriculture-and-market"  component={MarketLayout}/>

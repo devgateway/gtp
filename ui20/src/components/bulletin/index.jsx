@@ -8,6 +8,7 @@ import Bulletins from "../../modules/entities/bulletins/Bulletins"
 import {yearsToOptions} from "../../modules/graphic/common/GraphicDTO"
 import * as bulletinActions from "../../redux/actions/bulletinActions"
 import FilterDropDown from "../common/filter/FilterDropDown"
+import "../common/common.scss"
 import "./bulletin.scss"
 import BulletinYear from "./BulletinYear"
 
@@ -33,8 +34,8 @@ class BulletinPage extends Component {
     const bulletinsList = years.map(y => report.data.gtpMaterials.get(y))
 
     return (
-      <div className="bulletins-container">
-        <Segment className="bulletins-header">
+      <div className="page-container bulletins-container">
+        <Segment className="page-header bottom-border">
           <Segment className="title">
             <FormattedMessage id="menu.bulletins.title" />
           </Segment>
