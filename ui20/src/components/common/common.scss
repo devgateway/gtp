@@ -32,4 +32,25 @@
       margin-bottom: 0;
     }
   }
+  .page-subtitle {
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 24px;
+    font-weight: 600;
+    color: $color-green;
+    padding-top: 25px;
+  }
+
+  p {
+    margin: 0.5rem;
+    padding: 1rem 1.5rem 0 1.5rem !important;
+    font-size: 13px;
+    font-weight: 400;
+    color: #484848;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+  p:last-of-type {
+    padding-bottom: 1.5rem !important;
+  }
 }
