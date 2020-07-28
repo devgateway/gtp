@@ -1,0 +1,41 @@
+@import '../../base';
+
+.ui.grid.gtp-members {
+  max-width: $screen-xl-width-min;
+  margin: 1.5rem;
+  padding: 0 1.5rem;
+  border-bottom: 1px solid $border-color-separator;
+  color: $color-gray;
+
+  .member-row {
+    border-bottom: 1px dashed #c2c2c2;
+    font-size: 12px;
+
+    .img-col {
+      max-width: 150px;
+      flex: 0 0 150px;
+      img {
+        height: auto;
+        width: 150px;
+      }
+    }
+    .details-col {
+      flex: 1;
+
+      .name {
+        font-size: 14px;
+        letter-spacing: 0;
+        font-weight: 700;
+        padding-bottom: 0.5rem;
+      }
+
+      a {
+        color: $color-green;
+        font-weight: 700;
+      }
+    }
+  }
+  .member-row:last-of-type {
+    border-bottom: none;
+  }
+}

@@ -30,6 +30,7 @@
 	"all.region": "Region",
 	"all.zone": "Zone",
 	"all.reference": "Reference",
+	"all.no-image": "No image",
 	"analytic.description.consumption": "The objective is to visualize the national level of cereal consumption. Which can be disaggregated at regional and departmental level.",
 	"analytic.description.market": "The Market page shows the price evolution of cereals. Prices are collected in rural markets located in agricultural production areas.",
 	"analytic.description.production": "Visualize the annual production statistics. Different combinations can be made by displaying separately or combining the production figures with the yield and / or seeded area.",

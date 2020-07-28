@@ -2,14 +2,13 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
-import MemberData from "../../modules/entities/member/MemberData"
 import * as memberActions from "../../redux/actions/memberActions"
 import AboutIntro from "./AboutIntro"
+import GTPMembers from "./GTPMembers"
 
 class About extends Component {
   static propTypes = {
     onLoadAll: PropTypes.func.isRequired,
-    memberData: PropTypes.objectOf(MemberData),
   }
 
   componentDidMount() {
@@ -22,11 +21,10 @@ class About extends Component {
       return <div/>
     }
 
-    const memberData: MemberData = this.props.memberData
-
     return (
       <div>
         <AboutIntro />
+        <GTPMembers {...this.props} />
       </div>
     )
   }
