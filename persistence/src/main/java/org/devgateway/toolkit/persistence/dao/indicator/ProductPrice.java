@@ -1,17 +1,5 @@
 package org.devgateway.toolkit.persistence.dao.indicator;
 
-import java.time.MonthDay;
-import java.util.Comparator;
-
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,6 +16,17 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.time.MonthDay;
+import java.util.Comparator;
+
 /**
  * @author Octavian Ciubotaru
  */
@@ -38,6 +37,7 @@ import org.hibernate.envers.Audited;
         columnNames = {"product_yearly_prices_id", "product_id", "market_id", "monthDay", "price_type_id"}))
 @JsonIgnoreProperties({"id", "new"})
 public class ProductPrice extends AbstractAuditableEntity implements Comparable<ProductPrice> {
+    private static final long serialVersionUID = -459470085643227750L;
 
     private static final Comparator<ProductPrice> NATURAL = Comparator.comparing(ProductPrice::getProduct)
             .thenComparing(ProductPrice::getMarket)
@@ -147,5 +147,10 @@ public class ProductPrice extends AbstractAuditableEntity implements Comparable<
     @Override
     public int compareTo(ProductPrice o) {
         return NATURAL.compare(this, o);
+    }
+
+    public String getPriceNaturalId() {
+        return String.format("%d-%d-%s-%d", this.getProduct().getId(), this.getMarket().getId(),
+                this.getMonthDay().toString(), this.getPriceType().getId());
     }
 }
