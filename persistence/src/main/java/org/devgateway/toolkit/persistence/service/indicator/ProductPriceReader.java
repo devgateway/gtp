@@ -20,17 +20,21 @@ import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.excel.indicator.AbstractExcelFileIndicatorReader;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.time.MonthDay;
 import java.time.Year;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * @author Octavian Ciubotaru
@@ -44,6 +48,9 @@ public class ProductPriceReader extends AbstractExcelFileIndicatorReader<Product
     private final Map<Department, SearchableCollection<Market>> marketsByDepartment;
 
     private final SearchableCollection<Product> products;
+
+    private final Map<String, List<Integer>> productPriceDuplicates = new HashMap<>();
+    private final Map<String, List<BigDecimal>> productQuantityDuplicates = new HashMap<>();
 
     private final boolean productsOnSeparateRows;
 
@@ -111,16 +118,32 @@ public class ProductPriceReader extends AbstractExcelFileIndicatorReader<Product
                     if (!isEmpty(qtCell)) {
                         BigDecimal quantity = getQuantity(qtCell, product);
                         ProductQuantity productQuantity = new ProductQuantity(product, market, monthDay, quantity);
-                        boolean isNew = yearlyPrices.addQuantity(productQuantity);
-                        if (!isNew) {
-                            reportDuplicateRowError(row, product, market, monthDay);
-                        }
+                        yearlyPrices.addQuantity(productQuantity);
+                        productQuantityDuplicates.computeIfAbsent(productQuantity.getQuantityNaturalId(),
+                                k -> new ArrayList<>()).add(quantity);
                     }
                 }
             }
         }
 
+        yearlyPrices.getPrices().forEach(pp -> {
+            List<Integer> prices = productPriceDuplicates.get(pp.getPriceNaturalId());
+            Integer price = getAverage(prices.stream().map(BigDecimal::valueOf), prices.size())
+                    .toBigInteger().intValue();
+            pp.setPrice(price);
+        });
+
+        yearlyPrices.getQuantities().forEach(pq -> {
+            List<BigDecimal> quantities = productQuantityDuplicates.get(pq.getQuantityNaturalId());
+            BigDecimal quantity = getAverage(quantities.stream(), quantities.size());
+            pq.setQuantity(quantity);
+        });
+
         return yearlyPrices;
+    }
+
+    private BigDecimal getAverage(Stream<BigDecimal> values, int count) {
+        return values.reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(count), RoundingMode.HALF_UP);
     }
 
     private XSSFCell getOptionalCell(XSSFRow row, Integer col) {
@@ -132,10 +155,8 @@ public class ProductPriceReader extends AbstractExcelFileIndicatorReader<Product
         if (!isEmpty(priceCell)) {
             Integer price = getPrice(priceCell);
             ProductPrice productPrice = new ProductPrice(product, market, monthDay, priceType, price);
-            boolean isNew = yearlyPrices.addPrice(productPrice);
-            if (!isNew) {
-                reportDuplicateRowError(row, product, market, monthDay);
-            }
+            yearlyPrices.addPrice(productPrice);
+            productPriceDuplicates.computeIfAbsent(productPrice.getPriceNaturalId(), k -> new ArrayList<>()).add(price);
         }
     }
 
