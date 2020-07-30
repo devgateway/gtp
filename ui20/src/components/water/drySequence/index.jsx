@@ -19,6 +19,7 @@ class DrySeasonGraphic extends Component {
 
     return (<Graphic
       id="anchor.indicator.water.dryseason" titleId="indicators.chart.dryseason.title"
+      helpId="indicators.chart.dryseason.help"
       sourceId="indicators.chart.dryseason.source">
       <DrySequenceProperties isDaysWithRain={builderResult.drySequenceChartDTO.isDaysWithRain} filter={filter} />
       <DrySeason {...builderResult} />
