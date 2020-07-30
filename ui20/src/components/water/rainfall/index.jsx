@@ -18,6 +18,7 @@ class RainfallGraphic extends Component {
 
     return (<Graphic
       id="anchor.indicator.water.rainfall" titleId="indicators.chart.rainfall.title"
+      helpId="indicators.chart.rainfall.help"
       sourceId="indicators.chart.rainfall.source">
       <RainfallProperties />
       <Rainfall {...getRain(intl)} setting={setting} />

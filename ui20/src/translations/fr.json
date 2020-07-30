@@ -190,6 +190,7 @@
 	"indicators.map.market.title": "Localisation des marchés de collecte",
 	"indicators.map.market.source": "Commissariat à la Sécurité Alimentaire",
 	"indicators.chart.rainfall.title": "Pluviométrie par Poste pluviométrique",
+	"indicators.chart.rainfall.help": "Ce tableau renseigne sur l’évolution de la pluviométrique. Les barres représentent la hauteur pluviométrique cumulé de mai à octobre, la courbe représente la normale pluviométrique (1981-2010) cumulée de mai à octobre.",
 	"indicators.chart.rainfall.source": "ANACIM",
 	"indicators.chart.rainfall.nodata.month": "Aucune donnée n'a été enregistrée pour ce mois",
 	"indicators.chart.rainfall.nodata.decadal": "Aucune donnée n'a été enregistrée pour cette décade",
