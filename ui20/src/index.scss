@@ -330,6 +330,14 @@ html {
   display: flex;
 }
 
+
+.icon-down-arrow {
+  display: inline-block;
+  background: url('/icons/icon_down_arrow.svg');
+  width: 10px;
+  height: 10px;
+}
+
 .masked-icon {
   display: inline-block;
   width: 16px;
@@ -374,6 +382,7 @@ html {
 .masked-icon.icon-download {
   mask: url('/icons/icon_download.svg');
   background: #608bb5;
+  z-index: 10;
   .IE & {
     background: url('/icons/icon_download.svg');
   }
