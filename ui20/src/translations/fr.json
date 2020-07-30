@@ -191,6 +191,7 @@
 	"indicators.chart.product.quantity.source": "Commissariat à la Sécurité Alimentaire",
 	"indicators.chart.product.quantity.legend.y": "Quantité disponible ({unit})",
 	"indicators.map.market.title": "Localisation des marchés de collecte",
+	"indicators.map.market.help": "Les marchés ont été sélectionné en fonction des zones agro-écologiques:<p>(i) zones de grandes productions (marchés ruraux de collecte),</p><p>(ii) zones déficitaires (marchés ruraux de consommation),</p><p>(iii) zones urbaines (marchés de consommation, marchés de groupement).</p>{linebreak}<p>La localisation des marchés dans la carte permet aux acteurs de connaître la position des marchés pour effectuer les transferts et d’apprécier la corrélation entre les différents types de marchés suivis. Cette carte est dynamique, car à chaque fois que c’est nécessaire, de nouveaux marchés peuvent être intégrés pour élargir l’échantillon.</p>",
 	"indicators.map.market.source": "Commissariat à la Sécurité Alimentaire",
 	"indicators.chart.rainfall.title": "Pluviométrie par Poste pluviométrique",
 	"indicators.chart.rainfall.help": "Ce tableau renseigne sur l’évolution de la pluviométrique. Les barres représentent la hauteur pluviométrique cumulé de mai à octobre, la courbe représente la normale pluviométrique (1981-2010) cumulée de mai à octobre.",
