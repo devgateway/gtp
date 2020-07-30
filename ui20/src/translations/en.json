@@ -197,6 +197,7 @@
 	"indicators.chart.rainfall.nodata.month": "No data was recorded for this month",
 	"indicators.chart.rainfall.nodata.decadal": "No data was recorded for this decadal",
 	"indicators.table.rainseason.title": "Seasonal predictions",
+	"indicators.table.rainseason.help": "Ce tableau montre les dates de début de la saison des pluies normale, les dates de début de la saison qui ont été observées durant l’année en cours. La dernière colonne nous renseigne si un retard ou une avance a été constaté (en nombre de jours).",
 	"indicators.table.rainseason.source": "ANACIM",
 	"indicators.chart.riverlevel.title": "Variation of the river level",
 	"indicators.chart.riverlevel.source": "DGPRE",

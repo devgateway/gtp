@@ -198,6 +198,7 @@
 	"indicators.map.market.tooltip.market": "Marché {market}",
 	"indicators.map.market.tooltip.workingDays": "Jours de marchés",
 	"indicators.table.rainseason.title": "Prévisions saisonnières",
+	"indicators.table.rainseason.help": "Ce tableau montre les dates de début de la saison des pluies normale, les dates de début de la saison qui ont été observées durant l’année en cours. La dernière colonne nous renseigne si un retard ou une avance a été constaté (en nombre de jours).",
 	"indicators.table.rainseason.source": "ANACIM",
 	"indicators.chart.riverlevel.title": "Variation du niveau du fleuve",
 	"indicators.chart.riverlevel.source": "DGPRE",

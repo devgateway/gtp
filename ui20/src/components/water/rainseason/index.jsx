@@ -21,7 +21,11 @@ class RainSeasonGraphic extends Component {
 
     return (
       <Graphic
-        id="anchor.indicator.water.rainseason" titleId="indicators.table.rainseason.title" className="rain-season">
+        id="anchor.indicator.water.rainseason"
+        titleId="indicators.table.rainseason.title"
+        helpId="indicators.table.rainseason.help"
+        className="rain-season">
+
         <div className="indicator chart properties">
           <div className="indicator chart filter five-filters">
             {C.COLUMNS.filter(name => !!C.FILTER_MESSAGE_KEY[name]).map(name =>
@@ -30,6 +34,7 @@ class RainSeasonGraphic extends Component {
           </div>
         </div>
         <RainSeasonTable rainSeasonTableDTO={rainSeasonTableDTO} {...this.props}/>
+
       </Graphic>)
   }
 }
