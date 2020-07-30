@@ -13,6 +13,7 @@ class MarketLocationGraphic extends Component {
     return (
       <Graphic
         id="anchor.indicator.agriculture.market.map" titleId="indicators.map.market.title"
+        helpId="indicators.map.market.help" helpProps={{wide: true}}
         className="map-graphic">
         <MarketMap />
       </Graphic>)

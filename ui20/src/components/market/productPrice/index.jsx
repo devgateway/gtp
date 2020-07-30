@@ -21,6 +21,7 @@ class ProductPriceGraphic extends Component {
     return (
       <Graphic
         id="anchor.indicator.agriculture.market.price" titleId="indicators.chart.product.price.title"
+        helpId="indicators.chart.product.price.help" helpProps={{wide: "very"}}
         sourceId="indicators.chart.product.price.source">
         <ProductPriceProperties filter={filter} />
         <ProductPrice {...getProductPrices()} filter={filter}/>
