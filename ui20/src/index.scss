@@ -378,4 +378,16 @@ html {
     background: url('/icons/icon_download.svg');
   }
 }
+.masked-icon.icon-question {
+  mask: url('/icons/icon_question.svg');
+  background: $color-blue;
+  .IE & {
+    background: url('/icons/icon_question.svg');
+  }
+}
+.ui.popup.help-icon-popup {
+  font-size: 12px;
+  line-height: 16px;
+  color: $color-gray;
+}
 
