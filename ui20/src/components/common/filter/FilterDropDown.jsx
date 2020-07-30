@@ -134,6 +134,7 @@ export default class FilterDropDown extends Component {
       <Dropdown
         id={id}
         className={disabled ? "disabled" : ""} fluid text={breadcrum}
+        icon={<div className="png exportable icon icon-down-arrow" />}
         open={open}
         onOpen={() => this.setOpen(true)}
         onClose={(e) => this.setOpen(isKeepOpen(e))}>

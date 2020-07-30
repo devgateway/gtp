@@ -24,7 +24,8 @@
     padding-left: 16px;
     font-size: $property-font-size;
     height: 100%;
-    max-width: calc(100% - 30px);
+    width: 100%;
+    max-width: calc(100% - 15px);
     white-space: nowrap;
 
     .breadcrums {
@@ -49,6 +50,9 @@
       .description {
         font-size: 11px;
         color: #747474;
+      }
+      .icon-down-arrow {
+        float: right;
       }
     }
   }
@@ -92,14 +96,21 @@
     }
   }
 
+
+  .icon-down-arrow {
+    vertical-align: middle;
+    height: 10px;
+    width: 10px;
+  }
+
   .dropdown.icon {
+    display: none;
     float: right;
     margin-right: 7px;
     height: 100%;
   }
   .dropdown.icon:before {
     font-size: 14px;
-    content: '\2304' !important;
     display: inline-block;
     height: 100%;
     .chrome & {
