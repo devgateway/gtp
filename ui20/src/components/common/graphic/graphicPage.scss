@@ -83,6 +83,11 @@ $graphic-link-padding: #{'max(min(29px, 3vh), 3px)'};
     }
 
     .indicators.content {
+      .graphic-help-icon {
+        margin: 7px 15px;
+        padding: 9px;
+      }
+
       .tooltips {
         overflow: auto;
         line-height: 28px;

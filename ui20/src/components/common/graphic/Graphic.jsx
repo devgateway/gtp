@@ -3,6 +3,7 @@ import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import {cssClasses} from "../../ComponentUtil"
+import HelpIcon from "../HelpIcon"
 // import {PngExport} from "../Components"
 // import PngExport from "../PngExport"
 import PngExport from "../PngExportDomToImage"
@@ -14,10 +15,12 @@ class Graphic extends Component {
     titleId: PropTypes.string.isRequired,
     sourceId: PropTypes.string,
     className: PropTypes.string,
+    helpId: PropTypes.string,
   }
 
   render() {
-    const {id, titleId, sourceId, children, intl, className} = this.props;
+    const {id, titleId, sourceId, children, intl, className, helpId} = this.props
+
     return (
       <div className={cssClasses("indicators chart section", className)} id={id}>
         <div className="png exportable">
@@ -26,6 +29,8 @@ class Graphic extends Component {
               <p>
                 <FormattedMessage id={titleId} />
               </p>
+              {helpId &&
+              <HelpIcon className="graphic-help-icon" messageId={helpId} position="bottom left" hidePointingArrow />}
               <div className="indicator chart icon group" data-html2canvas-ignore>
                 <PngExport
                   name={intl.formatMessage({id: titleId})}
