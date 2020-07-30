@@ -21,6 +21,7 @@ class ProductQuantityGraphic extends Component {
     return (
       <Graphic
         id="anchor.indicator.agriculture.market.quantity" titleId="indicators.chart.product.quantity.title"
+        helpId="indicators.chart.product.quantity.help" helpProps={{wide: true}}
         sourceId="indicators.chart.product.quantity.source">
         <ProductQuantityProperties filter={filter} />
         <ProductQuantity {...getProductQuantities()} filter={filter}/>
