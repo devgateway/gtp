@@ -16,10 +16,11 @@ class Graphic extends Component {
     sourceId: PropTypes.string,
     className: PropTypes.string,
     helpId: PropTypes.string,
+    helpProps: PropTypes.object,
   }
 
   render() {
-    const {id, titleId, sourceId, children, intl, className, helpId} = this.props
+    const {id, titleId, sourceId, children, intl, className, helpId, helpProps} = this.props
 
     return (
       <div className={cssClasses("indicators chart section", className)} id={id}>
@@ -30,7 +31,13 @@ class Graphic extends Component {
                 <FormattedMessage id={titleId} />
               </p>
               {helpId &&
-              <HelpIcon className="graphic-help-icon" messageId={helpId} position="bottom left" hidePointingArrow />}
+              <HelpIcon
+                className="graphic-help-icon"
+                messageId={helpId}
+                position="bottom left"
+                hidePointingArrow
+                {...helpProps}
+              />}
               <div className="indicator chart icon group" data-html2canvas-ignore>
                 <PngExport
                   name={intl.formatMessage({id: titleId})}
