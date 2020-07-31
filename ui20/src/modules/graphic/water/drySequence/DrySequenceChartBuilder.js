@@ -11,6 +11,7 @@ export default class DrySequenceChartBuilder {
   indexBy: string
   monthDecadal: MonthDecadal
   isDaysWithRain: boolean
+  hasData: boolean
 
   constructor(drySequenceChart: DrySequenceChart, intl) {
     this.drySequenceChart = drySequenceChart
@@ -20,6 +21,7 @@ export default class DrySequenceChartBuilder {
     this.indexBy = 'month'
     // always by decadal, may be in future we'll want to change
     this.byDecadal = true
+    this.hasData = false
     this._init()
   }
 
@@ -33,7 +35,9 @@ export default class DrySequenceChartBuilder {
       const monthLabel = `${this.intl.formatMessage(messages[`month_${month}`])}`
       const record = {}
       this.monthDecadal.getDecadals(month).forEach(decadal => {
-        record[`${decadal}`] = asBarChartValue(this._getValue(month, decadal))
+        const value = this._getValue(month, decadal)
+        record[`${decadal}`] = asBarChartValue(value)
+        this.hasData = this.hasData || value !== undefined
       })
       record[this.indexBy] = monthLabel
       this.barData.push(record)
@@ -43,7 +47,8 @@ export default class DrySequenceChartBuilder {
         this.indexBy,
         this.keys.map(k => `${k}`),
         this.barData,
-        this.isDaysWithRain)
+        this.isDaysWithRain,
+        this.hasData)
     }
   }
 

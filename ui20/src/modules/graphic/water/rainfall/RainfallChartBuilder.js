@@ -77,6 +77,7 @@ export default class RainfallChartBuilder {
       const yearLabel = `${year}`
       const actualValue = this._getValue(year, month, decadal)
       record.actualValue[yearLabel] = actualValue
+      this.rainfallDTO.hasData = this.rainfallDTO.hasData || actualValue !== undefined
 
       const cumulatedValue = addAndGet(this.cumulatedByYear, year, actualValue || 0)
       record[yearLabel] = asBarChartValue(cumulatedValue, this.rainfallDTO.maxValue)

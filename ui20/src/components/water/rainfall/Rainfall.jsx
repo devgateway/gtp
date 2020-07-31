@@ -6,6 +6,7 @@ import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import RainfallDTO from "../../../modules/graphic/water/rainfall/RainfallDTO"
 import messages from "../../../translations/messages"
+import NoData from "../../common/graphic/NoData"
 import CustomLegendSymbol, {LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"
 import DefaultBarOrNegativeValueAsZeroBar from "../../common/graphic/DefaultBarOrNegativeValueAsZeroBar"
 import * as cssJS from "../../css"
@@ -24,7 +25,11 @@ class Rainfall extends Component {
 
   render() {
     const {intl} = this.props
-    const {barData, keys, keysWithRefs, indexBy, monthDecadal, maxValue} = this.props.rainfallDTO
+    const {barData, keys, keysWithRefs, indexBy, monthDecadal, maxValue, hasData} = this.props.rainfallDTO
+    if (!hasData) {
+      return <NoData messageId="all.no-data"/>
+    }
+
     const {byDecadal, showReferences} = this.props.setting
     const graphicMaxValue = maxValue * 1.1 || 'auto'
     const unit = intl.formatMessage({ id: "water.rainfall.unit"})

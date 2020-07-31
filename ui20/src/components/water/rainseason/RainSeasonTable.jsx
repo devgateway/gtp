@@ -12,6 +12,7 @@ import {toSignedNumberLocaleString} from "../../../modules/utils/DataUtilis"
 import * as waterActions from "../../../redux/actions/waterActions"
 import "../../common/graphic/indicator-table.scss"
 import GraphicSource from "../../common/graphic/GraphicSource"
+import NoData from "../../common/graphic/NoData"
 import {cssClasses} from "../../ComponentUtil"
 import RainSeasonTableFilter from "./RainSeasonTableFilter"
 
@@ -65,6 +66,14 @@ class RainSeasonTable extends Component {
 
   render() {
     const {intl, sortedBy, sortedAsc, handleSort, filter, rainSeasonTableDTO, rawData} = this.props
+    if (!this.props.rainSeasonTableDTO.data.length) {
+      return (
+        <div>
+          <NoData messageId="all.no-data"/>
+          {GraphicSource("indicators.table.rainseason.source")}
+        </div>)
+    }
+
     const data = this._getData()
     const directionLong = sortedAsc ? 'ascending' : 'descending'
     const headerCell = headerCellBuilder(sortedBy, sortedAsc, directionLong, handleSort, filter,

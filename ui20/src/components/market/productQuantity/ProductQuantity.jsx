@@ -7,6 +7,7 @@ import {connect} from "react-redux"
 import ProductQuantityFilter from "../../../modules/entities/product/quantity/ProductQuantityFilter"
 import ProductQuantityChartDTO from "../../../modules/graphic/market/productQuantity/ProductQuantityChartDTO"
 import Chip from "../../common/graphic/Chip"
+import NoData from "../../common/graphic/NoData"
 import * as utils from "../../ComponentUtil"
 import * as cssJS from "../../css"
 import ProductQuantityLegend from "./ProductQuantityLegend"
@@ -22,10 +23,7 @@ class ProductQuantity extends Component {
     const data: ProductQuantityChartDTO = this.props.data
 
     if (!data.lines.length) {
-      // TODO No data image/message once design defined
-      return (
-        <div key="chart" className="graphic-content">
-        </div>)
+      return <NoData messageId="all.no-data"/>
     }
 
     const colors = utils.getColors(data.lines.length)

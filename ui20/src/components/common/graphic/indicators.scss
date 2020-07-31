@@ -363,11 +363,13 @@
   }
 
   .source {
-    float: right;
-    margin-right: 10px;
-    margin-top: -25px;
-    font-size: 12px;
-    white-space: nowrap;
+    width: 100%;
+    .content {
+      float: right;
+      margin: -25px 10px 0 0;
+      font-size: 12px;
+      white-space: nowrap;
+    }
 
     .label {
       float: initial;
@@ -406,6 +408,7 @@
         font-weight: 600;
         color: #a6a6a6;
         margin-left: 0;
+        white-space: nowrap;
       }
 
       div.active {

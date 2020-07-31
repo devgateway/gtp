@@ -7,6 +7,7 @@ import * as C from "../../../modules/entities/Constants"
 import DrySequenceChartDTO from "../../../modules/graphic/water/drySequence/DrySequenceChartDTO"
 import messages from "../../../translations/messages"
 import DefaultBarOrNegativeValueAsZeroBar from "../../common/graphic/DefaultBarOrNegativeValueAsZeroBar"
+import NoData from "../../common/graphic/NoData"
 import * as cssJS from "../../css"
 
 class DrySeason extends Component {
@@ -16,10 +17,15 @@ class DrySeason extends Component {
 
   render() {
     const {intl} = this.props
+    const drySequenceChartDTO: DrySequenceChartDTO = this.props.drySequenceChartDTO
+
+    if (!drySequenceChartDTO.hasData) {
+      return <NoData messageId="all.no-data"/>
+    }
+
     const unit = intl.formatMessage({ id: "water.drysequence.unit"})
     const unitOne = intl.formatMessage({ id: "water.drysequence.unit.one"})
     const decadalTrn = intl.formatMessage({ id: "all.decadal"}).toLowerCase()
-    const drySequenceChartDTO: DrySequenceChartDTO = this.props.drySequenceChartDTO
     const formatLevel = (s) => {
       let value = s.value;
       if (value === C.NA_VALUE) return <FormattedMessage id="all.graphic.value.NA"/>
