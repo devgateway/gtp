@@ -154,7 +154,20 @@ $graphic-link-padding: #{'max(min(29px, 3vh), 3px)'};
           }
         }
       }
-    }
 
+      .no-data {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: calc(100% - 40px);
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 70px;
+        color: #666666;
+        background-color: #EBEBEB;
+      }
+    }
   }
 }
