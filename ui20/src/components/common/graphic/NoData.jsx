@@ -14,7 +14,7 @@ export default class NoData extends Component {
       <div className="graphic-content">
         <div className="no-data">
           <div className="icon-no-data"/>
-          {messageId && <div><FormattedMessage id={messageId}/></div>}
+          {messageId && <div className="no-data-message"><FormattedMessage id={messageId}/></div>}
         </div>
       </div>
     )

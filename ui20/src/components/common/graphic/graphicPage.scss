@@ -167,6 +167,12 @@ $graphic-link-padding: #{'max(min(29px, 3vh), 3px)'};
         line-height: 70px;
         color: #666666;
         background-color: #EBEBEB;
+
+        .no-data-message {
+          flex-shrink: 1;
+          width: 100%;
+          text-align: center;
+        }
       }
     }
   }
