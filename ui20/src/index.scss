@@ -337,6 +337,25 @@ html {
   width: 10px;
   height: 10px;
 }
+.icon-down-arrow-full {
+  display: inline-block;
+  background: url('/icons/icon_down_arrow_full.svg');
+  background-repeat: no-repeat;
+  width: 9px;
+  height: 9px;
+}
+.icon-down-arrow-full.sorted {
+  background: url('/icons/icon_down_arrow_full_blue.svg');
+}
+.rotate_180 {
+  transform: rotate(180deg);
+}
+.rotate_90 {
+  transform: rotate(90deg);
+}
+.rotate_-90 {
+  transform: rotate(-90deg);
+}
 .icon-no-data {
   display: inline-block;
   background: url('/icons/icon_no_data.svg');
