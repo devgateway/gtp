@@ -127,17 +127,18 @@ const dgPagination = (props, state, onPageChange) => {
   const {activePage, totalPages} = state
   return (
     <div className="dg-pagination">
-      <Icon
-        name="caret left"
-        disabled={activePage === 1 }
-        onClick={() => onPageChange(activePage - 1)} />
-      <span><FormattedMessage id="indicators.table.page.text" values={{activePage, totalPages}} /></span>
-      <Icon
-        name="caret right"
-        disabled={activePage === totalPages}
-        onClick={() => onPageChange(activePage + 1)} />
+      <span
+        className={cssClasses("icon-paginate", activePage === 1 ? "disabled" : 0)}
+        onClick={() => activePage === 1 ? null : onPageChange(activePage - 1)}>
+        <span className="icon icon-down-arrow-full rotate_90 left" />
+      </span>
+      <span className="page-text"><FormattedMessage id="indicators.table.page.text" values={{activePage, totalPages}}/></span>
+      <span
+        className={cssClasses("icon-paginate", activePage === totalPages ? "disabled" : 0)}
+        onClick={() => activePage === totalPages ? null : onPageChange(activePage + 1)}>
+        <span className="icon icon-down-arrow-full rotate_-90 right" />
+        </span>
     </div>)
-
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -184,11 +185,10 @@ const headerCellBuilder = (sortedBy, sortedAsc, directionLong, handleSort, filte
         (<div className="header-title">
           <FormattedMessage id={C.COLUMN_MESSAGE_KEY[name]} defaultMessage={name} values={trnValues}/>
         </div>)}
-        {canSort && !isSorted ? <Icon name="sort"/> : null}
-        {canSort && isSorted ?
+        {canSort ?
           (<div className="up-down-combo">
-            <Icon name="sort up" className={sortedAsc ? "sorted" : null}/>
-            <Icon name="sort down" className={!sortedAsc ? "sorted" : null}/>
+            <span className={cssClasses(isSorted && sortedAsc ? "sorted" : null, "icon icon-down-arrow-full rotate_180")} />
+            <span className={cssClasses(isSorted && !sortedAsc ? "sorted" : null, "icon icon-down-arrow-full")} />
           </div>) : null}
       </div>
     </Table.HeaderCell>)

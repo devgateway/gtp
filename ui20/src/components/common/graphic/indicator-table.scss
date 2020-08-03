@@ -54,6 +54,7 @@ $table-rows: 10;
 
           .header-title {
             height: auto;
+            width: 100%;
             white-space: pre-wrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -109,24 +110,17 @@ $table-rows: 10;
         }
 
         th {
-          i.icon {
-            color: $color-light-grey;
+          .icon {
             display: inline-block;
             float: right;
-            font-size: 1rem;
           }
           .up-down-combo {
             float: right;
             display: flex;
             flex-direction: column;
 
-            .sort.down.icon {
-              position: relative;
-              top: -1rem;
-            }
-
-            .sorted {
-              color: #036fb3;
+            .icon:last-of-type {
+              margin-top: 1px;
             }
 
           }
@@ -172,31 +166,50 @@ $table-rows: 10;
         min-height: 36px;
         height: calc(20px + 2 * #{'max(0.3rem, min(1rem, 2vh))'});
         max-height: 50px;
+        display: flex;
+        align-items: center;
+        align-content: center;
 
-        span {
+        .page-text {
           display: inline-block;
           width: 250px;
           text-align: center;
           color: $color;
         }
 
-        i.icon {
-          cursor: pointer;
-        }
-
-        i.icon.disabled {
-          cursor: inherit;
-        }
-
-        i.icon:first-of-type {
-          margin-right: 1.5rem;
-        }
-
-        i.icon:before {
-          font-size: 1rem;
+        .icon-paginate {
+          display: inline-block;
           border-radius: 5px;
           border: 1px solid $border-color;
-          padding: 0.5rem 1rem 0.5rem 1rem;
+          width: 35px;
+          height: 30px;
+          text-align: center;
+          cursor: pointer;
+          &.disabled {
+            cursor: inherit;
+            .icon-down-arrow-full {
+              background: url('/icons/icon_down_arrow_full.svg');
+              background-repeat: no-repeat;
+            }
+          }
+          .icon-down-arrow-full {
+            background: url('/icons/icon_down_arrow_full_grey.svg');
+            background-repeat: no-repeat;
+          }
+
+          .icon {
+            position: relative;
+            vertical-align: center;
+            width: 9px;
+            line-height: 30px;
+            margin-top: 9px;
+          }
+          .icon.icon-down-arrow-full.left {
+            margin-left: -4px;
+          }
+          .icon.icon-down-arrow-full.right {
+            margin-right: -4px;
+          }
         }
       }
 
