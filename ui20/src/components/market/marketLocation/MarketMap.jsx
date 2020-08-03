@@ -22,7 +22,7 @@ class MarketMap extends Component {
       <div className="png exportable">
         <MarketMapLegend {...this.props} />
         <div className="map-container">
-          <Map className="map" zoom={7} center={[14.4974, -14.4545887]} zoomControl={true} preferCanvas>
+          <Map className="map" zoom={7} center={[14.4974, -14.4545887]} zoomControl={true}>
             <TileLayer
               url="https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
               attribution={worldMapAttribution}/>
