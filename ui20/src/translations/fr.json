@@ -207,6 +207,7 @@
 	"indicators.table.rainseason.help": "Ce tableau montre les dates de début de la saison des pluies normale, les dates de début de la saison qui ont été observées durant l’année en cours. La dernière colonne nous renseigne si un retard ou une avance a été constaté (en nombre de jours).",
 	"indicators.table.rainseason.source": "ANACIM",
 	"indicators.chart.riverlevel.title": "Variation du niveau du fleuve",
+	"indicators.chart.riverlevel.help": "Au Sénégal il y a trois grands bassins hydrographiques: ceux des fleuves Sénégal, de la Casamance et de la Gambie. Une centaine de stations hydrométriques permettent de suivre quotidiennement l’évolution de leur situation hydrologique. Quelques unes d’entre elles, représentatives, sont choisies dans le cadre du Groupe de Travail Pluridisciplinaire (GTP) pour le suivi de la campagne hydro-agro-météorologique du pays. La situation de l’année en cours y est comparée à celle d’une année à fort écoulement et d’une autre à écoulement faible.",
 	"indicators.chart.riverlevel.source": "DGPRE",
 	"indicators.chart.toggler.chart": "graphique",
 	"indicators.chart.toggler.table": "tableau ",
