@@ -26,6 +26,7 @@ class RiverLevelGraphic extends Component {
 
     return (<Graphic
       id="anchor.indicator.water.riverlevel" titleId="indicators.chart.riverlevel.title"
+      helpId="indicators.chart.riverlevel.help" helpProps={{wide: true}}
       sourceId="indicators.chart.riverlevel.source" className="rainfall">
       <RiverLevelProperties filter={filter}/>
       <RiverLevel {...getRiverLevel()} />
