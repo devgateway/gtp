@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.dao.reference;
 
+import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Decadal;
@@ -54,6 +56,8 @@ public class RainLevelPluviometricPostReference extends AbstractAuditableEntity 
 
     private transient Map<Month, Map<Decadal, RainLevelMonthReference>> month2Reference;
 
+    private transient boolean isValid = true;
+
     public List<RainLevelMonthReference> getRainLevelMonthReferences() {
         return rainLevelMonthReferences;
     }
@@ -96,6 +100,42 @@ public class RainLevelPluviometricPostReference extends AbstractAuditableEntity 
             });
         }
         return month2Reference.get(month);
+    }
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
+    public boolean validate() {
+        int countAscending = 0;
+        int countValues = 0;
+        if (!getRainLevelMonthReferences().isEmpty()) {
+            Double pastValue = null;
+            for (Month month : MONTHS) {
+                Map<Decadal, RainLevelMonthReference> monthRef = getMonthReference(month);
+                if (monthRef == null) {
+                    continue;
+                }
+                for (Decadal decadal : Decadal.values()) {
+                    RainLevelMonthReference decRef = monthRef.get(decadal);
+                    Double rain = decRef == null ? null : decRef.getRain();
+                    if (rain == null) {
+                        continue;
+                    }
+                    countValues++;
+                    if ((pastValue == null || pastValue <= rain)) {
+                        countAscending++;
+                    }
+                    pastValue = rain;
+                }
+            }
+        }
+        isValid = countValues == 0 || countValues == countAscending && countValues == 18;
+        return isValid;
     }
 
     @Override
