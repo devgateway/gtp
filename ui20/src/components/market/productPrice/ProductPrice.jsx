@@ -10,7 +10,6 @@ import ProductAvgPrice from "../../../modules/entities/product/price/ProductAvgP
 import ProductPriceChartDTO from "../../../modules/graphic/market/productPrice/ProductPriceChartDTO"
 import ProductPriceLine from "../../../modules/graphic/market/productPrice/ProductPriceLine"
 import Chip from "../../common/graphic/Chip"
-import NoData from "../../common/graphic/NoData"
 import * as cssJS from "../../css"
 import ProductPriceLegend, {getAveragePriceLabel} from "./ProductPriceLegend"
 
@@ -71,10 +70,6 @@ class ProductPrice extends Component {
     const avgColors = [cssJS.GRAPHIC_COLOR_ORANGE]
     // TODO responsive top detection
     const chartTop = colors.length + avgColors.length < 5 ? 10 : 50
-
-    if (!data.lines.length) {
-      return <NoData messageId="all.no-data"/>
-    }
 
     return (
       <div>
