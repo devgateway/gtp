@@ -159,8 +159,10 @@ export const setRainSeasonFilter = (path: Array<string>, value, isYearFilter: bo
     data: value,
     path
   })
-  if (isYearFilter) {
-    return getRainSeasonByYear(value[0])(dispatch, getState)
+  if (isYearFilter || !getState().getIn(['water', 'isFilteredRainSeason'])) {
+    const yearIds = getState().getIn(['water', 'data', 'rainSeasonChart', 'filter', 'yearIds'])
+    const year = isYearFilter ? value[0] : yearIds[0]
+    return getRainSeasonByYear(year)(dispatch, getState)
   } else {
     const rainSeasonChart = getState().getIn(['water', 'data', 'rainSeasonChart'])
     const waterConfig = getState().getIn(['water', 'data', 'waterConfig'])
