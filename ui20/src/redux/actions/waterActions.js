@@ -83,6 +83,11 @@ export const setRainSetting = (path, data) => (dispatch, getState) => {
     path,
     data
   })
+  // retry past filter also on setting change in case it was a temporary connection loss
+  if (!getState().getIn(['water', 'isFilteredRainfall'])) {
+    const filter: RainLevelFilter = getState().getIn(['water', 'data', 'rainLevelChart', 'filter'])
+    return setRainfallFilter(filter.years, filter.pluviometricPostId)(dispatch, getState)
+  }
 }
 
 export const setRainfallFilter = (years: Array<number>, pluviometricPostId: number) => (dispatch, getState) => {
