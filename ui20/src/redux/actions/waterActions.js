@@ -118,6 +118,11 @@ export const showDaysWithRain = (isDaysWithRain) => (dispatch, getState) => {
     type: CHANGE_DRY_SEQUENCE_SETTING,
     data: isDaysWithRain
   })
+  // retry past filter also on setting change in case it was a temporary connection loss
+  if (!getState().getIn(['water', 'isFilteredDrySequence'])) {
+    const filter: DrySequenceFilter = getState().getIn(['water', 'data', 'drySequenceChart', 'filter'])
+    return setDrySequenceFilter(filter.year, filter.pluviometricPostId)(dispatch, getState)
+  }
 }
 
 export const setDrySequenceFilter = (year: number, pluviometricPostId: number) => (dispatch, getState) => {
