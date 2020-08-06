@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.forms.wicket.page.lists;
+package org.devgateway.toolkit.forms.wicket.page.lists.indicator.bulletin;
 
 import java.time.Month;
 import java.time.Year;
@@ -24,6 +24,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.GTPBulletinFi
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.util.CustomDownloadLink;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditGTPBulletinPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
 import org.devgateway.toolkit.forms.wicket.providers.ConverterBasedChoiceProvider;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.Decadal;

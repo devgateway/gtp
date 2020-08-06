@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.forms.wicket.page.lists;
+package org.devgateway.toolkit.forms.wicket.page.lists.indicator.bulletin;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
@@ -14,6 +14,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.util.CustomDownloadLink;
 import org.devgateway.toolkit.forms.wicket.page.edit.EditAnnualGTPReportPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
 import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.service.AnnualGTPReportService;
