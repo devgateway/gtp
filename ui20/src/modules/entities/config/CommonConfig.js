@@ -9,7 +9,7 @@ const newWithParent = (loc, funcNew, parentProperty, parentSource: Map) => {
   }
   return o
 }
-export const fromApiToMap = (locality: Array, funcNew, parentProperty, parentSource) =>
+export const fromApiToMap = (locality: Array = [], funcNew, parentProperty, parentSource) =>
   locality.reduce((map, loc) => map.set(loc.id, newWithParent(loc, funcNew, parentProperty, parentSource)), new Map())
 
 export default class CommonConfig {

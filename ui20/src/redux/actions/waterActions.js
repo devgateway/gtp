@@ -83,6 +83,11 @@ export const setRainSetting = (path, data) => (dispatch, getState) => {
     path,
     data
   })
+  // retry past filter also on setting change in case it was a temporary connection loss
+  if (!getState().getIn(['water', 'isFilteredRainfall'])) {
+    const filter: RainLevelFilter = getState().getIn(['water', 'data', 'rainLevelChart', 'filter'])
+    return setRainfallFilter(filter.years, filter.pluviometricPostId)(dispatch, getState)
+  }
 }
 
 export const setRainfallFilter = (years: Array<number>, pluviometricPostId: number) => (dispatch, getState) => {
@@ -113,6 +118,11 @@ export const showDaysWithRain = (isDaysWithRain) => (dispatch, getState) => {
     type: CHANGE_DRY_SEQUENCE_SETTING,
     data: isDaysWithRain
   })
+  // retry past filter also on setting change in case it was a temporary connection loss
+  if (!getState().getIn(['water', 'isFilteredDrySequence'])) {
+    const filter: DrySequenceFilter = getState().getIn(['water', 'data', 'drySequenceChart', 'filter'])
+    return setDrySequenceFilter(filter.year, filter.pluviometricPostId)(dispatch, getState)
+  }
 }
 
 export const setDrySequenceFilter = (year: number, pluviometricPostId: number) => (dispatch, getState) => {
@@ -159,8 +169,10 @@ export const setRainSeasonFilter = (path: Array<string>, value, isYearFilter: bo
     data: value,
     path
   })
-  if (isYearFilter) {
-    return getRainSeasonByYear(value[0])(dispatch, getState)
+  if (isYearFilter || !getState().getIn(['water', 'isFilteredRainSeason'])) {
+    const yearIds = getState().getIn(['water', 'data', 'rainSeasonChart', 'filter', 'yearIds'])
+    const year = isYearFilter ? value[0] : yearIds[0]
+    return getRainSeasonByYear(year)(dispatch, getState)
   } else {
     const rainSeasonChart = getState().getIn(['water', 'data', 'rainSeasonChart'])
     const waterConfig = getState().getIn(['water', 'data', 'waterConfig'])

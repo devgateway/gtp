@@ -6,11 +6,10 @@ import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import RiverLevelChartDTO from "../../../modules/graphic/water/river/RiverLevelChartDTO"
 import Chip from "../../common/graphic/Chip"
-import NoData from "../../common/graphic/NoData"
-import * as cssJS from "../../css"
-import * as sccRiverLevel from "./cssRiverLevel"
-import {ALERT_COLOR, AlertLevelLegend} from "./AlertLevelLegend"
 import CustomLegendSymbol, {LEGEND_SYMBOL_CIRCLE, LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"
+import * as cssJS from "../../css"
+import {ALERT_COLOR, AlertLevelLegend} from "./AlertLevelLegend"
+import * as sccRiverLevel from "./cssRiverLevel"
 
 class RiverLevel extends Component {
   static propTypes = {
@@ -59,11 +58,6 @@ class RiverLevel extends Component {
 
   render() {
     const { data, intl, setting } = this.props
-    const hasData = data.lines.some(({riverLevelYear}) => !riverLevelYear.isReference)
-    if (!hasData) {
-      return <NoData messageId="all.no-data"/>
-    }
-
     const { hideReferenceYears } = this.state
 
     const colors = getColors(data.lines)

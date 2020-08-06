@@ -39,15 +39,15 @@ export const CHANGE_RIVER_LEVEL_FILTER = 'CHANGE_RIVER_LEVEL_FILTER'
 export const CHANGE_RIVER_LEVEL_SETTING = 'CHANGE_RIVER_LEVEL_SETTING'
 
 const initialState = Immutable.fromJS({
-  isLoading: false,
-  isLoaded: false,
+  isLoading: null,
+  isLoaded: null,
   error: null,
   data: {
-    waterConfig: WaterConfig,
+    waterConfig: new WaterConfig(),
     rainLevelChart: {
-      config: RainLevelConfig,
+      config: new RainLevelConfig(),
       data: RainLevelData,
-      filter: RainLevelFilter,
+      filter: new RainLevelFilter(),
       setting: RainLevelSetting,
     },
     drySequenceChart: DrySequenceChart,
@@ -71,6 +71,8 @@ export default (state = initialState, action) => {
       return state.set('isLoading', true).set('error', null)
     case WATER_RESOURCES_FULFILLED:
       return state.set('isLoading', false).set('isLoaded', true).set('data', payload)
+        .set('isFilteredRainfall', true).set('isFilteredDrySequence', true).set('isFilteredRainSeason', true)
+        .set('isFilteredRiverLevel', true)
     case WATER_RESOURCES_REJECTED:
       return state.set('isLoading', false).set('isLoaded', false).set('error', payload)
     case FILTER_RAINFALL_PENDING:

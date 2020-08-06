@@ -8,7 +8,16 @@ export default class NoData extends Component {
   }
 
   render() {
-    const {messageId} = this.props
+    const {messageId, children} = this.props
+
+    if (children) {
+      return (
+        <div className="graphic-content">
+          <div className="no-data">
+            {children}
+          </div>
+        </div>)
+    }
 
     return (
       <div className="graphic-content">

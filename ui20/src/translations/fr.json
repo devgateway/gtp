@@ -32,6 +32,7 @@
 	"all.reference": "Reference",
 	"all.no-image": "Pas d'image",
 	"all.no-data": "Pas de données disponibles",
+	"all.data-error": "Il y a eu une erreur lors du chargement des données, réessayez à nouveau",
 	"analytic.description.consumption": "L’objectif est de visualiser le niveau national de consommation de céréales qui peut être désagrégé au niveau régional et au niveau départemental.",
 	"analytic.description.market": "La page Marché présente l’évolution du prix des céréales. Les prix sont collectés au niveau des marchés ruraux situés dans les zones de production agricole.",
 	"analytic.description.production": "Visualiser les statistiques de production annuelle. Différentes combinaisons peuvent être faites en affichant séparément ou en combinant les chiffres de la production avec ceux du rendement et/ou de la superficie ensemencée.",

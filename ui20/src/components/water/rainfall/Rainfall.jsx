@@ -6,12 +6,11 @@ import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import RainfallDTO from "../../../modules/graphic/water/rainfall/RainfallDTO"
 import messages from "../../../translations/messages"
-import NoData from "../../common/graphic/NoData"
-import CustomLegendSymbol, {LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"
 import DefaultBarOrNegativeValueAsZeroBar from "../../common/graphic/DefaultBarOrNegativeValueAsZeroBar"
+import CustomLegendSymbol, {LEGEND_SYMBOL_LINE} from "../../common/legend/CustomLegendSymbol"
 import * as cssJS from "../../css"
-import * as rainfallScc from "./rainfallCSS"
 import DecadalTick from "./DecadalTick"
+import * as rainfallScc from "./rainfallCSS"
 import {INNER_PADDING} from "./RainfallGraphicConstants"
 import RainTick from "./RainTick"
 import {keysWithRefsToLegendData, ReferenceLineLayer, ReferenceLineLegend} from "./ReferenceLineLayer"
@@ -25,11 +24,7 @@ class Rainfall extends Component {
 
   render() {
     const {intl} = this.props
-    const {barData, keys, keysWithRefs, indexBy, monthDecadal, maxValue, hasData} = this.props.rainfallDTO
-    if (!hasData) {
-      return <NoData messageId="all.no-data"/>
-    }
-
+    const {barData, keys, keysWithRefs, indexBy, monthDecadal, maxValue} = this.props.rainfallDTO
     const {byDecadal, showReferences} = this.props.setting
     const graphicMaxValue = maxValue * 1.1 || 'auto'
     const unit = intl.formatMessage({ id: "water.rainfall.unit"})

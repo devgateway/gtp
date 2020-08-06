@@ -32,6 +32,7 @@
 	"all.reference": "Reference",
 	"all.no-image": "No image",
 	"all.no-data": "No data available",
+	"all.data-error": "There was an error loading the data, try again later",
 	"analytic.description.consumption": "The objective is to visualize the national level of cereal consumption. Which can be disaggregated at regional and departmental level.",
 	"analytic.description.market": "The Market page shows the price evolution of cereals. Prices are collected in rural markets located in agricultural production areas.",
 	"analytic.description.production": "Visualize the annual production statistics. Different combinations can be made by displaying separately or combining the production figures with the yield and / or seeded area.",
