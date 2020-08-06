@@ -4,9 +4,14 @@ import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as waterActions from "../../../redux/actions/waterActions"
 import Graphic from "../../common/graphic/Graphic"
+import GraphicWithFallback from "../../common/graphic/GraphicWithFallback"
 import DrySeason from "./DrySeason"
 import DrySequenceProperties from "./DrySequenceProperties"
 
+const hasDataFunc = ({drySequenceChartDTO}) => drySequenceChartDTO && drySequenceChartDTO.hasData
+const childPropsBuilder = (props) => props
+const DrySeasonGraphicWithFallback = GraphicWithFallback('water', 'isFilteringDrySequence', 'isFilteredDrySequence',
+  childPropsBuilder, hasDataFunc)
 
 class DrySeasonGraphic extends Component {
   static propTypes = {
@@ -15,14 +20,17 @@ class DrySeasonGraphic extends Component {
 
   render() {
     const {filter, getDrySequence, intl} = this.props;
-    const builderResult = getDrySequence(intl)
+    const {drySequenceChartDTO} = getDrySequence(intl) || {}
+    const isDaysWithRain = drySequenceChartDTO ? drySequenceChartDTO.isDaysWithRain : false
 
     return (<Graphic
       id="anchor.indicator.water.dryseason" titleId="indicators.chart.dryseason.title"
       helpId="indicators.chart.dryseason.help"
       sourceId="indicators.chart.dryseason.source">
-      <DrySequenceProperties isDaysWithRain={builderResult.drySequenceChartDTO.isDaysWithRain} filter={filter} />
-      <DrySeason {...builderResult} />
+      {filter && <DrySequenceProperties isDaysWithRain={isDaysWithRain} filter={filter} />}
+      <DrySeasonGraphicWithFallback {...this.props} drySequenceChartDTO={drySequenceChartDTO}>
+        {childProps => <DrySeason {...childProps} />}
+      </DrySeasonGraphicWithFallback>
     </Graphic>)
   }
 }
