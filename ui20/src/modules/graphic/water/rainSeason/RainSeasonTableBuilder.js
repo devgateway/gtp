@@ -16,6 +16,9 @@ export default class RainSeasonTableBuilder {
   }
 
   build(): RainSeasonTableDTO {
+    if (!this.rainSeasonChart) {
+      return null
+    }
     let data = this.rainSeasonChart.filteredData.predictions
 
     const {sortedBy, sortedAsc} = this.rainSeasonChart
