@@ -26,7 +26,7 @@ import java.util.Set;
 @Audited
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"year", "month", "decadal"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"year", "month", "decadal", "department_id"}))
 public class GTPBulletin extends AbstractAuditableEntity {
     private static final long serialVersionUID = -1781769365489621450L;
 

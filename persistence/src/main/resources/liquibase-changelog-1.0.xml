@@ -102,4 +102,15 @@
         </update>
     </changeSet>
 
+    <changeSet id="ANACIM-316-drop-unique-constraint" author="nmandrescu">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="gtpbulletin" />
+        </preConditions>
+    <dropUniqueConstraint
+            constraintName="uk87m5pqejde303617yrqa3rfmk"
+            schemaName="public"
+            tableName="gtpbulletin"
+            uniqueColumns="decadal, month, year"/>
+    </changeSet>
+
 </databaseChangeLog>
