@@ -7,6 +7,8 @@ import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
 import org.devgateway.toolkit.persistence.dao.GTPBulletin;
 import org.devgateway.toolkit.persistence.dao.GTPMember;
 import org.devgateway.toolkit.persistence.dto.GTPMaterials;
+import org.devgateway.toolkit.persistence.service.indicator.bulletin.AnnualGTPReportService;
+import org.devgateway.toolkit.persistence.service.indicator.bulletin.GTPBulletinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

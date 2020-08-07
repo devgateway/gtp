@@ -27,7 +27,7 @@ import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.GTPBulletin;
-import org.devgateway.toolkit.persistence.service.GTPBulletinService;
+import org.devgateway.toolkit.persistence.service.indicator.bulletin.GTPBulletinService;
 import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.wicketstuff.annotation.mount.MountPath;
 

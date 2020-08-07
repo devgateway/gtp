@@ -11,7 +11,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFor
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.bulletin.ListGTPBulletinPage;
 import org.devgateway.toolkit.persistence.dao.GTPBulletin;
-import org.devgateway.toolkit.persistence.service.GTPBulletinService;
+import org.devgateway.toolkit.persistence.service.indicator.bulletin.GTPBulletinService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

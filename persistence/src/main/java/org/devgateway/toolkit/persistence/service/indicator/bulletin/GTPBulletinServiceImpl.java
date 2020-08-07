@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.service;
+package org.devgateway.toolkit.persistence.service.indicator.bulletin;
 
 import static java.util.stream.Collectors.toList;
 
@@ -13,6 +13,8 @@ import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.GTPBulletin;
 import org.devgateway.toolkit.persistence.repository.GTPBulletinRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.devgateway.toolkit.persistence.service.AdminSettingsService;
+import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

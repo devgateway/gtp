@@ -1,18 +1,20 @@
-package org.devgateway.toolkit.persistence.service;
+package org.devgateway.toolkit.persistence.service.indicator.bulletin;
 
 import static java.util.stream.Collectors.toMap;
+
+import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
+import org.devgateway.toolkit.persistence.repository.AnnualGTPReportRepository;
+import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.devgateway.toolkit.persistence.service.AdminSettingsService;
+import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.Year;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-
-import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
-import org.devgateway.toolkit.persistence.repository.AnnualGTPReportRepository;
-import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
-import org.devgateway.toolkit.persistence.time.AD3Clock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * @author Octavian Ciubotaru

@@ -17,7 +17,7 @@ import org.devgateway.toolkit.forms.wicket.page.edit.EditAnnualGTPReportPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
 import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
-import org.devgateway.toolkit.persistence.service.AnnualGTPReportService;
+import org.devgateway.toolkit.persistence.service.indicator.bulletin.AnnualGTPReportService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

@@ -1,8 +1,9 @@
-package org.devgateway.toolkit.persistence.service;
+package org.devgateway.toolkit.persistence.service.indicator.bulletin;
 
 import java.util.List;
 
 import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
+import org.devgateway.toolkit.persistence.service.BaseJpaService;
 
 /**
  * @author Octavian Ciubotaru

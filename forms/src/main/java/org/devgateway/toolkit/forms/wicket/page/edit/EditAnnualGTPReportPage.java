@@ -8,7 +8,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFor
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.bulletin.ListAnnualGTPReportsPage;
 import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
-import org.devgateway.toolkit.persistence.service.AnnualGTPReportService;
+import org.devgateway.toolkit.persistence.service.indicator.bulletin.AnnualGTPReportService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
