@@ -42,7 +42,7 @@ public class SampleGTPData {
                 new FileMetadata(1L, "GTP Bulletin #126.pdf", MediaType.APPLICATION_PDF_VALUE,
                         new FileContent("<<pdf-data>>".getBytes()))));
 
-        annualReport1 = new AnnualGTPReport(1L, 2018);
+        annualReport1 = new AnnualGTPReport(1L, 2018, national);
         annualReport1.setUploads(ImmutableSet.of(
                 new FileMetadata(2L, "Annual Report 2018.pdf", MediaType.APPLICATION_PDF_VALUE,
                         new FileContent("<<pdf-data>>".getBytes()))));
@@ -57,8 +57,8 @@ public class SampleGTPData {
                         new GTPBulletin(6L, 2020, Month.JUNE, Decadal.THIRD, bakel)),
                 ImmutableList.of(
                         annualReport1,
-                        new AnnualGTPReport(2L, 2019),
-                        new AnnualGTPReport(3L, 2020)));
+                        new AnnualGTPReport(2L, 2019, national),
+                        new AnnualGTPReport(3L, 2020, bakel)));
 
         anacim = new GTPMember(1L, "ANACIM", "Description 1", "https://www.anacim.sn/");
         anacim.setLogo(ImmutableSet.of(

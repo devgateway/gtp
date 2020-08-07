@@ -1,20 +1,21 @@
 package org.devgateway.toolkit.persistence.service.indicator.bulletin;
 
-import static java.util.stream.Collectors.toMap;
-
 import org.devgateway.toolkit.persistence.dao.indicator.AnnualGTPReport;
+import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.repository.AnnualGTPReportRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author Octavian Ciubotaru
@@ -29,17 +30,28 @@ public class AnnualGTPReportServiceImpl extends BaseJpaServiceImpl<AnnualGTPRepo
     @Autowired
     private AdminSettingsService adminSettingsService;
 
+    @Autowired
+    private DepartmentService departmentService;
+
     @Override
     public void generate() {
-        Map<Integer, AnnualGTPReport> byYear = findAll().stream()
-                .collect(toMap(AnnualGTPReport::getYear, Function.identity()));
+        Set<AnnualGTPReport> byYL = new TreeSet<>(Comparator.comparing(AnnualGTPReport::getYear)
+                .thenComparing((a, b) -> Department.compareTo(a.getDepartment(), b.getDepartment())));
+        byYL.addAll(findAll());
 
         Integer startingYear = adminSettingsService.getStartingYear();
         int endYear = Year.now(AD3Clock.systemDefaultZone()).getValue();
 
+        List<Department> ds = departmentService.findAll();
+        // National
+        ds.add(null);
+
         for (int y = startingYear; y <= endYear; y++) {
-            if (!byYear.containsKey(y)) {
-                repository.save(new AnnualGTPReport(y));
+            for (Department d : ds) {
+                AnnualGTPReport r = new AnnualGTPReport(y, d);
+                if (!byYL.contains(r)) {
+                    saveAndFlush(r);
+                }
             }
         }
     }

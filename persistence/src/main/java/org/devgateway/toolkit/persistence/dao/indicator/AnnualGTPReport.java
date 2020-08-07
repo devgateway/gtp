@@ -44,13 +44,14 @@ public class AnnualGTPReport extends AbstractAuditableEntity {
     public AnnualGTPReport() {
     }
 
-    public AnnualGTPReport(Long id, Integer year) {
-        this(year);
+    public AnnualGTPReport(Long id, Integer year, Department department) {
+        this(year, department);
         setId(id);
     }
 
-    public AnnualGTPReport(Integer year) {
+    public AnnualGTPReport(Integer year, Department department) {
         this.year = year;
+        this.department = department;
     }
 
     public Integer getYear() {

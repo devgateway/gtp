@@ -4,10 +4,10 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.table.ResettingFilterForm;
-import org.devgateway.toolkit.forms.wicket.components.table.filter.GTPBulletinFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.GenericPersistable;
@@ -29,12 +29,13 @@ public class LocationFilterPanel<T extends GenericPersistable & Serializable> ex
     @SpringBean
     private DepartmentService departmentService;
 
-    private final ResettingFilterForm<? extends JpaFilterState<T>> filterForm;
+    private final IModel<Long> departmentIdFilterStateModel;
     private IModel<Department> depModel;
+
 
     public LocationFilterPanel(String id, ResettingFilterForm<? extends JpaFilterState<T>> filterForm) {
         super(id);
-        this.filterForm = filterForm;
+        this.departmentIdFilterStateModel = new PropertyModel<>(filterForm.getDefaultModel(), "departmentId");
     }
 
     @Override
@@ -45,9 +46,9 @@ public class LocationFilterPanel<T extends GenericPersistable & Serializable> ex
         List<Department> departmentList = Stream.of(defaultDepartment).collect(Collectors.toList());
         departmentList.addAll(this.departmentService.findAll(Sort.by("name")));
 
-        GTPBulletinFilterState filterState = (GTPBulletinFilterState) filterForm.getFilterState();
-        if (filterState.getDepartmentId() != null) {
-            defaultDepartment = departmentService.findById(filterState.getDepartmentId()).orElse(defaultDepartment);
+        if (departmentIdFilterStateModel.getObject() != null) {
+            defaultDepartment = departmentService.findById(departmentIdFilterStateModel.getObject())
+                    .orElse(defaultDepartment);
         }
         depModel = Model.of(defaultDepartment);
 
@@ -64,8 +65,7 @@ public class LocationFilterPanel<T extends GenericPersistable & Serializable> ex
                     @Override
                     public void setObject(Department department) {
                         depModel = Model.of(department);
-                        GTPBulletinFilterState filterState = (GTPBulletinFilterState) filterForm.getFilterState();
-                        filterState.setDepartmentId(department.getId());
+                        departmentIdFilterStateModel.setObject(department.getId());
                     }
                 }) {
             private static final long serialVersionUID = 363201404656189132L;
