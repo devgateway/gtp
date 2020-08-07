@@ -115,14 +115,20 @@ public class Department extends AbstractAuditableEntity implements Serializable,
         if (o == null) {
             return -1;
         }
-        return (o.getId() == null && getId() == null && o.getName().equals(getName()) || o.equals(this)) ? 0 :
-                getName().compareTo(o.getName());
+        return (o.getId() == null && getId() == null && o.getName().equals(getName()) || o.equals(this)) ? 0
+                : getName().compareTo(o.getName());
     }
 
     public static int compareTo(Department a, Department b) {
-        if (a == null && b == null) return 0;
-        if (a != null && b != null) return a.compareTo(b);
-        if (a == null) return -1;
+        if (a == null && b == null) {
+            return 0;
+        }
+        if (a != null && b != null) {
+            return a.compareTo(b);
+        }
+        if (a == null) {
+            return -1;
+        }
         return 1;
     }
 }
