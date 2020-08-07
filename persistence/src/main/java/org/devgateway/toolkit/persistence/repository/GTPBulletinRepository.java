@@ -2,7 +2,7 @@ package org.devgateway.toolkit.persistence.repository;
 
 import java.util.List;
 
-import org.devgateway.toolkit.persistence.dao.GTPBulletin;
+import org.devgateway.toolkit.persistence.dao.indicator.GTPBulletin;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

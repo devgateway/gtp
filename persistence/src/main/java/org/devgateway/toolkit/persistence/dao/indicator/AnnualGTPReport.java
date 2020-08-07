@@ -1,19 +1,23 @@
-package org.devgateway.toolkit.persistence.dao;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
+package org.devgateway.toolkit.persistence.dao.indicator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
+import org.devgateway.toolkit.persistence.dao.FileMetadata;
+import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Octavian Ciubotaru
@@ -21,11 +25,15 @@ import org.hibernate.envers.Audited;
 @Audited
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"year", "department_id"}, name = "uk_year_dep"))
 public class AnnualGTPReport extends AbstractAuditableEntity {
+    private static final long serialVersionUID = 4192797393140259974L;
 
     @NotNull
-    @Column(unique = true)
     private Integer year;
+
+    @ManyToOne
+    private Department department;
 
     @JsonIgnore
     @BatchSize(size = 50)
@@ -36,13 +44,14 @@ public class AnnualGTPReport extends AbstractAuditableEntity {
     public AnnualGTPReport() {
     }
 
-    public AnnualGTPReport(Long id, Integer year) {
-        this(year);
+    public AnnualGTPReport(Long id, Integer year, Department department) {
+        this(year, department);
         setId(id);
     }
 
-    public AnnualGTPReport(Integer year) {
+    public AnnualGTPReport(Integer year, Department department) {
         this.year = year;
+        this.department = department;
     }
 
     public Integer getYear() {
@@ -51,6 +60,14 @@ public class AnnualGTPReport extends AbstractAuditableEntity {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public Set<FileMetadata> getUploads() {

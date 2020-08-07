@@ -1,8 +1,8 @@
 package org.devgateway.toolkit.forms.wicket.components.table.filter;
 
 import org.devgateway.toolkit.persistence.dao.Decadal;
-import org.devgateway.toolkit.persistence.dao.GTPBulletin;
-import org.devgateway.toolkit.persistence.dao.GTPBulletin_;
+import org.devgateway.toolkit.persistence.dao.indicator.GTPBulletin;
+import org.devgateway.toolkit.persistence.dao.indicator.GTPBulletin_;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Predicate;
