@@ -113,4 +113,15 @@
             uniqueColumns="decadal, month, year"/>
     </changeSet>
 
+    <changeSet id="ANACIM-317-drop-unique-constraint" author="nmandrescu">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="annualgtpreport" />
+        </preConditions>
+        <dropUniqueConstraint
+                constraintName="uk_ik54een42gt6a0ddyppoy88xj"
+                schemaName="public"
+                tableName="annualgtpreport"
+                uniqueColumns="year"/>
+    </changeSet>
+
 </databaseChangeLog>
