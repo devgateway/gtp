@@ -1,8 +1,5 @@
 package org.devgateway.toolkit.web.rest.controller;
 
-import java.time.Month;
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
@@ -11,8 +8,12 @@ import org.devgateway.toolkit.persistence.dao.FileContent;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.GTPBulletin;
 import org.devgateway.toolkit.persistence.dao.GTPMember;
+import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.dto.GTPMaterials;
 import org.springframework.http.MediaType;
+
+import java.time.Month;
+import java.util.List;
 
 /**
  * @author Octavian Ciubotaru
@@ -29,8 +30,14 @@ public class SampleGTPData {
 
     private final List<GTPMember> members;
 
+    private final Department national;
+    private final Department bakel;
+
     public SampleGTPData() {
-        bulletin1 = new GTPBulletin(1L, 2019, Month.OCTOBER, Decadal.FIRST);
+        national = new Department("National");
+        bakel = new Department(1l, "Bakel");
+
+        bulletin1 = new GTPBulletin(1L, 2019, Month.OCTOBER, Decadal.FIRST, national);
         bulletin1.setUploads(ImmutableSet.of(
                 new FileMetadata(1L, "GTP Bulletin #126.pdf", MediaType.APPLICATION_PDF_VALUE,
                         new FileContent("<<pdf-data>>".getBytes()))));
@@ -43,11 +50,11 @@ public class SampleGTPData {
         materials = new GTPMaterials(
                 ImmutableList.of(
                         bulletin1,
-                        new GTPBulletin(2L, 2019, Month.OCTOBER, Decadal.SECOND),
-                        new GTPBulletin(3L, 2019, Month.OCTOBER, Decadal.THIRD),
-                        new GTPBulletin(4L, 2020, Month.JUNE, Decadal.FIRST),
-                        new GTPBulletin(5L, 2020, Month.JUNE, Decadal.SECOND),
-                        new GTPBulletin(6L, 2020, Month.JUNE, Decadal.THIRD)),
+                        new GTPBulletin(2L, 2019, Month.OCTOBER, Decadal.SECOND, bakel),
+                        new GTPBulletin(3L, 2019, Month.OCTOBER, Decadal.THIRD, national),
+                        new GTPBulletin(4L, 2020, Month.JUNE, Decadal.FIRST, bakel),
+                        new GTPBulletin(5L, 2020, Month.JUNE, Decadal.SECOND, national),
+                        new GTPBulletin(6L, 2020, Month.JUNE, Decadal.THIRD, bakel)),
                 ImmutableList.of(
                         annualReport1,
                         new AnnualGTPReport(2L, 2019),

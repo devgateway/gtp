@@ -2,23 +2,26 @@ package org.devgateway.toolkit.persistence.service.indicator.bulletin;
 
 import static java.util.stream.Collectors.toList;
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.GTPBulletin;
+import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.repository.GTPBulletinRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author Octavian Ciubotaru
@@ -32,6 +35,9 @@ public class GTPBulletinServiceImpl extends BaseJpaServiceImpl<GTPBulletin> impl
     @Autowired
     private AdminSettingsService adminSettingsService;
 
+    @Autowired
+    private DepartmentService departmentService;
+
     @Override
     protected BaseJpaRepository<GTPBulletin, Long> repository() {
         return repository;
@@ -42,6 +48,7 @@ public class GTPBulletinServiceImpl extends BaseJpaServiceImpl<GTPBulletin> impl
         return new GTPBulletin();
     }
 
+    @Override
     public List<Integer> findYears() {
         Integer startingYear = adminSettingsService.getStartingYear();
         return repository.findAllYears().stream().filter(y -> y >= startingYear).sorted().collect(toList());
@@ -54,23 +61,36 @@ public class GTPBulletinServiceImpl extends BaseJpaServiceImpl<GTPBulletin> impl
         LocalDate now = LocalDate.now(AD3Clock.systemDefaultZone());
         int currentYear = now.getYear();
 
-        Set<GTPBulletin> byYmd = new TreeSet<>(Comparator.comparing(GTPBulletin::getYear)
+        Set<GTPBulletin> byYmdl = new TreeSet<>(Comparator.comparing(GTPBulletin::getYear)
                 .thenComparing(GTPBulletin::getMonth)
-                .thenComparing(GTPBulletin::getDecadal));
-        byYmd.addAll(findAll());
+                .thenComparing(GTPBulletin::getDecadal)
+                .thenComparing((a, b) -> Department.compareTo(a.getDepartment(), b.getDepartment())));
+        byYmdl.addAll(findAll());
+
+        List<Department> ds = departmentService.findAll();
+        // National
+        ds.add(null);
+
+        List<GTPBulletin> newBs = new ArrayList<>();
 
         for (int y = startingYear; y <= currentYear; y++) {
             for (Month month : GTPBulletin.MONTHS) {
                 for (Decadal decadal : Decadal.values()) {
                     if (!isFuture(y, month, decadal)) {
-                        GTPBulletin bulletin = new GTPBulletin(y, month, decadal);
-                        if (!byYmd.contains(bulletin)) {
-                            saveAndFlush(bulletin);
+                        for (Department d : ds) {
+                            GTPBulletin bulletin = new GTPBulletin(y, month, decadal, d);
+                            if (!byYmdl.contains(bulletin)) {
+                                newBs.add(bulletin);
+                            }
                         }
                     }
                 }
             }
         }
+        if (!newBs.isEmpty()) {
+            repository.saveAll(newBs);
+        }
+
     }
 
     private boolean isFuture(int y, Month month, Decadal decadal) {

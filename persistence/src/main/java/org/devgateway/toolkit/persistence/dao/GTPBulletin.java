@@ -54,15 +54,16 @@ public class GTPBulletin extends AbstractAuditableEntity {
     public GTPBulletin() {
     }
 
-    public GTPBulletin(Long id, Integer year, Month month, Decadal decadal) {
-        this(year, month, decadal);
+    public GTPBulletin(Long id, Integer year, Month month, Decadal decadal, Department department) {
+        this(year, month, decadal, department);
         setId(id);
     }
 
-    public GTPBulletin(Integer year, Month month, Decadal decadal) {
+    public GTPBulletin(Integer year, Month month, Decadal decadal, Department department) {
         this.year = year;
         this.month = month;
         this.decadal = decadal;
+        this.department = department;
     }
 
     public Integer getYear() {

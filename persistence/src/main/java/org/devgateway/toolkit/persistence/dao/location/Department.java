@@ -25,7 +25,7 @@ import java.io.Serializable;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
-public class Department extends AbstractAuditableEntity implements Serializable, Labelable {
+public class Department extends AbstractAuditableEntity implements Serializable, Labelable, Comparable<Department> {
     private static final long serialVersionUID = 5802901244304509439L;
 
     @NotNull
@@ -52,6 +52,11 @@ public class Department extends AbstractAuditableEntity implements Serializable,
     }
 
     public Department(String name) {
+        this.name = name;
+    }
+
+    public Department(Long id, String name) {
+        this.setId(id);
         this.name = name;
     }
 
@@ -103,5 +108,21 @@ public class Department extends AbstractAuditableEntity implements Serializable,
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    @Override
+    public int compareTo(Department o) {
+        if (o == null) {
+            return -1;
+        }
+        return (o.getId() == null && getId() == null && o.getName().equals(getName()) || o.equals(this)) ? 0 :
+                getName().compareTo(o.getName());
+    }
+
+    public static int compareTo(Department a, Department b) {
+        if (a == null && b == null) return 0;
+        if (a != null && b != null) return a.compareTo(b);
+        if (a == null) return -1;
+        return 1;
     }
 }
