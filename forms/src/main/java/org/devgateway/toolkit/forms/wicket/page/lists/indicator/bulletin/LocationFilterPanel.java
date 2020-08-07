@@ -13,6 +13,7 @@ import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.dao.GenericPersistable;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.service.location.DepartmentService;
+import org.springframework.data.domain.Sort;
 
 import java.io.Serializable;
 import java.util.List;
@@ -42,7 +43,7 @@ public class LocationFilterPanel<T extends GenericPersistable & Serializable> ex
 
         Department defaultDepartment = new Department(getString("national"));
         List<Department> departmentList = Stream.of(defaultDepartment).collect(Collectors.toList());
-        departmentList.addAll(this.departmentService.findAll());
+        departmentList.addAll(this.departmentService.findAll(Sort.by("name")));
 
         GTPBulletinFilterState filterState = (GTPBulletinFilterState) filterForm.getFilterState();
         if (filterState.getDepartmentId() != null) {
