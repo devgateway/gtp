@@ -1,12 +1,9 @@
 package org.devgateway.toolkit.forms.wicket.page.lists.indicator.bulletin;
 
-import java.time.Month;
-import java.time.Year;
-import java.util.Arrays;
-
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
+import org.apache.wicket.Component;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
@@ -34,12 +31,17 @@ import org.devgateway.toolkit.persistence.service.GTPBulletinService;
 import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.time.Month;
+import java.time.Year;
+import java.util.Arrays;
+
 /**
  * @author Octavian Ciubotaru
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_GTP_BULLETIN_EDITOR)
 @MountPath("/gtp-bulletins")
 public class ListGTPBulletinPage extends AbstractListPage<GTPBulletin> {
+    private static final long serialVersionUID = -5337056193202229901L;
 
     @SpringBean
     private GTPBulletinService gtpBulletinService;
@@ -92,11 +94,18 @@ public class ListGTPBulletinPage extends AbstractListPage<GTPBulletin> {
     }
 
     @Override
+    protected Component getOuterFilter(final String id,
+            ResettingFilterForm<? extends JpaFilterState<GTPBulletin>> filterForm) {
+        return new LocationFilterPanel<>(id, filterForm);
+    }
+
+    @Override
     public Panel getActionPanel(String id, IModel<GTPBulletin> model) {
         return new CustomActionPanel(id, model);
     }
 
     public class CustomActionPanel extends AbstractListPage<GTPBulletin>.ActionPanel {
+        private static final long serialVersionUID = -6458713425603122610L;
 
         public CustomActionPanel(String id, IModel<GTPBulletin> model) {
             super(id, model);
@@ -105,6 +114,7 @@ public class ListGTPBulletinPage extends AbstractListPage<GTPBulletin> {
 
             BootstrapLink<FileMetadata> download = new BootstrapLink<FileMetadata>("download",
                     model.map(GTPBulletin::getUpload), Buttons.Type.Info) {
+                private static final long serialVersionUID = -4265683574648363599L;
 
                 @Override
                 public void onClick() {

@@ -51,6 +51,10 @@ public class Department extends AbstractAuditableEntity implements Serializable,
         setId(id);
     }
 
+    public Department(String name) {
+        this.name = name;
+    }
+
     public Region getRegion() {
         return region;
     }
