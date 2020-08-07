@@ -1,23 +1,24 @@
 package org.devgateway.toolkit.persistence.dao;
 
-import java.time.Month;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.ImmutableList;
+import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import java.time.Month;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Octavian Ciubotaru
@@ -25,8 +26,9 @@ import org.hibernate.envers.Audited;
 @Audited
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"year", "month", "decadal"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"year", "month", "decadal", "department_id"}))
 public class GTPBulletin extends AbstractAuditableEntity {
+    private static final long serialVersionUID = -1781769365489621450L;
 
     public static final List<Month> MONTHS =
             ImmutableList.of(Month.JUNE, Month.JULY, Month.AUGUST, Month.SEPTEMBER, Month.OCTOBER);
@@ -40,6 +42,9 @@ public class GTPBulletin extends AbstractAuditableEntity {
     @NotNull
     private Decadal decadal;
 
+    @ManyToOne(optional = true)
+    private Department department;
+
     @JsonIgnore
     @BatchSize(size = 50)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -49,15 +54,16 @@ public class GTPBulletin extends AbstractAuditableEntity {
     public GTPBulletin() {
     }
 
-    public GTPBulletin(Long id, Integer year, Month month, Decadal decadal) {
-        this(year, month, decadal);
+    public GTPBulletin(Long id, Integer year, Month month, Decadal decadal, Department department) {
+        this(year, month, decadal, department);
         setId(id);
     }
 
-    public GTPBulletin(Integer year, Month month, Decadal decadal) {
+    public GTPBulletin(Integer year, Month month, Decadal decadal, Department department) {
         this.year = year;
         this.month = month;
         this.decadal = decadal;
+        this.department = department;
     }
 
     public Integer getYear() {
@@ -82,6 +88,14 @@ public class GTPBulletin extends AbstractAuditableEntity {
 
     public void setDecadal(Decadal decadal) {
         this.decadal = decadal;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @JsonIgnore
