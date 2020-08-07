@@ -2,11 +2,11 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
+import org.devgateway.toolkit.persistence.dao.indicator.AnnualGTPReport;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.FileContent;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
-import org.devgateway.toolkit.persistence.dao.GTPBulletin;
+import org.devgateway.toolkit.persistence.dao.indicator.GTPBulletin;
 import org.devgateway.toolkit.persistence.dao.GTPMember;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.dto.GTPMaterials;

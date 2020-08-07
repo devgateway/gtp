@@ -2,7 +2,7 @@ package org.devgateway.toolkit.persistence.service.indicator.bulletin;
 
 import static java.util.stream.Collectors.toMap;
 
-import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
+import org.devgateway.toolkit.persistence.dao.indicator.AnnualGTPReport;
 import org.devgateway.toolkit.persistence.repository.AnnualGTPReportRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;

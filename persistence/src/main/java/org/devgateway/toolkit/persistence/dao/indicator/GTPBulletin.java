@@ -1,7 +1,10 @@
-package org.devgateway.toolkit.persistence.dao;
+package org.devgateway.toolkit.persistence.dao.indicator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.ImmutableList;
+import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
+import org.devgateway.toolkit.persistence.dao.Decadal;
+import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
