@@ -34,6 +34,12 @@ public class AnnualGTPReportServiceImpl extends BaseJpaServiceImpl<AnnualGTPRepo
     private DepartmentService departmentService;
 
     @Override
+    public Set<Department> findDepartments() {
+        Integer startingYear = adminSettingsService.getStartingYear();
+        return repository.findAllDepartments(startingYear);
+    }
+
+    @Override
     public void generate() {
         Set<AnnualGTPReport> byYL = new TreeSet<>(Comparator.comparing(AnnualGTPReport::getYear)
                 .thenComparing((a, b) -> Department.compareTo(a.getDepartment(), b.getDepartment())));

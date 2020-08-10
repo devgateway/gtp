@@ -10,12 +10,13 @@ import org.devgateway.toolkit.persistence.dto.GTPMaterialsData;
 import org.devgateway.toolkit.persistence.dto.GTPMaterialsFilter;
 import org.devgateway.toolkit.persistence.service.indicator.bulletin.AnnualGTPReportService;
 import org.devgateway.toolkit.persistence.service.indicator.bulletin.GTPBulletinService;
-import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author Octavian Ciubotaru
@@ -32,9 +33,6 @@ public class GTPServiceImpl implements GTPService {
     @Autowired
     private AnnualGTPReportService annualGTPBulletinService;
 
-    @Autowired
-    private DepartmentService departmentService;
-
     @Override
     public GTPMaterialsData getGTPMaterials() {
         GTPMaterialsFilter filter = new GTPMaterialsFilter(null);
@@ -43,9 +41,10 @@ public class GTPServiceImpl implements GTPService {
 
     @Override
     public GTPMaterialsConfig getGTPMaterialsConfig() {
-        List<Department> dList = departmentService.findAll();
-        dList.add(new Department("National"));
-        return new GTPMaterialsConfig(dList);
+        Set<Department> deps = bulletinService.findDepartments();
+        deps.addAll(annualGTPBulletinService.findDepartments());
+        deps.add(new Department("National"));
+        return new GTPMaterialsConfig(new ArrayList<>(deps));
     }
 
     @Override
