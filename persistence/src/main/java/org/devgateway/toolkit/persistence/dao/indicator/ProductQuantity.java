@@ -130,6 +130,7 @@ public class ProductQuantity extends AbstractAuditableEntity implements Comparab
         return NATURAL.compare(this, o);
     }
 
+    @JsonIgnore
     public String getQuantityNaturalId() {
         return String.format("%d-%d-%s", this.getProduct().getId(), this.getMarket().getId(),
                 this.getMonthDay().toString());

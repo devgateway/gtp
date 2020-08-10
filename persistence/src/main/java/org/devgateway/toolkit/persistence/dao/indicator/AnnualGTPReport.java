@@ -1,9 +1,13 @@
 package org.devgateway.toolkit.persistence.dao.indicator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.location.Department;
+import org.devgateway.toolkit.persistence.jackson.DepartmentIdNullableSerializer;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -32,7 +36,10 @@ public class AnnualGTPReport extends AbstractAuditableEntity {
     @NotNull
     private Integer year;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
+    @JsonInclude(JsonInclude.Include.ALWAYS)
+    @JsonProperty(value = "locationId")
+    @JsonSerialize(using = DepartmentIdNullableSerializer.class)
     private Department department;
 
     @JsonIgnore
