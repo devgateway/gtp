@@ -6,8 +6,14 @@
     padding: 0 0 0 0.5rem;
 
     .indicator.chart.filter {
-      display: inline-block;
+      display: inline-flex;
       height: auto;
+      align-items: center;
+
+      .filter.item {
+        min-height: auto;
+        height: auto !important;
+      }
     }
   }
 
