@@ -124,4 +124,11 @@
                 uniqueColumns="year"/>
     </changeSet>
 
+    <changeSet id="ANACIM-321 livestock diseases" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sqlFile path="sql/livestock-diseases.sql" />
+    </changeSet>
+
 </databaseChangeLog>
