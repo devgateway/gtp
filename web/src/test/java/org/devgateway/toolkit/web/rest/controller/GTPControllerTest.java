@@ -25,6 +25,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
@@ -52,9 +53,12 @@ public class GTPControllerTest extends AbstractDocumentedControllerTest {
                 .andExpect(jsonPath("filter").isNotEmpty())
                 .andDo(document("gtp-bulletins",
                         responseFields(
-                                subsectionWithPath("config").description("<<gtp-materials-config,GTP Materials configuration>>"),
-                                subsectionWithPath("data").description("<<gtp-materials-data,GTP Materials data>>"),
-                                subsectionWithPath("filter").description("Default <<gtp-materials-filter,GTP Materials filter>>"))));
+                                subsectionWithPath("config").description("<<gtp-materials-config-fields,GTP Materials configuration>>"),
+                                subsectionWithPath("data").description("<<gtp-materials-data-fields,GTP Materials data>>"),
+                                subsectionWithPath("filter").description("Default <<gtp-materials-data-filter,GTP Materials filter>>")),
+                        responseFields(beneathPath("data").withSubsectionId("data"),
+                                subsectionWithPath("annualReports").description("<<gtp-annual-report,GTP annual report>>"),
+                                subsectionWithPath("bulletins").description("<<gtp-bulletin,GTP bulletins>>"))));
     }
 
     @Test
@@ -66,9 +70,11 @@ public class GTPControllerTest extends AbstractDocumentedControllerTest {
                 .andExpect(jsonPath("locations").isNotEmpty())
                 .andDo(document("gtp-materials-config",
                         responseFields(
-                                subsectionWithPath("locations").description("<<location,GTP Location>> with uploaded materials")),
-                        responseFields(beneathPath("locations"),
-                                fieldWithPath("id").description("Location Id (not null = Department, null = National)"),
+                                subsectionWithPath("locations")
+                                        .description("<<gtp-materials-config-location-fields,GTP Locations>> with uploaded materials")),
+                        responseFields(beneathPath("locations").withSubsectionId("locations"),
+                                fieldWithPath("id").optional().type(JsonFieldType.NUMBER)
+                                        .description("Location Id (not null = Department, null = National)"),
                                 fieldWithPath("name").description("Location name"))
                         ));
     }
@@ -88,7 +94,8 @@ public class GTPControllerTest extends AbstractDocumentedControllerTest {
                 .andExpect(jsonPath("annualReports").isNotEmpty())
                 .andDo(document("gtp-materials-data",
                         requestFields(
-                                constrainedFields.withPath("locationId").description("<<location,Location>> Id")),
+                                constrainedFields.withPath("locationId").optional().type(JsonFieldType.NUMBER)
+                                        .description("<<gtp-materials-config-location-fields,Location>> Id")),
                         responseFields(
                                 subsectionWithPath("annualReports").description("<<gtp-annual-report,GTP annual report>>"),
                                 subsectionWithPath("bulletins").description("<<gtp-bulletin,GTP bulletins>>")),
@@ -98,12 +105,12 @@ public class GTPControllerTest extends AbstractDocumentedControllerTest {
                                 fieldWithPath("year").description("Year"),
                                 fieldWithPath("month").description("Month"),
                                 fieldWithPath("decadal").description("Decadal"),
-                                fieldWithPath("locationId").description("Location Id")),
+                                fieldWithPath("locationId").optional().type(JsonFieldType.NUMBER).description("Location Id")),
                         responseFields(
                                 beneathPath("annualReports").withSubsectionId("annualReports"),
                                 fieldWithPath("id").description("Annual GTP bulletin Id"),
                                 fieldWithPath("year").description("Year"),
-                                fieldWithPath("locationId").description("Location Id"))));
+                                fieldWithPath("locationId").optional().type(JsonFieldType.NUMBER).description("Location Id"))));
 
     }
 
