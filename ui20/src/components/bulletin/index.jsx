@@ -3,9 +3,11 @@ import React, {Component} from "react"
 import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import {Segment} from "semantic-ui-react"
+import BulletinConfig from "../../modules/entities/bulletins/BulletinConfig"
 import BulletinReport from "../../modules/entities/bulletins/BulletinReport"
 import Bulletins from "../../modules/entities/bulletins/Bulletins"
-import {yearsToOptions} from "../../modules/graphic/common/GraphicDTO"
+import {anyWithIdAndNameToOptions, yearsToOptions} from "../../modules/graphic/common/GraphicDTO"
+import {getOrDefault} from "../../modules/utils/DataUtilis"
 import * as bulletinActions from "../../redux/actions/bulletinActions"
 import FilterDropDown from "../common/filter/FilterDropDown"
 import "../common/common.scss"
@@ -18,20 +20,22 @@ class BulletinPage extends Component {
     isLoaded: PropTypes.bool.isRequired,
     report: PropTypes.object.isRequired,
     setYears: PropTypes.func.isRequired,
+    setLocation: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
     this.props.onLoadAll();
   }
   render() {
-    const {isLoaded, setYears, intl} = this.props;
+    const {isLoaded, setYears, setLocation, intl} = this.props;
     if (!isLoaded) {
       return <div/>
     }
 
     const report: BulletinReport = this.props.report
+    const config: BulletinConfig = report.config
     const years = report.filter.years.sort().reverse()
-    const bulletinsList = years.map(y => report.data.gtpMaterials.get(y))
+    const bulletinsList = years.map(y => getOrDefault(report.data.gtpMaterials, y, null, () => new Bulletins(y)))
 
     return (
       <div className="page-container bulletins-container">
@@ -39,14 +43,23 @@ class BulletinPage extends Component {
           <Segment className="title">
             <FormattedMessage id="menu.bulletins.title" />
           </Segment>
-          <div className="indicator chart filter">
-            <div className="filter item">
+          <div className="indicator chart filter two-filters">
+            <div className="filter item fixed">
               <FilterDropDown
-                options={yearsToOptions(years)}
+                options={yearsToOptions(config.years)}
                 onChange={setYears}
                 single={false}
                 selected={years}
                 text={intl.formatMessage({ id: "indicators.filters.year"})} />
+            </div>
+            <div className="filter item fixed">
+              <FilterDropDown
+                options={anyWithIdAndNameToOptions(config.locations)}
+                onChange={(ids) => setLocation(ids[0])}
+                single={true}
+                withSearch={true}
+                selected={[report.filter.locationId]}
+                text={intl.formatMessage({ id: "indicators.filters.localite"})} />
             </div>
           </div>
         </Segment>
@@ -68,6 +81,7 @@ const mapStateToProps = state => {
 const mapActionCreators = {
   onLoadAll: bulletinActions.loadAllBulletins,
   setYears: bulletinActions.setYears,
+  setLocation: bulletinActions.setLocation,
 }
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(BulletinPage))

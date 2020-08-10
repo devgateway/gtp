@@ -1,9 +1,9 @@
 package org.devgateway.toolkit.persistence.service.indicator.bulletin;
 
-import java.util.List;
-
 import org.devgateway.toolkit.persistence.dao.indicator.AnnualGTPReport;
 import org.devgateway.toolkit.persistence.service.BaseJpaService;
+
+import java.util.List;
 
 /**
  * @author Octavian Ciubotaru
@@ -12,5 +12,5 @@ public interface AnnualGTPReportService extends BaseJpaService<AnnualGTPReport> 
 
     void generate();
 
-    List<AnnualGTPReport> findAllWithUploads();
+    List<AnnualGTPReport> findAllWithUploadsAndDepartment(Long locationId);
 }

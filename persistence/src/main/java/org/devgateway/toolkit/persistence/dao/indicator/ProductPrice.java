@@ -149,6 +149,7 @@ public class ProductPrice extends AbstractAuditableEntity implements Comparable<
         return NATURAL.compare(this, o);
     }
 
+    @JsonIgnore
     public String getPriceNaturalId() {
         return String.format("%d-%d-%s-%d", this.getProduct().getId(), this.getMarket().getId(),
                 this.getMonthDay().toString(), this.getPriceType().getId());

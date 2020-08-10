@@ -227,6 +227,7 @@
 	"indicators.filters.gender": "Gender",
 	"indicators.filters.index_type": "Index Type",
 	"indicators.filters.location": "Location",
+	"indicators.filters.localite": "Location",
 	"indicators.filters.losstype": "Loss Type",
 	"indicators.filters.market": "Collection market",
 	"indicators.filters.product": "Product",

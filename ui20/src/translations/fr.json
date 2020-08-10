@@ -228,6 +228,7 @@
 	"indicators.filters.gender": "Genre",
 	"indicators.filters.index_type": "Type d'Indice",
 	"indicators.filters.location": "Localisation",
+	"indicators.filters.localite": "Localité",
 	"indicators.filters.losstype": "Répartition de la Production",
 	"indicators.filters.market": "Marché de collecte",
 	"indicators.filters.product": "Produit",
