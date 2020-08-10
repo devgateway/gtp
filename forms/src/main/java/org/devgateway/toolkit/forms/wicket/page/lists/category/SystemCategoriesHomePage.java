@@ -80,5 +80,10 @@ public class SystemCategoriesHomePage extends BasePage {
                 "gtpMembers", ListGTPMembersPage.class, Buttons.Type.Default);
         gtpMembers.setLabel(new StringResourceModel("gtpMembers"));
         add(gtpMembers);
+
+        BootstrapBookmarkablePageLink<?> livestockDiseases = new BootstrapBookmarkablePageLink<>(
+                "livestockDiseases", ListLivestockDiseasePage.class, Buttons.Type.Default);
+        livestockDiseases.setLabel(new StringResourceModel("livestockDiseases"));
+        add(livestockDiseases);
     }
 }
