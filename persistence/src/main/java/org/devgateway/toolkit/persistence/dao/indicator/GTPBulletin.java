@@ -1,11 +1,15 @@
 package org.devgateway.toolkit.persistence.dao.indicator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.location.Department;
+import org.devgateway.toolkit.persistence.jackson.DepartmentIdNullableSerializer;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -30,6 +34,7 @@ import java.util.Set;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"year", "month", "decadal", "department_id"}))
+@JsonInclude(JsonInclude.Include.ALWAYS)
 public class GTPBulletin extends AbstractAuditableEntity {
     private static final long serialVersionUID = -1781769365489621450L;
 
@@ -46,6 +51,9 @@ public class GTPBulletin extends AbstractAuditableEntity {
     private Decadal decadal;
 
     @ManyToOne(optional = true)
+    @JsonInclude(JsonInclude.Include.ALWAYS)
+    @JsonProperty(value = "locationId")
+    @JsonSerialize(using = DepartmentIdNullableSerializer.class)
     private Department department;
 
     @JsonIgnore

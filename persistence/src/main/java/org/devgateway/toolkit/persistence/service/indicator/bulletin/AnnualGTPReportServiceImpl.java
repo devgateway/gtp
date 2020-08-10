@@ -67,8 +67,8 @@ public class AnnualGTPReportServiceImpl extends BaseJpaServiceImpl<AnnualGTPRepo
     }
 
     @Override
-    public List<AnnualGTPReport> findAllWithUploads() {
+    public List<AnnualGTPReport> findAllWithUploadsAndDepartment(Long locationId) {
         Integer startingYear = adminSettingsService.getStartingYear();
-        return repository.findAllWithUploads(startingYear);
+        return repository.findAllWithUploadsAndDepartment(startingYear, locationId);
     }
 }

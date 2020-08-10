@@ -102,8 +102,8 @@ public class GTPBulletinServiceImpl extends BaseJpaServiceImpl<GTPBulletin> impl
     }
 
     @Override
-    public List<GTPBulletin> findAllWithUploads() {
+    public List<GTPBulletin> findAllWithUploadsAndLocation(Long locationId) {
         Integer startingYear = adminSettingsService.getStartingYear();
-        return repository.findAllWithUploads(startingYear);
+        return repository.findAllWithUploadsAndDepartment(startingYear, locationId);
     }
 }
