@@ -55,6 +55,12 @@ public class GTPBulletinServiceImpl extends BaseJpaServiceImpl<GTPBulletin> impl
     }
 
     @Override
+    public Set<Department> findDepartments() {
+        Integer startingYear = adminSettingsService.getStartingYear();
+        return repository.findAllDepartments(startingYear);
+    }
+
+    @Override
     @Transactional
     public void generate() {
         Integer startingYear = adminSettingsService.getStartingYear();
