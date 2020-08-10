@@ -5,18 +5,20 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.beneathPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Optional;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.devgateway.toolkit.persistence.dto.GTPMaterialsFilter;
 import org.devgateway.toolkit.persistence.service.GTPService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +26,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Optional;
 
 /**
  * @author Octavian Ciubotaru
@@ -39,13 +43,52 @@ public class GTPControllerTest extends AbstractDocumentedControllerTest {
 
     @Test
     public void getMaterials() throws Exception {
-        given(service.getGTPMaterials()).willReturn(sampleData.getMaterials());
+        given(service.getGTPMaterials()).willReturn(sampleData.getMaterialsData());
 
-        mvc.perform(get("/api/gtp/materials"))
+        mvc.perform(get("/api/gtp/materials/all"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("config").isNotEmpty())
+                .andExpect(jsonPath("data").isNotEmpty())
+                .andExpect(jsonPath("filter").isNotEmpty())
+                .andDo(document("gtp-bulletins",
+                        responseFields(
+                                subsectionWithPath("config").description("<<gtp-materials-config,GTP Materials configuration>>"),
+                                subsectionWithPath("data").description("<<gtp-materials-data,GTP Materials data>>"),
+                                subsectionWithPath("filter").description("Default <<gtp-materials-filter,GTP Materials filter>>"))));
+    }
+
+    @Test
+    public void getGTPMaterialsConfig() throws Exception {
+        given(service.getGTPMaterialsConfig()).willReturn(sampleData.getConfig());
+
+        mvc.perform(get("/api/gtp/materials/config"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("locations").isNotEmpty())
+                .andDo(document("gtp-materials-config",
+                        responseFields(
+                                subsectionWithPath("locations").description("<<location,GTP Location>> with uploaded materials")),
+                        responseFields(beneathPath("locations"),
+                                fieldWithPath("id").description("Location Id (not null = Department, null = National)"),
+                                fieldWithPath("name").description("Location name"))
+                        ));
+    }
+
+    @Test
+    public void getMaterialsFiltered() throws Exception {
+        given(service.getGTPMaterialsFiltered(any())).willReturn(sampleData.getMaterials());
+
+        ConstrainedFields constrainedFields = new ConstrainedFields(GTPMaterialsFilter.class);
+        om.setSerializationInclusion(JsonInclude.Include.ALWAYS);
+
+        mvc.perform(post("/api/gtp/materials/data")
+                .content(om.writeValueAsBytes(sampleData.getFilter()))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("bulletins").isNotEmpty())
                 .andExpect(jsonPath("annualReports").isNotEmpty())
-                .andDo(document("gtp-bulletins",
+                .andDo(document("gtp-materials-data",
+                        requestFields(
+                                constrainedFields.withPath("locationId").description("<<location,Location>> Id")),
                         responseFields(
                                 subsectionWithPath("annualReports").description("<<gtp-annual-report,GTP annual report>>"),
                                 subsectionWithPath("bulletins").description("<<gtp-bulletin,GTP bulletins>>")),
@@ -54,11 +97,14 @@ public class GTPControllerTest extends AbstractDocumentedControllerTest {
                                 fieldWithPath("id").description("GTP bulletin Id"),
                                 fieldWithPath("year").description("Year"),
                                 fieldWithPath("month").description("Month"),
-                                fieldWithPath("decadal").description("Decadal")),
+                                fieldWithPath("decadal").description("Decadal"),
+                                fieldWithPath("locationId").description("Location Id")),
                         responseFields(
                                 beneathPath("annualReports").withSubsectionId("annualReports"),
                                 fieldWithPath("id").description("Annual GTP bulletin Id"),
-                                fieldWithPath("year").description("Year"))));
+                                fieldWithPath("year").description("Year"),
+                                fieldWithPath("locationId").description("Location Id"))));
+
     }
 
     @Test
