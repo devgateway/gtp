@@ -416,7 +416,7 @@ html {
   mask: url('/icons/icon_question.svg');
   background: $color-blue;
   .IE & {
-    background: url('/icons/icon_question.svg');
+    background: url('/icons/icon_question_blue.svg');
   }
 }
 .ui.popup.help-icon-popup {
