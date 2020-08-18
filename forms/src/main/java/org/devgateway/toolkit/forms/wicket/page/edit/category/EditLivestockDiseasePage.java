@@ -36,12 +36,12 @@ public class EditLivestockDiseasePage extends AbstractEditPage<LivestockDisease>
     protected void onInitialize() {
         super.onInitialize();
 
-        final TextFieldBootstrapFormComponent<String> name = new TextFieldBootstrapFormComponent<>("name");
-        name.required();
-        name.getField().add(WebConstants.StringValidators.MAXIMUM_LENGTH_VALIDATOR_STD_DEFAULT_TEXT);
-        name.getField().add(new UniquePropertyValidator<>(livestockDiseaseService,
-                Objects.defaultIfNull(entityId, -1L), "name", this));
-        editForm.add(name);
+        final TextFieldBootstrapFormComponent<String> label = new TextFieldBootstrapFormComponent<>("label");
+        label.required();
+        label.getField().add(WebConstants.StringValidators.MAXIMUM_LENGTH_VALIDATOR_STD_DEFAULT_TEXT);
+        label.getField().add(new UniquePropertyValidator<>(livestockDiseaseService,
+                Objects.defaultIfNull(entityId, -1L), "label", this));
+        editForm.add(label);
 
         deleteButton.setVisible(false);
     }

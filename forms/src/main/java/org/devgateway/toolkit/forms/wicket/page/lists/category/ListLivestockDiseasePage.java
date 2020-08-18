@@ -30,13 +30,13 @@ public class ListLivestockDiseasePage extends AbstractListPage<LivestockDisease>
         this.jpaService = livestockDiseaseService;
         this.editPageClass = EditLivestockDiseasePage.class;
 
-        columns.add(new PropertyColumn<>(new StringResourceModel("name"), "name", "name"));
+        columns.add(new PropertyColumn<>(new StringResourceModel("label"), "label", "label"));
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
 
-        dataProvider.setSort("name", SortOrder.ASCENDING);
+        dataProvider.setSort("label", SortOrder.ASCENDING);
     }
 }

@@ -131,4 +131,29 @@
         <sqlFile path="sql/livestock-diseases.sql" />
     </changeSet>
 
+    <changeSet id="ANACIM-322 livestock diseases labels" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <changeSetExecuted id="ANACIM-321 livestock diseases" author="nmandrescu"
+                               changeLogFile="liquibase-changelog-1.0.xml"/>
+        </preConditions>
+        <update tableName="category">
+            <column name="label" valueComputed="name" />
+            <where>dtype='LivestockDisease'</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="ANACIM-322 disease indicator editor permission" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="indicator_metadata" />
+            <changeSetExecuted id="ANACIM-1 initial org and admin" author="nmandrescu"
+                               changeLogFile="liquibase-changelog-0.1.xml"/>
+        </preConditions>
+        <insert tableName="indicator_metadata">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Disease Situation" />
+            <column name="type" value="DISEASE_SITUATION" />
+            <column name="organization_id" valueComputed="(SELECT id FROM organization WHERE tag='ME')" />
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

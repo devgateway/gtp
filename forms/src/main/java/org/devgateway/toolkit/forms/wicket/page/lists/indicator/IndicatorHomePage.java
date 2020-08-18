@@ -14,6 +14,7 @@ import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.bulletin.ListAnnualGTPReportsPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.bulletin.ListGTPBulletinPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.indicator.disease.ListDiseaseYearlySituationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.market.ListProductYearlyPricesPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainseason.ListRainSeasonPage;
@@ -88,5 +89,12 @@ public class IndicatorHomePage extends BasePage {
         annualGTPReports.setLabel(new StringResourceModel("annualGTPReports"));
         authorize(annualGTPReports, Component.RENDER, SecurityConstants.Roles.ROLE_GTP_BULLETIN_EDITOR);
         add(annualGTPReports);
+
+        BootstrapBookmarkablePageLink<?> diseaseSituations =
+                new BootstrapBookmarkablePageLink<>("diseaseSituations", ListDiseaseYearlySituationPage.class,
+                        Buttons.Type.Default);
+        diseaseSituations.setLabel(new StringResourceModel("diseaseSituations"));
+        authorize(diseaseSituations, Component.RENDER, SecurityConstants.Roles.ROLE_DISEASE_SITUATION_EDITOR);
+        add(diseaseSituations);
     }
 }

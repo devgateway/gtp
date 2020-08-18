@@ -27,7 +27,7 @@ import java.util.List;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @BatchSize(size = 100)
-public class Region extends AbstractAuditableEntity implements Serializable, Labelable {
+public class Region extends AbstractAuditableEntity implements Serializable, Labelable, Comparable<Region> {
     private static final long serialVersionUID = -6891830924297855642L;
 
     @NotNull
@@ -127,5 +127,10 @@ public class Region extends AbstractAuditableEntity implements Serializable, Lab
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    @Override
+    public int compareTo(Region region) {
+        return name.compareTo(region.name);
     }
 }
