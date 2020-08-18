@@ -107,6 +107,25 @@ public abstract class AbstractExcelFileIndicatorReader<T> {
 
     }
 
+    protected <R> R getEntityFromString(XSSFRow row, int colId, String className, SearchableCollection<R> entities) {
+        XSSFCell cell = row.getCell(colId);
+        if (isEmpty(cell)) {
+            addErrorAt(cell, String.format("%s non spécifié", className));
+        } else {
+            try {
+                String entityName = getAsString(cell);
+                R entity = entities.get(entityName);
+                if (entity == null) {
+                    addErrorAt(cell, String.format("%s inconnu %s", className, entityName));
+                }
+                return entity;
+            } catch (Exception e) {
+                addErrorAt(cell, String.format("%s invalide", className));
+            }
+        }
+        return null;
+    }
+
     protected XSSFRow nextRow() {
         return sheet.getRow(this.rowNo++);
     }
