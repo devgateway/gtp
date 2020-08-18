@@ -131,4 +131,15 @@
         <sqlFile path="sql/livestock-diseases.sql" />
     </changeSet>
 
+    <changeSet id="ANACIM-322 livestock diseases labels" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <changeSetExecuted id="ANACIM-321 livestock diseases" author="nmandrescu"
+                               changeLogFile="liquibase-changelog-1.0.xml"/>
+        </preConditions>
+        <update tableName="category">
+            <column name="label" valueComputed="name" />
+            <where>dtype='LivestockDisease'</where>
+        </update>
+    </changeSet>
+
 </databaseChangeLog>
