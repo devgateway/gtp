@@ -65,9 +65,9 @@ public class DiseaseYearlySituation extends AbstractAuditableEntity implements A
         this.quantities = quantities;
     }
 
-    public void addDiseaseQuantity(DiseaseQuantity diseaseQuantity) {
-        quantities.add(diseaseQuantity);
+    public boolean addDiseaseQuantity(DiseaseQuantity diseaseQuantity) {
         diseaseQuantity.setYearlySituation(this);
+        return quantities.add(diseaseQuantity);
     }
 
     public Long getQuantitiesSize() {

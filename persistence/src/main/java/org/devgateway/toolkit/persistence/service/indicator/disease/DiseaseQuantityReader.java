@@ -89,7 +89,9 @@ public class DiseaseQuantityReader extends AbstractExcelFileIndicatorReader<Dise
                 Long quantity = getQuantity(row, monthColId);
                 if (r != null && d != null && quantity != null) {
                     DiseaseQuantity dq = new DiseaseQuantity(r, d, month, quantity);
-                    situation.addDiseaseQuantity(dq);
+                    if (!situation.addDiseaseQuantity(dq)) {
+                        addErrorAt(row.getCell(monthColId), "Entrée en double");
+                    }
                 }
             }
 
