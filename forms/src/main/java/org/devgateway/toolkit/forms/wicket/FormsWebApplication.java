@@ -148,6 +148,10 @@ public class FormsWebApplication extends AuthenticatedWebApplication {
         return (FormsWebApplication) Application.get();
     }
 
+    public static <T> T getBean(Class<T> aClass) {
+        return get().getApplicationContext().getBean(aClass);
+    }
+
     /**
      * configures wicket-bootstrap and installs the settings.
      */
@@ -273,6 +277,10 @@ public class FormsWebApplication extends AuthenticatedWebApplication {
         ApplicationSettings select2Settings = ApplicationSettings.get();
         select2Settings.setJavaScriptReference(javaScriptReference);
         select2Settings.setJavascriptReferenceFull(javaScriptReferenceFull);
+    }
+
+    public ApplicationContext getApplicationContext() {
+        return applicationContext;
     }
 
     /*

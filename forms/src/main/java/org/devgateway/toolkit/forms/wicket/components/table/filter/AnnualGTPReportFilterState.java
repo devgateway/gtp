@@ -1,7 +1,9 @@
 package org.devgateway.toolkit.forms.wicket.components.table.filter;
 
+import org.devgateway.toolkit.forms.wicket.FormsWebApplication;
 import org.devgateway.toolkit.persistence.dao.indicator.AnnualGTPReport;
 import org.devgateway.toolkit.persistence.dao.indicator.AnnualGTPReport_;
+import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Predicate;
@@ -26,6 +28,9 @@ public class AnnualGTPReportFilterState extends JpaFilterState<AnnualGTPReport> 
             } else {
                 predicates.add(cb.equal(root.get(AnnualGTPReport_.department), departmentId));
             }
+
+            AdminSettingsService adminSettingsService = FormsWebApplication.getBean(AdminSettingsService.class);
+            predicates.add(cb.ge(root.get(AnnualGTPReport_.year), adminSettingsService.getStartingYear()));
 
             return cb.and(predicates.toArray(new Predicate[0]));
         };

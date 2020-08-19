@@ -9,10 +9,13 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.DiseaseYearlySituationFilterState;
+import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.page.edit.indicator.disease.EditDiseaseYearlySituationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractExcelImportListPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.panel.DiseaseYearlySituationActionPanel;
 import org.devgateway.toolkit.persistence.dao.indicator.DiseaseYearlySituation;
+import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.indicator.disease.DiseaseYearlySituationService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -26,6 +29,9 @@ public class ListDiseaseYearlySituationPage extends AbstractExcelImportListPage<
 
     @SpringBean
     private DiseaseYearlySituationService diseaseYearlySituationService;
+
+    @SpringBean
+    private AdminSettingsService adminSettingsService;
 
     public ListDiseaseYearlySituationPage(PageParameters parameters) {
         super(parameters);
@@ -42,12 +48,24 @@ public class ListDiseaseYearlySituationPage extends AbstractExcelImportListPage<
     protected void onInitialize() {
         super.onInitialize();
 
-        dataProvider.setSort("year", SortOrder.ASCENDING);
+        dataProvider.setSort("year", SortOrder.DESCENDING);
         editPageLink.setVisible(false);
     }
 
     @Override
     public Panel getActionPanel(String id, IModel<DiseaseYearlySituation> model) {
         return new DiseaseYearlySituationActionPanel(id, model);
+    }
+
+    @Override
+    public JpaFilterState<DiseaseYearlySituation> newFilterState() {
+        return new DiseaseYearlySituationFilterState() {
+            private static final long serialVersionUID = 770565340095492328L;
+
+            @Override
+            protected Integer getStartingYear() {
+                return adminSettingsService.getStartingYear();
+            }
+        };
     }
 }
