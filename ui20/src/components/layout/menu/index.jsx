@@ -37,7 +37,7 @@ class Menu extends Component {
   }
 
   handleScroll(event) {
-    const { scrollTop, scrollHeight, clientHeight } = event.target.documentElement
+    const { scrollTop, scrollHeight, clientHeight } = document.scrollingElement || event.target.documentElement
     const remainingScroll = scrollHeight - clientHeight - scrollTop
     const menuAndHeaderHeight = this.menuRef.current.firstChild.clientHeight + ComponentUtil.getHeaderHeight()
     const footerHeight = ComponentUtil.getFooterHeight()
