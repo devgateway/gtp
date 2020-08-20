@@ -20,6 +20,10 @@
     align-items: center;
   }
 
+  .legend-item-label {
+    white-space: nowrap;
+  }
+
   &.clickable {
     cursor: pointer;
   }
