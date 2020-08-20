@@ -30,7 +30,7 @@ export default class CustomLegendItem extends Component<CustomLegendItemProps> {
           <g><CustomLegendSymbol key="symbol" {...this.props} /></g>
         </svg>
       </span>),
-      <span key="message">{message}</span>]
+      <span key="message" className="legend-item-label">{message}</span>]
     if (!leftToRight) {
       legendItem = legendItem.reverse()
     }
