@@ -4,6 +4,7 @@ import {withRouter} from "react-router";
 import {Provider} from 'react-redux'
 import {Route, Switch, Redirect} from 'react-router' // react-router v4/v5
 import {ConnectedRouter} from 'connected-react-router/immutable'
+import ConnectionCheckWrapper from "./components/common/ConnectionCheckWrapper"
 import {cssClasses, getBrowserClass} from "./components/ComponentUtil"
 import Layout from "./components/layout/Layout"
 import configureStore, {history} from './redux/Store'
@@ -35,7 +36,7 @@ const messages = {
   'en': messages_en
 };
 
-const withLayout = (Component) => <Layout><Component/></Layout>
+const withLayout = (Component) => <Layout><ConnectionCheckWrapper><Component /></ConnectionCheckWrapper></Layout>
 const HomeLayout = (props) => withLayout(Home)
 const AboutLayout = (props) => withLayout(About)
 const WaterLayout = (props) => withLayout(Water)
