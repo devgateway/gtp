@@ -1,6 +1,6 @@
 import 'url-search-params-polyfill';
 
-const FETCH_TIMEOUT_MILLISECONDS = 30000
+export const FETCH_TIMEOUT_MILLISECONDS = 30000
 
 const fetchWithTimeout = (url, options) => {
   let timeoutTrigger = undefined
