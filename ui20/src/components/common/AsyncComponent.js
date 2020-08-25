@@ -32,3 +32,9 @@ export default function asyncComponent (importComponent) {
 
   return AsyncComponent
 }
+
+export const ConnectivityError = () => (
+  <div className="connectivity-error">
+    <h3><FormattedMessage id="all.data-error" /></h3>
+  </div>)
+

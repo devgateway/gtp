@@ -1,6 +1,5 @@
 import * as PropTypes from "prop-types"
 import React, {Component} from 'react';
-import {FormattedMessage} from "react-intl"
 import {connect} from "react-redux"
 import * as appActions from "../../redux/actions/appActions"
 
@@ -30,17 +29,12 @@ class ConnectionCheckWrapper extends Component {
     const {isConnected} = this.state
     return (
       <div>
-        {isConnected === false && (
-          <div className="connectivity-error">
-            <h3><FormattedMessage id="all.data-error" /></h3>
-          </div>)
-        }
+        {isConnected === false && <ConnectivityError />}
         {this.props.children}
       </div>
     )
   }
 }
-
 
 const mapStateToProps = state => {
   return {
