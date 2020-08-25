@@ -3,6 +3,7 @@ import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as memberActions from "../../redux/actions/memberActions"
+import PageLoadWrapper from "../common/page/PageLoadWrapper"
 import AboutIntro from "./AboutIntro"
 import GTPMembers from "./GTPMembers"
 
@@ -42,4 +43,8 @@ const mapActionCreators = {
   onLoadAll: memberActions.loadAllMembers,
 }
 
-export default injectIntl(connect(mapStateToProps, mapActionCreators)(About))
+
+const AboutLoadWrapper = PageLoadWrapper({ statePath: 'member'})
+const AP = (props) => <AboutLoadWrapper {...props} >{(childProps) => <About {...childProps}/>}</AboutLoadWrapper>
+
+export default injectIntl(connect(mapStateToProps, mapActionCreators)(AP))

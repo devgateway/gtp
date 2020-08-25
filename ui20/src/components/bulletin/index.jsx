@@ -9,15 +9,16 @@ import Bulletins from "../../modules/entities/bulletins/Bulletins"
 import {anyWithIdAndNameToOptions, yearsToOptions} from "../../modules/graphic/common/GraphicDTO"
 import {getOrDefault} from "../../modules/utils/DataUtilis"
 import * as bulletinActions from "../../redux/actions/bulletinActions"
-import FilterDropDown from "../common/filter/FilterDropDown"
 import "../common/common.scss"
+import FilterDropDown from "../common/filter/FilterDropDown"
+import PageLoadWrapper from "../common/page/PageLoadWrapper"
 import "./bulletin.scss"
 import BulletinYear from "./BulletinYear"
 
 class BulletinPage extends Component {
   static propTypes = {
     onLoadAll: PropTypes.func.isRequired,
-    isLoaded: PropTypes.bool.isRequired,
+    isLoaded: PropTypes.bool,
     report: PropTypes.object.isRequired,
     setYears: PropTypes.func.isRequired,
     setLocation: PropTypes.func.isRequired,
@@ -26,6 +27,7 @@ class BulletinPage extends Component {
   componentDidMount() {
     this.props.onLoadAll();
   }
+
   render() {
     const {isLoaded, setYears, setLocation, intl} = this.props;
     if (!isLoaded) {
@@ -84,4 +86,7 @@ const mapActionCreators = {
   setLocation: bulletinActions.setLocation,
 }
 
-export default injectIntl(connect(mapStateToProps, mapActionCreators)(BulletinPage))
+const BulletinPageLoadWrapper = PageLoadWrapper({ statePath: 'bulletin'})
+const BP = (props) => <BulletinPageLoadWrapper {...props} >{(childProps) => <BulletinPage {...childProps}/>}</BulletinPageLoadWrapper>
+
+export default injectIntl(connect(mapStateToProps, mapActionCreators)(BP))

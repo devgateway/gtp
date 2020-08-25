@@ -1,12 +1,12 @@
 import * as PropTypes from "prop-types"
 import React, {Component} from 'react';
-import {FormattedMessage} from "react-intl"
 import {connect} from "react-redux"
 import * as appActions from "../../redux/actions/appActions"
 
 class ConnectionCheckWrapper extends Component {
   static propTypes = {
     connectionCheck: PropTypes.func.isRequired,
+    childrenBuilder: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -14,33 +14,39 @@ class ConnectionCheckWrapper extends Component {
     this.state = {
       isConnected: undefined,
     }
+    this.updateConnectionStatus = this.updateConnectionStatus.bind(this)
   }
 
   componentDidMount() {
+    this.mounted = true
     if (navigator.onLine) {
       this.props.connectionCheck()
-        .then(() => this.setState({isConnected: true}))
-        .catch(() => this.setState({isConnected: false}))
+        .then(() => this.updateConnectionStatus(true))
+        .catch(() => this.updateConnectionStatus(false))
     } else {
-      this.setState({isConnected: false})
+      this.updateConnectionStatus(false)
     }
+  }
+
+  updateConnectionStatus(isConnected) {
+    if (this.mounted) {
+      this.setState({isConnected})
+    }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false
   }
 
   render() {
     const {isConnected} = this.state
     return (
       <div>
-        {isConnected === false && (
-          <div className="connectivity-error">
-            <h3><FormattedMessage id="all.data-error" /></h3>
-          </div>)
-        }
-        {this.props.children}
+        {this.props.childrenBuilder({isConnected})}
       </div>
     )
   }
 }
-
 
 const mapStateToProps = state => {
   return {
