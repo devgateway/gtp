@@ -21,3 +21,5 @@ export const getBulletins = (locationId) => post(EP.BULLETINS, {locationId})
 export const getAllMembers = () => get(EP.MEMBER_ALL)
 
 export const getWorldMapAttribution = () => get(EP.ESRI_MAP_SERVICE_INFO)
+
+export const doTest = () => get(EP.TEST)
