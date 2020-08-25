@@ -36,7 +36,7 @@ const messages = {
   'en': messages_en
 };
 
-const withLayout = (Component) => <Layout><ConnectionCheckWrapper><Component /></ConnectionCheckWrapper></Layout>
+const withLayout = (Component) => <Layout><ConnectionCheckWrapper childrenBuilder={(props) => <Component {...props} />} /></Layout>
 const HomeLayout = (props) => withLayout(Home)
 const AboutLayout = (props) => withLayout(About)
 const WaterLayout = (props) => withLayout(Water)
