@@ -434,3 +434,12 @@ html {
   padding: 40px 0 0 40px;
   color: $color-gray;
 }
+.page-loader {
+  &.ui.active.indeterminate.centered.inline.loader {
+    align-self: baseline;
+    height: 200px;
+  }
+  &.ui.loader:before, &.ui.loader:after {
+    top: 150px;
+  }
+}

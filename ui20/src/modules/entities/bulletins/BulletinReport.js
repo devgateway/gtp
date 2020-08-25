@@ -18,7 +18,7 @@ export const fromApi = ({data, config, filter} = {data: {}, config: {}, filter: 
   BulletinReport.data = dataFromApi(data)
   BulletinReport.config = new BulletinConfig(Array.from(BulletinReport.data.gtpMaterials.keys()),
     (locations || []).map(l => new GTPLocation(l)).sort(GTPLocation.localeCompare))
-  BulletinReport.filter.years = BulletinReport.config.years
+  BulletinReport.filter.years = BulletinReport.config.years || []
   BulletinReport.filter.locationId = filter.locationId
   return BulletinReport
 }
