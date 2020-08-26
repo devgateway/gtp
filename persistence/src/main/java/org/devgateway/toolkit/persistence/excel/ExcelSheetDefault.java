@@ -5,8 +5,9 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
+import org.devgateway.toolkit.persistence.excel.converter.ExcelExportValueConverter;
 import org.devgateway.toolkit.persistence.excel.service.TranslateService;
+import org.devgateway.toolkit.persistence.service.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -105,13 +106,22 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
         while (fields.hasNext()) {
             final Field field = fields.next();
             final FieldType fieldType = ExcelFieldService.getFieldType(field);
+            ExcelExportValueConverter converter = null;
 
             try {
                 switch (fieldType) {
+                    case convertable:
+                        Class<? extends ExcelExportValueConverter> converterClass =
+                                ExcelFieldService.getFieldConverterClass(field);
+                        converter = SpringContext.getBean(converterClass);
                     case basic:
                         int coll = getFreeColl(rowData);
                         writeHeaderLabel(clazz, field, rowTitle, coll);
-                        writeCell(getFieldValue(field, object), rowData, coll);
+                        Object v = getFieldValue(field, object);
+                        if (converter != null) {
+                            v = converter.convert(v);
+                        }
+                        writeCell(v, rowData, coll);
 
                         break;
 
@@ -197,15 +207,23 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
         while (fields.hasNext()) {
             final Field field = fields.next();
             final FieldType fieldType = ExcelFieldService.getFieldType(field);
+            ExcelExportValueConverter converter = null;
 
             try {
                 switch (fieldType) {
+                    case convertable:
+                        Class<? extends ExcelExportValueConverter> converterClass =
+                                ExcelFieldService.getFieldConverterClass(field);
+                        converter = SpringContext.getBean(converterClass);
                     case basic:
                         final int coll = getFreeColl(row);
                         final StringJoiner flattenValue = new StringJoiner(" | ");
 
                         for (final Object obj : objects) {
-                            final Object value = getFieldValue(field, obj);
+                            Object value = getFieldValue(field, obj);
+                            if (converter != null) {
+                                value = converter.convert(value);
+                            }
                             if (value != null) {
                                 flattenValue.add(value.toString());
                             }

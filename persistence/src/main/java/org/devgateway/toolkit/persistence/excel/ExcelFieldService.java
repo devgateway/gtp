@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.excel;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
+import org.devgateway.toolkit.persistence.excel.converter.ExcelExportValueConverter;
 import org.devgateway.toolkit.persistence.excel.info.ClassFields;
 import org.devgateway.toolkit.persistence.excel.info.ClassFieldsDefault;
 import org.devgateway.toolkit.persistence.excel.info.ClassFieldsExcelExport;
@@ -33,11 +34,14 @@ public final class ExcelFieldService {
 
     private static Map<Class, List<Field>> fieldsCache;
 
+    private static Map<Field, Class<? extends ExcelExportValueConverter>> fieldsConverterClassCache;
+
 
     static {
         fieldsTypeCache = new HashMap<>();
         fieldsClassCache = new HashMap<>();
         fieldsCache = new HashMap<>();
+        fieldsConverterClassCache = new HashMap<>();
     }
 
     /**
@@ -62,12 +66,14 @@ public final class ExcelFieldService {
         } else {
             fieldType = FieldType.basic;        // default field type
             final Class fieldClass = getFieldClass(field);
+            final ExcelExport excelExport = field.getAnnotation(ExcelExport.class);
 
-            // first we check if we have a basic type
-            if (FieldType.BASICTYPES.contains(fieldClass) || fieldClass.isEnum()) {
+            if (excelExport.valueConverter() != void.class) {
+                fieldType = FieldType.convertable;
+                fieldsConverterClassCache.put(field, excelExport.valueConverter());
+            } else if (FieldType.BASICTYPES.contains(fieldClass) || fieldClass.isEnum()) {
                 fieldType = FieldType.basic;
             } else {
-                final ExcelExport excelExport = field.getAnnotation(ExcelExport.class);
                 if (excelExport != null) {
                     fieldType = FieldType.object;
 
@@ -140,6 +146,11 @@ public final class ExcelFieldService {
         }
 
         return fields;
+    }
+
+    public static Class<? extends ExcelExportValueConverter> getFieldConverterClass(Field field) {
+        return fieldsConverterClassCache.computeIfAbsent(field,
+                f -> field.getAnnotation(ExcelExport.class).valueConverter());
     }
 
     /**

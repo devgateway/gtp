@@ -16,6 +16,8 @@ public enum FieldType {
 
     object("object"),
 
+    convertable("convertable"),
+
     objectSeparateSheet("objectSeparateSheet");
 
     private final String value;

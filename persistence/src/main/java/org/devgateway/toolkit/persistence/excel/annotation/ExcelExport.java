@@ -20,6 +20,8 @@ import java.lang.annotation.RetentionPolicy;
 public @interface ExcelExport {
     String value() default "";
 
+    Class valueConverter() default void.class;
+
     String name() default "";
 
     boolean separateSheet() default false;
