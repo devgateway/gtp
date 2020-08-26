@@ -317,7 +317,7 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
             add(download);
 
             final LaddaAjaxButton excelButton = new LaddaAjaxButton("excelButton",
-                    new Model<>("Excel Download"),
+                    new StringResourceModel("excelButton"),
                     Buttons.Type.Warning) {
                 private static final long serialVersionUID = -1207967121514699929L;
 
