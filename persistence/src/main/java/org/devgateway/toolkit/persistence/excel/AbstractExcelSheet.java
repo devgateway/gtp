@@ -126,6 +126,9 @@ public abstract class AbstractExcelSheet implements ExcelSheet {
                 if (value instanceof Integer) {
                     cell = row.createCell(column, CellType.NUMERIC);
                     cell.setCellValue((Integer) value);
+                } else if (value instanceof Double) {
+                    cell = row.createCell(column, CellType.NUMERIC);
+                    cell.setCellValue((Double) value);
                 } else {
                     if (value instanceof BigDecimal) {
                         cell = row.createCell(column, CellType.NUMERIC);
