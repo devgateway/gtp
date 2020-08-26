@@ -69,12 +69,10 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
             excelSheet = workbook.createSheet(excelSheetName);
 
             // freeze the header row
-            excelSheet.createFreezePane(0, 3);
-            excelSheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
-            excelSheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 4));
+            excelSheet.createFreezePane(0, 1);
 
             // create the first row that is used as a header
-            //createRow(excelSheet, 0);
+            createRow(excelSheet, 0);
 
             // set a default width - this will increase the performance
             excelSheet.setDefaultColumnWidth(35);
@@ -273,7 +271,7 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
         for (Object obj : objects) {
             int lastRow = excelSheet.getLastRowNum();
             if (hasHeader && flag) {
-                final Row rowHeader = createRow(excelSheet, ++lastRow);
+                final Row rowHeader = createRow(excelSheet, lastRow);
                 final Row rowData = createRow(excelSheet, ++lastRow);
 
                 writeRow(clazz, obj, rowHeader, rowData);
@@ -311,11 +309,12 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
     /**
      * Print an error message in case we have an empty sheet.
      */
+    @Override
     public void emptySheet() {
         emptySheet("");
     }
 
-
+    @Override
     public void emptySheet(String message) {
         final Row row;
         if (excelSheet.getRow(0) == null) {

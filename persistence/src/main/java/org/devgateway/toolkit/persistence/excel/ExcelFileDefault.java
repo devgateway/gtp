@@ -41,7 +41,7 @@ public class ExcelFileDefault implements ExcelFile {
             final Class clazz = this.objects.get(0).getClass();
             final ExcelSheet excelSheet = new ExcelSheetDefault(this.workbook, this.translateService,
                     clazz.getSimpleName().toLowerCase());
-            excelSheet.writeSheet(clazz, objects);
+            excelSheet.writeSheet(clazz, objects, true);
         }
 
         return workbook;
