@@ -31,11 +31,6 @@ public class RiverStation extends AbstractAuditableEntity implements Labelable {
 
     public static final int MAX_RIVER_DEPTH_IN_CM = 10000;
 
-    @ExcelExport(name = "riverStationName", useTranslation = true)
-    @NotNull
-    @Column(nullable = false, unique = true)
-    private String name;
-
     @ExcelExport(name = "river", useTranslation = true, justExport = true)
     @NotNull
     @ManyToOne(optional = false)
@@ -43,6 +38,11 @@ public class RiverStation extends AbstractAuditableEntity implements Labelable {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "name")
     @JsonIdentityReference(alwaysAsId = true)
     private River river;
+
+    @ExcelExport(name = "riverStationName", useTranslation = true)
+    @NotNull
+    @Column(nullable = false, unique = true)
+    private String name;
 
     @ExcelExport(name = "alertLevel", useTranslation = true)
     @NotNull
