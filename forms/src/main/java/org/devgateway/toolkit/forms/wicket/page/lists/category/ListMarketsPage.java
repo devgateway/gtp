@@ -2,10 +2,6 @@ package org.devgateway.toolkit.forms.wicket.page.lists.category;
 
 import static java.util.stream.Collectors.joining;
 
-import java.time.DayOfWeek;
-import java.time.format.TextStyle;
-import java.util.List;
-
 import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
@@ -22,12 +18,17 @@ import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.util.MarketDaysUtil;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
+import java.util.List;
+
 /**
  * @author Octavian Ciubotaru
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/markets")
 public class ListMarketsPage extends AbstractListPage<Market> {
+    private static final long serialVersionUID = 9024914359658502410L;
 
     @SpringBean
     private MarketService marketService;
@@ -44,6 +45,7 @@ public class ListMarketsPage extends AbstractListPage<Market> {
 
         StringResourceModel marketDays = new StringResourceModel("marketDays");
         columns.add(new PropertyColumn<Market, String>(marketDays, "marketDays", "marketDays") {
+            private static final long serialVersionUID = -5169611111892698089L;
 
             @Override
             @SuppressWarnings("unchecked")
@@ -57,7 +59,15 @@ public class ListMarketsPage extends AbstractListPage<Market> {
         columns.add(new DegreePropertyColumn<>(new StringResourceModel("longitude"), "longitude", "longitude"));
     }
 
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+
+        excelForm.setVisibilityAllowed(true);
+    }
+
     private static class MarketDaysModel implements IModel<String> {
+        private static final long serialVersionUID = -4722198040373926813L;
 
         private final IModel<Integer> targetModel;
         private final IModel<String> permanentLabelModel;

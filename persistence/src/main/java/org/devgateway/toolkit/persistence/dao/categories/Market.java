@@ -1,16 +1,5 @@
 package org.devgateway.toolkit.persistence.dao.categories;
 
-import java.io.Serializable;
-import java.util.Comparator;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,6 +9,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.devgateway.toolkit.persistence.dao.location.Department;
+import org.devgateway.toolkit.persistence.excel.converter.MarketDayExcelExportValueConverter;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.devgateway.toolkit.persistence.util.MarketDaysUtil;
 import org.devgateway.toolkit.persistence.validator.SenegalLatitude;
 import org.devgateway.toolkit.persistence.validator.SenegalLongitude;
@@ -27,6 +18,16 @@ import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  * @author Octavian Ciubotaru
@@ -37,9 +38,11 @@ import org.hibernate.envers.Audited;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
 public class Market extends AbstractAuditableEntity implements Serializable, Labelable, Comparable<Market> {
+    private static final long serialVersionUID = -5205320927013386583L;
 
     private static final Comparator<Market> NATURAL = Comparator.comparing(Market::getName);
 
+    @ExcelExport(name = "Département", justExport = true)
     @NotNull
     @ManyToOne(optional = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -47,10 +50,12 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
     @JsonProperty("departmentId")
     private Department department;
 
+    @ExcelExport(name = "Marché de collecte")
     @NotNull
     @Column
     private String name;
 
+    @ExcelExport(name = "Type de marché de collecte", justExport = true)
     @NotNull
     @ManyToOne(optional = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -58,13 +63,16 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
     @JsonProperty("typeId")
     private MarketType type;
 
+    @ExcelExport(name = "Jour de marché", valueConverter = MarketDayExcelExportValueConverter.class)
     @NotNull @Min(1)
     @JsonSerialize(converter = MarketDaysConverter.class)
     private Integer marketDays = MarketDaysUtil.ALL_DAYS;
 
+    @ExcelExport(name = "Latitude")
     @NotNull @SenegalLatitude
     private Double latitude;
 
+    @ExcelExport(name = "Longitude")
     @NotNull @SenegalLongitude
     private Double longitude;
 
