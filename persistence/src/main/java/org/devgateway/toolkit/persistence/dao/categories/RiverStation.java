@@ -1,22 +1,23 @@
 package org.devgateway.toolkit.persistence.dao.categories;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Octavian Ciubotaru
@@ -26,13 +27,11 @@ import org.hibernate.envers.Audited;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
 public class RiverStation extends AbstractAuditableEntity implements Labelable {
+    private static final long serialVersionUID = 3087981614536825914L;
 
     public static final int MAX_RIVER_DEPTH_IN_CM = 10000;
 
-    @NotNull
-    @Column(nullable = false, unique = true)
-    private String name;
-
+    @ExcelExport(name = "river", useTranslation = true, justExport = true)
     @NotNull
     @ManyToOne(optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -40,6 +39,12 @@ public class RiverStation extends AbstractAuditableEntity implements Labelable {
     @JsonIdentityReference(alwaysAsId = true)
     private River river;
 
+    @ExcelExport(name = "riverStationName", useTranslation = true)
+    @NotNull
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    @ExcelExport(name = "alertLevel", useTranslation = true)
     @NotNull
     @Min(0)
     @Max(MAX_RIVER_DEPTH_IN_CM)
