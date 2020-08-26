@@ -42,7 +42,7 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
 
     private static final Comparator<Market> NATURAL = Comparator.comparing(Market::getName);
 
-    @ExcelExport(name = "Département", justExport = true)
+    @ExcelExport(name = "department", justExport = true, useTranslation = true)
     @NotNull
     @ManyToOne(optional = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -50,12 +50,12 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
     @JsonProperty("departmentId")
     private Department department;
 
-    @ExcelExport(name = "Marché de collecte")
+    @ExcelExport(name = "marketName", useTranslation = true)
     @NotNull
     @Column
     private String name;
 
-    @ExcelExport(name = "Type de marché de collecte", justExport = true)
+    @ExcelExport(name = "marketType", justExport = true, useTranslation = true)
     @NotNull
     @ManyToOne(optional = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -63,16 +63,16 @@ public class Market extends AbstractAuditableEntity implements Serializable, Lab
     @JsonProperty("typeId")
     private MarketType type;
 
-    @ExcelExport(name = "Jour de marché", valueConverter = MarketDayExcelExportValueConverter.class)
+    @ExcelExport(name = "marketDays", valueConverter = MarketDayExcelExportValueConverter.class, useTranslation = true)
     @NotNull @Min(1)
     @JsonSerialize(converter = MarketDaysConverter.class)
     private Integer marketDays = MarketDaysUtil.ALL_DAYS;
 
-    @ExcelExport(name = "Latitude")
+    @ExcelExport(name = "latitude", useTranslation = true)
     @NotNull @SenegalLatitude
     private Double latitude;
 
-    @ExcelExport(name = "Longitude")
+    @ExcelExport(name = "longitude", useTranslation = true)
     @NotNull @SenegalLongitude
     private Double longitude;
 

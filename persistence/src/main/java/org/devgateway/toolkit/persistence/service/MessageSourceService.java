@@ -16,7 +16,8 @@ public class MessageSourceService {
     private MessageSource messageSource;
 
     public String getMessage(final String code) {
-        return getMessage(code, Locale.getDefault());
+        // TODO detect once more languages are used
+        return getMessage(code, Locale.FRENCH);
     }
 
     public String getMessage(final String code, Locale locale) {

@@ -24,9 +24,9 @@ public class MarketDayExcelExportValueConverter implements ExcelExportValueConve
         Integer marketDays = (Integer) value;
         // TODO detect app locale, currently only french
         Locale locale = Locale.FRENCH;
-        return marketDays.equals(MarketDaysUtil.ALL_DAYS) ? messageSourceService.getMessage("permanent", locale) :
-                MarketDaysUtil.unpack(marketDays).stream()
-                        .map(day -> day.getDisplayName(TextStyle.FULL, locale))
-                        .collect(joining(", "));
+        return marketDays.equals(MarketDaysUtil.ALL_DAYS) ? messageSourceService.getMessage("permanent", locale)
+                : MarketDaysUtil.unpack(marketDays).stream()
+                .map(day -> day.getDisplayName(TextStyle.FULL, locale))
+                .collect(joining(", "));
     }
 }
