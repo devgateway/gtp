@@ -78,11 +78,13 @@ public abstract class AbstractExcelDownloadForm<T extends GenericPersistable & S
 
                                 response.setContentType(
                                         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-                                response.setHeader("Content-Disposition", "attachment; filename=excel-export.xlsx");
+                                response.setHeader("Content-Disposition",
+                                        String.format("attachment; filename=\"%s.xlsx\"", getFilenamePrefix()));
                                 response.getOutputStream().write(bytes);
                             } else {
                                 response.setContentType("application/zip");
-                                response.setHeader("Content-Disposition", "attachment; filename=excel-export.zip");
+                                response.setHeader("Content-Disposition",
+                                        String.format("attachment; filename=\"%s.zip\"", getFilenamePrefix()));
                                 response.flushBuffer();
                                 final ZipOutputStream zout = new ZipOutputStream(new BufferedOutputStream(
                                         response.getOutputStream()));
@@ -96,7 +98,8 @@ public abstract class AbstractExcelDownloadForm<T extends GenericPersistable & S
                                             getJpaService(),
                                             getDataProvider().getFilterState().getSpecification(),
                                             pageRequest);
-                                    final ZipEntry ze = new ZipEntry("excel-export-page " + (i + 1) + ".xlsx");
+                                    final ZipEntry ze = new ZipEntry(
+                                            getFilenamePrefix() + "-page " + (i + 1) + ".xlsx");
                                     zout.putNextEntry(ze);
                                     zout.write(bytes, 0, bytes.length);
                                     zout.closeEntry();
@@ -141,4 +144,8 @@ public abstract class AbstractExcelDownloadForm<T extends GenericPersistable & S
     protected abstract BaseJpaService<T> getJpaService();
 
     protected abstract SortableJpaServiceDataProvider<T> getDataProvider();
+
+    protected String getFilenamePrefix() {
+        return "excel-export";
+    }
 }

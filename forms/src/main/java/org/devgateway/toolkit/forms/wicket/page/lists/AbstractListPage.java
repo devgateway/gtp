@@ -15,6 +15,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmark
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons.Size;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
@@ -114,6 +115,13 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
             @Override
             protected SortableJpaServiceDataProvider getDataProvider() {
                 return dataProvider;
+            }
+
+            @Override
+            protected String getFilenamePrefix() {
+                String filenamePrefix = getExcelFilenamePrefix();
+                return StringUtils.isNotBlank(filenamePrefix) ? StringUtils.stripAccents(filenamePrefix) :
+                        super.getFilenamePrefix();
             }
         };
         excelForm.setVisibilityAllowed(false);
@@ -222,5 +230,9 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
 
     public BootstrapBookmarkablePageLink<T> getEditPageLink() {
         return editPageLink;
+    }
+
+    protected String getExcelFilenamePrefix() {
+        return getString("excelFileNamePrefix");
     }
 }
