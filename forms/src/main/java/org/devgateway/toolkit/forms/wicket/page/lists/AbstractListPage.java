@@ -120,8 +120,8 @@ public abstract class AbstractListPage<T extends GenericPersistable & Serializab
             @Override
             protected String getFilenamePrefix() {
                 String filenamePrefix = getExcelFilenamePrefix();
-                return StringUtils.isNotBlank(filenamePrefix) ? StringUtils.stripAccents(filenamePrefix) :
-                        super.getFilenamePrefix();
+                return StringUtils.isNotBlank(filenamePrefix) ? StringUtils.stripAccents(filenamePrefix)
+                        : super.getFilenamePrefix();
             }
         };
         excelForm.setVisibilityAllowed(false);
