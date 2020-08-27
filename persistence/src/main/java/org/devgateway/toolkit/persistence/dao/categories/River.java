@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.dao.categories;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -22,6 +23,7 @@ import javax.validation.constraints.NotNull;
 public class River extends AbstractAuditableEntity implements Labelable {
     private static final long serialVersionUID = -583446942262052380L;
 
+    @ExcelExport(name = "river", useTranslation = true)
     @NotNull
     @Column(nullable = false, unique = true)
     private String name;

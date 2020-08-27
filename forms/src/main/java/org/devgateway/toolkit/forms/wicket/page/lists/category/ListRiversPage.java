@@ -19,6 +19,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/rivers")
 public class ListRiversPage extends AbstractListPage<River> {
+    private static final long serialVersionUID = 1130257532512363332L;
 
     @SpringBean
     private RiverService riverService;
@@ -38,5 +39,7 @@ public class ListRiversPage extends AbstractListPage<River> {
         super.onInitialize();
 
         dataProvider.setSort("name", SortOrder.ASCENDING);
+
+        excelForm.setVisibilityAllowed(true);
     }
 }
