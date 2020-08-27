@@ -33,6 +33,7 @@ import java.util.List;
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/products")
 public class ListProductsPage extends AbstractListPage<Product> {
+    private static final long serialVersionUID = 4930955402577460910L;
 
     @SpringBean
     private ProductService productService;
@@ -69,6 +70,8 @@ public class ListProductsPage extends AbstractListPage<Product> {
         super.onInitialize();
 
         dataProvider.setSort("productType.label", SortOrder.ASCENDING);
+
+        excelForm.setVisibilityAllowed(true);
     }
 
     @Override
