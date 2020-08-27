@@ -11,12 +11,15 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao.categories;
 
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.LocalizedCategoryLabel;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.devgateway.toolkit.persistence.util.Constants;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -26,11 +29,8 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-
 import java.util.Comparator;
 import java.util.List;
-
-import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 
 /**
  * @author idobre
@@ -56,6 +56,7 @@ public class Category extends AbstractAuditableEntity implements Labelable, Comp
      */
     protected String name;
 
+    @ExcelExport(name = "productType", useTranslation = true, onlyForClass = ProductType.class)
     protected String label;
 
     private String description;
