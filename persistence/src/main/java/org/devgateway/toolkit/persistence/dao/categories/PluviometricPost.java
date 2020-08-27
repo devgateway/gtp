@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.devgateway.toolkit.persistence.dao.location.Department;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.devgateway.toolkit.persistence.validator.SenegalLatitude;
 import org.devgateway.toolkit.persistence.validator.SenegalLongitude;
 import org.hibernate.annotations.BatchSize;
@@ -35,16 +36,7 @@ public class PluviometricPost extends AbstractAuditableEntity implements Compara
     // label is unique; cannot use ::toLabel (the overloaded method will be soon deleted), ::toString does the same
     private static final Comparator<PluviometricPost> NATURAL = Comparator.comparing(PluviometricPost::toString);
 
-    @NotNull
-    @Column(nullable = false, unique = true)
-    private String label;
-
-    @NotNull @SenegalLatitude
-    private Double latitude;
-
-    @NotNull @SenegalLongitude
-    private Double longitude;
-
+    @ExcelExport(name = "department", justExport = true, useTranslation = true)
     @NotNull
     @ManyToOne(optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -52,6 +44,19 @@ public class PluviometricPost extends AbstractAuditableEntity implements Compara
     @JsonIdentityReference(alwaysAsId = true)
     @JsonProperty("departmentId")
     private Department department;
+
+    @ExcelExport(name = "pluviometricPost", useTranslation = true)
+    @NotNull
+    @Column(nullable = false, unique = true)
+    private String label;
+
+    @ExcelExport(name = "latitude", useTranslation = true)
+    @NotNull @SenegalLatitude
+    private Double latitude;
+
+    @ExcelExport(name = "longitude", useTranslation = true)
+    @NotNull @SenegalLongitude
+    private Double longitude;
 
     public PluviometricPost() {
     }

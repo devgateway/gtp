@@ -35,4 +35,11 @@ public class ListPluviometricPostPage extends AbstractListPage<PluviometricPost>
         columns.add(new DegreePropertyColumn<>(new StringResourceModel("latitude"), "latitude", "latitude"));
         columns.add(new DegreePropertyColumn<>(new StringResourceModel("longitude"), "longitude", "longitude"));
     }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+
+        excelForm.setVisibilityAllowed(true);
+    }
 }
