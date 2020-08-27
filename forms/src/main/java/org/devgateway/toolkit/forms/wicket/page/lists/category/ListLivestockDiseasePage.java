@@ -38,5 +38,7 @@ public class ListLivestockDiseasePage extends AbstractListPage<LivestockDisease>
         super.onInitialize();
 
         dataProvider.setSort("label", SortOrder.ASCENDING);
+
+        excelForm.setVisibilityAllowed(true);
     }
 }

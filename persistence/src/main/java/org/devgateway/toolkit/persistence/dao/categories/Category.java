@@ -19,7 +19,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.devgateway.toolkit.persistence.dao.ipar.categories.LocalizedCategoryLabel;
-import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.devgateway.toolkit.persistence.util.Constants;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -56,7 +55,6 @@ public class Category extends AbstractAuditableEntity implements Labelable, Comp
      */
     protected String name;
 
-    @ExcelExport(name = "productType", useTranslation = true, onlyForClass = ProductType.class)
     protected String label;
 
     private String description;
