@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -28,6 +29,10 @@ import java.io.Serializable;
 public class Department extends AbstractAuditableEntity implements Serializable, Labelable, Comparable<Department> {
     private static final long serialVersionUID = 5802901244304509439L;
 
+    @ExcelExport(name = "zone", useTranslation = true, justExport = true)
+    private transient Zone zone;
+
+    @ExcelExport(name = "region", useTranslation = true, justExport = true)
     @NotNull
     @ManyToOne(optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -36,6 +41,7 @@ public class Department extends AbstractAuditableEntity implements Serializable,
     @JsonProperty("regionId")
     private Region region;
 
+    @ExcelExport(name = "department", useTranslation = true)
     @NotNull
     @Column(nullable = false, unique = true)
     private String name;
@@ -58,6 +64,10 @@ public class Department extends AbstractAuditableEntity implements Serializable,
     public Department(Long id, String name) {
         this.setId(id);
         this.name = name;
+    }
+
+    public Zone getZone() {
+        return getRegion().getZone();
     }
 
     public Region getRegion() {
