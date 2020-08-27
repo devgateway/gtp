@@ -1,7 +1,10 @@
 package org.devgateway.toolkit.persistence.dao;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,11 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.envers.Audited;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Octavian Ciubotaru
@@ -22,11 +22,13 @@ import org.hibernate.envers.Audited;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class GTPMember extends AbstractAuditableEntity {
+    private static final long serialVersionUID = -1441239458746425521L;
 
     public static final int NAME_MAX_LENGTH = 85;
     public static final int DESCRIPTION_MAX_LENGTH = 550;
     public static final int MAX_ICON_SIZE = 100 * 1024;
 
+    @ExcelExport(name = "gtpMemberName", useTranslation = true)
     @NotNull
     @Column(length = NAME_MAX_LENGTH)
     private String name;

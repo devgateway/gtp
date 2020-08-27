@@ -17,6 +17,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/gtp-members")
 public class ListGTPMembersPage extends AbstractListPage<GTPMember> {
+    private static final long serialVersionUID = -2632501305883039609L;
 
     @SpringBean
     private GTPMemberService gtpMemberService;
@@ -28,5 +29,12 @@ public class ListGTPMembersPage extends AbstractListPage<GTPMember> {
         jpaService = gtpMemberService;
 
         columns.add(new LambdaColumn<>(new StringResourceModel("name", this), "name", GTPMember::getName));
+    }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+
+        excelForm.setVisibilityAllowed(true);
     }
 }
