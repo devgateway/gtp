@@ -2,6 +2,7 @@ package org.devgateway.toolkit.forms.wicket.page.lists.category;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
@@ -116,6 +117,11 @@ public class ListLocalitiesPage extends BasePage {
             @Override
             protected SortableJpaServiceDataProvider getDataProvider() {
                 return dataProvider;
+            }
+
+            @Override
+            protected String getFilenamePrefix() {
+                return StringUtils.stripAccents(getString("excelFileNamePrefix"));
             }
         };
         add(excelForm);
