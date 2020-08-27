@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.google.common.collect.ImmutableList;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -57,6 +58,9 @@ public class ProductType extends Category {
     @JsonIdentityReference(alwaysAsId = true)
     private MarketType marketType;
 
+    @ExcelExport(name = "productType", useTranslation = true)
+    private transient String productTypeLabel;
+
     public ProductType() {
     }
 
@@ -77,5 +81,9 @@ public class ProductType extends Category {
     public boolean areProductsOnSeparateRows() {
         return name.equals(ProductType.FRESH_FISH)
                 || name.equals(ProductType.PROCESSED_FISH);
+    }
+
+    public String getProductTypeLabel() {
+        return label;
     }
 }
