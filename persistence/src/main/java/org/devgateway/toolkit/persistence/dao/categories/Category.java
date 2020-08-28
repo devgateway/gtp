@@ -11,15 +11,9 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao.categories;
 
-import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.apache.commons.lang3.StringUtils;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
-import org.devgateway.toolkit.persistence.dao.ipar.categories.LocalizedCategoryLabel;
-import org.devgateway.toolkit.persistence.util.Constants;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -29,7 +23,6 @@ import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
 import java.util.Comparator;
-import java.util.List;
 
 /**
  * @author idobre
@@ -59,18 +52,6 @@ public class Category extends AbstractAuditableEntity implements Labelable, Comp
 
     private String description;
 
-    /*
-    private Integer type;
-     */
-
-    /*
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "category")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @BatchSize(size = 100)
-    @JsonIgnore
-    private List<LocalizedCategoryLabel> localizedLabels = new ArrayList<>();
-    */
-
     public Category(final String label) {
         this(null, null, label);
     }
@@ -94,76 +75,9 @@ public class Category extends AbstractAuditableEntity implements Labelable, Comp
         this.label = label;
     }
 
-    public List<LocalizedCategoryLabel> getLocalizedLabels() {
-        return null;
-    }
-
-    public void setLocalizedLabels(List<LocalizedCategoryLabel> localizedLabels) {
-        // this.localizedLabels = localizedLabels;
-    }
-
-    /**
-     * Retrieve french label. If not found returns null.
-     */
-    @JsonIgnore
-    public String getLabelFr() {
-        return getLabel(LANG_FR);
-    }
-
+    @Override
     public String getLabel(String language) {
-        /*
-        if (StringUtils.isNotBlank(language)) {
-            try {
-                for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
-                    if (localizedLabel.getLanguage().equals(language)) {
-                        return localizedLabel.getLabel();
-                    }
-                }
-            } catch (LazyInitializationException e) {
-                return label;
-                //Dont return null for label, its being used in serialization
-            }
-        }
-         */
         return label;
-    }
-
-    /**
-     * Set label for french language.
-     */
-    public void setLabelFr(String label) {
-        setLabel(LANG_FR, label);
-    }
-
-    private void setLabel(String language, String label) {
-        LocalizedCategoryLabel target = null;
-        /*
-        for (LocalizedCategoryLabel localizedLabel : localizedLabels) {
-            if (localizedLabel.getLanguage().equals(language)) {
-                target = localizedLabel;
-            }
-        }
-        if (target == null) {
-            target = new LocalizedCategoryLabel();
-            target.setCategory(this);
-            target.setLanguage(language);
-            localizedLabels.add(target);
-        }
-         */
-        target.setLabel(label);
-    }
-
-    /**
-     * Returns a label for localization purposes. Fallback to {@link Category#label} if a
-     * {@link LocalizedCategoryLabel} for requested language was not found.
-     */
-    public String getLocalizedLabel(String language) {
-        String label = getLabel(language);
-        if (label != null) {
-            return label;
-        } else {
-            return this.label;
-        }
     }
 
     public String getDescription() {
@@ -172,15 +86,6 @@ public class Category extends AbstractAuditableEntity implements Labelable, Comp
 
     public void setDescription(final String description) {
         this.description = description;
-    }
-
-    public Integer getType() {
-        // return type;
-        return null;
-    }
-
-    public void setType(Integer type) {
-        // this.type = type;
     }
 
     @Override
@@ -199,22 +104,6 @@ public class Category extends AbstractAuditableEntity implements Labelable, Comp
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @JsonIgnore
-    public String getNameEnFr() {
-        String frLabel = getLocalizedLabel(Constants.LANG_FR);
-        StringBuilder sb = new StringBuilder();
-        if (StringUtils.isNotBlank(frLabel)) {
-            sb.append(frLabel);
-            if (StringUtils.isNotBlank(label)) {
-                sb.append(" / ");
-            }
-        }
-        if (StringUtils.isNotBlank(label)) {
-            sb.append(label);
-        }
-        return sb.toString();
     }
 
     @Override
