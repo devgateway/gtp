@@ -6,15 +6,16 @@ import * as waterActions from "../../redux/actions/waterActions"
 import GraphicPage, {GraphicDef} from "../common/graphic/GraphicPage"
 import DrySeasonGraphic from "./drySequence"
 import RainfallGraphic from "./rainfall"
+import RainfallMapGraphic from "./rainfallMap"
 import RainSeasonGraphic from "./rainseason"
 import RiverLevelGraphic from "./river"
 
 const waterGraphicsDef = [
-  new GraphicDef('indicators.table.rainseason.title', 'masked-icon icon-table', RainSeasonGraphic),
-  // 2. Pluviométrie nationale/ Pluviometry at national level as two maps
-  new GraphicDef('indicators.chart.rainfall.title', 'masked-icon icon-barchart', RainfallGraphic),
-  new GraphicDef('indicators.chart.dryseason.title', 'masked-icon icon-linechart', DrySeasonGraphic),
-  new GraphicDef('indicators.chart.riverlevel.title', 'masked-icon icon-linechart', RiverLevelGraphic),
+  // new GraphicDef('indicators.table.rainseason.title', 'masked-icon icon-table', RainSeasonGraphic),
+  new GraphicDef('indicators.chart.rainfall.title', 'masked-icon icon-barchart', RainfallMapGraphic),
+  // new GraphicDef('indicators.chart.rainfall.title', 'masked-icon icon-barchart', RainfallGraphic),
+  // new GraphicDef('indicators.chart.dryseason.title', 'masked-icon icon-linechart', DrySeasonGraphic),
+  // new GraphicDef('indicators.chart.riverlevel.title', 'masked-icon icon-linechart', RiverLevelGraphic),
 ]
 
 class WaterResources extends Component {
