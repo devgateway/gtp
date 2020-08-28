@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import 'semantic-ui-css/semantic.min.css'
 import './App.css';
 import {withRouter} from "react-router";
 import {Provider} from 'react-redux'
 import {Route, Switch, Redirect} from 'react-router' // react-router v4/v5
 import {ConnectedRouter} from 'connected-react-router/immutable'
+import ConnectionCheckWrapper from "./components/common/ConnectionCheckWrapper"
 import {cssClasses, getBrowserClass} from "./components/ComponentUtil"
 import Layout from "./components/layout/Layout"
 import configureStore, {history} from './redux/Store'
@@ -23,6 +23,7 @@ import asyncComponent from "./components/common/AsyncComponent";
 // import withTracker from './components/common/withTracker'
 
 const Home = asyncComponent(() => import("./components/home/"));
+const About = asyncComponent(() => import("./components/about/"));
 const Water = asyncComponent(() => import("./components/water/"));
 const Market = asyncComponent(() => import("./components/market/"));
 const Bulletin = asyncComponent(() => import("./components/bulletin/"));
@@ -35,8 +36,9 @@ const messages = {
   'en': messages_en
 };
 
-const withLayout = (Component) => <Layout><Component/></Layout>
+const withLayout = (Component) => <Layout><ConnectionCheckWrapper childrenBuilder={(props) => <Component {...props} />} /></Layout>
 const HomeLayout = (props) => withLayout(Home)
+const AboutLayout = (props) => withLayout(About)
 const WaterLayout = (props) => withLayout(Water)
 const MarketLayout = (props) => withLayout(Market)
 const BulletinLayout = (props) => withLayout(Bulletin)
@@ -58,6 +60,7 @@ class IntlRoutes extends Component {
 
           <Switch>
             <Route exact={true} path="/:lan/home"  component={HomeLayout}/>
+            <Route exact={true} path="/:lan/about"  component={AboutLayout}/>
 
             <Route exact={true} path="/:lan/water-resources"  component={WaterLayout}/>
             <Route exact={true} path="/:lan/agriculture-and-market"  component={MarketLayout}/>

@@ -1,7 +1,10 @@
 package org.devgateway.toolkit.persistence.dao;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,10 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.envers.Audited;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Octavian Ciubotaru
@@ -21,11 +22,13 @@ import org.hibernate.envers.Audited;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class GTPMember extends AbstractAuditableEntity {
+    private static final long serialVersionUID = -1441239458746425521L;
 
     public static final int NAME_MAX_LENGTH = 85;
     public static final int DESCRIPTION_MAX_LENGTH = 550;
     public static final int MAX_ICON_SIZE = 100 * 1024;
 
+    @ExcelExport(name = "gtpMemberName", useTranslation = true)
     @NotNull
     @Column(length = NAME_MAX_LENGTH)
     private String name;
@@ -36,9 +39,20 @@ public class GTPMember extends AbstractAuditableEntity {
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<FileMetadata> logo = new HashSet<>();
 
     private String url;
+
+    public GTPMember() {
+    }
+
+    public GTPMember(Long id, String name, String description, String url) {
+        setId(id);
+        this.name = name;
+        this.description = description;
+        this.url = url;
+    }
 
     public String getName() {
         return name;
@@ -64,6 +78,11 @@ public class GTPMember extends AbstractAuditableEntity {
         this.logo = logo;
     }
 
+    @JsonIgnore
+    public FileMetadata getLogoSingle() {
+        return logo.isEmpty() ? null : logo.iterator().next();
+    }
+
     public String getUrl() {
         return url;
     }
@@ -73,6 +92,7 @@ public class GTPMember extends AbstractAuditableEntity {
     }
 
     @Override
+    @JsonIgnore
     public AbstractAuditableEntity getParent() {
         return null;
     }

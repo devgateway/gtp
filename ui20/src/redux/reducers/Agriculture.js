@@ -41,6 +41,7 @@ export default (state = initialState, action) => {
       return state.set('isLoading', true).set('error', null)
     case MARKET_AND_AGRICULTURE_FULFILLED:
       return state.set('isLoading', false).set('isLoaded', true).set('data', payload)
+        .set('isPriceDataLoaded', true).set('isQuantityDataLoaded', true)
     case MARKET_AND_AGRICULTURE_REJECTED:
       return state.set('isLoading', false).set('isLoaded', false).set('error', payload)
     case CHANGE_MARKET_PRICE_FILTER:

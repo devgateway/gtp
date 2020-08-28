@@ -1,11 +1,10 @@
 package org.devgateway.toolkit.persistence.dto;
 
-import org.devgateway.toolkit.persistence.dao.DBConstants;
-
 import java.io.Serializable;
 import java.time.Month;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -19,7 +18,7 @@ public class MonthDTO implements Serializable {
     private static final long serialVersionUID = -8586829886221832615L;
 
     public static final Map<Month, MonthDTO> MAPPING = new HashMap<>();
-    public static final List<MonthDTO> MONTHS = DBConstants.MONTHS.stream().map(MonthDTO::new)
+    public static final List<MonthDTO> MONTHS = Arrays.stream(Month.values()).map(MonthDTO::new)
             .collect(Collectors.toList());
 
     private Month month;
@@ -27,6 +26,10 @@ public class MonthDTO implements Serializable {
     public MonthDTO(Month month) {
         this.month = month;
         MAPPING.put(month, this);
+    }
+
+    public Month getMonth() {
+        return month;
     }
 
     public int lengthOfMonth(int year) {

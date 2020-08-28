@@ -1,7 +1,7 @@
 import {useTheme} from '@nivo/core'
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
-import {FormattedNumber} from "react-intl"
+import {injectIntl} from "react-intl"
 
 class RainTick extends Component {
   static propTypes = {
@@ -12,7 +12,11 @@ class RainTick extends Component {
   }
 
   render() {
-    const {tick, theme} = this.props
+    const {tick, theme, intl} = this.props
+    let valueStr = intl.formatNumber(tick.value, {maximumFractionDigits: 1, minimumFractionDigits: 1 })
+    // 160 for &nbsp; breaks svg to img conversion in Safari 12.1, thus using standard 32 space
+    valueStr = valueStr.replace(String.fromCharCode(160), ' ')
+
     return (
       <g transform={`translate(${tick.x},${tick.y})`}>
         <text
@@ -21,11 +25,14 @@ class RainTick extends Component {
           dominantBaseline="middle"
           style={{
             ...theme.axis.ticks.text,
+            whiteSpace: 'nowrap'
           }}>
-          <FormattedNumber value={tick.value} maximumFractionDigits={1} minimumFractionDigits={1} />
+          <tspan>{valueStr}</tspan>
         </text>
       </g>)
   }
 }
 
-export default (tick) => <RainTick tick={tick} theme={useTheme()} />
+const RainTickIntl = injectIntl(RainTick)
+
+export default (tick) => <RainTickIntl tick={tick} theme={useTheme()} />

@@ -4,13 +4,12 @@ import {FormattedMessage} from "react-intl"
 import {connect} from "react-redux"
 import {withRouter} from "react-router"
 import * as appActions from "../../../redux/actions/appActions"
+import * as ComponentUtil from "../../ComponentUtil"
 import {cssClasses} from "../../ComponentUtil"
 import "./menu.scss"
 import MenuEntry, {APP_MENU} from "./MenuEntry"
 import {MenuNavButtonClosed, MenuNavButtonOpen} from "./MenuNavButton"
-import * as cssJS from '../../css'
 
-// TODO (SCROLLING_MENU) make them exportable for reuse from _base.scss
 
 class Menu extends Component {
   static propTypes = {
@@ -38,16 +37,18 @@ class Menu extends Component {
   }
 
   handleScroll(event) {
-    const { scrollTop, scrollHeight, clientHeight } = event.target.documentElement
+    const { scrollTop, scrollHeight, clientHeight } = document.scrollingElement || event.target.documentElement
     const remainingScroll = scrollHeight - clientHeight - scrollTop
-    const menuAndHeaderHeight = this.menuRef.current.firstChild.clientHeight + cssJS.HEADER_HEIGHT
+    const menuAndHeaderHeight = this.menuRef.current.firstChild.clientHeight + ComponentUtil.getHeaderHeight()
+    const footerHeight = ComponentUtil.getFooterHeight()
 
     let stickTo = 'top'
     let bottom = 'unset'
-    if (clientHeight < menuAndHeaderHeight || !scrollTop) {
+    if (!scrollTop) {
+    } if (clientHeight < menuAndHeaderHeight) {
       stickTo = 'relative'
-    } else if (remainingScroll < cssJS.FOOTER_HEIGHT) {
-      const visibleFooter = cssJS.FOOTER_HEIGHT - remainingScroll
+    } else if (remainingScroll < footerHeight) {
+      const visibleFooter = footerHeight - remainingScroll
       const heightRequiredWithVisibleFooter = visibleFooter  +  menuAndHeaderHeight
       if (heightRequiredWithVisibleFooter > clientHeight) {
         stickTo = 'bottom'

@@ -153,7 +153,7 @@ html {
 }
 
 .icon.download {
-  width: 30px;
+  width: 34px;
   margin-left: 12px;
   height: 40px;
   background-repeat: no-repeat;
@@ -330,6 +330,39 @@ html {
   display: flex;
 }
 
+
+.icon-down-arrow {
+  display: inline-block;
+  background: url('/icons/icon_down_arrow.svg');
+  width: 10px;
+  height: 10px;
+}
+.icon-down-arrow-full {
+  display: inline-block;
+  background: url('/icons/icon_down_arrow_full.svg');
+  background-repeat: no-repeat;
+  width: 9px;
+  height: 9px;
+}
+.icon-down-arrow-full.sorted {
+  background: url('/icons/icon_down_arrow_full_blue.svg');
+}
+.rotate_180 {
+  transform: rotate(180deg);
+}
+.rotate_90 {
+  transform: rotate(90deg);
+}
+.rotate_-90 {
+  transform: rotate(-90deg);
+}
+.icon-no-data {
+  display: inline-block;
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxNTAgMTUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxNTAgMTUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzY2NjY2Njt9Cjwvc3R5bGU+CjxnPgoJPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSI2NS4zLDQ5IDg0LjQsNjguMSA4NC40LDM5IDY1LjMsMzkgCSIvPgoJPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSI2Mi42LDc2LjkgNTQuMyw2OC43IDQzLjUsNjguNyA0My41LDEwOC43IDYyLjYsMTA4LjcgCSIvPgoJPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSI4NC40LDk4LjcgNjUuMyw3OS42IDY1LjMsMTA4LjcgODQuNCwxMDguNyAJIi8+Cgk8cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9Ijg3LjEsNzAuOCAxMDYuMSw4OS44IDEwNi4xLDY2LjEgODcuMSw2Ni4xIAkiLz4KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iODcuMSwxMDEuNCA4Ny4xLDEwOC43IDk0LjQsMTA4LjcgCSIvPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTEyMi43LDI2QzExMC40LDEzLjcsOTMuNSw2LjIsNzQuOCw2LjJDNTYuMSw2LjIsMzkuMiwxMy43LDI3LDI2QzE0LjcsMzguMiw3LjEsNTUuMiw3LjEsNzMuOAoJCWMwLDE4LjcsNy42LDM1LjYsMTkuOCw0Ny44YzEyLjIsMTIuMiwyOS4yLDE5LjgsNDcuOCwxOS44aDBjMTguNiwwLDM1LjYtNy42LDQ3LjgtMTkuOGMxMi4yLTEyLjIsMTkuOC0yOS4yLDE5LjgtNDcuOAoJCUMxNDIuNSw1NS4yLDEzNC45LDM4LjIsMTIyLjcsMjZ6IE03NC44LDEyNi40Yy0xNC41LDAtMjcuNi01LjktMzcuMi0xNS40Yy05LjUtOS41LTE1LjQtMjIuNi0xNS40LTM3LjJjMC0xMS43LDMuOC0yMi41LDEwLjItMzEuMgoJCWw3My41LDczLjVDOTcuMywxMjIuNiw4Ni41LDEyNi40LDc0LjgsMTI2LjR6IE0xMTcuMSwxMDVMNDMuNiwzMS41YzguNy02LjQsMTkuNS0xMC4zLDMxLjItMTAuM2MxNC41LDAsMjcuNiw1LjksMzcuMiwxNS40CgkJYzkuNSw5LjUsMTUuNCwyMi42LDE1LjQsMzcuMkMxMjcuNCw4NS41LDEyMy42LDk2LjMsMTE3LjEsMTA1eiIvPgo8L2c+Cjwvc3ZnPgo=);
+  width: 70px;
+  height: 70px;
+}
+
 .masked-icon {
   display: inline-block;
   width: 16px;
@@ -340,19 +373,73 @@ html {
 }
 .masked-icon.icon-barchart {
   mask: url('/icons/icon_barchart.svg');
+  .IE & {
+    background: url('/icons/icon_barchart.svg');
+    fill: #4A4A4A;
+  }
 }
 .masked-icon.icon-linechart {
   mask: url('/icons/icon_linechart.svg');
+  .IE & {
+    background: url('/icons/icon_linechart.svg');
+  }
 }
 .masked-icon.icon-table {
   mask: url('/icons/icon_table.svg');
+  .IE & {
+    background: url('/icons/icon_table.svg');
+  }
 }
 .masked-icon.icon-png-download {
   mask: url('/icons/icon_png_download.svg');
   background: #608bb5;
+  .IE & {
+    background: url('/icons/icon_png_download.svg');
+  }
 }
 .masked-icon.icon-pdf-download {
   mask: url('/icons/icon_pdf_download.svg');
-  background: $color-green
+  background: $color-green;
+  .IE & {
+    background: url('/icons/icon_pdf_download.svg');
+  }
 }
-
+.masked-icon.icon-download {
+  mask: url('/icons/icon_download.svg');
+  background: #608bb5;
+  z-index: 10;
+  .IE & {
+    background: url('/icons/icon_download.svg');
+  }
+}
+.masked-icon.icon-question {
+  mask: url('/icons/icon_question.svg');
+  background: $color-blue;
+  .IE & {
+    background: url('/icons/icon_question_blue.svg');
+  }
+}
+.ui.popup.help-icon-popup {
+  font-size: 12px;
+  line-height: 16px;
+  color: $color-gray;
+}
+.strong {
+  font-weight: 600;
+}
+.paragraph {
+  display: block;
+}
+.connectivity-error {
+  padding: 40px 0 0 40px;
+  color: $color-gray;
+}
+.page-loader {
+  &.ui.active.indeterminate.centered.inline.loader {
+    align-self: baseline;
+    height: 200px;
+  }
+  &.ui.loader:before, &.ui.loader:after {
+    top: 150px;
+  }
+}

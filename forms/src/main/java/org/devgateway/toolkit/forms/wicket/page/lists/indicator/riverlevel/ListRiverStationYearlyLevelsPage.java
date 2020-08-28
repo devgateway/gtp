@@ -22,7 +22,7 @@ import org.devgateway.toolkit.forms.wicket.page.lists.indicator.HydrologicalYear
 import org.devgateway.toolkit.forms.wicket.page.lists.panel.RiverStationYearlyLevelsActionPanel;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverLevel;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverStationYearlyLevels;
-import org.devgateway.toolkit.persistence.service.indicator.RiverStationYearlyLevelsService;
+import org.devgateway.toolkit.persistence.service.indicator.river.RiverStationYearlyLevelsService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

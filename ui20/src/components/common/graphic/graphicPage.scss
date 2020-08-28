@@ -1,10 +1,23 @@
 @import '../../../base';
 
+$graphic-menu-image-size: 16px;
+$graphic-link-font-size: 12px;
+$graphic-link-padding: #{'max(min(29px, 3vh), 3px)'};
+
 .graphic-page {
   .graphic-menu {
     .ui.sticky, .ui.stuck-container {
       position: fixed;
-      top: $header-height !important;
+      @if $hide-header {
+        margin-top: -38px;
+      }
+      @include hlg {
+        top: $header-height !important;
+        margin-top: 0;
+      }
+      @include ad3user {
+        top: $header-height-small !important;
+      }
       width: 100%;
       /* WebKit-based browsers will ignore this. */
       width: -moz-available;
@@ -19,10 +32,10 @@
 
       .link {
         height: 25px;
-        font-size: 12px;
+        font-size: $graphic-link-font-size;
         font-weight: 600;
         color: #a6a6a6;
-        padding: $menu-entry-padding 0;
+        padding: #{$graphic-link-padding} 0;
         display: flex;
         align-items: center;
       }
@@ -34,11 +47,11 @@
       }
       img:not(.ui) {
         border: unset;
-        width: 16px;
+        width: $graphic-menu-image-size;
         margin-right: 5px;
       }
       .icon {
-        width: 16px;
+        width: $graphic-menu-image-size;
         margin-right: 5px;
       }
     }
@@ -48,7 +61,10 @@
         color: #50769b;
       }
       .icon.masked-icon {
-        background: #50769b;
+        background-color: #50769b;
+        .IE & {
+          background-color: transparent;
+        }
       }
     }
   }
@@ -56,7 +72,7 @@
   .graphics {
     margin-top: 0;
     border: 0;
-    padding-top: $menu-entry-height;
+    padding-top: calc(1px + 2 * #{$graphic-link-padding});
 
     .tooltips.white {
       background-color: #FFF !important;
@@ -67,6 +83,11 @@
     }
 
     .indicators.content {
+      .graphic-help-icon {
+        margin: 7px 15px;
+        padding: 9px;
+      }
+
       .tooltips {
         overflow: auto;
         line-height: 28px;
@@ -102,6 +123,16 @@
           margin: 0;
           padding: 0;
         }
+        .note {
+          display: block;
+          clear: left;
+          font-size: 10px;
+          .info::before {
+            content: '\26A0';
+            font-size: 14px;
+            margin-left: -10px;
+          }
+        }
       }
 
       .chart {
@@ -123,7 +154,26 @@
           }
         }
       }
-    }
 
+      .no-data {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: calc(100% - 40px);
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 70px;
+        color: #666666;
+        background-color: #EBEBEB;
+
+        .no-data-message {
+          flex-shrink: 1;
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
   }
 }

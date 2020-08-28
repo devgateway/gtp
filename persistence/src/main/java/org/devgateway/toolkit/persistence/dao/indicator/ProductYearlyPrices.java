@@ -1,17 +1,5 @@
 package org.devgateway.toolkit.persistence.dao.indicator;
 
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
@@ -22,6 +10,17 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.SortNatural;
 import org.hibernate.envers.Audited;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 /**
  * @author Octavian Ciubotaru
  */
@@ -29,7 +28,8 @@ import org.hibernate.envers.Audited;
 @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"year", "product_type_id"}))
-public class ProductYearlyPrices extends AbstractImportableEntity {
+public class ProductYearlyPrices extends AbstractAuditableEntity implements AbstractImportableEntity {
+    private static final long serialVersionUID = 8346612796346268316L;
 
     @NotNull
     private Integer year;

@@ -7,8 +7,12 @@
 <body>
 <wicket:extend>
     <wicket:child />
+    <wicket:enclosure>
+        <div class="alert alert-info" role="alert"><span wicket:id="importHelp" /></div>
+    </wicket:enclosure>
     <div wicket:id="upload"></div>
     <wicket:fragment wicket:id="excelExtraButtons">
+        <span wicket:id="childExtraButtons" />
         <a wicket:id="downloadTemplate">Download Template</a>
         <a wicket:id="download">Download</a>
     </wicket:fragment>

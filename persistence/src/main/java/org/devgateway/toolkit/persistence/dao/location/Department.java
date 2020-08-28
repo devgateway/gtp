@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -25,9 +26,13 @@ import java.io.Serializable;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @BatchSize(size = 100)
-public class Department extends AbstractAuditableEntity implements Serializable, Labelable {
+public class Department extends AbstractAuditableEntity implements Serializable, Labelable, Comparable<Department> {
     private static final long serialVersionUID = 5802901244304509439L;
 
+    @ExcelExport(name = "zone", useTranslation = true, justExport = true)
+    private transient Zone zone;
+
+    @ExcelExport(name = "region", useTranslation = true, justExport = true)
     @NotNull
     @ManyToOne(optional = false)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -36,6 +41,7 @@ public class Department extends AbstractAuditableEntity implements Serializable,
     @JsonProperty("regionId")
     private Region region;
 
+    @ExcelExport(name = "department", useTranslation = true)
     @NotNull
     @Column(nullable = false, unique = true)
     private String name;
@@ -49,6 +55,19 @@ public class Department extends AbstractAuditableEntity implements Serializable,
 
     public Department(Long id) {
         setId(id);
+    }
+
+    public Department(String name) {
+        this.name = name;
+    }
+
+    public Department(Long id, String name) {
+        this.setId(id);
+        this.name = name;
+    }
+
+    public Zone getZone() {
+        return getRegion().getZone();
     }
 
     public Region getRegion() {
@@ -99,5 +118,27 @@ public class Department extends AbstractAuditableEntity implements Serializable,
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    @Override
+    public int compareTo(Department o) {
+        if (o == null) {
+            return -1;
+        }
+        return (o.getId() == null && getId() == null && o.getName().equals(getName()) || o.equals(this)) ? 0
+                : getName().compareTo(o.getName());
+    }
+
+    public static int compareTo(Department a, Department b) {
+        if (a == null && b == null) {
+            return 0;
+        }
+        if (a != null && b != null) {
+            return a.compareTo(b);
+        }
+        if (a == null) {
+            return -1;
+        }
+        return 1;
     }
 }

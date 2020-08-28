@@ -1,14 +1,16 @@
 @import '../../../base';
+@import '../graphic/indicator-base';
 
 .indicator.chart.filter {
-  height: 64px;
+  height: 100%;
 
   .ui.fluid.dropdown {
     display: block;
     width: 100%;
     height: 32px;
-    min-width: 250px;
-    font-size: 12px;
+    min-width: $filter-min-width;
+    max-width: $filter-max-width;
+    font-size: $property-font-size;
     border: 1px solid #ced0da;
     float: left;
     border-radius: 4px;
@@ -20,23 +22,37 @@
     font-weight: normal;
     line-height: inherit;
     padding-left: 16px;
-    font-size: 12px;
+    font-size: $property-font-size;
     height: 100%;
+    width: 100%;
+    max-width: calc(100% - 15px);
+    white-space: nowrap;
 
     .breadcrums {
       display: inline-flex;
       align-items: center;
       height: 100%;
+      max-width: 100%;
+      width: 100%;
+      margin-right: 10px;
 
       .filterName {
         font-weight: 600;
-        font-size: 12px;
+        font-size: $property-font-size;
         color: #364833;
         padding-right: 10px;
+      }
+      .filterValue {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
       }
       .description {
         font-size: 11px;
         color: #747474;
+      }
+      .icon-down-arrow {
+        float: right;
       }
     }
   }
@@ -50,13 +66,17 @@
     background-color: #FFF !important;
     border: 0;
     margin-left: 0;
-    min-width: 209px;
-    max-width: 250px;
-    width: auto !important;
+    min-width: inherit;
+    max-width: $filter-item-max-width;
+
+    .filter-item-tooltip {
+      pointer-events: auto;
+    }
 
     .item {
       font-size: 12px;
-      margin-right: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .header {
@@ -76,14 +96,21 @@
     }
   }
 
+
+  .icon-down-arrow {
+    vertical-align: middle;
+    height: 10px;
+    width: 10px;
+  }
+
   .dropdown.icon {
+    display: none;
     float: right;
     margin-right: 7px;
     height: 100%;
   }
   .dropdown.icon:before {
     font-size: 14px;
-    content: '\2304' !important;
     display: inline-block;
     height: 100%;
     .chrome & {
@@ -126,8 +153,18 @@
   }
 
   .filter.item {
-    float: left;
+    max-height: $property-max-height;
+    min-height: $property-min-height;
+    height: calc(12px + 5.5vh) !important;
     margin-left: 21px;
+
+    &.fixed {
+      min-width: $filter-fixed-width;
+    }
+
+    &.small {
+      height: 100% !important;
+    }
 
     .ui.input.search {
       margin: 11px;
@@ -144,24 +181,84 @@
         margin-left: 0 !important;
         border-bottom: 1px solid $border-color;
 
-        .item {
-          margin-right: 0;
-        }
-        a::after {
-          padding-left: 16px;
-          margin-right: -16px;
-          content: '';
-          font-size: 12px;
-          border-right: 1px solid $border-color;
-        }
-        a:last-child::after {
-          display: none;
+        &.tabular {
+          .item {
+            padding-right: 0 !important;
+            max-width: calc(100% - 16px);
+            width: auto;
+          }
+          a::after {
+            padding-left: 16px;
+            content: '';
+            font-size: 12px;
+            border-right: 1px solid $border-color;
+          }
+          a:last-child::after {
+            border: 0;
+          }
         }
       }
       .ui.bottom.attached.segment.tab {
         padding: 0;
         border: 0;
         margin: 0;
+      }
+    }
+  }
+
+  &.two-filters .filter.item {
+    @include rwd-max(750) {
+      min-width: $filter-min-width-small;
+    }
+    .ui.fluid.dropdown {
+      @include rwd-max(750) {
+        min-width: $filter-min-width-small;
+      }
+    }
+    .menu {
+      @include rwd(880) {
+        width: auto;
+      }
+      @include rwd-max(880) {
+        max-width: inherit !important;
+      }
+    }
+  }
+
+  &.three-filters .filter.item {
+    @include rwd-max(1070) {
+      min-width: $filter-min-width-small;
+    }
+    .ui.fluid.dropdown {
+      @include rwd-max(1070) {
+        min-width: $filter-min-width-small;
+      }
+    }
+    .menu {
+      @include rwd(1105) {
+        width: auto;
+      }
+      @include rwd-max(1105) {
+        max-width: inherit !important;
+      }
+    }
+  }
+
+  &.five-filters .filter.item {
+    @include rwd-max(1440) {
+      min-width: $filter-min-width-small;
+    }
+    .ui.fluid.dropdown {
+      @include rwd-max(1440) {
+        min-width: $filter-min-width-small;
+      }
+    }
+    .menu {
+      @include rwd(1550) {
+        width: auto;
+      }
+      @include rwd-max(1550) {
+        max-width: inherit !important;
       }
     }
   }

@@ -1,5 +1,27 @@
 import 'url-search-params-polyfill';
 
+export const FETCH_TIMEOUT_MILLISECONDS = 30000
+
+const fetchWithTimeout = (url, options) => {
+  let timeoutTrigger = undefined
+
+  return Promise.race([
+    fetch(url, options).then(result => {
+      clearTimeout(timeoutTrigger)
+      return result
+    }).catch(result => {
+      clearTimeout(timeoutTrigger)
+      return Promise.reject(result)
+    }),
+    new Promise((resolve, reject) => {
+      timeoutTrigger = setTimeout(() => {
+        console.error(`${url} Request timed out`)
+        return reject(new Error('Request timed out'))
+      }, FETCH_TIMEOUT_MILLISECONDS)
+    })
+  ])
+}
+
 export const urlWithSearchParams = (url, params) => {
   if (!params) return url
   const u = new URL(url)
@@ -7,7 +29,7 @@ export const urlWithSearchParams = (url, params) => {
   return u.toString()
 }
 
-export const get = (url, params) => fetch(urlWithSearchParams(url, params)).then(response => {
+export const get = (url, params) => fetchWithTimeout(urlWithSearchParams(url, params)).then(response => {
   if (response.status !== 200) {
     return Promise.reject(response)
   }
@@ -15,7 +37,7 @@ export const get = (url, params) => fetch(urlWithSearchParams(url, params)).then
 }).catch(Promise.reject)
 
 
-export const post = (url, params, isBlob) => fetch(url, {
+export const post = (url, params, isBlob) => fetchWithTimeout(url, {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
@@ -38,7 +60,7 @@ export const post = (url, params, isBlob) => fetch(url, {
     }
   ).catch(Promise.reject)
 
-export const getFile = (url, params) => fetch(urlWithSearchParams(url, params)).then(response => {
+export const getFile = (url, params) => fetchWithTimeout(urlWithSearchParams(url, params)).then(response => {
   if (response.status !== 200) {
     return Promise.reject(response)
   }

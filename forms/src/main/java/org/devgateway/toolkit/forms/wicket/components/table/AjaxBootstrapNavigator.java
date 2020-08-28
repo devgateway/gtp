@@ -12,11 +12,14 @@
 package org.devgateway.toolkit.forms.wicket.components.table;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.navigation.paging.AjaxPagingNavigator;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.navigation.paging.IPageable;
 import org.apache.wicket.markup.html.navigation.paging.IPagingLabelProvider;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigation;
+import org.devgateway.toolkit.forms.WebConstants;
+import org.devgateway.toolkit.persistence.util.Function4;
 
 /**
  * @author idobre
@@ -32,6 +35,7 @@ public class AjaxBootstrapNavigator extends AjaxPagingNavigator {
     private Component next;
     private Component prev;
     private Component last;
+    private Function4<String, IPageable, IPagingLabelProvider, BootstrapPagingNavigation> pagingNavCreator;
 
     public AjaxBootstrapNavigator(final String id, final IPageable pageable) {
         this(id, pageable, null);
@@ -73,8 +77,25 @@ public class AjaxBootstrapNavigator extends AjaxPagingNavigator {
     }
 
     @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        setVisibilityAllowed(getPageable().getPageCount() > 1L);
+    }
+
+    @Override
+    protected void onAjaxEvent(final AjaxRequestTarget target) {
+        if (Component.class.isAssignableFrom(this.getPageable().getClass())) {
+            target.add((Component) this.getPageable());
+            target.appendJavaScript(WebConstants.BIND_FORM_LEAVING_CHECK);
+        }
+    }
+
+    @Override
     protected PagingNavigation newNavigation(final String id, final IPageable pageable,
                                              final IPagingLabelProvider labelProvider) {
+        if (pagingNavCreator != null) {
+            return pagingNavCreator.apply(id, pageable, labelProvider);
+        }
         return new BootstrapPagingNavigation(id, pageable, labelProvider);
     }
 
@@ -89,5 +110,11 @@ public class AjaxBootstrapNavigator extends AjaxPagingNavigator {
     protected AbstractLink newPagingNavigationLink(final String id, final IPageable pageable, final int pageNumber) {
         final AbstractLink link = super.newPagingNavigationLink(id, pageable, pageNumber);
         return link;
+    }
+
+    public AjaxBootstrapNavigator withPagingNavCreator(
+            Function4<String, IPageable, IPagingLabelProvider, BootstrapPagingNavigation> pagingNavCreator) {
+        this.pagingNavCreator = pagingNavCreator;
+        return this;
     }
 }

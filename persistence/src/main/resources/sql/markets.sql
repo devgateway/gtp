@@ -1,5 +1,4 @@
-ALTER TABLE market
-    DROP CONSTRAINT ukki8r2jl4st0ensxmjqjd1air9;
+ALTER TABLE market DROP CONSTRAINT IF EXISTS  ukki8r2jl4st0ensxmjqjd1air9;
 
 DELETE FROM product_price;
 

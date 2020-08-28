@@ -7,7 +7,7 @@ import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditStatusEntityPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
-import org.devgateway.toolkit.persistence.service.indicator.DecadalRainfallService;
+import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

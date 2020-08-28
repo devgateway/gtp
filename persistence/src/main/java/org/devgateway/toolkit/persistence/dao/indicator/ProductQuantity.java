@@ -1,18 +1,5 @@
 package org.devgateway.toolkit.persistence.dao.indicator;
 
-import java.math.BigDecimal;
-import java.time.MonthDay;
-import java.util.Comparator;
-
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,6 +14,18 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.MonthDay;
+import java.util.Comparator;
+
 /**
  * @author Octavian Ciubotaru
  */
@@ -37,6 +36,7 @@ import org.hibernate.envers.Audited;
         columnNames = {"product_yearly_prices_id", "product_id", "market_id", "monthDay"}))
 @JsonIgnoreProperties({"id", "new"})
 public class ProductQuantity extends AbstractAuditableEntity implements Comparable<ProductQuantity> {
+    private static final long serialVersionUID = -8732818467335806147L;
 
     private static final Comparator<ProductQuantity> NATURAL = Comparator.comparing(ProductQuantity::getProduct)
             .thenComparing(ProductQuantity::getMarket)
@@ -128,5 +128,11 @@ public class ProductQuantity extends AbstractAuditableEntity implements Comparab
     @Override
     public int compareTo(ProductQuantity o) {
         return NATURAL.compare(this, o);
+    }
+
+    @JsonIgnore
+    public String getQuantityNaturalId() {
+        return String.format("%d-%d-%s", this.getProduct().getId(), this.getMarket().getId(),
+                this.getMonthDay().toString());
     }
 }

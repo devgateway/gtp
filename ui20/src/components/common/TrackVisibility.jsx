@@ -36,15 +36,3 @@ export default class TrackVisibility extends Component {
   }
 
 }
-
-let initialized = false
-
-export async function initializeObserver() {
-  if (!initialized) {
-    initialized = true
-    if (!('IntersectionObserver' in window)) {
-      console.log('Loading IntersectionObserver polifill')
-      await import('intersection-observer')
-    }
-  }
-}

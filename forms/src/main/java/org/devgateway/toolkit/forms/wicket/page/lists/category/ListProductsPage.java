@@ -2,8 +2,6 @@ package org.devgateway.toolkit.forms.wicket.page.lists.category;
 
 import static java.util.stream.Collectors.toList;
 
-import java.util.List;
-
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
@@ -27,12 +25,15 @@ import org.devgateway.toolkit.persistence.service.category.ProductService;
 import org.devgateway.toolkit.persistence.service.category.ProductTypeService;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.util.List;
+
 /**
  * @author Octavian Ciubotaru
  */
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/products")
 public class ListProductsPage extends AbstractListPage<Product> {
+    private static final long serialVersionUID = 4930955402577460910L;
 
     @SpringBean
     private ProductService productService;
@@ -61,7 +62,7 @@ public class ListProductsPage extends AbstractListPage<Product> {
         columns.add(new SelectMultiFilteredBootstrapPropertyColumn<>(new StringResourceModel("name"),
                 "name", "name", "products", new ListModel<>(productNames)));
         columns.add(new PropertyColumn<>(new StringResourceModel("unit"), "unit", "unit"));
-        columns.add(new PropertyColumn<>(new StringResourceModel("priceTypes"), "priceTypes"));
+        // columns.add(new PropertyColumn<>(new StringResourceModel("priceTypes"), "priceTypes"));
     }
 
     @Override
@@ -69,6 +70,8 @@ public class ListProductsPage extends AbstractListPage<Product> {
         super.onInitialize();
 
         dataProvider.setSort("productType.label", SortOrder.ASCENDING);
+
+        excelForm.setVisibilityAllowed(true);
     }
 
     @Override

@@ -20,7 +20,6 @@ const waterGraphicsDef = [
 class WaterResources extends Component {
   static propTypes = {
     onLoadAll: PropTypes.func.isRequired,
-    isLoaded: PropTypes.bool.isRequired,
   }
 
   componentDidMount() {
@@ -28,10 +27,6 @@ class WaterResources extends Component {
   }
 
   render() {
-    const {isLoaded} = this.props;
-    if (!isLoaded) {
-      return <div />
-    }
     return <GraphicPage graphicsDefs={waterGraphicsDef} />
   }
 
@@ -39,7 +34,6 @@ class WaterResources extends Component {
 
 const mapStateToProps = state => {
   return {
-    isLoaded: state.getIn(['water', 'isLoaded'])
   }
 }
 

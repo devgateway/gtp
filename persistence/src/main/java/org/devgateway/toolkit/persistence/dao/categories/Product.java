@@ -1,17 +1,5 @@
 package org.devgateway.toolkit.persistence.dao.categories;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,10 +8,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
+import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author Octavian Ciubotaru
@@ -35,9 +35,11 @@ import org.hibernate.envers.Audited;
 @JsonIgnoreProperties({"new"})
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"product_type_id", "name"}))
 public class Product extends AbstractAuditableEntity implements Comparable<Product>, Labelable {
+    private static final long serialVersionUID = 3176446575063348309L;
 
     private static final Comparator<Product> NATURAL = Comparator.comparing(Product::getName);
 
+    @ExcelExport(name = "productType", justExport = true, useTranslation = true)
     @NotNull
     @ManyToOne(optional = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -45,9 +47,11 @@ public class Product extends AbstractAuditableEntity implements Comparable<Produ
     @JsonProperty("productTypeId")
     private ProductType productType;
 
+    @ExcelExport(name = "productName", useTranslation = true)
     @NotNull
     private String name;
 
+    @ExcelExport(name = "productUnit", justExport = true, useTranslation = true)
     @NotNull
     @ManyToOne(optional = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "label")

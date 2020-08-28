@@ -19,6 +19,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/product-types")
 public class ListProductTypesPage extends AbstractListPage<ProductType> {
+    private static final long serialVersionUID = 7833333901951945688L;
 
     @SpringBean
     private ProductTypeService productTypeService;
@@ -39,5 +40,7 @@ public class ListProductTypesPage extends AbstractListPage<ProductType> {
         dataProvider.setSort("label", SortOrder.ASCENDING);
 
         editPageLink.setVisibilityAllowed(false);
+
+        excelForm.setVisibilityAllowed(true);
     }
 }

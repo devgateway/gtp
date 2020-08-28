@@ -12,3 +12,5 @@ export const toggleMenu = (isOpened) => (dispatch, getState) =>
     type: MENU_TOGGLE,
     data: isOpened
   })
+
+export const connectionCheck = () => (dispatch, getState) => api.doTest()

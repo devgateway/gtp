@@ -16,5 +16,10 @@ export const getProductQuantities = (year, productTypeId, marketId) => post(EP.P
 export const getAllBulletins = () => get(EP.BULLETIN_ALL)
 export const getDownloadBulletinUrl = (id) => urlWithSearchParams(EP.BULLETIN_DOWNLOAD, {id})
 export const getDownloadAnnualReportUrl = (id) => urlWithSearchParams(EP.BULLETIN_ANNUAL_REPORT_DOWNLOAD, {id})
+export const getBulletins = (locationId) => post(EP.BULLETINS, {locationId})
+
+export const getAllMembers = () => get(EP.MEMBER_ALL)
 
 export const getWorldMapAttribution = () => get(EP.ESRI_MAP_SERVICE_INFO)
+
+export const doTest = () => get(EP.TEST)

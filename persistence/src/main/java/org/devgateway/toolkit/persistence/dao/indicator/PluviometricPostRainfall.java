@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -24,8 +25,12 @@ import java.util.List;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Audited
-public class PluviometricPostRainfall extends AbstractAuditableEntity implements Serializable {
+public class PluviometricPostRainfall extends AbstractAuditableEntity implements Comparable<PluviometricPostRainfall>,
+        Serializable {
     private static final long serialVersionUID = 5028052088050707223L;
+
+    private static final Comparator<PluviometricPostRainfall> NATURAL = Comparator.comparing(
+            PluviometricPostRainfall::getPluviometricPost);
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @NotNull
@@ -104,5 +109,10 @@ public class PluviometricPostRainfall extends AbstractAuditableEntity implements
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    @Override
+    public int compareTo(PluviometricPostRainfall ppr) {
+        return NATURAL.compare(this, ppr);
     }
 }

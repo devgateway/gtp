@@ -32,9 +32,14 @@ export const PRODUCT_PRICES = API_MARKET_AND_AGRICULTURE + '/product-prices/data
 export const PRODUCT_QUANTITIES = API_MARKET_AND_AGRICULTURE + '/product-quantities/data'
 
 export const GTP_ROOT = API_ROOT + '/gtp'
-export const BULLETIN_ALL = GTP_ROOT
+export const BULLETIN_ALL = GTP_ROOT + '/materials/all'
+export const BULLETINS = GTP_ROOT + '/materials/data'
 export const BULLETIN_DOWNLOAD = GTP_ROOT + '/bulletin'
 export const BULLETIN_ANNUAL_REPORT_DOWNLOAD = GTP_ROOT + '/annual-report'
+export const MEMBER_ALL = GTP_ROOT + '/members'
+export const MEMBER_LOGO = GTP_ROOT + '/member/logo?id='
 
-const ESRI_SERVICE_INFO = 'http://services.arcgisonline.com/arcgis/rest/services/{service}?f=pjson'
+const ESRI_SERVICE_INFO = 'https://services.arcgisonline.com/arcgis/rest/services/{service}?f=pjson'
 export const ESRI_MAP_SERVICE_INFO = ESRI_SERVICE_INFO.replace('{service}', 'World_Street_Map/MapServer')
+
+export const TEST = LOCATION + '/dummy'

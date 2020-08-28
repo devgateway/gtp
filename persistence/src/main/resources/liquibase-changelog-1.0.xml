@@ -1,0 +1,159 @@
+<!--
+    Copyright (c) 2015 Development Gateway, Inc and others.
+
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the MIT License (MIT)
+    which accompanies this distribution, and is available at
+    https://opensource.org/licenses/MIT
+
+    Contributors:
+    Development Gateway - initial API and implementation
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="ANACIM-212" author="nmandrescu">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="category" columnName="market_type_id" />
+        </preConditions>
+        <sql>
+            DELETE FROM product_quantity WHERE id in (
+                SELECT DISTINCT pq.id
+                FROM market m, product_quantity pq
+                    JOIN product_yearly_prices pyp ON pyp.id = pq.product_yearly_prices_id
+                    JOIN category pt ON pt.id = pyp.product_type_id
+                WHERE pq.market_id = m.id
+                    AND pt.dtype='ProductType'
+                    AND pt.market_type_id != m.type_id
+                );
+
+            DELETE FROM product_price WHERE id in (
+                SELECT DISTINCT pp.id
+                FROM market m, product_price pp
+                    JOIN product_yearly_prices pyp ON pyp.id = pp.product_yearly_prices_id
+                    JOIN category pt ON pt.id = pyp.product_type_id
+                WHERE pp.market_id = m.id
+                    AND pt.dtype='ProductType'
+                    AND pt.market_type_id != m.type_id
+                )
+        </sql>
+    </changeSet>
+
+    <changeSet id="ANACIM-247-product_price-retail-price-only" author="nmandrescu">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="category" columnName="name" />
+            <tableExists tableName="product_price" />
+        </preConditions>
+        <delete tableName="product_price">
+            <where>price_type_id != (select id from category where dtype='PriceType' and name='retail-price')</where>
+        </delete>
+    </changeSet>
+
+    <changeSet id="ANACIM-247-product-retail-price-only" author="nmandrescu">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="category" columnName="name" />
+            <tableExists tableName="product_price_types" />
+        </preConditions>
+        <delete tableName="product_price_types">
+            <where>price_types_id != (select id from category where dtype='PriceType' and name='retail-price')</where>
+        </delete>
+    </changeSet>
+
+    <changeSet id="ANACIM-247-product_price-also-head_price" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <columnExists tableName="category" columnName="name" />
+            <tableExists tableName="product_price" />
+            <tableExists tableName="product_price_types" />
+        </preConditions>
+        <insert tableName="category">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="dtype" value="PriceType" />
+            <column name="name" value="head-price" />
+            <column name="label" value="Prix par tête" />
+        </insert>
+        <delete tableName="product_price">
+            <where>
+                product_yearly_prices_id in (
+                    select id from product_yearly_prices
+                    where product_type_id = (select id from category where dtype='ProductType' and name='livestock'))
+            </where>
+        </delete>
+        <delete tableName="product_price_types" />
+        <sql>
+            INSERT into product_price_types (
+                SELECT p.id product_id, price.id as price_type_id
+                FROM product p join category pt on p.product_type_id = pt.id, category price
+                    WHERE price.dtype='PriceType'
+                    AND ((pt.name='livestock' and price.name='head-price')
+                            OR (pt.name!='livestock' and price.name='retail-price'))
+            )
+        </sql>
+    </changeSet>
+
+    <changeSet id="ANACIM-287-rename-tranformation-place-market" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+            <changeSetExecuted id="ANACIM-134" author="Octavian Ciubotaru" changeLogFile="liquibase-changelog-0.1.xml" />
+        </preConditions>
+        <update tableName="category">
+            <column name="label" value="Lieu de transformation de poissons" />
+            <where>dtype='MarketType' and name='transformation-place'</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="ANACIM-316-drop-unique-constraint" author="nmandrescu">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="gtpbulletin" />
+        </preConditions>
+    <dropUniqueConstraint
+            constraintName="uk87m5pqejde303617yrqa3rfmk"
+            schemaName="public"
+            tableName="gtpbulletin"
+            uniqueColumns="decadal, month, year"/>
+    </changeSet>
+
+    <changeSet id="ANACIM-317-drop-unique-constraint" author="nmandrescu">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="annualgtpreport" />
+        </preConditions>
+        <dropUniqueConstraint
+                constraintName="uk_ik54een42gt6a0ddyppoy88xj"
+                schemaName="public"
+                tableName="annualgtpreport"
+                uniqueColumns="year"/>
+    </changeSet>
+
+    <changeSet id="ANACIM-321 livestock diseases" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="category" />
+        </preConditions>
+        <sqlFile path="sql/livestock-diseases.sql" />
+    </changeSet>
+
+    <changeSet id="ANACIM-322 livestock diseases labels" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <changeSetExecuted id="ANACIM-321 livestock diseases" author="nmandrescu"
+                               changeLogFile="liquibase-changelog-1.0.xml"/>
+        </preConditions>
+        <update tableName="category">
+            <column name="label" valueComputed="name" />
+            <where>dtype='LivestockDisease'</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="ANACIM-322 disease indicator editor permission" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="indicator_metadata" />
+            <changeSetExecuted id="ANACIM-1 initial org and admin" author="nmandrescu"
+                               changeLogFile="liquibase-changelog-0.1.xml"/>
+        </preConditions>
+        <insert tableName="indicator_metadata">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Disease Situation" />
+            <column name="type" value="DISEASE_SITUATION" />
+            <column name="organization_id" valueComputed="(SELECT id FROM organization WHERE tag='ME')" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

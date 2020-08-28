@@ -2,11 +2,13 @@ package org.devgateway.toolkit.forms.wicket.page.lists.category;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
@@ -23,12 +25,14 @@ import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.edit.location.EditDepartmentPage;
 import org.devgateway.toolkit.forms.wicket.page.edit.location.EditRegionPage;
 import org.devgateway.toolkit.forms.wicket.page.edit.location.EditZonePage;
+import org.devgateway.toolkit.forms.wicket.page.lists.AbstractExcelDownloadForm;
 import org.devgateway.toolkit.forms.wicket.providers.SortableJpaServiceDataProvider;
 import org.devgateway.toolkit.persistence.dao.GenericPersistable;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.dao.location.Region;
 import org.devgateway.toolkit.persistence.dao.location.Zone;
+import org.devgateway.toolkit.persistence.service.BaseJpaService;
 import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -52,6 +56,8 @@ public class ListLocalitiesPage extends BasePage {
     protected List<IColumn<Department, String>> columns = new ArrayList<>();
     private AjaxFallbackBootstrapDataTable<Department, String> dataTable;
 
+    protected Form excelForm;
+
     /**
      * Construct.
      *
@@ -66,6 +72,8 @@ public class ListLocalitiesPage extends BasePage {
         super.onInitialize();
 
         columns.add(new AbstractColumn<Department, String>(new StringResourceModel("zone"), "region.zone.name") {
+            private static final long serialVersionUID = -3189105660986817602L;
+
             @Override
             public void populateItem(Item<ICellPopulator<Department>> cellItem, String componentId,
                     IModel<Department> rowModel) {
@@ -73,6 +81,8 @@ public class ListLocalitiesPage extends BasePage {
             }
         });
         columns.add(new AbstractColumn<Department, String>(new StringResourceModel("region"), "region.name") {
+            private static final long serialVersionUID = 2536382932740351347L;
+
             @Override
             public void populateItem(Item<ICellPopulator<Department>> cellItem, String componentId,
                     IModel<Department> rowModel) {
@@ -80,6 +90,8 @@ public class ListLocalitiesPage extends BasePage {
             }
         });
         columns.add(new AbstractColumn<Department, String>(new StringResourceModel("department"), "name") {
+            private static final long serialVersionUID = -1196006155223424706L;
+
             @Override
             public void populateItem(Item<ICellPopulator<Department>> cellItem, String componentId,
                     IModel<Department> rowModel) {
@@ -93,9 +105,30 @@ public class ListLocalitiesPage extends BasePage {
 
         dataTable = new AjaxFallbackBootstrapDataTable<>("table", columns, dataProvider, WebConstants.NO_PAGE_SIZE);
         add(dataTable);
+
+        excelForm = new AbstractExcelDownloadForm<Department>("excelForm") {
+            private static final long serialVersionUID = 7473116079763361962L;
+
+            @Override
+            protected BaseJpaService getJpaService() {
+                return departmentService;
+            }
+
+            @Override
+            protected SortableJpaServiceDataProvider getDataProvider() {
+                return dataProvider;
+            }
+
+            @Override
+            protected String getFilenamePrefix() {
+                return StringUtils.stripAccents(getString("excelFileNamePrefix"));
+            }
+        };
+        add(excelForm);
     }
 
     public static class ZoneActionPanel extends ActionPanel<Zone> {
+        private static final long serialVersionUID = -3646196990467773210L;
 
         public ZoneActionPanel(String id, IModel<Zone> model) {
             super(id, model);
@@ -104,6 +137,7 @@ public class ListLocalitiesPage extends BasePage {
     }
 
     public static class RegionActionPanel extends ActionPanel<Region> {
+        private static final long serialVersionUID = -5914129748242126458L;
 
         public RegionActionPanel(String id, IModel<Region> model) {
             super(id, model);
@@ -112,6 +146,7 @@ public class ListLocalitiesPage extends BasePage {
     }
 
     public static class DepartmentActionPanel extends ActionPanel<Department> {
+        private static final long serialVersionUID = -105597274091396930L;
 
         public DepartmentActionPanel(String id, IModel<Department> model) {
             super(id, model);
@@ -120,6 +155,8 @@ public class ListLocalitiesPage extends BasePage {
     }
 
     public static class ActionPanel<T extends GenericPersistable & Serializable & Labelable> extends Panel {
+        private static final long serialVersionUID = -4278217412662579474L;
+
         protected Class<? extends AbstractEditPage<T>> editPageClass;
 
         public ActionPanel(final String id, final IModel<T> model) {

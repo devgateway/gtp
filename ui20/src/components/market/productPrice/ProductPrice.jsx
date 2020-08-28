@@ -10,7 +10,7 @@ import ProductAvgPrice from "../../../modules/entities/product/price/ProductAvgP
 import ProductPriceChartDTO from "../../../modules/graphic/market/productPrice/ProductPriceChartDTO"
 import ProductPriceLine from "../../../modules/graphic/market/productPrice/ProductPriceLine"
 import Chip from "../../common/graphic/Chip"
-import * as sccJS from "../../css"
+import * as cssJS from "../../css"
 import ProductPriceLegend, {getAveragePriceLabel} from "./ProductPriceLegend"
 
 class ProductPrice extends Component {
@@ -57,10 +57,17 @@ class ProductPrice extends Component {
     const {previousYearAverages} = data
     const {hideAvgPrices} = this.state
 
+    /*
     const priceTypes = Array.from(this.props.agricultureConfig.priceTypes.values())
     const colorsByPriceType: Map<number, string> = getColorsByPriceType(priceTypes)
     const colors = getColors(data.lines, colorsByPriceType)
+    // one product line only =>
+     */
+    const colors = [cssJS.PALLET_COLORS[0]]
+    /* since only retail price is used, there will be one color only, so below can be restored when many prices are used
     const avgColors = getAvgMarkersColors(previousYearAverages, colorsByPriceType)
+    */
+    const avgColors = [cssJS.GRAPHIC_COLOR_ORANGE]
     // TODO responsive top detection
     const chartTop = colors.length + avgColors.length < 5 ? 10 : 50
 
@@ -74,11 +81,11 @@ class ProductPrice extends Component {
             lineColors={colors}
             onAveragePriceToggle={this.onAveragePriceToggle}/>
         </div>
-        <div key="chart" className="graphic-content">
+        <div key="chart" className="graphic-content custom-legend">
           <ResponsiveLine
             enableGridY={true}
             enableGridX={false}
-            margin={{...sccJS.NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN, top: chartTop}}
+            margin={{...cssJS.NIVO_CHART_WITH_CUSTOM_LEGEND_MARGIN, top: chartTop}}
 
             data={data.lines}
             xScale={{
@@ -128,21 +135,24 @@ class ProductPrice extends Component {
 
             layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends',
             ]}
-            theme={sccJS.NIVO_THEME}
+            theme={cssJS.NIVO_THEME}
           />
         </div>
       </div>);
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 const getColorsByPriceType = (priceTypes: Array<PriceType>) => priceTypes.sort(PriceType.localeCompare)
   .reduce((map: Map, pt, index) => {
-    return map.set(pt.id, sccJS.PALLET_COLORS[index % sccJS.PALLET_COLORS.length])
+    return map.set(pt.id, cssJS.PALLET_COLORS[index % cssJS.PALLET_COLORS.length])
   }, new Map())
 
+// eslint-disable-next-line no-unused-vars
 const getColors = (lines, colorsByPriceType: Map<number, string>) =>
   lines.map((l: ProductPriceLine) => colorsByPriceType.get(l.priceType.id))
 
+// eslint-disable-next-line no-unused-vars
 const getAvgMarkersColors = (avgPrices, colorsByPriceType: Map<number, string>) =>
   avgPrices.map((avg: ProductAvgPrice) => colorsByPriceType.get(avg.priceType.id))
 
@@ -154,7 +164,7 @@ const CustomSliceTooltip = (filter, previousYearAverages: Array<ProductAvgPrice>
   const dataProp = "".concat(otherAxis, "Formatted")
   const sliceData = slice.points.map((point) => ({
     color: point.serieColor,
-    serieId: point.serieId,
+    serieId: `${point.serieId} ${year}`,
     value: point.data[dataProp]
   })).concat(previousYearAverages.map((avg, index) => ({
     color: avgColors[index],

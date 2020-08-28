@@ -6,7 +6,7 @@ $menu-border-color: #e1e1e1;
   display: inline-block;
   height: 100%;
   width: $menu-max-width;
-  min-height: $menu-height;
+  min-height: 100%;
   background-color: #f0f0f0;
   border-collapse: collapse;
 
@@ -17,11 +17,14 @@ $menu-border-color: #e1e1e1;
 
     img {
       max-height: 25px;
+      height: 25px;
+      width: 25px;
       margin-right: 20px;
     }
     &.home-icon {
       img {
-        max-height: 30px;
+        height: 30px;
+        width: 40px;
         margin-left: -10px;
       }
     }
@@ -46,6 +49,7 @@ $menu-border-color: #e1e1e1;
     font-weight: 700;
     margin: 0 20px;
     padding: $menu-entry-padding 0;
+    padding: #{'max(min(#{$menu-entry-padding}, 4vh), 19px)'}  0;
     display: flex;
     align-items: center;
     border: none;
@@ -67,7 +71,7 @@ $menu-border-color: #e1e1e1;
   }
 
   img {
-    margin-right: unset !important;
+    margin-right: 0 !important;
   }
   .home-icon {
     img {

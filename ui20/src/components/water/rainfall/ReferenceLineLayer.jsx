@@ -3,11 +3,10 @@ import {line} from "d3-shape"
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {Tooltip} from 'react-svg-tooltip'
-import * as sccJS from "../../css"
+import * as cssJS from "../../css"
 import {INNER_PADDING} from "./RainfallGraphicConstants"
 
 const tooltipShift = 2
-const tooltipWidth = 135
 
 class ReferenceLine extends Component {
   static propTypes = {
@@ -38,7 +37,10 @@ class ReferenceLine extends Component {
             const value = b.data.data.lineValues.get(b.data.id)
             const xValue = value === undefined ? intl.formatMessage({ id: "all.graphic.value.NA" }) :
               intl.formatNumber(value, {minimumFractionDigits: 0, maximumFractionDigits: 1})
+            const tooltipText = `${b.data.data.indexLabel} : ${xValue} ${unit}`
+            const tooltipWidth = 20 + tooltipText.length * 7
             const x = (bars.length / 2 <= index) ? -tooltipShift - tooltipWidth : tooltipShift
+
 
             return (
               <g key={b.data.index}>
@@ -57,7 +59,7 @@ class ReferenceLine extends Component {
                   <rect x={x} y={2} width={tooltipWidth} height={35} rx={.5} ry={.5} strokeWidth={1} fill="white" filter="url(#f1)" />
                   <text x={x + 10} y={23} fontSize={12} fill='#747474'>
                     <tspan className="color" style={{backgroundColor: b.data.color, width: 6, fontWeight: 800, fontSize: 20}}>|</tspan>
-                    <tspan>{`${b.data.data.indexLabel} : ${xValue} ${unit}`}</tspan>
+                    <tspan>{tooltipText}</tspan>
                   </text>
                 </Tooltip>
               </g>)
@@ -67,7 +69,7 @@ class ReferenceLine extends Component {
   }
 }
 
-const rgba = [sccJS.GRAPHIC_COLOR_GRAY1, sccJS.GRAPHIC_COLOR_GRAY2, sccJS.GRAPHIC_COLOR_GRAY3]
+const rgba = [cssJS.GRAPHIC_COLOR_GRAY1, cssJS.GRAPHIC_COLOR_GRAY2, cssJS.GRAPHIC_COLOR_GRAY3]
 
 export const ReferenceLineLayer = (intl, keysWithRefs) => ({ bars, xScale, yScale, keys }) => {
   let idx = 0

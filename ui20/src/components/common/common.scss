@@ -1,0 +1,56 @@
+@import '../../base';
+
+.page-container {
+  margin: 1rem;
+  max-width: $screen-xl-width-min;
+
+  .ui.segment {
+    box-shadow: none;
+    border: 0;
+    border-radius: unset;
+  }
+  .ui.segment.bottom-border, .bottom-border {
+    border-bottom: $border;
+  }
+
+  .ui.segment.page-header {
+    margin: 0 0.5rem;
+    padding: 0 0 0 1.5rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+
+    .title {
+      font-size: 21px;
+      padding-left: 0;
+      color: $color-blue;
+      font-weight: 400;
+      display: inline-block;
+      margin-right: 40px;
+      margin-bottom: 0;
+    }
+  }
+  .page-subtitle {
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 24px;
+    font-weight: 600;
+    color: $color-green;
+    padding-top: 25px;
+  }
+
+  p {
+    margin: 0.5rem;
+    padding: 1rem 1.5rem 0 1.5rem !important;
+    font-size: 13px;
+    font-weight: 400;
+    color: $color-gray;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+  p:last-of-type {
+    padding-bottom: 1.5rem !important;
+  }
+}

@@ -8,5 +8,6 @@ public enum IndicatorType {
     RAINFALL_SEASON,
     RIVER_LEVEL,
     MARKET,
-    GTP_BULLETIN
+    GTP_BULLETIN,
+    DISEASE_SITUATION
 }

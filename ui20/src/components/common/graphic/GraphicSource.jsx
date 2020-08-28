@@ -7,7 +7,9 @@ const GraphicSource = (sourceMessageId) =>
       <span className="source label">
         <FormattedMessage id="data.fields.source_label" defaultMessage="Source: "/>
       </span>
-      <FormattedMessage id={sourceMessageId}/>
+      <span>
+        <FormattedMessage id={sourceMessageId}/>
+      </span>
     </span>
   </div>)
 

@@ -3,21 +3,38 @@
 
 .header {
   .header-nav {
-    height: $header-height;
+    @if $hide-header {
+      display: none;
+    }
+    @include hlg {
+      display: block;
+      height: $header-height;
+    }
+    @include ad3user {
+      height: $header-height-small;
+    }
     border-bottom: 1px solid #83a46e;
     box-sizing: border-box;
     background-color: $color-green;
     color: $color-white;
 
     .header-title {
-      line-height: 40px;
-      height: 50px;
+      line-height: calc(2 * #{$header-line-height});
+      @include ad3user {
+        line-height: calc(2 * #{$header-line-height-small});
+      }
       margin-left: 20px;
-      padding-top: 15px;
+      padding-top: $header-padding;
+      @include ad3user {
+        padding-top: $header-padding-small;
+      }
 
       .title {
         font-size: 18px;
-        line-height: 20px;
+        line-height: $header-line-height;
+        @include ad3user {
+          line-height: $header-line-height-small;
+        }
         font-weight: 600;
         letter-spacing: -.2px;
       }
@@ -25,10 +42,17 @@
       .legend {
         font-size: 14px;
         font-weight: 400;
-        line-height: 20px;
+        line-height: $header-line-height;
+        @include ad3user {
+          line-height: $header-line-height-small;
+        }
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+
+        @include ad3user {
+          display: none;
+        }
       }
     }
   }
@@ -153,8 +177,19 @@
   width: 100%;
   position: fixed;
   top: 0;
-  height: $header-height;
-  z-index: 1000;
+  @if $hide-header {
+    z-index: 0;
+  } @else {
+    z-index: 1000;
+  }
+  @include hlg {
+    display: block;
+    height: $header-height;
+    z-index: 1000;
+  }
+  @include ad3user {
+    height: $header-height-small;
+  }
 }
 
 .header.fix {

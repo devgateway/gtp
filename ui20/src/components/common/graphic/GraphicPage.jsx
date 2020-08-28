@@ -3,6 +3,7 @@ import {Segment, Sticky} from "semantic-ui-react"
 import "./indicators.scss"
 import "./indicator-base.scss"
 import "./graphicPage.scss"
+import * as CUtils from "../../ComponentUtil"
 import * as cssJS from "../../css"
 import MenuScrollableTo, {MenuItemDef} from "../MenuScrollableTo"
 import ScrollableTo, {ScrollRef} from "../ScrollableTo"
@@ -21,18 +22,28 @@ export class GraphicDef {
   }
 }
 
+const getGraphicMenuOffset = () => -CUtils.getElementHeightByQuerySelector(".graphic-menu > .ui.sticky",
+  cssJS.MENU_HEIGHT_DEFAULT)
+
 const GraphicPage = (props) => {
   const contextRef = useRef()
   const graphicsDefs: Array<GraphicDef> = props.graphicsDefs
   const menuDefs = graphicsDefs.map((graphicDef) => graphicDef.menuItemDef)
-  menuDefs[0].scrollRef.offset = -cssJS.MENU_HEIGHT
+
   const [active, setActive] = useState(0)
   const [width, setWidth] = useState('auto')
+  const [firstGraphicOffset, setFirstGraphicOffset] = useState(() => getGraphicMenuOffset())
 
-  const resizeObserver = new ResizeObserver((entries) => {
+  menuDefs[0].scrollRef.offset = firstGraphicOffset
+
+  const resizeObserver = new window.ResizeObserver((entries) => {
     const newWidth = entries[0].target.clientWidth - 1
     if (newWidth !== width) {
       setWidth(newWidth)
+    }
+    const graphicMenuOffset = getGraphicMenuOffset()
+    if (graphicMenuOffset !== firstGraphicOffset) {
+      setFirstGraphicOffset(graphicMenuOffset)
     }
   })
 
@@ -41,7 +52,7 @@ const GraphicPage = (props) => {
       resizeObserver.observe(contextRef.current)
     }
     return () => resizeObserver.unobserve(contextRef.current)
-  }, [contextRef.current])
+  }, [contextRef.current, width, firstGraphicOffset])
 
   return (
     <div ref={contextRef} className="graphic-page">

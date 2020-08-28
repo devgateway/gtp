@@ -4,9 +4,14 @@ import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as waterActions from "../../../redux/actions/waterActions"
 import Graphic from "../../common/graphic/Graphic"
+import GraphicWithFallback from "../../common/graphic/GraphicWithFallback"
 import Rainfall from "./Rainfall"
 import RainfallProperties from "./RainfallProperties"
 
+const hasDataFunc = ({rainfallDTO}) => rainfallDTO && rainfallDTO.hasData
+const childPropsBuilder = (props) => props.getRain(props.intl)
+const RainfallGraphicWithFallback = GraphicWithFallback('water', 'isFilteringRainfall', 'isFilteredRainfall',
+  childPropsBuilder, hasDataFunc)
 
 class RainfallGraphic extends Component {
   static propTypes = {
@@ -14,13 +19,17 @@ class RainfallGraphic extends Component {
   }
 
   render() {
-    const {getRain, intl, setting} = this.props;
+    const {getRain, setting} = this.props;
+
 
     return (<Graphic
       id="anchor.indicator.water.rainfall" titleId="indicators.chart.rainfall.title"
+      helpId="indicators.chart.rainfall.help"
       sourceId="indicators.chart.rainfall.source">
       <RainfallProperties />
-      <Rainfall {...getRain(intl)} setting={setting} />
+      <RainfallGraphicWithFallback setting={setting} getRain={getRain}>
+        {childProps => <Rainfall {...childProps} />}
+      </RainfallGraphicWithFallback>
     </Graphic>)
   }
 }

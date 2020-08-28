@@ -1,9 +1,9 @@
 package org.devgateway.toolkit.persistence.dto;
 
-import java.util.List;
+import org.devgateway.toolkit.persistence.dao.indicator.AnnualGTPReport;
+import org.devgateway.toolkit.persistence.dao.indicator.GTPBulletin;
 
-import org.devgateway.toolkit.persistence.dao.AnnualGTPReport;
-import org.devgateway.toolkit.persistence.dao.GTPBulletin;
+import java.util.List;
 
 /**
  * @author Octavian Ciubotaru
@@ -14,8 +14,7 @@ public class GTPMaterials {
 
     private final List<AnnualGTPReport> annualReports;
 
-    public GTPMaterials(List<GTPBulletin> bulletins,
-            List<AnnualGTPReport> annualReports) {
+    public GTPMaterials(List<GTPBulletin> bulletins, List<AnnualGTPReport> annualReports) {
         this.bulletins = bulletins;
         this.annualReports = annualReports;
     }

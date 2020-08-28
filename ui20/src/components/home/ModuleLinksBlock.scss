@@ -12,7 +12,14 @@ $module-wide-width: 270px;
     .column {
       flex-shrink: 1;
       flex-basis: 0;
+      .IE & {
+        flex-basis: auto;
+        width: auto;
+        max-width: $module-wide-width;
+      }
       margin-bottom: 20px;
+
+      justify-content: space-around;
       min-width: fit-content;
     }
   }
@@ -20,10 +27,14 @@ $module-wide-width: 270px;
   .home-links-image {
     border: 1px solid #E6EAEE;
     border-radius: 5px;
+    .IE & {
+      width: 270px;
+    }
 
     .pane-icon {
       display: block;
       width: $module-wide-width;
+      max-width: 100%;
       height: 160px;
       border-radius: 5px 5px 0 0;
     }

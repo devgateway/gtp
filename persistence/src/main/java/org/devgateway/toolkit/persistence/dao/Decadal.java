@@ -20,6 +20,9 @@ public enum Decadal implements Comparable<Decadal> {
         return value;
     }
 
+    public boolean isFirst() {
+        return this.equals(FIRST);
+    }
     public boolean isThird() {
         return this.equals(THIRD);
     }
@@ -28,14 +31,24 @@ public enum Decadal implements Comparable<Decadal> {
         return value < 3 ? 10 : yearMonth.lengthOfMonth() - 20;
     }
 
+    public int startDay() {
+        switch (this) {
+            case FIRST: return 1;
+            case SECOND: return 11;
+            default: return 21;
+        }
+    }
     public static Decadal fromIndex(String index) {
-        int v = Integer.parseInt(index);
+        return fromIndex(Integer.parseInt(index));
+    }
+
+    public static Decadal fromIndex(int index) {
         for (Decadal d : values()) {
-            if (d.getValue() == v) {
+            if (d.getValue() == index) {
                 return d;
             }
         }
-        throw new IllegalArgumentException(index);
+        throw new IllegalArgumentException("" + index);
     }
 
     public static Decadal fromDayOfMonth(int dayOfMonth) {

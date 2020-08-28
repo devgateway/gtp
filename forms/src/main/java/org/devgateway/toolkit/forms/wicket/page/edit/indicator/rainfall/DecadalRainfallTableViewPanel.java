@@ -19,9 +19,9 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.convert.IConverter;
 import org.apache.wicket.validation.validator.RangeValidator;
 import org.devgateway.toolkit.forms.wicket.FormattedDoubleConverter;
-import org.devgateway.toolkit.forms.wicket.providers.ListDataProvider;
 import org.devgateway.toolkit.forms.wicket.components.TableViewSectionPanel;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.providers.ListDataProvider;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
@@ -58,8 +58,14 @@ public class DecadalRainfallTableViewPanel extends TableViewSectionPanel<Pluviom
         sortableProvider.setSort("pluviometricPost.label", SortOrder.ASCENDING);
         dataProvider = sortableProvider;
 
-        columns.add(new PropertyColumn<>(new StringResourceModel("department"),
-                "pluviometricPost.department.name", "pluviometricPost.department.name"));
+        columns.add(new PropertyColumn<PluviometricPostRainfall, String>(new StringResourceModel("zone"),
+                "pluviometricPost.department.region.zone.name", "pluviometricPost.department.region.zone.name") {
+            private static final long serialVersionUID = 6103940247737402847L;
+            @Override
+            public String getCssClass() {
+                return "zone";
+            }
+        });
         columns.add(new PropertyColumn<>(new StringResourceModel("label"),
                 "pluviometricPost.label", "pluviometricPost.label"));
         addNoDataColumn();

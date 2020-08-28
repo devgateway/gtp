@@ -5,8 +5,9 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
+import org.devgateway.toolkit.persistence.excel.converter.ExcelExportValueConverter;
 import org.devgateway.toolkit.persistence.excel.service.TranslateService;
+import org.devgateway.toolkit.persistence.service.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,12 +70,10 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
             excelSheet = workbook.createSheet(excelSheetName);
 
             // freeze the header row
-            excelSheet.createFreezePane(0, 3);
-            excelSheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
-            excelSheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 4));
+            excelSheet.createFreezePane(0, 1);
 
             // create the first row that is used as a header
-            //createRow(excelSheet, 0);
+            createRow(excelSheet, 0);
 
             // set a default width - this will increase the performance
             excelSheet.setDefaultColumnWidth(35);
@@ -107,13 +106,22 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
         while (fields.hasNext()) {
             final Field field = fields.next();
             final FieldType fieldType = ExcelFieldService.getFieldType(field);
+            ExcelExportValueConverter converter = null;
 
             try {
                 switch (fieldType) {
+                    case convertable:
+                        Class<? extends ExcelExportValueConverter> converterClass =
+                                ExcelFieldService.getFieldConverterClass(field);
+                        converter = SpringContext.getBean(converterClass);
                     case basic:
                         int coll = getFreeColl(rowData);
                         writeHeaderLabel(clazz, field, rowTitle, coll);
-                        writeCell(getFieldValue(field, object), rowData, coll);
+                        Object v = getFieldValue(field, object);
+                        if (converter != null) {
+                            v = converter.convert(v);
+                        }
+                        writeCell(v, rowData, coll);
 
                         break;
 
@@ -199,15 +207,23 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
         while (fields.hasNext()) {
             final Field field = fields.next();
             final FieldType fieldType = ExcelFieldService.getFieldType(field);
+            ExcelExportValueConverter converter = null;
 
             try {
                 switch (fieldType) {
+                    case convertable:
+                        Class<? extends ExcelExportValueConverter> converterClass =
+                                ExcelFieldService.getFieldConverterClass(field);
+                        converter = SpringContext.getBean(converterClass);
                     case basic:
                         final int coll = getFreeColl(row);
                         final StringJoiner flattenValue = new StringJoiner(" | ");
 
                         for (final Object obj : objects) {
-                            final Object value = getFieldValue(field, obj);
+                            Object value = getFieldValue(field, obj);
+                            if (converter != null) {
+                                value = converter.convert(value);
+                            }
                             if (value != null) {
                                 flattenValue.add(value.toString());
                             }
@@ -273,7 +289,7 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
         for (Object obj : objects) {
             int lastRow = excelSheet.getLastRowNum();
             if (hasHeader && flag) {
-                final Row rowHeader = createRow(excelSheet, ++lastRow);
+                final Row rowHeader = createRow(excelSheet, lastRow);
                 final Row rowData = createRow(excelSheet, ++lastRow);
 
                 writeRow(clazz, obj, rowHeader, rowData);
@@ -311,11 +327,12 @@ public class ExcelSheetDefault extends AbstractExcelSheet {
     /**
      * Print an error message in case we have an empty sheet.
      */
+    @Override
     public void emptySheet() {
         emptySheet("");
     }
 
-
+    @Override
     public void emptySheet(String message) {
         final Row row;
         if (excelSheet.getRow(0) == null) {

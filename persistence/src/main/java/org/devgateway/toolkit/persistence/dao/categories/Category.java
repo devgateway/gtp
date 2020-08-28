@@ -11,19 +11,30 @@
  *******************************************************************************/
 package org.devgateway.toolkit.persistence.dao.categories;
 
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
+
 import java.util.Comparator;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Labelable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
+
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
+
+import java.util.Comparator;
+import java.util.List;
+
+import static org.devgateway.toolkit.persistence.util.Constants.LANG_FR;
 
 /**
  * @author idobre
@@ -76,6 +87,7 @@ public class Category extends AbstractAuditableEntity implements Labelable, Comp
         this.label = label;
     }
 
+    @Override
     public String getLabel(String language) {
         return label;
     }

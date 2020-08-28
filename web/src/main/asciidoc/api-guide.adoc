@@ -33,23 +33,55 @@ Department fields:
 
 include::{snippets}/common-config/response-fields-beneath-departments.adoc[]
 
-== GTP bulletins
+== GTP data
 
-=== Get all GTP bulletins
+=== Get Default GTP materials
 
-Returns all available GTP bulletins.
+Returns National available GTP materials.
 
 operation::gtp-bulletins[snippets='curl-request,http-response,response-fields']
+
+[[gtp-materials-data-filter]]
+GTP materials filter fields:
+
+include::{snippets}/gtp-materials-data/request-fields.adoc[]
+
+[[gtp-materials-data-fields]]
+GTP materials data fields:
+
+include::{snippets}/gtp-materials-data/response-fields.adoc[]
 
 [[gtp-annual-report]]
 GTP annual report fields:
 
-include::{snippets}/gtp-bulletins/response-fields-annualReports.adoc[]
+include::{snippets}/gtp-materials-data/response-fields-annualReports.adoc[]
 
 [[gtp-bulletin]]
 GTP bulletin fields:
 
-include::{snippets}/gtp-bulletins/response-fields-bulletins.adoc[]
+include::{snippets}/gtp-materials-data/response-fields-bulletins.adoc[]
+
+[[gtp-materials-config]]
+=== Get GTP materials config
+
+Returns GTP materials config of locations with available materials. If location has id null,
+then it is National location. Otherwise it is a department.
+
+operation::gtp-materials-config[snippets='curl-request,http-response,response-fields']
+
+[[gtp-materials-config-location-fields]]
+GTP materials locations fields:
+
+include::{snippets}/gtp-materials-config/response-fields-locations.adoc[]
+
+[[gtp-materials-data]]
+=== Get GTP materials data
+
+Returns GTP materials.
+Filter is location that is null for National materials or department id.
+
+operation::gtp-materials-data[snippets='curl-request,http-response,request-fields,response-fields']
+
 
 === Download GTP bulletin
 
@@ -66,6 +98,18 @@ Returns GTP annual report file. If not found 404 is returned.
 operation::gtp-annual-report-returned[snippets='request-parameters,curl-request,http-response']
 
 operation::gtp-annual-report-not-found[snippets='curl-request,http-response']
+
+=== GTP members
+
+Returns all GTP members.
+
+operation::gtp-members[snippets='curl-request,http-response,response-fields']
+
+=== GTP member logo
+
+Returns logo for GTP member, if any.
+
+operation::gtp-member-logo-returned[snippets='request-parameters,curl-request,http-response']
 
 == Water charts
 
