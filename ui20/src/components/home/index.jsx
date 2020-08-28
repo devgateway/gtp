@@ -10,18 +10,6 @@ class Home extends Component {
       <div>
         <Intro {...this.props}></Intro>
         <ModuleLinksBlock {...this.props}></ModuleLinksBlock>
-        {
-          // <Links {...this.props}></Links>
-        }
-        {
-          // <Stories {...this.props}></Stories>
-        }
-        {
-          // <Weather {...this.props}></Weather>
-        }
-        {
-          // <Newsletter {...this.props}></Newsletter>
-        }
     </div>)
   }
 }
