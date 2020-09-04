@@ -22,7 +22,7 @@ import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChart;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChart;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartFilter;
-import org.devgateway.toolkit.persistence.service.WaterChartsService;
+import org.devgateway.toolkit.persistence.service.charts.WaterChartsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
