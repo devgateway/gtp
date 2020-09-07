@@ -1,4 +1,5 @@
 import * as api from "../../modules/api/index"
+import CommonConfig from "../../modules/entities/config/CommonConfig"
 import {drySequenceChartFromApi} from "../../modules/entities/drySequence/DrySequenceChart"
 import DrySequenceData from "../../modules/entities/drySequence/DrySequenceData"
 import DrySequenceFilter from "../../modules/entities/drySequence/DrySequenceFilter"
@@ -34,16 +35,19 @@ import {
   SORT_RAIN_SEASON,
   WATER_RESOURCES
 } from "../reducers/Water"
+import {updateCommonConfig} from "./appActions"
 
 export const loadAllWaterData = () => (dispatch, getState) =>
   dispatch({
     type: WATER_RESOURCES,
-    payload: api.getAllWaterResources().then(transformAll)
+    payload: api.getAllWaterResources().then(result =>
+      transformAll(result, updateCommonConfig(result.commonConfig)(dispatch, getState))
+    )
   })
 
-const transformAll = (allData) => {
+const transformAll = (allData, commonConfig: CommonConfig) => {
   const {rainLevelChart, drySequenceChart, seasonChart, riverLevelChart} = allData
-  const waterConfig = new WaterConfig(allData.waterConfig, allData.commonConfig)
+  const waterConfig = new WaterConfig(allData.waterConfig, commonConfig)
   return {
     waterConfig,
     rainLevelChart: {
