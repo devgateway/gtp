@@ -9,6 +9,7 @@ import {
 import app from './AppReducer'
 import water from './Water'
 import agriculture from './Agriculture'
+import livestock from './Livestock'
 import bulletin from './GTPBulletin'
 import member from './GTPMember'
 
@@ -17,6 +18,7 @@ const createRootReducer = (history) => combineReducers({
   app,
   water,
   agriculture,
+  livestock,
   bulletin,
   member,
 })
