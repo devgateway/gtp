@@ -47,7 +47,7 @@ export const loadAllWaterData = () => (dispatch, getState) =>
 
 const transformAll = (allData, commonConfig: CommonConfig) => {
   const {rainLevelChart, drySequenceChart, seasonChart, riverLevelChart} = allData
-  const waterConfig = new WaterConfig(allData.waterConfig, commonConfig)
+  const waterConfig = new WaterConfig(allData.waterConfig)
   return {
     waterConfig,
     rainLevelChart: {
@@ -57,7 +57,7 @@ const transformAll = (allData, commonConfig: CommonConfig) => {
       setting: RainLevelSetting,
     },
     drySequenceChart: drySequenceChartFromApi(drySequenceChart),
-    rainSeasonChart: rainSeasonChartFromApi(waterConfig, seasonChart),
+    rainSeasonChart: rainSeasonChartFromApi(waterConfig, commonConfig, seasonChart),
     riverLevelChart: riverLevelFromApi(riverLevelChart),
   }
 }
@@ -142,19 +142,22 @@ export const setDrySequenceFilter = (year: number, pluviometricPostId: number) =
 
 export const getRainSeasonByYear = (year: number) => (dispatch, getState) => {
   const rainSeasonChart = getState().getIn(['water', 'data', 'rainSeasonChart'])
+  const commonConfig = getState().getIn(['app', 'data', 'commonConfig'])
   const waterConfig = getState().getIn(['water', 'data', 'waterConfig'])
   return dispatch({
     type: FILTER_RAIN_SEASON,
-    payload: api.getRainSeason(year).then((data) => transformRainSeason(rainSeasonChart, waterConfig, data))
+    payload: api.getRainSeason(year).then((data) => transformRainSeason(rainSeasonChart, waterConfig, commonConfig, data))
   })
 }
 
-const transformRainSeason = (rainSeasonChart, waterConfig, data) =>
-  rainSeasonDataFromApi(rainSeasonChart, waterConfig, rainSeasonChart.config, data)
+const transformRainSeason = (rainSeasonChart, waterConfig, commonConfig, data) =>
+  rainSeasonDataFromApi(rainSeasonChart, waterConfig, commonConfig, rainSeasonChart.config, data)
 
 export const getRainSeason = () => (dispatch, getState) => {
   const { rainSeasonChart, waterConfig } = getState().getIn(['water', 'data'])
-  const builder = new RainSeasonTableBuilder(rainSeasonChart, waterConfig)
+  const commonConfig = getState().getIn(['app', 'data', 'commonConfig'])
+
+  const builder = new RainSeasonTableBuilder(rainSeasonChart, waterConfig, commonConfig)
 
   return {
     rainSeasonTableDTO: builder.build()
@@ -180,9 +183,10 @@ export const setRainSeasonFilter = (path: Array<string>, value, isYearFilter: bo
   } else {
     const rainSeasonChart = getState().getIn(['water', 'data', 'rainSeasonChart'])
     const waterConfig = getState().getIn(['water', 'data', 'waterConfig'])
+    const commonConfig = getState().getIn(['app', 'data', 'commonConfig'])
     return dispatch({
       type: FILTER_RAIN_SEASON,
-      payload: handleFilter(rainSeasonChart, waterConfig)
+      payload: handleFilter(rainSeasonChart, waterConfig, commonConfig)
     })
   }
 }

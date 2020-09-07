@@ -12,14 +12,18 @@ const newWithParent = (loc, funcNew, parentProperty, parentSource: Map) => {
 export const fromApiToMap = (locality: Array = [], funcNew, parentProperty, parentSource) =>
   locality.reduce((map, loc) => map.set(loc.id, newWithParent(loc, funcNew, parentProperty, parentSource)), new Map())
 
+export const reduceToMap = (locality: Array = [], funcNew) =>
+  locality.reduce((map, loc) => map.set(loc.id, funcNew(loc)), new Map())
+
+
 export default class CommonConfig {
   departments: Map<number, Department>
   regions: Map<number, Region>
   zones: Map<number, Zone>
 
   constructor({departments, regions, zones}) {
-    this.zones = fromApiToMap(zones, Zone.newInstance)
-    this.regions = fromApiToMap(regions, Region.newInstance, 'zone', this.zones)
-    this.departments = fromApiToMap(departments, Department.newInstance, 'region', this.regions)
+    this.zones = reduceToMap(zones, Zone.newInstance)
+    this.regions = reduceToMap(regions, Region.newInstance)
+    this.departments = reduceToMap(departments, Department.newInstance)
   }
 }

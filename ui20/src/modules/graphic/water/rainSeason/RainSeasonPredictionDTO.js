@@ -1,5 +1,5 @@
-import PluviometricPost from "../../../entities/PluviometricPost"
 import RainSeasonPrediction from "../../../entities/rainSeason/RainSeasonPrediction"
+import PostDTO from "../../common/dto/PostDTO"
 
 export class RainSeasonPredictionDTO {
   id: number
@@ -11,7 +11,7 @@ export class RainSeasonPredictionDTO {
   actual: string
   difference: number
 
-  constructor(post: PluviometricPost, rainSeasonPrediction: RainSeasonPrediction) {
+  constructor(post: PostDTO, rainSeasonPrediction: RainSeasonPrediction) {
     this.id = rainSeasonPrediction.pluviometricPostId
     this.post = (post && post.label) || `id=${this.id}`
     this.department = post && post.department.name

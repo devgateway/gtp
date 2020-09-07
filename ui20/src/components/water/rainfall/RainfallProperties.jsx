@@ -33,7 +33,7 @@ class RainfallProperties extends Component {
 }
 
 const RainfallFilters = (props) => {
-  const {config, filter, setFilter, waterConfig} = props
+  const {config, filter, setFilter, waterConfig, commonConfig} = props
   const onYearChange = (years) => setFilter(years, filter.pluviometricPostId)
   const onPostChange = (postIds) => setFilter(filter.years, postIds[0])
   const {years, pluviometricPostId} = filter
@@ -48,7 +48,7 @@ const RainfallFilters = (props) => {
       </div>
       <div className="filter item fixed">
         <FilterDropDown
-          options={postIdsToOptions(config.pluviometricPostIds, waterConfig)} onChange={onPostChange}
+          options={postIdsToOptions(config.pluviometricPostIds, waterConfig, commonConfig)} onChange={onPostChange}
           single={true} min={1} max={1} withSearch withTooltips
           selected={[pluviometricPostId]} text={<FormattedMessage id="indicators.filters.location" defaultMessage="Location" />} />
       </div>
@@ -96,6 +96,7 @@ const RainfallSetting = (props) => {
 
 const mapStateToProps = state => {
   return {
+    commonConfig: state.getIn(['app', 'data', 'commonConfig']),
     waterConfig: state.getIn(['water', 'data', 'waterConfig']),
     config: state.getIn(['water', 'data', 'rainLevelChart', 'config']),
     filter: state.getIn(['water', 'data', 'rainLevelChart', 'filter']),
