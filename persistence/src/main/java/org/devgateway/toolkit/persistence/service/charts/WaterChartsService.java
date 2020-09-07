@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.service;
+package org.devgateway.toolkit.persistence.service.charts;
 
 import org.devgateway.toolkit.persistence.dto.ChartsData;
 import org.devgateway.toolkit.persistence.dto.WaterConfig;

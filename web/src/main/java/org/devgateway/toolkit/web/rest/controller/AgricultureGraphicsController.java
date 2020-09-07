@@ -1,7 +1,5 @@
 package org.devgateway.toolkit.web.rest.controller;
 
-import javax.validation.Valid;
-
 import org.devgateway.toolkit.persistence.dto.agriculture.AgricultureChartsData;
 import org.devgateway.toolkit.persistence.dto.agriculture.AgricultureConfig;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartConfig;
@@ -10,13 +8,15 @@ import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartFilt
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartConfig;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartData;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartFilter;
-import org.devgateway.toolkit.persistence.service.AgricultureChartsService;
+import org.devgateway.toolkit.persistence.service.charts.AgricultureChartsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @author Octavian Ciubotaru

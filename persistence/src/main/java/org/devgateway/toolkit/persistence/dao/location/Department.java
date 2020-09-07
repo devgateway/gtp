@@ -30,6 +30,7 @@ public class Department extends AbstractAuditableEntity implements Serializable,
     private static final long serialVersionUID = 5802901244304509439L;
 
     @ExcelExport(name = "zone", useTranslation = true, justExport = true)
+    @JsonIgnore
     private transient Zone zone;
 
     @ExcelExport(name = "region", useTranslation = true, justExport = true)

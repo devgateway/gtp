@@ -19,7 +19,7 @@ import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChart;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductPricesChartFilter;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChart;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartFilter;
-import org.devgateway.toolkit.persistence.service.AgricultureChartsService;
+import org.devgateway.toolkit.persistence.service.charts.AgricultureChartsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

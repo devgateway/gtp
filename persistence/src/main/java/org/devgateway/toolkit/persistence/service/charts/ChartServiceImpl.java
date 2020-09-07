@@ -1,8 +1,6 @@
-package org.devgateway.toolkit.persistence.service;
+package org.devgateway.toolkit.persistence.service.charts;
 
 import static java.util.stream.Collectors.toList;
-
-import java.util.List;
 
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.dao.location.Region;
@@ -12,6 +10,8 @@ import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author Octavian Ciubotaru

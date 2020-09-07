@@ -379,3 +379,53 @@ operation::product-quantities-data[snippets='curl-request,http-response,request-
 Product quantity fields:
 
 include::{snippets}/product-quantities-data/response-fields-productQuantity.adoc[]
+
+== Livestock charts
+
+=== Get all livestock charts
+
+Retrieves information for all livestick related charts in a single API request.
+
+Includes:
+
+* common configuration for all charts
+* common configuration for livestock charts
+* all livestock-related charts
+
+Each chart has configuration, default filters and data for the default filters.
+
+In rare cases default filters cannot be computed, as result chart data will not be provided.
+
+operation::all-livestock-charts[snippets='curl-request,http-response,response-fields']
+
+[[disease-quantity-chart]]
+Disease quantity chart fields:
+
+include::{snippets}/all-livestock-charts/response-fields-diseaseQuantityChart.adoc[]
+
+[[livestock-charts-config]]
+=== Get livestock charts config
+
+Returns all livestock diseases.
+
+operation::livestock-config[snippets='curl-request,http-response,response-fields']
+
+[[disease]]
+Disease fields:
+
+include::{snippets}/livestock-config/response-fields-disease.adoc[]
+
+[[disease-quantity-chart-config]]
+=== Get disease quantity chart config
+
+Returns years for any disease was recorded.
+
+operation::disease-quantity-config[snippets='curl-request,http-response,response-fields']
+
+
+[[disease-quantity-chart-data]]
+=== Get disease quantity chart data
+
+Returns disease quantities for all regions and months for selected year.
+
+operation::disease-quantity-data[snippets='curl-request,http-response,request-fields,response-fields']

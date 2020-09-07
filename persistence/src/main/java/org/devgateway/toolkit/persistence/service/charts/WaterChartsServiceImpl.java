@@ -1,17 +1,7 @@
-package org.devgateway.toolkit.persistence.service;
+package org.devgateway.toolkit.persistence.service.charts;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
-
-import java.time.MonthDay;
-import java.time.Year;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.function.Supplier;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -41,9 +31,10 @@ import org.devgateway.toolkit.persistence.dto.season.SeasonChartConfig;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartData;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonPrediction;
+import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
-import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
 import org.devgateway.toolkit.persistence.service.indicator.RainSeasonService;
+import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
 import org.devgateway.toolkit.persistence.service.indicator.river.RiverStationYearlyLevelsService;
 import org.devgateway.toolkit.persistence.service.reference.RainLevelReferenceService;
 import org.devgateway.toolkit.persistence.service.reference.RainSeasonStartReferenceService;
@@ -52,6 +43,16 @@ import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.MonthDay;
+import java.time.Year;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.function.Supplier;
 
 /**
  * @author Octavian Ciubotaru

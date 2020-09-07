@@ -1,11 +1,6 @@
-package org.devgateway.toolkit.persistence.service;
+package org.devgateway.toolkit.persistence.service.charts;
 
 import static java.util.stream.Collectors.toCollection;
-
-import java.time.Year;
-import java.util.Collection;
-import java.util.List;
-import java.util.TreeSet;
 
 import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
@@ -25,6 +20,7 @@ import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChart
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartConfig;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartData;
 import org.devgateway.toolkit.persistence.dto.agriculture.ProductQuantitiesChartFilter;
+import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.service.category.MarketTypeService;
 import org.devgateway.toolkit.persistence.service.category.PriceTypeService;
@@ -35,6 +31,11 @@ import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Year;
+import java.util.Collection;
+import java.util.List;
+import java.util.TreeSet;
 
 /**
  * @author Octavian Ciubotaru

@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.service;
+package org.devgateway.toolkit.persistence.service.charts;
 
 import org.devgateway.toolkit.persistence.dto.agriculture.AgricultureChartsData;
 import org.devgateway.toolkit.persistence.dto.agriculture.AgricultureConfig;

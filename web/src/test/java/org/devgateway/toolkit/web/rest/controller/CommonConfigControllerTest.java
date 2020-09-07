@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.devgateway.toolkit.persistence.dto.CommonConfig;
-import org.devgateway.toolkit.persistence.service.ChartService;
+import org.devgateway.toolkit.persistence.service.charts.ChartService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

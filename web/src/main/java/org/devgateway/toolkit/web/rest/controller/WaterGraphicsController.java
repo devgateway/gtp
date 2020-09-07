@@ -1,27 +1,27 @@
 package org.devgateway.toolkit.web.rest.controller;
 
-import javax.validation.Valid;
-
 import org.devgateway.toolkit.persistence.dto.ChartsData;
 import org.devgateway.toolkit.persistence.dto.WaterConfig;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartData;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartFilter;
+import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartConfig;
+import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartData;
+import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartFilter;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartConfig;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartData;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartConfig;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartData;
-import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartConfig;
-import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartData;
-import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartFilter;
-import org.devgateway.toolkit.persistence.service.WaterChartsService;
+import org.devgateway.toolkit.persistence.service.charts.WaterChartsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @author Octavian Ciubotaru
