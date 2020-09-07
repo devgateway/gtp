@@ -1,12 +1,12 @@
 package org.devgateway.toolkit.web.rest.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.dao.location.Region;
 import org.devgateway.toolkit.persistence.dao.location.Zone;
 import org.devgateway.toolkit.persistence.dto.CommonConfig;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Octavian Ciubotaru
@@ -18,6 +18,7 @@ public class SampleCommonData {
     private final List<Department> departments;
 
     private final CommonConfig commonConfig;
+    private final Region regionKedougou;
     private final Department departmentKedougou;
 
     public SampleCommonData() {
@@ -28,7 +29,7 @@ public class SampleCommonData {
         zones = new ArrayList<>();
         zones.add(zoneEst);
 
-        Region regionKedougou = new Region(1L);
+        regionKedougou = new Region(1L);
         regionKedougou.setZone(zoneEst);
         regionKedougou.setCode("KG");
         regionKedougou.setName("Kédougou");
@@ -57,6 +58,10 @@ public class SampleCommonData {
 
     public List<Department> getDepartments() {
         return departments;
+    }
+
+    public Region getRegionKedougou() {
+        return regionKedougou;
     }
 
     public Department getDepartmentKedougou() {
