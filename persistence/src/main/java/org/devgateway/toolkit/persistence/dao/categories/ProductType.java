@@ -59,6 +59,7 @@ public class ProductType extends Category {
     private MarketType marketType;
 
     @ExcelExport(name = "productType", useTranslation = true)
+    @JsonIgnore
     private transient String productTypeLabel;
 
     public ProductType() {
