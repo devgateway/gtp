@@ -22,7 +22,7 @@ export default class AgricultureConfig {
     this.marketsById = (markets || []).reduce((map, m) => map.set(m.id, new Market(m, commonConfig.departments, this.marketTypes)), new Map())
     this.markets = Array.from(this.marketsById.values()).sort(Market.localeCompare)
     this.marketIdsByTypeName = this.markets.reduce((map: Map, m: Market) => {
-      getOrDefaultArray(map, m.type.label).push(m.id)
+      getOrDefaultArray(map, this.marketTypes.get(m.typeId).label).push(m.id)
       return map
     }, new Map())
 
