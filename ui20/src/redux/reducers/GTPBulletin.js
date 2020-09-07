@@ -13,7 +13,7 @@ const FILTER_BULLETIN_REJECTED = 'FILTER_BULLETIN_REJECTED'
 
 const initialState = Immutable.fromJS({
   isLoading: false,
-  isLoaded: undefined,
+  isLoaded: null,
   error: null,
   data: BulletinReport,
 })
