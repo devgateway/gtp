@@ -14,6 +14,7 @@ export const getProductPrices = (year, productId, marketId) => post(EP.PRODUCT_P
 export const getProductQuantities = (year, productTypeId, marketId) => post(EP.PRODUCT_QUANTITIES, {year, productTypeId, marketId})
 
 export const getAllLivestock = () => get(EP.LIVESTOCK_ALL)
+export const getDiseaseQuantity = (year, diseaseId) => post(EP.DISEASE_QUANTITY, {year, diseaseId})
 
 export const getAllBulletins = () => get(EP.BULLETIN_ALL)
 export const getDownloadBulletinUrl = (id) => urlWithSearchParams(EP.BULLETIN_DOWNLOAD, {id})

@@ -32,6 +32,7 @@ export const PRODUCT_QUANTITIES = API_MARKET_AND_AGRICULTURE + '/product-quantit
 
 const API_LIVESTOCK = API_GRAPHIC + '/livestock'
 export const LIVESTOCK_ALL = API_LIVESTOCK + '/all'
+export const DISEASE_QUANTITY = API_LIVESTOCK + '/disease-quantity/data'
 
 export const GTP_ROOT = API_ROOT + '/gtp'
 export const BULLETIN_ALL = GTP_ROOT + '/materials/all'

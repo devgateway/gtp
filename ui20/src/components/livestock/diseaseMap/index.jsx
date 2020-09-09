@@ -6,6 +6,7 @@ import * as diseaseQuantityActions from "../../../redux/actions/livestock/diseas
 import Graphic from "../../common/graphic/Graphic"
 import GraphicWithFallback from "../../common/graphic/GraphicWithFallback"
 import DiseaseMap from "./DiseaseMap"
+import DiseaseMapProperties from "./DiseaseMapProperties"
 
 const hasDataFunc = ({diseaseMapDTO}) => !!diseaseMapDTO
 const childPropsBuilder = (props) => props.getDiseaseQuantities()
@@ -17,10 +18,11 @@ class DiseaseMapGraphic extends Component {
   static propTypes = {
     isDiseaseQuantityLoading: PropTypes.bool,
     getDiseaseQuantities: PropTypes.func.isRequired,
+    filter: PropTypes.object.isRequired,
   }
 
   render() {
-    const {getDiseaseQuantities} = this.props
+    const {filter, apiData, getDiseaseQuantities} = this.props
 
     return (
       <Graphic
@@ -28,6 +30,7 @@ class DiseaseMapGraphic extends Component {
         helpId="indicators.map.disease.help"
         sourceId="indicators.map.disease.source"
         className="map-graphic">
+        {apiData && <DiseaseMapProperties filter={filter}/>}
         <DiseaseMapGraphicWithFallback getDiseaseQuantities={getDiseaseQuantities} >
           {childProps => <DiseaseMap {...childProps} />}
         </DiseaseMapGraphicWithFallback>
@@ -38,7 +41,9 @@ class DiseaseMapGraphic extends Component {
 
 const mapStateToProps = state => {
   return {
+    apiData: state.getIn(['livestock', 'data', 'diseaseQuantityChart', 'data']),
     isDiseaseQuantityLoading: state.getIn(['livestock', 'isDiseaseQuantityLoading']),
+    filter: state.getIn(['livestock', 'data', 'diseaseQuantityChart', 'filter'])
   }
 }
 

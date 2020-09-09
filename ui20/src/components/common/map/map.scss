@@ -21,6 +21,11 @@
 }
 
 .graphic-page .graphics .indicators.content {
+  .map-graphic {
+    .filter.item {
+      z-index: 900;
+    }
+  }
   .map {
     max-width: 1266px;
     max-height: $graphic-content-max-height;

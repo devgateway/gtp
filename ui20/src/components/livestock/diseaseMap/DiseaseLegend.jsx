@@ -14,7 +14,7 @@ export default class DiseaseLegend extends Component {
       <CustomLegend>
         <div className="disease-legend">
           <span>{max} <FormattedMessage id="indicators.map.disease.cases" /></span>
-          <snpa className="disease-gradient-container"><span className="disease-gradient" /></snpa>
+          <span className="disease-gradient-container"><span className="disease-gradient" /></span>
           <span>{0} <FormattedMessage id="indicators.map.disease.cases" /></span>
         </div>
       </CustomLegend>
