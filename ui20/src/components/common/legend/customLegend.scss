@@ -1,18 +1,23 @@
 @import '../../../base';
 @import '../graphic/indicator-base';
 
+$legend-font-size: 11px;
+$legend-color: #364833;
+$legend-weight: 600;
+$legend-padding-right: 10px;
+
 .custom-legend-item {
   display: inline-flex;
   align-items: center;
   padding-left: $graphic-title-left-padding;
   height: 100%;
   line-height: 11px;
-  font-size: 11px;
-  color: #364833;
-  font-weight: 600;
+  font-size: $legend-font-size;
+  color: $legend-color;
+  font-weight: $legend-weight;
 
   span:first-of-type {
-    padding-right: 10px;
+    padding-right: $legend-padding-right;
   }
 
   .symbol {

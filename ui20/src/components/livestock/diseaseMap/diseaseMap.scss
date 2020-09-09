@@ -1,0 +1,37 @@
+@import "../../../base";
+@import "../../common/legend/customLegend";
+
+.disease-map {
+  .legend {
+    border-bottom: $border;
+
+    .disease-legend {
+      margin-left: 21px;
+      font-size: $legend-font-size;
+      color: $legend-color;
+      font-weight: $legend-weight;
+      display: flex;
+      align-items: center;
+
+      span {
+        padding-right: $legend-padding-right;
+        white-space: nowrap;
+      }
+
+      .disease-gradient-container {
+        max-width: 478px;
+        min-width: 50px;
+        width: 100%;
+      }
+
+      .disease-gradient {
+        display: block;
+        width: 100%;
+        height: 11px;
+        border-radius: 5px;
+        background-image: linear-gradient(270deg, #ffffff 0%, #fcf8ed 2%, #fb8700 100%);
+      }
+    }
+  }
+
+}

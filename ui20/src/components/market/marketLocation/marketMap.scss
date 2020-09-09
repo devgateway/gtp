@@ -1,33 +1,10 @@
 @import "../../../base";
-@import "../../common/graphic/indicator-base";
-@import "~leaflet/dist/leaflet.css";
+@import "../../common/map/map";
 
 $tooltip-content-padding: 8px;
 
-.legend {
-  max-width: 1266px;
-  height: $custom-legend-height;
-  line-height: $custom-legend-height;
-
-  text {
-    font-size: 11px !important;
-  }
-}
-
-.map-container {
-  position: relative;
-}
-
 .graphic-page .graphics .indicators.content {
   .map {
-    max-width: 1266px;
-    max-height: $graphic-content-max-height;
-    min-height: $graphic-content-min-height;
-    height: 57vh;
-
-    .leaflet-top, .leaflet-bottom {
-      z-index: 600;
-    }
 
     .leaflet-tooltip {
       padding: 0;
