@@ -106,6 +106,7 @@
 	"indicators.chart.rainfall.source": "ANACIM",
 	"indicators.chart.rainfall.nodata.month": "Aucune donnée n'a été enregistrée pour ce mois",
 	"indicators.chart.rainfall.nodata.decadal": "Aucune donnée n'a été enregistrée pour cette décade",
+	"indicators.map.attribution.countries": "Fabriqué avec Natural Earth",
 	"indicators.map.disease.title": "Infections mensuelles",
 	"indicators.map.disease.help": "Ce graphique montre le nombre de cas reportés par mois par région par maladie.",
 	"indicators.map.disease.source": "Ministère de l'élevage",
