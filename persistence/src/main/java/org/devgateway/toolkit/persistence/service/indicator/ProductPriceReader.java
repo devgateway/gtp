@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -143,7 +144,10 @@ public class ProductPriceReader extends AbstractExcelFileIndicatorReader<Product
     }
 
     private BigDecimal getAverage(Stream<BigDecimal> values, int count) {
-        return values.reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(count), RoundingMode.HALF_UP);
+        return values
+                .filter(Objects::nonNull)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .divide(BigDecimal.valueOf(count), RoundingMode.HALF_UP);
     }
 
     private XSSFCell getOptionalCell(XSSFRow row, Integer col) {
