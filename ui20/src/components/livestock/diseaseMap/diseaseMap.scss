@@ -36,14 +36,14 @@ $color-light-blue: #c1dafc;
     }
   }
 
-  .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  .leaflet-tooltip, .tooltip-tip {
     background-color: #222c3c;
   }
 
-  .leaflet-popup-content-wrapper {
+  .leaflet-tooltip {
     border-radius: 3px;
 
-    .leaflet-popup-content {
+    .tooltip-content {
       width: 290px !important;
       margin: 0;
       padding: 8px 0 8px 8px;
@@ -77,6 +77,7 @@ $color-light-blue: #c1dafc;
               height: 37px;
               text-align: center;
               display: inline-block;
+              white-space: normal;
 
               &.active {
                 background-color: #304f81;
@@ -111,10 +112,11 @@ $color-light-blue: #c1dafc;
     }
   }
 
-  .leaflet-popup-tip {
+  .tooltip-tip {
     width: 30px;
     height: 30px;
     margin: -30px auto 0;
+    transform: rotate(45deg);
   }
 
 }

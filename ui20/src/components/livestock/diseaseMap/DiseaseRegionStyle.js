@@ -47,7 +47,7 @@ export default class DiseaseRegionStyle {
   }
 
   getRegionPopup(intl, diseaseMapDTO: DiseaseQuantityMapDTO, feature, layer: Layer) {
-    layer.bindPopup(() => {
+    layer.bindTooltip(() => {
         const div = document.createElement('div');
         ReactDOM.render(
           <DiseaseMapRegionPopup name={feature.properties.NAME_1} diseaseMapDTO={diseaseMapDTO} intl={intl} />, div)
@@ -56,9 +56,10 @@ export default class DiseaseRegionStyle {
       {
         closeButton: false,
         permanent: false,
-        direction:"center",
+        direction: "top",
+        opactity: 1,
         maxWidth: 500,
-      }).openPopup()
+      }).openTooltip()
   }
 }
 

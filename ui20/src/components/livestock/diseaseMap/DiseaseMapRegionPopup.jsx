@@ -18,28 +18,33 @@ export default class DiseaseMapRegionPopup extends Component {
     const region: Region = diseaseMapDTO.findRegion(name)
     if (!region) {
       console.error(`Region '${name}' not found. Cannot render its tooltip.`)
-      return <div className="disease-region-popup">{intl.formatMessage({ id: "all.no-data"})}</div>
+      return <div className="disease-region-popup">{intl.formatMessage({id: "all.no-data"})}</div>
     }
     const now = new Date()
-    const futureMonth = diseaseMapDTO.year === now.getFullYear() ?  now.getMonth() + 1 : null
+    const futureMonth = diseaseMapDTO.year === now.getFullYear() ? now.getMonth() + 1 : null
     const casesByMonth: Map = diseaseMapDTO.diseaseQuantityData.quantityByRegionIdByMonth.get(region.id)
     const monthCellRenderer = (m) => renderMonthCell(intl, m, futureMonth, diseaseMapDTO.month, casesByMonth)
     const currentMonthCases = casesByMonth.get(diseaseMapDTO.month) || 0
 
     return (
-      <div className="disease-region-popup">
-        <div className="disease-popup-title">
-          <span className="region-cases">{region.name} / {currentMonthCases} </span>
-          <span className="cases-text">{intl.formatMessage({ id: "indicators.map.disease.cases"})}</span>
+      <div>
+        <div className="tooltip-content">
+          <div className="disease-region-popup">
+            <div className="disease-popup-title">
+              <span className="region-cases">{region.name} / {currentMonthCases} </span>
+              <span className="cases-text">{intl.formatMessage({id: "indicators.map.disease.cases"})}</span>
+            </div>
+            <Grid>
+              <GridRow>
+                {MONTHS.slice(0, 6).map(monthCellRenderer)}
+              </GridRow>
+              <GridRow>
+                {MONTHS.slice(6, 12).map(monthCellRenderer)}
+              </GridRow>
+            </Grid>
+          </div>
         </div>
-        <Grid>
-          <GridRow>
-            {MONTHS.slice(0, 6).map(monthCellRenderer)}
-          </GridRow>
-          <GridRow>
-            {MONTHS.slice(6, 12).map(monthCellRenderer)}
-          </GridRow>
-        </Grid>
+        <div className="tooltip-tip"/>
       </div>
     )
   }
