@@ -59,7 +59,7 @@ public class DiseaseQuantity extends AbstractAuditableEntity implements Comparab
     private Month month;
 
     @NotNull
-    @Min(0)
+    @Min(1)
     private Long quantity;
 
     public DiseaseQuantity() {
