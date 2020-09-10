@@ -3,6 +3,7 @@ import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import LivestockConfig from "../../../modules/entities/config/LivestockConfig"
+import {MONTHS} from "../../../modules/entities/Constants"
 import DiseaseQuantityConfig from "../../../modules/entities/diseaseSituation/DiseaseQuantityConfig"
 import {anyWithIdAndLabelToOptions, monthsToOptions, yearsToOptions} from "../../../modules/graphic/common/GraphicDTO"
 import * as diseaseQuantityActions from "../../../redux/actions/livestock/diseaseQuantityActions"
@@ -31,6 +32,12 @@ const DiseaseQuantityFilters = (props) => {
   const {setYearFilter, setMonth, setDiseaseFilter, config, intl}  = props
   const {diseases} = props.livestockConfig
   const {year, month, diseaseId} = props.filter
+  let months = MONTHS
+  const now =  new Date()
+  if (now.getFullYear() === year) {
+    months = now.getMonth() === 0 ? [] : months.slice(0, now.getMonth())
+  }
+
 
   return (
     <div className="indicator chart filter three-filters">
@@ -49,7 +56,7 @@ const DiseaseQuantityFilters = (props) => {
       </div>
       <div className="filter item fixed">
         <FilterDropDown
-          options={monthsToOptions(intl)} onChange={(months) => setMonth(months[0])}
+          options={monthsToOptions(intl, months)} onChange={(months) => setMonth(months[0])}
           min={1} max={1} single withSearch
           selected={[month]} text={intl.formatMessage({ id: "all.month", defaultMessage: "Months" })} />
       </div>
