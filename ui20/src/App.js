@@ -26,6 +26,7 @@ const Home = asyncComponent(() => import("./components/home/"));
 const About = asyncComponent(() => import("./components/about/"));
 const Water = asyncComponent(() => import("./components/water/"));
 const Market = asyncComponent(() => import("./components/market/"));
+const Livestock = asyncComponent(() => import("./components/livestock/"));
 const Bulletin = asyncComponent(() => import("./components/bulletin/"));
 
 // kick off the polyfill!
@@ -41,6 +42,7 @@ const HomeLayout = (props) => withLayout(Home)
 const AboutLayout = (props) => withLayout(About)
 const WaterLayout = (props) => withLayout(Water)
 const MarketLayout = (props) => withLayout(Market)
+const LivestockLayout = (props) => withLayout(Livestock)
 const BulletinLayout = (props) => withLayout(Bulletin)
 
 
@@ -64,6 +66,7 @@ class IntlRoutes extends Component {
 
             <Route exact={true} path="/:lan/water-resources"  component={WaterLayout}/>
             <Route exact={true} path="/:lan/agriculture-and-market"  component={MarketLayout}/>
+            <Route exact={true} path="/:lan/livestock"  component={LivestockLayout}/>
 
             <Route exact={true} path="/:lan/gtp-bulletins"  component={BulletinLayout}/>
 

@@ -1,10 +1,11 @@
+import CommonConfig from "../../entities/config/CommonConfig"
 import WaterConfig from "../../entities/config/WaterConfig"
 import RiverStation from "../../entities/river/RiverStation"
 
 
-export const postIdsToOptions = (postIds, waterConfig: WaterConfig) => postIds.map(id => {
+export const postIdsToOptions = (postIds, waterConfig: WaterConfig, commonConfig: CommonConfig) => postIds.map(id => {
   const post = waterConfig.posts.get(id)
-  const dep = post.department
+  const dep = commonConfig.departments.get(post.departmentId)
   return ({
     key: id,
     text: `${post.label} (${dep.name})`,

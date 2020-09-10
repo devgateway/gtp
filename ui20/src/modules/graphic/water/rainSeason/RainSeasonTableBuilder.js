@@ -1,5 +1,7 @@
+import CommonConfig from "../../../entities/config/CommonConfig"
 import WaterConfig from "../../../entities/config/WaterConfig"
 import RainSeasonChart from "../../../entities/rainSeason/RainSeasonChart"
+import Posts from "../../common/dto/Posts"
 import RainSeasonConfigDTO from "./RainSeasonConfigDTO"
 import * as C from './RainSeasonConstants'
 import {RainSeasonPredictionDTO} from "./RainSeasonPredictionDTO"
@@ -7,11 +9,13 @@ import RainSeasonTableDTO from "./RainSeasonTableDTO"
 
 export default class RainSeasonTableBuilder {
   rainSeasonChart: RainSeasonChart
+  commonConfig: CommonConfig
   waterConfig: WaterConfig
 
 
-  constructor(rainSeasonChart: RainSeasonChart, waterConfig: WaterConfig) {
+  constructor(rainSeasonChart: RainSeasonChart, waterConfig: WaterConfig, commonConfig: CommonConfig) {
     this.rainSeasonChart = rainSeasonChart
+    this.commonConfig = commonConfig
     this.waterConfig = waterConfig
   }
 
@@ -19,6 +23,7 @@ export default class RainSeasonTableBuilder {
     if (!this.rainSeasonChart) {
       return null
     }
+    const postDTOById = new Posts(Array.from(this.waterConfig.posts.values()), this.commonConfig).buildPostDTOById()
     let data = this.rainSeasonChart.filteredData.predictions
 
     const {sortedBy, sortedAsc} = this.rainSeasonChart
@@ -27,7 +32,7 @@ export default class RainSeasonTableBuilder {
     if (isDateSorting) {
       data = data.sort((a, b) => a[sortedBy].date.getTime() - b[sortedBy].date.getTime())
     }
-    data = data.map(p => new RainSeasonPredictionDTO(this.waterConfig.posts.get(p.pluviometricPostId), p))
+    data = data.map(p => new RainSeasonPredictionDTO(postDTOById.get(p.pluviometricPostId), p))
     if (sortedBy) {
       if (!isDateSorting) {
         if (C.DIFFERENCE === sortedBy) {

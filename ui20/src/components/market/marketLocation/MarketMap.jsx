@@ -3,7 +3,7 @@ import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {Map, TileLayer} from 'react-leaflet';
 import {connect} from "react-redux"
-import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
+import MarketLocationMapDTO from "../../../modules/graphic/market/map/MarketLocationMapDTO"
 import BorderLayer from "./BorderLayer"
 import MarketLayer from "./MarketLayer"
 import "./marketMap.scss"
@@ -11,7 +11,7 @@ import MarketMapLegend from "./MarketMapLegend"
 
 class MarketMap extends Component {
   static propTypes = {
-    agricultureConfig: PropTypes.instanceOf(AgricultureConfig).isRequired,
+    marketLocationsDTO: PropTypes.instanceOf(MarketLocationMapDTO).isRequired,
     worldMapAttribution: PropTypes.string.isRequired,
   }
 

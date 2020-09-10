@@ -1,5 +1,15 @@
 import * as api from "../../modules/api"
-import {MENU_TOGGLE, WORLD_MAP_ATTRIBUTION} from "../reducers/AppReducer"
+import CommonConfig from "../../modules/entities/config/CommonConfig"
+import {COMMON_CONFIG_UPDATE, MENU_TOGGLE, WORLD_MAP_ATTRIBUTION} from "../reducers/AppReducer"
+
+export const updateCommonConfig = (apiCommonConfig) => (dispatch, getState) => {
+  const commonConfig = new CommonConfig(apiCommonConfig)
+  dispatch({
+    type: COMMON_CONFIG_UPDATE,
+    data: commonConfig,
+  })
+  return commonConfig
+}
 
 export const loadWorldMapAttribution = () => (dispatch, getState) =>
   dispatch({

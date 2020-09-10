@@ -9,7 +9,7 @@ const MEMBER_REJECTED = 'MEMBER_REJECTED'
 
 const initialState = Immutable.fromJS({
   isLoading: false,
-  isLoaded: undefined,
+  isLoaded: null,
   error: null,
   data: MemberData,
 })

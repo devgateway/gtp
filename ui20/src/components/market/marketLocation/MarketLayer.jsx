@@ -2,13 +2,13 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {FormattedMessage} from "react-intl"
 import {CircleMarker, Tooltip} from "react-leaflet"
-import AgricultureConfig from "../../../modules/entities/config/AgricultureConfig"
-import Market from "../../../modules/entities/market/Market"
+import MarketDTO from "../../../modules/graphic/market/map/MarketDTO"
+import MarketLocationMapDTO from "../../../modules/graphic/market/map/MarketLocationMapDTO"
 import * as MarketUtils from "../MarketUtils"
 
 export default class MarketLayer extends Component {
   static propTypes = {
-    agricultureConfig: PropTypes.instanceOf(AgricultureConfig).isRequired,
+    marketLocationsDTO: PropTypes.instanceOf(MarketLocationMapDTO).isRequired,
   }
 
   render() {
@@ -20,7 +20,7 @@ export default class MarketLayer extends Component {
 
     return (
     <div>
-      {this.props.agricultureConfig.markets.map((m: Market) => {
+      {this.props.marketLocationsDTO.markets.map((m: MarketDTO) => {
         let marketDays = [...m.marketDays].map((v, idx) => v === '1' ? weekDaysTrn[idx] : null).filter(v => v)
         marketDays = marketDays.length === 7 ? permanentText : marketDays.join(' / ')
         const color = MarketUtils.getMarketTypeColor(m.type.name)

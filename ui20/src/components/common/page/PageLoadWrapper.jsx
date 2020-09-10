@@ -16,9 +16,9 @@ class PageLoad extends Component {
     const {isLoading, isLoaded, error} = this.props
 
     let loadStatus
-    if (isLoaded === undefined || isLoading) {
+    if (isLoaded === null || isLoading !== false) {
       loadStatus = <PageLoader />
-    } else if (!isLoaded && error) {
+    } else if (isLoaded === false && error) {
       loadStatus = <ConnectivityError />
     }
     return (

@@ -1,12 +1,10 @@
 import PluviometricPost from "../PluviometricPost"
-import Zone from "../Zone"
-import CommonConfig, {fromApiToMap} from "./CommonConfig"
+import {reduceToMap} from "./CommonConfig"
 
-export default class WaterConfig extends CommonConfig {
-  zones: Map<number, Zone>
+export default class WaterConfig {
+  posts: Map<number, PluviometricPost>
 
-  constructor({posts} = {}, commonConfig = {}) {
-    super(commonConfig);
-    this.posts = fromApiToMap(posts, PluviometricPost.newInstance, 'department', this.departments)
+  constructor({posts} = {}) {
+    this.posts = reduceToMap(posts, PluviometricPost.newInstance)
   }
 }
