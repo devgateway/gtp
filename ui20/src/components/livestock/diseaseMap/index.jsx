@@ -8,7 +8,7 @@ import GraphicWithFallback from "../../common/graphic/GraphicWithFallback"
 import DiseaseMap from "./DiseaseMap"
 import DiseaseMapProperties from "./DiseaseMapProperties"
 
-const hasDataFunc = ({diseaseMapDTO}) => !!diseaseMapDTO
+const hasDataFunc = ({diseaseMapDTO}) => diseaseMapDTO && diseaseMapDTO.hasData
 const childPropsBuilder = (props) => props.getDiseaseQuantities()
 const DiseaseMapGraphicWithFallback = GraphicWithFallback('livestock', 'isDiseaseQuantityLoading',
   'isDiseaseQuantityLoaded', childPropsBuilder, hasDataFunc)
