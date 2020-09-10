@@ -156,4 +156,17 @@
         </insert>
     </changeSet>
 
+    <changeSet id="ANACIM-353 clean 0 quantities" author="nmandrescu">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="disease_quantity" />
+        </preConditions>
+        <delete tableName="disease_quantity">
+            <where>quantity = 0</where>
+        </delete>
+        <sql>
+            ALTER TABLE disease_quantity DROP CONSTRAINT disease_quantity_quantity_check;
+            ALTER TABLE disease_quantity ADD CONSTRAINT disease_quantity_quantity_check CHECK (quantity > 0);
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
