@@ -129,7 +129,7 @@ public class ProductPriceReader extends AbstractExcelFileIndicatorReader<Product
 
         yearlyPrices.getPrices().forEach(pp -> {
             List<Integer> prices = productPriceDuplicates.get(pp.getPriceNaturalId());
-            Integer price = getAverage(prices.stream().map(BigDecimal::valueOf), prices.size())
+            Integer price = getAverage(prices.stream().filter(Objects::nonNull).map(BigDecimal::valueOf), prices.size())
                     .toBigInteger().intValue();
             pp.setPrice(price);
         });
