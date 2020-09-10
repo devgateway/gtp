@@ -21,7 +21,7 @@ class DiseaseMap extends Component {
   render() {
     const {intl} = this.props
     const diseaseMapDTO: DiseaseQuantityMapDTO = this.props.diseaseMapDTO
-    const regionFeatureStyle = new DiseaseRegionStyle(diseaseMapDTO)
+    const regionFeatureStyle = new DiseaseRegionStyle(diseaseMapDTO, intl)
     const attribution = intl.formatMessage({ id: "indicators.map.disease.source" })
 
     return (

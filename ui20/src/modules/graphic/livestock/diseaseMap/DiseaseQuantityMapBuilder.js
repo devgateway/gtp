@@ -25,6 +25,7 @@ export default class DiseaseQuantityMapBuilder {
     })
     return new DiseaseQuantityMapDTO(
       this.diseaseQuantityChart.data,
+      filter.year,
       filter.month,
       Array.from(this.commonConfig.regions.values()),
       min,

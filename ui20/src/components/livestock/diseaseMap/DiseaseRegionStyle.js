@@ -1,16 +1,20 @@
+import {Layer} from "leaflet/dist/leaflet-src.esm"
+import React from "react"
+import ReactDOM from "react-dom"
 import Region from "../../../modules/entities/Region"
 import DiseaseQuantityMapDTO from "../../../modules/graphic/livestock/diseaseMap/DiseaseQuantityMapDTO"
+import DiseaseMapRegionPopup from "./DiseaseMapRegionPopup"
 import {ADM_BASE_STYLE} from "./DiseaseStyle"
 
 export default class DiseaseRegionStyle {
   diseaseMapDTO: DiseaseQuantityMapDTO
   qRange: number
 
-  constructor(diseaseMapDTO: DiseaseQuantityMapDTO) {
+  constructor(diseaseMapDTO: DiseaseQuantityMapDTO, intl) {
     this.diseaseMapDTO = diseaseMapDTO
     this.qRange = diseaseMapDTO.maxQuantity - diseaseMapDTO.minQuantity
     this.getStyle = this.getStyle.bind(this)
-    this.getRegionPopup = this.getRegionPopup.bind(this)
+    this.getRegionPopup = this.getRegionPopup.bind(this, intl, this.diseaseMapDTO)
   }
 
   getStyle(feature) {
@@ -42,12 +46,19 @@ export default class DiseaseRegionStyle {
     }
   }
 
-  getRegionPopup(feature, layer) {
-    layer.bindTooltip(feature.properties.NAME_1,
+  getRegionPopup(intl, diseaseMapDTO: DiseaseQuantityMapDTO, feature, layer: Layer) {
+    layer.bindPopup(() => {
+        const div = document.createElement('div');
+        ReactDOM.render(
+          <DiseaseMapRegionPopup name={feature.properties.NAME_1} diseaseMapDTO={diseaseMapDTO} intl={intl} />, div)
+        return div.innerHTML
+      },
       {
+        closeButton: false,
         permanent: false,
         direction:"center",
-      }).openTooltip()
+        maxWidth: 500,
+      }).openPopup()
   }
 }
 
