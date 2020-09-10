@@ -6,6 +6,9 @@ $graphic-link-padding: #{'max(min(29px, 3vh), 3px)'};
 
 .graphic-page {
   .graphic-menu {
+    position: absolute;
+    z-index: 950;
+
     .ui.sticky, .ui.stuck-container {
       position: fixed;
       @if $hide-header {
