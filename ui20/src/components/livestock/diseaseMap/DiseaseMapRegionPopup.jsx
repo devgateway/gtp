@@ -56,7 +56,9 @@ const renderMonthCell = (intl, month: number, futureMonth: number, activeMonth: 
   const isActive = month === activeMonth
 
   return (
-    <GridColumn className={cssClasses("disease-popup-month-cell", isFuture ? "future" : null, isActive ? "active" : null)}>
+    <GridColumn
+      key={`month-${month}`}
+      className={cssClasses("disease-popup-month-cell", isFuture ? "future" : null, isActive ? "active" : null)}>
       <div className="month-title">{intl.formatMessage({ id: `all.month.short.${month}`})}</div>
       <div>{renderMonthCases(intl, month, futureMonth, casesByMonth)}</div>
     </GridColumn>

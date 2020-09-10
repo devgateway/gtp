@@ -1,4 +1,3 @@
-import {Layer} from "leaflet/dist/leaflet-src.esm"
 import React from "react"
 import ReactDOM from "react-dom"
 import Region from "../../../modules/entities/Region"
@@ -46,22 +45,81 @@ export default class DiseaseRegionStyle {
     }
   }
 
-  getRegionPopup(intl, diseaseMapDTO: DiseaseQuantityMapDTO, feature, layer: Layer) {
-    layer.bindTooltip(() => {
-        const div = document.createElement('div');
-        ReactDOM.render(
-          <DiseaseMapRegionPopup name={feature.properties.NAME_1} diseaseMapDTO={diseaseMapDTO} intl={intl} />, div)
-        return div.innerHTML
-      },
-      {
-        closeButton: false,
-        permanent: false,
-        direction: "top",
-        opactity: 1,
-        maxWidth: 500,
-      }).openTooltip()
+  getRegionPopup(intl, diseaseMapDTO: DiseaseQuantityMapDTO, feature, layer) {
+    const tooltipOptions = {
+      closeButton: false,
+      permanent: true,
+      direction: "top",
+      opacity: 1,
+      interactive: true,
+      maxWidth: 500,
+    }
+
+    layer.mouseover = { latlng: {}}
+    layer.on('mouseover', (e: Event) => {
+
+      if (!this.lastLayer) {
+        this.lastLayer = layer
+      } else if (this.lastLayer !== layer) {
+        closeTooltip(this.lastLayer)
+        this.lastLayer = layer
+      }
+      if (isEqualLtnLng(layer.mouseover.latlng, e.latlng)) {
+        return
+      }
+      layer.mouseover.latlng = e.latlng
+
+      let tooltip = layer.getTooltip()
+      if (!tooltip) {
+        tooltip = layer.bindTooltip((layer) => {
+            const div = document.createElement('div');
+            ReactDOM.render(
+              <DiseaseMapRegionPopup name={feature.properties.NAME_1} diseaseMapDTO={diseaseMapDTO} intl={intl}/>, div)
+            return div.innerHTML
+          },
+          tooltipOptions
+        ).getTooltip()
+        tooltip.locked = false
+      }
+      layer.openTooltip()
+    })
+
+    layer.on('mouseout', (e) => {
+      if (!isEqualLtnLng(layer.mouseover.latlng, e.latlng)) {
+        closeTooltip(layer)
+      }
+    })
+    layer.on('click', (e) => {
+      const tooltip = layer.getTooltip()
+      if (tooltip) {
+        tooltip.locked = !tooltip.locked
+        if (tooltip.locked) {
+          if (this.lockedTooltipLayer) {
+            closeTooltip(this.lockedTooltipLayer, true)
+          }
+          this.lockedTooltipLayer = layer
+        } else {
+          this.lockedTooltipLayer = null
+        }
+      }
+    })
   }
 }
+
+const closeTooltip = (layer, isForceUnlock = false) => {
+  if (layer.isTooltipOpen()) {
+    const tooltip = layer.getTooltip()
+    if (isForceUnlock) {
+      tooltip.locked = false
+    }
+    if (!tooltip.locked) {
+      layer.closeTooltip()
+    }
+  }
+}
+
+const isEqualLtnLng = (ltnLgn1, ltnLng2) =>
+  ltnLgn1 && ltnLng2 && ltnLgn1.lat === ltnLng2.lat && ltnLgn1.lng === ltnLng2.lng
 
 const minColor = {
   r: 0xFC,
