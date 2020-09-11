@@ -2,6 +2,8 @@
 @import "../../common/graphic/indicator-base";
 @import "~leaflet/dist/leaflet.css";
 
+$tooltip-content-padding: 8px;
+
 .leaflet-container {
   background-color: #CFEAF3;
 }
@@ -34,6 +36,51 @@
 
     .leaflet-top, .leaflet-bottom {
       z-index: 600;
+    }
+  }
+
+  .map.black-tooltip {
+    .leaflet-tooltip {
+      padding: 0;
+      border: 0;
+
+      &.leaflet-tooltip-right:before {
+        border-right-color: #222C3C;
+      }
+      &.leaflet-tooltip-left:before {
+        border-left-color: #222C3C;
+      }
+    }
+
+    .tooltips {
+      font-size: 11px;
+      padding: 8px;
+      line-height: 1rem;
+      margin: 0;
+      font-weight: 700;
+
+      div {
+        padding: 0 3px;
+      }
+
+      .ui.divider {
+        margin: 6px 0;
+        color: #2B3648;
+      }
+
+      .tooltip-title {
+        color: #C1DAFC;
+      }
+    }
+  }
+
+  &.map-graphic .source {
+    position: relative;
+    z-index: 800;
+    color: $color-dark-gray;
+
+    .source.label {
+      color: $color-dark-gray;
     }
   }
 }
