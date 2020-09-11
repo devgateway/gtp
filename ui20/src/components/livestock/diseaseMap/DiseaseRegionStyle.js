@@ -63,7 +63,7 @@ export default class DiseaseRegionStyle {
       if (!this.lastLayer) {
         this.lastLayer = layer
       } else if (this.lastLayer !== layer) {
-        closePopup(this.lastLayer)
+        closePopup(this.lastLayer, this.lockedPopupLayer)
         this.lastLayer = layer
       }
       if (isEqualLtnLng(layer.mouseover.latlng, e.latlng)) {
@@ -73,50 +73,54 @@ export default class DiseaseRegionStyle {
 
       let popup = layer.getPopup()
       if (!popup) {
-        popup = layer.bindPopup((layer) => {
+        layer.bindPopup((layer) => {
             const div = document.createElement('div');
             ReactDOM.render(
               <DiseaseMapRegionPopup name={feature.properties.NAME_1} diseaseMapDTO={diseaseMapDTO} intl={intl}/>, div)
             return div.innerHTML
           },
           popupOptions
-        ).getPopup()
-        popup.locked = false
+        )
+        layer.once('popupopen', (e) => {
+          popup = layer.getPopup()
+          const popupEl = popup.getElement()
+          popupEl.style.pointerEvents = "auto"
+          popupEl.addEventListener('click', (e) => {
+            this.lockedPopupLayer = getLockedLayer(layer, this.lockedPopupLayer)
+          })
+          popupEl.addEventListener('mouseleave', (e) => {
+            closePopup(layer, this.lockedPopupLayer)
+          })
+        })
       }
       layer.openPopup()
     })
 
     layer.on('mouseout', (e) => {
       if (!isEqualLtnLng(layer.mouseover.latlng, e.latlng)) {
-        closePopup(layer)
+        closePopup(layer, this.lockedPopupLayer)
       }
     })
     layer.on('click', (e) => {
-      const popup = layer.getPopup()
-      if (popup) {
-        popup.locked = !popup.locked
-        if (popup.locked) {
-          if (this.lockedTooltipLayer) {
-            closePopup(this.lockedTooltipLayer, true)
-          }
-          this.lockedTooltipLayer = layer
-        } else {
-          this.lockedTooltipLayer = null
-        }
-      }
+      this.lockedPopupLayer = getLockedLayer(layer, this.lockedPopupLayer)
     })
   }
 }
 
-const closePopup = (layer, isForceUnlock = false) => {
-  if (layer.isPopupOpen()) {
-    const popup = layer.getPopup()
-    if (isForceUnlock) {
-      popup.locked = false
+const getLockedLayer = (triggerLayer, lockedLayer) => {
+  if (lockedLayer === triggerLayer) {
+    return null
+  } else {
+    if (lockedLayer) {
+      closePopup(triggerLayer, lockedLayer)
     }
-    if (!popup.locked) {
-      layer.closePopup()
-    }
+    return triggerLayer
+  }
+}
+
+const closePopup = (layer, lockedPopupLayer) => {
+  if (layer.isPopupOpen() && layer !== lockedPopupLayer) {
+    layer.closePopup()
   }
 }
 
