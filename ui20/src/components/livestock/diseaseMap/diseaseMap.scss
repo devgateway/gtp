@@ -36,14 +36,14 @@ $color-light-blue: #c1dafc;
     }
   }
 
-  .leaflet-tooltip, .tooltip-tip {
+  .leaflet-popup-content-wrapper, .leaflet-popup-tip {
     background-color: #222c3c;
   }
 
-  .leaflet-tooltip {
+  .leaflet-popup-content-wrapper {
     border-radius: 3px;
 
-    .tooltip-content {
+    .leaflet-popup-content {
       width: 290px !important;
       margin: 0;
       padding: 8px 0 8px 8px;
@@ -114,7 +114,7 @@ $color-light-blue: #c1dafc;
     }
   }
 
-  .tooltip-tip {
+  .leaflet-popup-tip {
     width: 30px;
     height: 30px;
     margin: -30px auto 0;
