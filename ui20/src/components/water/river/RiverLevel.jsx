@@ -11,6 +11,8 @@ import * as cssJS from "../../css"
 import {ALERT_COLOR, AlertLevelLegend} from "./AlertLevelLegend"
 import * as sccRiverLevel from "./cssRiverLevel"
 
+const HIDDEN_LINE_COLOR = 'rgba(0, 0, 0, .0)'
+
 class RiverLevel extends Component {
   static propTypes = {
     data: PropTypes.instanceOf(RiverLevelChartDTO).isRequired,
@@ -63,7 +65,7 @@ class RiverLevel extends Component {
     const colors = getColors(data.lines)
     const lineColor = ({riverLevelYear, index}) => {
       const isHide = hideReferenceYears.has(riverLevelYear.year)
-      return isHide ? 'rgba(0, 0, 0, .0)' : colors[index]
+      return isHide ? HIDDEN_LINE_COLOR : colors[index]
     }
 
     const showAlert = setting.showAlert && data.alertLevel
@@ -182,7 +184,7 @@ const getColors = (lines) => {
 const CustomSliceTooltip = ({slice, axis}) => {
   const otherAxis = axis === 'x' ? 'y' : 'x';
   const dataProp = "".concat(otherAxis, "Formatted")
-  const rows = slice.points.map((point) => {
+  const rows = slice.points.filter(point => point.serieColor !== HIDDEN_LINE_COLOR).map((point) => {
     return [
       <Chip key="chip" color={point.serieColor}/>,
       point.serieId,
