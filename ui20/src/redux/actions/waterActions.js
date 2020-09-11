@@ -16,6 +16,8 @@ import {
 import {riverLevelFromApi} from "../../modules/entities/river/RiverLevelChart"
 import RiverLevelData from "../../modules/entities/river/RiverLevelData"
 import DrySequenceChartBuilder from "../../modules/graphic/water/drySequence/DrySequenceChartBuilder"
+import PluviometricPostMapBuilder from "../../modules/graphic/water/postMap/PluviometricPostMapBuilder"
+import PluviometricPostMapDTO from "../../modules/graphic/water/postMap/PluviometricPostMapDTO"
 import RainfallChartBuilder from "../../modules/graphic/water/rainfall/RainfallChartBuilder"
 import RainSeasonTableBuilder from "../../modules/graphic/water/rainSeason/RainSeasonTableBuilder"
 import RiverLevelChartBuilder from "../../modules/graphic/water/river/RiverLevelChartBuilder"
@@ -190,6 +192,17 @@ export const setRainSeasonFilter = (path: Array<string>, value, isYearFilter: bo
     })
   }
 }
+
+/*      POSTS MAP          */
+export const getPostLocation = (): PluviometricPostMapDTO => (dispatch, getState) => {
+  const waterConfig = getState().getIn(['water', 'data', 'waterConfig'])
+  const commonConfig = getState().getIn(['app', 'data', 'commonConfig'])
+
+  return {
+    postMapDTO: new PluviometricPostMapBuilder(commonConfig, waterConfig).build()
+  }
+}
+
 
 /*      RIVER LEVEL          */
 export const getRiverLevel = (): RiverLevelChartDTO => (dispatch, getState) => {
