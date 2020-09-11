@@ -6,6 +6,7 @@ import {connect} from "react-redux"
 import DiseaseQuantityMapDTO from "../../../modules/graphic/livestock/diseaseMap/DiseaseQuantityMapDTO"
 import "../../market/marketLocation/marketMap.scss"
 import CountriesLayer from "../../common/map/CountriesLayer"
+import {SENEGAL_CENTER_LAT_LNG, SENEGAL_ZOOM_LEVEL} from "../../common/map/MapUtils"
 import RegionLayer from "../../common/map/RegionLayer"
 import DiseaseLegend from "./DiseaseLegend"
 import DiseaseRegionStyle from "./DiseaseRegionStyle"
@@ -28,7 +29,7 @@ class DiseaseMap extends Component {
       <div className="png exportable disease-map">
         <DiseaseLegend max={diseaseMapDTO.maxQuantity} />
         <div className="map-container">
-          <Map className="map" zoom={7} center={[14.4974, -14.4545887]} zoomControl={true} >
+          <Map className="map black-tooltip" zoom={SENEGAL_ZOOM_LEVEL} center={SENEGAL_CENTER_LAT_LNG} zoomControl={true} >
             <CountriesLayer countryFeatureStyle={countryStyle} />
             <RegionLayer
               regionFeatureStyle={regionFeatureStyle.getStyle}

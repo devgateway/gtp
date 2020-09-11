@@ -35,7 +35,7 @@ export default class MarketLayer extends Component {
         radius={5} >
           <Tooltip className="black">
             <div className="tooltips black">
-              <div className="market">
+              <div className="tooltip-title">
                 <FormattedMessage id="indicators.map.market.tooltip.market" values={{
                   market: m.name
                 }}/>

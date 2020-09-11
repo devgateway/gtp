@@ -8,12 +8,14 @@ import DrySeasonGraphic from "./drySequence"
 import RainfallGraphic from "./rainfall"
 import RainSeasonGraphic from "./rainseason"
 import RiverLevelGraphic from "./river"
+import PluviometricPostLocationGraphic from "./postLocation"
 
 const waterGraphicsDef = [
   new GraphicDef('indicators.table.rainseason.title', 'masked-icon icon-table', RainSeasonGraphic),
   // 2. Pluviométrie nationale/ Pluviometry at national level as two maps
   new GraphicDef('indicators.chart.rainfall.title', 'masked-icon icon-barchart', RainfallGraphic),
   new GraphicDef('indicators.chart.dryseason.title', 'masked-icon icon-linechart', DrySeasonGraphic),
+  new GraphicDef('indicators.map.post.title', 'masked-icon icon-barchart', PluviometricPostLocationGraphic),
   new GraphicDef('indicators.chart.riverlevel.title', 'masked-icon icon-linechart', RiverLevelGraphic),
 ]
 
