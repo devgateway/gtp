@@ -46,13 +46,15 @@ export default class DiseaseRegionStyle {
   }
 
   getRegionPopup(intl, diseaseMapDTO: DiseaseQuantityMapDTO, feature, layer) {
-    const tooltipOptions = {
+    const popupOptions = {
       closeButton: false,
       permanent: true,
-      direction: "top",
+      direction: "center",
       opacity: 1,
       interactive: true,
       maxWidth: 500,
+      closePopupOnClick: false,
+      autoClose: false,
     }
 
     layer.mouseover = { latlng: {}}
@@ -61,7 +63,7 @@ export default class DiseaseRegionStyle {
       if (!this.lastLayer) {
         this.lastLayer = layer
       } else if (this.lastLayer !== layer) {
-        closeTooltip(this.lastLayer)
+        closePopup(this.lastLayer, this.lockedPopupLayer)
         this.lastLayer = layer
       }
       if (isEqualLtnLng(layer.mouseover.latlng, e.latlng)) {
@@ -69,52 +71,56 @@ export default class DiseaseRegionStyle {
       }
       layer.mouseover.latlng = e.latlng
 
-      let tooltip = layer.getTooltip()
-      if (!tooltip) {
-        tooltip = layer.bindTooltip((layer) => {
+      let popup = layer.getPopup()
+      if (!popup) {
+        layer.bindPopup((layer) => {
             const div = document.createElement('div');
             ReactDOM.render(
               <DiseaseMapRegionPopup name={feature.properties.NAME_1} diseaseMapDTO={diseaseMapDTO} intl={intl}/>, div)
             return div.innerHTML
           },
-          tooltipOptions
-        ).getTooltip()
-        tooltip.locked = false
+          popupOptions
+        )
+        layer.once('popupopen', (e) => {
+          popup = layer.getPopup()
+          const popupEl = popup.getElement()
+          popupEl.style.pointerEvents = "auto"
+          popupEl.addEventListener('click', (e) => {
+            this.lockedPopupLayer = getLockedLayer(layer, this.lockedPopupLayer)
+          })
+          popupEl.addEventListener('mouseleave', (e) => {
+            closePopup(layer, this.lockedPopupLayer)
+          })
+        })
       }
-      layer.openTooltip()
+      layer.openPopup()
     })
 
     layer.on('mouseout', (e) => {
       if (!isEqualLtnLng(layer.mouseover.latlng, e.latlng)) {
-        closeTooltip(layer)
+        closePopup(layer, this.lockedPopupLayer)
       }
     })
     layer.on('click', (e) => {
-      const tooltip = layer.getTooltip()
-      if (tooltip) {
-        tooltip.locked = !tooltip.locked
-        if (tooltip.locked) {
-          if (this.lockedTooltipLayer) {
-            closeTooltip(this.lockedTooltipLayer, true)
-          }
-          this.lockedTooltipLayer = layer
-        } else {
-          this.lockedTooltipLayer = null
-        }
-      }
+      this.lockedPopupLayer = getLockedLayer(layer, this.lockedPopupLayer)
     })
   }
 }
 
-const closeTooltip = (layer, isForceUnlock = false) => {
-  if (layer.isTooltipOpen()) {
-    const tooltip = layer.getTooltip()
-    if (isForceUnlock) {
-      tooltip.locked = false
+const getLockedLayer = (triggerLayer, lockedLayer) => {
+  if (lockedLayer === triggerLayer) {
+    return null
+  } else {
+    if (lockedLayer) {
+      closePopup(triggerLayer, lockedLayer)
     }
-    if (!tooltip.locked) {
-      layer.closeTooltip()
-    }
+    return triggerLayer
+  }
+}
+
+const closePopup = (layer, lockedPopupLayer) => {
+  if (layer.isPopupOpen() && layer !== lockedPopupLayer) {
+    layer.closePopup()
   }
 }
 
