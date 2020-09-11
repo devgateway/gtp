@@ -8,6 +8,7 @@ import CountryBorderLayer from "../../common/map/CountryBorderLayer"
 import {SENEGAL_CENTER_LAT_LNG, SENEGAL_ZOOM_LEVEL} from "../../common/map/MapUtils"
 import "../../common/map/map.scss"
 import PluviometricPostLayer from "./PluviometricPostLayer"
+import PluviometricPostMapLegned from "./PluviometricPostMapLegned"
 
 class PluviometricPostMap extends Component {
   static propTypes = {
@@ -16,10 +17,11 @@ class PluviometricPostMap extends Component {
   }
 
   render() {
-    const {worldMapAttribution} = this.props
+    const {intl, worldMapAttribution} = this.props
 
     return (
       <div className="png exportable">
+        <PluviometricPostMapLegned intl={intl} />
         <div className="map-container">
           <Map className="map black-tooltip" zoom={SENEGAL_ZOOM_LEVEL} center={SENEGAL_CENTER_LAT_LNG} zoomControl={true}>
             <TileLayer
