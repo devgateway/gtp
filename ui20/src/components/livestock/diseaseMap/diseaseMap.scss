@@ -48,6 +48,8 @@ $color-light-blue: #c1dafc;
       margin: 0;
       padding: 8px 0 8px 8px;
       margin-right: 8px;
+      position: relative;
+      z-index: 1;
 
       .disease-region-popup {
         color: #ffffff;
