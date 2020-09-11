@@ -22,7 +22,7 @@ export default class DiseaseMapRegionPopup extends Component {
     }
     const now = new Date()
     const futureMonth = diseaseMapDTO.year === now.getFullYear() ? now.getMonth() + 1 : null
-    const casesByMonth: Map = diseaseMapDTO.diseaseQuantityData.quantityByRegionIdByMonth.get(region.id)
+    const casesByMonth: Map = diseaseMapDTO.diseaseQuantityData.quantityByRegionIdByMonth.get(region.id) || new Map()
     const monthCellRenderer = (m) => renderMonthCell(intl, m, futureMonth, diseaseMapDTO.month, casesByMonth)
     const currentMonthCases = casesByMonth.get(diseaseMapDTO.month) || 0
 
