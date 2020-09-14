@@ -6,10 +6,7 @@ import static org.devgateway.toolkit.persistence.service.indicator.disease.Disea
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.devgateway.toolkit.persistence.dao.indicator.DiseaseYearlySituation;
-import org.devgateway.toolkit.persistence.dto.MonthDTO;
 import org.devgateway.toolkit.persistence.excel.indicator.AbstractExcelFileIndicatorWriter;
-
-import java.time.Month;
 
 /**
  * @author Nadejda Mandrescu
@@ -18,10 +15,11 @@ public class DiseaseQuantityWriter extends AbstractExcelFileIndicatorWriter {
 
     private final DiseaseYearlySituation situation;
 
-    private final DiseaseQuantityColumns columns = new DiseaseQuantityColumns();
+    private final DiseaseQuantityColumns columns;
 
     public DiseaseQuantityWriter(DiseaseYearlySituation situation) {
         this.situation = situation;
+        this.columns = new DiseaseQuantityColumns(situation.getYear());
     }
 
     @Override
@@ -39,12 +37,12 @@ public class DiseaseQuantityWriter extends AbstractExcelFileIndicatorWriter {
         row.createCell(DISEASE_COL_IDX).setCellValue("Maladies");
 
         Integer year = situation.getYear();
-        for (Month month: Month.values()) {
-            int monthColId = DISEASE_COL_IDX + month.getValue();
+        this.columns.getMonths().forEach(monthDTO -> {
+            int monthColId = DISEASE_COL_IDX + monthDTO.getMonthValue();
             sheet.setColumnWidth(monthColId, 11 * 256);
-            row.createCell(monthColId).setCellValue(String.format("%s %s", MonthDTO.of(month), year));
-            columns.addMonthColId(month, monthColId);
-        }
+            row.createCell(monthColId).setCellValue(String.format("%s %s", monthDTO, year));
+            columns.addMonthColId(monthDTO.getMonth(), monthColId);
+        });
 
     }
 
