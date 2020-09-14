@@ -175,13 +175,15 @@
       margin-top: -6px;
 
       .menu {
-        display: flex;
-        flex-wrap: wrap;
-        position: initial;
+        display: block;
+        position: static;
         margin-left: 0 !important;
         border-bottom: 1px solid $border-color;
 
         &.tabular {
+          display: flex;
+          flex-wrap: wrap;
+
           .item {
             padding-right: 0 !important;
             max-width: calc(100% - 16px);
@@ -196,6 +198,9 @@
           a:last-child::after {
             border: 0;
           }
+        }
+        .divider {
+          margin: 0;
         }
       }
       .ui.bottom.attached.segment.tab {
