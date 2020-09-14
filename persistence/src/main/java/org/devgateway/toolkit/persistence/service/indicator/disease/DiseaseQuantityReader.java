@@ -1,7 +1,6 @@
 package org.devgateway.toolkit.persistence.service.indicator.disease;
 
 import static org.devgateway.toolkit.persistence.service.indicator.disease.DiseaseQuantityColumns.DISEASE_COL_IDX;
-import static org.devgateway.toolkit.persistence.service.indicator.disease.DiseaseQuantityColumns.MONTH_COL_IDX_END;
 import static org.devgateway.toolkit.persistence.service.indicator.disease.DiseaseQuantityColumns.MONTH_COL_IDX_START;
 import static org.devgateway.toolkit.persistence.service.indicator.disease.DiseaseQuantityColumns.REGION_COL_IDX;
 
@@ -32,7 +31,7 @@ public class DiseaseQuantityReader extends AbstractExcelFileIndicatorReader<Dise
 
     private final SearchableCollection<MonthDTO> months;
 
-    private final DiseaseQuantityColumns columns = new DiseaseQuantityColumns();
+    private final DiseaseQuantityColumns columns;
 
     private final Integer year;
 
@@ -40,7 +39,10 @@ public class DiseaseQuantityReader extends AbstractExcelFileIndicatorReader<Dise
         this.regions = new SearchableCollection<>(regions, Region::getLabel);
         this.diseases = new SearchableCollection<>(diseases, LivestockDisease::getLabel);
         this.year = year;
-        this.months = new SearchableCollection<>(MonthDTO.MONTHS, m -> String.format("%s %s", m.toString(), year));
+        this.columns = new DiseaseQuantityColumns(year);
+        this.months = new SearchableCollection<>(
+                this.columns.getMonths(),
+                m -> String.format("%s %s", m.toString(), year));
     }
 
     @Override
@@ -54,7 +56,7 @@ public class DiseaseQuantityReader extends AbstractExcelFileIndicatorReader<Dise
             }
         });
 
-        for (int monthColId = MONTH_COL_IDX_START; monthColId < MONTH_COL_IDX_START + 12; monthColId++) {
+        for (int monthColId = MONTH_COL_IDX_START; monthColId <= this.columns.getMonthColIdxEnd(); monthColId++) {
             XSSFCell cell = row.getCell(monthColId);
             String monthCol = getAsString(cell);
             MonthDTO monthDTO = this.months.get(monthCol);
@@ -77,14 +79,15 @@ public class DiseaseQuantityReader extends AbstractExcelFileIndicatorReader<Dise
         while (rowNo <= sheet.getLastRowNum()) {
             XSSFRow row = nextRow();
 
-            if (isEmptyRow(row, MONTH_COL_IDX_END)) {
+            if (isEmptyRow(row, this.columns.getMonthColIdxEnd())) {
                 continue;
             }
 
             Region r = getRegion(row);
             LivestockDisease d = getDisease(row);
 
-            for (Month month : Month.values()) {
+            this.columns.getMonths().forEach(monthDTO -> {
+                Month month = monthDTO.getMonth();
                 int monthColId = columns.getMonthColId(month);
                 Long quantity = getQuantity(row, monthColId);
                 if (r != null && d != null && quantity != null) {
@@ -93,7 +96,7 @@ public class DiseaseQuantityReader extends AbstractExcelFileIndicatorReader<Dise
                         addErrorAt(row.getCell(monthColId), "Entrée en double");
                     }
                 }
-            }
+            });
 
         }
         return situation;

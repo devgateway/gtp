@@ -32,6 +32,10 @@ public class MonthDTO implements Serializable {
         return month;
     }
 
+    public int getMonthValue() {
+        return month.getValue();
+    }
+
     public int lengthOfMonth(int year) {
         return YearMonth.of(year, month).lengthOfMonth();
     }
