@@ -56,10 +56,10 @@ public class DiseaseQuantityReader extends AbstractExcelFileIndicatorReader<Dise
             }
         });
 
-        for (int monthColId = MONTH_COL_IDX_START; monthColId <= this.columns.getMonthColIdxEnd(); monthColId++) {
+        for (int monthColId = MONTH_COL_IDX_START; monthColId < row.getLastCellNum(); monthColId++) {
             XSSFCell cell = row.getCell(monthColId);
             String monthCol = getAsString(cell);
-            MonthDTO monthDTO = this.months.get(monthCol);
+            MonthDTO monthDTO = monthCol == null ? null : this.months.get(monthCol);
             if (monthDTO == null) {
                 addErrorAt(cell, "Valeur d'en-tête non valide");
             } else {
