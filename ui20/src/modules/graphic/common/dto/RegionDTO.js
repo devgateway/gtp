@@ -10,6 +10,6 @@ export default class RegionDTO {
 
   constructor(region: Region, zone: Zone) {
     Object.assign(this, region)
-    this.zone = Zone
+    this.zone = zone
   }
 }
