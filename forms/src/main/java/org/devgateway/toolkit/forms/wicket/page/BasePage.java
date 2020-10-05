@@ -291,6 +291,10 @@ public abstract class BasePage extends GenericWebPage<Void> {
 
                 list.add(new MenuDivider());
 
+                list.add(new MenuBookmarkablePageLink<>(EditCNSCMenuPage.class,
+                        new StringResourceModel("navbar.cnscMenu", BasePage.this, null))
+                        .setIconType(FontAwesomeIconType.bars));
+
                 /*
                 final MenuBookmarkablePageLink<UIRedirectPage> uiBrowserLink =
                         new MenuBookmarkablePageLink<UIRedirectPage>(
@@ -305,9 +309,9 @@ public abstract class BasePage extends GenericWebPage<Void> {
                         };
                 uiBrowserLink.setIconType(FontAwesomeIconType.rocket).setEnabled(true);
                 list.add(uiBrowserLink);
+                */
 
                 list.add(new MenuDivider());
-                 */
 
                 list.add(new MenuBookmarkablePageLink<>(EditAdminSettingsPage.class,
                         new StringResourceModel("navbar.adminSettings", BasePage.this, null))
