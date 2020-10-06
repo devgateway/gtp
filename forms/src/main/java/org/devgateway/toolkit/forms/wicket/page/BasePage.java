@@ -195,6 +195,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
     public NavbarDropDownButton newLanguageMenu() {
         final NavbarDropDownButton languageDropDown =
                 new NavbarDropDownButton(new StringResourceModel("navbar.lang", this, null)) {
+                    private static final long serialVersionUID = 362699471337231179L;
 
                     @Override
                     protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
@@ -208,11 +209,13 @@ public abstract class BasePage extends GenericWebPage<Void> {
     }
 
     private static class ChangeLanguageLink extends BootstrapLink<Locale> {
+        private static final long serialVersionUID = -3102043257980098434L;
 
         ChangeLanguageLink(Locale locale) {
             super(ButtonList.getButtonMarkupId(), Model.of(locale), Buttons.Type.Menu);
         }
 
+        @Override
         protected Component newLabel(final String markupId) {
             Locale locale = getModelObject();
             String language = StringUtils.capitalize(locale.getDisplayName(locale));
@@ -291,7 +294,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
 
                 list.add(new MenuDivider());
 
-                list.add(new MenuBookmarkablePageLink<>(EditCNSCMenuPage.class,
+                list.add(new MenuBookmarkablePageLink<>(EditCNSCHeaderPage.class,
                         new StringResourceModel("navbar.cnscMenu", BasePage.this, null))
                         .setIconType(FontAwesomeIconType.bars));
 
