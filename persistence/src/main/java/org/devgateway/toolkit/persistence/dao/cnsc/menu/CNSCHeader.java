@@ -26,7 +26,7 @@ import java.util.Set;
 public class CNSCHeader extends AbstractAuditableEntity {
     private static final long serialVersionUID = 5005996829926227575L;
 
-    public static final int SEARCH_URL_MAX_LENGTH = 2048;
+    public static final int SEARCH_URL_MAX_LENGTH = 1000;
     public static final FileSize MAX_LOGO_SIZE = new FileSize(100, FileSizeUnit.KB);
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
