@@ -1,6 +1,8 @@
 package org.devgateway.toolkit.persistence.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.devgateway.toolkit.persistence.dto.FileSize;
+import org.devgateway.toolkit.persistence.dto.FileSizeUnit;
 import org.devgateway.toolkit.persistence.excel.annotation.ExcelExport;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -26,7 +28,7 @@ public class GTPMember extends AbstractAuditableEntity {
 
     public static final int NAME_MAX_LENGTH = 85;
     public static final int DESCRIPTION_MAX_LENGTH = 550;
-    public static final int MAX_ICON_SIZE = 100 * 1024;
+    public static final FileSize MAX_ICON_SIZE = new FileSize(100, FileSizeUnit.KB);
 
     @ExcelExport(name = "gtpMemberName", useTranslation = true)
     @NotNull
