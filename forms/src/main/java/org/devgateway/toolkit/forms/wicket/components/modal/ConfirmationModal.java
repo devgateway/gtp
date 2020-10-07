@@ -21,10 +21,12 @@ public class ConfirmationModal<T> extends Modal<T> {
 
     protected Label description;
 
+    protected BootstrapSubmitButton submitButton;
+
     public ConfirmationModal(String markupId, IModel<T> model) {
         super(markupId, model);
 
-        header(new StringResourceModel("header", this));
+        header(new StringResourceModel("header", this, model));
         size(Modal.Size.Medium);
         // workaround for Bootstrap bug that fade in stays on on modal close
         setFadeIn(false);
@@ -40,7 +42,7 @@ public class ConfirmationModal<T> extends Modal<T> {
 
 
     protected BootstrapSubmitButton getSubmitButton() {
-        BootstrapSubmitButton submitButton = new BootstrapSubmitButton("submit", form,
+        submitButton = new BootstrapSubmitButton("submit", form,
                 new StringResourceModel("submit")) {
             private static final long serialVersionUID = -7289266651689728814L;
 

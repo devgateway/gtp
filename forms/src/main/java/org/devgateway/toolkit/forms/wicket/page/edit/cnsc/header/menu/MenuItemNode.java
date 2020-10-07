@@ -12,6 +12,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.devgateway.toolkit.forms.wicket.components.modal.ConfirmationModal;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
+import org.devgateway.toolkit.forms.wicket.page.edit.cnsc.header.menu.item.DeleteMenuItemConfirmationModal;
 import org.devgateway.toolkit.forms.wicket.page.edit.cnsc.header.menu.item.MenuItemModal;
 import org.devgateway.toolkit.forms.wicket.page.edit.cnsc.header.menu.item.MenuLeafModal;
 import org.devgateway.toolkit.persistence.dao.menu.MenuGroup;
@@ -75,6 +76,20 @@ public class MenuItemNode extends Panel {
             editNodeLink.setVisible(false);
         }
         add(editNodeLink);
+
+        final BootstrapAjaxLink<Void> deleteNodeLink = new BootstrapAjaxLink<Void>("delete", Buttons.Type.Danger) {
+            private static final long serialVersionUID = 362137297549399036L;
+
+            @Override
+            public void onClick(final AjaxRequestTarget target) {
+                addNodeForm(target, new DeleteMenuItemConfirmationModal("modal", model));
+            }
+        };
+        deleteNodeLink.setIconType(FontAwesomeIconType.trash).setSize(Buttons.Size.Mini);
+        if (model.getObject().isRoot()) {
+            deleteNodeLink.setVisible(false);
+        }
+        add(deleteNodeLink);
 
         addUpDownLinks();
     }
