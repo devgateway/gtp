@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.dao.cnsc.menu;
+package org.devgateway.toolkit.persistence.dao.menu;
 
 import org.hibernate.envers.Audited;
 
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Audited
-public class CNSCMenuLeaf extends CNSCMenuItem {
+public class MenuLeaf extends MenuItem {
     private static final long serialVersionUID = -3038414481192732735L;
 
     @NotNull

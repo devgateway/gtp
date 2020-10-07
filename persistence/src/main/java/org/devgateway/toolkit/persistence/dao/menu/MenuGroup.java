@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.dao.cnsc.menu;
+package org.devgateway.toolkit.persistence.dao.menu;
 
 import org.hibernate.envers.Audited;
 
@@ -13,31 +13,31 @@ import java.util.List;
  */
 @Entity
 @Audited
-public class CNSCMenuGroup extends CNSCMenuItem {
+public class MenuGroup extends MenuItem {
     private static final long serialVersionUID = -1474855092658473647L;
 
     public static final String ROOT = "ROOT";
 
-    public CNSCMenuGroup() {
+    public MenuGroup() {
     }
 
-    public CNSCMenuGroup(String name, String label) {
+    public MenuGroup(String name, String label) {
         this.name = name;
         this.label = label;
     }
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "parent")
-    private List<CNSCMenuItem> items = new ArrayList<>();
+    private List<MenuItem> items = new ArrayList<>();
 
-    public List<CNSCMenuItem> getItems() {
+    public List<MenuItem> getItems() {
         return items;
     }
 
-    public void setItems(List<CNSCMenuItem> items) {
+    public void setItems(List<MenuItem> items) {
         this.items = items;
     }
 
-    public void addItem(CNSCMenuItem item) {
+    public void addItem(MenuItem item) {
         this.items.add(item);
         item.setParent(this);
     }

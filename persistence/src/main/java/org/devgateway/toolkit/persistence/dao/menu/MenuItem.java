@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.dao.cnsc.menu;
+package org.devgateway.toolkit.persistence.dao.menu;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
@@ -20,10 +20,10 @@ import javax.validation.constraints.NotNull;
 @Audited
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@DiscriminatorColumn(length = CNSCMenuItem.DTYPE_COLUMN_LENGTH)
+@DiscriminatorColumn(length = MenuItem.DTYPE_COLUMN_LENGTH)
 @JsonIgnoreProperties({"new"})
 @Table(indexes = {@Index(columnList = "DTYPE")})
-public class CNSCMenuItem extends AbstractAuditableEntity {
+public class MenuItem extends AbstractAuditableEntity {
     private static final long serialVersionUID = -302555825635299278L;
 
     static final int DTYPE_COLUMN_LENGTH = 50;
@@ -39,7 +39,7 @@ public class CNSCMenuItem extends AbstractAuditableEntity {
     protected String label;
 
     @ManyToOne
-    protected CNSCMenuGroup parent;
+    protected MenuGroup parent;
 
     public String getName() {
         return name;
@@ -57,7 +57,7 @@ public class CNSCMenuItem extends AbstractAuditableEntity {
         this.label = label;
     }
 
-    public void setParent(CNSCMenuGroup parent) {
+    public void setParent(MenuGroup parent) {
         this.parent = parent;
     }
 

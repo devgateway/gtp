@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.persistence.dao.cnsc.menu;
+package org.devgateway.toolkit.persistence.dao.menu;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
@@ -40,7 +40,7 @@ public class CNSCHeader extends AbstractAuditableEntity {
     private boolean isSearchUrlEnabled = true;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private CNSCMenuGroup menu;
+    private MenuGroup menu;
 
     public Set<FileMetadata> getLogo() {
         return logo;
@@ -71,11 +71,11 @@ public class CNSCHeader extends AbstractAuditableEntity {
         isSearchUrlEnabled = searchUrlEnabled;
     }
 
-    public CNSCMenuGroup getMenu() {
+    public MenuGroup getMenu() {
         return menu;
     }
 
-    public void setMenu(CNSCMenuGroup menu) {
+    public void setMenu(MenuGroup menu) {
         this.menu = menu;
     }
 

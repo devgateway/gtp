@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.forms.wicket.page;
+package org.devgateway.toolkit.forms.wicket.page.edit.cnsc.header;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -11,9 +11,10 @@ import org.devgateway.toolkit.forms.validators.MaxFileSizeValidator;
 import org.devgateway.toolkit.forms.wicket.components.form.CheckBoxToggleBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.page.Homepage;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
-import org.devgateway.toolkit.persistence.dao.cnsc.menu.CNSCHeader;
-import org.devgateway.toolkit.persistence.service.cnsc.menu.CNSCHeaderService;
+import org.devgateway.toolkit.persistence.dao.menu.CNSCHeader;
+import org.devgateway.toolkit.persistence.service.menu.CNSCHeaderService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

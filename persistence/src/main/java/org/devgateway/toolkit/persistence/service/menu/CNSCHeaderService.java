@@ -1,6 +1,6 @@
-package org.devgateway.toolkit.persistence.service.cnsc.menu;
+package org.devgateway.toolkit.persistence.service.menu;
 
-import org.devgateway.toolkit.persistence.dao.cnsc.menu.CNSCHeader;
+import org.devgateway.toolkit.persistence.dao.menu.CNSCHeader;
 import org.devgateway.toolkit.persistence.service.BaseJpaService;
 
 /**

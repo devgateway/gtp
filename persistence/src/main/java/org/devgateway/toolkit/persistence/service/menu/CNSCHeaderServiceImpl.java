@@ -1,8 +1,8 @@
-package org.devgateway.toolkit.persistence.service.cnsc.menu;
+package org.devgateway.toolkit.persistence.service.menu;
 
-import org.devgateway.toolkit.persistence.dao.cnsc.menu.CNSCHeader;
-import org.devgateway.toolkit.persistence.dao.cnsc.menu.CNSCMenuGroup;
-import org.devgateway.toolkit.persistence.repository.cnsc.menu.CNSCHeaderRepository;
+import org.devgateway.toolkit.persistence.dao.menu.CNSCHeader;
+import org.devgateway.toolkit.persistence.dao.menu.MenuGroup;
+import org.devgateway.toolkit.persistence.repository.menu.CNSCHeaderRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class CNSCHeaderServiceImpl extends BaseJpaServiceImpl<CNSCHeader> implem
         CNSCHeader header = all.isEmpty() ? null : all.iterator().next();
         if (header == null) {
             header = new CNSCHeader();
-            header.setMenu(new CNSCMenuGroup(CNSCMenuGroup.ROOT, CNSCMenuGroup.ROOT));
+            header.setMenu(new MenuGroup(MenuGroup.ROOT, MenuGroup.ROOT));
             header = cnscHeaderRepository.saveAndFlush(header);
         }
         return header;
