@@ -62,9 +62,14 @@ public class ConfirmationModal<T> extends Modal<T> {
 
             @Override
             public void onSubmit(final AjaxRequestTarget target) {
+                ConfirmationModal.this.onCancel(target);
                 ConfirmationModal.this.close(target);
             }
         };
+    }
+
+    protected void onCancel(final AjaxRequestTarget target) {
+
     }
 
     protected void onSubmit(final AjaxRequestTarget target) {
