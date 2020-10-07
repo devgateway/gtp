@@ -169,4 +169,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="ANACIM-373 unique menu group siblings index constraint" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="menu_item" />
+        </preConditions>
+        <sql>
+            ALTER TABLE menu_item ADD CONSTRAINT unique_index UNIQUE(parent_id, index) DEFERRABLE INITIALLY DEFERRED;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

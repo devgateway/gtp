@@ -26,6 +26,8 @@ public class ConfirmationModal<T> extends Modal<T> {
 
         header(new StringResourceModel("header", this));
         size(Modal.Size.Medium);
+        // workaround for Bootstrap bug that fade in stays on on modal close
+        setFadeIn(false);
 
         form = new Form("confirmationForm");
         description = new Label("description", new StringResourceModel("description"));

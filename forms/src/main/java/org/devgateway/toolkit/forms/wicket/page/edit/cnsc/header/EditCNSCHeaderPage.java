@@ -3,6 +3,7 @@ package org.devgateway.toolkit.forms.wicket.page.edit.cnsc.header;
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.StringValidator;
@@ -13,6 +14,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFor
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.Homepage;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
+import org.devgateway.toolkit.forms.wicket.page.edit.cnsc.header.menu.MenuTree;
 import org.devgateway.toolkit.persistence.dao.menu.CNSCHeader;
 import org.devgateway.toolkit.persistence.service.menu.CNSCHeaderService;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -43,6 +45,7 @@ public class EditCNSCHeaderPage extends AbstractEditPage<CNSCHeader> {
 
         addLogo();
         addSearchURL();
+        addMenuTree();
     }
 
     private void addLogo() {
@@ -87,4 +90,11 @@ public class EditCNSCHeaderPage extends AbstractEditPage<CNSCHeader> {
         isSearchUrlEnabled.setOutputMarkupPlaceholderTag(true);
         editForm.add(isSearchUrlEnabled);
     }
+
+    private void addMenuTree() {
+        MenuTree treePanel = new MenuTree(Model.of(editForm.getModelObject().getMenu()));
+        treePanel.setOutputMarkupId(true);
+        editForm.add(treePanel);
+    }
+
 }

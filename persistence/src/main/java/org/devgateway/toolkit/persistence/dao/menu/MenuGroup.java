@@ -4,9 +4,12 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.OrderBy;
+import java.util.Collection;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * @author Nadejda Mandrescu
@@ -26,19 +29,30 @@ public class MenuGroup extends MenuItem {
         this.label = label;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "parent")
-    private List<MenuItem> items = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "parent", fetch = FetchType.EAGER)
+    @OrderBy("index")
+    private SortedSet<MenuItem> items = new TreeSet<>();
 
-    public List<MenuItem> getItems() {
+    public SortedSet<MenuItem> getItems() {
         return items;
     }
 
-    public void setItems(List<MenuItem> items) {
+    public void setItems(SortedSet<MenuItem> items) {
         this.items = items;
     }
 
     public void addItem(MenuItem item) {
         this.items.add(item);
         item.setParent(this);
+    }
+
+    public void updateItems(Collection<MenuItem> menuItems) {
+        this.items.removeAll(menuItems);
+        this.items.addAll(menuItems);
+    }
+
+    @Override
+    public boolean isLeaf() {
+        return false;
     }
 }
