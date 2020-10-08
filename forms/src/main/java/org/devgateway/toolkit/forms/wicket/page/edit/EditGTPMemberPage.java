@@ -1,22 +1,17 @@
 package org.devgateway.toolkit.forms.wicket.page.edit;
 
-import java.util.Collection;
-
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.validation.IValidatable;
-import org.apache.wicket.validation.IValidator;
-import org.apache.wicket.validation.ValidationError;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.apache.wicket.validation.validator.UrlValidator;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.validators.MaxFileSizeValidator;
 import org.devgateway.toolkit.forms.wicket.components.form.FileInputBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextAreaFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.form.TextFieldBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListGTPMembersPage;
-import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.GTPMember;
 import org.devgateway.toolkit.persistence.service.GTPMemberService;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -27,6 +22,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
 @MountPath(value = "/gtp-member")
 public class EditGTPMemberPage extends AbstractEditPage<GTPMember> {
+    private static final long serialVersionUID = -5117765880083423799L;
 
     @SpringBean
     private GTPMemberService gtpMemberService;
@@ -56,7 +52,7 @@ public class EditGTPMemberPage extends AbstractEditPage<GTPMember> {
         FileInputBootstrapFormComponent logo = new FileInputBootstrapFormComponent("logo");
         logo.maxFiles(1);
         logo.allowedFileExtensions("jpg", "jpeg", "png");
-        logo.getField().add(new MaxIconSize());
+        logo.getField().add(new MaxFileSizeValidator(GTPMember.MAX_ICON_SIZE, logo.getField()));
         logo.showNote();
         editForm.add(logo);
         logo.getNote().add(new CssClassNameAppender("text-warning"));
@@ -66,15 +62,4 @@ public class EditGTPMemberPage extends AbstractEditPage<GTPMember> {
         editForm.add(url);
     }
 
-    private static class MaxIconSize implements IValidator<Collection<FileMetadata>> {
-
-        @Override
-        public void validate(IValidatable<Collection<FileMetadata>> validatable) {
-            validatable.getValue().stream().filter(m -> m.getSize() > GTPMember.MAX_ICON_SIZE).forEach(m -> {
-                ValidationError error = new ValidationError(this);
-                error.setVariable("fileName", m.getName());
-                validatable.error(error);
-            });
-        }
-    }
 }

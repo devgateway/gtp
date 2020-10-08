@@ -52,6 +52,7 @@ import org.apache.wicket.resource.JQueryResourceReference;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.security.SecurityUtil;
+import org.devgateway.toolkit.forms.wicket.page.edit.cnsc.header.EditCNSCHeaderPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListOrganizationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.ListUserPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.category.ReferenceDataPage;
@@ -195,6 +196,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
     public NavbarDropDownButton newLanguageMenu() {
         final NavbarDropDownButton languageDropDown =
                 new NavbarDropDownButton(new StringResourceModel("navbar.lang", this, null)) {
+                    private static final long serialVersionUID = 362699471337231179L;
 
                     @Override
                     protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
@@ -208,11 +210,13 @@ public abstract class BasePage extends GenericWebPage<Void> {
     }
 
     private static class ChangeLanguageLink extends BootstrapLink<Locale> {
+        private static final long serialVersionUID = -3102043257980098434L;
 
         ChangeLanguageLink(Locale locale) {
             super(ButtonList.getButtonMarkupId(), Model.of(locale), Buttons.Type.Menu);
         }
 
+        @Override
         protected Component newLabel(final String markupId) {
             Locale locale = getModelObject();
             String language = StringUtils.capitalize(locale.getDisplayName(locale));
@@ -291,7 +295,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
 
                 list.add(new MenuDivider());
 
-                list.add(new MenuBookmarkablePageLink<>(EditCNSCMenuPage.class,
+                list.add(new MenuBookmarkablePageLink<>(EditCNSCHeaderPage.class,
                         new StringResourceModel("navbar.cnscMenu", BasePage.this, null))
                         .setIconType(FontAwesomeIconType.bars));
 
