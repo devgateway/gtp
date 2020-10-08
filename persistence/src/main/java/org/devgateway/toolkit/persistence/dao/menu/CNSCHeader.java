@@ -68,6 +68,7 @@ public class CNSCHeader extends AbstractAuditableEntity {
         return isSearchUrlEnabled;
     }
 
+    @JsonIgnore
     public void setSearchUrlEnabled(boolean searchUrlEnabled) {
         isSearchUrlEnabled = searchUrlEnabled;
     }
@@ -80,6 +81,7 @@ public class CNSCHeader extends AbstractAuditableEntity {
         this.menu = menu;
     }
 
+    @JsonIgnore
     @Override
     public AbstractAuditableEntity getParent() {
         return null;

@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dao.menu;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -59,6 +60,7 @@ public class MenuGroup extends MenuItem {
         this.items.addAll(menuItems);
     }
 
+    @JsonIgnore
     @Override
     public boolean isLeaf() {
         return false;
