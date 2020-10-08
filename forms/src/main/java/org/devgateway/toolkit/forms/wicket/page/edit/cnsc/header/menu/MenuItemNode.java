@@ -60,7 +60,7 @@ public class MenuItemNode extends Panel {
     protected void onInitialize() {
         super.onInitialize();
 
-        final BootstrapAjaxLink<Void> editNodeLink = new BootstrapAjaxLink<Void>("edit", Buttons.Type.Info) {
+        final BootstrapAjaxLink<Void> editNodeLink = new BootstrapAjaxLink<Void>("edit", Buttons.Type.Primary) {
             private static final long serialVersionUID = 362137297549399036L;
 
             @Override

@@ -339,3 +339,25 @@ hr.edit-separator {
     cursor: default;
     background-color: #fff;
 }
+.menuTree {
+    padding-bottom: 30px;
+}
+.menuTree .tree-branch:not(:first-child) {
+    padding-top: 10px;
+}
+.menuTree ul {
+    display: inline-block;
+    padding-left: 0;
+}
+.menuTree .actions li {
+    display: inline-block;
+    padding-left: 4px;
+}
+.menuTree.tree-theme-windows span.tree-content a.actionButton {
+    padding: 6px 9px;
+    color: #fff;
+}
+.menuTree.tree-theme-windows span.tree-content a.upDownButton {
+    padding: 6px 9px;
+    border: 0;
+}
