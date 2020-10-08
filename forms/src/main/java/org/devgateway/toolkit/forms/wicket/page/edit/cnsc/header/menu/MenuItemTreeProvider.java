@@ -34,8 +34,8 @@ public class MenuItemTreeProvider implements ITreeProvider<MenuItem> {
 
     @Override
     public Iterator<? extends MenuItem> getChildren(MenuItem menuItem) {
-        return menuItem.isLeaf() ?
-                Collections.emptyIterator() : ((MenuGroup) menuItem).getItems().iterator();
+        return menuItem.isLeaf()
+                ? Collections.emptyIterator() : ((MenuGroup) menuItem).getItems().iterator();
     }
 
     @Override

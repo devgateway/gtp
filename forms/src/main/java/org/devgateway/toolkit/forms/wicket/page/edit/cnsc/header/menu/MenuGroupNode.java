@@ -47,7 +47,7 @@ public class MenuGroupNode extends MenuItemNode {
         };
         actions.add(new WebMarkupContainer(actions.newChildId()).add(addField));
 
-        if (fieldGroup.isRoot()) {
+        if (fieldGroup.isRoot() || fieldGroup.getParent().isRoot()) {
             ActionLink addGroup = new ActionLink("link", Buttons.Type.Warning, "addGroup") {
                 private static final long serialVersionUID = -620968096016806284L;
 
@@ -64,7 +64,7 @@ public class MenuGroupNode extends MenuItemNode {
 
     private MenuItem addNew(final MenuItem menuItem) {
         final MenuGroup parent = menuGroupModel.getObject();
-        menuItem.setIndex(parent.getItems().isEmpty() ? 1: parent.getItems().last().getIndex() + 1);
+        menuItem.setIndex(parent.getItems().isEmpty() ? 1 : parent.getItems().last().getIndex() + 1);
         parent.addItem(menuItem);
         return menuItem;
     }

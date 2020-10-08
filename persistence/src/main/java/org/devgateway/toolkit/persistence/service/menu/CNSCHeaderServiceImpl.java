@@ -26,18 +26,14 @@ public class CNSCHeaderServiceImpl extends BaseJpaServiceImpl<CNSCHeader> implem
 
     @Override
     public CNSCHeader newInstance() {
-        return null;
+        CNSCHeader header = new CNSCHeader();
+        header.setMenu(new MenuGroup(MenuGroup.ROOT, "CNSC Menu"));
+        return header;
     }
 
     @Override
-    public CNSCHeader get() {
+    public Long getId() {
         List<CNSCHeader> all = cnscHeaderRepository.findAll();
-        CNSCHeader header = all.isEmpty() ? null : all.iterator().next();
-        if (header == null) {
-            header = new CNSCHeader();
-            header.setMenu(new MenuGroup(MenuGroup.ROOT, MenuGroup.ROOT));
-            header = cnscHeaderRepository.saveAndFlush(header);
-        }
-        return header;
+        return all.isEmpty() ? null : all.iterator().next().getId();
     }
 }

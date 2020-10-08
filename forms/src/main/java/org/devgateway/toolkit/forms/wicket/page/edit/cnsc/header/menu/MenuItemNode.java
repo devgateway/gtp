@@ -66,8 +66,8 @@ public class MenuItemNode extends Panel {
             @Override
             public void onClick(final AjaxRequestTarget target) {
                 final IModel nodeModel = model;
-                final MenuItemModal nodeForm = model.getObject().isLeaf() ?
-                        new MenuLeafModal("modal", nodeModel) : new MenuItemModal<MenuGroup>("modal", nodeModel);
+                final MenuItemModal nodeForm = model.getObject().isLeaf()
+                        ? new MenuLeafModal("modal", nodeModel) : new MenuItemModal<MenuGroup>("modal", nodeModel);
                 addNodeForm(target, nodeForm);
             }
         };

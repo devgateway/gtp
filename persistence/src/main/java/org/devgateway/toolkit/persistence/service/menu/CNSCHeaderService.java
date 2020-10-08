@@ -8,5 +8,5 @@ import org.devgateway.toolkit.persistence.service.BaseJpaService;
  */
 public interface CNSCHeaderService extends BaseJpaService<CNSCHeader> {
 
-    CNSCHeader get();
+    Long getId();
 }

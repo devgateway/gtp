@@ -40,6 +40,7 @@ public class MenuItem extends AbstractAuditableEntity implements Comparable<Menu
 
     protected Integer index;
 
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToOne
     protected MenuGroup parent;
 

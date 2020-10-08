@@ -39,6 +39,7 @@ public class CNSCHeader extends AbstractAuditableEntity {
 
     private boolean isSearchUrlEnabled = true;
 
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToOne(cascade = CascadeType.ALL)
     private MenuGroup menu;
 

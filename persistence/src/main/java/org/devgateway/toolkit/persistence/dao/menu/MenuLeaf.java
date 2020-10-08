@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.dao.menu;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.Column;
@@ -9,6 +11,7 @@ import javax.validation.constraints.NotNull;
 /**
  * @author Nadejda Mandrescu
  */
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Audited
 public class MenuLeaf extends MenuItem {
