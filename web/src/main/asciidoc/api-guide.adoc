@@ -429,3 +429,24 @@ operation::disease-quantity-config[snippets='curl-request,http-response,response
 Returns disease quantities for all regions and months for selected year.
 
 operation::disease-quantity-data[snippets='curl-request,http-response,request-fields,response-fields']
+
+== General Application Data/Settings
+
+=== Get CNSC Header
+[[get-cnsc-header]]
+
+Returns CNSC Header structure (menu tree, search URL, etc).
+
+operation::get-cnsc-header[snippets='curl-request,http-response,response-fields']
+
+=== CNSC Menu
+[[cnsc-menu]]
+
+CNSC Menu tree root
+
+include::{snippets}/get-cnsc-header/response-fields-menu.adoc[]
+
+=== CNSC Menu Entry
+[[menu-item]]
+CNSC Menu entry can be either a group or a field.
+include::{snippets}/get-cnsc-header/response-fields-menuItem.adoc[]

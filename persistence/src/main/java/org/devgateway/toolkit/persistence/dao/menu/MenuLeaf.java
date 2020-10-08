@@ -17,6 +17,17 @@ import javax.validation.constraints.NotNull;
 public class MenuLeaf extends MenuItem {
     private static final long serialVersionUID = -3038414481192732735L;
 
+    public MenuLeaf() {
+    }
+
+    public MenuLeaf(Long id, String label, Integer index, String url) {
+        setId(id);
+        this.name = label;
+        this.label = label;
+        this.index = index;
+        this.url = url;
+    }
+
     @NotNull
     @Column(length = URL_MAX_LENGTH)
     private String url;

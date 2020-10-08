@@ -43,6 +43,15 @@ public class CNSCHeader extends AbstractAuditableEntity {
     @OneToOne(cascade = CascadeType.ALL)
     private MenuGroup menu;
 
+    public CNSCHeader() {
+    }
+
+    public CNSCHeader(Long id, String searchUrl) {
+        setId(id);
+        this.searchUrl = searchUrl;
+    }
+
+
     public Set<FileMetadata> getLogo() {
         return logo;
     }
@@ -68,6 +77,7 @@ public class CNSCHeader extends AbstractAuditableEntity {
         return isSearchUrlEnabled;
     }
 
+    @JsonIgnore
     public void setSearchUrlEnabled(boolean searchUrlEnabled) {
         isSearchUrlEnabled = searchUrlEnabled;
     }
@@ -80,6 +90,7 @@ public class CNSCHeader extends AbstractAuditableEntity {
         this.menu = menu;
     }
 
+    @JsonIgnore
     @Override
     public AbstractAuditableEntity getParent() {
         return null;

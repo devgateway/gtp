@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dao.menu;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.hibernate.annotations.Cache;
@@ -40,6 +41,7 @@ public class MenuItem extends AbstractAuditableEntity implements Comparable<Menu
 
     protected Integer index;
 
+    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToOne
     protected MenuGroup parent;
@@ -73,10 +75,12 @@ public class MenuItem extends AbstractAuditableEntity implements Comparable<Menu
         this.parent = parent;
     }
 
+    @JsonIgnore
     public boolean isLeaf() {
         return true;
     }
 
+    @JsonIgnore
     public boolean isRoot() {
         return this.getParent() == null;
     }

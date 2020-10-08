@@ -36,4 +36,10 @@ public class CNSCHeaderServiceImpl extends BaseJpaServiceImpl<CNSCHeader> implem
         List<CNSCHeader> all = cnscHeaderRepository.findAll();
         return all.isEmpty() ? null : all.iterator().next().getId();
     }
+
+    @Override
+    public CNSCHeader get() {
+        List<CNSCHeader> all = cnscHeaderRepository.findAll();
+        return all.isEmpty() ? null : all.iterator().next();
+    }
 }
