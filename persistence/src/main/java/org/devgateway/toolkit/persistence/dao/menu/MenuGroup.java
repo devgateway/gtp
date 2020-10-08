@@ -31,8 +31,14 @@ public class MenuGroup extends MenuItem {
     }
 
     public MenuGroup(String name, String label) {
+        this(null, name, label, null);
+    }
+
+    public MenuGroup(Long id, String name, String label, Integer index) {
+        this.setId(id);
         this.name = name;
         this.label = label;
+        this.index = index;
     }
 
     @NotEmpty
