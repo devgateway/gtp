@@ -10,7 +10,9 @@ import org.hibernate.envers.Audited;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -44,6 +46,7 @@ public class MenuItem extends AbstractAuditableEntity implements Comparable<Menu
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToOne
+    @JoinColumn(name = "parent_id", foreignKey = @ForeignKey(name = "fkMenuItemParent"))
     protected MenuGroup parent;
 
     public String getName() {

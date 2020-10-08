@@ -169,13 +169,15 @@
         </sql>
     </changeSet>
 
-    <changeSet id="ANACIM-373 unique menu group siblings constraints" author="nmandrescu">
+    <changeSet id="ANACIM-373 menu constraints" author="nmandrescu">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="menu_item" />
         </preConditions>
         <sql>
             ALTER TABLE menu_item ADD CONSTRAINT unique_index UNIQUE(parent_id, index) DEFERRABLE INITIALLY DEFERRED;
             ALTER TABLE menu_item ADD CONSTRAINT unique_label UNIQUE(parent_id, label) DEFERRABLE INITIALLY DEFERRED;
+            ALTER TABLE menu_item DROP CONSTRAINT IF EXISTS fkMenuItemParent;
+            ALTER TABLE menu_item ADD CONSTRAINT fkMenuItemParent FOREIGN KEY(parent_id) REFERENCES menu_item(id) DEFERRABLE INITIALLY DEFERRED;
         </sql>
     </changeSet>
 
