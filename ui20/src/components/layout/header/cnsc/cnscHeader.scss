@@ -1,0 +1,18 @@
+.cnsc-header {
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+
+  .cnsc-logo {
+    line-height: 23px;
+
+    a {
+      img {
+        height: 34px;
+        vertical-align: middle;
+      }
+    }
+  }
+}

@@ -8,14 +8,14 @@
     }
   }
   @include hlg {
-    padding-top: $header-height;
+    padding-top: $ad3-cnsc-header;
     margin-top: 0;
     >.row {
       padding-top: 0;
     }
   }
   @include ad3user {
-    padding-top: $header-height-small;
+    padding-top: $ad3-cnsc-header-small;
   }
 }
 
@@ -36,11 +36,11 @@
         margin-top: -38px;
       }
       @include hlg {
-        top: $header-height !important;
+        top: $ad3-cnsc-header !important;
         margin-top: 0;
       }
       @include ad3user {
-        top: $header-height-small !important;
+        top: $ad3-cnsc-header-small !important;
       }
     }
     .bottom {

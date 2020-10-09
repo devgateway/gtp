@@ -25,4 +25,6 @@ export const getAllMembers = () => get(EP.MEMBER_ALL)
 
 export const getWorldMapAttribution = () => get(EP.ESRI_MAP_SERVICE_INFO)
 
+export const getCNSCHeader = () => get(EP.CNSC_HEADER)
+
 export const doTest = () => get(EP.TEST)
