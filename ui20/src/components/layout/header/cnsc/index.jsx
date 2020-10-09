@@ -5,6 +5,7 @@ import {connect} from "react-redux"
 import {CNSC_HEADER_LOGO} from "../../../../modules/api/EPConstants"
 import * as appActions from "../../../../redux/actions/appActions"
 import "./cnscHeader.scss";
+import {CNSCMenu} from "./CNSCMenu"
 
 class CNSCHeader extends Component {
   static propTypes = {
@@ -17,7 +18,7 @@ class CNSCHeader extends Component {
   }
 
   render() {
-    const {isCNSCHeaderLoaded, intl} = this.props
+    const {isCNSCHeaderLoaded, cnscHeader, intl} = this.props
     if (!isCNSCHeaderLoaded) {
       return <div className="cnsc-header" />
     }
@@ -30,7 +31,7 @@ class CNSCHeader extends Component {
           </a>
         </div>
         <div>
-          TODO
+          <CNSCMenu menuTree={cnscHeader.menu} />
         </div>
       </div>
     )
@@ -40,6 +41,7 @@ class CNSCHeader extends Component {
 const mapStateToProps = state => {
   return {
     isCNSCHeaderLoaded: state.getIn(['app', 'isCNSCHeaderLoaded']),
+    cnscHeader: state.getIn(['app', 'data', 'cnscHeader']),
   }
 }
 

@@ -1,3 +1,10 @@
+// TODO integrate font or use icon instead?
+@import url(//db.onlinewebfonts.com/c/9d25ea5c587d0f9d470aa9a3634735ea?family=ETmodules);
+@import '../../../../base';
+
+$text-size-level1: 16px;
+$text-size-level2: 14px;
+
 .cnsc-header {
   height: 54px;
   display: flex;
@@ -13,6 +20,72 @@
         height: 34px;
         vertical-align: middle;
       }
+    }
+  }
+
+  .cnsc-menu.ui.menu {
+    border: 0;
+    box-shadow: none;
+
+    .item, .ui.dropdown {
+      color: #000000;
+      font-size: $text-size-level1;
+      font-weight: 600;
+      font-family: "Open Sans", Arial, sans-serif;
+      transition: all .4s ease-in-out;
+      border: 0;
+    }
+
+    .item::before {
+      width: 0;
+    }
+
+    .ui.dropdown {
+      display: flex;
+      align-items: center;
+      height: auto;
+
+      text {
+        text-align: center;
+        vertical-align: middle;
+        padding: .92857143em 1.14285714em;
+      }
+
+      .dropdown.icon {
+        margin-left: 4px;
+      }
+      .dropdown.icon::before {
+        font-family: ETmodules;
+        content: "3";
+        font-size: $text-size-level1;
+        font-weight: 800;
+      }
+    }
+    .ui.dropdown.active {
+      background-color: unset;
+    }
+
+    .ui.dropdown .menu > .cnsc-item.item, .ui.dropdown .menu > .ui.dropdown {
+      font-size: $text-size-level2 !important;
+      font-weight: 600 !important;
+      padding: 6px 40px !important;
+      line-height: 28px;
+      width: 240px;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+
+    .ui.dropdown:hover, .ui.dropdown:hover .menu > .item:hover, .cnsc-item:hover {
+      color: #666666 !important;
+      background: unset !important;
+    }
+
+    .menu.transition.visible {
+      border-top: 3px solid #2ea3f2;
+      margin-top: 4px;
+      padding: 20px 0;
+      border-radius: 0;
+      font-size: $text-size-level2;
     }
   }
 }
