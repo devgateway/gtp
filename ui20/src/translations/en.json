@@ -48,6 +48,7 @@
 	"all.no-data": "No data available",
 	"all.no-data.short": "No data",
 	"all.data-error": "There was an error loading the data, try again later",
+	"all.search": "Search ...",
 	"bulletins.bulletin.title": "Bulletins {year}",
 	"bulletins.bulletin.annualReport": "Annual Report",
 	"bulletins.bulletin.table.decadal.1": "1st decadal",

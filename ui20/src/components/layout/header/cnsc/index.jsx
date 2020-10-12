@@ -6,11 +6,29 @@ import {CNSC_HEADER_LOGO} from "../../../../modules/api/EPConstants"
 import * as appActions from "../../../../redux/actions/appActions"
 import "./cnscHeader.scss";
 import {CNSCMenu} from "./CNSCMenu"
+import {CNSCSearch} from "./CNSCSearch"
 
 class CNSCHeader extends Component {
   static propTypes = {
     onLoadAll: PropTypes.func.isRequired,
     isCNSCHeaderLoaded: PropTypes.bool.isRequired,
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      isLocalStateChange: false,
+    }
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const {isLocalStateChange} = state
+    if (isLocalStateChange) {
+      return {
+        isLocalStateChange: false
+      }
+    }
+    return null
   }
 
   componentDidMount() {
@@ -22,6 +40,9 @@ class CNSCHeader extends Component {
     if (!isCNSCHeaderLoaded) {
       return <div className="cnsc-header" />
     }
+
+    const {hideMenu} = this.state
+
     // TODO configure logo URL
     return (
       <div className="cnsc-header">
@@ -30,9 +51,14 @@ class CNSCHeader extends Component {
             <img src={`${CNSC_HEADER_LOGO}`} alt="CNSC" />
           </a>
         </div>
-        <div>
+        <div className={hideMenu ? "hidden" : ""}>
           <CNSCMenu menuTree={cnscHeader.menu} />
         </div>
+        {cnscHeader.isSearchUrlEnabled &&
+        <CNSCSearch
+          searchPrefix={cnscHeader.searchUrl}
+          intl={intl}
+          onStateChange={(isActive) => this.setState({hideMenu : isActive, isLocalStateChange: true})} />}
       </div>
     )
   }

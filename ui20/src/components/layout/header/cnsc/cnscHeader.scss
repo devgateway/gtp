@@ -4,6 +4,7 @@
 
 $text-size-level1: 16px;
 $text-size-level2: 14px;
+$text-color: #000;
 
 .cnsc-header {
   height: 54px;
@@ -23,12 +24,16 @@ $text-size-level2: 14px;
     }
   }
 
+  .hidden {
+    display: none;
+  }
+
   .cnsc-menu.ui.menu {
     border: 0;
     box-shadow: none;
 
     .item, .ui.dropdown {
-      color: #000000;
+      color: $text-color;
       font-size: $text-size-level1;
       font-weight: 600;
       font-family: "Open Sans", Arial, sans-serif;
@@ -86,6 +91,49 @@ $text-size-level2: 14px;
       padding: 20px 0;
       border-radius: 0;
       font-size: $text-size-level2;
+    }
+  }
+
+  .cnsc-search {
+    .cnsc-search-icon:hover {
+      cursor: pointer;
+    }
+    .cnsc-search-icon:before {
+      font-family: ETmodules !important;
+      content: "\55";
+      font-weight: 400;
+      font-size: 17px;
+      position: relative;
+      top: 3px;
+      color: $text-color;
+      text-shadow: $text-color 0 0 0;
+    }
+
+    .cnsc-search-box {
+      max-width: 804px;
+      width: 100%;
+      font-size: $text-size-level1;
+
+      input {
+        width: 90%;
+      }
+    }
+
+    .cnsc-search-close-icon {
+      width: 30px;
+      height: 30px;
+      margin: auto;
+      cursor: pointer;
+    }
+    .cnsc-search-close-icon:after {
+      font-family: ETmodules !important;
+      content: "\4d";
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 32px;
+      position: relative;
+      color: $text-color;
+      text-shadow: $text-color 0 0 0;
     }
   }
 }

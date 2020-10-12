@@ -15,7 +15,8 @@ const MenuDropdown = ({menuGroup, isVertical}) =>
   (<Dropdown text={menuGroup.label} basic>
     <Dropdown.Menu>
       {menuGroup.items.map(entry => entry.items ?
-        <MenuDropdown menuGroup={entry} /> : <MenuDropdownItem label={entry.label} url={entry.url} />
+        <MenuDropdown key={entry.label} menuGroup={entry} />
+        : <MenuDropdownItem key={entry.label} label={entry.label} url={entry.url} />
       )}
     </Dropdown.Menu>
   </Dropdown>)
@@ -25,7 +26,7 @@ export const CNSCMenu = ({menuTree}) => {
   return (
     <Menu compact icon='labeled' className="cnsc-menu">
       {level1.map(entry => entry.items ?
-        <MenuDropdown menuGroup={entry}/>
-        : <MenuItem label={entry.label} url={entry.url}/>)}
+        <MenuDropdown key={entry.label} menuGroup={entry}/>
+        : <MenuItem key={entry.label} label={entry.label} url={entry.url}/>)}
     </Menu>)
 }
