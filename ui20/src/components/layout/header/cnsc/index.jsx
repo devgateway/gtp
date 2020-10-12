@@ -38,27 +38,29 @@ class CNSCHeader extends Component {
   render() {
     const {isCNSCHeaderLoaded, cnscHeader, intl} = this.props
     if (!isCNSCHeaderLoaded) {
-      return <div className="cnsc-header" />
+      return <div className="cnsc-header"/>
     }
 
     const {hideMenu} = this.state
 
     // TODO configure logo URL
     return (
-      <div className="cnsc-header">
-        <div className="cnsc-logo">
-          <a href="http://www.anacim.sn/cnsc/">
-            <img src={`${CNSC_HEADER_LOGO}`} alt="CNSC" />
-          </a>
+      <div className="cnsc-header-container">
+        <div className="cnsc-header">
+          <div className="cnsc-logo">
+            <a href="http://www.anacim.sn/cnsc/">
+              <img src={`${CNSC_HEADER_LOGO}`} alt="CNSC"/>
+            </a>
+          </div>
+          <div className={hideMenu ? "hidden" : ""}>
+            <CNSCMenu menuTree={cnscHeader.menu}/>
+          </div>
+          {cnscHeader.isSearchUrlEnabled &&
+          <CNSCSearch
+            searchPrefix={cnscHeader.searchUrl}
+            intl={intl}
+            onStateChange={(isActive) => this.setState({hideMenu: isActive, isLocalStateChange: true})}/>}
         </div>
-        <div className={hideMenu ? "hidden" : ""}>
-          <CNSCMenu menuTree={cnscHeader.menu} />
-        </div>
-        {cnscHeader.isSearchUrlEnabled &&
-        <CNSCSearch
-          searchPrefix={cnscHeader.searchUrl}
-          intl={intl}
-          onStateChange={(isActive) => this.setState({hideMenu : isActive, isLocalStateChange: true})} />}
       </div>
     )
   }

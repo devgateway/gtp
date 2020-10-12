@@ -11,11 +11,11 @@ const MenuDropdownItem = ({label, url}) =>
     {label}
   </Dropdown.Item>)
 
-const MenuDropdown = ({menuGroup, isVertical}) =>
-  (<Dropdown text={menuGroup.label} basic>
+const MenuDropdown = ({menuGroup, toRight}) =>
+  (<Dropdown text={menuGroup.label} simple basic className={toRight ? "to-right" : null}>
     <Dropdown.Menu>
       {menuGroup.items.map(entry => entry.items ?
-        <MenuDropdown key={entry.label} menuGroup={entry} />
+        <MenuDropdown key={entry.label} menuGroup={entry} toRight={true} />
         : <MenuDropdownItem key={entry.label} label={entry.label} url={entry.url} />
       )}
     </Dropdown.Menu>
@@ -24,7 +24,7 @@ const MenuDropdown = ({menuGroup, isVertical}) =>
 export const CNSCMenu = ({menuTree}) => {
   const level1 = (menuTree && menuTree.items) || []
   return (
-    <Menu compact icon='labeled' className="cnsc-menu">
+    <Menu compact icon='labeled' className="cnsc-menu" stackable>
       {level1.map(entry => entry.items ?
         <MenuDropdown key={entry.label} menuGroup={entry}/>
         : <MenuItem key={entry.label} label={entry.label} url={entry.url}/>)}

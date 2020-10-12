@@ -15,15 +15,23 @@ $text-size-level1: 16px;
 $text-size-level2: 14px;
 $text-color: #000;
 
+.cnsc-header-container {
+  width: 80%;
+  max-width: 1080px;
+  margin: auto;
+}
+
 .cnsc-header {
   height: 54px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
   background-color: #fff;
+  width: 100%;
 
   .cnsc-logo {
     line-height: 23px;
+    margin: auto auto auto 0;
 
     a {
       img {
@@ -48,6 +56,9 @@ $text-color: #000;
       font-family: "Open Sans", Arial, sans-serif;
       transition: all .4s ease-in-out;
       border: 0;
+      min-width: unset;
+      padding-right: 22px;
+      padding-left: 0;
     }
 
     .item::before {
@@ -75,6 +86,18 @@ $text-color: #000;
         font-weight: 800;
       }
     }
+    .ui.dropdown.to-right {
+      .dropdown.icon::before {
+        content: "5";
+        margin-top: -2px;
+      }
+      .menu {
+        margin-left: 0 !important;
+        position: fixed;
+        top: -3px !important;
+        height: calc(100% + 3px);
+      }
+    }
     .ui.dropdown.active {
       background-color: unset;
     }
@@ -94,16 +117,19 @@ $text-color: #000;
       background: unset !important;
     }
 
-    .menu.transition.visible {
+    .menu.transition {
       border-top: 3px solid #2ea3f2;
       margin-top: 4px;
       padding: 20px 0;
-      border-radius: 0;
+      border-radius: 0 !important;
       font-size: $text-size-level2;
     }
   }
 
   .cnsc-search {
+    .cnsc-search-icon {
+      padding-left: 22px;
+    }
     .cnsc-search-icon:hover {
       cursor: pointer;
     }
@@ -119,12 +145,23 @@ $text-color: #000;
     }
 
     .cnsc-search-box {
-      max-width: 804px;
+      float: right;
       width: 100%;
       font-size: $text-size-level1;
 
-      input {
-        width: 90%;
+      .ui.icon.input {
+        width: 100%;
+
+        input {
+          width: 90%;
+          margin: auto;
+          border: 0;
+          font-family: 'Open Sans';
+          font-size: $text-size-level1;
+        }
+        input::placeholder {
+          color: $text-color;
+        }
       }
     }
 
@@ -144,5 +181,11 @@ $text-color: #000;
       color: $text-color;
       text-shadow: $text-color 0 0 0;
     }
+  }
+
+  .cnsc-search.active {
+    max-width: 804px;
+    width: 100%;
+    margin: auto 0;
   }
 }

@@ -1,5 +1,6 @@
 import React, {useState} from "react"
 import { Input } from 'semantic-ui-react'
+import {cssClasses} from "../../../ComponentUtil"
 
 export const CNSCSearch = ({searchPrefix, onStateChange, intl}) => {
   const [isActive, setActive] = useState(false);
@@ -9,7 +10,7 @@ export const CNSCSearch = ({searchPrefix, onStateChange, intl}) => {
   }
 
   return (
-    <div className="cnsc-search">
+    <div className={cssClasses("cnsc-search", isActive ? "active" : null)}>
       {!isActive && <span className="cnsc-search-icon" onClick={swapActive}/>}
       {isActive && <CNSCSearchBox searchPrefix={searchPrefix} onClose={swapActive} intl={intl} />}
     </div>)
