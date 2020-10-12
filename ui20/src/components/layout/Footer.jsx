@@ -24,6 +24,9 @@ const Footer = (props) => {
             1110 Vermont Ave NW  Suite 500
               Washington, DC, 20005 USA
               (at the Open Gov Hub) `} values={""}/>
+        <div className="credits">
+          <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a>
+        </div>
       </div>
     </div>
   </div>);

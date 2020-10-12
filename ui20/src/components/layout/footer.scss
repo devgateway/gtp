@@ -2,7 +2,7 @@
 
 .footer {
   box-sizing: border-box;
-  height: 297px;
+  height: $footer-height;
   background-color: #333333;
   padding-left: 20px;
   width: 100%;
@@ -96,12 +96,18 @@
   }
 
   .footer-text:nth-child(1n) {
-
     float: left;
   }
 
   .footer-text:nth-child(2n) {
-
     float: right;
+  }
+
+  .credits {
+    float: right;
+    bottom: 25px;
+    right: 25px;
+    margin: auto;
+    position: absolute;
   }
 }

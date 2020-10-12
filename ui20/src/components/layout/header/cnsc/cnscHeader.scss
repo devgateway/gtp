@@ -1,6 +1,15 @@
-// TODO integrate font or use icon instead?
-@import url(//db.onlinewebfonts.com/c/9d25ea5c587d0f9d470aa9a3634735ea?family=ETmodules);
 @import '../../../../base';
+
+@font-face {
+  font-family: "ETmodules";
+  src: url("../../../../fonts/et-modules/9d25ea5c587d0f9d470aa9a3634735ea.eot");
+  src:
+          url("../../../../fonts/et-modules/9d25ea5c587d0f9d470aa9a3634735ea.eot?#iefix") format("embedded-opentype"),
+          url("../../../../fonts/et-modules/9d25ea5c587d0f9d470aa9a3634735ea.woff2") format("woff2"),
+          url("../../../../fonts/et-modules/9d25ea5c587d0f9d470aa9a3634735ea.woff") format("woff"),
+          url("../../../../fonts/et-modules/9d25ea5c587d0f9d470aa9a3634735ea.ttf") format("truetype"),
+          url("../../../../fonts/et-modules/9d25ea5c587d0f9d470aa9a3634735ea.svg#ETmodules") format("svg");
+}
 
 $text-size-level1: 16px;
 $text-size-level2: 14px;
