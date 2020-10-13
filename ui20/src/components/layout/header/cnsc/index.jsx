@@ -43,12 +43,11 @@ class CNSCHeader extends Component {
 
     const {hideMenu} = this.state
 
-    // TODO configure logo URL
     return (
       <div className="cnsc-header-container">
         <div className="cnsc-header">
           <div className="cnsc-logo">
-            <a href="http://www.anacim.sn/cnsc/">
+            <a href={cnscHeader.logoUrl}>
               <img src={`${CNSC_HEADER_LOGO}`} alt="CNSC"/>
             </a>
           </div>
