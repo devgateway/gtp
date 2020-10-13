@@ -69,6 +69,10 @@ public class EditCNSCHeaderPage extends AbstractEditPage<CNSCHeader> {
         logo.required();
         editForm.add(logo);
         logo.getNote().add(new CssClassNameAppender("text-warning"));
+
+        TextFieldBootstrapFormComponent<String> logoUrl = new TextFieldBootstrapFormComponent<>("logoUrl");
+        logoUrl.getField().add(StringValidator.maximumLength(CNSCHeader.LOGO_URL_MAX_LENGTH));
+        editForm.add(logoUrl);
     }
 
     private void addSearchURL() {

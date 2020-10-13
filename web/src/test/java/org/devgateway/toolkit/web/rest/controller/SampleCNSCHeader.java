@@ -13,6 +13,7 @@ public class SampleCNSCHeader {
 
     public SampleCNSCHeader() {
         cnscHeader = new CNSCHeader(1L, "http://www.anacim.sn/cnsc/?s=");
+        cnscHeader.setLogoUrl("http://www.anacim.sn/");
 
         MenuGroup root = new MenuGroup(1L, MenuGroup.ROOT, "CNSC Header", null);
 
