@@ -97,6 +97,9 @@ $text-color: #000;
         top: -3px !important;
         min-height: calc(100% + 3px);
       }
+      &.safari .menu {
+        position: absolute;
+      }
     }
     .ui.dropdown.active {
       background-color: unset;

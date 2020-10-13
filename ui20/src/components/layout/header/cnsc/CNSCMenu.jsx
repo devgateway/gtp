@@ -1,5 +1,6 @@
 import React from "react"
 import {Dropdown, Menu} from 'semantic-ui-react'
+import {cssClasses, getBrowserClass} from "../../../ComponentUtil"
 
 const MenuItem = ({label, url}) =>
   (<Menu.Item href={url} className="cnsc-item">
@@ -12,7 +13,7 @@ const MenuDropdownItem = ({label, url}) =>
   </Dropdown.Item>)
 
 const MenuDropdown = ({menuGroup, toRight}) =>
-  (<Dropdown text={menuGroup.label} simple basic className={toRight ? "to-right" : null}>
+  (<Dropdown text={menuGroup.label} simple basic className={cssClasses(toRight ? "to-right" : null, getBrowserClass())}>
     <Dropdown.Menu>
       {menuGroup.items.map(entry => entry.items ?
         <MenuDropdown key={entry.label} menuGroup={entry} toRight={true} />
