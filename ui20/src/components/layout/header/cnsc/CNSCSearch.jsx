@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import { Input } from 'semantic-ui-react'
-import {cssClasses} from "../../../ComponentUtil"
+import {cssClasses, getBrowserClass} from "../../../ComponentUtil"
 
 export const CNSCSearch = ({searchPrefix, onStateChange, intl}) => {
   const [isActive, setActive] = useState(false);
@@ -19,7 +19,8 @@ export const CNSCSearch = ({searchPrefix, onStateChange, intl}) => {
 const CNSCSearchBox = ({searchPrefix, onClose, intl}) =>
   (<div className="cnsc-search-box" onBlur={onClose}>
     <Input
-      autoFocus
+      id="search-input-id"
+      autoFocus={getBrowserClass() !== 'IE'}
       icon={<CNSCSearchIcon onClick={onClose} />}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
