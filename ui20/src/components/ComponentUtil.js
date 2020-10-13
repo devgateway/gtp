@@ -12,6 +12,16 @@ export const getBrowserClass = () => {
   if (/* @cc_on!@*/false || !!document.documentMode) {
     return 'IE'
   }
+  const navUserAgent = navigator.userAgent
+  if (/Safari/.test(navUserAgent) && !/Chrome/.test(navUserAgent)) {
+    const browserVer = navUserAgent.substring(navUserAgent.indexOf("Version/") + "Version/".length)
+    if (browserVer.startsWith("13.")) {
+      return 'safari safari-13'
+    } else if (browserVer.startsWith("12.")) {
+      return 'safari safari-12'
+    }
+    return 'safari'
+  }
   return ''
 }
 

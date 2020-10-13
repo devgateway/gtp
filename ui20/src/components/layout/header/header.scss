@@ -2,6 +2,8 @@
 @import '../../../base';
 
 .header {
+  background-color: #ffffff;
+
   .header-nav {
     @if $hide-header {
       display: none;
