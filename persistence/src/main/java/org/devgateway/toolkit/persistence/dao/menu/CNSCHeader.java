@@ -27,12 +27,16 @@ public class CNSCHeader extends AbstractAuditableEntity {
     private static final long serialVersionUID = 5005996829926227575L;
 
     public static final int SEARCH_URL_MAX_LENGTH = 1000;
+    public static final int LOGO_URL_MAX_LENGTH = 2048;
     public static final FileSize MAX_LOGO_SIZE = new FileSize(100, FileSizeUnit.KB);
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<FileMetadata> logo = new HashSet<>();
+
+    @Column(length = LOGO_URL_MAX_LENGTH)
+    private String logoUrl;
 
     @Column(length = SEARCH_URL_MAX_LENGTH)
     private String searchUrl;
@@ -58,6 +62,14 @@ public class CNSCHeader extends AbstractAuditableEntity {
 
     public void setLogo(Set<FileMetadata> logo) {
         this.logo = logo;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     @JsonIgnore
