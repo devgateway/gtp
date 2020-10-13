@@ -1,0 +1,191 @@
+@import '../../../../base';
+
+@font-face {
+  font-family: "ETmodules";
+  src: url("../../../../fonts/et-modules/9d25ea5c587d0f9d470aa9a3634735ea.eot");
+  src:
+          url("../../../../fonts/et-modules/9d25ea5c587d0f9d470aa9a3634735ea.eot?#iefix") format("embedded-opentype"),
+          url("../../../../fonts/et-modules/9d25ea5c587d0f9d470aa9a3634735ea.woff2") format("woff2"),
+          url("../../../../fonts/et-modules/9d25ea5c587d0f9d470aa9a3634735ea.woff") format("woff"),
+          url("../../../../fonts/et-modules/9d25ea5c587d0f9d470aa9a3634735ea.ttf") format("truetype"),
+          url("../../../../fonts/et-modules/9d25ea5c587d0f9d470aa9a3634735ea.svg#ETmodules") format("svg");
+}
+
+$text-size-level1: 16px;
+$text-size-level2: 14px;
+$text-color: #000;
+
+.cnsc-header-container {
+  width: 80%;
+  max-width: 1080px;
+  margin: auto;
+}
+
+.cnsc-header {
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  background-color: #fff;
+  width: 100%;
+
+  .cnsc-logo {
+    line-height: 23px;
+    margin: auto auto auto 0;
+
+    a {
+      img {
+        height: 34px;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .cnsc-menu.ui.menu {
+    border: 0;
+    box-shadow: none;
+
+    .item, .ui.dropdown {
+      color: $text-color;
+      font-size: $text-size-level1;
+      font-weight: 600;
+      font-family: "Open Sans", Arial, sans-serif;
+      transition: all .4s ease-in-out;
+      border: 0;
+      min-width: unset;
+      padding-right: 22px;
+      padding-left: 0;
+    }
+
+    .item::before {
+      width: 0;
+    }
+
+    .ui.dropdown {
+      display: flex;
+      align-items: center;
+      height: auto;
+
+      text {
+        text-align: center;
+        vertical-align: middle;
+        padding: .92857143em 1.14285714em;
+      }
+
+      .dropdown.icon {
+        margin-left: 4px;
+      }
+      .dropdown.icon::before {
+        font-family: ETmodules;
+        content: "3";
+        font-size: $text-size-level1;
+        font-weight: 800;
+      }
+    }
+    .ui.dropdown.to-right {
+      .dropdown.icon::before {
+        content: "5";
+        margin-top: -2px;
+      }
+      .menu {
+        margin-left: 0 !important;
+        position: fixed;
+        top: -3px !important;
+        min-height: calc(100% + 3px);
+      }
+    }
+    .ui.dropdown.active {
+      background-color: unset;
+    }
+
+    .ui.dropdown .menu > .cnsc-item.item, .ui.dropdown .menu > .ui.dropdown {
+      font-size: $text-size-level2 !important;
+      font-weight: 600 !important;
+      padding: 6px 40px !important;
+      line-height: 28px;
+      width: 240px;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+
+    .ui.dropdown:hover, .ui.dropdown:hover .menu > .item:hover, .cnsc-item:hover {
+      color: #666666 !important;
+      background: unset !important;
+    }
+
+    .menu.transition {
+      border-top: 3px solid #2ea3f2;
+      margin-top: 4px;
+      padding: 20px 0;
+      border-radius: 0 !important;
+      font-size: $text-size-level2;
+    }
+  }
+
+  .cnsc-search {
+    .cnsc-search-icon {
+      padding-left: 22px;
+    }
+    .cnsc-search-icon:hover {
+      cursor: pointer;
+    }
+    .cnsc-search-icon:before {
+      font-family: ETmodules !important;
+      content: "\55";
+      font-weight: 400;
+      font-size: 17px;
+      position: relative;
+      top: 3px;
+      color: $text-color;
+      text-shadow: $text-color 0 0 0;
+    }
+
+    .cnsc-search-box {
+      float: right;
+      width: 100%;
+      font-size: $text-size-level1;
+
+      .ui.icon.input {
+        width: 100%;
+
+        input {
+          width: 90%;
+          margin: auto;
+          border: 0;
+          font-family: 'Open Sans';
+          font-size: $text-size-level1;
+        }
+        input::placeholder {
+          color: $text-color;
+        }
+      }
+    }
+
+    .cnsc-search-close-icon {
+      width: 30px;
+      height: 30px;
+      margin: auto;
+      cursor: pointer;
+    }
+    .cnsc-search-close-icon:after {
+      font-family: ETmodules !important;
+      content: "\4d";
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 32px;
+      position: relative;
+      color: $text-color;
+      text-shadow: $text-color 0 0 0;
+    }
+  }
+
+  .cnsc-search.active {
+    max-width: 804px;
+    width: 100%;
+    margin: auto 0;
+  }
+}

@@ -33,7 +33,11 @@ $menu-entry-height: 2 * $menu-entry-padding;
 $menu-height: $menu-entry-height * 6;
 $menu-max-width: 250px;
 
-$ad3-cnsc-header: 80px;
+$cnsc-header-small: 54px;
+$ad3-cnsc-header-small: calc(#{$header-height-small} + #{$cnsc-header-small});
+// using small cnsc header always
+$ad3-cnsc-header: calc(#{$header-height} + #{$cnsc-header-small});
+// $ad3-cnsc-header: 80px;
 $ad3-user-height: 768px;
 // $browser-titlebar-and-taskbar-height: 80px + 40px;
 $ad3-cnsc-max-height-breaking-point: $ad3-user-height;

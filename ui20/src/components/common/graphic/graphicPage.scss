@@ -14,11 +14,11 @@ $graphic-link-padding: #{'max(min(29px, 3vh), 3px)'};
         margin-top: -38px;
       }
       @include hlg {
-        top: $header-height !important;
+        top: $ad3-cnsc-header !important;
         margin-top: 0;
       }
       @include ad3user {
-        top: $header-height-small !important;
+        top: $ad3-cnsc-header-small !important;
       }
       width: 100%;
       /* WebKit-based browsers will ignore this. */

@@ -184,11 +184,11 @@
   }
   @include hlg {
     display: block;
-    height: $header-height;
+    height: $ad3-cnsc-header;
     z-index: 1000;
   }
   @include ad3user {
-    height: $header-height-small;
+    height: $ad3-cnsc-header-small;
   }
 }
 

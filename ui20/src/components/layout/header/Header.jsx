@@ -3,6 +3,7 @@ import {FormattedMessage} from 'react-intl';
 import {withRouter} from "react-router";
 import './header.scss';
 import {Popup} from "semantic-ui-react"
+import CNSCHeader from "./cnsc"
 
 // eslint-disable-next-line no-unused-vars
 const HeaderImage = (props) => {
@@ -47,6 +48,7 @@ export default class Header extends Component {
   render() {
     return (
       <div id="ad3-header" className='header sticky' ref={this.props.divRef}>
+        <CNSCHeader />
         <div className="header-nav">
           <HeaderTitle {...this.props}/>
         </div>
