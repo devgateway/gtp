@@ -30,8 +30,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.time.Duration;
-import org.apache.wicket.util.visit.IVisit;
-import org.apache.wicket.util.visit.IVisitor;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.toolkit.forms.WebConstants;
 import org.devgateway.toolkit.forms.exceptions.EntityNotFoundException;
@@ -43,7 +41,7 @@ import org.devgateway.toolkit.forms.wicket.components.form.BootstrapCancelButton
 import org.devgateway.toolkit.forms.wicket.components.form.BootstrapDeleteButton;
 import org.devgateway.toolkit.forms.wicket.components.form.BootstrapSubmitButton;
 import org.devgateway.toolkit.forms.wicket.components.form.GenericBootstrapFormComponent;
-import org.devgateway.toolkit.forms.wicket.components.form.SummernoteBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.components.form.visitors.GenericBootstrapValidationVisitor;
 import org.devgateway.toolkit.forms.wicket.liveping.LivePing;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
 import org.devgateway.toolkit.persistence.dao.GenericPersistable;
@@ -148,48 +146,6 @@ public abstract class AbstractEditPage<T extends GenericPersistable> extends Bas
 
     public GenericBootstrapValidationVisitor getBootstrapValidationVisitor(final AjaxRequestTarget target) {
         return new GenericBootstrapValidationVisitor(target);
-    }
-
-    /**
-     * Traverses all fields and refreshes the ones that are not valid, so that
-     * we can see the errors
-     *
-     * @author mpostelnicu
-     */
-    public class GenericBootstrapValidationVisitor implements IVisitor<GenericBootstrapFormComponent<?, ?>, Void> {
-
-        private AjaxRequestTarget target;
-
-        private GenericBootstrapFormComponent<?, ?> lastInvalidVisitedObject;
-
-        public GenericBootstrapValidationVisitor(final AjaxRequestTarget target) {
-            this.target = target;
-        }
-
-        @Override
-        public void component(final GenericBootstrapFormComponent<?, ?> object, final IVisit<Void> visit) {
-            visit.dontGoDeeper();
-            if (object instanceof SummernoteBootstrapFormComponent) {
-                object.getField().processInput();
-            }
-            if (!(object instanceof SummernoteBootstrapFormComponent) && object.getField().isValid()) {
-                return;
-            }
-            target.add(object.getBorder());
-
-            // remember last invalid visited object, we used this later to
-            // trigger the visibility of its parent container, if it is folded
-            lastInvalidVisitedObject = object;
-
-            // there's no point in visiting anything else, we already have a
-            // section with error. This hugely improves speed of large forms
-            // visit.stop();
-        }
-
-        public GenericBootstrapFormComponent<?, ?> getLastInvalidVisitedObject() {
-            return lastInvalidVisitedObject;
-        }
-
     }
 
 

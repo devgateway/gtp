@@ -49,6 +49,7 @@ public class AppControllerTest extends AbstractDocumentedControllerTest {
                         responseFields(
                                 fieldWithPath("id").description("CNSC Header Id"),
                                 fieldWithPath("searchUrl").description("Search URL prefix"),
+                                fieldWithPath("logoUrl").description("Logo URL").optional(),
                                 fieldWithPath("isSearchUrlEnabled").description("Is search URL enabled"),
                                 subsectionWithPath("menu")
                                         .description("<<cnsc-menu,CNSC Menu>>")),

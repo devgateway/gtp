@@ -10,6 +10,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.toolkit.forms.wicket.components.form.BootstrapCancelButton;
 import org.devgateway.toolkit.forms.wicket.components.form.BootstrapSubmitButton;
+import org.devgateway.toolkit.forms.wicket.components.form.GenericBootstrapFormComponent;
+import org.devgateway.toolkit.forms.wicket.components.form.visitors.GenericBootstrapValidationVisitor;
 
 /**
  * @author Viorel Chihai
@@ -50,6 +52,11 @@ public class ConfirmationModal<T> extends Modal<T> {
             public void onSubmit(final AjaxRequestTarget target) {
                 ConfirmationModal.this.onSubmit(target);
                 ConfirmationModal.this.close(target);
+            }
+
+            @Override
+            protected void onError(final AjaxRequestTarget target) {
+                form.visitChildren(GenericBootstrapFormComponent.class, new GenericBootstrapValidationVisitor(target));
             }
         };
         submitButton.setType(Buttons.Type.Success);
