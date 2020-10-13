@@ -165,6 +165,9 @@ $text-color: #000;
         input::placeholder {
           color: $text-color;
         }
+        #search-input-id:-ms-input-placeholder {
+          color: $text-color !important;
+        }
       }
     }
 
