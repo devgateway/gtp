@@ -95,7 +95,7 @@ $text-color: #000;
         margin-left: 0 !important;
         position: fixed;
         top: -3px !important;
-        height: calc(100% + 3px);
+        min-height: calc(100% + 3px);
       }
     }
     .ui.dropdown.active {
