@@ -1,9 +1,5 @@
 package org.devgateway.toolkit.forms.util;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.apache.tika.detect.DefaultDetector;
 import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
@@ -11,6 +7,10 @@ import org.apache.tika.mime.MediaType;
 import org.apache.tika.mime.MimeType;
 import org.apache.tika.mime.MimeTypeException;
 import org.apache.tika.mime.MimeTypes;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Octavian Ciubotaru
@@ -40,7 +40,8 @@ public final class FileTypeUtil {
 
             String ext = "." + org.apache.commons.io.FilenameUtils.getExtension(fileName).toLowerCase();
 
-            return mimeType.getExtensions().contains(ext);
+            return mimeType.getExtensions().contains(ext)
+                    || ext.equals(".json") && mimeType.getName().equals("text/plain");
         } catch (MimeTypeException e) {
             throw new RuntimeException("Mime type must always be valid.", e);
         }
