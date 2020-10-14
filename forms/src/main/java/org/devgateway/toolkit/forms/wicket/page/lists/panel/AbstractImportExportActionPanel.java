@@ -23,6 +23,7 @@ public abstract class AbstractImportExportActionPanel<T extends AbstractAuditabl
 
     private final Class<? extends Page> uploadPageClass;
     private final Class<? extends Page> editPageClass;
+    protected boolean downloadEmpty = true;
 
     public AbstractImportExportActionPanel(String id, IModel<T> model, Class<? extends Page> uploadPageClass) {
         this(id, model, uploadPageClass, null);
@@ -52,9 +53,13 @@ public abstract class AbstractImportExportActionPanel<T extends AbstractAuditabl
                 .setLabel(new StringResourceModel(editResourceKey, this, null));
         add(uploadPageLink);
 
-        BootstrapAjaxLink<?> downloadButton = getBootstrapDownloadButton("download");
-        downloadButton.setSize(Buttons.Size.Small);
-        add(downloadButton);
+        if (downloadEmpty || !getModelObject().isEmpty()) {
+            BootstrapAjaxLink<?> downloadButton = getBootstrapDownloadButton("download");
+            downloadButton.setSize(Buttons.Size.Small);
+            add(downloadButton);
+        } else {
+            add(new WebMarkupContainer("download").setVisible(false));
+        }
     }
 
     protected void addEditFormButton(PageParameters pageParameters) {

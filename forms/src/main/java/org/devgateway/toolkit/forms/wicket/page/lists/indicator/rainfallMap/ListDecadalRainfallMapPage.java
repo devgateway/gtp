@@ -5,6 +5,8 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -18,6 +20,7 @@ import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterStat
 import org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfallMap.EditDecadalRainfallMapPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.YearFilterPanel;
+import org.devgateway.toolkit.forms.wicket.page.lists.panel.DecadalRainfallMapActionPanel;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfallMap;
 import org.devgateway.toolkit.persistence.service.indicator.rainfallMap.DecadalRainfallMapService;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -73,5 +76,10 @@ public class ListDecadalRainfallMapPage extends AbstractListPage<DecadalRainfall
     protected Component getOuterFilter(final String id,
             ResettingFilterForm<? extends JpaFilterState<DecadalRainfallMap>> filterForm) {
         return new YearFilterPanel<>(id, filterForm, decadalRainfallMapService);
+    }
+
+    @Override
+    public Panel getActionPanel(final String id, final IModel<DecadalRainfallMap> model) {
+        return new DecadalRainfallMapActionPanel(id, model);
     }
 }
