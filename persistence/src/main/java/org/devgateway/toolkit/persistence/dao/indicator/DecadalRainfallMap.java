@@ -1,5 +1,6 @@
 package org.devgateway.toolkit.persistence.dao.indicator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.AbstractImportableEntity;
 import org.devgateway.toolkit.persistence.dao.Decadal;
@@ -11,9 +12,12 @@ import org.hibernate.envers.Audited;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.time.Month;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Nadejda Mandrescu
@@ -37,12 +41,9 @@ public class DecadalRainfallMap extends AbstractAuditableEntity implements Abstr
     private Decadal decadal;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "decadalRainfallMap")
-    private RainfallMap cumulative = new RainfallMap();
-
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "decadalRainfallMap")
-    private RainfallMap abnormal = new RainfallMap();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<RainfallMapLayer> layers = new HashSet<>();
 
     public Integer getYear() {
         return year;
@@ -51,7 +52,7 @@ public class DecadalRainfallMap extends AbstractAuditableEntity implements Abstr
     public void setYear(Integer year) {
         this.year = year;
     }
-    
+
     public Month getMonth() {
         return month;
     }
@@ -72,25 +73,17 @@ public class DecadalRainfallMap extends AbstractAuditableEntity implements Abstr
         this.decadal = decadal;
     }
 
-    public RainfallMap getCumulative() {
-        return cumulative;
+    public Set<RainfallMapLayer> getLayers() {
+        return layers;
     }
 
-    public void setCumulative(RainfallMap cumulative) {
-        this.cumulative = cumulative;
-    }
-
-    public RainfallMap getAbnormal() {
-        return abnormal;
-    }
-
-    public void setAbnormal(RainfallMap abnormal) {
-        this.abnormal = abnormal;
+    public void setLayers(Set<RainfallMapLayer> layers) {
+        this.layers = layers;
     }
 
     @Override
     public boolean isEmpty() {
-        return cumulative.isEmpty() && abnormal.isEmpty();
+        return layers.isEmpty();
     }
 
     @Override

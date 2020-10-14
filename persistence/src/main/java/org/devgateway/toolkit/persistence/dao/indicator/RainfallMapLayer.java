@@ -9,9 +9,11 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,45 +23,39 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Audited
-public class RainfallMap extends AbstractAuditableEntity {
+public class RainfallMapLayer extends AbstractAuditableEntity {
     private static final long serialVersionUID = -4289191210184144287L;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<FileMetadata> polyline = new HashSet<>();
+    private Set<FileMetadata> file = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    private RainfallMapLayerType type;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Set<FileMetadata> polygon = new HashSet<>();
-
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private DecadalRainfallMap decadalRainfallMap;
 
-    public Set<FileMetadata> getPolyline() {
-        return polyline;
+    public Set<FileMetadata> getFile() {
+        return file;
     }
 
-    public void setPolyline(Set<FileMetadata> polyline) {
-        this.polyline = polyline;
+    public void setFile(Set<FileMetadata> file) {
+        this.file = file;
     }
 
-    public FileMetadata getPolylineSingle() {
-        return polyline.isEmpty() ? null : polyline.iterator().next();
+    public FileMetadata getFileSingle() {
+        return file.isEmpty() ? null : file.iterator().next();
     }
 
-    public Set<FileMetadata> getPolygon() {
-        return polygon;
+    public RainfallMapLayerType getType() {
+        return type;
     }
 
-    public void setPolygon(Set<FileMetadata> polygon) {
-        this.polygon = polygon;
-    }
-
-    public FileMetadata getPolygonSingle() {
-        return polygon.isEmpty() ? null : polygon.iterator().next();
+    public void setType(RainfallMapLayerType type) {
+        this.type = type;
     }
 
     public DecadalRainfallMap getDecadalRainfallMap() {
@@ -71,7 +67,7 @@ public class RainfallMap extends AbstractAuditableEntity {
     }
 
     public boolean isEmpty() {
-        return getPolylineSingle() == null && getPolygonSingle() == null;
+        return file.isEmpty();
     }
 
     @Override

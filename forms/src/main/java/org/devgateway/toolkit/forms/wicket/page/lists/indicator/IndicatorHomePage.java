@@ -1,7 +1,5 @@
 package org.devgateway.toolkit.forms.wicket.page.lists.indicator;
 
-import static org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy.authorize;
-
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import org.apache.wicket.Component;
@@ -17,10 +15,13 @@ import org.devgateway.toolkit.forms.wicket.page.lists.indicator.bulletin.ListGTP
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.disease.ListDiseaseYearlySituationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.market.ListProductYearlyPricesPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfallMap.ListDecadalRainfallMapPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainseason.ListRainSeasonPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.riverlevel.ListRiverStationYearlyLevelsPage;
 import org.devgateway.toolkit.forms.wicket.styles.HomeStyles;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import static org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy.authorize;
 
 /**
  * @author Nadejda Mandrescu
@@ -55,6 +56,12 @@ public class IndicatorHomePage extends BasePage {
         rainfall.setLabel(new StringResourceModel("rainfall"));
         authorize(rainfall, Component.RENDER, SecurityConstants.Roles.ROLE_RAINFALL_EDITOR);
         add(rainfall);
+
+        BootstrapBookmarkablePageLink<ListDecadalRainfallMapPage> rainfallMap = new BootstrapBookmarkablePageLink<>(
+                "rainfallMap", ListDecadalRainfallMapPage.class, Buttons.Type.Default);
+        rainfallMap.setLabel(new StringResourceModel("rainfallMap"));
+        authorize(rainfallMap, Component.RENDER, SecurityConstants.Roles.ROLE_RAINFALL_EDITOR);
+        add(rainfallMap);
 
         BootstrapBookmarkablePageLink<ListRainSeasonPage> season = new BootstrapBookmarkablePageLink<>(
                 "season", ListRainSeasonPage.class, Buttons.Type.Default);
