@@ -11,17 +11,24 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.wicket.page.edit;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.TextContentModal;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapForm;
 import de.agilecoders.wicket.core.util.Attributes;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
 import nl.dries.wicket.hibernate.dozer.DozerModel;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
@@ -118,6 +125,10 @@ public abstract class AbstractEditPage<T extends GenericPersistable> extends Bas
      */
     protected BootstrapDeleteButton deleteButton;
 
+    protected TextContentModal deleteModal;
+
+    protected TextContentModal deleteFailedModal;
+
     @SpringBean
     private EntityManager entityManager;
 
@@ -146,6 +157,57 @@ public abstract class AbstractEditPage<T extends GenericPersistable> extends Bas
 
     public GenericBootstrapValidationVisitor getBootstrapValidationVisitor(final AjaxRequestTarget target) {
         return new GenericBootstrapValidationVisitor(target);
+    }
+
+    protected TextContentModal createDeleteModal() {
+        final TextContentModal modal = new TextContentModal("deleteModal",
+                Model.of("DELETE is an irreversible operation. Are you sure?"));
+        modal.addCloseButton();
+
+        final LaddaAjaxButton deleteButton = new LaddaAjaxButton("button", Buttons.Type.Danger) {
+            private static final long serialVersionUID = 4167519861741213598L;
+
+            @Override
+            protected void onSubmit(final AjaxRequestTarget target) {
+                super.onSubmit(target);
+
+                // close the modal
+                deleteModal.appendCloseDialogJavaScript(target);
+                onDelete(target);
+            }
+        };
+        deleteButton.setDefaultFormProcessing(false);
+        deleteButton.setLabel(Model.of("DELETE"));
+        modal.addButton(deleteButton);
+
+        return modal;
+    }
+
+    protected TextContentModal createDeleteFailedModal() {
+        final TextContentModal modal = new TextContentModal("deleteFailedModal",
+                new ResourceModel("delete_error_message"));
+        final LaddaAjaxButton deleteButton = new LaddaAjaxButton("button", Buttons.Type.Info) {
+            private static final long serialVersionUID = -3042033179053530499L;
+
+            @Override
+            protected void onSubmit(final AjaxRequestTarget target) {
+                setResponsePage(listPageClass);
+            }
+        };
+        deleteButton.setDefaultFormProcessing(false);
+        deleteButton.setLabel(Model.of("OK"));
+        modal.addButton(deleteButton);
+
+        modal.add(new AjaxEventBehavior("hidden.bs.modal") {
+            private static final long serialVersionUID = -3158951048272870291L;
+
+            @Override
+            protected void onEvent(final AjaxRequestTarget target) {
+                setResponsePage(listPageClass);
+            }
+        });
+
+        return modal;
     }
 
 
@@ -178,6 +240,15 @@ public abstract class AbstractEditPage<T extends GenericPersistable> extends Bas
 
             deleteButton = getDeleteEditPageButton();
             add(deleteButton);
+
+            /*
+            deleteModal = createDeleteModal();
+            add(deleteModal);
+
+            deleteFailedModal = createDeleteFailedModal();
+            add(deleteFailedModal);
+            */
+
             // don't display the delete button if we just create a new entity
             if (entityId == null) {
                 deleteButton.setVisibilityAllowed(false);
@@ -300,6 +371,12 @@ public abstract class AbstractEditPage<T extends GenericPersistable> extends Bas
         }
     }
 
+    protected void beforeSaveEntity(final T saveable) {
+    }
+
+    protected void beforeDeleteEntity(final T deleteable) {
+    }
+
     public class DeleteEditPageButton extends BootstrapDeleteButton {
         private static final long serialVersionUID = 865330306716770506L;
 
@@ -309,6 +386,10 @@ public abstract class AbstractEditPage<T extends GenericPersistable> extends Bas
 
         @Override
         protected void onSubmit(final AjaxRequestTarget target) {
+            /*
+            deleteModal.show(true);
+            target.add(deleteModal);
+             */
             T deleteable = editForm.getModelObject();
             try {
                 jpaService.delete(deleteable);
@@ -330,6 +411,11 @@ public abstract class AbstractEditPage<T extends GenericPersistable> extends Bas
         protected void onError(final AjaxRequestTarget target) {
             super.onError(target);
             target.add(feedbackPanel);
+        }
+
+        @Override
+        protected void updateAjaxAttributes(final AjaxRequestAttributes attributes) {
+
         }
     }
 
@@ -393,6 +479,23 @@ public abstract class AbstractEditPage<T extends GenericPersistable> extends Bas
         Fragment fragment = new Fragment("extraButtons", "noButtons", this);
         editForm.add(fragment);
 
+    }
+
+    protected void onDelete(final AjaxRequestTarget target) {
+        final T deleteable = editForm.getModelObject();
+        try {
+            beforeDeleteEntity(deleteable);
+
+            jpaService.delete(deleteable);
+
+            // we flush the mondrian/wicket/reports cache to ensure it gets rebuilt
+            flushReportingCaches();
+        } catch (DataIntegrityViolationException e) {
+            deleteFailedModal.show(true);
+            target.add(deleteFailedModal);
+            return;
+        }
+        setResponsePage(listPageClass);
     }
 
     @Override
