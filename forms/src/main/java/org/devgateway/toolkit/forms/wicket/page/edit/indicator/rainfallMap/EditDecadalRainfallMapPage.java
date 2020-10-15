@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfallMap;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.PropertyModel;
@@ -24,9 +26,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.json.GsonJsonParser;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -130,6 +134,7 @@ public class EditDecadalRainfallMapPage extends AbstractEditPage<DecadalRainfall
                             }
                             return true;
                         }).collect(Collectors.toList());
+
                 if (zlFeatures.isEmpty()) {
                     return "noZLevels";
                 }
@@ -141,11 +146,23 @@ public class EditDecadalRainfallMapPage extends AbstractEditPage<DecadalRainfall
                 } else if (!zlevelsNoCoordinates.isEmpty()) {
                     return "noCoordinates";
                 }
+
+                // store only features with ZLEVEL
+                json.put("features", zlFeatures);
+                fileMetadata.getContent().setBytes(jsonToBytes(json));
+
             } catch (Exception e) {
                 logger.error("Rainfall Map layer validation error:", e);
                 return "invalidDataFormat";
             }
             return null;
         }
+    }
+
+    private byte[] jsonToBytes(Map<String, Object> json) {
+        Gson gson = new Gson();
+        Type gsonType = new TypeToken<HashMap>(){}.getType();
+        String gsonString = gson.toJson(json, gsonType);
+        return gsonString.getBytes();
     }
 }
