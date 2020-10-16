@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -81,7 +83,7 @@ public class EditDecadalRainfallMapPage extends AbstractEditPage<DecadalRainfall
         file.maxFiles(1);
         file.allowedFileExtensions("json");
         file.getField().add(new MaxFileSizeValidator(RainfallMapLayer.MAX_FILE_SIZE, file.getField()));
-        file.getField().add(new LayerContentValidator());
+        file.getField().add(new LayerContentValidator(Model.of(layer)));
         file.required();
         editForm.add(file);
     }
@@ -89,6 +91,11 @@ public class EditDecadalRainfallMapPage extends AbstractEditPage<DecadalRainfall
     private class LayerContentValidator implements IValidator<Collection<FileMetadata>> {
         private static final long serialVersionUID = 6752552786127843282L;
 
+        private IModel<RainfallMapLayer> layerModel;
+
+        LayerContentValidator(IModel<RainfallMapLayer> layerModel) {
+            this.layerModel = layerModel;
+        }
 
         @Override
         public void validate(IValidatable<Collection<FileMetadata>> validatable) {
@@ -114,6 +121,8 @@ public class EditDecadalRainfallMapPage extends AbstractEditPage<DecadalRainfall
 
                 Set<Double> zlevels = new HashSet<>();
                 Set<Double> zlevelsNoCoordinates = new HashSet<>();
+                Set<Double> zlevelsPolyline = new HashSet<>();
+                Set<Double> zlevelsPolygon = new HashSet<>();
                 List<Map<String, Object>> zlFeatures = ((List<Map<String, Object>>) json.get("features"))
                         .stream().filter(f -> {
                             if (!f.containsKey("properties")) {
@@ -131,6 +140,12 @@ public class EditDecadalRainfallMapPage extends AbstractEditPage<DecadalRainfall
                                 if (coordinates.isEmpty()) {
                                     zlevelsNoCoordinates.add(zl);
                                 }
+                                String geoType = (String) geometry.get("type");
+                                if (geoType.equals("LineString") || geoType.equals("MultiLineString")) {
+                                    zlevelsPolyline.add(zl);
+                                } else if (geoType.equals("Polygon") || geoType.equals("MultiPolygon")) {
+                                    zlevelsPolygon.add(zl);
+                                }
                             }
                             return true;
                         }).collect(Collectors.toList());
@@ -145,6 +160,10 @@ public class EditDecadalRainfallMapPage extends AbstractEditPage<DecadalRainfall
                     return "negativeZLevels";
                 } else if (!zlevelsNoCoordinates.isEmpty()) {
                     return "noCoordinates";
+                } else if (layerModel.getObject().isPolyline() && zlevelsPolyline.isEmpty()) {
+                    return "notPolyline";
+                } else if (!layerModel.getObject().isPolyline() && zlevelsPolygon.isEmpty()) {
+                    return "notPolygon";
                 }
 
                 // store only features with ZLEVEL
@@ -161,7 +180,7 @@ public class EditDecadalRainfallMapPage extends AbstractEditPage<DecadalRainfall
 
     private byte[] jsonToBytes(Map<String, Object> json) {
         Gson gson = new Gson();
-        Type gsonType = new TypeToken<HashMap>(){}.getType();
+        Type gsonType = new TypeToken<HashMap>() { } .getType();
         String gsonString = gson.toJson(json, gsonType);
         return gsonString.getBytes();
     }

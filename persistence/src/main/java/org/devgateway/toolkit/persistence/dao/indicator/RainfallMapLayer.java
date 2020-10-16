@@ -74,6 +74,10 @@ public class RainfallMapLayer extends AbstractAuditableEntity {
         return file.isEmpty();
     }
 
+    public boolean isPolyline() {
+        return type.isPolyline();
+    }
+
     @Override
     public AbstractAuditableEntity getParent() {
         return null;

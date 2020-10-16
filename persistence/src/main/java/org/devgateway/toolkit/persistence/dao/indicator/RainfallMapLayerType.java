@@ -8,4 +8,8 @@ public enum RainfallMapLayerType {
     ABNORMAL_POLYGON,
     CUMULATIVE_POLYLINE,
     CUMULATIVE_POLYGON;
+
+    boolean isPolyline() {
+        return this.equals(ABNORMAL_POLYLINE) || this.equals(CUMULATIVE_POLYLINE);
+    }
 }
