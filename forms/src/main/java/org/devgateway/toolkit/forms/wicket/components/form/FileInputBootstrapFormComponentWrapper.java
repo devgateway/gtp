@@ -12,7 +12,6 @@
 package org.devgateway.toolkit.forms.wicket.components.form;
 
 import static org.apache.commons.io.FilenameUtils.getExtension;
-
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import de.agilecoders.wicket.core.markup.html.bootstrap.components.TooltipBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.components.TooltipConfig;
@@ -344,6 +343,7 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
                         FileInputBootstrapFormComponentWrapper.this.getModel().setObject((T) filesModel);
 
                         target.add(pendingFiles);
+                        FileInputBootstrapFormComponentWrapper.this.onUpdate(target);
                     }
                 };
                 delete.add(new IconBehavior(FontAwesomeIconType.trash));
@@ -458,6 +458,7 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
 
                 target.add(fileUploadFeedback);
                 target.add(pendingFiles);
+                FileInputBootstrapFormComponentWrapper.this.onUpdate(target);
             }
         };
 
@@ -538,6 +539,9 @@ public class FileInputBootstrapFormComponentWrapper<T> extends FormComponentPane
          * } else { this.upload.clear(); if(upload != null) {
          * this.upload.addAll(upload); } }
          */
+    }
+
+    protected void onUpdate(AjaxRequestTarget target) {
     }
 
     public void setVisibleOnlyToAdmin(final Boolean visibleOnlyToAdmin) {

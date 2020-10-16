@@ -3,6 +3,8 @@ package org.devgateway.toolkit.persistence.dao.indicator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
+import org.devgateway.toolkit.persistence.dto.FileSize;
+import org.devgateway.toolkit.persistence.dto.FileSizeUnit;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -25,6 +27,8 @@ import java.util.Set;
 @Audited
 public class RainfallMapLayer extends AbstractAuditableEntity {
     private static final long serialVersionUID = -4289191210184144287L;
+
+    public static final FileSize MAX_FILE_SIZE = new FileSize(5, FileSizeUnit.MB);
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -68,6 +72,10 @@ public class RainfallMapLayer extends AbstractAuditableEntity {
 
     public boolean isEmpty() {
         return file.isEmpty();
+    }
+
+    public boolean isPolyline() {
+        return type.isPolyline();
     }
 
     @Override
