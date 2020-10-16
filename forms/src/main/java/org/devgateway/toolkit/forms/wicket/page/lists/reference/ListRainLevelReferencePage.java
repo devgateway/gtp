@@ -9,10 +9,10 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.JpaFilterState;
 import org.devgateway.toolkit.forms.wicket.components.table.filter.RainLevelReferenceFilterState;
-import org.devgateway.toolkit.forms.wicket.page.edit.reference.EditRainLevelReferencePage;
+import org.devgateway.toolkit.forms.wicket.page.edit.reference.rainfall.EditRainLevelReferencePage;
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractListPage;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference;
-import org.devgateway.toolkit.persistence.service.reference.RainLevelReferenceService;
+import org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
