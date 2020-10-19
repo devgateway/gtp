@@ -17,9 +17,10 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_MARKET_EDITOR)
 @MountPath(value = "/product-type")
 public class EditProductTypePage extends AbstractEditPage<ProductType> {
+    private static final long serialVersionUID = 9153521636150668899L;
 
     @SpringBean
     private ProductTypeService productTypeService;

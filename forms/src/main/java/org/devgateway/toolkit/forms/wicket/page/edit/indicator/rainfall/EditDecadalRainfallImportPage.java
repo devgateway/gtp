@@ -1,10 +1,12 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.indicator.rainfall;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.links.DownloadDecadalRainfallLink;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractStatusableExcelImportPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
@@ -17,6 +19,7 @@ import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRain
 import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
 import org.devgateway.toolkit.persistence.service.location.ZoneService;
 import org.devgateway.toolkit.persistence.util.JPAUtil;
+import org.wicketstuff.annotation.mount.MountPath;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -29,6 +32,8 @@ import java.util.stream.IntStream;
 /**
  * @author Nadejda Mandrescu
  */
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_EDITOR)
+@MountPath(value = "/rainfall-upload")
 public class EditDecadalRainfallImportPage extends AbstractStatusableExcelImportPage<DecadalRainfall> {
     private static final long serialVersionUID = -5144558589415946153L;
 

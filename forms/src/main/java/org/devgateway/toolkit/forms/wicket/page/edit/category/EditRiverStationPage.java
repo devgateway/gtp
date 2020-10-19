@@ -22,7 +22,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RIVER_LEVEL_EDITOR)
 @MountPath(value = "/river-station")
 public class EditRiverStationPage extends AbstractEditPage<RiverStation> {
 

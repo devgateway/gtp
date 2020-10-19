@@ -13,7 +13,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Nadejda Mandrescu
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_SEASON_EDITOR)
 @MountPath(value = "/rain-season-start-reference")
 public class EditRainSeasonStartReferencePage extends AbstractEditPage<RainSeasonStartReference> {
     private static final long serialVersionUID = 7537691894474881083L;

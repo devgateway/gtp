@@ -16,7 +16,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Nadejda Mandrescu
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_EDITOR)
 @MountPath(value = "/pluviometric-posts")
 public class ListPluviometricPostPage extends AbstractListPage<PluviometricPost> {
     private static final long serialVersionUID = 797437686516787042L;

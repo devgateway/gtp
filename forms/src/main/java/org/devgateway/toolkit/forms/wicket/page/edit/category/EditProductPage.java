@@ -45,7 +45,7 @@ import java.util.List;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_MARKET_EDITOR)
 @MountPath(value = "/product")
 public class EditProductPage extends AbstractEditPage<Product> {
     private static final long serialVersionUID = -7484213625055816509L;

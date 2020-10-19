@@ -21,7 +21,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Nadejda Mandrescu
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_EDITOR)
 @MountPath(value = "/rain-level-references")
 public class ListRainLevelReferencePage extends AbstractListPage<RainLevelReference> {
     private static final long serialVersionUID = 2287706429777900253L;

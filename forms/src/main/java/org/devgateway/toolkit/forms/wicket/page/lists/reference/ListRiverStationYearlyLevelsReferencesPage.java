@@ -1,8 +1,5 @@
 package org.devgateway.toolkit.forms.wicket.page.lists.reference;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
@@ -23,20 +20,24 @@ import org.devgateway.toolkit.forms.wicket.page.edit.category.EditRiverStationYe
 import org.devgateway.toolkit.forms.wicket.page.lists.AbstractExcelImportListPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.panel.RiverStationYearlyLevelsActionPanel;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
-import org.devgateway.toolkit.persistence.dao.reference.RiverLevelReference;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
+import org.devgateway.toolkit.persistence.dao.reference.RiverLevelReference;
 import org.devgateway.toolkit.persistence.dao.reference.RiverStationYearlyLevelsReference;
 import org.devgateway.toolkit.persistence.service.category.RiverStationService;
 import org.devgateway.toolkit.persistence.service.reference.RiverStationYearlyLevelsReferenceService;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RIVER_LEVEL_EDITOR)
 @MountPath(value = "/reference-river-levels")
 public class ListRiverStationYearlyLevelsReferencesPage
         extends AbstractExcelImportListPage<RiverStationYearlyLevelsReference> {
+    private static final long serialVersionUID = 1089194039129275162L;
 
     @SpringBean
     private RiverStationYearlyLevelsReferenceService riverStationYearlyLevelsReferenceService;

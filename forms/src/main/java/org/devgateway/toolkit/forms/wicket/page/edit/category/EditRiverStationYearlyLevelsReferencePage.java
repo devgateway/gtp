@@ -19,10 +19,11 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RIVER_LEVEL_EDITOR)
 @MountPath(value = "/reference-river-levels-upload")
 public class EditRiverStationYearlyLevelsReferencePage
         extends AbstractEditRiverStationYearlyLevelsPage<RiverStationYearlyLevelsReference, RiverLevelReference> {
+    private static final long serialVersionUID = 4216576053443945817L;
 
     @SpringBean
     private RiverStationYearlyLevelsReferenceService riverStationYearlyLevelsReferenceService;

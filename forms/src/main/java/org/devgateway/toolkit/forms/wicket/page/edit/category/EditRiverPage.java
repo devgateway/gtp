@@ -17,9 +17,10 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RIVER_LEVEL_EDITOR)
 @MountPath(value = "/river")
 public class EditRiverPage extends AbstractEditPage<River> {
+    private static final long serialVersionUID = -5926912837806404163L;
 
     @SpringBean
     private RiverService riverService;

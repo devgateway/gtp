@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_MARKET_EDITOR)
 @MountPath(value = "/markets")
 public class ListMarketsPage extends AbstractListPage<Market> {
     private static final long serialVersionUID = 9024914359658502410L;

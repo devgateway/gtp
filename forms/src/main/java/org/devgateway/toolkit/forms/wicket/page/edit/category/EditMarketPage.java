@@ -43,7 +43,7 @@ import java.util.Collection;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_MARKET_EDITOR)
 @MountPath(value = "/market")
 public class EditMarketPage extends AbstractEditPage<Market> {
     private static final long serialVersionUID = 7176573046412373760L;
