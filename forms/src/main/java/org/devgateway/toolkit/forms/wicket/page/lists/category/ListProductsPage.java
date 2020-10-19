@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_MARKET_EDITOR)
 @MountPath(value = "/products")
 public class ListProductsPage extends AbstractListPage<Product> {
     private static final long serialVersionUID = 4930955402577460910L;

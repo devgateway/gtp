@@ -22,7 +22,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Nadejda Mandrescu
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_EDITOR)
 @MountPath(value = "/pluviometric-post")
 public class EditPluviometricPostPage extends AbstractEditPage<PluviometricPost> {
     private static final long serialVersionUID = 8030297265857072575L;

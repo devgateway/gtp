@@ -38,7 +38,12 @@ public final class SecurityConstants {
                 ROLE_RAINFALL_SEASON_EDITOR,
                 ROLE_RIVER_LEVEL_EDITOR
         );
-        public static final String ANY_REFERENCE_EDITOR_ROLES_STR =
-                String.join(",", ANY_REFERENCE_EDITOR_ROLES.toArray(new String[] {}));
+        public static final String ANY_REFERENCE_EDITOR_ROLES_STR = String.join(",", ANY_REFERENCE_EDITOR_ROLES);
+
+        public static final List<String> ANACIM_ROLES = Arrays.asList(
+                ROLE_RAINFALL_EDITOR,
+                ROLE_RAINFALL_SEASON_EDITOR
+        );
+        public static final String ANACIM_ROLES_STR = String.join(",", ANACIM_ROLES);
     }
 }

@@ -16,7 +16,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_MARKET_EDITOR)
 @MountPath(value = "/product-types")
 public class ListProductTypesPage extends AbstractListPage<ProductType> {
     private static final long serialVersionUID = 7833333901951945688L;

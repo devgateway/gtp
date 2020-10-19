@@ -19,7 +19,9 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation({
+        SecurityConstants.Roles.ROLE_RAINFALL_EDITOR,
+        SecurityConstants.Roles.ROLE_RAINFALL_SEASON_EDITOR})
 @MountPath(value = "/gtp-member")
 public class EditGTPMemberPage extends AbstractEditPage<GTPMember> {
     private static final long serialVersionUID = -5117765880083423799L;

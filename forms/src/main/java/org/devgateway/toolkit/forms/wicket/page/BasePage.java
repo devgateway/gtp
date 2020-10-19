@@ -345,7 +345,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
                 new StringResourceModel("navbar.categories", this, null));
         categoriesMenu.setIconType(FontAwesomeIconType.list_ul);
         MetaDataRoleAuthorizationStrategy.authorize(categoriesMenu, Component.RENDER,
-                SecurityConstants.Roles.ROLE_ADMIN);
+                SecurityConstants.Roles.ROLE_EDITOR);
         return categoriesMenu;
     }
 

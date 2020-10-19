@@ -16,7 +16,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Nadejda Mandrescu
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_DISEASE_SITUATION_EDITOR)
 @MountPath(value = "/livestock-diseases")
 public class ListLivestockDiseasePage extends AbstractListPage<LivestockDisease> {
     private static final long serialVersionUID = -2401158143495970745L;

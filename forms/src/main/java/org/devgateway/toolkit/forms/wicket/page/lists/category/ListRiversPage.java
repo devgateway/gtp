@@ -16,7 +16,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_ADMIN)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RIVER_LEVEL_EDITOR)
 @MountPath(value = "/rivers")
 public class ListRiversPage extends AbstractListPage<River> {
     private static final long serialVersionUID = 1130257532512363332L;
