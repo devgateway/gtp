@@ -40,9 +40,17 @@ public class MonthDTO implements Serializable {
         return YearMonth.of(year, month).lengthOfMonth();
     }
 
+    public String getFullDisplayName() {
+        return month.getDisplayName(TextStyle.FULL, Locale.FRENCH);
+    }
+
+    public String getShortDisplayName() {
+        return month.getDisplayName(TextStyle.SHORT, Locale.FRENCH);
+    }
+
     @Override
     public String toString() {
-        return month.getDisplayName(TextStyle.FULL, Locale.FRENCH);
+        return getFullDisplayName();
     }
 
     public static MonthDTO of(Month month) {
