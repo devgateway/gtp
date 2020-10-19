@@ -10,7 +10,9 @@ export default class DiseaseQuantityData {
 
     apiQuantities.forEach(({regionId, month, quantity}) => {
       getOrDefaultMap(this.quantityByRegionIdByMonth, regionId).set(month, quantity)
-      this.lastMonth = Math.max(this.lastMonth || 0, month)
+      if (quantity) {
+        this.lastMonth = Math.max(this.lastMonth || 0, month)
+      }
     })
   }
 }

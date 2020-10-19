@@ -18,7 +18,7 @@ export default class DiseaseQuantityMapDTO {
     this.minQuantity = minQuantity
     this.maxQuantity = maxQuantity
     this.hasData = !!(month && Array.from(diseaseQuantityData.quantityByRegionIdByMonth.values())
-      .map((qByM: Map) => qByM.get(month)).filter(q => q).length)
+      .map((qByM: Map) => qByM.get(month)).filter(q => q !== null && q !== undefined ).length)
   }
 
   findRegion(name: string = ''): Region {
