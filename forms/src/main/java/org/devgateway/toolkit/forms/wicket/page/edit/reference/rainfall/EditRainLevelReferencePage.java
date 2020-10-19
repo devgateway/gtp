@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.forms.wicket.page.edit.reference;
+package org.devgateway.toolkit.forms.wicket.page.edit.reference.rainfall;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.model.IModel;
@@ -10,7 +10,7 @@ import org.devgateway.toolkit.forms.wicket.page.edit.AbstractEditPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.reference.ListRainLevelReferencePage;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelPluviometricPostReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference;
-import org.devgateway.toolkit.persistence.service.reference.RainLevelReferenceService;
+import org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceService;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

@@ -1,4 +1,4 @@
-package org.devgateway.toolkit.forms.wicket.page.edit.reference;
+package org.devgateway.toolkit.forms.wicket.page.edit.reference.rainfall;
 
 import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
 

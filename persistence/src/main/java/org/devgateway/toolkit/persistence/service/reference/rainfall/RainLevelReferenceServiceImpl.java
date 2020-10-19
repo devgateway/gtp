@@ -1,27 +1,31 @@
-package org.devgateway.toolkit.persistence.service.reference;
+package org.devgateway.toolkit.persistence.service.reference.rainfall;
 
 import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
+import org.devgateway.toolkit.persistence.dao.Decadal;
+import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
+import org.devgateway.toolkit.persistence.dao.categories.PluviometricPostHolder;
+import org.devgateway.toolkit.persistence.dao.reference.RainLevelMonthReference;
+import org.devgateway.toolkit.persistence.dao.reference.RainLevelPluviometricPostReference;
+import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference;
+import org.devgateway.toolkit.persistence.dto.rainfall.MonthDecadalRainLevel;
+import org.devgateway.toolkit.persistence.dto.rainfall.ReferenceLevels;
+import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.devgateway.toolkit.persistence.repository.reference.RainLevelReferenceRepository;
+import org.devgateway.toolkit.persistence.repository.reference.YearsReferenceRepository;
+import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
+import org.devgateway.toolkit.persistence.service.reference.YearsReferenceServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.devgateway.toolkit.persistence.dao.Decadal;
-import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
-import org.devgateway.toolkit.persistence.dao.categories.PluviometricPostHolder;
-import org.devgateway.toolkit.persistence.dto.rainfall.MonthDecadalRainLevel;
-import org.devgateway.toolkit.persistence.dto.rainfall.ReferenceLevels;
-import org.devgateway.toolkit.persistence.dao.reference.RainLevelMonthReference;
-import org.devgateway.toolkit.persistence.dao.reference.RainLevelPluviometricPostReference;
-import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference;
-import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
-import org.devgateway.toolkit.persistence.repository.reference.RainLevelReferenceRepository;
-import org.devgateway.toolkit.persistence.repository.reference.YearsReferenceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Nadejda Mandrescu
@@ -33,6 +37,9 @@ public class RainLevelReferenceServiceImpl extends YearsReferenceServiceImpl<Rai
 
     @Autowired
     private RainLevelReferenceRepository rainLevelReferenceRepository;
+
+    @Autowired
+    private PluviometricPostService pluviometricPostService;
 
     @Override
     protected BaseJpaRepository<RainLevelReference, Long> repository() {
@@ -88,5 +95,28 @@ public class RainLevelReferenceServiceImpl extends YearsReferenceServiceImpl<Rai
         List<MonthDecadalRainLevel> rainLevels = rainLevelReferenceRepository.findRainLevels(rlr, pluviometricPostId);
         return new ReferenceLevels(rlr.getYearStart(), rlr.getYearEnd(),
                 rlr.getReferenceYearStart(), rlr.getReferenceYearEnd(), rainLevels);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public void export(RainLevelReference rainReference, OutputStream outputStream) throws IOException {
+        RainLevelReferenceWriter writer = new RainLevelReferenceWriter(rainReference);
+        writer.write(outputStream);
+    }
+
+    @Override
+    public RainLevelReference getExample(Integer referenceYearStart, Integer referenceYearEnd) {
+        RainLevelReference r = new RainLevelReference();
+        r.setReferenceYearStart(referenceYearStart);
+        r.setReferenceYearEnd(referenceYearEnd);
+
+        pluviometricPostService
+                .findAll(Sort.by(Sort.Direction.ASC, "label"))
+                .forEach(pp -> {
+                    RainLevelPluviometricPostReference rainPostRef = new RainLevelPluviometricPostReference();
+                    rainPostRef.setPluviometricPost(pp);
+                    r.addPostReference(rainPostRef);
+                });
+        return r;
     }
 }

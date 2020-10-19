@@ -36,7 +36,7 @@ import org.devgateway.toolkit.persistence.service.category.PluviometricPostServi
 import org.devgateway.toolkit.persistence.service.indicator.RainSeasonService;
 import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
 import org.devgateway.toolkit.persistence.service.indicator.river.RiverStationYearlyLevelsService;
-import org.devgateway.toolkit.persistence.service.reference.RainLevelReferenceService;
+import org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceService;
 import org.devgateway.toolkit.persistence.service.reference.RainSeasonStartReferenceService;
 import org.devgateway.toolkit.persistence.service.reference.RiverStationYearlyLevelsReferenceService;
 import org.devgateway.toolkit.persistence.time.AD3Clock;

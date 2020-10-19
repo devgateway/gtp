@@ -15,6 +15,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Month;
+import java.util.Comparator;
 
 /**
  * @author Nadejda Mandrescu
@@ -24,8 +25,13 @@ import java.time.Month;
 @Audited
 @Table(uniqueConstraints = @UniqueConstraint(
         columnNames = {"month", "decadal", "rain_level_pluviometric_post_reference_id"}))
-public class RainLevelMonthReference extends AbstractAuditableEntity implements Serializable {
+public class RainLevelMonthReference extends AbstractAuditableEntity implements Serializable,
+        Comparable<RainLevelMonthReference> {
     private static final long serialVersionUID = 1017836457479552556L;
+
+    private static final Comparator<RainLevelMonthReference> NATURAL = Comparator
+            .comparing(RainLevelMonthReference::getMonth)
+            .thenComparing(RainLevelMonthReference::getDecadal);
 
     public static final double MAX_RAIN = 10000;
 
@@ -44,6 +50,15 @@ public class RainLevelMonthReference extends AbstractAuditableEntity implements 
     @ManyToOne(optional = false)
     @JsonIgnore
     private RainLevelPluviometricPostReference rainLevelPluviometricPostReference;
+
+    public RainLevelMonthReference() {
+    }
+
+    public RainLevelMonthReference(Month month, Decadal decadal, Double rain) {
+        this.month = month;
+        this.decadal = decadal;
+        this.rain = rain;
+    }
 
     public Month getMonth() {
         return month;
@@ -81,5 +96,10 @@ public class RainLevelMonthReference extends AbstractAuditableEntity implements 
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    @Override
+    public int compareTo(@NotNull RainLevelMonthReference rainLevelMonthReference) {
+        return NATURAL.compare(this, rainLevelMonthReference);
     }
 }
