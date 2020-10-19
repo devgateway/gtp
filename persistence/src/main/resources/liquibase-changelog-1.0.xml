@@ -181,4 +181,14 @@
         </sql>
     </changeSet>
 
+    <changeSet id="ANACIM-394 allow 0 quantities in disease" author="nmandrescu">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="disease_quantity" />
+        </preConditions>
+        <sql>
+            ALTER TABLE disease_quantity DROP CONSTRAINT disease_quantity_quantity_check;
+            ALTER TABLE disease_quantity ADD CONSTRAINT disease_quantity_quantity_check CHECK (quantity >= 0);
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

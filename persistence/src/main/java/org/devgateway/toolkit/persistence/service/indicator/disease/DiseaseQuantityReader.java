@@ -115,8 +115,8 @@ public class DiseaseQuantityReader extends AbstractExcelFileIndicatorReader<Dise
         if (!isEmpty(cell)) {
             try {
                 double valueAsDouble = cell.getNumericCellValue();
-                if (valueAsDouble <= 0) {
-                    addErrorAt(cell, "La quantité doit être > 0");
+                if (valueAsDouble < 0) {
+                    addErrorAt(cell, "La quantité doit être >= 0");
                 } else {
                     return Math.round(valueAsDouble);
                 }
