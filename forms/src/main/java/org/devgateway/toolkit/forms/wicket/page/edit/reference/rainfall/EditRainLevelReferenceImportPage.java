@@ -1,9 +1,11 @@
 package org.devgateway.toolkit.forms.wicket.page.edit.reference.rainfall;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.toolkit.forms.security.SecurityConstants;
 import org.devgateway.toolkit.forms.wicket.components.links.DownloadRainLevelReferenceLink;
 import org.devgateway.toolkit.forms.wicket.page.edit.AbstractExcelImportPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.reference.ListRainLevelReferencePage;
@@ -16,6 +18,7 @@ import org.devgateway.toolkit.persistence.service.location.ZoneService;
 import org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceReader;
 import org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceService;
 import org.devgateway.toolkit.persistence.util.JPAUtil;
+import org.wicketstuff.annotation.mount.MountPath;
 
 import java.io.InputStream;
 import java.util.List;
@@ -24,6 +27,8 @@ import java.util.TreeSet;
 /**
  * @author Nadejda Mandrescu
  */
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_EDITOR)
+@MountPath(value = "/rain-level-reference-upload")
 public class EditRainLevelReferenceImportPage extends AbstractExcelImportPage<RainLevelReference> {
     private static final long serialVersionUID = 4682203609872135809L;
 
