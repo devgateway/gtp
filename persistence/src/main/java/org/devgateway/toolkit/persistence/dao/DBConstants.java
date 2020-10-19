@@ -39,4 +39,6 @@ public final class DBConstants {
     public static final int MAX_LONGITUDE = -11;
 
     public static final List<Month> MONTHS = Arrays.asList(MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER);
+
+    public static final int RAIN_SEASON_DECADAL_COUNT = MONTHS.size() * Decadal.values().length;
 }

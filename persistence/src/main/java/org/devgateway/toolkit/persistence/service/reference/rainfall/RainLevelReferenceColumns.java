@@ -30,7 +30,7 @@ public class RainLevelReferenceColumns {
         for (Month m : DBConstants.MONTHS) {
             String monthName = StringUtils.stripEnd(MonthDTO.of(m).getShortDisplayName(), ".");
             for (Decadal d : Decadal.values()) {
-                headers.add(Pair.of(decColId++,monthName + "-" + d.getValue().toString()));
+                headers.add(Pair.of(decColId++, monthName + "-" + d.getValue().toString()));
             }
         }
     }

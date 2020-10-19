@@ -1,6 +1,12 @@
 package org.devgateway.toolkit.persistence.service.reference.rainfall;
 
-import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.*;
+import static
+        org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.DECADAL_END_COL_ID;
+import static
+        org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.DECADAL_START_COL_ID;
+import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.LOCALITY_COL_ID;
+import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.MAY_VALUE;
+import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.ZONE_COL_ID;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
@@ -51,8 +57,8 @@ public class RainLevelReferenceWriter extends AbstractExcelFileIndicatorWriter {
 
             rainPostRef.getRainLevelMonthReferences().forEach(monthRef -> {
                 if (monthRef.getRain() != null) {
-                    int decColId = DECADAL_START_COL_ID + (monthRef.getMonth().getValue() - MAY_VALUE) * 3 +
-                            monthRef.getDecadal().getValue() - 1;
+                    int decColId = DECADAL_START_COL_ID + (monthRef.getMonth().getValue() - MAY_VALUE) * 3
+                            + monthRef.getDecadal().getValue() - 1;
                     XSSFCell cell = row.createCell(decColId);
                     cell.setCellStyle(doubleCellStyle);
                     cell.setCellValue(monthRef.getRain());

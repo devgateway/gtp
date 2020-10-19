@@ -1,7 +1,7 @@
 package org.devgateway.toolkit.persistence.dao.reference;
 
 import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
-
+import static org.devgateway.toolkit.persistence.dao.DBConstants.RAIN_SEASON_DECADAL_COUNT;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Decadal;
@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +35,11 @@ import java.util.Map;
 @Table(uniqueConstraints = @UniqueConstraint(name = "u_rain_level_pp_ref",
         columnNames = {"rain_level_reference_id", "pluviometric_post_id"}))
 public class RainLevelPluviometricPostReference extends AbstractAuditableEntity implements Serializable,
-        PluviometricPostHolder {
+        PluviometricPostHolder, Comparable<RainLevelPluviometricPostReference> {
     private static final long serialVersionUID = 2349382633920882594L;
+
+    private static final Comparator<RainLevelPluviometricPostReference> NATURAL = Comparator.comparing(
+            RainLevelPluviometricPostReference::getPluviometricPost);
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "rainLevelPluviometricPostReference")
@@ -57,6 +61,13 @@ public class RainLevelPluviometricPostReference extends AbstractAuditableEntity 
     private transient Map<Month, Map<Decadal, RainLevelMonthReference>> month2Reference;
 
     private transient boolean isValid = true;
+
+    public RainLevelPluviometricPostReference() {
+    }
+
+    public RainLevelPluviometricPostReference(PluviometricPost pluviometricPost) {
+        this.pluviometricPost = pluviometricPost;
+    }
 
     public List<RainLevelMonthReference> getRainLevelMonthReferences() {
         return rainLevelMonthReferences;
@@ -134,12 +145,17 @@ public class RainLevelPluviometricPostReference extends AbstractAuditableEntity 
                 }
             }
         }
-        isValid = countValues == 0 || countValues == countAscending && countValues == 18;
+        isValid = countValues == 0 || countValues == countAscending && countValues == RAIN_SEASON_DECADAL_COUNT;
         return isValid;
     }
 
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    @Override
+    public int compareTo(RainLevelPluviometricPostReference rppr) {
+        return NATURAL.compare(this, rppr);
     }
 }

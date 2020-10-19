@@ -33,11 +33,11 @@ public class RainLevelReference extends YearsReference implements AbstractImport
         return postRainReferences;
     }
 
-    @Formula("(select count(mr.*) from rain_level_month_reference mr " +
-            "join rain_level_pluviometric_post_reference rlppr on " +
-            "rlppr.id=mr.rain_level_pluviometric_post_reference_id " +
-            "where rlppr.rain_level_reference_id=id " +
-            "and mr.rain is not null)")
+    @Formula("(select count(mr.*) from rain_level_month_reference mr "
+            + "join rain_level_pluviometric_post_reference rlppr on "
+            + "rlppr.id=mr.rain_level_pluviometric_post_reference_id "
+            + "where rlppr.rain_level_reference_id=id "
+            + "and mr.rain is not null)")
     @NotAudited
     private Long quantitiesSize;
 
