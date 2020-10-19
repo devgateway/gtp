@@ -68,7 +68,7 @@ const renderMonthCell = (intl, month: number, futureMonth: number, activeMonth: 
 
 const renderMonthCases = (intl, month: number, futureMonth: number, casesByMonth: Map<number, number>) => {
   const cases = casesByMonth.get(month)
-  if (!cases) {
+  if (cases === undefined || cases === null) {
     const isFuture = futureMonth && month >= futureMonth
     return (
       <span className={cssClasses("cases no-cases", isFuture ? "future" : null)}>
