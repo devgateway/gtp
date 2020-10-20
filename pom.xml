@@ -68,7 +68,7 @@
         <repository>
             <id>ad3-anacim-releases</id>
             <name>ad3-anacim-releases</name>
-            <url>http://artifactory.ampdev.net/artifactory/ad3-anacim</url>
+            <url>http://artifactory.ampdev.net/artifactory/ad3-anacim-releases</url>
         </repository>
     </distributionManagement>
 
@@ -104,7 +104,7 @@
         <pluginRepository>
             <id>DGToolkit</id>
             <name>DGToolkit</name>
-            <url>http://artifactory.ampdev.net/artifactory/ad3-anacim-releases/</url>
+            <url>http://artifactory.ampdev.net/artifactory/ad3-anacim/</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
