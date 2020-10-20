@@ -23,7 +23,8 @@ export const getBulletins = (locationId) => post(EP.BULLETINS, {locationId})
 
 export const getAllMembers = () => get(EP.MEMBER_ALL)
 
-export const getWorldMapAttribution = () => get(EP.ESRI_MAP_SERVICE_INFO)
+export const getWorldMapAttribution = () => get(EP.ESRI_WORLD_MAP_SERVICE_INFO)
+export const getTopoMapAttribution = () => get(EP.ESRI_TOPO_MAP_SERVICE_INFO)
 
 export const getCNSCHeader = () => get(EP.CNSC_HEADER)
 

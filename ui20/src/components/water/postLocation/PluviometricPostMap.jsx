@@ -38,7 +38,7 @@ class PluviometricPostMap extends Component {
 
 const mapStateToProps = state => {
   return {
-    worldMapAttribution: state.getIn(['app', 'data', 'worldMapAttribution']),
+    worldMapAttribution: state.getIn(['app', 'data', 'mapAttribution', 'world']),
   }
 }
 

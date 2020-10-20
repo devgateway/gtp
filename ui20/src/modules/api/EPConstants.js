@@ -43,7 +43,8 @@ export const MEMBER_ALL = GTP_ROOT + '/members'
 export const MEMBER_LOGO = GTP_ROOT + '/member/logo?id='
 
 const ESRI_SERVICE_INFO = 'https://services.arcgisonline.com/arcgis/rest/services/{service}?f=pjson'
-export const ESRI_MAP_SERVICE_INFO = ESRI_SERVICE_INFO.replace('{service}', 'World_Street_Map/MapServer')
+export const ESRI_WORLD_MAP_SERVICE_INFO = ESRI_SERVICE_INFO.replace('{service}', 'World_Street_Map/MapServer')
+export const ESRI_TOPO_MAP_SERVICE_INFO = ESRI_SERVICE_INFO.replace('{service}', 'World_Topo_Map/MapServer')
 
 const APP = API_ROOT + '/app'
 export const CNSC_HEADER = APP + '/cnsc-header'
