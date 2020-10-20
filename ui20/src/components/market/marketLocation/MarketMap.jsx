@@ -25,7 +25,7 @@ class MarketMap extends Component {
         <div className="map-container">
           <Map className="map black-tooltip" zoom={SENEGAL_ZOOM_LEVEL} center={SENEGAL_CENTER_LAT_LNG} zoomControl={true}>
             <TileLayer
-              url="https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+              url="https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
               attribution={worldMapAttribution}/>
             <CountryBorderLayer/>
             <MarketLayer {...this.props} />
