@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -34,6 +35,28 @@ public class AdminSettingsServiceImpl extends BaseJpaServiceImpl<AdminSettings> 
     @Override
     public AdminSettings newInstance() {
         return new AdminSettings();
+    }
+
+    @Override
+    @Transactional
+    public <S extends AdminSettings> S save(final S entity) {
+        preProcessRebootAlert(entity);
+        return repository().save(entity);
+    }
+
+    @Override
+    @Transactional
+    public <S extends AdminSettings> S saveAndFlush(final S entity) {
+        preProcessRebootAlert(entity);
+        return repository().saveAndFlush(entity);
+    }
+
+    private <S extends AdminSettings> void preProcessRebootAlert(S as) {
+        if (!as.isRebootServer()) {
+            as.setRebootAlertSince(null);
+        } else if (as.getRebootAlertSince() == null) {
+            as.setRebootAlertSince(LocalDateTime.now());
+        }
     }
 
     @Override
