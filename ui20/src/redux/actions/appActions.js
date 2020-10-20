@@ -1,6 +1,6 @@
 import * as api from "../../modules/api"
 import CommonConfig from "../../modules/entities/config/CommonConfig"
-import {CNSC_HEADER, COMMON_CONFIG_UPDATE, MENU_TOGGLE, WORLD_MAP_ATTRIBUTION} from "../reducers/AppReducer"
+import {CNSC_HEADER, COMMON_CONFIG_UPDATE, MENU_TOGGLE, MAP_ATTRIBUTION} from "../reducers/AppReducer"
 
 export const loadCNSCHeader = () => (dispatch, getState) =>
   dispatch({
@@ -17,10 +17,17 @@ export const updateCommonConfig = (apiCommonConfig) => (dispatch, getState) => {
   return commonConfig
 }
 
-export const loadWorldMapAttribution = () => (dispatch, getState) =>
+const mapAttribution = {
+  "world": api.getWorldMapAttribution,
+  "topo": api.getTopoMapAttribution,
+}
+
+export const loadMapAttribution = (type) => (dispatch, getState) =>
   dispatch({
-    type: WORLD_MAP_ATTRIBUTION,
-    payload: api.getWorldMapAttribution().then((result) => result.copyrightText)
+    type: MAP_ATTRIBUTION,
+    payload: mapAttribution[type]().then((result) => ({
+      type,
+      copyrightText :result.copyrightText}))
   })
 
 export const toggleMenu = (isOpened) => (dispatch, getState) =>

@@ -14,7 +14,7 @@ export const loadAllMarketData = () => (dispatch, getState) => {
     payload: api.getAllMarketAndAgriculture().then(result =>
       transformAll(result, updateCommonConfig(result.commonConfig)(dispatch, getState)))
   })
-  appActions.loadWorldMapAttribution()(dispatch, getState)
+  appActions.loadMapAttribution("topo")(dispatch, getState)
 }
 
 const transformAll = (allData, commonConfig: CommonConfig) => {

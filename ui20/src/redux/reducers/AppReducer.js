@@ -1,10 +1,10 @@
 import Immutable from "immutable"
 import CommonConfig from "../../modules/entities/config/CommonConfig"
 
-export const WORLD_MAP_ATTRIBUTION = 'WORLD_MAP_ATTRIBUTION'
-const WORLD_MAP_ATTRIBUTION_PENDING = 'WORLD_MAP_ATTRIBUTION_PENDING'
-const WORLD_MAP_ATTRIBUTION_FULFILLED = 'WORLD_MAP_ATTRIBUTION_PENDING'
-const WORLD_MAP_ATTRIBUTION_REJECTED = 'WORLD_MAP_ATTRIBUTION_PENDING'
+export const MAP_ATTRIBUTION = 'MAP_ATTRIBUTION'
+const MAP_ATTRIBUTION_PENDING = 'MAP_ATTRIBUTION_PENDING'
+const MAP_ATTRIBUTION_FULFILLED = 'MAP_ATTRIBUTION_FULFILLED'
+const MAP_ATTRIBUTION_REJECTED = 'MAP_ATTRIBUTION_REJECTED'
 export const MENU_TOGGLE = 'MENU_TOGGLE'
 export const COMMON_CONFIG_UPDATE = 'COMMON_CONFIG_UPDATE'
 export const CNSC_HEADER = 'CNSC_HEADER'
@@ -19,7 +19,10 @@ const initialState = Immutable.fromJS({
   isMenuOpened: true,
   data: {
     commonConfig: CommonConfig,
-    worldMapAttribution: 'Sources: Esri, HERE, Garmin, USGS, Intermap, INCREMENT P, NRCan, Esri Japan, METI, Esri China (Hong Kong), Esri Korea, Esri (Thailand), NGCC, (c) OpenStreetMap contributors, and the GIS User Community',
+    mapAttribution: {
+      world: 'Sources: Esri, HERE, Garmin, USGS, Intermap, INCREMENT P, NRCan, Esri Japan, METI, Esri China (Hong Kong), Esri Korea, Esri (Thailand), NGCC, (c) OpenStreetMap contributors, and the GIS User Community',
+      topo: 'Esri, HERE, DeLorme, TomTom, Intermap, increment P Corp., GEBCO, USGS, FAO, NPS, NRCAN, GeoBase, IGN, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), swisstopo, MapmyIndia, © OpenStreetMap contributors, GIS User Comm.',
+    },
     cnscHeader: null,
   },
   isCNSCHeaderLoading: false,
@@ -31,11 +34,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case COMMON_CONFIG_UPDATE:
       return state.setIn(['data', 'commonConfig'], data)
-    case WORLD_MAP_ATTRIBUTION_PENDING:
+    case MAP_ATTRIBUTION_PENDING:
       return state.set('isLoading', true).set('error', null)
-    case WORLD_MAP_ATTRIBUTION_FULFILLED:
-      return state.set('isLoading', false).set('isLoaded', true).setIn(['data', 'worldMapAttribution'], payload)
-    case WORLD_MAP_ATTRIBUTION_REJECTED:
+    case MAP_ATTRIBUTION_FULFILLED:
+      const {type, copyrightText} = payload
+      return state.set('isLoading', false).set('isLoaded', true).setIn(['data', 'mapAttribution', type], copyrightText)
+    case MAP_ATTRIBUTION_REJECTED:
       return state.set('isLoading', false).set('isLoaded', false).set('error', payload)
     case MENU_TOGGLE:
       return state.set('isMenuOpened', data)

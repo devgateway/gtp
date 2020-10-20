@@ -37,15 +37,18 @@ import {
   SORT_RAIN_SEASON,
   WATER_RESOURCES
 } from "../reducers/Water"
+import * as appActions from "./appActions"
 import {updateCommonConfig} from "./appActions"
 
-export const loadAllWaterData = () => (dispatch, getState) =>
+export const loadAllWaterData = () => (dispatch, getState) => {
   dispatch({
     type: WATER_RESOURCES,
     payload: api.getAllWaterResources().then(result =>
       transformAll(result, updateCommonConfig(result.commonConfig)(dispatch, getState))
     )
   })
+  appActions.loadMapAttribution("world")(dispatch, getState)
+}
 
 const transformAll = (allData, commonConfig: CommonConfig) => {
   const {rainLevelChart, drySequenceChart, seasonChart, riverLevelChart} = allData

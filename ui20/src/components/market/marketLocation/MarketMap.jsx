@@ -13,11 +13,11 @@ import MarketMapLegend from "./MarketMapLegend"
 class MarketMap extends Component {
   static propTypes = {
     marketLocationsDTO: PropTypes.instanceOf(MarketLocationMapDTO).isRequired,
-    worldMapAttribution: PropTypes.string.isRequired,
+    topoMapAttribution: PropTypes.string.isRequired,
   }
 
   render() {
-    const {worldMapAttribution} = this.props
+    const {topoMapAttribution} = this.props
 
     return (
       <div className="png exportable">
@@ -26,7 +26,7 @@ class MarketMap extends Component {
           <Map className="map black-tooltip" zoom={SENEGAL_ZOOM_LEVEL} center={SENEGAL_CENTER_LAT_LNG} zoomControl={true}>
             <TileLayer
               url="https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
-              attribution={worldMapAttribution}/>
+              attribution={topoMapAttribution}/>
             <CountryBorderLayer/>
             <MarketLayer {...this.props} />
           </Map>
@@ -39,7 +39,7 @@ class MarketMap extends Component {
 const mapStateToProps = state => {
   return {
     agricultureConfig: state.getIn(['agriculture', 'data', 'agricultureConfig']),
-    worldMapAttribution: state.getIn(['app', 'data', 'worldMapAttribution']),
+    topoMapAttribution: state.getIn(['app', 'data', 'mapAttribution', 'topo']),
   }
 }
 
