@@ -5,6 +5,7 @@ import {connect} from "react-redux"
 import {CNSC_HEADER_LOGO} from "../../../../modules/api/EPConstants"
 import * as appActions from "../../../../redux/actions/appActions"
 import "./cnscHeader.scss";
+import {cssClasses, getBrowserClass} from "../../../ComponentUtil"
 import {CNSCMenu} from "./CNSCMenu"
 import {CNSCSearch} from "./CNSCSearch"
 
@@ -44,7 +45,7 @@ class CNSCHeader extends Component {
     const {hideMenu} = this.state
 
     return (
-      <div className="cnsc-header-container">
+      <div className={cssClasses("cnsc-header-container", getBrowserClass())}>
         <div className="cnsc-header">
           <div className="cnsc-logo">
             <a href={cnscHeader.logoUrl}>
