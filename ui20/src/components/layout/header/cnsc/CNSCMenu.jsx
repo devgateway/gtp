@@ -13,7 +13,13 @@ const MenuDropdownItem = ({label, url}) =>
   </Dropdown.Item>)
 
 const MenuDropdown = ({menuGroup, toRight}) =>
-  (<Dropdown text={menuGroup.label} simple basic className={cssClasses(toRight ? "to-right" : null, getBrowserClass())}>
+  (<Dropdown
+    text={menuGroup.label}
+    simple
+    basic
+    className={cssClasses(toRight ? "to-right" : null, getBrowserClass())}
+    open={false}>
+
     <Dropdown.Menu>
       {menuGroup.items.map(entry => entry.items ?
         <MenuDropdown key={entry.label} menuGroup={entry} toRight={true} />
