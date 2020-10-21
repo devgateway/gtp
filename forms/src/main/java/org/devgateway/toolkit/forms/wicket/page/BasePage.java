@@ -41,6 +41,7 @@ import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.pages.RedirectPage;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
@@ -179,8 +180,12 @@ public abstract class BasePage extends GenericWebPage<Void> {
         pageTitle = new Label("pageTitle", new ResourceModel("page.title"));
         add(pageTitle);
 
-        Label pageDescription = new Label("pageDescription", new ResourceModel("page.description"));
+        Label pageDescription = new Label("pageDescription", getPageDescriptionModel());
         add(pageDescription);
+    }
+
+    protected IModel<?> getPageDescriptionModel() {
+        return new ResourceModel("page.description");
     }
 
     protected String getPageCssClassName() {
