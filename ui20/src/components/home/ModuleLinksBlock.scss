@@ -27,6 +27,8 @@ $module-wide-width: 270px;
   .home-links-image {
     border: 1px solid #E6EAEE;
     border-radius: 5px;
+    height: 100%;
+
     .IE & {
       width: 270px;
     }

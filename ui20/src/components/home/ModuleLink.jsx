@@ -15,9 +15,9 @@ const Pane = injectIntl((props) => {
         <div className="pane-title">
           <FormattedHTMLMessage id={`home.pane.${name}.title`}/>
         </div>
-        {/* <div className="pane-description">
+        <div className="pane-description">
           <FormattedHTMLMessage id={`home.pane.${name}.text.short`}/>
-        </div>*/}
+        </div>
       </div>
     </Link>
   </div>);
