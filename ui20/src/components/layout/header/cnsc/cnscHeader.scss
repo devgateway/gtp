@@ -19,6 +19,11 @@ $text-color: #000;
   width: fit-content;
   min-width: 980px;
   margin: auto;
+
+  &.IE {
+    width: 80%;
+    max-width: 1080px;
+  }
 }
 
 .cnsc-header {
