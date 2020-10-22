@@ -72,7 +72,7 @@ class IntlRoutes extends Component {
 
             <Route exact={true} path="/:lan/gtp-bulletins"  component={BulletinLayout}/>
 
-            <Route component={NotFoundLayout}/>
+            <Route path="/:lan/" component={NotFoundLayout}/>
           </Switch>
 
           <Footer></Footer>

@@ -45,7 +45,10 @@ class Menu extends Component {
     let stickTo = 'top'
     let bottom = 'unset'
     if (!scrollTop) {
-    } if (clientHeight < menuAndHeaderHeight) {
+      if (this.state.stickTo === 'bottom') {
+        stickTo = 'relative'
+      }
+    } else if (clientHeight < menuAndHeaderHeight) {
       stickTo = 'relative'
     } else if (remainingScroll < footerHeight) {
       const visibleFooter = footerHeight - remainingScroll
