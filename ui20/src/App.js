@@ -28,6 +28,7 @@ const Water = asyncComponent(() => import("./components/water/"));
 const Market = asyncComponent(() => import("./components/market/"));
 const Livestock = asyncComponent(() => import("./components/livestock/"));
 const Bulletin = asyncComponent(() => import("./components/bulletin/"));
+const NotFound = asyncComponent(() => import("./components/404/"));
 
 // kick off the polyfill!
 smoothscroll.polyfill();
@@ -44,6 +45,7 @@ const WaterLayout = (props) => withLayout(Water)
 const MarketLayout = (props) => withLayout(Market)
 const LivestockLayout = (props) => withLayout(Livestock)
 const BulletinLayout = (props) => withLayout(Bulletin)
+const NotFoundLayout = (props) => withLayout(NotFound)
 
 
 class IntlRoutes extends Component {
@@ -70,10 +72,7 @@ class IntlRoutes extends Component {
 
             <Route exact={true} path="/:lan/gtp-bulletins"  component={BulletinLayout}/>
 
-            <Route render={() => (
-              <Layout>
-                <div className="not-found">Page Not Found</div>
-              </Layout>)}/>
+            <Route component={NotFoundLayout}/>
           </Switch>
 
           <Footer></Footer>
