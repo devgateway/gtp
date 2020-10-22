@@ -12,6 +12,7 @@ import {connect} from 'react-redux';
 import messages_fr from "./translations/fr.json";
 import messages_en from "./translations/en.json";
 import {IntlProvider} from "react-intl";
+import * as IntlConstants from "./modules/utils/IntlConstants"
 
 import Header from './components/layout/header/Header'
 import Footer from './components/layout/Footer'
@@ -57,8 +58,11 @@ class IntlRoutes extends Component {
 
   render() {
     const props = this.props;
-    const locale = this.props.location.pathname.split("/")[1]
-    return (<IntlProvider key={locale} locale={locale} messages={messages[props.match.params.lan]}>
+    const locale = props.match.params.lan
+    if (!IntlConstants.LOCALES.includes(locale)) {
+      return <Redirect to={`/${IntlConstants.DEFAULT_LOCALE}${props.location.pathname}`} />
+    }
+    return (<IntlProvider key={locale} locale={locale} messages={messages[locale]}>
       <div className={cssClasses("page-wrapper", getBrowserClass())}>
           <Header />
 
