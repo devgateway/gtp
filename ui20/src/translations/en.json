@@ -47,6 +47,8 @@
 	"all.no-image": "No image",
 	"all.no-data": "No data available",
 	"all.no-data.short": "No data",
+	"all.page-not-found": "Page not found",
+	"all.go-to-homepage": "Go to homepage",
 	"all.data-error": "There was an error loading the data, try again later",
 	"all.search": "Search ...",
 	"bulletins.bulletin.title": "Bulletins {year}",

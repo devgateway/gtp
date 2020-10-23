@@ -47,6 +47,8 @@
 	"all.no-image": "Pas d'image",
 	"all.no-data": "Pas de données disponibles",
 	"all.no-data.short": "Pas de données",
+	"all.page-not-found": "Page introuvable",
+	"all.go-to-homepage": "Aller à la page d'accueil",
 	"all.data-error": "Il y a eu une erreur lors du chargement des données, réessayez à nouveau",
 	"all.search": "Rechercher ...",
 	"bulletins.bulletin.title": "Bulletins {year}",

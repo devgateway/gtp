@@ -34,4 +34,9 @@
   margin: auto;
   font-size: 22px;
   padding: 100px;
+  height: 100%;
+}
+
+.not-found div {
+  padding: 20px;
 }

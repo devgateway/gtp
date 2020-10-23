@@ -27,6 +27,10 @@ public final class SecurityUtil {
 
     }
 
+    public static boolean isAuthenticated() {
+        return SecurityContextHolder.getContext().getAuthentication() != null;
+    }
+
     /**
      * returns the principal object. In our case the principal should be
      * {@link Person}
