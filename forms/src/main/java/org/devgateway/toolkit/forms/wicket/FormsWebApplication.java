@@ -58,6 +58,7 @@ import org.devgateway.toolkit.forms.wicket.converters.MonthConverter;
 import org.devgateway.toolkit.forms.wicket.converters.NonNumericFilteredBigDecimalConverter;
 import org.devgateway.toolkit.forms.wicket.page.BasePage;
 import org.devgateway.toolkit.forms.wicket.page.Homepage;
+import org.devgateway.toolkit.forms.wicket.page.error.AccessDeniedPage;
 import org.devgateway.toolkit.forms.wicket.page.user.LoginPage;
 import org.devgateway.toolkit.forms.wicket.styles.BaseStyles;
 import org.devgateway.toolkit.persistence.dao.Decadal;
@@ -242,7 +243,7 @@ public class FormsWebApplication extends AuthenticatedWebApplication {
         new AnnotatedMountScanner().scanPackage(BASE_PACKAGE_FOR_PAGES).mount(this);
 
         getApplicationSettings().setUploadProgressUpdatesEnabled(true);
-        getApplicationSettings().setAccessDeniedPage(Homepage.class);
+        getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);
 
         configureBootstrap();
         configureSummernote();
