@@ -11,36 +11,37 @@
  *******************************************************************************/
 package org.devgateway.toolkit.forms.service;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import org.devgateway.toolkit.forms.security.PasswordRecoveryProperties;
 import org.devgateway.toolkit.persistence.dao.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * Service to send emails to users to validate email addresses or reset
  * passwords
- * 
+ *
  * @author mpostelnicu
  *
  */
 @Component
 public class SendEmailService {
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-    private JavaMailSenderImpl javaMailSenderImpl;
+    private JavaMailSender javaMailSender;
 
     @Autowired
     private PasswordRecoveryProperties recoveryProperties;
 
     /**
      * Send an email with a link that allows user to change the password.
-     * 
+     *
      * @param person for whom we're resetting the pwd
      */
     public void sendEmailRecoveryEmail(final Person person) {
@@ -73,7 +74,7 @@ public class SendEmailService {
                 + "The GTP Team");
 
         try {
-            javaMailSenderImpl.send(msg);
+            javaMailSender.send(msg);
         } catch (MailException e) {
             throw new RuntimeException("Failed to send password recovery email.", e);
         }
