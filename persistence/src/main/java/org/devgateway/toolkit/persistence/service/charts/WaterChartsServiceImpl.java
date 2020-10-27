@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toMap;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
@@ -22,6 +23,9 @@ import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChart;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartConfig;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartData;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartFilter;
+import org.devgateway.toolkit.persistence.dto.rainfallMap.RainMap;
+import org.devgateway.toolkit.persistence.dto.rainfallMap.RainMapConfig;
+import org.devgateway.toolkit.persistence.dto.rainfallMap.RainMapFilter;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChart;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartConfig;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartData;
@@ -35,15 +39,17 @@ import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
 import org.devgateway.toolkit.persistence.service.indicator.RainSeasonService;
 import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
+import org.devgateway.toolkit.persistence.service.indicator.rainfallMap.DecadalRainfallMapService;
 import org.devgateway.toolkit.persistence.service.indicator.river.RiverStationYearlyLevelsService;
-import org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceService;
 import org.devgateway.toolkit.persistence.service.reference.RainSeasonStartReferenceService;
 import org.devgateway.toolkit.persistence.service.reference.RiverStationYearlyLevelsReferenceService;
+import org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceService;
 import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Month;
 import java.time.MonthDay;
 import java.time.Year;
 import java.util.Comparator;
@@ -65,6 +71,9 @@ public class WaterChartsServiceImpl implements WaterChartsService {
 
     @Autowired
     private RainLevelReferenceService rainLevelReferenceService;
+
+    @Autowired
+    private DecadalRainfallMapService decadalRainfallMapService;
 
     @Autowired
     private RainSeasonService rainSeasonService;
@@ -96,6 +105,7 @@ public class WaterChartsServiceImpl implements WaterChartsService {
                 chartService.getCommonConfig(),
                 waterConfig,
                 getRainLevelChart(rainLevelChartConfig, waterConfig),
+                getRainMap(),
                 getDrySequenceChart(rainLevelChartConfig, waterConfig),
                 getSeasonChart(),
                 getRiverLevelChart());
@@ -156,6 +166,25 @@ public class WaterChartsServiceImpl implements WaterChartsService {
         return new RainLevelChartData(
                 decadalRainfallService.findRainLevels(filter.getYears(), filter.getPluviometricPostId()),
                 rainLevelReferenceService.findReferenceLevels(filter.getYears(), filter.getPluviometricPostId()));
+    }
+
+    private RainMap getRainMap() {
+        RainMapConfig config = getRainMapConfig();
+        return new RainMap(config, getRainMapFilter(config));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public RainMapConfig getRainMapConfig() {
+        return new RainMapConfig(new TreeSet<>(decadalRainfallMapService.findYearsWithData()));
+    }
+
+    public RainMapFilter getRainMapFilter(RainMapConfig config) {
+        Integer year = config.getYears().isEmpty() ? null : config.getYears().last();
+        Month month = year == null ? null : decadalRainfallMapService.findLastMonthWithData(year);
+        Decadal decadal = month == null ? null : decadalRainfallMapService.findLastDecadalWithData(year, month);
+        return new RainMapFilter(year, month, decadal);
+
     }
 
     public DrySequenceChart getDrySequenceChart(RainLevelChartConfig config, WaterConfig waterConfig) {

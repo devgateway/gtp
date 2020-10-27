@@ -2,12 +2,6 @@ package org.devgateway.toolkit.web.rest.controller;
 
 import static java.util.stream.Collectors.toList;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.MonthDay;
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedSet;
 import org.devgateway.toolkit.persistence.dao.Decadal;
@@ -32,6 +26,9 @@ import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartConfig;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartData;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartFilter;
 import org.devgateway.toolkit.persistence.dto.rainfall.ReferenceLevels;
+import org.devgateway.toolkit.persistence.dto.rainfallMap.RainMap;
+import org.devgateway.toolkit.persistence.dto.rainfallMap.RainMapConfig;
+import org.devgateway.toolkit.persistence.dto.rainfallMap.RainMapFilter;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChart;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartConfig;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartData;
@@ -42,6 +39,12 @@ import org.devgateway.toolkit.persistence.dto.season.SeasonChartData;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonPrediction;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.MonthDay;
+import java.util.List;
 
 /**
  * @author Octavian Ciubotaru
@@ -88,7 +91,7 @@ public class SampleWaterData {
 
         riverStations = ImmutableList.of(riverStationBakel, riverStationFaleme);
 
-        chartsData = new ChartsData(commonData.getCommonConfig(), getWaterConfig(), getRainLevelChart(),
+        chartsData = new ChartsData(commonData.getCommonConfig(), getWaterConfig(), getRainLevelChart(), getRainMap(),
                 getDrySequenceChart(), getSeasonChart(), getRiverLevelChart());
     }
 
@@ -128,6 +131,11 @@ public class SampleWaterData {
         RainLevelChartData data = new RainLevelChartData(levels, referenceLevels);
 
         return new RainLevelChart(config, filter, data);
+    }
+
+    private RainMap getRainMap() {
+        RainMapConfig config = new RainMapConfig(ImmutableSortedSet.of(2019, 2020));
+        return new RainMap(config, new RainMapFilter(config.getYears().last(), Month.OCTOBER, Decadal.THIRD));
     }
 
     private DrySequenceChart getDrySequenceChart() {
