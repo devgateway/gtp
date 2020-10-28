@@ -17,4 +17,6 @@ public interface DecadalRainfallMapService extends YearIndicatorGenerator<Decada
     Month findLastMonthWithData(Integer year);
 
     Decadal findLastDecadalWithData(Integer year, Month month);
+
+    DecadalRainfallMap findByYearAndMonthAndDecadal(Integer year, Month month, Decadal decadal);
 }

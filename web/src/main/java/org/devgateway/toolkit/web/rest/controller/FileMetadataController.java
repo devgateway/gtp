@@ -11,9 +11,6 @@
  *******************************************************************************/
 package org.devgateway.toolkit.web.rest.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 import io.swagger.annotations.ApiOperation;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.service.FileMetadataService;
@@ -36,6 +33,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by Daniel Oliva
@@ -83,6 +83,10 @@ public class FileMetadataController {
             LOGGER.error("Error: " + e);
             throw new BadRequestException("File not found");
         }
+    }
+
+    public static ResponseEntity<Resource> responseForFileContentOrNotFound(FileMetadata metadata, String ifNoneMatch) {
+        return metadata == null ? ResponseEntity.notFound().build() : responseForFileMetadata(metadata, ifNoneMatch);
     }
 
     public static ResponseEntity<Resource> responseForFileMetadata(FileMetadata metadata, String ifNoneMatch) {

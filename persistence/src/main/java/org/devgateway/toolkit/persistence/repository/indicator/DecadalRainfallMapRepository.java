@@ -40,4 +40,6 @@ public interface DecadalRainfallMapRepository extends BaseJpaRepository<DecadalR
             + "and drm.month = :month")
     Decadal findLastDecadalWithData(Integer year, Month month);
 
+    DecadalRainfallMap findByYearAndMonthAndDecadal(Integer year, Month month, Decadal decadal);
+
 }

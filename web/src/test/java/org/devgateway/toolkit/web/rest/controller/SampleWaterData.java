@@ -1,7 +1,5 @@
 package org.devgateway.toolkit.web.rest.controller;
 
-import static java.util.stream.Collectors.toList;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedSet;
 import org.devgateway.toolkit.persistence.dao.Decadal;
@@ -45,6 +43,8 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.MonthDay;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author Octavian Ciubotaru
@@ -135,7 +135,7 @@ public class SampleWaterData {
 
     private RainMap getRainMap() {
         RainMapConfig config = new RainMapConfig(ImmutableSortedSet.of(2019, 2020));
-        return new RainMap(config, new RainMapFilter(config.getYears().last(), Month.OCTOBER, Decadal.THIRD));
+        return new RainMap(config, new RainMapFilter(config.getYears().last(), Month.OCTOBER, Decadal.THIRD, null));
     }
 
     private DrySequenceChart getDrySequenceChart() {

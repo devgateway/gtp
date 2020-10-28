@@ -1,14 +1,12 @@
 package org.devgateway.toolkit.persistence.service.charts;
 
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
+import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfallMap;
 import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainSeason;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverStationYearlyLevels;
 import org.devgateway.toolkit.persistence.dao.reference.RainSeasonPluviometricPostReferenceStart;
@@ -59,6 +57,9 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.Supplier;
+
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * @author Octavian Ciubotaru
@@ -183,8 +184,14 @@ public class WaterChartsServiceImpl implements WaterChartsService {
         Integer year = config.getYears().isEmpty() ? null : config.getYears().last();
         Month month = year == null ? null : decadalRainfallMapService.findLastMonthWithData(year);
         Decadal decadal = month == null ? null : decadalRainfallMapService.findLastDecadalWithData(year, month);
-        return new RainMapFilter(year, month, decadal);
+        return new RainMapFilter(year, month, decadal, null);
 
+    }
+
+    @Override
+    public DecadalRainfallMap getRainMapData(RainMapFilter filter) {
+        return decadalRainfallMapService.findByYearAndMonthAndDecadal(
+                filter.getYear(), filter.getMonth(), filter.getDecadal());
     }
 
     public DrySequenceChart getDrySequenceChart(RainLevelChartConfig config, WaterConfig waterConfig) {

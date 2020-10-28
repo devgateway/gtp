@@ -76,4 +76,9 @@ public class DecadalRainfallMapServiceImpl extends BaseJpaServiceImpl<DecadalRai
     public Decadal findLastDecadalWithData(Integer year, Month month) {
         return this.repository.findLastDecadalWithData(year, month);
     }
+
+    @Override
+    public DecadalRainfallMap findByYearAndMonthAndDecadal(Integer year, Month month, Decadal decadal) {
+        return repository.findByYearAndMonthAndDecadal(year, month, decadal);
+    }
 }

@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.dto.rainfallMap;
 
 import org.devgateway.toolkit.persistence.dao.Decadal;
+import org.devgateway.toolkit.persistence.dao.indicator.RainfallMapLayerType;
 
 import java.time.Month;
 
@@ -15,10 +16,13 @@ public class RainMapFilter {
 
     private final Decadal decadal;
 
-    public RainMapFilter(Integer year, Month month, Decadal decadal) {
+    private final RainfallMapLayerType layerType;
+
+    public RainMapFilter(Integer year, Month month, Decadal decadal, RainfallMapLayerType layerType) {
         this.year = year;
         this.month = month;
         this.decadal = decadal;
+        this.layerType = layerType;
     }
 
     public Integer getYear() {
@@ -31,5 +35,9 @@ public class RainMapFilter {
 
     public Decadal getDecadal() {
         return decadal;
+    }
+
+    public RainfallMapLayerType getLayerType() {
+        return layerType;
     }
 }
