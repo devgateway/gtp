@@ -17,7 +17,10 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.devgateway.toolkit.persistence.dao.Decadal;
+import org.devgateway.toolkit.persistence.jackson.DecadalDeserializer;
 import org.devgateway.toolkit.persistence.jackson.DecadalSerializer;
+import org.devgateway.toolkit.persistence.jackson.MonthAsIntDeserializer;
 import org.devgateway.toolkit.persistence.jackson.MonthAsIntSerializer;
 import org.devgateway.toolkit.web.generators.GenericExcelKeyGenerator;
 import org.devgateway.toolkit.web.generators.GenericKeyGenerator;
@@ -30,6 +33,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
+
+import java.time.Month;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
@@ -72,7 +77,9 @@ public class MvcConfig implements WebMvcConfigurer {
     public Module customTypes() {
         SimpleModule module = new SimpleModule();
         module.addSerializer(new DecadalSerializer());
+        module.addDeserializer(Decadal.class, new DecadalDeserializer());
         module.addSerializer(new MonthAsIntSerializer());
+        module.addDeserializer(Month.class, new MonthAsIntDeserializer());
         return module;
     }
 }
