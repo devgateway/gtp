@@ -5,6 +5,7 @@ import RainLevelConfig from "../../modules/entities/rainfall/RainLevelConfig"
 import RainLevelData from "../../modules/entities/rainfall/RainLevelData"
 import RainLevelFilter from "../../modules/entities/rainfall/RainLevelFilter"
 import RainLevelSetting from "../../modules/entities/rainfall/RainLevelSetting"
+import RainMap from "../../modules/entities/rainfallMap/RainMap"
 import RainSeasonChart from "../../modules/entities/rainSeason/RainSeasonChart"
 import RiverLevelChart from "../../modules/entities/river/RiverLevelChart"
 
@@ -19,6 +20,9 @@ const FILTER_RAINFALL_FULFILLED = 'FILTER_RAINFALL_FULFILLED'
 const FILTER_RAINFALL_REJECTED = 'FILTER_RAINFALL_REJECTED'
 export const CHANGE_RAINFALL_FILTER = 'CHANGE_RAINFALL_FILTER'
 export const CHANGE_RAINFALL_SETTING = 'CHANGE_RAINFALL_SETTING'
+export const RAINFALL_MAP_LAYER_PENDING = 'RAINFALL_MAP_LAYER_PENDING'
+export const RAINFALL_MAP_LAYER_FULFILLED = 'RAINFALL_MAP_LAYER_FULFILLED'
+export const RAINFALL_MAP_LAYER_REJECTED = 'RAINFALL_MAP_LAYER_REJECTED'
 export const FILTER_DRY_SEQUENCE = 'FILTER_DRY_SEQUENCE'
 const FILTER_DRY_SEQUENCE_PENDING = 'FILTER_DRY_SEQUENCE_PENDING'
 const FILTER_DRY_SEQUENCE_FULFILLED = 'FILTER_DRY_SEQUENCE_FULFILLED'
@@ -50,12 +54,17 @@ const initialState = Immutable.fromJS({
       filter: new RainLevelFilter(),
       setting: RainLevelSetting,
     },
+    rainMap: RainMap,
     drySequenceChart: DrySequenceChart,
     rainSeasonChart: RainSeasonChart,
     riverLevelChart: RiverLevelChart,
   },
   isFilteringRainfall: false,
   isFilteredRainfall: false,
+  isFilteringRainMap: false,
+  isFilteredRainMap: false,
+  loadingRainMapLayers: {},
+  loadedRainMapLayers: {},
   isFilteringDrySequence: false,
   isFilteredDrySequence: false,
   isFilteringRainSeason: false,
@@ -65,16 +74,24 @@ const initialState = Immutable.fromJS({
 })
 
 export default (state = initialState, action) => {
-  const { payload, data, path } = action;
+  const { payload, data, path, layerType } = action
   switch (action.type) {
     case WATER_RESOURCES_PENDING:
       return state.set('isLoading', true).set('error', null)
     case WATER_RESOURCES_FULFILLED:
       return state.set('isLoading', false).set('isLoaded', true).set('data', payload)
         .set('isFilteredRainfall', true).set('isFilteredDrySequence', true).set('isFilteredRainSeason', true)
-        .set('isFilteredRiverLevel', true)
+        .set('isFilteredRiverLevel', true).set('isFilteredRainMap', true)
     case WATER_RESOURCES_REJECTED:
       return state.set('isLoading', false).set('isLoaded', false).set('error', payload)
+    case RAINFALL_MAP_LAYER_PENDING:
+      return state.setIn(['loadingRainMapLayers', layerType], true).setIn(['loadedRainMapLayers', layerType], false)
+        .setIn(['data', 'rainMap', 'data', layerType], null)
+    case RAINFALL_MAP_LAYER_FULFILLED:
+      return state.setIn(['loadingRainMapLayers', layerType], false).setIn(['loadedRainMapLayers', layerType], true)
+        .setIn(['data', 'rainMap', 'data', layerType], data)
+    case RAINFALL_MAP_LAYER_REJECTED:
+      return state.setIn(['loadingRainMapLayers', layerType], false).setIn(['loadedRainMapLayers', layerType], false)
     case FILTER_RAINFALL_PENDING:
       return state.set('isFilteringRainfall', true).set('isFilteredRainfall', false).set('error', null)
     case FILTER_RAINFALL_FULFILLED:
