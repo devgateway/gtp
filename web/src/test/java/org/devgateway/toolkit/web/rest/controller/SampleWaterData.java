@@ -1,12 +1,18 @@
 package org.devgateway.toolkit.web.rest.controller;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedSet;
 import org.devgateway.toolkit.persistence.dao.Decadal;
+import org.devgateway.toolkit.persistence.dao.FileContent;
+import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.categories.River;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
+import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfallMap;
+import org.devgateway.toolkit.persistence.dao.indicator.RainfallMapLayer;
+import org.devgateway.toolkit.persistence.dao.indicator.RainfallMapLayerType;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverLevel;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverStationYearlyLevels;
 import org.devgateway.toolkit.persistence.dao.reference.RiverLevelReference;
@@ -37,6 +43,7 @@ import org.devgateway.toolkit.persistence.dto.season.SeasonChartData;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonPrediction;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.http.MediaType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -60,6 +67,8 @@ public class SampleWaterData {
     private final ChartsData chartsData;
     private final PluviometricPost postKolda;
     private final PluviometricPost postFongolimbi;
+
+    private final DecadalRainfallMap decadalRainfallMapAny;
 
     public SampleWaterData(SampleCommonData commonData) {
         postKolda = new PluviometricPost(1L);
@@ -90,6 +99,13 @@ public class SampleWaterData {
         riverStationFaleme.setRiver(riverFaleme);
 
         riverStations = ImmutableList.of(riverStationBakel, riverStationFaleme);
+
+        decadalRainfallMapAny = new DecadalRainfallMap();
+        RainfallMapLayer layer = new RainfallMapLayer(RainfallMapLayerType.ABNORMAL_POLYGON);
+        decadalRainfallMapAny.setLayers(ImmutableSet.of(layer));
+        layer.setFile(ImmutableSet.of(
+                new FileMetadata(1L, "layer.json", MediaType.APPLICATION_JSON_VALUE,
+                        new FileContent("{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"properties\":{\"ZLEVEL\":100.0},\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[-12.208333333333334,14.45],[-12.205,14.45]]]}}]}".getBytes()))));
 
         chartsData = new ChartsData(commonData.getCommonConfig(), getWaterConfig(), getRainLevelChart(), getRainMap(),
                 getDrySequenceChart(), getSeasonChart(), getRiverLevelChart());
@@ -135,7 +151,12 @@ public class SampleWaterData {
 
     private RainMap getRainMap() {
         RainMapConfig config = new RainMapConfig(ImmutableSortedSet.of(2019, 2020));
-        return new RainMap(config, new RainMapFilter(config.getYears().last(), Month.OCTOBER, Decadal.THIRD, null));
+        return new RainMap(config, new RainMapFilter(config.getYears().last(), Month.OCTOBER, Decadal.THIRD,
+                RainfallMapLayerType.ABNORMAL_POLYGON));
+    }
+
+    public DecadalRainfallMap getDecadalRainfallMapAny() {
+        return decadalRainfallMapAny;
     }
 
     private DrySequenceChart getDrySequenceChart() {

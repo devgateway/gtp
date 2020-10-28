@@ -1,23 +1,11 @@
 package org.devgateway.toolkit.web.rest.controller;
 
-import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.payload.PayloadDocumentation.beneathPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChart;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartFilter;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChart;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartFilter;
+import org.devgateway.toolkit.persistence.dto.rainfallMap.RainMap;
+import org.devgateway.toolkit.persistence.dto.rainfallMap.RainMapFilter;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChart;
 import org.devgateway.toolkit.persistence.dto.riverlevel.RiverLevelChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonChart;
@@ -30,6 +18,22 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.beneathPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * @author Octavian Ciubotaru
@@ -62,6 +66,7 @@ public class WaterGraphicsControllerTest extends AbstractDocumentedControllerTes
                 .andExpect(jsonPath("commonConfig").isNotEmpty())
                 .andExpect(jsonPath("waterConfig").isNotEmpty())
                 .andExpect(jsonPath("rainLevelChart").isNotEmpty())
+                .andExpect(jsonPath("rainMap").isNotEmpty())
                 .andExpect(jsonPath("drySequenceChart").isNotEmpty())
                 .andExpect(jsonPath("seasonChart").isNotEmpty())
                 .andExpect(jsonPath("riverLevelChart").isNotEmpty())
@@ -73,6 +78,8 @@ public class WaterGraphicsControllerTest extends AbstractDocumentedControllerTes
                                         .description("<<water-charts-config,Configuration>> for water based charts"),
                                 subsectionWithPath("rainLevelChart")
                                         .description("<<rainfall-chart,Rainfall chart>>"),
+                                subsectionWithPath("rainMap")
+                                        .description("<<rainfall-map-config,Rainfall map>>"),
                                 subsectionWithPath("drySequenceChart")
                                         .description("<<dry-sequence-chart,Dry sequence chart>>"),
                                 subsectionWithPath("seasonChart")
@@ -87,6 +94,12 @@ public class WaterGraphicsControllerTest extends AbstractDocumentedControllerTes
                                         .description("Default <<rainfall-chart-data,filter for rainfall chart>>"),
                                 subsectionWithPath("data")
                                         .description("<<rainfall-chart-data,Data>> for the default filter")),
+                        responseFields(
+                                beneathPath("rainMap").withSubsectionId("rainMap"),
+                                subsectionWithPath("config")
+                                        .description("<<rainfall-map-config,Rainfall Configuration>>"),
+                                subsectionWithPath("filter")
+                                        .description("Default <<rainfall-map-data,Filter for rainfall map>>")),
                         responseFields(
                                 beneathPath("drySequenceChart").withSubsectionId("drySequence"),
                                 subsectionWithPath("filter")
@@ -191,6 +204,45 @@ public class WaterGraphicsControllerTest extends AbstractDocumentedControllerTes
                                 fieldWithPath("years").description("Years with rainfall data"),
                                 fieldWithPath("pluviometricPostIds")
                                         .description("Pluviometric posts with rainfall data"))));
+    }
+
+    @Test
+    public void getRainMapData() throws Exception {
+        RainMap rainMap = waterData.getChartsData().getRainMap();
+
+        given(waterChartsService.getRainMapData(any())).willReturn(waterData.getDecadalRainfallMapAny());
+
+        ConstrainedFields constrainedFields = new ConstrainedFields(RainMapFilter.class);
+
+        mvc.perform(post("/api/graphics/water/rain-map/data").contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsBytes(rainMap.getFilter())))
+                .andExpect(status().isOk())
+                .andExpect(header().exists("Content-Disposition"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andDo(document("rainfall-map-data",
+                        requestFields(
+                                constrainedFields.withPath("year").description("Year"),
+                                constrainedFields.withPath("month").description("Month"),
+                                constrainedFields.withPath("decadal").description("Decadal"),
+                                constrainedFields.withPath("layerType").description("Layer Type"))));
+
+    }
+
+    @Test
+    public void getRainMapConfig() throws Exception {
+        RainMap rainMap = waterData.getChartsData().getRainMap();
+
+        given(waterChartsService.getRainMapConfig()).willReturn(rainMap.getConfig());
+
+        mvc.perform(get("/api/graphics/water/rain-map/config"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("years").isNotEmpty())
+                .andExpect(jsonPath("layerTypes").isNotEmpty())
+                .andDo(document("rainfall-map-config",
+                        responseFields(
+                                fieldWithPath("years").description("Years with rainfall map data"),
+                                fieldWithPath("layerTypes")
+                                        .description("Layer types"))));
     }
 
     @Test

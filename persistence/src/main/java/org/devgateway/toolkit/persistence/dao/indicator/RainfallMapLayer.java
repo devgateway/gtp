@@ -42,6 +42,13 @@ public class RainfallMapLayer extends AbstractAuditableEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private DecadalRainfallMap decadalRainfallMap;
 
+    public RainfallMapLayer() {
+    }
+
+    public RainfallMapLayer(RainfallMapLayerType type) {
+        this.type = type;
+    }
+
     public Set<FileMetadata> getFile() {
         return file;
     }

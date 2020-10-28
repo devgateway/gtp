@@ -194,6 +194,23 @@ Reference rainfall level fields:
 
 include::{snippets}/rain-level-data/response-fields-refLevels.adoc[]
 
+[[rainfall-map-config]]
+=== Get rainfall map config
+
+Returns years for which rain fall map data exists. Still, some combinations of specific year,
+month and decadal will return no data.
+
+For any year, there exists at least month and decadal with rainfall map data.
+
+operation::rain-map-config[snippets='curl-request,http-response,response-fields']
+
+[[rainfall-map-data]]
+=== Get rainfall map layer
+
+Return rainfall map layer by the specified filter.
+
+operation::rain-map-layer-returned[snippets='curl-request,http-request,request-fields']
+
 [[dry-sequence-chart-data]]
 === Get dry sequence chart data
 
