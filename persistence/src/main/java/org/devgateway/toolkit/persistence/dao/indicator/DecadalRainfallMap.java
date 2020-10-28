@@ -81,6 +81,10 @@ public class DecadalRainfallMap extends AbstractAuditableEntity implements Abstr
         this.layers = layers;
     }
 
+    public RainfallMapLayer getLayerByType(RainfallMapLayerType type) {
+        return this.layers.stream().filter(l -> l.getType().equals(type)).findAny().orElse(null);
+    }
+
     public RainfallMapLayer computeIfAbsent(RainfallMapLayerType type) {
         return this.layers.stream().filter(l -> l.getType().equals(type)).findFirst().orElseGet(() -> {
             RainfallMapLayer l = new RainfallMapLayer();

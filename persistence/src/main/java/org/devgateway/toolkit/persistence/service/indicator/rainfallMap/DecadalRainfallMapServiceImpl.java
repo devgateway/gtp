@@ -4,6 +4,7 @@ import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfallMap;
 import org.devgateway.toolkit.persistence.repository.indicator.DecadalRainfallMapRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
+import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class DecadalRainfallMapServiceImpl extends BaseJpaServiceImpl<DecadalRai
 
     @Autowired
     private DecadalRainfallMapRepository repository;
+
+    @Autowired
+    private AdminSettingsService adminSettingsService;
 
     @Override
     protected BaseJpaRepository<DecadalRainfallMap, Long> repository() {
@@ -56,5 +60,25 @@ public class DecadalRainfallMapServiceImpl extends BaseJpaServiceImpl<DecadalRai
     @Override
     public DecadalRainfallMap newInstance() {
         return new DecadalRainfallMap();
+    }
+
+    @Override
+    public List<Integer> findYearsWithData() {
+        return this.repository.findYearsWithData(adminSettingsService.getStartingYear());
+    }
+
+    @Override
+    public Month findLastMonthWithData(Integer year) {
+        return this.repository.findLastMonthWithData(year);
+    }
+
+    @Override
+    public Decadal findLastDecadalWithData(Integer year, Month month) {
+        return this.repository.findLastDecadalWithData(year, month);
+    }
+
+    @Override
+    public DecadalRainfallMap findByYearAndMonthAndDecadal(Integer year, Month month, Decadal decadal) {
+        return repository.findByYearAndMonthAndDecadal(year, month, decadal);
     }
 }
