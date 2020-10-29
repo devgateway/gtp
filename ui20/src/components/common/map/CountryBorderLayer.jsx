@@ -16,6 +16,12 @@ const country = require('../../../json/senegal-natural-earth.json')
 const attribution = 'Made with Natural Earth'
 */
 
+const defaultStyle = {
+  color: '#E03E32',
+  weight: 1,
+  fillOpacity: 0,
+}
+
 export default class CountryBorderLayer extends Component {
   static defaultProps = {
     style: defaultStyle,
@@ -25,10 +31,4 @@ export default class CountryBorderLayer extends Component {
     const style = {...defaultStyle, ...this.props.style}
     return <GeoJSON data={country} attribution={attribution} style={() => style}/>
   }
-}
-
-const defaultStyle = {
-  color: '#E03E32',
-  weight: 1,
-  fillOpacity: 0,
 }
