@@ -17,14 +17,18 @@ const attribution = 'Made with Natural Earth'
 */
 
 export default class CountryBorderLayer extends Component {
+  static defaultProps = {
+    style: defaultStyle,
+  }
 
   render() {
-    return <GeoJSON data={country} attribution={attribution} style={featureStyle}/>
+    const style = {...defaultStyle, ...this.props.style}
+    return <GeoJSON data={country} attribution={attribution} style={() => style}/>
   }
 }
 
-const featureStyle = (feature) => ({
+const defaultStyle = {
   color: '#E03E32',
   weight: 1,
   fillOpacity: 0,
-})
+}
