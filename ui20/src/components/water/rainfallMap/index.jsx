@@ -5,6 +5,7 @@ import {connect} from "react-redux"
 import RainMap from "../../../modules/entities/rainfallMap/RainMap"
 import * as rainMapActions from "../../../redux/actions/water/rainMapActions"
 import Graphic from "../../common/graphic/Graphic"
+import AnomalyRainMap from "./AnomalyRainMap"
 import CumulativeRainMap from "./CumulativeRainMap"
 import "./rainfalMap.scss"
 
@@ -47,7 +48,10 @@ class RainMapsGraphic extends Component {
       <Graphic
         id="anchor.indicator.water.rainMap" titleId="indicators.map.rainMap.title"
         sourceId="indicators.map.rainMap.source" className="map-graphic rainfall-map">
-        <CumulativeRainMap />
+        <div className="two-maps">
+          <CumulativeRainMap />
+          <AnomalyRainMap />
+        </div>
       </Graphic>
     )
   }

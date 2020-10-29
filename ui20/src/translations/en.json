@@ -141,6 +141,7 @@
 	"indicators.map.rainMap.help": "",
 	"indicators.map.rainMap.source": "ANACIM | GADM",
 	"indicators.map.rainMap.subtitle.cumul": "Cumul",
+	"indicators.map.rainMap.subtitle.anomaly": "Anomalies",
 	"indicators.chart.rainfall.title": "Pluviometry by post",
 	"indicators.chart.rainfall.help": "Ce tableau renseigne sur l’évolution de la pluviométrique. Les barres représentent la hauteur pluviométrique cumulé de mai à octobre, la courbe représente la normale pluviométrique (1981-2010) cumulée de mai à octobre.",
 	"indicators.chart.rainfall.source": "ANACIM",

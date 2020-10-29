@@ -10,12 +10,29 @@
     padding-left: 21px;
   }
 
+  .two-maps {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: stretch;
+
+    width: 100%;
+    padding-bottom: 40px;
+
+    .png.exportable {
+      max-width: calc(50% - 15px);
+      min-width: 400px;
+      width: 100%;
+    }
+  }
   .map-container {
+    width: 100%;
+
     .map.leaflet-container {
       background-color: #fff;
-
       border: $border;
-      border-collapse: collapse;
+      min-width: 400px;
 
       .leaflet-control-attribution.leaflet-control {
         display: none;
