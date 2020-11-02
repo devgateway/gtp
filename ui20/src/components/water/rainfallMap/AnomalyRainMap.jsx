@@ -4,12 +4,12 @@ import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import AnomalyRainMapLayers from "../../../modules/graphic/water/rainfallMap/AnomalyRainMapLayers"
 import {RainfallMap} from "./RainfallMap"
-import {getRainFeatureStyle} from "./RainfallMapHelper"
+import {getRainFeatureStyle, onEachRainFeature} from "./RainfallMapHelper"
 
 class AnomalyRainMap extends Component {
 
   render() {
-    const {polyline, polygon} = this.props
+    const {polyline, polygon, intl} = this.props
     // TODO process no data
     if (!polyline || !polygon) {
       return "No data"
@@ -22,6 +22,7 @@ class AnomalyRainMap extends Component {
         titleId="indicators.map.rainMap.subtitle.anomaly"
         polyline={layers.polyline}
         polygon={layers.polygon}
+        onEachFeature={onEachRainFeature(layers.colorsMap, intl.formatMessage({id: "indicators.map.rainMap.unit.anomaly"}))}
         rainFeatureStyle={rainFeatureStyle}>
       </RainfallMap>
     )

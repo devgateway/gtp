@@ -147,6 +147,8 @@
 	"indicators.map.rainMap.source": "ANACIM | GADM",
 	"indicators.map.rainMap.subtitle.cumul": "Cumul",
 	"indicators.map.rainMap.subtitle.anomaly": "Anomalies",
+	"indicators.map.rainMap.unit.cumul": "mm",
+	"indicators.map.rainMap.unit.anomaly": "%",
 	"indicators.table.rainseason.title": "Date de début de la saison",
 	"indicators.table.rainseason.help": "Ce tableau montre les dates de début de la saison des pluies normale, les dates de début de la saison qui ont été observées durant l’année en cours. La dernière colonne nous renseigne si un retard ou une avance a été constaté (en nombre de jours).",
 	"indicators.table.rainseason.source": "ANACIM",

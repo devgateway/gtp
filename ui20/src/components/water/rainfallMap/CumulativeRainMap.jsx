@@ -9,7 +9,7 @@ import {getRainFeatureStyle, onEachRainFeature} from "./RainfallMapHelper"
 class CumulativeRainMap extends Component {
 
   render() {
-    const {polyline, polygon} = this.props
+    const {polyline, polygon, intl} = this.props
     // TODO process no data
     if (!polyline || !polygon) {
       return "No data"
@@ -22,7 +22,7 @@ class CumulativeRainMap extends Component {
         titleId="indicators.map.rainMap.subtitle.cumul"
         polyline={layers.polyline}
         polygon={layers.polygon}
-        onEachFeature={onEachRainFeature(layers.colorsMap, "mm")}
+        onEachFeature={onEachRainFeature(layers.colorsMap, intl.formatMessage({id: "indicators.map.rainMap.unit.cumul"}))}
         rainFeatureStyle={rainFeatureStyle}>
       </RainfallMap>
     )
