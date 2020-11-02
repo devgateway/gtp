@@ -4,7 +4,7 @@ import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import CumulativeRainMapLayers from "../../../modules/graphic/water/rainfallMap/CumulativeRainMapLayers"
 import {RainfallMap} from "./RainfallMap"
-import {getRainFeatureStyle} from "./RainfallMapHelper"
+import {getRainFeatureStyle, onEachRainFeature} from "./RainfallMapHelper"
 
 class CumulativeRainMap extends Component {
 
@@ -22,12 +22,14 @@ class CumulativeRainMap extends Component {
         titleId="indicators.map.rainMap.subtitle.cumul"
         polyline={layers.polyline}
         polygon={layers.polygon}
+        onEachFeature={onEachRainFeature(layers.colorsMap, "mm")}
         rainFeatureStyle={rainFeatureStyle}>
       </RainfallMap>
     )
   }
 
 }
+
 
 const mapStateToProps = state => {
   return {

@@ -16,3 +16,22 @@ export const getRainFeatureStyle = (colorsMap: Map) => (feature) => {
     fillOpacity: 1,
   }
 }
+
+export const hasZLevel = (feature) => feature.properties.ZLEVEL || feature.properties.ZLEVEL === 0
+
+export const onEachRainFeature = (colorsMap: Map, unit: string) => (feature, layer) => {
+  if (hasZLevel(feature)) {
+    const color = colorsMap.get(feature.properties.ZLEVEL)
+    layer.bindTooltip(`
+      <div>
+        <span style="background-color: ${color}">&nbsp;</span>
+        <span>&nbsp;${feature.properties.ZLEVEL}${unit}</span>
+      </div>`,
+      {
+        permanent: false,
+        sticky: true,
+        direction: "top",
+        className: "rain-tooltip"
+      });
+  }
+}

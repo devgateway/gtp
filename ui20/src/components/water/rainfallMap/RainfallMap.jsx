@@ -12,11 +12,12 @@ export class RainfallMap extends Component {
     titleId: PropTypes.string.isRequired,
     polyline: PropTypes.object.isRequired,
     polygon: PropTypes.object.isRequired,
+    onEachFeature: PropTypes.func.isRequired,
     rainFeatureStyle: PropTypes.func.isRequired,
   }
 
   render() {
-    const {titleId, polyline, polygon, rainFeatureStyle} = this.props
+    const {titleId, polyline, polygon, onEachFeature, rainFeatureStyle} = this.props
 
 
     return (
@@ -31,14 +32,19 @@ export class RainfallMap extends Component {
                zoomDelta={0.5}
                zoomSnap={0.5}
                scrollWheelZoom={false}>
-            <GeoJSON data={polygon} style={rainFeatureStyle}/>
+            <GeoJSON data={polygon} style={rainFeatureStyle} onEachFeature={onEachFeature}/>
             <GeoJSON data={polyline} style={rainFeatureStyle}/>
             <GeoJSON data={regionGeoJson} style={{
               color: "#7f7f7f",
+              fill: false,
               fillOpacity: 0,
               weight: 1
             }} />
-            <CountryBorderLayer style={{color: "#4e4e4e"}}/>
+            <CountryBorderLayer style={{
+              color: "#4e4e4e",
+              fill: false,
+            }}/>
+
           </Map>
         </div>
       </div>

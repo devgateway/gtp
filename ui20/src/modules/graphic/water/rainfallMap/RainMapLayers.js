@@ -1,3 +1,5 @@
+import {hasZLevel} from "../../../../components/water/rainfallMap/RainfallMapHelper"
+
 export default class RainMapLayers {
   polyline: Object
   polygon: Object
@@ -11,7 +13,7 @@ export default class RainMapLayers {
 }
 
 const cleanupFeatures = (geoJson) => {
-  geoJson.features = geoJson.features.filter(f => (f.properties.ZLEVEL || f.properties.ZLEVEL === 0))
+  geoJson.features = geoJson.features.filter(f => (hasZLevel(f)))
   return geoJson
 }
 

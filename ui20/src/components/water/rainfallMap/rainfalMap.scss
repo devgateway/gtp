@@ -52,6 +52,14 @@
     }
   }
 
+  .rain-tooltip {
+    border-width: 0;
+    font-size: 10px;
+    font-weight: 400;
+    color: rgb(0, 0, 0);
+    text-anchor: start;
+  }
+
   .source {
     position: relative;
     z-index: 600;
