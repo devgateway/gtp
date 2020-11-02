@@ -43,3 +43,4 @@ export const anomalyColors = [
   [200, '#0F8433'],
   [210, '#006633']
 ]
+export const anomalyColorsMap = new Map(anomalyColors)

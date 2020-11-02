@@ -1,10 +1,12 @@
 import React, {Component} from "react"
-import {injectIntl} from "react-intl"
+import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import AnomalyRainMapLayers from "../../../modules/graphic/water/rainfallMap/AnomalyRainMapLayers"
+import * as rainfallMapCss from "../../../modules/graphic/water/rainfallMap/rainfallMapCss"
 import {RainfallMap} from "./RainfallMap"
 import {getRainFeatureStyle, onEachRainFeature} from "./RainfallMapHelper"
+import {RainfallMapLegend} from "./RainfallMapLegend"
 
 class AnomalyRainMap extends Component {
 
@@ -16,18 +18,36 @@ class AnomalyRainMap extends Component {
     }
     const layers = new AnomalyRainMapLayers(polyline, polygon)
     const rainFeatureStyle = getRainFeatureStyle(layers.colorsMap)
+    const unit = intl.formatMessage({id: "indicators.map.rainMap.unit.anomaly"})
 
     return (
       <RainfallMap
         titleId="indicators.map.rainMap.subtitle.anomaly"
         polyline={layers.polyline}
         polygon={layers.polygon}
-        onEachFeature={onEachRainFeature(layers.colorsMap, intl.formatMessage({id: "indicators.map.rainMap.unit.anomaly"}))}
+        onEachFeature={onEachRainFeature(layers.colorsMap, unit)}
         rainFeatureStyle={rainFeatureStyle}>
+        <RainfallMapLegend colorsMap={rainfallMapCss.anomalyColorsMap} unit={unit} legendLabelFunc={getAnomalyLegendLabel} />
       </RainfallMap>
     )
   }
 
+}
+
+
+const getAnomalyLegendLabel = (grade, unit, idx, total) => {
+  if (idx === 0) {
+    return <div className="legend-label">0{unit}</div>
+  } else if (idx === total - 1) {
+    return <div className="legend-label">200+{unit}</div>
+  } else if (idx === Math.trunc(total / 2)) {
+    return <div className="legend-label move-left"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.normal"/></div>
+  } else if (idx === Math.trunc(total / 4)) {
+    return <div className="legend-label move-left"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.deficient"/></div>
+  } else if (idx === total - 1 - Math.trunc(total / 4)) {
+    return <div className="legend-label move-left"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.excessive"/></div>
+  }
+  return ""
 }
 
 const mapStateToProps = state => {
