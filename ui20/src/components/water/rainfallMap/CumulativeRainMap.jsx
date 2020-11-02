@@ -3,7 +3,6 @@ import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import CumulativeRainMapLayers from "../../../modules/graphic/water/rainfallMap/CumulativeRainMapLayers"
-import * as rainfallMapCss from "../../../modules/graphic/water/rainfallMap/rainfallMapCss"
 import {RainfallMap} from "./RainfallMap"
 import {getRainFeatureStyle} from "./RainfallMapHelper"
 
@@ -16,7 +15,7 @@ class CumulativeRainMap extends Component {
       return "No data"
     }
     const layers = new CumulativeRainMapLayers(polyline, polygon)
-    const rainFeatureStyle = getRainFeatureStyle(layers.colorsMap, rainfallMapCss.defaultCumulColor)
+    const rainFeatureStyle = getRainFeatureStyle(layers.colorsMap)
 
     return (
       <RainfallMap

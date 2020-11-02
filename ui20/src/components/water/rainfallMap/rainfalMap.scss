@@ -4,7 +4,12 @@
   .map-title {
     font-size: 18px;
     letter-spacing: 0;
-    line-height: 61px;
+    max-height: 61px;
+    height: calc(21px + 4vh);
+    min-height: 35px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
     color: $color-blue;
     font-weight: 400;
     padding-left: 21px;
@@ -24,6 +29,13 @@
       max-width: calc(50% - 15px);
       min-width: 400px;
       width: 100%;
+    }
+
+    .png.exportable:first-of-type .map{
+      border-left: 0;
+    }
+    .png.exportable:last-of-type:not(:first-of-type) .map{
+      border-right: 0;
     }
   }
   .map-container {

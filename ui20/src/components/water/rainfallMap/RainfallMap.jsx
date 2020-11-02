@@ -23,7 +23,14 @@ export class RainfallMap extends Component {
       <div className="png exportable">
         <div className="map-title"><FormattedMessage id={titleId}/></div>
         <div className="map-container">
-          <Map className="map" zoom={6.5} center={[14.4974, -14.4545887]} zoomControl={true} zoomDelta={0.5} zoomSnap={0.5}>
+          <Map className="map"
+               center={[14.4974, -14.4545887]}
+               dragging={false}
+               zoom={6.5}
+               zoomControl={false}
+               zoomDelta={0.5}
+               zoomSnap={0.5}
+               scrollWheelZoom={false}>
             <GeoJSON data={polygon} style={rainFeatureStyle}/>
             <GeoJSON data={polyline} style={rainFeatureStyle}/>
             <GeoJSON data={regionGeoJson} style={{

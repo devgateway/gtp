@@ -10,5 +10,8 @@ export default class CumulativeRainMapLayers extends RainMapLayers {
 
 // TODO color detection
 const colorsFunc = (zlevel, index) => {
-  return rainfallMapCss.cumulColors[index]
+  if (index < rainfallMapCss.cumulColors.length) {
+    return rainfallMapCss.cumulColors[index]
+  }
+  return rainfallMapCss.defaultCumulColor
 }

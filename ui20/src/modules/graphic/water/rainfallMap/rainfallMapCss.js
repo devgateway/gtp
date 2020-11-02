@@ -18,7 +18,6 @@ export const cumulColors = [
   '#0000FF'
 ]
 
-export const defaultAnomalyColor = '#FFFFFF'
 export const anomalyMaxLevel = 210
 export const anomalyColors = [
   // [max value, color]
