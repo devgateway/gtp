@@ -1,5 +1,7 @@
 @import '../../../base';
 
+$legend-square: 13px;
+
 .map-graphic.rainfall-map {
   .map-title {
     font-size: 18px;
@@ -63,5 +65,43 @@
   .source {
     position: relative;
     z-index: 600;
+  }
+
+  .rainfall-map-legend {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      line-height: $legend-square;
+      color: #555;
+      height: auto;
+    }
+
+    .legend-item {
+      max-width: $legend-square;
+
+      i {
+        display: inline-block;
+        width: $legend-square;
+        height: $legend-square;
+        border: 1px solid #eeeeee;
+        border-left: 0;
+      }
+
+      .legend-label {
+        padding-top: $legend-square;
+        color: $legend-color;
+        font-size: 9px;
+        margin-left: -5px;
+      }
+    }
+    .legend-item:first-of-type {
+      i {
+        border-left: 1px solid #eeeeee;
+      }
+    }
   }
 }

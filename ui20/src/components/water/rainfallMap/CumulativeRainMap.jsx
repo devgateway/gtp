@@ -5,6 +5,7 @@ import * as C from "../../../modules/entities/Constants"
 import CumulativeRainMapLayers from "../../../modules/graphic/water/rainfallMap/CumulativeRainMapLayers"
 import {RainfallMap} from "./RainfallMap"
 import {getRainFeatureStyle, onEachRainFeature} from "./RainfallMapHelper"
+import {RainfallMapLegend} from "./RainfallMapLegend"
 
 class CumulativeRainMap extends Component {
 
@@ -16,20 +17,32 @@ class CumulativeRainMap extends Component {
     }
     const layers = new CumulativeRainMapLayers(polyline, polygon)
     const rainFeatureStyle = getRainFeatureStyle(layers.colorsMap)
+    const unit = intl.formatMessage({id: "indicators.map.rainMap.unit.cumul"})
 
     return (
       <RainfallMap
         titleId="indicators.map.rainMap.subtitle.cumul"
         polyline={layers.polyline}
         polygon={layers.polygon}
-        onEachFeature={onEachRainFeature(layers.colorsMap, intl.formatMessage({id: "indicators.map.rainMap.unit.cumul"}))}
+        onEachFeature={onEachRainFeature(layers.colorsMap, unit)}
         rainFeatureStyle={rainFeatureStyle}>
+        <RainfallMapLegend colorsMap={layers.colorsMap} unit={unit} legendLabelFunc={getCumulativeLegendLabel} />
       </RainfallMap>
     )
   }
 
 }
 
+const getCumulativeLegendLabel = (grade, unit, idx, total) => {
+  if (idx === 0) {
+    return <div className="legend-label">{grade}{unit}</div>
+  } else if (idx === total - 1) {
+    return <div className="legend-label">{grade}+{unit}</div>
+  } else if (idx === Math.trunc(total / 2)) {
+    return <div className="legend-label">{grade}{unit}</div>
+  }
+  return ""
+}
 
 const mapStateToProps = state => {
   return {

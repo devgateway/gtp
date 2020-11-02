@@ -45,6 +45,7 @@ export class RainfallMap extends Component {
               fill: false,
             }}/>
 
+            {this.props.children}
           </Map>
         </div>
       </div>
