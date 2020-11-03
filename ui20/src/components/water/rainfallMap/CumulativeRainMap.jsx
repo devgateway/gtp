@@ -39,7 +39,7 @@ const getCumulativeLegendLabel = (grade, unit, idx, total) => {
   if (idx === 0) {
     return <div className="legend-label">{grade}{unit}</div>
   } else if (idx === total - 1) {
-    return <div className="legend-label">{grade}+{unit}</div>
+    return <div className="legend-label">{grade}{unit}</div>
   } else if (idx === Math.trunc(total / 2)) {
     return <div className="legend-label">{grade}{unit}</div>
   }

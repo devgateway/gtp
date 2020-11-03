@@ -8,6 +8,7 @@ import Graphic from "../../common/graphic/Graphic"
 import AnomalyRainMap from "./AnomalyRainMap"
 import CumulativeRainMap from "./CumulativeRainMap"
 import "./rainfalMap.scss"
+import RainfallMapProperties from "./RainfallMapProperties"
 
 class RainMapsGraphic extends Component {
   static propTypes = {
@@ -42,12 +43,13 @@ class RainMapsGraphic extends Component {
   }
 
   render() {
-    const rainMap: RainMap = this.props.rainMap
+    const {rainMap, isFilteredRainMap} = this.props
 
     return (
       <Graphic
         id="anchor.indicator.water.rainMap" titleId="indicators.map.rainMap.title"
         sourceId="indicators.map.rainMap.source" className="map-graphic rainfall-map">
+        {isFilteredRainMap && <RainfallMapProperties filter={rainMap.filter} />}
         <div className="two-maps">
           <CumulativeRainMap />
           <AnomalyRainMap />
