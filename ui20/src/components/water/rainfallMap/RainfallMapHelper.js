@@ -36,7 +36,7 @@ const highlightLine = (style, color) => {
 
 export const hasZLevel = (feature) => feature.properties.ZLEVEL || feature.properties.ZLEVEL === 0
 
-export const onEachRainFeature = (colorsMap: Map, unit: string) => (feature, layer) => {
+export const onEachPolygonFeature = (colorsMap: Map, unit: string) => (feature, layer) => {
   if (hasZLevel(feature)) {
     const color = colorsMap.get(feature.properties.ZLEVEL)
     layer.bindTooltip(`

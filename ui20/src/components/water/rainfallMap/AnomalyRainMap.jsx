@@ -5,7 +5,7 @@ import * as C from "../../../modules/entities/Constants"
 import AnomalyRainMapLayers from "../../../modules/graphic/water/rainfallMap/AnomalyRainMapLayers"
 import * as rainfallMapCss from "../../../modules/graphic/water/rainfallMap/rainfallMapCss"
 import {RainfallMap} from "./RainfallMap"
-import {getAnomalyPolylineFeatureStyle, getRainFeatureStyle, onEachRainFeature} from "./RainfallMapHelper"
+import {getAnomalyPolylineFeatureStyle, getRainFeatureStyle, onEachPolygonFeature} from "./RainfallMapHelper"
 import {RainfallMapLegend} from "./RainfallMapLegend"
 
 class AnomalyRainMap extends Component {
@@ -24,7 +24,7 @@ class AnomalyRainMap extends Component {
         titleId="indicators.map.rainMap.subtitle.anomaly"
         polyline={layers.polyline}
         polygon={layers.polygon}
-        onEachFeature={onEachRainFeature(layers.colorsMap, unit)}
+        onEachPolygonFeature={onEachPolygonFeature(layers.colorsMap, unit)}
         polygonFeatureStyle={getRainFeatureStyle(layers.colorsMap)}
         polylineFeatureStyle={getAnomalyPolylineFeatureStyle(layers.colorsMap)}>
         <RainfallMapLegend colorsMap={rainfallMapCss.anomalyColorsMap} unit={unit} legendLabelFunc={getAnomalyLegendLabel} />
