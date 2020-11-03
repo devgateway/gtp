@@ -6,7 +6,7 @@ $legend-square: 13px;
   .map-title {
     font-size: 18px;
     letter-spacing: 0;
-    max-height: 61px;
+    max-height: 45px;
     height: calc(21px + 4vh);
     min-height: 35px;
     align-items: center;
@@ -47,9 +47,15 @@ $legend-square: 13px;
       background-color: #fff;
       border: $border;
       min-width: 400px;
+      max-height: 435px;
 
       .leaflet-control-attribution.leaflet-control {
         display: none;
+      }
+      .leaflet-pane.leaflet-map-pane {
+        .leaflet-zoom-animated {
+          margin-top: -25px;
+        }
       }
     }
   }
@@ -75,7 +81,7 @@ $legend-square: 13px;
     .legend {
       display: flex;
       justify-content: center;
-      line-height: $legend-square;
+      line-height: 11px;
       color: #555;
       height: auto;
     }
@@ -92,7 +98,7 @@ $legend-square: 13px;
       }
 
       .legend-label {
-        padding-top: $legend-square;
+        padding-top: 6px;
         color: $legend-color;
         font-size: 9px;
         margin-left: -5px;

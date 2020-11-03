@@ -36,10 +36,10 @@ class RainfallMap extends Component {
           <Map className="map black-tooltip"
                center={[14.4974, -14.4545887]}
                dragging={false}
-               zoom={6.5}
+               zoom={6.6}
                zoomControl={false}
-               zoomDelta={0.5}
-               zoomSnap={0.5}
+               zoomDelta={0.2}
+               zoomSnap={0.2}
                scrollWheelZoom={false}>
             <GeoJSON data={polygon} style={polygonFeatureStyle} onEachFeature={onEachPolygonFeature}/>
             <GeoJSON data={polyline} style={polylineFeatureStyle} onEachFeature={onEachPolylineFeature}/>
@@ -56,7 +56,7 @@ class RainfallMap extends Component {
 
             {showPosts && <PluviometricPostLayer
               postMapDTO={getPostLocation().postMapDTO}
-              circleColor="#4e4e4e"
+              circleColor="#364833"
               circleRadius={1}
               intl={intl} />}
 
@@ -66,7 +66,6 @@ class RainfallMap extends Component {
       </div>
     )
   }
-
 }
 
 
