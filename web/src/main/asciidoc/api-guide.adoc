@@ -202,14 +202,14 @@ month and decadal will return no data.
 
 For any year, there exists at least month and decadal with rainfall map data.
 
-operation::rain-map-config[snippets='curl-request,http-response,response-fields']
+operation::rainfall-map-config[snippets='curl-request,http-response,response-fields']
 
 [[rainfall-map-data]]
 === Get rainfall map layer
 
 Return rainfall map layer by the specified filter.
 
-operation::rain-map-layer-returned[snippets='curl-request,http-request,request-fields']
+operation::rainfall-map-data[snippets='curl-request,http-request,request-fields']
 
 [[dry-sequence-chart-data]]
 === Get dry sequence chart data
