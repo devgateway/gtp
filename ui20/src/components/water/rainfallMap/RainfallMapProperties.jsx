@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types"
 import React, {Component} from "react"
-import {injectIntl} from "react-intl"
+import {FormattedMessage, injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import {SEASON_MONTHS} from "../../../modules/entities/Constants"
 import {decadalsToOptions, monthsToOptions, yearsToOptions} from "../../../modules/graphic/common/GraphicDTO"
@@ -12,13 +12,16 @@ class RainfallMapProperties extends Component {
     setYearsFilter: PropTypes.func.isRequired,
     setMonth: PropTypes.func.isRequired,
     setDecadal: PropTypes.func.isRequired,
+    setShowPostsSetting: PropTypes.func.isRequired,
     config: PropTypes.object.isRequired,
     filter: PropTypes.object.isRequired,
+    setting: PropTypes.object.isRequired,
   }
   render() {
     return (
       <div className="indicator chart properties">
         <RainfallMapFilters {...this.props} />
+        <RainMapSetting {...this.props} />
       </div>)
   }
 }
@@ -54,7 +57,28 @@ const RainfallMapFilters = (props) => {
           selected={[decadal]} text={intl.formatMessage({ id: "all.decadal" })} />
       </div>
     </div>)
+}
 
+const RainMapSetting = (props) => {
+  const {setting, setShowPostsSetting} = props
+  const checked = setting.showPluviometricPosts
+  const onChange = (showPosts) => setShowPostsSetting(showPosts)
+  return (
+    <div className="indicator chart setting daysWithOrWithoutRain">
+      <div className="setting item">
+        <div className="chart toggler view">
+          <div className="ui toggle checkbox">
+            <div className={checked ? 'active' : ''}>
+              <FormattedMessage id="all.posts"/>
+            </div>
+            <input id="period" type="checkbox" onChange={e => onChange(!checked)}
+                   defaultChecked={checked ? 'checked' : ''}/>
+            <label className={!checked ? 'active' : ''}></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 const mapStateToProps = state => {
@@ -67,6 +91,7 @@ const mapActionCreators = {
   setYearFilter: (year) => rainMapActions.setRainMapFilter(['year'], year),
   setMonth: (month) => rainMapActions.setRainMapFilter(['month'], month),
   setDecadal: (decadal) => rainMapActions.setRainMapFilter(['decadal'], decadal),
+  setShowPostsSetting: (showPosts) => rainMapActions.setRainMapSetting(['showPluviometricPosts'], showPosts)
 }
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(RainfallMapProperties))

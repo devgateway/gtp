@@ -24,6 +24,7 @@ export const RAINFALL_MAP_LAYER_PENDING = 'RAINFALL_MAP_LAYER_PENDING'
 export const RAINFALL_MAP_LAYER_FULFILLED = 'RAINFALL_MAP_LAYER_FULFILLED'
 export const RAINFALL_MAP_LAYER_REJECTED = 'RAINFALL_MAP_LAYER_REJECTED'
 export const CHANGE_RAINFALL_MAP_FILTER = 'CHANGE_RAINFALL_MAP_FILTER'
+export const CHANGE_RAINFALL_MAP_SETTING = 'CHANGE_RAINFALL_MAP_SETTING'
 export const FILTER_DRY_SEQUENCE = 'FILTER_DRY_SEQUENCE'
 const FILTER_DRY_SEQUENCE_PENDING = 'FILTER_DRY_SEQUENCE_PENDING'
 const FILTER_DRY_SEQUENCE_FULFILLED = 'FILTER_DRY_SEQUENCE_FULFILLED'
@@ -95,6 +96,8 @@ export default (state = initialState, action) => {
       return state.setIn(['loadingRainMapLayers', layerType], false).setIn(['loadedRainMapLayers', layerType], false)
     case CHANGE_RAINFALL_MAP_FILTER:
       return state.setIn(['data', 'rainMap', 'filter', ...path], data)
+    case CHANGE_RAINFALL_MAP_SETTING:
+      return state.setIn(['data', 'rainMap', 'setting', ...path], data)
     case FILTER_RAINFALL_PENDING:
       return state.set('isFilteringRainfall', true).set('isFilteredRainfall', false).set('error', null)
     case FILTER_RAINFALL_FULFILLED:

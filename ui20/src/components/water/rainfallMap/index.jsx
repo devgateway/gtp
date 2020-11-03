@@ -48,7 +48,7 @@ class RainMapsGraphic extends Component {
       <Graphic
         id="anchor.indicator.water.rainMap" titleId="indicators.map.rainMap.title"
         sourceId="indicators.map.rainMap.source" className="map-graphic rainfall-map">
-        {isFilteredRainMap && <RainfallMapProperties filter={rainMap.filter} />}
+        {isFilteredRainMap && <RainfallMapProperties filter={rainMap.filter} setting={rainMap.setting} />}
         <div className="two-maps">
           <CumulativeRainMap />
           <AnomalyRainMap />

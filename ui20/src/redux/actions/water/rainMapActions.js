@@ -2,6 +2,7 @@ import * as api from "../../../modules/api/index"
 import RainMap, {rainMapFromApi} from "../../../modules/entities/rainfallMap/RainMap"
 import {
   CHANGE_RAINFALL_MAP_FILTER,
+  CHANGE_RAINFALL_MAP_SETTING,
   RAINFALL_MAP_LAYER_FULFILLED,
   RAINFALL_MAP_LAYER_PENDING,
   RAINFALL_MAP_LAYER_REJECTED
@@ -39,4 +40,12 @@ export const setRainMapFilter = (path, data) => (dispatch, getState) => {
     data
   })
   loadRainMapData()(dispatch, getState)
+}
+
+export const setRainMapSetting = (path, data) => (dispatch, getState) => {
+  dispatch({
+    type: CHANGE_RAINFALL_MAP_SETTING,
+    path,
+    data
+  })
 }
