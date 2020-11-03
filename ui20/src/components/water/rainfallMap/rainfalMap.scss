@@ -107,4 +107,14 @@ $legend-square: 13px;
       }
     }
   }
+
+  .anomaly-polyline-label {
+    color: $legend-color;
+    font-weight: 600;
+    border: 0;
+    box-shadow: unset;
+    background: unset;
+    opacity: 1;
+    margin-left: 15px;
+  }
 }

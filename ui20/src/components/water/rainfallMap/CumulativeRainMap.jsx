@@ -25,6 +25,7 @@ class CumulativeRainMap extends Component {
         polyline={layers.polyline}
         polygon={layers.polygon}
         onEachPolygonFeature={onEachPolygonFeature(layers.colorsMap, unit)}
+        onEachPolylineFeature={() => null}
         polygonFeatureStyle={rainFeatureStyle}
         polylineFeatureStyle={rainFeatureStyle}>
         <RainfallMapLegend colorsMap={layers.colorsMap} unit={unit} legendLabelFunc={getCumulativeLegendLabel} />

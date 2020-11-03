@@ -52,3 +52,14 @@ export const onEachPolygonFeature = (colorsMap: Map, unit: string) => (feature, 
       });
   }
 }
+
+export const onAnomalyPolylineFeature = (feature, layer) => {
+  if ([80, 100, 120].includes(feature.properties.ZLEVEL)) {
+    layer.bindTooltip("" + feature.properties.ZLEVEL,
+      {
+        permanent: true,
+        direction: "middle",
+        className: "anomaly-polyline-label"
+      }).openTooltip();
+  }
+}
