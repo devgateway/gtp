@@ -117,4 +117,7 @@ $legend-square: 13px;
     opacity: 1;
     margin-left: 15px;
   }
+  .anomaly-polyline-label:before {
+    display: none;
+  }
 }

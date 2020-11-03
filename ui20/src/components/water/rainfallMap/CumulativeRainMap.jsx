@@ -3,7 +3,7 @@ import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import CumulativeRainMapLayers from "../../../modules/graphic/water/rainfallMap/CumulativeRainMapLayers"
-import {RainfallMap} from "./RainfallMap"
+import RainfallMap from "./RainfallMap"
 import {getRainFeatureStyle, onEachPolygonFeature} from "./RainfallMapHelper"
 import {RainfallMapLegend} from "./RainfallMapLegend"
 

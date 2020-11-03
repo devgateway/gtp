@@ -9,25 +9,31 @@ import {COLOR_BLUE} from "../../common/map/MapUtils"
 export default class PluviometricPostLayer extends Component {
   static propTypes = {
     postMapDTO: PropTypes.instanceOf(PluviometricPostMapDTO).isRequired,
+    circleColor: PropTypes.string,
+    circleRadius: PropTypes.number,
+  }
+
+  static defaultProps = {
+    circleColor: COLOR_BLUE,
+    circleRadius: 5,
   }
 
   render() {
-    const {intl} = this.props
+    const {intl, circleColor, circleRadius} = this.props
     const attribution = intl.formatMessage({ id: "indicators.map.post.source" })
 
     return (
       <div>
         {this.props.postMapDTO.posts.map((p: PluviometricPostDTO) => {
-          const color = COLOR_BLUE
 
           return (
             <CircleMarker
               key={p.id}
               attribution={attribution}
               center={[p.latitude, p.longitude]}
-              color={color}
+              color={circleColor}
               fillOpacity={1}
-              radius={5} >
+              radius={circleRadius} >
               <Tooltip className="black">
                 <div className="tooltips black">
                   <div className="tooltip-title">

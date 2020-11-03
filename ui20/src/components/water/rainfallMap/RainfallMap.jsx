@@ -1,13 +1,16 @@
 import React, {Component} from "react"
 import * as PropTypes from "prop-types"
-import {FormattedMessage} from "react-intl"
+import {FormattedMessage, injectIntl} from "react-intl"
 import {GeoJSON, Map} from "react-leaflet"
-import "../../market/marketLocation/marketMap.scss"
+import "../../common/map/map.scss"
+import {connect} from "react-redux"
+import * as waterActions from "../../../redux/actions/waterActions"
 import CountryBorderLayer from "../../common/map/CountryBorderLayer"
+import PluviometricPostLayer from "../postLocation/PluviometricPostLayer"
 
 const regionGeoJson = require('../../../json/regions.json')
 
-export class RainfallMap extends Component {
+class RainfallMap extends Component {
   static propTypes = {
     titleId: PropTypes.string.isRequired,
     polyline: PropTypes.object.isRequired,
@@ -16,17 +19,21 @@ export class RainfallMap extends Component {
     onEachPolylineFeature: PropTypes.func.isRequired,
     polygonFeatureStyle: PropTypes.func.isRequired,
     polylineFeatureStyle: PropTypes.func.isRequired,
+    showPluviometricPosts: PropTypes.bool.isRequired,
+    isAllWaterLoaded: PropTypes.bool.isRequired,
+    getPostLocation: PropTypes.func.isRequired,
   }
 
   render() {
-    const {titleId, polyline, polygon, onEachPolygonFeature, onEachPolylineFeature, polygonFeatureStyle, polylineFeatureStyle} = this.props
-
+    const {titleId, polyline, polygon, onEachPolygonFeature, onEachPolylineFeature, polygonFeatureStyle,
+      polylineFeatureStyle, showPluviometricPosts, isAllWaterLoaded, getPostLocation, intl} = this.props
+    const showPosts = showPluviometricPosts && isAllWaterLoaded
 
     return (
       <div className="png exportable">
         <div className="map-title"><FormattedMessage id={titleId}/></div>
         <div className="map-container">
-          <Map className="map"
+          <Map className="map black-tooltip"
                center={[14.4974, -14.4545887]}
                dragging={false}
                zoom={6.5}
@@ -47,6 +54,12 @@ export class RainfallMap extends Component {
               fill: false,
             }}/>
 
+            {showPosts && <PluviometricPostLayer
+              postMapDTO={getPostLocation().postMapDTO}
+              circleColor="#4e4e4e"
+              circleRadius={1}
+              intl={intl} />}
+
             {this.props.children}
           </Map>
         </div>
@@ -55,3 +68,17 @@ export class RainfallMap extends Component {
   }
 
 }
+
+
+const mapStateToProps = state => {
+  return {
+    isAllWaterLoaded: state.getIn(['water', 'isLoaded']),
+    showPluviometricPosts: state.getIn(['water', 'data', 'rainMap', 'setting', 'showPluviometricPosts']),
+  }
+}
+
+const mapActionCreators = {
+  getPostLocation: waterActions.getPostLocation
+}
+
+export default injectIntl(connect(mapStateToProps, mapActionCreators)(RainfallMap))

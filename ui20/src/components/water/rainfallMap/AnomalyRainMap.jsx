@@ -4,7 +4,7 @@ import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import AnomalyRainMapLayers from "../../../modules/graphic/water/rainfallMap/AnomalyRainMapLayers"
 import * as rainfallMapCss from "../../../modules/graphic/water/rainfallMap/rainfallMapCss"
-import {RainfallMap} from "./RainfallMap"
+import RainfallMap from "./RainfallMap"
 import {
   getAnomalyPolylineFeatureStyle,
   getRainFeatureStyle,
