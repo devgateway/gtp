@@ -1,6 +1,9 @@
 {
 	"all.alertLevel": "Alert level",
 	"all.decadal": "Decadal",
+	"all.decadal.1": "Decadal 1",
+	"all.decadal.2": "Decadal 2",
+	"all.decadal.3": "Decadal 3",
 	"all.decadals": "Decadals",
 	"all.decadalsPerMonth": "Decadals per month",
 	"all.graphic.value.NA": "N/A",

@@ -1,6 +1,9 @@
 {
 	"all.alertLevel": "Cote d'alerte",
 	"all.decadal": "Décadaire",
+	"all.decadal.1": "Décade 1",
+	"all.decadal.2": "Décade 2",
+	"all.decadal.3": "Décade 3",
 	"all.decadals": "Décadaires",
 	"all.decadalsPerMonth": "Décades par mois",
 	"all.graphic.value.NA": "N/A",

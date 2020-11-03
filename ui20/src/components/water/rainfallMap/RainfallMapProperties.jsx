@@ -3,7 +3,7 @@ import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
 import {SEASON_MONTHS} from "../../../modules/entities/Constants"
-import {monthsToOptions, yearsToOptions} from "../../../modules/graphic/common/GraphicDTO"
+import {decadalsToOptions, monthsToOptions, yearsToOptions} from "../../../modules/graphic/common/GraphicDTO"
 import * as rainMapActions from "../../../redux/actions/water/rainMapActions"
 import FilterDropDown from "../../common/filter/FilterDropDown"
 
@@ -11,6 +11,7 @@ class RainfallMapProperties extends Component {
   static propTypes = {
     setYearsFilter: PropTypes.func.isRequired,
     setMonth: PropTypes.func.isRequired,
+    setDecadal: PropTypes.func.isRequired,
     config: PropTypes.object.isRequired,
     filter: PropTypes.object.isRequired,
   }
@@ -23,7 +24,7 @@ class RainfallMapProperties extends Component {
 }
 
 const RainfallMapFilters = (props) => {
-  const {setYearFilter, setMonth, config, intl}  = props
+  const {setYearFilter, setMonth, setDecadal, config, intl}  = props
   const {year, month, decadal} = props.filter
 
   let months = SEASON_MONTHS
@@ -44,7 +45,13 @@ const RainfallMapFilters = (props) => {
         <FilterDropDown
           options={monthsToOptions(intl, months)} onChange={(months) => setMonth(months[0])}
           min={1} max={1} single withSearch
-          selected={[month]} text={intl.formatMessage({ id: "all.month" })} />
+          selected={[month]} text={intl.formatMessage({ id: "all.month", defaultMessage: "Months" })} />
+      </div>
+      <div className="filter item fixed">
+        <FilterDropDown
+          options={decadalsToOptions(intl)} onChange={(decadals) => setDecadal(decadals[0])}
+          min={1} max={1} single
+          selected={[decadal]} text={intl.formatMessage({ id: "all.decadal" })} />
       </div>
     </div>)
 
@@ -59,6 +66,7 @@ const mapStateToProps = state => {
 const mapActionCreators = {
   setYearFilter: (year) => rainMapActions.setRainMapFilter(['year'], year),
   setMonth: (month) => rainMapActions.setRainMapFilter(['month'], month),
+  setDecadal: (decadal) => rainMapActions.setRainMapFilter(['decadal'], decadal),
 }
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(RainfallMapProperties))
