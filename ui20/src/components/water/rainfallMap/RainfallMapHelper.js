@@ -1,3 +1,5 @@
+import {ANOMALY_POLYLINE_COLOR} from "../../../modules/graphic/water/rainfallMap/rainfallMapCss"
+
 export const getRainFeatureStyle = (colorsMap: Map) => (feature) => {
   const {ZLEVEL} = feature.properties
   // console.log(`feature.properties.zlevel=${ZLEVEL}`)
@@ -12,9 +14,24 @@ export const getRainFeatureStyle = (colorsMap: Map) => (feature) => {
     weight: 0.5,
     opacity: 1,
     color: color,
-    dashArray: '3',
     fillOpacity: 1,
   }
+}
+
+export const getAnomalyPolylineFeatureStyle = (colorsMap: Map) => (feature) => {
+  const style = getRainFeatureStyle(colorsMap)(feature);
+  [80, 100, 120].forEach(level => {
+    if (feature.properties.ZLEVEL === level) {
+      highlightLine(style, ANOMALY_POLYLINE_COLOR[`${level}`])
+    }
+  })
+  return style
+}
+
+const highlightLine = (style, color) => {
+  style.color = color
+  style.weight = 2
+  style.dashArray = 3
 }
 
 export const hasZLevel = (feature) => feature.properties.ZLEVEL || feature.properties.ZLEVEL === 0

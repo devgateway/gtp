@@ -5,7 +5,7 @@ import * as C from "../../../modules/entities/Constants"
 import AnomalyRainMapLayers from "../../../modules/graphic/water/rainfallMap/AnomalyRainMapLayers"
 import * as rainfallMapCss from "../../../modules/graphic/water/rainfallMap/rainfallMapCss"
 import {RainfallMap} from "./RainfallMap"
-import {getRainFeatureStyle, onEachRainFeature} from "./RainfallMapHelper"
+import {getAnomalyPolylineFeatureStyle, getRainFeatureStyle, onEachRainFeature} from "./RainfallMapHelper"
 import {RainfallMapLegend} from "./RainfallMapLegend"
 
 class AnomalyRainMap extends Component {
@@ -17,7 +17,6 @@ class AnomalyRainMap extends Component {
       return "No data"
     }
     const layers = new AnomalyRainMapLayers(polyline, polygon)
-    const rainFeatureStyle = getRainFeatureStyle(layers.colorsMap)
     const unit = intl.formatMessage({id: "indicators.map.rainMap.unit.anomaly"})
 
     return (
@@ -26,7 +25,8 @@ class AnomalyRainMap extends Component {
         polyline={layers.polyline}
         polygon={layers.polygon}
         onEachFeature={onEachRainFeature(layers.colorsMap, unit)}
-        rainFeatureStyle={rainFeatureStyle}>
+        polygonFeatureStyle={getRainFeatureStyle(layers.colorsMap)}
+        polylineFeatureStyle={getAnomalyPolylineFeatureStyle(layers.colorsMap)}>
         <RainfallMapLegend colorsMap={rainfallMapCss.anomalyColorsMap} unit={unit} legendLabelFunc={getAnomalyLegendLabel} />
       </RainfallMap>
     )

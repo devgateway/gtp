@@ -45,7 +45,7 @@ export const anomalyColors = [
   [90, '#FFFFFF'],
   [100, '#FFFFFF'],
   [110, '#FFFFFF'],
-  [119, '#FFFFFF'],
+  [120, '#FFFFFF'],
   [130, '#A5E9BC'],
   [140, '#53D47E'],
   [150, '#33CC5C'],
@@ -57,3 +57,8 @@ export const anomalyColors = [
   [210, '#006633']
 ]
 export const anomalyColorsMap = new Map(anomalyColors)
+export const ANOMALY_POLYLINE_COLOR = {
+  80: '#663333',
+  100: '#FF0000',
+  120: '#33CC66'
+}
