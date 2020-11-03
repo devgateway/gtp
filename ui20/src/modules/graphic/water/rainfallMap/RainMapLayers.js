@@ -19,12 +19,15 @@ const cleanupFeatures = (geoJson) => {
 
 
 const mapZLevelToColor = (colorsFunc, {features}) => {
-  const levels = new Set()
-  features.forEach(f => levels.add(+f.properties.ZLEVEL))
-
-  const levelsLists = Array.from(levels).sort((a, b) => a - b)
+  const levelsLists = getLevelsList({features})
   return levelsLists.reduce((map: Map, l, index) => {
     map.set(l, colorsFunc(l, index))
     return map
   }, new Map())
+}
+
+export const getLevelsList = ({features}) => {
+  const levels = new Set()
+  features.forEach(f => levels.add(+f.properties.ZLEVEL))
+  return Array.from(levels).sort((a, b) => a - b)
 }
