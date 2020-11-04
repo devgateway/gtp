@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import * as PropTypes from "prop-types"
-import {FormattedMessage, injectIntl} from "react-intl"
+import {injectIntl} from "react-intl"
 import {GeoJSON, Map} from "react-leaflet"
 import "../../common/map/map.scss"
 import {connect} from "react-redux"

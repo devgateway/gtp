@@ -134,3 +134,8 @@ $legend-square: 13px;
     display: none;
   }
 }
+
+.ui.popup.rain-legend-item {
+  font-size: $legend-font-size;
+  padding: 5px;
+}
