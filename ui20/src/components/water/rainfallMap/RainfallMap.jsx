@@ -25,44 +25,43 @@ class RainfallMap extends Component {
   }
 
   render() {
-    const {titleId, polyline, polygon, onEachPolygonFeature, onEachPolylineFeature, polygonFeatureStyle,
-      polylineFeatureStyle, showPluviometricPosts, isAllWaterLoaded, getPostLocation, intl} = this.props
+    const {
+      polyline, polygon, onEachPolygonFeature, onEachPolylineFeature, polygonFeatureStyle, polylineFeatureStyle,
+      showPluviometricPosts, isAllWaterLoaded, getPostLocation, intl
+    } = this.props
     const showPosts = showPluviometricPosts && isAllWaterLoaded
 
     return (
-      <div className="png exportable">
-        <div className="map-title"><FormattedMessage id={titleId}/></div>
-        <div className="map-container">
-          <Map className="map black-tooltip"
-               center={[14.4974, -14.4545887]}
-               dragging={false}
-               zoom={6.6}
-               zoomControl={false}
-               zoomDelta={0.2}
-               zoomSnap={0.2}
-               scrollWheelZoom={false}>
-            <GeoJSON data={polygon} style={polygonFeatureStyle} onEachFeature={onEachPolygonFeature}/>
-            <GeoJSON data={polyline} style={polylineFeatureStyle} onEachFeature={onEachPolylineFeature}/>
-            <GeoJSON data={regionGeoJson} style={{
-              color: "#7f7f7f",
-              fill: false,
-              fillOpacity: 0,
-              weight: 1
-            }} />
-            <CountryBorderLayer style={{
-              color: "#4e4e4e",
-              fill: false,
-            }}/>
+      <div className="map-container">
+        <Map className="map black-tooltip"
+             center={[14.4974, -14.4545887]}
+             dragging={false}
+             zoom={6.6}
+             zoomControl={false}
+             zoomDelta={0.2}
+             zoomSnap={0.2}
+             scrollWheelZoom={false}>
+          <GeoJSON data={polygon} style={polygonFeatureStyle} onEachFeature={onEachPolygonFeature}/>
+          <GeoJSON data={polyline} style={polylineFeatureStyle} onEachFeature={onEachPolylineFeature}/>
+          <GeoJSON data={regionGeoJson} style={{
+            color: "#7f7f7f",
+            fill: false,
+            fillOpacity: 0,
+            weight: 1
+          }}/>
+          <CountryBorderLayer style={{
+            color: "#4e4e4e",
+            fill: false,
+          }}/>
 
-            {showPosts && <PluviometricPostLayer
-              postMapDTO={getPostLocation().postMapDTO}
-              circleColor="#364833"
-              circleRadius={1}
-              intl={intl} />}
+          {showPosts && <PluviometricPostLayer
+            postMapDTO={getPostLocation().postMapDTO}
+            circleColor="#364833"
+            circleRadius={1}
+            intl={intl}/>}
 
-            {this.props.children}
-          </Map>
-        </div>
+          {this.props.children}
+        </Map>
       </div>
     )
   }

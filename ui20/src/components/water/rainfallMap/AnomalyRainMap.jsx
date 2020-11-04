@@ -4,6 +4,7 @@ import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import AnomalyRainMapLayers from "../../../modules/graphic/water/rainfallMap/AnomalyRainMapLayers"
 import * as rainfallMapCss from "../../../modules/graphic/water/rainfallMap/rainfallMapCss"
+import GraphicWithFallback from "../../common/graphic/GraphicWithFallback"
 import RainfallMap from "./RainfallMap"
 import {
   getAnomalyPolylineFeatureStyle,
@@ -16,30 +17,50 @@ import {RainfallMapLegend} from "./RainfallMapLegend"
 class AnomalyRainMap extends Component {
 
   render() {
-    const {polyline, polygon, intl} = this.props
-    // TODO process no data
-    if (!polyline || !polygon) {
-      return "No data"
-    }
-    const layers = new AnomalyRainMapLayers(polyline, polygon)
+    const {intl} = this.props
     const unit = intl.formatMessage({id: "indicators.map.rainMap.unit.anomaly"})
 
     return (
-      <RainfallMap
-        titleId="indicators.map.rainMap.subtitle.anomaly"
-        polyline={layers.polyline}
-        polygon={layers.polygon}
-        onEachPolygonFeature={onEachPolygonFeature(layers.colorsMap, unit)}
-        onEachPolylineFeature={onAnomalyPolylineFeature}
-        polygonFeatureStyle={getRainFeatureStyle(layers.colorsMap)}
-        polylineFeatureStyle={getAnomalyPolylineFeatureStyle(layers.colorsMap)}>
-        <RainfallMapLegend colorsMap={rainfallMapCss.anomalyColorsMap} unit={unit} legendLabelFunc={getAnomalyLegendLabel} />
-      </RainfallMap>
+      <div className="png exportable">
+        <div className="map-title"><FormattedMessage id="indicators.map.rainMap.subtitle.anomaly"/></div>
+        <AnomalyRainMapWithFallback {...this.props} unit={unit}>
+          {childProps =>
+            <RainfallMap {...childProps}>
+              <RainfallMapLegend {...childProps} />
+            </RainfallMap>
+          }
+        </AnomalyRainMapWithFallback>
+      </div>
     )
   }
 
 }
 
+
+const hasDataFunc = ({polyline, polygon} = {}) => !!(polyline && polygon)
+const childPropsBuilder = (props) => {
+  if (!hasDataFunc(props)) {
+    return {}
+  }
+  const {polyline, polygon, unit} = props
+  const layers = new AnomalyRainMapLayers(polyline, polygon)
+
+  return {
+    polyline: layers.polyline,
+    polygon: layers.polygon,
+    colorsMap: rainfallMapCss.anomalyColorsMap,
+    onEachPolygonFeature: onEachPolygonFeature(layers.colorsMap, unit),
+    onEachPolylineFeature: onAnomalyPolylineFeature,
+    polygonFeatureStyle: getRainFeatureStyle(layers.colorsMap),
+    polylineFeatureStyle: getAnomalyPolylineFeatureStyle(layers.colorsMap),
+    unit,
+    legendLabelFunc: getAnomalyLegendLabel,
+  }
+}
+const AnomalyRainMapWithFallback = GraphicWithFallback('water',
+  [['loadingRainMapLayers', C.ABNORMAL_POLYGON], ['loadingRainMapLayers', C.ABNORMAL_POLYLINE]],
+  [['loadedRainMapLayers', C.ABNORMAL_POLYGON], ['loadedRainMapLayers', C.ABNORMAL_POLYLINE]],
+  childPropsBuilder, hasDataFunc)
 
 const getAnomalyLegendLabel = (grade, unit, idx, total) => {
   if (idx === 0) {

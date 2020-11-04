@@ -59,6 +59,13 @@ $legend-square: 13px;
       }
     }
   }
+  .graphic-content {
+    max-height: 435px;
+
+    .no-data {
+      height: 100% !important;
+    }
+  }
 
   .rain-tooltip {
     border-width: 0;
