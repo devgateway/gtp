@@ -44,7 +44,7 @@ class GraphicWithFallbackComponent extends Component {
 }
 
 
-const GraphicWithFallback = (reducerRoot: string, graphicFiltering: string, graphicFiltered: string,
+const GraphicWithFallback = (reducerRoot: string, graphicFiltering: string | Array, graphicFiltered: string | Array,
   childPropsBuilder: function, hasDataFunc: function) => {
 
   const mapStateToProps = state => {
@@ -52,8 +52,10 @@ const GraphicWithFallback = (reducerRoot: string, graphicFiltering: string, grap
       isLoaded: state.getIn([reducerRoot, 'isLoaded']),
       isLoading: state.getIn([reducerRoot, 'isLoading']),
       error: state.getIn([reducerRoot, 'error']),
-      graphicFiltering: state.getIn([reducerRoot, graphicFiltering]),
-      graphicFiltered: state.getIn([reducerRoot, graphicFiltered]),
+      graphicFiltering: typeof graphicFiltering === 'string' ? state.getIn([reducerRoot, graphicFiltering])
+        : graphicFiltering.reduce((result, graphicItemFiltering) => result || !!state.getIn([reducerRoot, ...graphicItemFiltering]), false),
+      graphicFiltered: typeof graphicFiltered === 'string' ?  state.getIn([reducerRoot, graphicFiltered])
+        : graphicFiltered.reduce((result, graphicItemFiltered) => result && !!state.getIn([reducerRoot, ...graphicItemFiltered]), true),
       childPropsBuilder,
       hasDataFunc,
     }
