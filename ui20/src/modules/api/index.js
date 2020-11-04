@@ -9,7 +9,7 @@ export const getRainfall = (rainLevelFilter: RainLevelFilter) => post(EP.RAINFAL
 export const getRainfallMap = (rainLevelFilter: RainMapFilter, layerType: string) => post(EP.RAINFALL_MAP, {
   ...rainLevelFilter,
   layerType
-})
+}, false, [200, 404])
 export const getLengthOfDrySequence = (filter) => post(EP.DRY_SEQUENCE, filter)
 export const getRainSeason = (year: number) => post(EP.RAINSEASON, {year})
 export const getRiverLevel = (riverLevelFilter: RiverLevelFilter) => post(EP.RIVER_LEVEL, riverLevelFilter)
