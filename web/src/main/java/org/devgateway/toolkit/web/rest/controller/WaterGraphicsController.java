@@ -68,7 +68,7 @@ public class WaterGraphicsController {
     @PostMapping("rain-map/data")
     public ResponseEntity<Resource> getRainMapData(@RequestBody @Valid RainMapFilter filter) {
         DecadalRainfallMap drm = waterChartsService.getRainMapData(filter);
-        RainfallMapLayer layer = drm.getLayerByType(filter.getLayerType());
+        RainfallMapLayer layer = drm == null ? null : drm.getLayerByType(filter.getLayerType());
         FileMetadata layerMetadata = layer == null ? null : layer.getFileSingle();
         return FileMetadataController.responseForFileContentOrNotFound(layerMetadata, null);
     }
