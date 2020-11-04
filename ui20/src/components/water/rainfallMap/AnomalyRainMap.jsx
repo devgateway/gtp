@@ -63,15 +63,16 @@ const AnomalyRainMapWithFallback = GraphicWithFallback('water',
   childPropsBuilder, hasDataFunc)
 
 const getAnomalyLegendLabel = (grade, unit, idx, total) => {
+  const lastIdx = total - 1
   if (idx === 0) {
     return <div className="legend-label">0{unit}</div>
-  } else if (idx === total - 1) {
+  } else if (idx === lastIdx) {
     return <div className="legend-label">200+{unit}</div>
-  } else if (idx === Math.trunc(total / 2)) {
-    return <div className="legend-label move-left"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.normal"/></div>
-  } else if (idx === Math.trunc(total / 4)) {
+  } else if (idx === Math.trunc(lastIdx / 2)) {
+    return <div className="legend-label"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.normal"/></div>
+  } else if (idx === Math.trunc(lastIdx / 4)) {
     return <div className="legend-label move-left"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.deficient"/></div>
-  } else if (idx === total - 1 - Math.trunc(total / 4)) {
+  } else if (idx === total - Math.trunc(lastIdx / 4)) {
     return <div className="legend-label move-left"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.excessive"/></div>
   }
   return ""
