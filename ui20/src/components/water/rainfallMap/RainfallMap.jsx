@@ -36,10 +36,15 @@ class RainfallMap extends Component {
         <Map className="map black-tooltip"
              center={[14.4974, -14.4545887]}
              dragging={false}
+             keyboard={false}
              zoom={getZoomLevel()}
              zoomControl={false}
              zoomDelta={0.1}
              zoomSnap={0.1}
+             touchZoom={false}
+             boxZoom={false}
+             tap={false}
+             doubleClickZoom={false}
              scrollWheelZoom={false}>
           <GeoJSON data={polygon} style={polygonFeatureStyle} onEachFeature={onEachPolygonFeature}/>
           <GeoJSON data={polyline} style={polylineFeatureStyle} onEachFeature={onEachPolylineFeature}/>
