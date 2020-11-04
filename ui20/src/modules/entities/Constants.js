@@ -13,3 +13,8 @@ export const SMALL_VALUE = -300
 export const MARKET_TYPE_RURAL = 'rural-market'
 export const MARKET_TYPE_FISHING_DOCK = 'fishing-dock'
 export const MARKET_TYPE_TRANSFORMATION_PLACE = 'transformation-place'
+
+export const ABNORMAL_POLYLINE = 'ABNORMAL_POLYLINE'
+export const ABNORMAL_POLYGON = 'ABNORMAL_POLYGON'
+export const CUMULATIVE_POLYLINE = 'CUMULATIVE_POLYLINE'
+export const CUMULATIVE_POLYGON = 'CUMULATIVE_POLYGON'

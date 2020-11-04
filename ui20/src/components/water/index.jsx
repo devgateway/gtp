@@ -6,13 +6,14 @@ import * as waterActions from "../../redux/actions/waterActions"
 import GraphicPage, {GraphicDef} from "../common/graphic/GraphicPage"
 import DrySeasonGraphic from "./drySequence"
 import RainfallGraphic from "./rainfall"
+import RainMapsGraphic from "./rainfallMap"
 import RainSeasonGraphic from "./rainseason"
 import RiverLevelGraphic from "./river"
 import PluviometricPostLocationGraphic from "./postLocation"
 
 const waterGraphicsDef = [
   new GraphicDef('indicators.table.rainseason.title', 'masked-icon icon-table', RainSeasonGraphic),
-  // 2. Pluviométrie nationale/ Pluviometry at national level as two maps
+  new GraphicDef('indicators.map.rainMap.title', 'masked-icon icon-barchart', RainMapsGraphic),
   new GraphicDef('indicators.chart.rainfall.title', 'masked-icon icon-barchart', RainfallGraphic),
   new GraphicDef('indicators.chart.dryseason.title', 'masked-icon icon-linechart', DrySeasonGraphic),
   new GraphicDef('indicators.map.post.title', 'masked-icon icon-barchart', PluviometricPostLocationGraphic),

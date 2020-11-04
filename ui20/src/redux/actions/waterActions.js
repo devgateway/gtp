@@ -39,6 +39,7 @@ import {
 } from "../reducers/Water"
 import * as appActions from "./appActions"
 import {updateCommonConfig} from "./appActions"
+import {transformRainMapFromApi} from "./water/rainMapActions"
 
 export const loadAllWaterData = () => (dispatch, getState) => {
   dispatch({
@@ -51,7 +52,7 @@ export const loadAllWaterData = () => (dispatch, getState) => {
 }
 
 const transformAll = (allData, commonConfig: CommonConfig) => {
-  const {rainLevelChart, drySequenceChart, seasonChart, riverLevelChart} = allData
+  const {rainLevelChart, rainMap, drySequenceChart, seasonChart, riverLevelChart} = allData
   const waterConfig = new WaterConfig(allData.waterConfig)
   return {
     waterConfig,
@@ -61,6 +62,7 @@ const transformAll = (allData, commonConfig: CommonConfig) => {
       filter: new RainLevelFilter(rainLevelChart.filter.years, rainLevelChart.filter.pluviometricPostId),
       setting: RainLevelSetting,
     },
+    rainMap: transformRainMapFromApi(rainMap),
     drySequenceChart: drySequenceChartFromApi(drySequenceChart),
     rainSeasonChart: rainSeasonChartFromApi(waterConfig, commonConfig, seasonChart),
     riverLevelChart: riverLevelFromApi(riverLevelChart),

@@ -1,0 +1,136 @@
+@import '../../../base';
+
+$legend-square: 13px;
+
+.map-graphic.rainfall-map {
+  .map-title {
+    font-size: 18px;
+    letter-spacing: 0;
+    max-height: 45px;
+    height: calc(21px + 4vh);
+    min-height: 35px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    color: $color-blue;
+    font-weight: 400;
+    padding-left: 21px;
+  }
+
+  .two-maps {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: stretch;
+
+    width: 100%;
+    padding-bottom: 40px;
+
+    .png.exportable {
+      max-width: calc(50% - 15px);
+      min-width: 400px;
+      width: 100%;
+    }
+
+    .png.exportable:first-of-type .map{
+      border-left: 0;
+    }
+    .png.exportable:last-of-type:not(:first-of-type) .map{
+      border-right: 0;
+    }
+  }
+  .map-container {
+    width: 100%;
+
+    .map.leaflet-container {
+      background-color: #fff;
+      border: $border;
+      min-width: 400px;
+      max-height: 435px;
+
+      .leaflet-control-attribution.leaflet-control {
+        display: none;
+      }
+      .leaflet-pane.leaflet-map-pane {
+        .leaflet-zoom-animated {
+          margin-top: -25px;
+        }
+      }
+    }
+  }
+  .graphic-content {
+    max-height: 435px;
+
+    .no-data {
+      height: 100% !important;
+    }
+  }
+
+  .rain-tooltip {
+    border-width: 0;
+    font-size: 10px;
+    font-weight: 400;
+    color: rgb(0, 0, 0);
+    text-anchor: start;
+  }
+
+  .source {
+    position: relative;
+    z-index: 600;
+  }
+
+  .rainfall-map-legend {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      line-height: 11px;
+      color: #555;
+      height: auto;
+    }
+
+    .legend-item {
+      max-width: $legend-square;
+
+      i {
+        display: inline-block;
+        width: $legend-square;
+        height: $legend-square;
+        border: 1px solid #eeeeee;
+        border-left: 0;
+      }
+
+      .legend-label {
+        padding-top: 6px;
+        color: $legend-color;
+        font-size: 9px;
+        margin-left: -5px;
+      }
+      .legend-label.move-left {
+        margin-left: -18px;
+      }
+    }
+    .legend-item:first-of-type {
+      i {
+        border-left: 1px solid #eeeeee;
+      }
+    }
+  }
+
+  .anomaly-polyline-label {
+    color: $legend-color;
+    font-weight: 600;
+    border: 0;
+    box-shadow: unset;
+    background: unset;
+    opacity: 1;
+    margin-left: 15px;
+  }
+  .anomaly-polyline-label:before {
+    display: none;
+  }
+}

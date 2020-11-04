@@ -37,7 +37,7 @@ export const get = (url, params) => fetchWithTimeout(urlWithSearchParams(url, pa
 }).catch(Promise.reject)
 
 
-export const post = (url, params, isBlob) => fetchWithTimeout(url, {
+export const post = (url, params, isBlob, successStatuses = [200]) => fetchWithTimeout(url, {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export const post = (url, params, isBlob) => fetchWithTimeout(url, {
     method: 'POST',
     body: JSON.stringify(params)
   }).then((response) => {
-      if (response.status !== 200) {
+      if (!successStatuses.includes(response.status)) {
         return Promise.reject(response)
       }
       if (isBlob) {
@@ -55,7 +55,7 @@ export const post = (url, params, isBlob) => fetchWithTimeout(url, {
         .then((data) => Promise.resolve(data))
         .catch((err) => {
           console.error(err)
-          return Promise.resolve(response.status)
+          return Promise.resolve()
         })
     }
   ).catch(Promise.reject)

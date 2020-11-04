@@ -16,15 +16,19 @@ const country = require('../../../json/senegal-natural-earth.json')
 const attribution = 'Made with Natural Earth'
 */
 
-export default class CountryBorderLayer extends Component {
-
-  render() {
-    return <GeoJSON data={country} attribution={attribution} style={featureStyle}/>
-  }
-}
-
-const featureStyle = (feature) => ({
+const defaultStyle = {
   color: '#E03E32',
   weight: 1,
   fillOpacity: 0,
-})
+}
+
+export default class CountryBorderLayer extends Component {
+  static defaultProps = {
+    style: defaultStyle,
+  }
+
+  render() {
+    const style = {...defaultStyle, ...this.props.style}
+    return <GeoJSON data={country} attribution={attribution} style={() => style}/>
+  }
+}

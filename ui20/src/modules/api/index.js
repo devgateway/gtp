@@ -1,10 +1,15 @@
 import RainLevelFilter from "../entities/rainfall/RainLevelFilter"
+import RainMapFilter from "../entities/rainfallMap/RainMapFilter"
 import RiverLevelFilter from "../entities/river/RiverLevelFilter"
 import * as EP from './EPConstants'
 import {get, post, urlWithSearchParams} from './request'
 
 export const getAllWaterResources = () => get(EP.WATER_ALL)
 export const getRainfall = (rainLevelFilter: RainLevelFilter) => post(EP.RAINFALL, rainLevelFilter)
+export const getRainfallMap = (rainLevelFilter: RainMapFilter, layerType: string) => post(EP.RAINFALL_MAP, {
+  ...rainLevelFilter,
+  layerType
+}, false, [200, 404])
 export const getLengthOfDrySequence = (filter) => post(EP.DRY_SEQUENCE, filter)
 export const getRainSeason = (year: number) => post(EP.RAINSEASON, {year})
 export const getRiverLevel = (riverLevelFilter: RiverLevelFilter) => post(EP.RIVER_LEVEL, riverLevelFilter)
