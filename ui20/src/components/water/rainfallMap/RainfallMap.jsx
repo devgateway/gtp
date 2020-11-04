@@ -36,10 +36,15 @@ class RainfallMap extends Component {
         <Map className="map black-tooltip"
              center={[14.4974, -14.4545887]}
              dragging={false}
-             zoom={6.6}
+             keyboard={false}
+             zoom={getZoomLevel()}
              zoomControl={false}
-             zoomDelta={0.2}
-             zoomSnap={0.2}
+             zoomDelta={0.1}
+             zoomSnap={0.1}
+             touchZoom={false}
+             boxZoom={false}
+             tap={false}
+             doubleClickZoom={false}
              scrollWheelZoom={false}>
           <GeoJSON data={polygon} style={polygonFeatureStyle} onEachFeature={onEachPolygonFeature}/>
           <GeoJSON data={polyline} style={polylineFeatureStyle} onEachFeature={onEachPolylineFeature}/>
@@ -65,6 +70,13 @@ class RainfallMap extends Component {
       </div>
     )
   }
+}
+
+const ZOOM_BY_HEIGHT = [[600, 6], [650, 6.1], [700, 6.2], [750, 6.3], [800, 6.4], [850, 6.5]]
+const LARGE_SCREEN_ZOOM = [900, 6.6]
+const getZoomLevel = () => {
+  const zoomByHeight = ZOOM_BY_HEIGHT.find(([res, ]) => window.innerHeight < res) || LARGE_SCREEN_ZOOM
+  return zoomByHeight[1]
 }
 
 
