@@ -143,3 +143,15 @@ $legend-square: 13px;
 .graphic-page .graphics .indicators.content .map.black-tooltip .leaflet-tooltip.rain-tooltip {
   padding: 5px;
 }
+
+.FF {
+  .map-graphic.rainfall-map {
+    .two-maps .png.exportable .map {
+      border: $border;
+    }
+
+    .rainfall-map-legend .legend-item i {
+      border-left: $border;
+    }
+  }
+}

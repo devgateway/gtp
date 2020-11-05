@@ -21,6 +21,8 @@ export const getBrowserClass = () => {
       return 'safari safari-12'
     }
     return 'safari'
+  } else if (/Firefox/.test(navUserAgent) && !/Seamonkey/.test(navUserAgent)) {
+    return 'FF'
   }
   return ''
 }
