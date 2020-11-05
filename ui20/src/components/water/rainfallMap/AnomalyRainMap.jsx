@@ -68,8 +68,8 @@ const getAnomalyLegendLabel = (grade, unit, idx, total) => {
     return <div className="legend-label">0{unit}</div>
   } else if (idx === lastIdx) {
     return <div className="legend-label">200+{unit}</div>
-  } else if (idx === Math.trunc(lastIdx / 2)) {
-    return <div className="legend-label"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.normal"/></div>
+  } else if (idx === Math.trunc(lastIdx / 2) + 1) {
+    return <div className="legend-label move-left"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.normal"/></div>
   } else if (idx === Math.trunc(lastIdx / 4)) {
     return <div className="legend-label move-left"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.deficient"/></div>
   } else if (idx === total - Math.trunc(lastIdx / 4)) {
