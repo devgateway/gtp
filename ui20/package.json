@@ -45,9 +45,11 @@
     "resize-observer-polyfill": "^1.5.1",
     "save": "^2.4.0",
     "semantic-ui-react": "^0.88.2",
+    "serialize-javascript": "^3.1.0",
     "smoothscroll-polyfill": "^0.4.4",
     "source-map-explorer": "^2.5.0",
-    "url-search-params-polyfill": "^8.1.0"
+    "url-search-params-polyfill": "^8.1.0",
+    "tar": "^2.2.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
@@ -56,7 +58,12 @@
     "babel-plugin-react-intl": "^4.3.0",
     "webpack-bundle-analyzer": "^3.9.0"
   },
+  "resolutions": {
+    "tar": "^2.2.2",
+    "serialize-javascript": "^3.1.0"
+  },
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "stats": "webpack-bundle-analyzer dist/stats.json",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "extract-messages": "NODE_ENV=production babel ./src  --out-file /dev/null",
