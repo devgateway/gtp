@@ -95,6 +95,7 @@ $legend-square: 13px;
 
     .legend-item {
       max-width: $legend-square;
+      width: 100%;
 
       i {
         display: inline-block;
