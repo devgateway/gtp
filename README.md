@@ -1,31 +1,34 @@
-# dg-toolkit
+![ANACIM logo](./ui20/public/logo-anacim-small-optimized.png)
+# GTP Platform (AD3 Senegal ANACIM)
 
-[![Build Status](https://travis-ci.org/devgateway/dg-toolkit.svg?branch=master)](https://travis-ci.org/devgateway/dg-toolkit)
+[![Build Status](https://travis-ci.org/devgateway/ad3-anacim.svg?branch=master)](https://travis-ci.org/devgateway/ad3-anacim)
 
-This project has the aim of creating a boilerplate template for small and medium sized DG projects.
+This project aims to provide technological support for GTP group (Groupe de Travail Pluridisciplinaire) lead by the National Civil Aviation and Meteorology Authority (ANACIM).
+This group aims to contribute to early warning for food security by providing comprehensive information on the agricultural season.
 
-It is created as a mavenized multi-module project. Each module can be started independently of the rest. All modules are based on [Spring Boot](http://projects.spring.io/spring-boot/) templates. Modules currently present:
+GTP meets every 10d to share past data about water resources situation, market & agriculature, livestock and other. 
+This application provides means to enter or upload data set securely
+and visualize it under public facing platform. 
 
-## Visual Identity
-SVG and raster version of the logo and favicon can be found in the [`docs/images`](./docs/images/) directory.
-
-### Logo:
-![DT Toolkit logo](./docs/images/raster/toolkit-logo-0256.png)
-
-### Favicon:
-![DT Toolkit favicon](./docs/images/raster/toolkit-favicon-0032.png)
+The project is a [DG Toolkit](https://github.com/devgateway/dg-toolkit) fork, with a custom ui20 module. Check DG Toolkit
+for its general infrastructure reused in GTP.
 
 # Modules
+
+Each module can be started independently of the rest. All modules are based on [Spring Boot](http://projects.spring.io/spring-boot/) templates. Modules currently present:
 
 - [persistence](https://github.com/devgateway/dg-toolkit/tree/master/persistence) - this is a module responsible with [JPA 2.0](https://en.wikipedia.org/wiki/Java_Persistence_API) data persistence. It is also provides [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS) services on top of the existing entities.
 
 - [web](https://github.com/devgateway/dg-toolkit/tree/master/web) - this module provides REST endpoints for the services needed, as well as basic security. It depends on the **persistence** module.
 
-- [forms](https://github.com/devgateway/dg-toolkit/tree/master/forms) - this module provides a basic toolkit for quickly building forms over the entities defined in the persistence module. It uses [Apache Wicket](http://wicket.apache.org/) as the backend.
+- [forms](https://github.com/devgateway/dg-toolkit/tree/master/forms) - this module provides admin pages
+ where system, users, data forms and others are configure.  It is built with help of the DG Toolkit toolbox of forms, pages, components and other over the entities defined in the persistence module. It uses [Apache Wicket](http://wicket.apache.org/) as the backend.
 
-- [reporting](https://github.com/devgateway/dg-toolkit/tree/master/reporting) - this module provides reporting services - generation of static reports that can be exportable in XLS, PDF, DOC and HTML. It uses [Pentaho Reporting Classic](http://community.pentaho.com/projects/reporting/) suite. This does NOT include Mondrian as a backend. It currently depends on the **forms** module because the reporting framework require filters which are defined using the forms components.
-
-- [ui](https://github.com/devgateway/dg-toolkit/tree/master/ui) - this module is a template for building front-end functionality. It is supposed to work in conjunction with the **web** module as the back-end. It is based on [React](https://facebook.github.io/react/) and [NuclearJS](https://optimizely.github.io/nuclear-js/). The Maven build integration is assured by [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin) which invokes [npm](https://www.npmjs.com/) and [webpack](https://webpack.github.io/). The UI module can be used by both UI developers, with no need of knowledge or Java/Maven local setup and by the back-end developers, with no need to have [node](https://nodejs.org/) installed on their system.
+- [ui20](https://github.com/devgateway/dg-toolkit/tree/master/ui20) - this module provides public facing pages with visualizations. It was created from [ReactApp](https://reactjs.org/docs/create-a-new-react-app.html)
+and uses [React](https://reactjs.org/tutorial/tutorial.html) 16,
+with [Redux](https://react-redux.js.org/) store, [React-Intl](https://formatjs.io/docs/react-intl/),
+[Semantic UI](https://react.semantic-ui.com/), [Nivo](https://nivo.rocks/) and other packages. It works in conjunction with the **web** module as the back-end.
+The Maven build integration is assured by [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin) which invokes [npm](https://www.npmjs.com/) and [webpack](https://webpack.github.io/). The UI module can be used by both UI developers, with no need of knowledge or Java/Maven local setup and by the back-end developers, with no need to have [node](https://nodejs.org/).
 
 # Building
 
@@ -40,80 +43,13 @@ inside the root project folder.
 
 # Installation
 
-This is an example how to install AD3 on a Linux with a systemd.
+See [Installation Guide](./installation.md) for more details.
 
-We are closely following the spring boot executable/fat jar documentation which provides an extremely nice way to run a jar as a linux system service. This works for both the old System V and the new systemd. You can find [the full Spring documentation here] (http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#deployment-service).
+# Development and Debugging 
 
-## Create user
+You can import GTP as a Maven project inside your favorite IDE, it should work in IDEA/STS/Eclipse but you will need Maven 3.3.x.
 
-First add a service user for the program, we're not going to run the app with root:
-
-`useradd -r ad3`
-
-## Copy application jar
-
-Copy jar from the forms module to `/opt/ad3/ad3.jar`. Also create `/opt/ad3/application.properties` to be able to
-override application properties. At the very least we need to configure spring boot to store logs on disk with:
-```properties
-logging.path=/var/log/ad3
-```
-
-Logs will can now be found in /var/log/ad3/spring.log. Log files will be rolled over when they reach size of 10MB.
-
-Make sure that user ad3 can read anything in `/opt/ad3` folder and has write access to `/var/log/ad3` folder.
-
-## Create systemd unit for AD3
-
-Create /etc/system.d/system/ad3.service with the following contents:
-```
-[Unit]
-Description=ad3
-After=syslog.target network-online.target
-BindsTo=postgresql.service
-
-[Service]
-User=ad3
-ExecStart=/opt/ad3/ad3.jar
-SuccessExitStatus=143
-EnvironmentFile=/etc/default/ad3
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Create environment variables file for AD3 at `/etc/default/ad3` and enable productionTons mode for Apache Wicket:
-```
-JAVA_OPTS="-Dwicket.configuration=deployment"
-```
-
-Here we can also change memory limits for the java process.
-
-## Verify installation
-
-Start the service with:
-
-`sudo systemctl start ad3`
-
-Now you can verify that service is running with:
- 
-`curl -I http://localhost:8080/`
-
-To stop the service one can use:
-
-`sudo systemctl stop ad3`
-
-Since we're running AD3 as systemd service, standard output is most likely being redirected to journal.
-To see the standard output:
-
-`sudo journalctl -u ad3`
-
-or to see the service output
-
-`sudo journalctl -u ad3.service`
-
-# Debugging
-
-You can import dg-toolkit as a Maven project inside your favorite IDE, it should work in IDEA/STS/Eclipse but you will need Maven 3.3.x.
+Follow [Gitflow workflow](./gitflow.md) to implement application changes.
 
 ## Debugging in STS
 
@@ -130,11 +66,12 @@ If you have JRebel license, then don't use spring-boot-devtools. Best is to star
 
 ... And then for example in STS you can add a new Debug Configuration->Remote Java Application and specify localhost and port 5005.
 
-## Running dg-toolkit
+## Running GTP
 
-DG-toolkit is a package of several modules, among which forms and web are runnable. See the [forms](https://github.com/devgateway/dg-toolkit/tree/master/forms) and/or the [web](https://github.com/devgateway/dg-toolkit/tree/master/web) modules documentation for starting the project.
+GTP is [DG-toolkit](https://github.com/devgateway/dg-toolkit) based, that is a package of several modules, among which forms and web are runnable. See the [forms](https://github.com/devgateway/dg-toolkit/tree/master/forms) and/or the [web](https://github.com/devgateway/dg-toolkit/tree/master/web) modules documentation for starting the project.
+UI20 module can also run independently with `npm start` command under ui20 root.
 
-### Use DG-Toolkit as a Docker image
+### Use GTP as a Docker image
 
 We use the recommended layout and configuration as described in the official documentation [by spring boot](https://spring.io/guides/gs/spring-boot-docker/)
 
