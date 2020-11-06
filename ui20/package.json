@@ -63,7 +63,7 @@
     "serialize-javascript": "^3.1.0"
   },
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
+    "preinstall": "node node/node_modules/npm/bin/npx-cli.js npm-force-resolutions",
     "stats": "webpack-bundle-analyzer dist/stats.json",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "extract-messages": "NODE_ENV=production babel ./src  --out-file /dev/null",
