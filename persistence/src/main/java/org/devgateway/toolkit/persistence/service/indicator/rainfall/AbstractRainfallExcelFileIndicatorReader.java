@@ -4,7 +4,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
-import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 import org.devgateway.toolkit.persistence.dao.location.Zone;
 import org.devgateway.toolkit.persistence.excel.indicator.AbstractExcelFileIndicatorReader;
 import org.devgateway.toolkit.persistence.service.indicator.SearchableCollection;
@@ -20,13 +19,15 @@ public abstract class AbstractRainfallExcelFileIndicatorReader<T> extends Abstra
 
     protected final SearchableCollection<PluviometricPost> pluviometricPosts;
 
+    protected final double rainLimit;
 
     public AbstractRainfallExcelFileIndicatorReader(List<Zone> zones,
-            List<PluviometricPost> pluviometricPosts) {
+            List<PluviometricPost> pluviometricPosts, double rainLimit) {
         this.zones = new SearchableCollection<>(zones, Zone::getName);
 
         this.pluviometricPosts = new SearchableCollection<>(pluviometricPosts, PluviometricPost::getLabel);
 
+        this.rainLimit = rainLimit;
     }
 
     protected void checkHeaders(XSSFRow row, List<Pair<Integer, Object>> headers) {
@@ -86,9 +87,8 @@ public abstract class AbstractRainfallExcelFileIndicatorReader<T> extends Abstra
         if (!isEmpty(cell)) {
             try {
                 double rain = cell.getNumericCellValue();
-                if (rain < 0 || rain > DecadalRainfall.MAX_RAIN) {
-                    addErrorAt(cell, String.format("La pluie n'est pas comprise entre 0 et %.0f",
-                            DecadalRainfall.MAX_RAIN));
+                if (rain < 0 || rain > rainLimit) {
+                    addErrorAt(cell, String.format("La pluie n'est pas comprise entre 0 et %.0f", rainLimit));
                 } else {
                     return rain;
                 }

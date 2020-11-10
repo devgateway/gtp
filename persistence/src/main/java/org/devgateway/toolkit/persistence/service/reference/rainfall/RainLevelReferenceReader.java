@@ -1,8 +1,5 @@
 package org.devgateway.toolkit.persistence.service.reference.rainfall;
 
-import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.DECADAL_END_COL_ID;
-import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.DECADAL_START_COL_ID;
-import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.LOCALITY_COL_ID;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.devgateway.toolkit.persistence.dao.DBConstants;
 import org.devgateway.toolkit.persistence.dao.Decadal;
@@ -16,13 +13,17 @@ import org.devgateway.toolkit.persistence.service.indicator.rainfall.AbstractRai
 import java.time.Month;
 import java.util.List;
 
+import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.DECADAL_END_COL_ID;
+import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.DECADAL_START_COL_ID;
+import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.LOCALITY_COL_ID;
+
 /**
  * @author Nadejda Mandrescu
  */
 public class RainLevelReferenceReader extends AbstractRainfallExcelFileIndicatorReader<RainLevelReference> {
 
     public RainLevelReferenceReader(List<Zone> zones, List<PluviometricPost> pluviometricPosts) {
-        super(zones, pluviometricPosts);
+        super(zones, pluviometricPosts, RainLevelMonthReference.MAX_RAIN);
     }
 
     @Override
