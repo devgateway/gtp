@@ -20,9 +20,13 @@ export default class DiseaseQuantityMapBuilder {
     this.commonConfig.regions.forEach((r: Region) => {
       const qByM = data.quantityByRegionIdByMonth.get(r.id)
       const q = (qByM && qByM.get(filter.month)) || 0
-      min = min ? Math.min(min, q) : q
+      min = min !== undefined ? Math.min(min, q) : q
       max = Math.max(max, q)
     })
+    // min-max must be a range to show in legend and calculate the color
+    if (min === max) {
+      min = 0
+    }
     return new DiseaseQuantityMapDTO(
       this.diseaseQuantityChart.data,
       filter.year,
