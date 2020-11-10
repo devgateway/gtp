@@ -23,6 +23,10 @@ export default class DiseaseQuantityMapBuilder {
       min = min !== undefined ? Math.min(min, q) : q
       max = Math.max(max, q)
     })
+    // min-max must be a range to show in legend and calculate the color
+    if (min === max) {
+      min = 0
+    }
     return new DiseaseQuantityMapDTO(
       this.diseaseQuantityChart.data,
       filter.year,
