@@ -1,7 +1,8 @@
 ![ANACIM logo](./ui20/public/logo-anacim-small-optimized.png)
 # GTP Platform (AD3 Senegal ANACIM)
 
-[![Build Status](https://travis-ci.org/devgateway/ad3-anacim.svg?branch=master)](https://travis-ci.org/devgateway/ad3-anacim)
+[![Build Status](https://travis-ci.org/devgateway/gtp.svg?branch=develop)](https://travis-ci.org/devgateway/gtp)
+[![GitHub license](https://img.shields.io/github/license/devgateway/gtp)](https://github.com/devgateway/gtp/blob/master/LICENSE)
 
 This project aims to provide technological support for GTP group (Groupe de Travail Pluridisciplinaire) lead by the National Civil Aviation and Meteorology Authority (ANACIM).
 This group aims to contribute to early warning for food security by providing comprehensive information on the agricultural season.

@@ -68,7 +68,7 @@ public final class ExcelFieldService {
             final Class fieldClass = getFieldClass(field);
             final ExcelExport excelExport = field.getAnnotation(ExcelExport.class);
 
-            if (excelExport.valueConverter() != void.class) {
+            if (excelExport != null && excelExport.valueConverter() != void.class) {
                 fieldType = FieldType.convertable;
                 fieldsConverterClassCache.put(field, excelExport.valueConverter());
             } else if (FieldType.BASICTYPES.contains(fieldClass) || fieldClass.isEnum()) {

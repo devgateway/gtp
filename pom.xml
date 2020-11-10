@@ -55,11 +55,11 @@
     </ciManagement>
 
     <scm>
-        <url>git@github.com:devgateway/ad3-anacim.git</url>
+        <url>git@github.com:devgateway/gtp.git</url>
         <developerConnection>
-            scm:git:git@github.com:devgateway/ad3-anacim.git
+            scm:git:git@github.com:devgateway/gtp.git
         </developerConnection>
-        <connection>git@github.com:devgateway/ad3-anacim.git
+        <connection>git@github.com:devgateway/gtp.git
         </connection>
         <tag>HEAD</tag>
     </scm>
@@ -78,8 +78,8 @@
             <url>https://jcenter.bintray.com/</url>
         </repository>
         <repository>
-            <id>AD3 ANACIM</id>
-            <name>AD3 ANACIM</name>
+            <id>GTP</id>
+            <name>GTP</name>
             <url>http://artifactory.ampdev.net/artifactory/ad3-anacim/</url>
             <snapshots>
                 <enabled>true</enabled>
@@ -102,8 +102,8 @@
             <url>https://jcenter.bintray.com</url>
         </pluginRepository>
         <pluginRepository>
-            <id>DGToolkit</id>
-            <name>DGToolkit</name>
+            <id>GTP</id>
+            <name>GTP</name>
             <url>http://artifactory.ampdev.net/artifactory/ad3-anacim/</url>
             <snapshots>
                 <enabled>true</enabled>
