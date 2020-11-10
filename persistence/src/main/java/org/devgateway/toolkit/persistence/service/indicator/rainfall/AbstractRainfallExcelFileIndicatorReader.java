@@ -89,6 +89,7 @@ public abstract class AbstractRainfallExcelFileIndicatorReader<T> extends Abstra
                 double rain = cell.getNumericCellValue();
                 if (rain < 0 || rain > rainLimit) {
                     addErrorAt(cell, String.format("La pluie n'est pas comprise entre 0 et %.0f", rainLimit));
+                    return rain;
                 } else {
                     return rain;
                 }
