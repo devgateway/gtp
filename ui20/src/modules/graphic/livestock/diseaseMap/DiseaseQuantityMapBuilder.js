@@ -20,7 +20,7 @@ export default class DiseaseQuantityMapBuilder {
     this.commonConfig.regions.forEach((r: Region) => {
       const qByM = data.quantityByRegionIdByMonth.get(r.id)
       const q = (qByM && qByM.get(filter.month)) || 0
-      min = min ? Math.min(min, q) : q
+      min = min !== undefined ? Math.min(min, q) : q
       max = Math.max(max, q)
     })
     return new DiseaseQuantityMapDTO(
