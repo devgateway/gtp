@@ -22,7 +22,7 @@ public class DecadalRainfallReader extends AbstractRainfallExcelFileIndicatorRea
 
     public DecadalRainfallReader(DecadalRainfall decadalRainfall, List<Zone> zones,
             List<PluviometricPost> pluviometricPosts) {
-        super(zones, pluviometricPosts);
+        super(zones, pluviometricPosts, DecadalRainfall.MAX_RAIN);
         this.decadalRainfall = decadalRainfall;
 
         this.dayEndColId = DecadalRainfallWriter.getDayEndColId(decadalRainfall);
