@@ -27,7 +27,7 @@ class DiseaseMap extends Component {
 
     return (
       <div className="png exportable disease-map">
-        <DiseaseLegend max={diseaseMapDTO.maxQuantity} />
+        <DiseaseLegend min={diseaseMapDTO.minQuantity} max={diseaseMapDTO.maxQuantity} />
         <div className="map-container">
           <Map className="map black-tooltip" zoom={SENEGAL_ZOOM_LEVEL} center={SENEGAL_CENTER_LAT_LNG} zoomControl={true} >
             <CountriesLayer countryFeatureStyle={countryStyle} />
