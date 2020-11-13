@@ -12,7 +12,6 @@ const regionGeoJson = require('../../../json/regions.json')
 
 class RainfallMap extends Component {
   static propTypes = {
-    titleId: PropTypes.string.isRequired,
     polyline: PropTypes.object.isRequired,
     polygon: PropTypes.object.isRequired,
     onEachPolygonFeature: PropTypes.func.isRequired,
@@ -37,7 +36,11 @@ class RainfallMap extends Component {
              center={[14.4974, -14.4545887]}
              dragging={false}
              keyboard={false}
-             zoom={getZoomLevel()}
+             zoom={12}
+             bounds={
+               [[12.306804, -17.532738],
+                 [16.693480, -11.345555]]
+             }
              zoomControl={false}
              zoomDelta={0.1}
              zoomSnap={0.1}
@@ -70,13 +73,6 @@ class RainfallMap extends Component {
       </div>
     )
   }
-}
-
-const ZOOM_BY_HEIGHT = [[600, 6], [650, 6.1], [700, 6.2], [750, 6.3], [800, 6.4], [850, 6.5]]
-const LARGE_SCREEN_ZOOM = [900, 6.6]
-const getZoomLevel = () => {
-  const zoomByHeight = ZOOM_BY_HEIGHT.find(([res, ]) => window.innerHeight < res) || LARGE_SCREEN_ZOOM
-  return zoomByHeight[1]
 }
 
 

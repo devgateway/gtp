@@ -19,9 +19,10 @@ class CumulativeRainMap extends Component {
         <div className="map-title"><FormattedMessage id="indicators.map.rainMap.subtitle.cumul"/></div>
         <CumulativeRainMapWithFallback {...this.props} unit={unit}>
           {childProps =>
-            <RainfallMap {...childProps}>
+            <div className="map-and-legend-container">
+              <RainfallMap {...childProps} />
               <RainfallMapLegend {...childProps} />
-            </RainfallMap>
+            </div>
           }
         </CumulativeRainMapWithFallback>
       </div>

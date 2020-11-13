@@ -24,9 +24,10 @@ class AnomalyRainMap extends Component {
         <div className="map-title"><FormattedMessage id="indicators.map.rainMap.subtitle.anomaly"/></div>
         <AnomalyRainMapWithFallback {...this.props} unit={unit}>
           {childProps =>
-            <RainfallMap {...childProps}>
+            <div className="map-and-legend-container">
+              <RainfallMap {...childProps} />
               <RainfallMapLegend {...childProps} />
-            </RainfallMap>
+            </div>
           }
         </AnomalyRainMapWithFallback>
       </div>
