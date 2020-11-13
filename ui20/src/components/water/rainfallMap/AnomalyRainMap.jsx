@@ -9,7 +9,6 @@ import RainfallMap from "./RainfallMap"
 import {
   getAnomalyPolylineFeatureStyle,
   getRainFeatureStyle,
-  onAnomalyPolylineFeature,
   onEachPolygonFeature
 } from "./RainfallMapHelper"
 import {RainfallMapLegend} from "./RainfallMapLegend"
@@ -50,7 +49,7 @@ const childPropsBuilder = (props) => {
     polygon: layers.polygon,
     colorsMap: rainfallMapCss.anomalyColorsMap,
     onEachPolygonFeature: onEachPolygonFeature(layers.colorsMap, unit),
-    onEachPolylineFeature: onAnomalyPolylineFeature,
+    onEachPolylineFeature: () => null,
     polygonFeatureStyle: getRainFeatureStyle(layers.colorsMap),
     polylineFeatureStyle: getAnomalyPolylineFeatureStyle(layers.colorsMap),
     unit,
