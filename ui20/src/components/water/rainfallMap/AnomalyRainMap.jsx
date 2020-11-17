@@ -9,7 +9,6 @@ import RainfallMap from "./RainfallMap"
 import {
   getAnomalyPolylineFeatureStyle,
   getRainFeatureStyle,
-  onAnomalyPolylineFeature,
   onEachPolygonFeature
 } from "./RainfallMapHelper"
 import {RainfallMapLegend} from "./RainfallMapLegend"
@@ -25,9 +24,10 @@ class AnomalyRainMap extends Component {
         <div className="map-title"><FormattedMessage id="indicators.map.rainMap.subtitle.anomaly"/></div>
         <AnomalyRainMapWithFallback {...this.props} unit={unit}>
           {childProps =>
-            <RainfallMap {...childProps}>
+            <div className="map-and-legend-container">
+              <RainfallMap {...childProps} />
               <RainfallMapLegend {...childProps} />
-            </RainfallMap>
+            </div>
           }
         </AnomalyRainMapWithFallback>
       </div>
@@ -50,7 +50,7 @@ const childPropsBuilder = (props) => {
     polygon: layers.polygon,
     colorsMap: rainfallMapCss.anomalyColorsMap,
     onEachPolygonFeature: onEachPolygonFeature(layers.colorsMap, unit),
-    onEachPolylineFeature: onAnomalyPolylineFeature,
+    onEachPolylineFeature: () => null,
     polygonFeatureStyle: getRainFeatureStyle(layers.colorsMap),
     polylineFeatureStyle: getAnomalyPolylineFeatureStyle(layers.colorsMap),
     unit,
@@ -66,14 +66,18 @@ const getAnomalyLegendLabel = (grade, unit, idx, total) => {
   const lastIdx = total - 1
   if (idx === 0) {
     return <div className="legend-label">0{unit}</div>
+  } else if (grade === 40) {
+    return <div className="legend-label"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.deficient"/></div>
+  } else if (grade === 80) {
+    return <div className="legend-label">{grade}{unit}</div>
+  } else if (grade === 100) {
+    return <div className="legend-label"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.normal"/></div>
+  } else if (grade === 120) {
+    return <div className="legend-label move-right">{grade}{unit}</div>
+  } else if (grade === 160) {
+    return <div className="legend-label"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.excessive"/></div>
   } else if (idx === lastIdx) {
     return <div className="legend-label">200+{unit}</div>
-  } else if (idx === Math.trunc(lastIdx / 2) + 1) {
-    return <div className="legend-label move-left"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.normal"/></div>
-  } else if (idx === Math.trunc(lastIdx / 4)) {
-    return <div className="legend-label move-left"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.deficient"/></div>
-  } else if (idx === total - Math.trunc(lastIdx / 4)) {
-    return <div className="legend-label move-left"><FormattedMessage id="indicators.map.rainMap.legend.anomaly.excessive"/></div>
   }
   return ""
 }

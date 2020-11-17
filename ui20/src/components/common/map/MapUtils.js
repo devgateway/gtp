@@ -1,4 +1,5 @@
 export const SENEGAL_ZOOM_LEVEL = 7
 export const SENEGAL_CENTER_LAT_LNG = [14.4974, -14.4545887]
+export const SENEGAL_BOUNDS = [[12.306804, -17.532738], [16.693480, -11.345555]]
 
 export const COLOR_BLUE = '#4484BE'

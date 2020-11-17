@@ -19,9 +19,10 @@ class CumulativeRainMap extends Component {
         <div className="map-title"><FormattedMessage id="indicators.map.rainMap.subtitle.cumul"/></div>
         <CumulativeRainMapWithFallback {...this.props} unit={unit}>
           {childProps =>
-            <RainfallMap {...childProps}>
+            <div className="map-and-legend-container">
+              <RainfallMap {...childProps} />
               <RainfallMapLegend {...childProps} />
-            </RainfallMap>
+            </div>
           }
         </CumulativeRainMapWithFallback>
       </div>
@@ -56,11 +57,12 @@ const CumulativeRainMapWithFallback = GraphicWithFallback('water',
 
 
 const getCumulativeLegendLabel = (grade, unit, idx, total) => {
-  if (idx === 0) {
-    return <div className="legend-label">{grade}{unit}</div>
-  } else if (idx === total - 1) {
-    return <div className="legend-label">{grade}{unit}</div>
-  } else if (idx === Math.trunc(total / 2)) {
+  const lastIdx = total - 1
+  if (idx === 0
+    || idx === lastIdx
+    || idx === (Math.round(total / 2) - 1)
+    || (idx === Math.round(total / 4) - 1)
+    || (idx === lastIdx - Math.round(total / 4))) {
     return <div className="legend-label">{grade}{unit}</div>
   }
   return ""

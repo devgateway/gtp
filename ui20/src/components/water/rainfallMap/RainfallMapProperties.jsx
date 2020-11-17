@@ -9,7 +9,7 @@ import FilterDropDown from "../../common/filter/FilterDropDown"
 
 class RainfallMapProperties extends Component {
   static propTypes = {
-    setYearsFilter: PropTypes.func.isRequired,
+    setYearFilter: PropTypes.func.isRequired,
     setMonth: PropTypes.func.isRequired,
     setDecadal: PropTypes.func.isRequired,
     setShowPostsSetting: PropTypes.func.isRequired,
