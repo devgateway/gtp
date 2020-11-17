@@ -153,6 +153,12 @@ $rain-legend-height: 52px;
   padding: 5px;
 }
 
+.graphic-page .graphics .indicators.content .map.black-tooltip {
+  overflow: visible;
+  .leaflet-pane.leaflet-overlay-pane {
+    overflow: unset;
+  }
+}
 .FF {
   .map-graphic.rainfall-map {
     .two-maps .png.exportable .map {
