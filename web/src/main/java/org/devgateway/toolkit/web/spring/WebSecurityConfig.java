@@ -85,7 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .expressionHandler(webExpressionHandler()) // inject role hierarchy
-                .antMatchers("/monitoring**").hasRole("ADMIN")
+                .antMatchers("/admin/monitoring").hasRole("ADMIN")
                 .antMatchers("/admin/**").authenticated().and()
                 .formLogin().loginPage("/admin/login").and()
                 .logout().permitAll().and()

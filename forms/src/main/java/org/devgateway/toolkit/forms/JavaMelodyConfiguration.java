@@ -95,6 +95,7 @@ public class JavaMelodyConfiguration {
         // see the list of parameters:
         // https://github.com/javamelody/javamelody/wiki/UserGuide#6-optional-parameters
         registrationBean.addInitParameter(Parameter.LOG.getCode(), Boolean.toString(true));
+        registrationBean.addInitParameter(Parameter.MONITORING_PATH.getCode(), "/admin/monitoring");
         // to exclude images, css, fonts and js urls from the monitoring:
         // javaMelody.addInitParameter(Parameter.URL_EXCLUDE_PATTERN.getCode(), "(/webjars/.*|/css/.*|/images/
         // .*|/fonts/.*|/js/.*)");
