@@ -31,7 +31,7 @@ class RainfallMap extends Component {
 
   componentDidMount() {
     this.resizeObserver = new window.ResizeObserver((elements) => {
-      this.leafletMap.fitBounds(SENEGAL_BOUNDS)
+      setTimeout(() => this.leafletMap.fitBounds(SENEGAL_BOUNDS), 400)
     })
     this.resizeObserver.observe(this.ref.current)
   }
