@@ -6,6 +6,7 @@ import "../../common/map/map.scss"
 import {connect} from "react-redux"
 import * as waterActions from "../../../redux/actions/waterActions"
 import CountryBorderLayer from "../../common/map/CountryBorderLayer"
+import {SENEGAL_BOUNDS, SENEGAL_CENTER_LAT_LNG} from "../../common/map/MapUtils"
 import PluviometricPostLayer from "../postLocation/PluviometricPostLayer"
 
 const regionGeoJson = require('../../../json/regions.json')
@@ -23,6 +24,22 @@ class RainfallMap extends Component {
     getPostLocation: PropTypes.func.isRequired,
   }
 
+  constructor(props) {
+    super(props)
+    this.ref = React.createRef()
+  }
+
+  componentDidMount() {
+    this.resizeObserver = new window.ResizeObserver((elements) => {
+      this.leafletMap.fitBounds(SENEGAL_BOUNDS)
+    })
+    this.resizeObserver.observe(this.ref.current)
+  }
+
+  componentWillUnmount() {
+    this.resizeObserver.unobserve(this.ref.current)
+  }
+
   render() {
     const {
       polyline, polygon, onEachPolygonFeature, onEachPolylineFeature, polygonFeatureStyle, polylineFeatureStyle,
@@ -31,19 +48,17 @@ class RainfallMap extends Component {
     const showPosts = showPluviometricPosts && isAllWaterLoaded
 
     return (
-      <div className="map-container">
+      <div ref={this.ref} className="map-container">
         <Map className="map black-tooltip"
-             center={[14.4974, -14.4545887]}
+             ref={(map) => this.leafletMap = map && map.leafletElement}
+             center={SENEGAL_CENTER_LAT_LNG}
              dragging={false}
              keyboard={false}
              zoom={12}
-             bounds={
-               [[12.306804, -17.532738],
-                 [16.693480, -11.345555]]
-             }
+             bounds={SENEGAL_BOUNDS}
              zoomControl={false}
-             zoomDelta={0.1}
-             zoomSnap={0.1}
+             zoomDelta={0.05}
+             zoomSnap={0.05}
              touchZoom={false}
              boxZoom={false}
              tap={false}
