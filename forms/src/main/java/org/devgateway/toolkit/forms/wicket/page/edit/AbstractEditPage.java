@@ -60,6 +60,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -560,10 +561,11 @@ public abstract class AbstractEditPage<T extends GenericPersistable> extends Bas
     }
 
     public void scheduleRedirect() {
-        CharSequence urlStr = RequestCycle.get().urlFor(listPageClass, new PageParameters());
-        String listUrl = RequestCycle.get().getUrlRenderer().renderFullUrl(Url.parse(urlStr));
+        Url url = RequestCycle.get().mapUrlFor(listPageClass, new PageParameters());
+        url.prependLeadingSegments(Arrays.asList("", "admin"));
+        String listUrl = url.toString();
 
-        if (referer != null && referer.startsWith(listUrl)) {
+        if (referer != null && referer.contains(listUrl)) {
             RequestCycle.get().scheduleRequestHandlerAfterCurrent(new RedirectRequestHandler(referer));
         } else {
             RequestCycle.get().setResponsePage(listPageClass);
