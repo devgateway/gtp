@@ -14,7 +14,7 @@ import org.devgateway.toolkit.forms.wicket.page.lists.indicator.bulletin.ListAnn
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.bulletin.ListGTPBulletinPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.disease.ListDiseaseYearlySituationPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.market.ListProductYearlyPricesPage;
-import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListDecadalRainfallPage;
+import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfall.ListYearlyRainfallPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainfallMap.ListDecadalRainfallMapPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainseason.ListRainSeasonPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.riverlevel.ListRiverStationYearlyLevelsPage;
@@ -51,8 +51,8 @@ public class IndicatorHomePage extends BasePage {
     protected void onInitialize() {
         super.onInitialize();
 
-        BootstrapBookmarkablePageLink<ListDecadalRainfallPage> rainfall = new BootstrapBookmarkablePageLink<>(
-                "rainfall", ListDecadalRainfallPage.class, Buttons.Type.Default);
+        BootstrapBookmarkablePageLink<ListYearlyRainfallPage> rainfall = new BootstrapBookmarkablePageLink<>(
+                "rainfall", ListYearlyRainfallPage.class, Buttons.Type.Default);
         rainfall.setLabel(new StringResourceModel("rainfall"));
         authorize(rainfall, Component.RENDER, SecurityConstants.Roles.ROLE_RAINFALL_EDITOR);
         add(rainfall);

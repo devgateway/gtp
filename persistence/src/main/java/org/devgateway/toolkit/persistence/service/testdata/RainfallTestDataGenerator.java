@@ -1,35 +1,33 @@
 package org.devgateway.toolkit.persistence.service.testdata;
 
-import static java.util.stream.Collectors.toList;
-
-import java.time.Month;
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.IntStream;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.devgateway.toolkit.persistence.dao.DBConstants;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.FormStatus;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
-import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
-import org.devgateway.toolkit.persistence.dao.indicator.PluviometricPostRainfall;
-import org.devgateway.toolkit.persistence.dao.indicator.Rainfall;
+import org.devgateway.toolkit.persistence.dao.indicator.StationDecadalRainfall;
+import org.devgateway.toolkit.persistence.dao.indicator.YearlyRainfall;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelMonthReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelPluviometricPostReference;
 import org.devgateway.toolkit.persistence.dao.reference.RainLevelReference;
 import org.devgateway.toolkit.persistence.repository.category.PluviometricPostRepository;
-import org.devgateway.toolkit.persistence.repository.indicator.DecadalRainfallRepository;
+import org.devgateway.toolkit.persistence.repository.indicator.YearlyRainfallRepository;
 import org.devgateway.toolkit.persistence.repository.reference.RainLevelReferenceRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
+
+import java.time.Month;
+import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author Octavian Ciubotaru
@@ -54,7 +52,7 @@ public class RainfallTestDataGenerator implements InitializingBean {
     private final TransactionTemplate transactionTemplate;
 
     private final PluviometricPostRepository pluviometricPostRepository;
-    private final DecadalRainfallRepository decadalRainfallRepository;
+    private final YearlyRainfallRepository yearlyRainfallRepository;
     private final RainLevelReferenceRepository rainLevelReferenceRepository;
 
     private final List<Integer> years = ImmutableList.of(2018, 2019, 2020);
@@ -62,18 +60,18 @@ public class RainfallTestDataGenerator implements InitializingBean {
     public RainfallTestDataGenerator(
             PlatformTransactionManager transactionManager,
             PluviometricPostRepository pluviometricPostRepository,
-            DecadalRainfallRepository decadalRainfallRepository,
+            YearlyRainfallRepository yearlyRainfallRepository,
             RainLevelReferenceRepository rainLevelReferenceRepository) {
         this.transactionTemplate = new TransactionTemplate(transactionManager);
         this.pluviometricPostRepository = pluviometricPostRepository;
-        this.decadalRainfallRepository = decadalRainfallRepository;
+        this.yearlyRainfallRepository = yearlyRainfallRepository;
         this.rainLevelReferenceRepository = rainLevelReferenceRepository;
     }
 
     @Override
     public void afterPropertiesSet() {
         transactionTemplate.execute(s -> {
-            decadalRainfallRepository.deleteAll();
+            yearlyRainfallRepository.deleteAll();
 
             RainLevelReference rainLevelReference = rainLevelReferenceRepository
                     .findByYearStartLessThanEqualAndYearEndGreaterThanEqual(2018, 2002);
@@ -92,17 +90,16 @@ public class RainfallTestDataGenerator implements InitializingBean {
         List<PluviometricPost> pluviometricPosts = pluviometricPostRepository.findAll();
 
         for (Integer year : years) {
+            YearlyRainfall yr = new YearlyRainfall(year);
+            yr.setFormStatus(FormStatus.PUBLISHED);
             for (Month m : DBConstants.MONTHS) {
                 for (Decadal d : Decadal.values()) {
-                    DecadalRainfall drf = new DecadalRainfall();
-                    drf.setYear(year);
-                    drf.setMonth(m);
-                    drf.setDecadal(d);
-                    drf.setFormStatus(FormStatus.PUBLISHED);
-                    generatePluviometricPostRainfalls(drf, pluviometricPosts).forEach(drf::addPostRainfall);
-                    decadalRainfallRepository.saveAndFlush(drf);
+                    pluviometricPosts.stream()
+                            .map(pp -> generateStationRainfall(new StationDecadalRainfall(pp, m, d)))
+                            .forEach(yr::addStationDecadalRainfall);
                 }
             }
+            yearlyRainfallRepository.saveAndFlush(yr);
         }
     }
 
@@ -138,14 +135,10 @@ public class RainfallTestDataGenerator implements InitializingBean {
         return rls;
     }
 
-    private List<PluviometricPostRainfall> generatePluviometricPostRainfalls(DecadalRainfall drf,
-            List<PluviometricPost> pluviometricPosts) {
-        return pluviometricPosts.stream().map(pp -> {
-            PluviometricPostRainfall pprf = new PluviometricPostRainfall(pp);
-            days(drf).mapToObj(d -> new Rainfall(d, getRandomRainFall(drf.getMonth())))
-                    .forEach(pprf::addRainfall);
-            return pprf;
-        }).collect(toList());
+    private StationDecadalRainfall generateStationRainfall(StationDecadalRainfall sdr) {
+        sdr.setRainfall(getRandomRainFall(sdr.getMonth()));
+        sdr.setRainyDaysCount(getRandomRainyDays(sdr));
+        return sdr;
     }
 
     private double getRandomRainFall(Month month) {
@@ -158,13 +151,11 @@ public class RainfallTestDataGenerator implements InitializingBean {
         }
     }
 
-    private IntStream days(DecadalRainfall drf) {
-        if (drf.getDecadal() == Decadal.FIRST) {
-            return IntStream.rangeClosed(1, 10);
-        } else if (drf.getDecadal() == Decadal.SECOND) {
-            return IntStream.rangeClosed(11, 20);
-        } else {
-            return IntStream.rangeClosed(21, drf.getMonth().length(Year.isLeap(drf.getYear())));
+    private int getRandomRainyDays(StationDecadalRainfall sdr) {
+        if (sdr.getRainfall() == 0) {
+            return 0;
         }
+        int maxDays = sdr.getDecadal().length(YearMonth.of(sdr.getYearlyRainfall().getYear(), sdr.getMonth()));
+        return ThreadLocalRandom.current().nextInt(maxDays + 1);
     }
 }

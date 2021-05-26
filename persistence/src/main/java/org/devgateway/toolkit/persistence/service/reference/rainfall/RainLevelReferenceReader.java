@@ -16,6 +16,7 @@ import java.util.List;
 import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.DECADAL_END_COL_ID;
 import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.DECADAL_START_COL_ID;
 import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.LOCALITY_COL_ID;
+import static org.devgateway.toolkit.persistence.service.reference.rainfall.RainLevelReferenceColumns.ZONE_COL_ID;
 
 /**
  * @author Nadejda Mandrescu
@@ -65,5 +66,15 @@ public class RainLevelReferenceReader extends AbstractRainfallExcelFileIndicator
             }
         }
         return rr;
+    }
+
+    @Override
+    protected int getLocalityColId() {
+        return LOCALITY_COL_ID;
+    }
+
+    @Override
+    protected int getZoneColId() {
+        return ZONE_COL_ID;
     }
 }
