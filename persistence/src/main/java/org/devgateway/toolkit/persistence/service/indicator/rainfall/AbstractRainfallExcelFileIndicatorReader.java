@@ -43,7 +43,7 @@ public abstract class AbstractRainfallExcelFileIndicatorReader<T> extends Abstra
     }
 
     protected PluviometricPost getPluviometricPost(XSSFRow row) {
-        XSSFCell cell = row.getCell(DecadalRainfallWriter.LOCALITY_COL_ID);
+        XSSFCell cell = row.getCell(getLocalityColId());
         if (isEmpty(cell)) {
             addErrorAt(cell, "Localité non spécifié");
         } else {
@@ -62,7 +62,7 @@ public abstract class AbstractRainfallExcelFileIndicatorReader<T> extends Abstra
     }
 
     protected Zone getZone(XSSFRow row, PluviometricPost pp) {
-        XSSFCell cell = row.getCell(DecadalRainfallWriter.ZONE_COL_ID);
+        XSSFCell cell = row.getCell(getZoneColId());
         if (isEmpty(cell)) {
             addErrorAt(cell, "Zone non spécifié");
         } else {
@@ -88,7 +88,7 @@ public abstract class AbstractRainfallExcelFileIndicatorReader<T> extends Abstra
             try {
                 double rain = cell.getNumericCellValue();
                 if (rain < 0 || rain > rainLimit) {
-                    addErrorAt(cell, String.format("La pluie n'est pas comprise entre 0 et %.0f", rainLimit));
+                    addErrorAt(cell, String.format("Le niveau de pluie n'est pas compris entre 0 et %.0f", rainLimit));
                     return rain;
                 } else {
                     return rain;
@@ -99,4 +99,7 @@ public abstract class AbstractRainfallExcelFileIndicatorReader<T> extends Abstra
         }
         return null;
     }
+
+    protected abstract int getLocalityColId();
+    protected abstract int getZoneColId();
 }

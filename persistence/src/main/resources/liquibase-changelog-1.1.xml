@@ -1,0 +1,77 @@
+<!--
+    Copyright (c) 2015 Development Gateway, Inc and others.
+
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the MIT License (MIT)
+    which accompanies this distribution, and is available at
+    https://opensource.org/licenses/MIT
+
+    Contributors:
+    Development Gateway - initial API and implementation
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="ANACIM-465 yearly rainfall" author="nmandrescu">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="yearly_rainfall" />
+        </preConditions>
+        <sql>
+            <!-- Migrate years as DRAFT if at least one decadal is DRAFT -->
+            INSERT INTO yearly_rainfall(id, year, form_status, created_by, created_date)
+                SELECT nextval('hibernate_sequence'), dr.year, 'DRAFT', 'liquibase', NOW()
+                FROM (SELECT distinct year FROM decadal_rainfall
+                        WHERE form_status = 'DRAFT') AS dr;
+
+            <!-- Migrate remaining PUBLISHED years -->
+            INSERT INTO yearly_rainfall(id, year, form_status, created_by, created_date)
+                SELECT nextval('hibernate_sequence'), dr.year, 'PUBLISHED', 'liquibase', NOW()
+                FROM (SELECT distinct year FROM decadal_rainfall
+                    WHERE form_status = 'PUBLISHED'
+                    AND year NOT IN (SELECT year FROM yearly_rainfall)) AS dr;
+
+            <!-- Migrate rainfall totals -->
+            INSERT INTO station_decadal_rainfall(
+                        id,
+                        yearly_rainfall_id,
+                        pluviometric_post_id,
+                        month,
+                        decadal,
+                        rainfall,
+                        rainy_days_count)
+                SELECT distinct nextval('hibernate_sequence'),
+                        yr.id,
+                        sdr.pluviometric_post_id,
+                        sdr.month,
+                        sdr.decadal,
+                        COALESCE(sdr.rain, 0),
+                        COALESCE(sdr.rainy_days_count, 0)
+                FROM (SELECT ppr.pluviometric_post_id,
+                        ppr.no_data,
+                        dr.year,
+                        dr.month,
+                        dr.decadal,
+                        sum(r.rain) AS rain,
+                        sum(CASE WHEN rain is null
+                            THEN null
+                            ELSE (CASE WHEN rain > 0 THEN 1 ELSE 0 END)
+                            END) AS rainy_days_count
+                    FROM pluviometric_post_rainfall ppr
+                    LEFT JOIN rainfall r ON r.pluviometric_post_rainfall_id=ppr.id
+                    JOIN decadal_rainfall dr ON ppr.decadal_rainfall_id=dr.id
+                    GROUP BY ppr.pluviometric_post_id, ppr.no_data, dr.year, dr.month, dr.decadal
+                ) AS sdr
+                JOIN yearly_rainfall yr ON sdr.year = yr.year
+                WHERE sdr.no_data=false;
+
+            DROP TABLE rainfall_aud;
+            DROP TABLE rainfall;
+            DROP TABLE pluviometric_post_rainfall_aud;
+            DROP TABLE pluviometric_post_rainfall;
+            DROP TABLE decadal_rainfall_aud;
+            DROP TABLE decadal_rainfall;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

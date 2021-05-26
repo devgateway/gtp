@@ -1,11 +1,11 @@
 package org.devgateway.toolkit.persistence.dto.drysequence;
 
+import org.devgateway.toolkit.persistence.dao.Decadal;
+import org.devgateway.toolkit.persistence.dao.indicator.StationDecadalRainfall;
+
 import java.time.Month;
 import java.time.YearMonth;
 import java.util.Comparator;
-
-import org.devgateway.toolkit.persistence.dao.Decadal;
-import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 
 /**
  * @author Octavian Ciubotaru
@@ -21,8 +21,8 @@ public class MonthDecadalDaysWithRain implements Comparable<MonthDecadalDaysWith
     private final int daysWithRain;
     private final int daysWithoutRain;
 
-    public MonthDecadalDaysWithRain(DecadalRainfall drf, long daysWithRain) {
-        this(drf.getYear(), drf.getMonth(), drf.getDecadal(), daysWithRain);
+    public MonthDecadalDaysWithRain(StationDecadalRainfall sdr) {
+        this(sdr.getYearlyRainfall().getYear(), sdr.getMonth(), sdr.getDecadal(), sdr.getRainyDaysCount());
     }
 
     public MonthDecadalDaysWithRain(int year, Month month, Decadal decadal, long daysWithRain) {

@@ -38,6 +38,11 @@ public enum Decadal implements Comparable<Decadal> {
             default: return 21;
         }
     }
+
+    public int endDay(YearMonth yearMonth) {
+        return startDay() + length(yearMonth) - 1;
+    }
+
     public static Decadal fromIndex(String index) {
         return fromIndex(Integer.parseInt(index));
     }

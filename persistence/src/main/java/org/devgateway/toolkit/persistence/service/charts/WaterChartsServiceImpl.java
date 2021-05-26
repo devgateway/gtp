@@ -36,7 +36,7 @@ import org.devgateway.toolkit.persistence.dto.season.SeasonPrediction;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
 import org.devgateway.toolkit.persistence.service.indicator.RainSeasonService;
-import org.devgateway.toolkit.persistence.service.indicator.rainfall.DecadalRainfallService;
+import org.devgateway.toolkit.persistence.service.indicator.rainfall.YearlyRainfallService;
 import org.devgateway.toolkit.persistence.service.indicator.rainfallMap.DecadalRainfallMapService;
 import org.devgateway.toolkit.persistence.service.indicator.river.RiverStationYearlyLevelsService;
 import org.devgateway.toolkit.persistence.service.reference.RainSeasonStartReferenceService;
@@ -68,7 +68,7 @@ import static java.util.stream.Collectors.toMap;
 public class WaterChartsServiceImpl implements WaterChartsService {
 
     @Autowired
-    private DecadalRainfallService decadalRainfallService;
+    private YearlyRainfallService yearlyRainfallService;
 
     @Autowired
     private RainLevelReferenceService rainLevelReferenceService;
@@ -157,15 +157,15 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     @Transactional(readOnly = true)
     public RainLevelChartConfig getRainLevelConfig() {
         return new RainLevelChartConfig(
-                decadalRainfallService.findYearsWithData(),
-                decadalRainfallService.findPluviometricPostsWithData());
+                yearlyRainfallService.findYearsWithData(),
+                yearlyRainfallService.findPluviometricPostsWithData());
     }
 
     @Override
     @Transactional(readOnly = true)
     public RainLevelChartData getRainLevelData(RainLevelChartFilter filter) {
         return new RainLevelChartData(
-                decadalRainfallService.findRainLevels(filter.getYears(), filter.getPluviometricPostId()),
+                yearlyRainfallService.findRainLevels(filter.getYears(), filter.getPluviometricPostId()),
                 rainLevelReferenceService.findReferenceLevels(filter.getYears(), filter.getPluviometricPostId()));
     }
 
@@ -222,7 +222,7 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     @Override
     public DrySequenceChartData getDrySequenceData(DrySequenceChartFilter filter) {
         return new DrySequenceChartData(
-                decadalRainfallService.findMonthDecadalDaysWithRain(filter.getYear(), filter.getPluviometricPostId()));
+                yearlyRainfallService.findMonthDecadalDaysWithRain(filter.getYear(), filter.getPluviometricPostId()));
     }
 
     private SeasonChart getSeasonChart() {

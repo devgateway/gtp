@@ -1,39 +1,39 @@
 package org.devgateway.toolkit.persistence.repository.indicator;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.devgateway.toolkit.persistence.dao.FormStatus;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
-import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
+import org.devgateway.toolkit.persistence.dao.indicator.YearlyRainfall;
 import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * @author Nadejda Mandrescu
  */
 @Transactional
-public interface DecadalRainfallRepository extends BaseJpaRepository<DecadalRainfall, Long> {
+public interface YearlyRainfallRepository extends BaseJpaRepository<YearlyRainfall, Long> {
 
     boolean existsByYear(Integer year);
 
     @CacheHibernateQueryResult
-    @Query("select distinct prf.pluviometricPost "
-            + "from DecadalRainfall drf "
-            + "join drf.postRainfalls prf "
-            + "where drf.formStatus = 'PUBLISHED'"
-            + "order by prf.pluviometricPost.label")
+    @Query("select distinct sdr.pluviometricPost "
+            + "from YearlyRainfall yr "
+            + "join yr.stationDecadalRainfalls sdr "
+            + "where yr.formStatus = 'PUBLISHED'"
+            + "order by sdr.pluviometricPost.label")
     List<PluviometricPost> findPluviometricPostsWithData();
 
     @CacheHibernateQueryResult
     @Query("select distinct year "
-            + "from DecadalRainfall "
+            + "from YearlyRainfall "
             + "where formStatus = 'PUBLISHED' "
             + "and year >= :minYear")
     List<Integer> findYearsWithData(Integer minYear);
 
     @CacheHibernateQueryResult
-    List<DecadalRainfall> findByFormStatusAndYearIn(FormStatus status, Collection<Integer> years);
+    List<YearlyRainfall> findByFormStatusAndYearIn(FormStatus status, Collection<Integer> years);
 }

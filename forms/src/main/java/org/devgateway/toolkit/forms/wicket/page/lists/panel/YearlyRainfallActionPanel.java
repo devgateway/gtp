@@ -3,22 +3,22 @@ package org.devgateway.toolkit.forms.wicket.page.lists.panel;
 import org.apache.wicket.Page;
 import org.apache.wicket.model.IModel;
 import org.devgateway.toolkit.forms.wicket.components.links.AbstractGeneratedExcelDownloadLink;
-import org.devgateway.toolkit.forms.wicket.components.links.DownloadDecadalRainfallLink;
-import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
+import org.devgateway.toolkit.forms.wicket.components.links.DownloadYearlyRainfallLink;
+import org.devgateway.toolkit.persistence.dao.indicator.YearlyRainfall;
 
 /**
  * @author Nadejda Mandrescu
  */
-public class DecadalRainfallActionPanel extends AbstractExcelListActionPanel<DecadalRainfall> {
+public class YearlyRainfallActionPanel extends AbstractExcelListActionPanel<YearlyRainfall> {
     private static final long serialVersionUID = -6487340544643324488L;
 
-    public DecadalRainfallActionPanel(String id, IModel<DecadalRainfall> model, Class<? extends Page> uploadPageClass,
+    public YearlyRainfallActionPanel(String id, IModel<YearlyRainfall> model, Class<? extends Page> uploadPageClass,
             Class<? extends Page> editPageClass) {
         super(id, model, uploadPageClass, editPageClass);
     }
 
     @Override
     protected AbstractGeneratedExcelDownloadLink<?> getDownloadButton(String id) {
-        return new DownloadDecadalRainfallLink(id, getModel(), getModelObject().isEmpty());
+        return new DownloadYearlyRainfallLink(id, getModel(), getModelObject().isEmpty());
     }
 }

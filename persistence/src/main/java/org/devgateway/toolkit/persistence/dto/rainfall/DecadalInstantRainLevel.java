@@ -1,10 +1,10 @@
 package org.devgateway.toolkit.persistence.dto.rainfall;
 
+import org.devgateway.toolkit.persistence.dao.Decadal;
+import org.devgateway.toolkit.persistence.dao.indicator.StationDecadalRainfall;
+
 import java.time.Month;
 import java.util.Comparator;
-
-import org.devgateway.toolkit.persistence.dao.Decadal;
-import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfall;
 
 /**
  * @author Octavian Ciubotaru
@@ -22,8 +22,8 @@ public class DecadalInstantRainLevel extends AbstractRainLevel implements Compar
 
     private final Decadal decadal;
 
-    public DecadalInstantRainLevel(DecadalRainfall drf, double value) {
-        this(drf.getYear(), drf.getMonth(), drf.getDecadal(), value);
+    public DecadalInstantRainLevel(StationDecadalRainfall sdr) {
+        this(sdr.getYearlyRainfall().getYear(), sdr.getMonth(), sdr.getDecadal(), sdr.getRainfall());
     }
 
     public DecadalInstantRainLevel(int year, Month month, Decadal decadal, double value) {
