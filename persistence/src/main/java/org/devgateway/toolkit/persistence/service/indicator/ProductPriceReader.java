@@ -1,8 +1,5 @@
 package org.devgateway.toolkit.persistence.service.indicator;
 
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
-
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.poi.ss.usermodel.CellType;
@@ -36,6 +33,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * @author Octavian Ciubotaru
@@ -315,7 +315,7 @@ public class ProductPriceReader extends AbstractExcelFileIndicatorReader<Product
             if (product.getUnit().getName().equals(MeasurementUnit.HEAD)) {
                 val = new BigDecimal(Math.round(qt));
             } else {
-                val = new BigDecimal(String.format("%.1f", qt));
+                val = new BigDecimal(qt).setScale(1, RoundingMode.HALF_UP);
             }
             if (val.precision() > 10) {
                 errors.add(errorAt(cell, "Veuillez utiliser au plus 10 chiffres"));
