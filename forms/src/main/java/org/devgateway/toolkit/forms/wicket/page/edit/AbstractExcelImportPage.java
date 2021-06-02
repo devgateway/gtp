@@ -1,7 +1,5 @@
 package org.devgateway.toolkit.forms.wicket.page.edit;
 
-import static java.util.stream.Collectors.joining;
-
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
@@ -28,6 +26,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static java.util.stream.Collectors.joining;
 
 /**
  * @author Octavian Ciubotaru
@@ -115,9 +115,11 @@ public abstract class AbstractExcelImportPage<T extends AbstractAuditableEntity 
                         logger.warn("Import failed.", e.getCause());
                     }
 
-                    String errors = e.getErrors().stream().limit(MAX_ERRORS).collect(joining("<br>"));
-                    if (e.getErrors().size() > MAX_ERRORS) {
-                        errors += "<br>Other " + (e.getErrors().size() - MAX_ERRORS) + " errors are not displayed.";
+                    int exceedingErrorsCount = (e.getErrors().size() - MAX_ERRORS);
+                    int maxErrors = exceedingErrorsCount == 1 ? (MAX_ERRORS + 1) : MAX_ERRORS;
+                    String errors = e.getErrors().stream().limit(maxErrors).collect(joining("<br>"));
+                    if (exceedingErrorsCount > 1) {
+                        errors += "<br>Les " + exceedingErrorsCount + " autres erreurs ne sont pas affichées.";
                     }
 
                     upload.error(new NotificationMessage(Model.of(errors)).escapeModelStrings(false));
