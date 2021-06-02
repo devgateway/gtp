@@ -1,6 +1,5 @@
 package org.devgateway.toolkit.persistence.service.reference.rainfall;
 
-import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPostHolder;
@@ -19,6 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.time.Month;
@@ -27,6 +28,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
+
 /**
  * @author Nadejda Mandrescu
  */
@@ -34,6 +37,9 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class RainLevelReferenceServiceImpl extends YearsReferenceServiceImpl<RainLevelReference>
         implements RainLevelReferenceService {
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Autowired
     private RainLevelReferenceRepository rainLevelReferenceRepository;
@@ -54,6 +60,13 @@ public class RainLevelReferenceServiceImpl extends YearsReferenceServiceImpl<Rai
     @Override
     public YearsReferenceRepository<RainLevelReference> yearsReferenceRepository() {
         return rainLevelReferenceRepository;
+    }
+
+    @Override
+    public <S extends RainLevelReference> S saveAndFlush(S entity) {
+        S savedEntity = super.saveAndFlush(entity);
+        em.refresh(savedEntity);
+        return savedEntity;
     }
 
     @Override
