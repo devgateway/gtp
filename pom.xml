@@ -13,7 +13,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.devgateway.ad3.anacim</groupId>
     <artifactId>ad3-anacim</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Administrative Data Driven Decisions</name>
     <description>Administrative Data Driven Decisions</description>
@@ -66,9 +66,9 @@
 
     <distributionManagement>
         <repository>
-            <id>ad3-anacim-releases</id>
-            <name>ad3-anacim-releases</name>
-            <url>http://artifactory.ampdev.net/artifactory/ad3-anacim-releases</url>
+            <id>gtp-releases-open-source</id>
+            <name>gtp-releases-open-source</name>
+            <url>https://artifactory.dgdev.org/artifactory/gtp-releases-open-source</url>
         </repository>
     </distributionManagement>
 
