@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.devgateway.ad3.anacim</groupId>
         <artifactId>ad3-anacim</artifactId>
-        <version>1.1</version>
+        <version>1.1.1-SNAPSHOT</version>
     </parent>
 
     <dependencies>
