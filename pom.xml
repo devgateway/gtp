@@ -66,9 +66,9 @@
 
     <distributionManagement>
         <repository>
-            <id>ad3-anacim-releases</id>
-            <name>ad3-anacim-releases</name>
-            <url>http://artifactory.ampdev.net/artifactory/ad3-anacim-releases</url>
+            <id>gtp-releases-open-source</id>
+            <name>gtp-releases-open-source</name>
+            <url>https://artifactory.dgdev.org/artifactory/gtp-releases-open-source</url>
         </repository>
     </distributionManagement>
 
