@@ -49,7 +49,7 @@
     "smoothscroll-polyfill": "^0.4.4",
     "source-map-explorer": "^2.5.0",
     "url-search-params-polyfill": "^8.1.0",
-    "tar": "^2.2.2"
+    "tar": "^4.4.15"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
