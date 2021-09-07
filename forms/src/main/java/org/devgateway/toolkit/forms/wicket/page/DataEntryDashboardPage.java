@@ -66,6 +66,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -357,7 +358,8 @@ public class DataEntryDashboardPage extends BasePage {
 
     private Component newProgressSection(String id, IModel<Float> percentage) {
         WebMarkupContainer section = new WebMarkupContainer(id);
-        section.add(new AttributeModifier("style", percentage.map(p -> String.format("width: %.2f%%;", 100.0f * p))));
+        section.add(new AttributeModifier("style",
+                percentage.map(p -> String.format(Locale.US, "width: %.2f%%;", 100.0f * p))));
         return section;
     }
 }
