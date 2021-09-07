@@ -280,6 +280,14 @@ public abstract class BasePage extends GenericWebPage<Void> {
         return homeMenu;
     }
 
+    protected NavbarButton<DataEntryDashboardPage> newDataEntryDashboardMenu() {
+        NavbarButton<DataEntryDashboardPage> menu = new NavbarButton<>(DataEntryDashboardPage.class,
+                new StringResourceModel("dataEntryDashboard", BasePage.this));
+        menu.setIconType(FontAwesomeIconType.tachometer);
+        MetaDataRoleAuthorizationStrategy.authorize(menu, Component.RENDER,
+                SecurityConstants.Roles.ROLE_EDITOR);
+        return menu;
+    }
 
     protected NavbarDropDownButton newAdminMenu() {
 
@@ -382,6 +390,7 @@ public abstract class BasePage extends GenericWebPage<Void> {
         navbar.setInverted(true);
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT, newHomeMenu(),
+                newDataEntryDashboardMenu(),
                 newAdminMenu(), newRefDataAndAlertsMenu(), newCategoriesMenu(), newIndicatorsMenu(),
                 newAccountMenu(), newLogoutMenu()));
 

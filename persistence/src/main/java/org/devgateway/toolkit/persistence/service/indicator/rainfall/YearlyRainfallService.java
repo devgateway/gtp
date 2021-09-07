@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.service.indicator.rainfall;
 import org.devgateway.toolkit.persistence.dao.indicator.YearlyRainfall;
 import org.devgateway.toolkit.persistence.dto.drysequence.MonthDecadalDaysWithRain;
 import org.devgateway.toolkit.persistence.dto.rainfall.DecadalInstantRainLevel;
+import org.devgateway.toolkit.persistence.status.RainfallYearProgress;
 import org.devgateway.toolkit.persistence.service.indicator.YearIndicatorGenerator;
 
 import java.io.IOException;
@@ -26,4 +27,6 @@ public interface YearlyRainfallService extends YearIndicatorGenerator<YearlyRain
     void export(YearlyRainfall decadalRainfall, OutputStream outputStream) throws IOException;
 
     YearlyRainfall getExample(Integer year);
+
+    RainfallYearProgress getProgress(Integer year);
 }

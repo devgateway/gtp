@@ -53,4 +53,11 @@ public interface DiseaseYearlySituationRepository extends BaseJpaRepository<Dise
             + "where yd.year = :year "
             + "and q.disease.id = :diseaseId")
     List<DiseaseQuantity> findQuantities(Integer year, Long diseaseId);
+
+    @CacheHibernateQueryResult
+    @Query("select q "
+            + "from DiseaseYearlySituation yd "
+            + "join yd.quantities q "
+            + "where yd.year = :year")
+    List<DiseaseQuantity> findQuantitiesByYear(Integer year);
 }

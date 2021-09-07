@@ -3,17 +3,6 @@ package org.devgateway.toolkit.persistence.service.indicator;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.time.Month;
-import java.time.MonthDay;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
-
 import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.PersistedCollectionSize;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
@@ -30,9 +19,13 @@ import org.devgateway.toolkit.persistence.repository.category.ProductRepository;
 import org.devgateway.toolkit.persistence.repository.indicator.ProductYearlyPricesRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.status.DataEntryStatus;
+import org.devgateway.toolkit.persistence.status.ProductPriceAndAvailabilityProgress;
+import org.devgateway.toolkit.persistence.status.ProductTypeYearStatus;
 import org.devgateway.toolkit.persistence.service.category.MarketService;
 import org.devgateway.toolkit.persistence.service.category.ProductService;
 import org.devgateway.toolkit.persistence.service.category.ProductTypeService;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +33,21 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.time.Month;
+import java.time.MonthDay;
+import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * @author Octavian Ciubotaru
@@ -194,6 +202,38 @@ public class ProductYearlyPricesServiceImpl extends BaseJpaServiceImpl<ProductYe
     @Override
     public List<ProductQuantity> findQuantities(ProductQuantitiesChartFilter filter) {
         return repository.findQuantities(filter.getYear(), filter.getProductTypeId(), filter.getMarketId());
+    }
+
+    @Override
+    public ProductPriceAndAvailabilityProgress getProgress(Integer year) {
+        List<ProductType> productTypes = productTypeService.findAll();
+
+        List<ProductTypeYearStatus> productTypeStatuses = new ArrayList<>();
+
+        YearMonth now = YearMonth.now(AD3Clock.systemDefaultZone());
+
+        for (ProductType productType : productTypes) {
+            Set<Month> monthsWithData = repository.findMonthDaysWithPricesByYearAndProductType(year, productType)
+                    .stream()
+                    .map(MonthDay::getMonth)
+                    .collect(Collectors.toSet());
+
+            Map<Month, DataEntryStatus> statusByMonth = new HashMap<>();
+            for (Month month : Month.values()) {
+                DataEntryStatus status;
+                if (monthsWithData.contains(month)) {
+                    status = DataEntryStatus.PUBLISHED;
+                } else if (YearMonth.of(year, month).isBefore(now)) {
+                    status = DataEntryStatus.NO_DATA;
+                } else {
+                    status = DataEntryStatus.NOT_APPLICABLE;
+                }
+                statusByMonth.put(month, status);
+            }
+            productTypeStatuses.add(new ProductTypeYearStatus(productType, statusByMonth));
+        }
+
+        return new ProductPriceAndAvailabilityProgress(productTypeStatuses);
     }
 
     private SortedSet<ProductPrice> getExamplePrices(List<Product> products) {

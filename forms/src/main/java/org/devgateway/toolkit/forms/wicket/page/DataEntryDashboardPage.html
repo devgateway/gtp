@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<wicket:extend>
+    <form wicket:id="form" class="progress-dashboard">
+        <div class="row">
+            <div wicket:id="year" class="col-sm-3"></div>
+        </div>
+        <div class="progress-status-legend pull-right">
+            <span class="badge red">Not started</span>
+            <span class="badge green">Published</span>
+            <span class="badge yellow">Draft</span>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-sm-3"><h4><wicket:message key="dashboard.indicator" /></h4></div>
+            <div class="col-sm-2"><h4><wicket:message key="dashboard.organization" /></h4></div>
+            <div class="col-sm-5"><h4><wicket:message key="dashboard.progress" /></h4></div>
+            <div class="col-sm-2"><h4><wicket:message key="dashboard.action" /></h4></div>
+        </div>
+        <div wicket:id="datasets">
+            <div class="row">
+                <div class="col-sm-3 col-indicator"><span wicket:id="indicator"></span></div>
+                <div class="col-sm-2 col-source"><span wicket:id="source"></span></div>
+                <div class="col-sm-5 col-progress">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" wicket:id="published">
+                        </div>
+                        <div class="progress-bar progress-bar-warning" wicket:id="draft">
+                        </div>
+                        <div class="progress-bar progress-bar-danger" wicket:id="notStarted">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <button wicket:id="expand">[[Expand]]</button>
+                    <a wicket:id="edit">[[Edit]]</a>
+                </div>
+            </div>
+            <div wicket:id="details">
+            </div>
+        </div>
+    </form>
+</wicket:extend>
+</body>
+</html>

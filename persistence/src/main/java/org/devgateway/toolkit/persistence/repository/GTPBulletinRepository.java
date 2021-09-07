@@ -29,4 +29,11 @@ public interface GTPBulletinRepository extends BaseJpaRepository<GTPBulletin, Lo
             + "and (:departmentId is null and b.department.id is null "
             + "or :departmentId is not null and b.department.id = :departmentId)")
     List<GTPBulletin> findAllWithUploadsAndDepartment(int startingYear, Long departmentId);
+
+    @CacheHibernateQueryResult
+    @Query("select distinct b "
+            + "from GTPBulletin b "
+            + "join b.uploads "
+            + "where b.year = :year")
+    List<GTPBulletin> findAllWithUploadsByYear(int year);
 }
