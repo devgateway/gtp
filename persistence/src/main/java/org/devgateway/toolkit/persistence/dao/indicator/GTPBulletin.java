@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 import org.devgateway.toolkit.persistence.dao.AbstractAuditableEntity;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
+import org.devgateway.toolkit.persistence.dao.MonthDecadal;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.jackson.DepartmentIdNullableSerializer;
 import org.hibernate.annotations.BatchSize;
@@ -23,9 +24,12 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import java.time.Month;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Octavian Ciubotaru
@@ -40,6 +44,11 @@ public class GTPBulletin extends AbstractAuditableEntity {
 
     public static final List<Month> MONTHS =
             ImmutableList.of(Month.JUNE, Month.JULY, Month.AUGUST, Month.SEPTEMBER, Month.OCTOBER);
+
+    public static final List<MonthDecadal> MONTH_DECADALS = Collections.unmodifiableList(
+            MONTHS.stream()
+                    .flatMap(m -> Stream.of(Decadal.values()).map(d -> new MonthDecadal(m, d)))
+                    .collect(Collectors.toList()));
 
     @NotNull
     private Integer year;

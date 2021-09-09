@@ -6,6 +6,7 @@ import java.util.Set;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.dao.indicator.RiverStationYearlyLevels;
+import org.devgateway.toolkit.persistence.status.RiverStationsYearProgress;
 import org.devgateway.toolkit.persistence.service.indicator.YearIndicatorGenerator;
 
 /**
@@ -23,4 +24,6 @@ public interface RiverStationYearlyLevelsService
     boolean hasLevels(Set<HydrologicalYear> years, Long riverStationId);
 
     List<RiverStation> findStationsWithLevels(Set<HydrologicalYear> years);
+
+    RiverStationsYearProgress getProgress(Integer year);
 }

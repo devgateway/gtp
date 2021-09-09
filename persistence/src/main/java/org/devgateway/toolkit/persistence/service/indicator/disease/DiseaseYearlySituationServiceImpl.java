@@ -6,6 +6,9 @@ import org.devgateway.toolkit.persistence.repository.indicator.DiseaseYearlySitu
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.status.DataEntryStatus;
+import org.devgateway.toolkit.persistence.status.DiseasesProgress;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,8 +20,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.time.Month;
 import java.time.YearMonth;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -98,6 +103,30 @@ public class DiseaseYearlySituationServiceImpl extends BaseJpaServiceImpl<Diseas
     @Override
     public List<DiseaseQuantity> findQuantities(Integer year, Long diseaseId) {
         return repository.findQuantities(year, diseaseId);
+    }
+
+    @Override
+    public DiseasesProgress getProgress(Integer year) {
+        Set<Month> monthsWithData = repository.findQuantitiesByYear(year).stream()
+                .map(DiseaseQuantity::getMonth)
+                .collect(Collectors.toSet());
+
+        Map<Month, DataEntryStatus> statuses = new HashMap<>();
+        YearMonth now = YearMonth.now(AD3Clock.systemDefaultZone());
+
+        for (Month month : Month.values()) {
+            DataEntryStatus status;
+            if (monthsWithData.contains(month)) {
+                status = DataEntryStatus.PUBLISHED;
+            } else if (YearMonth.of(year, month).isBefore(now)) {
+                status = DataEntryStatus.NO_DATA;
+            } else {
+                status = DataEntryStatus.NOT_APPLICABLE;
+            }
+            statuses.put(month, status);
+        }
+
+        return new DiseasesProgress(statuses);
     }
 
     @Override

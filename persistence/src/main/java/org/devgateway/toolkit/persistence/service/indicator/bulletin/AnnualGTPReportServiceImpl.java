@@ -5,17 +5,22 @@ import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.repository.AnnualGTPReportRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
+import org.devgateway.toolkit.persistence.status.AnnualGTPBulletinProgress;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.status.DataEntryStatus;
+import org.devgateway.toolkit.persistence.status.DepartmentStatus;
 import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * @author Octavian Ciubotaru
@@ -76,5 +81,34 @@ public class AnnualGTPReportServiceImpl extends BaseJpaServiceImpl<AnnualGTPRepo
     public List<AnnualGTPReport> findAllWithUploadsAndDepartment(Long locationId) {
         Integer startingYear = adminSettingsService.getStartingYear();
         return repository.findAllWithUploadsAndDepartment(startingYear, locationId);
+    }
+
+    @Override
+    public AnnualGTPBulletinProgress getProgress(Integer year) {
+        Set<Department> deptsWithData = repository.findAllWithUploadsByYear(year).stream()
+                .map(this::getDepartmentOrNational)
+                .collect(Collectors.toSet());
+
+        List<Department> ds = new ArrayList<>();
+        ds.add(Department.NATIONAL);
+        ds.addAll(departmentService.findAll());
+
+        List<DepartmentStatus> departmentStatuses = new ArrayList<>();
+
+        for (Department department : ds) {
+            departmentStatuses.add(new DepartmentStatus(department, deptsWithData.contains(department)
+                    ? DataEntryStatus.PUBLISHED
+                    : DataEntryStatus.NO_DATA));
+        }
+
+        return new AnnualGTPBulletinProgress(departmentStatuses);
+    }
+
+    private Department getDepartmentOrNational(AnnualGTPReport report) {
+        if (report.getDepartment() == null) {
+            return Department.NATIONAL;
+        } else {
+            return report.getDepartment();
+        }
     }
 }

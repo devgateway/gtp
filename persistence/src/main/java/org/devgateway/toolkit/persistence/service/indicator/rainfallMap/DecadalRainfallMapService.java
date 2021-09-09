@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.service.indicator.rainfallMap;
 
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfallMap;
+import org.devgateway.toolkit.persistence.status.RainfallMapProgress;
 import org.devgateway.toolkit.persistence.service.indicator.YearIndicatorGenerator;
 
 import java.time.Month;
@@ -19,4 +20,6 @@ public interface DecadalRainfallMapService extends YearIndicatorGenerator<Decada
     Decadal findLastDecadalWithData(Integer year, Month month);
 
     DecadalRainfallMap findByYearAndMonthAndDecadal(Integer year, Month month, Decadal decadal);
+
+    RainfallMapProgress getProgress(Integer year);
 }

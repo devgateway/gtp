@@ -11,7 +11,10 @@ import org.devgateway.toolkit.persistence.repository.indicator.YearlyRainfallRep
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.status.DataEntryStatus;
+import org.devgateway.toolkit.persistence.status.RainfallYearProgress;
 import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.stereotype.Service;
@@ -20,8 +23,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.time.Month;
+import java.time.YearMonth;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
 import static org.devgateway.toolkit.persistence.dao.DBConstants.MONTHS;
@@ -139,5 +147,40 @@ public class YearlyRainfallServiceImpl extends BaseJpaServiceImpl<YearlyRainfall
             }
         });
         return yr;
+    }
+
+    public RainfallYearProgress getProgress(Integer year) {
+        YearlyRainfall yearlyRainfall = yearlyRainfallRepository.findByYear(year);
+
+        Map<Month, DataEntryStatus> statusByMonth = new HashMap<>();
+
+        DataEntryStatus status;
+        Set<Month> monthsWithData = new HashSet<>();
+        if (yearlyRainfall == null || yearlyRainfall.getFormStatus() == FormStatus.NOT_STARTED) {
+            status = DataEntryStatus.NO_DATA;
+        } else {
+            yearlyRainfall.getStationDecadalRainfalls().stream()
+                    .filter(sdr -> sdr.getRainfall() != null)
+                    .map(StationDecadalRainfall::getMonth)
+                    .forEach(monthsWithData::add);
+
+            status = yearlyRainfall.getFormStatus() == FormStatus.DRAFT
+                    ? DataEntryStatus.DRAFT
+                    : DataEntryStatus.PUBLISHED;
+        }
+
+        YearMonth now = YearMonth.now(AD3Clock.systemDefaultZone());
+
+        for (Month month : MONTHS) {
+            if (monthsWithData.contains(month)) {
+                statusByMonth.put(month, status);
+            } else if (YearMonth.of(year, month).isBefore(now)) {
+                statusByMonth.put(month, DataEntryStatus.NO_DATA);
+            } else {
+                statusByMonth.put(month, DataEntryStatus.NOT_APPLICABLE);
+            }
+        }
+
+        return new RainfallYearProgress(statusByMonth);
     }
 }

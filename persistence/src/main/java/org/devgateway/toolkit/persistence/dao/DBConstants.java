@@ -20,7 +20,10 @@ import static java.time.Month.SEPTEMBER;
 
 import java.time.Month;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class DBConstants {
 
@@ -39,6 +42,11 @@ public final class DBConstants {
     public static final int MAX_LONGITUDE = -11;
 
     public static final List<Month> MONTHS = Arrays.asList(MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER);
+
+    public static final List<MonthDecadal> MONTH_DECADALS = Collections.unmodifiableList(
+            MONTHS.stream()
+                    .flatMap(m -> Stream.of(Decadal.values()).map(d -> new MonthDecadal(m, d)))
+                    .collect(Collectors.toList()));
 
     public static final int RAIN_SEASON_DECADAL_COUNT = MONTHS.size() * Decadal.values().length;
 }

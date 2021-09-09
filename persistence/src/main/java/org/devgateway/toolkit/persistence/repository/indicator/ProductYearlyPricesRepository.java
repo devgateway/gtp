@@ -12,8 +12,10 @@ import org.devgateway.toolkit.persistence.dto.agriculture.AveragePrice;
 import org.devgateway.toolkit.persistence.repository.CacheHibernateQueryResult;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.MonthDay;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,6 +24,16 @@ import java.util.List;
  */
 @Transactional
 public interface ProductYearlyPricesRepository extends BaseJpaRepository<ProductYearlyPrices, Long> {
+
+    @CacheHibernateQueryResult
+    @Query("select distinct pp.monthDay "
+            + "from ProductYearlyPrices p "
+            + "join p.prices pp "
+            + "where p.year = :year "
+            + "and p.productType = :productType")
+    List<MonthDay> findMonthDaysWithPricesByYearAndProductType(
+            @Param("year") Integer year,
+            @Param("productType") ProductType productType);
 
     @CacheHibernateQueryResult
     @Query("select new org.devgateway.toolkit.persistence.dao.PersistedCollectionSize(p.id, count(pp.id)) "
