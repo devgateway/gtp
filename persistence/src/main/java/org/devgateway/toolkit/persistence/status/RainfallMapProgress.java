@@ -13,7 +13,7 @@ public class RainfallMapProgress extends DatasetProgress {
     private final Map<MonthDecadal, DataEntryStatus> statusByMonthDecadal; // 6 months x 3 decadals = 18 elements
 
     public RainfallMapProgress(Map<MonthDecadal, DataEntryStatus> statusByMonthDecadal) {
-        super("Anomalies et Cumul des précipitations", "ANACIM | GADM");
+        super("Anomalies et Cumul des précipitations", "ANACIM");
         this.statusByMonthDecadal = statusByMonthDecadal;
     }
 
