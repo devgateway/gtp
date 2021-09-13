@@ -153,7 +153,6 @@ public class EditDecadalRainfallMapPage extends AbstractEditPage<DecadalRainfall
                 if (zlFeatures.isEmpty()) {
                     return "noZLevels";
                 }
-                zlFeatures.remove(0);
                 if (zlevels.size() > MAX_ZLEVEL_GRADES) {
                     return "tooManyZLevels";
                 } else if (Collections.min(zlevels) < 0) {
