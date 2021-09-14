@@ -19,7 +19,7 @@ public class FeatureManagerController {
     @Autowired
     private FeatureService featureService;
 
-    @GetMapping("/api/enabled-features")
+    @GetMapping("/api/fm/enabled-features")
     public List<String> getFeatures() {
         return featureService.findAll().stream()
                 .filter(Feature::isEnabledInHierarchy)
