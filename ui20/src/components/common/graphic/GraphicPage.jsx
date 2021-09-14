@@ -1,4 +1,5 @@
-import React, {useRef, useState, useEffect} from "react"
+import React, {Component, useRef, useState, useEffect} from "react"
+import {connect} from "react-redux"
 import {Segment, Sticky} from "semantic-ui-react"
 import "./indicators.scss"
 import "./indicator-base.scss"
@@ -14,11 +15,13 @@ export class GraphicDef {
   menuItemDef: MenuItemDef
   GraphicComponent
   GraphicScrollableTo
+  fmEntry: string
 
-  constructor(messageId: string, icon: string, GraphicComponent) {
+  constructor(messageId: string, icon: string, GraphicComponent, fmEntry: string) {
     this.menuItemDef = new MenuItemDef(messageId, icon, new ScrollRef())
     this.GraphicComponent = GraphicComponent
     this.GraphicScrollableTo = ScrollableTo(this.menuItemDef.scrollRef)
+    this.fmEntry = fmEntry
   }
 }
 
@@ -34,7 +37,9 @@ const GraphicPage = (props) => {
   const [width, setWidth] = useState('auto')
   const [firstGraphicOffset, setFirstGraphicOffset] = useState(() => getGraphicMenuOffset())
 
-  menuDefs[0].scrollRef.offset = firstGraphicOffset
+  if (menuDefs.length) {
+    menuDefs[0].scrollRef.offset = firstGraphicOffset
+  }
 
   const resizeObserver = new window.ResizeObserver((entries) => {
     const newWidth = entries[0].target.clientWidth - 1
@@ -51,8 +56,12 @@ const GraphicPage = (props) => {
     if (contextRef.current) {
       resizeObserver.observe(contextRef.current)
     }
-    return () => resizeObserver.unobserve(contextRef.current)
+    return () => contextRef.current && resizeObserver.unobserve(contextRef.current)
   }, [contextRef.current, width, firstGraphicOffset])
+
+  if (!graphicsDefs.length) {
+    return null
+  }
 
   return (
     <div ref={contextRef} className="graphic-page">
@@ -79,4 +88,27 @@ const GraphicPage = (props) => {
     </div>)
 }
 
-export default GraphicPage
+class GraphicPageWithFMCheck extends Component {
+
+  render() {
+    const {isFMConfigLoaded, fmConfig, graphicsDefs} = this.props
+    if (!isFMConfigLoaded) {
+      return null
+    }
+    const visibleGraphics = graphicsDefs.filter((gd: GraphicDef) => fmConfig.has(gd.fmEntry))
+    return <GraphicPage graphicsDefs={visibleGraphics} />
+  }
+
+}
+
+const mapStateToProps = state => {
+  return {
+    isFMConfigLoaded: state.getIn(['app', 'isFMConfigLoaded']),
+    fmConfig: state.getIn(['app', 'data', 'fmConfig']),
+  }
+}
+
+const mapActionCreators = {
+}
+
+export default connect(mapStateToProps, mapActionCreators)(GraphicPageWithFMCheck)

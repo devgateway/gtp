@@ -1,14 +1,22 @@
 package org.devgateway.toolkit.persistence.service.indicator.bulletin;
 
+import static java.util.Collections.emptySet;
+import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 import org.devgateway.toolkit.persistence.dao.Decadal;
+import org.devgateway.toolkit.persistence.dao.MonthDecadal;
+import org.devgateway.toolkit.persistence.dao.YearMonthDecadal;
 import org.devgateway.toolkit.persistence.dao.indicator.GTPBulletin;
 import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.repository.GTPBulletinRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.status.DataEntryStatus;
+import org.devgateway.toolkit.persistence.status.DepartmentMonthDecadalStatus;
+import org.devgateway.toolkit.persistence.status.GTPBulletinProgress;
 import org.devgateway.toolkit.persistence.service.location.DepartmentService;
 import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +27,12 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * @author Octavian Ciubotaru
@@ -111,5 +122,50 @@ public class GTPBulletinServiceImpl extends BaseJpaServiceImpl<GTPBulletin> impl
     public List<GTPBulletin> findAllWithUploadsAndLocation(Long locationId) {
         Integer startingYear = adminSettingsService.getStartingYear();
         return repository.findAllWithUploadsAndDepartment(startingYear, locationId);
+    }
+
+    @Override
+    public GTPBulletinProgress getProgress(Integer year) {
+        List<Department> ds = new ArrayList<>();
+        ds.add(Department.NATIONAL);
+        ds.addAll(departmentService.findAll());
+
+        Map<Department, Set<MonthDecadal>> monthDecadalsWithDataByDept =
+                repository.findAllWithUploadsByYear(year).stream()
+                        .collect(Collectors.groupingBy(
+                                this::getDepartmentOrNational,
+                                mapping(b -> new MonthDecadal(b.getMonth(), b.getDecadal()), toSet())));
+
+        List<DepartmentMonthDecadalStatus> list = new ArrayList<>();
+
+        YearMonthDecadal now = YearMonthDecadal.now();
+
+        for (Department department : ds) {
+            Map<MonthDecadal, DataEntryStatus> statuses = new HashMap<>();
+
+            for (MonthDecadal monthDecadal : GTPBulletin.MONTH_DECADALS) {
+                DataEntryStatus status;
+                if (monthDecadalsWithDataByDept.getOrDefault(department, emptySet()).contains(monthDecadal)) {
+                    status = DataEntryStatus.PUBLISHED;
+                } else if (new YearMonthDecadal(year, monthDecadal).isBefore(now)) {
+                    status = DataEntryStatus.NO_DATA;
+                } else {
+                    status = DataEntryStatus.NOT_APPLICABLE;
+                }
+                statuses.put(monthDecadal, status);
+            }
+
+            list.add(new DepartmentMonthDecadalStatus(department, statuses));
+        }
+
+        return new GTPBulletinProgress(list);
+    }
+
+    private Department getDepartmentOrNational(GTPBulletin bulletin) {
+        if (bulletin.getDepartment() == null) {
+            return Department.NATIONAL;
+        } else {
+            return bulletin.getDepartment();
+        }
     }
 }

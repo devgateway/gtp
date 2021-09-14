@@ -42,4 +42,6 @@ public interface DecadalRainfallMapRepository extends BaseJpaRepository<DecadalR
 
     DecadalRainfallMap findByYearAndMonthAndDecadal(Integer year, Month month, Decadal decadal);
 
+    @CacheHibernateQueryResult
+    List<DecadalRainfallMap> findByYear(Integer year);
 }

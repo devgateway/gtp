@@ -10,12 +10,22 @@ import org.devgateway.toolkit.persistence.repository.indicator.RiverStationYearl
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
+import org.devgateway.toolkit.persistence.status.DataEntryStatus;
+import org.devgateway.toolkit.persistence.status.RiverStationStatus;
+import org.devgateway.toolkit.persistence.status.RiverStationsYearProgress;
+import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Month;
+import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Octavian Ciubotaru
@@ -87,5 +97,41 @@ public class RiverStationYearlyLevelsServiceImpl extends BaseJpaServiceImpl<Rive
     @Override
     public List<RiverStation> findStationsWithLevels(Set<HydrologicalYear> years) {
         return repository.findStationsWithLevels(years);
+    }
+
+    @Override
+    public RiverStationsYearProgress getProgress(Integer year) {
+        List<RiverStation> riverStations = riverStationRepository.findAll();
+
+        List<RiverStationYearlyLevels> l = repository.findByYear(new HydrologicalYear(year));
+
+        List<RiverStationStatus> riverStationStatuses = new ArrayList<>();
+
+        YearMonth now = YearMonth.now(AD3Clock.systemDefaultZone());
+
+        for (RiverStation riverStation : riverStations) {
+            Set<Month> monthsWithData = l.stream().filter(z -> z.getStation().equals(riverStation))
+                    .flatMap(z -> z.getLevels().stream().map(rl -> rl.getMonthDay().getMonth()))
+                    .collect(Collectors.toSet());
+
+            Map<Month, DataEntryStatus> statuses = new HashMap<>();
+
+            for (Month month : HydrologicalYear.HYDROLOGICAL_MONTHS) {
+                statuses.put(month, monthsWithData.contains(month)
+                        ? DataEntryStatus.PUBLISHED
+                        : (hydrologicalYearMonth(year, month).compareTo(now) < 0
+                                ? DataEntryStatus.NO_DATA
+                                : DataEntryStatus.NOT_APPLICABLE));
+            }
+
+            riverStationStatuses.add(new RiverStationStatus(riverStation, statuses));
+        }
+
+        return new RiverStationsYearProgress(riverStationStatuses);
+    }
+
+    private YearMonth hydrologicalYearMonth(int year, Month month) {
+        int offset = month.compareTo(HydrologicalYear.HYDROLOGICAL_FIRST_MONTH) < 0 ? 1 : 0;
+        return YearMonth.of(year + offset, month);
     }
 }

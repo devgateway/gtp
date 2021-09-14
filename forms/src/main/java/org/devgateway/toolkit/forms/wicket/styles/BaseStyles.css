@@ -374,6 +374,19 @@ hr.edit-separator {
 }
 
 /* ---------------------------------------------------------------------- */
+/*  Feature Manager
+/* ---------------------------------------------------------------------- */
+.features-table .depth-0 {
+    background-color: #f0f0f0;
+}
+.features-table .depth-1 {
+    background-color: #fff;
+}
+.features-table .feature-name-cell {
+    padding-top: 16px;
+}
+
+/* ---------------------------------------------------------------------- */
 /*  Rain season
 /* ---------------------------------------------------------------------- */
 .list-rain-season .pageDescription {
@@ -383,4 +396,35 @@ hr.edit-separator {
     border-radius: 4px;
     padding: 15px;
     margin-bottom: 20px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Data Entry Dashboard
+/* ---------------------------------------------------------------------- */
+.progress-status-table {
+    table-layout: fixed;
+}
+.progress-status-table td.gray, .progress-status-legend .gray {
+    background-color: lightgray;
+}
+.progress-status-table td.red, .progress-status-legend .red {
+    background-color: #d9534f;
+}
+.progress-status-table td.green, .progress-status-legend .green {
+    background-color: #5cb85c;
+}
+.progress-status-table td.yellow, .progress-status-legend .yellow {
+    background-color: #f0ad4e;
+}
+.progress-dashboard .col-progress, .progress-dashboard .col-indicator, .progress-dashboard .col-source {
+    padding-top: 6px;
+}
+.tab-gtp-status .col-location {
+    width: 200px;
+}
+.tab-river-station-status .col-river-station {
+    width: 150px;
+}
+.tab-product-price-and-availability-status .col-product-type {
+    width: 200px;
 }

@@ -29,6 +29,8 @@ import java.io.Serializable;
 public class Department extends AbstractAuditableEntity implements Serializable, Labelable, Comparable<Department> {
     private static final long serialVersionUID = 5802901244304509439L;
 
+    public static final Department NATIONAL = new Department(-1L, "National");
+
     @ExcelExport(name = "zone", useTranslation = true, justExport = true)
     @JsonIgnore
     private transient Zone zone;

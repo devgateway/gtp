@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:panel>
+    <table class="table table-bordered progress-status-table tab-gtp-status">
+        <tr>
+            <th scope="col" rowspan="3" class="col-location"><span wicket:id="locationLabel">[[Location]]</span></th>
+            <th wicket:id="status" scope="col"><span wicket:id="label">[[Status]]</span></th>
+        </tr>
+        <tr>
+            <th wicket:id="months" scope="col"><span wicket:id="label">[[January]]</span></th>
+        </tr>
+        <tr>
+            <th wicket:id="decadals" scope="col"><span wicket:id="label">[[1]]</span></th>
+        </tr>
+        <tr wicket:id="rows">
+            <td><span wicket:id="location"></span></td>
+            <td wicket:id="statuses">&nbsp;</td>
+        </tr>
+    </table>
+</wicket:panel>
+</body>
+</html>

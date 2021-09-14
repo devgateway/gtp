@@ -25,4 +25,11 @@ public interface AnnualGTPReportRepository extends BaseJpaRepository<AnnualGTPRe
             + "and (:departmentId is null and b.department.id is null "
             + "or :departmentId is not null and b.department.id = :departmentId)")
     List<AnnualGTPReport> findAllWithUploadsAndDepartment(int startingYear, Long departmentId);
+
+    @CacheHibernateQueryResult
+    @Query("select distinct b "
+            + "from AnnualGTPReport b "
+            + "join b.uploads "
+            + "where b.year = :year")
+    List<AnnualGTPReport> findAllWithUploadsByYear(int year);
 }

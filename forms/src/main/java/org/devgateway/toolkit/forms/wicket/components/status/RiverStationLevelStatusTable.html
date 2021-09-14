@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:panel>
+    <table class="table table-bordered progress-status-table tab-river-station-status">
+        <tr>
+            <th scope="col" rowspan="3" class="col-river-station"><span wicket:id="riverStationLabel">[[River Station]]</span></th>
+            <th wicket:id="status" scope="col"><span wicket:id="label">[[Status]]</span></th>
+        </tr>
+        <tr>
+            <th wicket:id="year1" scope="col"><span wicket:id="label">[[2020]]</span></th>
+            <th wicket:id="year2" scope="col"><span wicket:id="label">[[2021]]</span></th>
+        </tr>
+        <tr>
+            <th wicket:id="months" scope="col"><span wicket:id="label">[[January]]</span></th>
+        </tr>
+        <tr wicket:id="rows">
+            <td><span wicket:id="riverStation"></span></td>
+            <td wicket:id="statuses">&nbsp;</td>
+        </tr>
+    </table>
+</wicket:panel>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!--
+    Copyright (c) 2021 Development Gateway, Inc and others.
+
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the MIT License (MIT)
+    which accompanies this distribution, and is available at
+    https://opensource.org/licenses/MIT
+
+    Contributors:
+    Development Gateway - initial API and implementation
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="ANACIM-482" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="feature" />
+        </preConditions>
+        <sql>
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'page.waterResources', 'Page: Ressources en Eau', true, 0, null);
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'indicator.water.rainseason', 'Date de début de la saison', true, 0, (select id from feature where name='page.waterResources'));
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'indicator.water.rainMap', 'Anomalies et cumul des précipitations', true, 1, (select id from feature where name='page.waterResources'));
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'indicator.water.rainfall', 'Pluviométrie par Poste pluviométrique', true, 2, (select id from feature where name='page.waterResources'));
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'indicator.water.dryseason', 'Nombre de jours avec/sans pluie', true, 3, (select id from feature where name='page.waterResources'));
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'indicator.water.post.map', 'Localisation des postes pluviométriques', true, 4, (select id from feature where name='page.waterResources'));
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'indicator.water.riverlevel', 'Variation du niveau du fleuve', true, 5, (select id from feature where name='page.waterResources'));
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'page.agricultureAndMarket', 'Page: Agriculture et marchés', true, 1, null);
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'indicator.agriculture.market.price', 'Prix par marché de collecte', true, 0, (select id from feature where name='page.agricultureAndMarket'));
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'indicator.agriculture.market.quantity', 'Approvisionnement des marchés de collecte', true, 1, (select id from feature where name='page.agricultureAndMarket'));
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'indicator.agriculture.market.map', 'Localisation des marchés de collecte', true, 2, (select id from feature where name='page.agricultureAndMarket'));
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'page.livestock', 'Page: Élevage', true, 2, null);
+            insert into feature(id, name, label, enabled, item_order, parent_id) values(nextval('hibernate_sequence'), 'indicator.livestock.disease.map', 'Infections mensuelles', true, 0, (select id from feature where name='page.livestock'));
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

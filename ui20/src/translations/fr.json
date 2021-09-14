@@ -130,7 +130,7 @@
 	"indicators.map.attribution.countries": "Fabriqué avec Natural Earth",
 	"indicators.map.disease.title": "Infections mensuelles",
 	"indicators.map.disease.help": "Ce graphique montre le nombre de cas reportés par mois par région par maladie.",
-	"indicators.map.disease.source": "Ministère de l'élevage",
+	"indicators.map.disease.source": "Ministère de l’élevage Direction de l’Elevage (DIREL)",
 	"indicators.map.disease.cases": "Cas",
 	"indicators.map.disease.report-cases": "Cas reportés",
 	"indicators.map.market.title": "Localisation des marchés de collecte",

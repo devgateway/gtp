@@ -32,5 +32,6 @@ export const getWorldMapAttribution = () => get(EP.ESRI_WORLD_MAP_SERVICE_INFO)
 export const getTopoMapAttribution = () => get(EP.ESRI_TOPO_MAP_SERVICE_INFO)
 
 export const getCNSCHeader = () => get(EP.CNSC_HEADER)
+export const getFMConfig = () => get(EP.ENABLED_FEATURES)
 
 export const doTest = () => get(EP.TEST)

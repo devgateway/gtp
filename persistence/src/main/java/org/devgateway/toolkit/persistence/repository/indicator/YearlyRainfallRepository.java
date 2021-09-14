@@ -36,4 +36,7 @@ public interface YearlyRainfallRepository extends BaseJpaRepository<YearlyRainfa
 
     @CacheHibernateQueryResult
     List<YearlyRainfall> findByFormStatusAndYearIn(FormStatus status, Collection<Integer> years);
+
+    @CacheHibernateQueryResult
+    YearlyRainfall findByYear(Integer year);
 }
