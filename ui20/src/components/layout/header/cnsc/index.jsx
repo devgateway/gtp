@@ -11,7 +11,8 @@ import {CNSCSearch} from "./CNSCSearch"
 
 class CNSCHeader extends Component {
   static propTypes = {
-    onLoadAll: PropTypes.func.isRequired,
+    loadCNSCHeader: PropTypes.func.isRequired,
+    loadFMConfig: PropTypes.func.isRequired,
     isCNSCHeaderLoaded: PropTypes.bool.isRequired,
   }
 
@@ -33,7 +34,8 @@ class CNSCHeader extends Component {
   }
 
   componentDidMount() {
-    this.props.onLoadAll();
+    this.props.loadCNSCHeader();
+    this.props.loadFMConfig();
   }
 
   render() {
@@ -74,7 +76,8 @@ const mapStateToProps = state => {
 }
 
 const mapActionCreators = {
-  onLoadAll: appActions.loadCNSCHeader,
+  loadCNSCHeader: appActions.loadCNSCHeader,
+  loadFMConfig: appActions.loadFMConfig,
 }
 
 export default injectIntl(connect(mapStateToProps, mapActionCreators)(CNSCHeader))

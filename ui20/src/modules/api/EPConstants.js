@@ -51,4 +51,7 @@ const APP = API_ROOT + '/app'
 export const CNSC_HEADER = APP + '/cnsc-header'
 export const CNSC_HEADER_LOGO = APP + '/cnsc-header/logo'
 
+const FM = API_ROOT + '/fm'
+export const ENABLED_FEATURES = FM + '/enabled-features'
+
 export const TEST = LOCATION + '/dummy'

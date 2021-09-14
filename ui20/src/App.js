@@ -5,8 +5,11 @@ import {Provider} from 'react-redux'
 import {Route, Switch, Redirect} from 'react-router' // react-router v4/v5
 import {ConnectedRouter} from 'connected-react-router/immutable'
 import ConnectionCheckWrapper from "./components/common/ConnectionCheckWrapper"
+import FMCheck from "./components/common/FMCheck"
+import PageLoader from "./components/common/PageLoader"
 import {cssClasses, getBrowserClass} from "./components/ComponentUtil"
 import Layout from "./components/layout/Layout"
+import {PAGE_AGRICULTURE_AND_MARKET, PAGE_LIVESTOCK, PAGE_WATER_RESOURCES} from "./modules/entities/FMConstants"
 import configureStore, {history} from './redux/Store'
 import {connect} from 'react-redux';
 import messages_fr from "./translations/fr.json";
@@ -39,12 +42,22 @@ const messages = {
   'en': messages_en
 };
 
-const withLayout = (Component) => <Layout><ConnectionCheckWrapper childrenBuilder={(props) => <Component {...props} />} /></Layout>
+const withLayout = (Component, childrenBuilder = (props) => <Component {...props} />) =>
+  <Layout><ConnectionCheckWrapper childrenBuilder={childrenBuilder} /></Layout>
+const withFMCheckLayout = (Component, fmEntry) => {
+  const childrenBuilder = (props) =>
+    <FMCheck
+      onFMLoadingComponentBuilder={PageLoader}
+      onEnabledComponentBuilder={() => <Component {...props} />}
+      onDisabledComponentBuilder={() => <NotFound />}
+      fmEntry={fmEntry}/>
+  return withLayout(Component, childrenBuilder)
+}
 const HomeLayout = (props) => withLayout(Home)
 const AboutLayout = (props) => withLayout(About)
-const WaterLayout = (props) => withLayout(Water)
-const MarketLayout = (props) => withLayout(Market)
-const LivestockLayout = (props) => withLayout(Livestock)
+const WaterLayout = (props) => withFMCheckLayout(Water, PAGE_WATER_RESOURCES)
+const MarketLayout = (props) => withFMCheckLayout(Market, PAGE_AGRICULTURE_AND_MARKET)
+const LivestockLayout = (props) => withFMCheckLayout(Livestock, PAGE_LIVESTOCK)
 const BulletinLayout = (props) => withLayout(Bulletin)
 const NotFoundLayout = (props) => withLayout(NotFound)
 

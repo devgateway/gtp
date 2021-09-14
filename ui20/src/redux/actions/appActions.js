@@ -1,11 +1,18 @@
 import * as api from "../../modules/api"
 import CommonConfig from "../../modules/entities/config/CommonConfig"
-import {CNSC_HEADER, COMMON_CONFIG_UPDATE, MENU_TOGGLE, MAP_ATTRIBUTION} from "../reducers/AppReducer"
+import FMConfig from "../../modules/entities/config/FMConfig"
+import {CNSC_HEADER, COMMON_CONFIG_UPDATE, MENU_TOGGLE, MAP_ATTRIBUTION, FM_CONFIG} from "../reducers/AppReducer"
 
 export const loadCNSCHeader = () => (dispatch, getState) =>
   dispatch({
     type: CNSC_HEADER,
     payload: api.getCNSCHeader()
+  })
+
+export const loadFMConfig = () => (dispatch, getState) =>
+  dispatch({
+    type: FM_CONFIG,
+    payload: api.getFMConfig().then(featuresList => new FMConfig(featuresList))
   })
 
 export const updateCommonConfig = (apiCommonConfig) => (dispatch, getState) => {

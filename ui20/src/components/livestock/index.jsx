@@ -2,6 +2,7 @@ import * as PropTypes from "prop-types"
 import React, {Component} from "react"
 import {injectIntl} from "react-intl"
 import {connect} from "react-redux"
+import {INDICATOR_LIVESTOCK_DISEASE_MAP} from "../../modules/entities/FMConstants"
 import * as livestockActions from "../../redux/actions/livestock"
 import "../common/graphic/indicators.scss"
 import "../common/graphic/indicator-base.scss"
@@ -9,7 +10,7 @@ import GraphicPage, {GraphicDef} from "../common/graphic/GraphicPage"
 import DiseaseMapGraphic from "./diseaseMap"
 
 const livestockGraphicsDef = [
-  new GraphicDef('indicators.map.disease.title', 'masked-icon icon-barchart', DiseaseMapGraphic),
+  new GraphicDef('indicators.map.disease.title', 'masked-icon icon-barchart', DiseaseMapGraphic, INDICATOR_LIVESTOCK_DISEASE_MAP),
 ]
 
 

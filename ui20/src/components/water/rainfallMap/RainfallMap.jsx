@@ -31,7 +31,7 @@ class RainfallMap extends Component {
 
   componentDidMount() {
     this.resizeObserver = new window.ResizeObserver((elements) => {
-      setTimeout(() => this.leafletMap.fitBounds(SENEGAL_BOUNDS), 400)
+      setTimeout(() => this.leafletMap && this.leafletMap.fitBounds(SENEGAL_BOUNDS), 400)
     })
     this.resizeObserver.observe(this.ref.current)
   }
@@ -83,7 +83,6 @@ class RainfallMap extends Component {
             circleRadius={1}
             intl={intl}/>}
 
-          {this.props.children}
         </Map>
       </div>
     )
