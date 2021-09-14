@@ -83,7 +83,6 @@ class RainfallMap extends Component {
             circleRadius={1}
             intl={intl}/>}
 
-          {this.props.children}
         </Map>
       </div>
     )
