@@ -93,22 +93,28 @@ class Menu extends Component {
 }
 
 const getMenuEntries = (props) => {
+  const {isFMConfigLoaded, fmConfig} = props
   const lan = props.match.params.lan
   const pathName = props.location.pathname
 
   return APP_MENU.map((me: MenuEntry) => {
+    if (me.fmEntry && (!isFMConfigLoaded || !fmConfig.has(me.fmEntry))) {
+      return null
+    }
     const url = `/${lan}/${me.url}`
     return Object.assign({}, me, {
       url,
       isActive: pathName === url
     })
-  })
+  }).filter(me => me)
 }
 
 
 const mapStateToProps = state => {
   return {
     isMenuOpened: state.getIn(['app', 'isMenuOpened']),
+    isFMConfigLoaded: state.getIn(['app', 'isFMConfigLoaded']),
+    fmConfig: state.getIn(['app', 'data', 'fmConfig']),
   }
 }
 
