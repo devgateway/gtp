@@ -330,6 +330,10 @@ public abstract class BasePage extends GenericWebPage<Void> {
 
                 list.add(new MenuDivider());
 
+                list.add(new MenuBookmarkablePageLink<>(FeatureManagerPage.class,
+                        new StringResourceModel("navbar.featureManager", BasePage.this, null))
+                        .setIconType(FontAwesomeIconType.lightbulb_o));
+
                 list.add(new MenuBookmarkablePageLink<>(EditAdminSettingsPage.class,
                         new StringResourceModel("navbar.adminSettings", BasePage.this, null))
                         .setIconType(FontAwesomeIconType.briefcase));

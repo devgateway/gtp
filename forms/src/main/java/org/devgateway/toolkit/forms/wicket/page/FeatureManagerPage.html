@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>FeatureManagerPage</title>
+</head>
+<body>
+<wicket:extend>
+    <form wicket:id="form">
+        <table wicket:id="table" class="table features-table">
+            <tr wicket:id="features">
+                <td class="feature-name-cell"><span wicket:id="label"></span></td>
+                <td><div wicket:id="enabled"></div></td>
+            </tr>
+        </table>
+        <div class="row">
+            <div class="col-md-12">
+                <button wicket:id="save" type="button" class="btn btn-green btn-form-action">[[Save]]</button>
+                <button wicket:id="cancel" type="button" class="btn btn-grey btn-form-action">[[Cancel]]</button>
+            </div>
+        </div>
+    </form>
+</wicket:extend>
+</body>
+</html>
