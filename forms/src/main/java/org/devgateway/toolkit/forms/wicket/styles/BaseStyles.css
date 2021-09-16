@@ -455,7 +455,7 @@ hr.edit-separator {
 .expand-button .icon {
     padding-left: 9px;
 }
-.btn .expand-button {
+.expand-button .indicator, .expand-button .source {
     color: #333;
 }
 
