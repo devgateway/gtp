@@ -14,11 +14,15 @@
  */
 package org.devgateway.toolkit.forms.wicket.page;
 
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.wicket.components.HomepageButton;
+import org.devgateway.toolkit.forms.wicket.page.dashboard.DataEntryDashboardPage;
 
 /**
  * @author mpostelnicu
@@ -39,5 +43,8 @@ public class Homepage extends BasePage {
         add(new Label("homepage", new ResourceModel("homepage")));
         add(new Label("title", new ResourceModel("title")));
 
+        add(new HomepageButton<>("dataEntryDashboard", DataEntryDashboardPage.class,
+                FontAwesomeIconType.tachometer)
+                .setLabel(new StringResourceModel("dataEntryDashboard")));
     }
 }
