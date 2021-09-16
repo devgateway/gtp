@@ -455,6 +455,9 @@ hr.edit-separator {
 .expand-button .icon {
     padding-left: 9px;
 }
+.btn .expand-button {
+    color: #333;
+}
 
 /* ---------------------------------------------------------------------- */
 /* Home Page
