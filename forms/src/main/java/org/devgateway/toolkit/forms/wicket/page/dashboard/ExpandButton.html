@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:panel>
+    <div class="row expand-button">
+        <div class="col-sm-3"><span wicket:id="label"></span></div>
+        <div class="col-sm-2"><span wicket:id="source"></span></div>
+        <div class="col-sm-7 progressWrapper">
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" wicket:id="published">
+                </div>
+                <div class="progress-bar progress-bar-warning" wicket:id="draft">
+                </div>
+                <div class="progress-bar progress-bar-danger" wicket:id="notStarted">
+                </div>
+            </div>
+            <span wicket:id="splitter">&nbsp;</span>
+            <i wicket:id="icon" class="icon"></i>
+        </div>
+    </div>
+</wicket:panel>
+</body>
+</html>

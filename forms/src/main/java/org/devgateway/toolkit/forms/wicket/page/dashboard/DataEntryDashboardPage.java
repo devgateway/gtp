@@ -1,26 +1,26 @@
-package org.devgateway.toolkit.forms.wicket.page;
+package org.devgateway.toolkit.forms.wicket.page.dashboard;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.core.markup.html.bootstrap.components.TooltipBehavior;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.toolkit.forms.security.SecurityConstants;
+import org.devgateway.toolkit.forms.wicket.SSAuthenticatedWebSession;
 import org.devgateway.toolkit.forms.wicket.components.form.Select2ChoiceBootstrapFormComponent;
 import org.devgateway.toolkit.forms.wicket.components.status.AnnualGTPBulletinStatusTable;
 import org.devgateway.toolkit.forms.wicket.components.status.DiseasesStatusTable;
@@ -30,6 +30,7 @@ import org.devgateway.toolkit.forms.wicket.components.status.RainSeasonStatusTab
 import org.devgateway.toolkit.forms.wicket.components.status.RainfallMapStatusTable;
 import org.devgateway.toolkit.forms.wicket.components.status.RainfallStatusTable;
 import org.devgateway.toolkit.forms.wicket.components.status.RiverStationLevelStatusTable;
+import org.devgateway.toolkit.forms.wicket.page.BasePage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.bulletin.ListAnnualGTPReportsPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.bulletin.ListGTPBulletinPage;
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.disease.ListDiseaseYearlySituationPage;
@@ -45,7 +46,6 @@ import org.devgateway.toolkit.persistence.status.DatasetProgress;
 import org.devgateway.toolkit.persistence.status.DiseasesProgress;
 import org.devgateway.toolkit.persistence.status.GTPBulletinProgress;
 import org.devgateway.toolkit.persistence.status.ProductPriceAndAvailabilityProgress;
-import org.devgateway.toolkit.persistence.status.ProgressSummary;
 import org.devgateway.toolkit.persistence.status.RainSeasonYearProgress;
 import org.devgateway.toolkit.persistence.status.RainfallMapProgress;
 import org.devgateway.toolkit.persistence.status.RainfallYearProgress;
@@ -61,12 +61,10 @@ import org.devgateway.toolkit.persistence.service.indicator.river.RiverStationYe
 import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -77,6 +75,7 @@ import java.util.stream.Collectors;
 public class DataEntryDashboardPage extends BasePage {
 
     private final IModel<Integer> yearModel;
+
     @SpringBean
     private AdminSettingsService adminSettingsService;
 
@@ -104,22 +103,11 @@ public class DataEntryDashboardPage extends BasePage {
     @SpringBean
     private DiseaseYearlySituationService diseaseYearlySituationService;
 
-    private abstract class ProgressSection<T extends DatasetProgress> implements Serializable {
-
-        public abstract IModel<T> getDatasetProgress();
-
-        public abstract Component createDetailedProgress(String id, IModel<T> model);
-
-        public abstract Pair<Class<? extends Page>, PageParameters> getEditPage();
-
-        PageParameters forYear() {
-            PageParameters parameters = new PageParameters();
-            parameters.set("year", yearModel.getObject());
-            return parameters;
-        }
-    }
-
     private class RainfallProgressSection extends ProgressSection<RainfallYearProgress> {
+
+        RainfallProgressSection() {
+            super(SecurityConstants.Roles.ROLE_RAINFALL_EDITOR);
+        }
 
         @Override
         public IModel<RainfallYearProgress> getDatasetProgress() {
@@ -133,11 +121,15 @@ public class DataEntryDashboardPage extends BasePage {
 
         @Override
         public Pair<Class<? extends Page>, PageParameters> getEditPage() {
-            return Pair.of(ListYearlyRainfallPage.class, forYear());
+            return Pair.of(ListYearlyRainfallPage.class, forYear(yearModel));
         }
     }
 
     private class RainfallMapProgressSection extends ProgressSection<RainfallMapProgress> {
+
+        RainfallMapProgressSection() {
+            super(SecurityConstants.Roles.ROLE_RAINFALL_EDITOR);
+        }
 
         @Override
         public IModel<RainfallMapProgress> getDatasetProgress() {
@@ -151,11 +143,15 @@ public class DataEntryDashboardPage extends BasePage {
 
         @Override
         public Pair<Class<? extends Page>, PageParameters> getEditPage() {
-            return Pair.of(ListDecadalRainfallMapPage.class, forYear());
+            return Pair.of(ListDecadalRainfallMapPage.class, forYear(yearModel));
         }
     }
 
     private class RainSeasonProgressSection extends ProgressSection<RainSeasonYearProgress> {
+
+        RainSeasonProgressSection() {
+            super(SecurityConstants.Roles.ROLE_RAINFALL_SEASON_EDITOR);
+        }
 
         @Override
         public IModel<RainSeasonYearProgress> getDatasetProgress() {
@@ -170,11 +166,15 @@ public class DataEntryDashboardPage extends BasePage {
 
         @Override
         public Pair<Class<? extends Page>, PageParameters> getEditPage() {
-            return Pair.of(ListRainSeasonPage.class, forYear());
+            return Pair.of(ListRainSeasonPage.class, forYear(yearModel));
         }
     }
 
     private class RiverStationLevelProgressSection extends ProgressSection<RiverStationsYearProgress> {
+
+        RiverStationLevelProgressSection() {
+            super(SecurityConstants.Roles.ROLE_RIVER_LEVEL_EDITOR);
+        }
 
         @Override
         public IModel<RiverStationsYearProgress> getDatasetProgress() {
@@ -188,12 +188,16 @@ public class DataEntryDashboardPage extends BasePage {
 
         @Override
         public Pair<Class<? extends Page>, PageParameters> getEditPage() {
-            return Pair.of(ListRiverStationYearlyLevelsPage.class, forYear());
+            return Pair.of(ListRiverStationYearlyLevelsPage.class, forYear(yearModel));
         }
     }
 
     private class ProductPriceAndAvailabilityProgressSection
             extends ProgressSection<ProductPriceAndAvailabilityProgress> {
+
+        ProductPriceAndAvailabilityProgressSection() {
+            super(SecurityConstants.Roles.ROLE_MARKET_EDITOR);
+        }
 
         @Override
         public IModel<ProductPriceAndAvailabilityProgress> getDatasetProgress() {
@@ -207,11 +211,15 @@ public class DataEntryDashboardPage extends BasePage {
 
         @Override
         public Pair<Class<? extends Page>, PageParameters> getEditPage() {
-            return Pair.of(ListProductYearlyPricesPage.class, forYear());
+            return Pair.of(ListProductYearlyPricesPage.class, forYear(yearModel));
         }
     }
 
     private class GTPBulletinProgressSection extends ProgressSection<GTPBulletinProgress> {
+
+        GTPBulletinProgressSection() {
+            super(SecurityConstants.Roles.ROLE_GTP_BULLETIN_EDITOR);
+        }
 
         @Override
         public IModel<GTPBulletinProgress> getDatasetProgress() {
@@ -225,11 +233,15 @@ public class DataEntryDashboardPage extends BasePage {
 
         @Override
         public Pair<Class<? extends Page>, PageParameters> getEditPage() {
-            return Pair.of(ListGTPBulletinPage.class, forYear());
+            return Pair.of(ListGTPBulletinPage.class, forYear(yearModel));
         }
     }
 
     private class AnnualGTPBulletinProgressSection extends ProgressSection<AnnualGTPBulletinProgress> {
+
+        AnnualGTPBulletinProgressSection() {
+            super(SecurityConstants.Roles.ROLE_GTP_BULLETIN_EDITOR);
+        }
 
         @Override
         public IModel<AnnualGTPBulletinProgress> getDatasetProgress() {
@@ -248,6 +260,10 @@ public class DataEntryDashboardPage extends BasePage {
     }
 
     private class DiseasesProgressSection extends ProgressSection<DiseasesProgress> {
+
+        DiseasesProgressSection() {
+            super(SecurityConstants.Roles.ROLE_DISEASE_SITUATION_EDITOR);
+        }
 
         @Override
         public IModel<DiseasesProgress> getDatasetProgress() {
@@ -296,21 +312,12 @@ public class DataEntryDashboardPage extends BasePage {
                 ProgressSection progressSection = item.getModelObject();
                 IModel<DatasetProgress> datasetProgress = progressSection.getDatasetProgress();
 
-                item.add(new Label("indicator", datasetProgress.map(DatasetProgress::getIndicator)));
-                item.add(new Label("source", datasetProgress.map(DatasetProgress::getSource)));
-
-                IModel<ProgressSummary> p = datasetProgress.map(DatasetProgress::getSummary);
-
-                item.add(newProgressSection("published", p.map(ProgressSummary::getPublishedPerc)));
-                item.add(newProgressSection("draft", p.map(ProgressSummary::getDraftPerc)));
-                item.add(newProgressSection("notStarted", p.map(ProgressSummary::getNoDataPerc)));
-
                 Component details = progressSection.createDetailedProgress("details", datasetProgress);
                 details.setVisibilityAllowed(false);
                 details.setOutputMarkupPlaceholderTag(true);
                 item.add(details);
 
-                item.add(new BootstrapAjaxButton("expand", Model.of(), Buttons.Type.Link) {
+                ExpandButton expand = new ExpandButton("expand", datasetProgress) {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
@@ -325,12 +332,17 @@ public class DataEntryDashboardPage extends BasePage {
                                 : FontAwesomeIconType.chevron_down);
                         super.onConfigure();
                     }
-                }.setOutputMarkupId(true));
+                };
+                expand.setOutputMarkupId(true);
+                item.add(expand);
+
+
 
                 Pair<Class<? extends Page>, PageParameters> editPageRef = progressSection.getEditPage();
                 item.add(new BootstrapBookmarkablePageLink<>(
                         "edit", editPageRef.getKey(), editPageRef.getValue(), Buttons.Type.Link)
-                        .setIconType(FontAwesomeIconType.edit));
+                        .setIconType(FontAwesomeIconType.edit)
+                        .setEnabled(hasRole(progressSection.getRole())));
             }
         };
         form.add(datasetsListView);
@@ -354,12 +366,12 @@ public class DataEntryDashboardPage extends BasePage {
             }
         };
         form.add(year);
+
+        form.add(new WebMarkupContainer("progressHelp")
+                .add(new TooltipBehavior(new StringResourceModel("progressHelp"))));
     }
 
-    private Component newProgressSection(String id, IModel<Float> percentage) {
-        WebMarkupContainer section = new WebMarkupContainer(id);
-        section.add(new AttributeModifier("style",
-                percentage.map(p -> String.format(Locale.US, "width: %.2f%%;", 100.0f * p))));
-        return section;
+    private boolean hasRole(String role) {
+        return SSAuthenticatedWebSession.getSSAuthenticatedWebSession().getRoles().hasRole(role);
     }
 }
