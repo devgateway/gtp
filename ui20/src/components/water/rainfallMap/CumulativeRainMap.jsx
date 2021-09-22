@@ -4,6 +4,7 @@ import {connect} from "react-redux"
 import * as C from "../../../modules/entities/Constants"
 import CumulativeRainMapLayers from "../../../modules/graphic/water/rainfallMap/CumulativeRainMapLayers"
 import GraphicWithFallback from "../../common/graphic/GraphicWithFallback"
+import {cssClasses} from "../../ComponentUtil"
 import RainfallMap from "./RainfallMap"
 import {getRainFeatureStyle, onEachPolygonFeature} from "./RainfallMapHelper"
 import {RainfallMapLegend} from "./RainfallMapLegend"
@@ -56,14 +57,27 @@ const CumulativeRainMapWithFallback = GraphicWithFallback('water',
   childPropsBuilder, hasDataFunc)
 
 
+const MID_RANGE_MIN_TOTAL = 5
+const QUARTER_RANGE_MIN_TOTAL = 12
+
 const getCumulativeLegendLabel = (grade, unit, idx, total) => {
   const lastIdx = total - 1
   if (idx === 0
     || idx === lastIdx
-    || idx === (Math.round(total / 2) - 1)
-    || (idx === Math.round(total / 4) - 1)
-    || (idx === lastIdx - Math.round(total / 4))) {
-    return <div className="legend-label">{grade}{unit}</div>
+    || ((idx === (Math.round(total / 2) - 1) && total > MID_RANGE_MIN_TOTAL)
+    || ((idx === Math.round(total / 4) - 1) && total > QUARTER_RANGE_MIN_TOTAL)
+    || ((idx === lastIdx - Math.round(total / 4)) && total > QUARTER_RANGE_MIN_TOTAL))) {
+
+    let adjustLabelCss = null
+    if ((total > 1 && total < 7) || (total > QUARTER_RANGE_MIN_TOTAL && total < 16)) {
+      if (idx === 0) {
+        adjustLabelCss = "move-left"
+      } else if (idx === lastIdx) {
+        adjustLabelCss = "move-right"
+      }
+    }
+
+    return <div className={cssClasses("legend-label", adjustLabelCss)}>{grade}{unit}</div>
   }
   return ""
 }
