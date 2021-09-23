@@ -471,22 +471,3 @@ hr.edit-separator {
 .expand-button .indicator, .expand-button .source {
     color: #333;
 }
-
-/* ---------------------------------------------------------------------- */
-/* Home Page
-/* ---------------------------------------------------------------------- */
-
-.btn-homepage {
-    width: 250px;
-    height: 250px;
-    margin: 0 auto;
-    padding: 0;
-    display: inline-block;
-    line-height: 15px;
-    text-align: center;
-}
-
-button .btn-home-label {
-    white-space: normal;
-    line-height: 20px;
-}
