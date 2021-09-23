@@ -2,6 +2,7 @@ package org.devgateway.toolkit.persistence.service.charts;
 
 import static java.util.stream.Collectors.toCollection;
 
+import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dto.CommonConfig;
 import org.devgateway.toolkit.persistence.dto.livestock.LivestockCharts;
 import org.devgateway.toolkit.persistence.dto.livestock.LivestockConfig;
@@ -11,6 +12,7 @@ import org.devgateway.toolkit.persistence.dto.livestock.disease.DiseaseQuantityD
 import org.devgateway.toolkit.persistence.dto.livestock.disease.DiseaseQuantityFilter;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.category.LivestockDiseaseService;
+import org.devgateway.toolkit.persistence.service.indicator.IndicatorMetadataService;
 import org.devgateway.toolkit.persistence.service.indicator.disease.DiseaseYearlySituationService;
 import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class LivestockChartsServiceImpl implements LivestockChartsService {
 
     @Autowired
     private ChartService chartService;
+
+    @Autowired
+    private IndicatorMetadataService indicatorMetadataService;
 
     @Override
     public LivestockCharts getLivestockCharts() {
@@ -72,7 +77,12 @@ public class LivestockChartsServiceImpl implements LivestockChartsService {
         Integer sinceYear = adminSettingsService.getStartingYear();
         SortedSet<Integer> years = diseaseYearlySituationService.findYearsWithQuantities().stream()
                 .filter(year -> year >= sinceYear).sorted().collect(toCollection(TreeSet::new));
-        return new DiseaseQuantityConfig(years);
+        String org = getOrgNameForIndicatorType(IndicatorType.DISEASE_SITUATION);
+        return new DiseaseQuantityConfig(org, years);
+    }
+
+    private String getOrgNameForIndicatorType(IndicatorType indicatorType) {
+        return indicatorMetadataService.findByType(indicatorType).getOrganization().getLabel();
     }
 
     private DiseaseQuantityFilter getDefaultDiseaseQuantityFilter(LivestockConfig livestockConfig,

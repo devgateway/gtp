@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.devgateway.toolkit.persistence.dao.Decadal;
 import org.devgateway.toolkit.persistence.dao.HydrologicalYear;
+import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dao.categories.PluviometricPost;
 import org.devgateway.toolkit.persistence.dao.categories.RiverStation;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfallMap;
@@ -17,6 +18,7 @@ import org.devgateway.toolkit.persistence.dto.WaterConfig;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChart;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartData;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartFilter;
+import org.devgateway.toolkit.persistence.dto.ChartConfig;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChart;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartConfig;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChartData;
@@ -35,6 +37,7 @@ import org.devgateway.toolkit.persistence.dto.season.SeasonChartFilter;
 import org.devgateway.toolkit.persistence.dto.season.SeasonPrediction;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
 import org.devgateway.toolkit.persistence.service.category.PluviometricPostService;
+import org.devgateway.toolkit.persistence.service.indicator.IndicatorMetadataService;
 import org.devgateway.toolkit.persistence.service.indicator.RainSeasonService;
 import org.devgateway.toolkit.persistence.service.indicator.rainfall.YearlyRainfallService;
 import org.devgateway.toolkit.persistence.service.indicator.rainfallMap.DecadalRainfallMapService;
@@ -97,6 +100,9 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     @Autowired
     private ChartService chartService;
 
+    @Autowired
+    private IndicatorMetadataService indicatorMetadataService;
+
     @Override
     @Transactional(readOnly = true)
     public ChartsData getCharts() {
@@ -157,8 +163,13 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     @Transactional(readOnly = true)
     public RainLevelChartConfig getRainLevelConfig() {
         return new RainLevelChartConfig(
+                getOrgNameForIndicatorType(IndicatorType.RAINFALL),
                 yearlyRainfallService.findYearsWithData(),
                 yearlyRainfallService.findPluviometricPostsWithData());
+    }
+
+    private String getOrgNameForIndicatorType(IndicatorType indicatorType) {
+        return indicatorMetadataService.findByType(indicatorType).getOrganization().getLabel();
     }
 
     @Override
@@ -177,7 +188,9 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     @Override
     @Transactional(readOnly = true)
     public RainMapConfig getRainMapConfig() {
-        return new RainMapConfig(new TreeSet<>(decadalRainfallMapService.findYearsWithData()));
+        return new RainMapConfig(
+                getOrgNameForIndicatorType(IndicatorType.RAINFALL_MAP),
+                new TreeSet<>(decadalRainfallMapService.findYearsWithData()));
     }
 
     public RainMapFilter getRainMapFilter(RainMapConfig config) {
@@ -204,7 +217,9 @@ public class WaterChartsServiceImpl implements WaterChartsService {
             data = new DrySequenceChartData(ImmutableList.of());
         }
 
-        return new DrySequenceChart(filter, data);
+        ChartConfig chartConfig = new ChartConfig(getOrgNameForIndicatorType(IndicatorType.RAINFALL_SEASON));
+
+        return new DrySequenceChart(chartConfig, filter, data);
     }
 
     private DrySequenceChartFilter getDrySequenceChartFilter(RainLevelChartConfig config, WaterConfig waterConfig) {
@@ -239,7 +254,9 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     @Override
     @Transactional(readOnly = true)
     public SeasonChartConfig getRainSeasonConfig() {
-        return new SeasonChartConfig(rainSeasonService.findYearsWithData());
+        return new SeasonChartConfig(
+                getOrgNameForIndicatorType(IndicatorType.RAINFALL_SEASON),
+                rainSeasonService.findYearsWithData());
     }
 
     @Override
@@ -315,7 +332,8 @@ public class WaterChartsServiceImpl implements WaterChartsService {
     public RiverLevelChartConfig getRiverLevelConfig() {
         SortedSet<HydrologicalYear> years = new TreeSet<>(riverStationYearlyLevelsService.findYearsWithLevels());
         List<RiverStation> riverStations = riverStationYearlyLevelsService.findStationsWithLevels();
-        return new RiverLevelChartConfig(years, riverStations);
+        String org = getOrgNameForIndicatorType(IndicatorType.RIVER_LEVEL);
+        return new RiverLevelChartConfig(org, years, riverStations);
     }
 
     @Override

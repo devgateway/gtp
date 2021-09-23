@@ -13,4 +13,6 @@ import org.devgateway.toolkit.persistence.service.BaseJpaService;
  */
 public interface IndicatorMetadataService extends BaseJpaService<IndicatorMetadata> {
     List<IndicatorType> findIndicatorTypes(Organization organization);
+
+    IndicatorMetadata findByType(IndicatorType indicatorType);
 }

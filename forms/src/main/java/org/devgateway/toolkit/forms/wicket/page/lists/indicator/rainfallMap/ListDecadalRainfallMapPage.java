@@ -28,7 +28,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Nadejda Mandrescu
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_EDITOR)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_MAP_EDITOR)
 @MountPath("/rainfall-maps")
 public class ListDecadalRainfallMapPage extends AbstractListPage<DecadalRainfallMap> {
     private static final long serialVersionUID = -5792790214333600526L;

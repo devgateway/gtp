@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
 /**
  * @author Nadejda Mandrescu
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_EDITOR)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_RAINFALL_MAP_EDITOR)
 @MountPath("/rainfall-map")
 public class EditDecadalRainfallMapPage extends AbstractEditPage<DecadalRainfallMap> {
     private static final long serialVersionUID = -4145077002056116408L;

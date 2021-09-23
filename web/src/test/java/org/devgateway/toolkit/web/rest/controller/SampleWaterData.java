@@ -23,6 +23,7 @@ import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChart;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartData;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartFilter;
 import org.devgateway.toolkit.persistence.dto.drysequence.MonthDecadalDaysWithRain;
+import org.devgateway.toolkit.persistence.dto.ChartConfig;
 import org.devgateway.toolkit.persistence.dto.rainfall.DecadalInstantRainLevel;
 import org.devgateway.toolkit.persistence.dto.rainfall.MonthDecadalRainLevel;
 import org.devgateway.toolkit.persistence.dto.rainfall.RainLevelChart;
@@ -121,6 +122,7 @@ public class SampleWaterData {
 
     private RainLevelChart getRainLevelChart() {
         RainLevelChartConfig config = new RainLevelChartConfig(
+                "ANACIM",
                 ImmutableList.of(2019, 2020),
                 posts.stream().map(AbstractPersistable::getId).collect(toList()));
 
@@ -150,7 +152,7 @@ public class SampleWaterData {
     }
 
     private RainMap getRainMap() {
-        RainMapConfig config = new RainMapConfig(ImmutableSortedSet.of(2019, 2020));
+        RainMapConfig config = new RainMapConfig("ANACIM", ImmutableSortedSet.of(2019, 2020));
         return new RainMap(config, new RainMapFilter(config.getYears().last(), Month.OCTOBER, Decadal.THIRD,
                 RainfallMapLayerType.ABNORMAL_POLYGON));
     }
@@ -168,11 +170,11 @@ public class SampleWaterData {
                 new MonthDecadalDaysWithRain(year, Month.MAY, Decadal.SECOND, 1),
                 new MonthDecadalDaysWithRain(year, Month.MAY, Decadal.THIRD, 4)));
 
-        return new DrySequenceChart(filter, data);
+        return new DrySequenceChart(new ChartConfig("ANACIM"), filter, data);
     }
 
     private SeasonChart getSeasonChart() {
-        SeasonChartConfig config = new SeasonChartConfig(ImmutableList.of(2018, 2019, 2020));
+        SeasonChartConfig config = new SeasonChartConfig("ANACIM", ImmutableList.of(2018, 2019, 2020));
 
         Integer year = config.getYears().last();
         SeasonChartFilter filter = new SeasonChartFilter(year);
@@ -186,6 +188,7 @@ public class SampleWaterData {
 
     private RiverLevelChart getRiverLevelChart() {
         RiverLevelChartConfig config = new RiverLevelChartConfig(
+                "ANACIM",
                 ImmutableSortedSet.of(HydrologicalYear.fromInt(2019), HydrologicalYear.fromInt(2020)),
                 riverStations);
 

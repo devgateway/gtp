@@ -8,6 +8,11 @@ import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.toolkit.persistence.dao.categories.Organization;
+import org.devgateway.toolkit.persistence.dao.indicator.IndicatorMetadata;
+import org.devgateway.toolkit.persistence.service.indicator.IndicatorMetadataService;
 import org.devgateway.toolkit.persistence.status.DatasetProgress;
 import org.devgateway.toolkit.persistence.status.ProgressSummary;
 
@@ -18,13 +23,21 @@ import java.util.Locale;
  */
 public class ExpandButton extends BootstrapAjaxButton {
 
+    @SpringBean
+    private IndicatorMetadataService indicatorMetadataService;
+
     public ExpandButton(String componentId,
             IModel<DatasetProgress> model) {
         super(componentId, Buttons.Type.Link);
 
-        setLabel(model.map(DatasetProgress::getIndicator));
+        LoadableDetachableModel<IndicatorMetadata> metadataModel = LoadableDetachableModel.of(
+                () -> indicatorMetadataService.findByType(model.getObject().getIndicatorType()));
 
-        add(new Label("source", model.map(DatasetProgress::getSource)));
+        setLabel(metadataModel.map(IndicatorMetadata::getName));
+
+        add(new Label("source", metadataModel
+                .map(IndicatorMetadata::getOrganization)
+                .map(Organization::getLabel)));
 
         IModel<ProgressSummary> p = model.map(DatasetProgress::getSummary);
 

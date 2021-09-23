@@ -41,7 +41,7 @@ import org.devgateway.toolkit.forms.wicket.page.lists.indicator.rainseason.ListR
 import org.devgateway.toolkit.forms.wicket.page.lists.indicator.riverlevel.ListRiverStationYearlyLevelsPage;
 import org.devgateway.toolkit.forms.wicket.providers.GenericChoiceProvider;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
-import org.devgateway.toolkit.persistence.status.AnnualGTPBulletinProgress;
+import org.devgateway.toolkit.persistence.status.GTPAnnualReportProgress;
 import org.devgateway.toolkit.persistence.status.DatasetProgress;
 import org.devgateway.toolkit.persistence.status.DiseasesProgress;
 import org.devgateway.toolkit.persistence.status.GTPBulletinProgress;
@@ -128,7 +128,7 @@ public class DataEntryDashboardPage extends BasePage {
     private class RainfallMapProgressSection extends ProgressSection<RainfallMapProgress> {
 
         RainfallMapProgressSection() {
-            super(SecurityConstants.Roles.ROLE_RAINFALL_EDITOR);
+            super(SecurityConstants.Roles.ROLE_RAINFALL_MAP_EDITOR);
         }
 
         @Override
@@ -237,19 +237,19 @@ public class DataEntryDashboardPage extends BasePage {
         }
     }
 
-    private class AnnualGTPBulletinProgressSection extends ProgressSection<AnnualGTPBulletinProgress> {
+    private class GTPAnnualReportProgressSection extends ProgressSection<GTPAnnualReportProgress> {
 
-        AnnualGTPBulletinProgressSection() {
-            super(SecurityConstants.Roles.ROLE_GTP_BULLETIN_EDITOR);
+        GTPAnnualReportProgressSection() {
+            super(SecurityConstants.Roles.ROLE_GTP_ANNUAL_REPORT_EDITOR);
         }
 
         @Override
-        public IModel<AnnualGTPBulletinProgress> getDatasetProgress() {
+        public IModel<GTPAnnualReportProgress> getDatasetProgress() {
             return LoadableDetachableModel.of(() -> annualGTPReportService.getProgress(yearModel.getObject()));
         }
 
         @Override
-        public Component createDetailedProgress(String id, IModel<AnnualGTPBulletinProgress> model) {
+        public Component createDetailedProgress(String id, IModel<GTPAnnualReportProgress> model) {
             return new AnnualGTPBulletinStatusTable(id, model);
         }
 
@@ -302,7 +302,7 @@ public class DataEntryDashboardPage extends BasePage {
         sections.add(new RiverStationLevelProgressSection());
         sections.add(new ProductPriceAndAvailabilityProgressSection());
         sections.add(new GTPBulletinProgressSection());
-        sections.add(new AnnualGTPBulletinProgressSection());
+        sections.add(new GTPAnnualReportProgressSection());
         sections.add(new DiseasesProgressSection());
 
         ListView<ProgressSection> datasetsListView = new ListView<ProgressSection>("datasets", sections) {

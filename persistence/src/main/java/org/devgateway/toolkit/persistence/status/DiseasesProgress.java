@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.status;
 
+import org.devgateway.toolkit.persistence.dao.IndicatorType;
+
 import java.time.Month;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -12,7 +14,7 @@ public class DiseasesProgress extends DatasetProgress {
     private final Map<Month, DataEntryStatus> statuses;
 
     public DiseasesProgress(Map<Month, DataEntryStatus> statuses) {
-        super("Situation zoo sanitaire", "Ministère de l’élevage Direction de l’Elevage (DIREL)");
+        super(IndicatorType.DISEASE_SITUATION);
         this.statuses = statuses;
     }
 

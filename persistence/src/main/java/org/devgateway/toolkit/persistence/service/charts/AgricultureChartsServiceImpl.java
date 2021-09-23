@@ -3,6 +3,7 @@ package org.devgateway.toolkit.persistence.service.charts;
 import static java.util.stream.Collectors.toCollection;
 
 import com.google.common.collect.ImmutableList;
+import org.devgateway.toolkit.persistence.dao.IndicatorType;
 import org.devgateway.toolkit.persistence.dao.categories.Market;
 import org.devgateway.toolkit.persistence.dao.categories.MarketType;
 import org.devgateway.toolkit.persistence.dao.categories.PriceType;
@@ -26,6 +27,7 @@ import org.devgateway.toolkit.persistence.service.category.MarketTypeService;
 import org.devgateway.toolkit.persistence.service.category.PriceTypeService;
 import org.devgateway.toolkit.persistence.service.category.ProductService;
 import org.devgateway.toolkit.persistence.service.category.ProductTypeService;
+import org.devgateway.toolkit.persistence.service.indicator.IndicatorMetadataService;
 import org.devgateway.toolkit.persistence.service.indicator.ProductYearlyPricesService;
 import org.devgateway.toolkit.persistence.time.AD3Clock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,9 @@ public class AgricultureChartsServiceImpl implements AgricultureChartsService {
     @Autowired
     private ChartService chartService;
 
+    @Autowired
+    private IndicatorMetadataService indicatorMetadataService;
+
     @Override
     @Transactional
     public AgricultureConfig getAgricultureConfig() {
@@ -76,6 +81,10 @@ public class AgricultureChartsServiceImpl implements AgricultureChartsService {
         List<Product> products = productService.findAll();
         List<PriceType> priceTypes = priceTypeService.findAll();
         return new AgricultureConfig(marketTypes, markets, productTypes, products, priceTypes);
+    }
+
+    private String getOrgNameForIndicatorType(IndicatorType indicatorType) {
+        return indicatorMetadataService.findByType(indicatorType).getOrganization().getLabel();
     }
 
     @Override
@@ -136,6 +145,7 @@ public class AgricultureChartsServiceImpl implements AgricultureChartsService {
     @Transactional
     public ProductPricesChartConfig getProductPricesChartConfig() {
         return new ProductPricesChartConfig(
+                getOrgNameForIndicatorType(IndicatorType.MARKET),
                 filterYears(productYearlyPricesService.findYearsWithPrices()));
     }
 
@@ -208,6 +218,7 @@ public class AgricultureChartsServiceImpl implements AgricultureChartsService {
     @Transactional
     public ProductQuantitiesChartConfig getProductQuantitiesChartConfig() {
         return new ProductQuantitiesChartConfig(
+                getOrgNameForIndicatorType(IndicatorType.MARKET),
                 filterYears(productYearlyPricesService.findYearsWithQuantities()));
     }
 

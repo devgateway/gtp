@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.status;
 
+import org.devgateway.toolkit.persistence.dao.IndicatorType;
+
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -11,7 +13,7 @@ public class RainSeasonYearProgress extends DatasetProgress {
     private final List<PluviometricPostStatus> postStatuses;
 
     public RainSeasonYearProgress(List<PluviometricPostStatus> postStatuses) {
-        super("Démarrage de la saison des pluies", "ANACIM");
+        super(IndicatorType.RAINFALL_SEASON);
         this.postStatuses = postStatuses;
     }
 

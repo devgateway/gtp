@@ -1,17 +1,19 @@
 package org.devgateway.toolkit.persistence.status;
 
+import org.devgateway.toolkit.persistence.dao.IndicatorType;
+
 import java.util.List;
 import java.util.stream.Stream;
 
 /**
  * @author Octavian Ciubotaru
  */
-public class AnnualGTPBulletinProgress extends DatasetProgress {
+public class GTPAnnualReportProgress extends DatasetProgress {
 
     private final List<DepartmentStatus> departmentStatuses;
 
-    public AnnualGTPBulletinProgress(List<DepartmentStatus> departmentStatuses) {
-        super("Rapports annuels GTP", "ANACIM");
+    public GTPAnnualReportProgress(List<DepartmentStatus> departmentStatuses) {
+        super(IndicatorType.GTP_ANNUAL_REPORT);
 
         this.departmentStatuses = departmentStatuses;
     }

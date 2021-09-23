@@ -36,7 +36,8 @@ public class SampleLivestockData {
     }
 
     private DiseaseQuantityChart getDiseaseQuantityChart(Region region) {
-        DiseaseQuantityConfig config = new DiseaseQuantityConfig(ImmutableSortedSet.of(2018, 2019, 2020));
+        DiseaseQuantityConfig config = new DiseaseQuantityConfig("Elevage",
+                ImmutableSortedSet.of(2018, 2019, 2020));
         DiseaseQuantityFilter filter = new DiseaseQuantityFilter(2020, distomatose.getId());
         DiseaseQuantityData data = new DiseaseQuantityData(ImmutableList.of(
                 new DiseaseQuantity(region, distomatose, Month.JANUARY, 10L),
