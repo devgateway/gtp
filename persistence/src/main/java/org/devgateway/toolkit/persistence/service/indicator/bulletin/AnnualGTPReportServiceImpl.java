@@ -5,7 +5,7 @@ import org.devgateway.toolkit.persistence.dao.location.Department;
 import org.devgateway.toolkit.persistence.repository.AnnualGTPReportRepository;
 import org.devgateway.toolkit.persistence.repository.norepository.BaseJpaRepository;
 import org.devgateway.toolkit.persistence.service.AdminSettingsService;
-import org.devgateway.toolkit.persistence.status.AnnualGTPBulletinProgress;
+import org.devgateway.toolkit.persistence.status.GTPAnnualReportProgress;
 import org.devgateway.toolkit.persistence.service.BaseJpaServiceImpl;
 import org.devgateway.toolkit.persistence.status.DataEntryStatus;
 import org.devgateway.toolkit.persistence.status.DepartmentStatus;
@@ -84,7 +84,7 @@ public class AnnualGTPReportServiceImpl extends BaseJpaServiceImpl<AnnualGTPRepo
     }
 
     @Override
-    public AnnualGTPBulletinProgress getProgress(Integer year) {
+    public GTPAnnualReportProgress getProgress(Integer year) {
         Set<Department> deptsWithData = repository.findAllWithUploadsByYear(year).stream()
                 .map(this::getDepartmentOrNational)
                 .collect(Collectors.toSet());
@@ -101,7 +101,7 @@ public class AnnualGTPReportServiceImpl extends BaseJpaServiceImpl<AnnualGTPRepo
                     : DataEntryStatus.NO_DATA));
         }
 
-        return new AnnualGTPBulletinProgress(departmentStatuses);
+        return new GTPAnnualReportProgress(departmentStatuses);
     }
 
     private Department getDepartmentOrNational(AnnualGTPReport report) {

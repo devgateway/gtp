@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.status;
 
+import org.devgateway.toolkit.persistence.dao.IndicatorType;
+
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -11,7 +13,7 @@ public class ProductPriceAndAvailabilityProgress extends DatasetProgress {
     private final List<ProductTypeYearStatus> productTypeYearStatuses;
 
     public ProductPriceAndAvailabilityProgress(List<ProductTypeYearStatus> productTypeYearStatuses) {
-        super("Prix et disponibilité des produits", "Commissariat à la Sécurité Alimentaire");
+        super(IndicatorType.MARKET);
         this.productTypeYearStatuses = productTypeYearStatuses;
     }
 

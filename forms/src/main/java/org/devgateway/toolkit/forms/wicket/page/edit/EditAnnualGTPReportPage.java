@@ -17,7 +17,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 /**
  * @author Octavian Ciubotaru
  */
-@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_GTP_BULLETIN_EDITOR)
+@AuthorizeInstantiation(SecurityConstants.Roles.ROLE_GTP_ANNUAL_REPORT_EDITOR)
 @MountPath("/annual-gtp-report")
 public class EditAnnualGTPReportPage extends AbstractEditPage<AnnualGTPReport> {
     private static final long serialVersionUID = 4431513836472016841L;

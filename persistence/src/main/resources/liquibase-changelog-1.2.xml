@@ -34,4 +34,34 @@
         </sql>
     </changeSet>
 
+    <changeSet id="ANACIM-490" author="Octavian Ciubotaru">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="indicator_metadata" />
+        </preConditions>
+        <insert tableName="indicator_metadata">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Anomalies et Cumul des précipitations" />
+            <column name="type" value="RAINFALL_MAP" />
+            <column name="organization_id" valueComputed="(SELECT id FROM organization WHERE tag='ANACIM')" />
+        </insert>
+        <insert tableName="indicator_metadata">
+            <column name="id" valueSequenceNext="hibernate_sequence" />
+            <column name="name" value="Rapports annuels GTP" />
+            <column name="type" value="GTP_ANNUAL_REPORT" />
+            <column name="organization_id" valueComputed="(SELECT id FROM organization WHERE tag='ANACIM')" />
+        </insert>
+        <update tableName="indicator_metadata" >
+            <column name="name" value="Prix et disponibilité des produits" />
+            <where>type='MARKET'</where>
+        </update>
+        <update tableName="indicator_metadata" >
+            <column name="name" value="Situation zoo sanitaire" />
+            <where>type='DISEASE_SITUATION'</where>
+        </update>
+        <update tableName="indicator_metadata" >
+            <column name="name" value="Situation zoo sanitaire" />
+            <where>type='DISEASE_SITUATION'</where>
+        </update>
+    </changeSet>
+
 </databaseChangeLog>

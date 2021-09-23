@@ -42,4 +42,9 @@ public class IndicatorMetadataServiceImpl extends BaseJpaServiceImpl<IndicatorMe
                 .distinct()
                 .collect(toList());
     }
+
+    @Override
+    public IndicatorMetadata findByType(IndicatorType indicatorType) {
+        return repository.findByType(indicatorType);
+    }
 }

@@ -1,19 +1,21 @@
 package org.devgateway.toolkit.persistence.dto.rainfallMap;
 
 import org.devgateway.toolkit.persistence.dao.indicator.RainfallMapLayerType;
+import org.devgateway.toolkit.persistence.dto.ChartConfig;
 
 import java.util.SortedSet;
 
 /**
  * @author Nadejda Mandrescu
  */
-public class RainMapConfig {
+public class RainMapConfig extends ChartConfig {
 
     private final SortedSet<Integer> years;
 
     private final RainfallMapLayerType[] layerTypes;
 
-    public RainMapConfig(SortedSet<Integer> years) {
+    public RainMapConfig(String organization, SortedSet<Integer> years) {
+        super(organization);
         this.years = years;
         this.layerTypes = RainfallMapLayerType.values();
     }

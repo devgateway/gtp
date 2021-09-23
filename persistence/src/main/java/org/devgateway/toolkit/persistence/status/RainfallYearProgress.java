@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.status;
 
+import org.devgateway.toolkit.persistence.dao.IndicatorType;
+
 import java.time.Month;
 import java.util.Collection;
 import java.util.Map;
@@ -13,7 +15,7 @@ public class RainfallYearProgress extends DatasetProgress {
     private final Map<Month, DataEntryStatus> statusByMonth;
 
     public RainfallYearProgress(Map<Month, DataEntryStatus> statusByMonth) {
-        super("Cumul de pluie", "ANACIM");
+        super(IndicatorType.RAINFALL);
         this.statusByMonth = statusByMonth;
     }
 

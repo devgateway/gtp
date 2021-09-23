@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.dto.rainfall;
 
+import org.devgateway.toolkit.persistence.dto.ChartConfig;
+
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -7,7 +9,7 @@ import java.util.TreeSet;
 /**
  * @author Octavian Ciubotaru
  */
-public class RainLevelChartConfig {
+public class RainLevelChartConfig extends ChartConfig {
 
     /**
      * Years for which there is at least some data available.
@@ -19,8 +21,11 @@ public class RainLevelChartConfig {
      */
     private final List<Long> pluviometricPostIds;
 
-    public RainLevelChartConfig(List<Integer> years,
+    public RainLevelChartConfig(
+            String organization,
+            List<Integer> years,
             List<Long> pluviometricPostIds) {
+        super(organization);
         this.years = new TreeSet<>(years);
         this.pluviometricPostIds = pluviometricPostIds;
     }

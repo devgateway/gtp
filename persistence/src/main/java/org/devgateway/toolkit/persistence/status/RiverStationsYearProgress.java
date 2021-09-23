@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.status;
 
+import org.devgateway.toolkit.persistence.dao.IndicatorType;
+
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -11,7 +13,7 @@ public class RiverStationsYearProgress extends DatasetProgress {
     private final List<RiverStationStatus> riverStationStatuses;
 
     public RiverStationsYearProgress(List<RiverStationStatus> riverStationStatuses) {
-        super("Niveau fleuves", "DGPRE");
+        super(IndicatorType.RIVER_LEVEL);
         this.riverStationStatuses = riverStationStatuses;
     }
 

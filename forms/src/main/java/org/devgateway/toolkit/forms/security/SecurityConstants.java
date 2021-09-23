@@ -27,10 +27,12 @@ public final class SecurityConstants {
         public static final String ROLE_ADMIN = "ROLE_ADMIN";
         public static final String ROLE_EDITOR = "ROLE_EDITOR";
         public static final String ROLE_RAINFALL_EDITOR = "ROLE_RAINFALL_EDITOR";
+        public static final String ROLE_RAINFALL_MAP_EDITOR = "ROLE_RAINFALL_MAP_EDITOR";
         public static final String ROLE_RAINFALL_SEASON_EDITOR = "ROLE_RAINFALL_SEASON_EDITOR";
         public static final String ROLE_RIVER_LEVEL_EDITOR = "ROLE_RIVER_LEVEL_EDITOR";
         public static final String ROLE_MARKET_EDITOR = "ROLE_MARKET_EDITOR";
         public static final String ROLE_GTP_BULLETIN_EDITOR = "ROLE_GTP_BULLETIN_EDITOR";
+        public static final String ROLE_GTP_ANNUAL_REPORT_EDITOR = "ROLE_GTP_ANNUAL_REPORT_EDITOR";
         public static final String ROLE_DISEASE_SITUATION_EDITOR = "ROLE_DISEASE_SITUATION_EDITOR";
 
         public static final List<String> ANY_REFERENCE_EDITOR_ROLES = Arrays.asList(
@@ -42,6 +44,7 @@ public final class SecurityConstants {
 
         public static final List<String> ANACIM_ROLES = Arrays.asList(
                 ROLE_RAINFALL_EDITOR,
+                ROLE_RAINFALL_MAP_EDITOR,
                 ROLE_RAINFALL_SEASON_EDITOR
         );
         public static final String ANACIM_ROLES_STR = String.join(",", ANACIM_ROLES);

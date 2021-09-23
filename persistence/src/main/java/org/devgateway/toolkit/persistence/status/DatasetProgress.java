@@ -1,5 +1,7 @@
 package org.devgateway.toolkit.persistence.status;
 
+import org.devgateway.toolkit.persistence.dao.IndicatorType;
+
 import java.io.Serializable;
 import java.util.Map;
 import java.util.function.Function;
@@ -11,21 +13,14 @@ import java.util.stream.Stream;
  */
 public abstract class DatasetProgress implements Serializable {
 
-    private final String indicator;
+    private final IndicatorType indicatorType;
 
-    private final String source;
-
-    public DatasetProgress(String indicator, String source) {
-        this.indicator = indicator;
-        this.source = source;
+    public DatasetProgress(IndicatorType indicatorType) {
+        this.indicatorType = indicatorType;
     }
 
-    public String getIndicator() {
-        return indicator;
-    }
-
-    public String getSource() {
-        return source;
+    public IndicatorType getIndicatorType() {
+        return indicatorType;
     }
 
     protected abstract Stream<DataEntryStatus> statusStream();

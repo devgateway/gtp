@@ -83,7 +83,8 @@ public class SampleAgricultureData {
     }
 
     private ProductQuantitiesChart getProductQuantitiesChart() {
-        ProductQuantitiesChartConfig config = new ProductQuantitiesChartConfig(ImmutableSortedSet.of(2018, 2019, 2020));
+        ProductQuantitiesChartConfig config = new ProductQuantitiesChartConfig("CSA",
+                ImmutableSortedSet.of(2018, 2019, 2020));
 
         ProductQuantitiesChartFilter filter =
                 new ProductQuantitiesChartFilter(2020, cereals.getId(), gueuleTapee.getId());
@@ -100,7 +101,7 @@ public class SampleAgricultureData {
     }
 
     private ProductPricesChart getProductPricesChart() {
-        ProductPricesChartConfig config = new ProductPricesChartConfig(ImmutableSortedSet.of(2018, 2019, 2020));
+        ProductPricesChartConfig config = new ProductPricesChartConfig("CSA", ImmutableSortedSet.of(2018, 2019, 2020));
 
         ProductPricesChartFilter filter = new ProductPricesChartFilter(config.getYears().last(), rice.getId(),
                 gueuleTapee.getId());
