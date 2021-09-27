@@ -3,6 +3,7 @@ package org.devgateway.toolkit.web.rest.controller;
 import org.devgateway.toolkit.persistence.dao.FileMetadata;
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfallMap;
 import org.devgateway.toolkit.persistence.dao.indicator.RainfallMapLayer;
+import org.devgateway.toolkit.persistence.dto.ChartConfig;
 import org.devgateway.toolkit.persistence.dto.ChartsData;
 import org.devgateway.toolkit.persistence.dto.WaterConfig;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartData;
@@ -76,6 +77,11 @@ public class WaterGraphicsController {
     @PostMapping("dry-sequence/data")
     public DrySequenceChartData getDrySequenceChartData(@RequestBody @Valid DrySequenceChartFilter filter) {
         return waterChartsService.getDrySequenceData(filter);
+    }
+
+    @GetMapping("dry-sequence/config")
+    public ChartConfig getDrySequenceChartConfig() {
+        return waterChartsService.getDrySequenceConfig();
     }
 
     @GetMapping("rain-season/config")

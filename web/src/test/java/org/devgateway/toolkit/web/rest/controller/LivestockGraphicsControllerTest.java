@@ -104,6 +104,7 @@ public class LivestockGraphicsControllerTest extends AbstractDocumentedControlle
                 .andExpect(jsonPath("years").isNotEmpty())
                 .andDo(document("disease-quantity-config",
                         responseFields(
+                                fieldWithPath("organization").description("Organization providing the data"),
                                 fieldWithPath("years").description("Years with some disease recorded"))));
     }
 

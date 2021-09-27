@@ -102,6 +102,8 @@ public class WaterGraphicsControllerTest extends AbstractDocumentedControllerTes
                                         .description("Default <<rainfall-map-data,Filter for rainfall map>>")),
                         responseFields(
                                 beneathPath("drySequenceChart").withSubsectionId("drySequence"),
+                                subsectionWithPath("config")
+                                        .description("<<dry-sequence-chart-config,Dry Sequence Configuration>>"),
                                 subsectionWithPath("filter")
                                         .description("Default <<dry-sequence-chart-data,filter>>"),
                                 subsectionWithPath("data")
@@ -201,6 +203,7 @@ public class WaterGraphicsControllerTest extends AbstractDocumentedControllerTes
                 .andExpect(jsonPath("pluviometricPostIds").isNotEmpty())
                 .andDo(document("rain-level-config",
                         responseFields(
+                                fieldWithPath("organization").description("Organization providing the data"),
                                 fieldWithPath("years").description("Years with rainfall data"),
                                 fieldWithPath("pluviometricPostIds")
                                         .description("Pluviometric posts with rainfall data"))));
@@ -240,9 +243,23 @@ public class WaterGraphicsControllerTest extends AbstractDocumentedControllerTes
                 .andExpect(jsonPath("layerTypes").isNotEmpty())
                 .andDo(document("rainfall-map-config",
                         responseFields(
+                                fieldWithPath("organization").description("Organization providing the data"),
                                 fieldWithPath("years").description("Years with rainfall map data"),
                                 fieldWithPath("layerTypes")
                                         .description("Layer types"))));
+    }
+
+    @Test
+    public void getDrySequenceConfig() throws Exception {
+        DrySequenceChart drySequenceChart = waterData.getChartsData().getDrySequenceChart();
+
+        given(waterChartsService.getDrySequenceConfig()).willReturn(drySequenceChart.getConfig());
+
+        mvc.perform(get("/api/graphics/water/dry-sequence/config"))
+                .andExpect(status().isOk())
+                .andDo(document("dry-sequence-config",
+                        responseFields(
+                                fieldWithPath("organization").description("Organization providing the data"))));
     }
 
     @Test
@@ -283,7 +300,9 @@ public class WaterGraphicsControllerTest extends AbstractDocumentedControllerTes
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("years").isNotEmpty())
                 .andDo(document("rain-season-config",
-                        responseFields(fieldWithPath("years").description("Years with rainfall data"))));
+                        responseFields(
+                                fieldWithPath("organization").description("Organization providing the data"),
+                                fieldWithPath("years").description("Years with rainfall data"))));
     }
 
     @Test
@@ -341,6 +360,7 @@ public class WaterGraphicsControllerTest extends AbstractDocumentedControllerTes
                 .andExpect(jsonPath("riverStations").isNotEmpty())
                 .andDo(document("river-level-config",
                         responseFields(
+                                fieldWithPath("organization").description("Organization providing the data"),
                                 fieldWithPath("years").description("Years with rainfall data"),
                                 subsectionWithPath("riverStations").description("<<river-station,River stations>>")),
                         responseFields(
