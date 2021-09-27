@@ -1,7 +1,7 @@
 ![ANACIM logo](./ui20/public/logo-anacim-small-optimized.png)
 # GTP Platform (AD3 Senegal ANACIM)
 
-[![Build Status](https://travis-ci.org/devgateway/gtp.svg?branch=develop)](https://travis-ci.org/devgateway/gtp)
+[![Build Status](https://travis-ci.com/devgateway/gtp.svg?branch=develop)](https://travis-ci.com/devgateway/gtp)
 [![GitHub license](https://img.shields.io/github/license/devgateway/gtp)](https://github.com/devgateway/gtp/blob/master/LICENSE)
 
 This project aims to provide technological support for GTP group (Groupe de Travail Pluridisciplinaire) lead by the National Civil Aviation and Meteorology Authority (ANACIM).
