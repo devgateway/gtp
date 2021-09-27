@@ -1,6 +1,7 @@
 package org.devgateway.toolkit.persistence.service.charts;
 
 import org.devgateway.toolkit.persistence.dao.indicator.DecadalRainfallMap;
+import org.devgateway.toolkit.persistence.dto.ChartConfig;
 import org.devgateway.toolkit.persistence.dto.ChartsData;
 import org.devgateway.toolkit.persistence.dto.WaterConfig;
 import org.devgateway.toolkit.persistence.dto.drysequence.DrySequenceChartData;
@@ -39,6 +40,8 @@ public interface WaterChartsService {
     SeasonChartData getRainSeasonData(SeasonChartFilter filter);
 
     DrySequenceChartData getDrySequenceData(DrySequenceChartFilter filter);
+
+    ChartConfig getDrySequenceConfig();
 
     RiverLevelChartConfig getRiverLevelConfig();
 

@@ -217,9 +217,14 @@ public class WaterChartsServiceImpl implements WaterChartsService {
             data = new DrySequenceChartData(ImmutableList.of());
         }
 
-        ChartConfig chartConfig = new ChartConfig(getOrgNameForIndicatorType(IndicatorType.RAINFALL_SEASON));
+        ChartConfig chartConfig = getDrySequenceConfig();
 
         return new DrySequenceChart(chartConfig, filter, data);
+    }
+
+    @Override
+    public ChartConfig getDrySequenceConfig() {
+        return new ChartConfig(getOrgNameForIndicatorType(IndicatorType.RAINFALL_SEASON));
     }
 
     private DrySequenceChartFilter getDrySequenceChartFilter(RainLevelChartConfig config, WaterConfig waterConfig) {

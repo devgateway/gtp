@@ -170,7 +170,9 @@ public class SampleWaterData {
                 new MonthDecadalDaysWithRain(year, Month.MAY, Decadal.SECOND, 1),
                 new MonthDecadalDaysWithRain(year, Month.MAY, Decadal.THIRD, 4)));
 
-        return new DrySequenceChart(new ChartConfig("ANACIM"), filter, data);
+        ChartConfig config = new ChartConfig("ANACIM");
+
+        return new DrySequenceChart(config, filter, data);
     }
 
     private SeasonChart getSeasonChart() {

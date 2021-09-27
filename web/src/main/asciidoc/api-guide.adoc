@@ -211,6 +211,13 @@ Return rainfall map layer by the specified filter.
 
 operation::rainfall-map-data[snippets='curl-request,http-request,request-fields']
 
+[[dry-sequence-chart-config]]
+=== Get dry sequence chart config
+
+Returns the organization which provided the data.
+
+operation::dry-sequence-config[snippets='curl-request,http-response,response-fields']
+
 [[dry-sequence-chart-data]]
 === Get dry sequence chart data
 

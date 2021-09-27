@@ -157,6 +157,7 @@ public class AgricultureGraphicsControllerTest extends AbstractDocumentedControl
                 .andExpect(jsonPath("years").isNotEmpty())
                 .andDo(document("product-prices-config",
                         responseFields(
+                                fieldWithPath("organization").description("Organization providing the data"),
                                 fieldWithPath("years").description("Years with product price data"))));
     }
 
@@ -206,6 +207,7 @@ public class AgricultureGraphicsControllerTest extends AbstractDocumentedControl
                 .andExpect(jsonPath("years").isNotEmpty())
                 .andDo(document("product-quantities-config",
                         responseFields(
+                                fieldWithPath("organization").description("Organization providing the data"),
                                 fieldWithPath("years").description("Years with product quantity data"))));
     }
 
