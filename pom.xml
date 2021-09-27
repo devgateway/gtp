@@ -13,7 +13,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.devgateway.ad3.anacim</groupId>
     <artifactId>ad3-anacim</artifactId>
-    <version>1.2</version>
+    <version>1.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Administrative Data Driven Decisions</name>
     <description>Administrative Data Driven Decisions</description>
@@ -61,7 +61,7 @@
         </developerConnection>
         <connection>git@github.com:devgateway/gtp.git
         </connection>
-        <tag>v1.2</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
